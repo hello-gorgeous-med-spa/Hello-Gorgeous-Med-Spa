@@ -38,6 +38,7 @@ const PEPTIDE_FROM = PEPTIDE_RETAIL_FROM_MONTHLY_USD;
 
 export const FRONT_DESK_ORDER_QA_QUICK_FACTS = [
   { label: "NP consult (new)", value: `$${CONSULT}` },
+  { label: "Wellness physical", value: "$149 / 30 min" },
   { label: "GLP-1 from", value: `$${GLP1_FROM}/mo` },
   { label: "Peptides from", value: `$${PEPTIDE_FROM}/mo` },
   { label: "Shipping (typical)", value: `$${SHIP}` },
@@ -64,6 +65,11 @@ export const FRONT_DESK_ORDER_QA_SECTIONS: FrontDeskQaSection[] = [
         q: `Is the $${CONSULT} consult applied to my medication?`,
         a: GLP1_PROGRAM.consultCredit,
         say: `“If you move forward with injectable medication, that $${CONSULT} is applied to your first month.”`,
+      },
+      {
+        q: "Consult or wellness physical?",
+        a: `$${CONSULT} Medical Visit is 15 minutes (often telehealth) to start a protocol. Wellness Physical is $149 / 30 minutes in the Oswego chair — history, vitals, and a focused exam when they need clearance or a first in-person workup. Labs and medication are separate.`,
+        say: `“Quick start is $${CONSULT}. If they need a hands-on exam, book the $149 physical with Ryan.”`,
       },
       {
         q: "Can I order without seeing a provider?",
@@ -109,8 +115,8 @@ export const FRONT_DESK_ORDER_QA_SECTIONS: FrontDeskQaSection[] = [
     items: [
       {
         q: "How do I pay?",
-        a: "We send a secure payment link by text and/or email. Clients tap the link and pay on their phone. Front desk can confirm the invoice was sent; do not take card numbers verbally into personal notes.",
-        say: "“Watch for a text/email pay link — tap and pay on your phone.”",
+        a: "Prescription items: pay in person on the Square Terminal (tap, dip, or swipe). Same price as before. Do not text, email, or take a card over the phone for medication. Botox, facials, and other spa services still use normal Square checkout.",
+        say: "“For medication, come in and tap the card on the Terminal. We can’t send a pay link for RX anymore.”",
       },
       {
         q: "When will I get my medication?",

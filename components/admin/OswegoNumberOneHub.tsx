@@ -281,10 +281,10 @@ export function OswegoNumberOneHub() {
         )}
         <div className="mt-3 flex flex-wrap gap-2">
           <Link
-            href="/admin/rx-invoices"
+            href="/admin/rx/clinic-sale"
             className="rounded-lg bg-black px-3 py-1.5 text-xs font-semibold text-white hover:bg-black/85"
           >
-            Send payment link
+            Collect on Terminal
           </Link>
           <Link
             href="/quiz/glp-1-readiness"

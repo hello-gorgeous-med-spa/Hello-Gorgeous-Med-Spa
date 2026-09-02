@@ -23,9 +23,13 @@ import {
   verifyStaffSessionToken,
 } from '@/lib/staff-session';
 import {
-  parseHgosSessionCookie,
-  resolveSessionRole,
-} from '@/lib/hgos-session';
+  extractPartnerCodeFromPathname,
+  isValidPartnerCode,
+  normalizePartnerCode,
+  PARTNER_QUERY_PARAM,
+  partnerCookieSetOptions,
+} from '@/lib/partner-network';
+import { parseHgosSessionCookie, resolveSessionRole } from '@/lib/hgos-session';
 
 // Routes that require authentication (admin guard applies only to these)
 const PROTECTED_ROUTES = ['/desk', '/admin', '/provider', '/portal', '/pos', '/rx-portal'];
@@ -67,6 +71,26 @@ function staffPinRedirect(request: NextRequest, nextPathWithSearch: string) {
   const loginUrl = new URL('/staff/login', request.url);
   loginUrl.searchParams.set('next', nextPathWithSearch);
   return NextResponse.redirect(loginUrl);
+}
+
+function applyPartnerCookie(request: NextRequest, response: NextResponse): NextResponse {
+  const q =
+    request.nextUrl.searchParams.get(PARTNER_QUERY_PARAM) ||
+    request.nextUrl.searchParams.get('partner');
+  const fromQuery = q && isValidPartnerCode(q) ? normalizePartnerCode(q) : null;
+  const code = fromQuery || extractPartnerCodeFromPathname(request.nextUrl.pathname);
+  if (!code) return response;
+  const opts = partnerCookieSetOptions();
+  response.cookies.set({
+    name: opts.name,
+    value: code,
+    maxAge: opts.maxAge,
+    path: opts.path,
+    sameSite: opts.sameSite,
+    httpOnly: opts.httpOnly,
+    secure: opts.secure,
+  });
+  return response;
 }
 
 function hgosStaffRoleFromCookie(request: NextRequest): string | null {
@@ -353,7 +377,7 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  return NextResponse.next();
+  return applyPartnerCookie(request, NextResponse.next());
 }
 
 // Only run middleware on specific paths — exclude .well-known, sitemaps, robots (Google crawlers need these)

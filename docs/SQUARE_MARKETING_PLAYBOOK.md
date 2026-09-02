@@ -309,7 +309,9 @@ Hello Gorgeous: Fall into Facials. HydraFacial Glow $129 · Trifecta $199. Book:
 3. One pink button only — do not stack extra coupons. Prices above are live menu prices, not a new discount code.
 4. Send yourself a test, then Schedule. Do not Send now until the test looks right on mobile.
 
-### After activate
+**After this blast:** send a test to yourself → Schedule Wednesday 11 AM CT → confirm the button opens the facials page.
+
+### After activate (evergreen automations A–D)
 
 - [ ] Send yourself a test for A, B, C, D
 - [ ] Confirm unsubscribe / STOP language present on SMS

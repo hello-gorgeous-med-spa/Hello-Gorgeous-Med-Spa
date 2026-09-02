@@ -137,7 +137,7 @@ export const GLP1_MEMBERSHIP_FAQS: Glp1MembershipFaq[] = [
     id: "medication-separate",
     question: "How is medication billed?",
     answer:
-      "GLP-1 medication is billed separately from the $49 membership — usually monthly at checkout via secure payment link when your refill is ready. Price depends on medication (semaglutide vs tirzepatide), dose tier, and shipping. 3-month prepay options are available for eligible patients.",
+      "GLP-1 medication is billed separately from the $49 membership — pay in person on the Terminal in Oswego when your refill is ready (tap, dip, or swipe). Price depends on medication (semaglutide vs tirzepatide), dose tier, and shipping. 3-month prepay options are available for eligible patients.",
   },
   {
     id: "pharmacy-skus",

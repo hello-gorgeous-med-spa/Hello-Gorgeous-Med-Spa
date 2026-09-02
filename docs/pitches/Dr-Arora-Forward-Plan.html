@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello Gorgeous × Dr. Arora — How we move forward</title>
+  <style>
+    :root {
+      --pink: #E6007E;
+      --hot: #FF2D8E;
+      --gold: #C9A227;
+      --ink: #f4f0ea;
+      --muted: #a89f96;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: #070707; color: var(--ink); font-family: "Avenir Next", "Segoe UI", Georgia, system-ui, sans-serif; }
+    .deck { height: 100%; }
+    .slide {
+      display: none; height: 100%; padding: 4.5vh 7vw 9vh;
+      background:
+        radial-gradient(ellipse 70% 50% at 8% -10%, rgba(230,0,126,.28), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 100% 100%, rgba(201,162,39,.12), transparent 50%),
+        linear-gradient(165deg, #0c0c0c 0%, #1a0a14 45%, #070707 100%);
+      flex-direction: column; justify-content: center;
+    }
+    .slide.active { display: flex; }
+    .eyebrow { font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: .7rem; }
+    h1 { font-size: clamp(2.1rem, 5.2vw, 3.6rem); font-weight: 800; line-height: 1.05; max-width: 18ch; }
+    h1 span, h2 span { color: var(--hot); }
+    h2 { font-size: clamp(1.55rem, 3.6vw, 2.55rem); font-weight: 800; line-height: 1.12; margin-bottom: 1rem; max-width: 22ch; }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 42rem; line-height: 1.5; }
+    .grid { display: grid; gap: 1rem; margin-top: 1.4rem; }
+    .g2 { grid-template-columns: 1fr 1fr; }
+    .g3 { grid-template-columns: 1fr 1fr 1fr; }
+    .card {
+      border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04);
+      border-radius: 14px; padding: 1.15rem 1.25rem;
+    }
+    .card h3 { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--hot); margin-bottom: .45rem; }
+    .card p, .card li { font-size: .95rem; color: #d8d0c8; line-height: 1.45; }
+    .card ul { padding-left: 1.1rem; }
+    .card li { margin: .28rem 0; }
+    .big { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; color: #fff; }
+    .big em { font-style: normal; color: var(--hot); font-size: .55em; display: block; letter-spacing: .04em; margin-top: .2rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: .95rem; }
+    th { text-align: left; color: var(--gold); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; padding: .5rem .6rem; border-bottom: 1px solid rgba(255,255,255,.15); }
+    td { padding: .55rem .6rem; border-bottom: 1px solid rgba(255,255,255,.07); color: #ddd; }
+    td:last-child, th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+    .ask { margin-top: 1.4rem; padding: 1rem 1.2rem; border-left: 4px solid var(--pink); background: rgba(230,0,126,.12); font-size: 1.05rem; }
+    .disclaimer { font-size: .72rem; color: #6e675f; margin-top: 1.2rem; max-width: 46rem; line-height: 1.4; }
+    .footer {
+      position: fixed; bottom: 0; left: 0; right: 0; padding: .7rem 7vw;
+      display: flex; justify-content: space-between; font-size: .68rem; letter-spacing: .12em;
+      text-transform: uppercase; color: #5c564e; border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-hint { color: var(--gold); }
+    @media (max-width: 800px) { .g2, .g3 { grid-template-columns: 1fr; } }
+    @media print {
+      html, body, .deck { height: auto; background: #fff; }
+      .slide { display: flex !important; page-break-after: always; min-height: 100vh; background: #0c0c0c; }
+      .footer { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+
+    <section class="slide active">
+      <div class="eyebrow">Thursday · Hello Gorgeous × Dr. Mukesh Arora</div>
+      <h1>How we move forward — and how <span>all three of us</span> get paid</h1>
+      <p class="lead" style="margin-top:1.2rem">You. Danielle. The spa owner. One clean model for every med spa you already direct. No inventory at their front desk. No peptide menu on their Instagram. Ryan still reviews every chart.</p>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">The problem we are not repeating</div>
+      <h2>White-label pharmacy at someone else’s spa is the <span>wrong</span> first move</h2>
+      <div class="grid g2">
+        <div class="card">
+          <h3>What we will not do</h3>
+          <ul>
+            <li>Store, sell, or inject compounded vials at a day spa</li>
+            <li>Put a peptide catalog on their website or social</li>
+            <li>Ask you to take equity or write a check</li>
+            <li>Ask you to review every RE GEN chart — that is Ryan</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Why</h3>
+          <p>That model dumps inventory risk, compounding advertising risk, and “whose patient is this?” onto you and the spa owner. We already have a cleaner door: the patient becomes a <strong style="color:#fff">Hello Gorgeous patient</strong>. Your job is medical direction and network introductions — not pharmacy operations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">The model</div>
+      <h2>A QR door at spas you already <span>direct</span></h2>
+      <p class="lead">Front desk keeps a tent card. Patient scans. Books a $49 NP consult with Hello Gorgeous. Ryan reviews the chart and prescribes when appropriate. Pharmacy ships to the patient’s home. Spa never touches a vial.</p>
+      <div class="grid g3" style="margin-top:1.5rem">
+        <div class="card"><h3>1 · Spa</h3><p>Prints the tent card. Uses our script: “medical consultation through Hello Gorgeous.” Earns $100 when that patient pays for medication the first time.</p></div>
+        <div class="card"><h3>2 · You</h3><p>$1,500/mo to direct Hello Gorgeous. +$500/mo once the first spa you introduce is live. $25 override on each first paid med from those doors. $250 once if you sit the kickoff.</p></div>
+        <div class="card"><h3>3 · Danielle / HG</h3><p>Software, consents, pharmacy, shipping, Ryan’s time, customer service. Keeps the refill months — that is where the practice profit lives.</p></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">License protection — this week</div>
+      <h2>Public marketing is now <span>consult-first</span></h2>
+      <p class="lead">We pulled named compounded-peptide catalogs off the public site. Spas in your network will use the same rule. That is not window dressing. It is how we keep your name off a peptide menu.</p>
+      <div class="grid g2">
+        <div class="card">
+          <h3>What the spa may say</h3>
+          <ul>
+            <li>“We can connect you with a medical consult through Hello Gorgeous.”</li>
+            <li>“Weight-loss and wellness programs — a licensed NP reviews every chart.”</li>
+            <li>QR to the Hello Gorgeous consult, not a product list.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>What they may not say</h3>
+          <ul>
+            <li>No named research peptides on Instagram or the spa site</li>
+            <li>No “same as Ozempic / Wegovy / Mounjaro”</li>
+            <li>No guaranteed results, before/after dosing, or DIY kits</li>
+          </ul>
+        </div>
+      </div>
+      <p class="disclaimer">Compounded GLP-1 is not FDA-approved and is not the same as brand-name products. Prescribing happens only after a licensed clinician decides it is appropriate. This deck is not legal advice.</p>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Who does what — locked</div>
+      <h2>Three lanes. No overlap.</h2>
+      <table>
+        <thead>
+          <tr><th>Person</th><th>Does</th><th>Does not</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Dr. Arora</td><td>Medical director, $1,500/mo. Network intros. Optional kickoff.</td><td>Review every RE GEN chart. Own inventory. Market peptides.</td></tr>
+          <tr><td>Ryan Kent, FNP-BC</td><td>Reviews every RE GEN chart. Prescribes when appropriate.</td><td>Run the spa. Own the software.</td></tr>
+          <tr><td>Danielle</td><td>Owner, ops, software, pharmacy, payouts, marketing guardrails.</td><td>Prescribe. Touch a chart clinically.</td></tr>
+          <tr><td>Spa owner</td><td>Tent card + script. Send the patient.</td><td>Store, sell, or inject compounded medication.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Money — locked numbers</div>
+      <h2>What each of us makes</h2>
+      <div class="grid g3">
+        <div class="card">
+          <h3>You</h3>
+          <p class="big">$1,500<em>per month · HG medical director</em></p>
+          <p style="margin-top:.8rem">+$500/mo network retainer once spa #1 is live<br>+$25 per first paid med from those doors<br>+$250 once per kickoff you sit</p>
+        </div>
+        <div class="card">
+          <h3>Spa owner</h3>
+          <p class="big">$100<em>per first paid medication order</em></p>
+          <p style="margin-top:.8rem">Zero inventory. Zero pharmacy license. Cash when the patient actually starts therapy — not when they scan the QR.</p>
+        </div>
+        <div class="card">
+          <h3>Hello Gorgeous</h3>
+          <p class="big">Refills<em>month 2+ after COGS &amp; ops</em></p>
+          <p style="margin-top:.8rem">We fund the $100 + $25 on month one. We earn on consult ($49) and on patients who stay. That is the practice we are building.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">One patient — who gets what</div>
+      <h2>First paid month vs month two</h2>
+      <p class="lead">Illustrative. Uses a GLP-1 program fee in the $195–$235 range. Actual therapy and fee are quoted after consult. Pharmacy cost is real and comes out of HG’s side — not yours, not the spa’s.</p>
+      <table>
+        <thead>
+          <tr><th></th><th>Month 1 (first paid med)</th><th>Month 2+</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Spa owner</td><td>$100 (once)</td><td>$0 — they already got paid for the intro</td></tr>
+          <tr><td>You (override)</td><td>$25 (once, if from a door you introduced)</td><td>$0 override — retainer still runs</td></tr>
+          <tr><td>Hello Gorgeous</td><td>Program fee − pharmacy − $125 referral − Ryan/ops</td><td>Program fee − pharmacy − ops. This is the profit engine.</td></tr>
+          <tr><td>Patient</td><td>$49 consult + first month of prescribed therapy + shipping</td><td>Refill if clinically appropriate. Ships home.</td></tr>
+        </tbody>
+      </table>
+      <p class="disclaimer">Not a guaranteed margin. If a patient never converts past consult, spa gets $0 and you get $0 override — which is the point. We only pay on a real start.</p>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">What this looks like if it works</div>
+      <h2>Five doors. Conservative.</h2>
+      <p class="lead">Not a forecast. A whiteboard: 5 spas you already direct, 8 first-time paying patients each in a given month.</p>
+      <table>
+        <thead>
+          <tr><th>Pocket</th><th>Math</th><th>That month</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Five spa owners (together)</td><td>40 × $100</td><td>$4,000</td></tr>
+          <tr><td>You — retainers</td><td>$1,500 + $500</td><td>$2,000</td></tr>
+          <tr><td>You — overrides</td><td>40 × $25</td><td>$1,000</td></tr>
+          <tr><td>You — total cash that month</td><td></td><td><strong style="color:#fff">$3,000</strong> (+ $250 if you sat a new kickoff)</td></tr>
+          <tr><td>Hello Gorgeous</td><td>40 consults + 40 first months − $5,000 paid out − pharmacy − Ryan</td><td>Thin on month 1. Healthy if they refill.</td></tr>
+        </tbody>
+      </table>
+      <p class="ask">You still did not review those 40 charts. Ryan did. You directed the practice and opened the doors.</p>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Why the spa owner says yes</div>
+      <h2>They keep aesthetics. We take the <span>medical risk.</span></h2>
+      <div class="grid g2">
+        <div class="card">
+          <h3>They already have the patient</h3>
+          <p>Someone in the chair asking about weight loss or “peptides they saw online.” Today that is either a dead-end or a compliance problem. Tomorrow it is a $100 intro with a script you can defend.</p>
+        </div>
+        <div class="card">
+          <h3>They do not become a pharmacy</h3>
+          <p>No fridge of vials. No compounding ads on their Google listing. No “whose DEA is on this?” The patient is ours. Their brand stays a spa. Their medical director stays you — for the work you already do there.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Why this is good for you</div>
+      <h2>Same network. New line. Bounded risk.</h2>
+      <div class="grid g2">
+        <div class="card">
+          <h3>Floor</h3>
+          <p>$1,500/mo to be medical director at Hello Gorgeous whether a single QR converts or not. That is practice oversight, not per-chart piecework.</p>
+        </div>
+        <div class="card">
+          <h3>Upside</h3>
+          <p>Network retainer + $25 × every real start from doors you open. You get paid for relationships you already have — without adding chart volume to your nights.</p>
+        </div>
+        <div class="card">
+          <h3>Cover</h3>
+          <p>Ryan on every RE GEN chart. Consult-first public copy. No spa inventory. Your name is on direction of Hello Gorgeous — not on a peptide storefront at a day spa.</p>
+        </div>
+        <div class="card">
+          <h3>Proof before scale</h3>
+          <p>Spa #1 first. If the door is clean, we copy the tent card. We do not promise five go-lives today. We ask for one introduction.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Why this is good for Danielle</div>
+      <h2>We buy the first month. We own the <span>relationship.</span></h2>
+      <p class="lead">Paying $125 to acquire a patient who then refills with us is a customer-acquisition cost, not a giveaway. The spa cannot take that patient to a different pharmacy next month — they never had the chart. We did.</p>
+      <div class="grid g2">
+        <div class="card">
+          <h3>What we fund</h3>
+          <p>Software, Square booking, consents, Ryan’s review time, compounding pharmacy, shipping, the $100 + $25 on convert, and the marketing guardrails so this does not blow back on any of us.</p>
+        </div>
+        <div class="card">
+          <h3>What we keep</h3>
+          <p>The patient. The refill. The data. The ability to run this the same way at the next door you introduce. That is the only way this is a business instead of a one-time referral fee.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">Go-live — spa #1</div>
+      <h2>What “live” actually means</h2>
+      <div class="grid g3">
+        <div class="card"><h3>Week of intro</h3><p>You make the introduction. Danielle sends a one-page spa agreement + tent-card PDF + the allowed script. Optional: you sit a 20-minute kickoff ($250).</p></div>
+        <div class="card"><h3>Desk</h3><p>QR on the card. Front desk trained on two sentences. No vials. No product photos. Owner signs: they will not store or advertise named compounded peptides.</p></div>
+        <div class="card"><h3>First convert</h3><p>Patient pays consult, Ryan charts, medication ships. Spa invoice for $100. Your $25 override accrues. Network retainer starts the month that spa is live.</p></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">What we are not asking today</div>
+      <h2>This is not the old deck.</h2>
+      <div class="grid g2">
+        <div class="card">
+          <h3>Not today</h3>
+          <ul>
+            <li>Five white-label go-lives</li>
+            <li>You investing or taking equity</li>
+            <li>OpenEMR / full EHR build as a condition</li>
+            <li>Peptides mixed and stored under their roof</li>
+            <li>$3,000–$8,000/mo MD retainers</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Later — only if #1 is clean</h3>
+          <ul>
+            <li>Copy the tent card to the next spa you direct</li>
+            <li>A different contract if a spa ever wants in-house medical (their NP, your protocols, our software) — that is not this program</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">The ask — today</div>
+      <h2>Two yeses.</h2>
+      <p class="lead">1. Medical director of Hello Gorgeous at <strong style="color:#fff">$1,500 per month</strong>.<br>2. Introduction to <strong style="color:#fff">spa #1</strong> — one med spa you already direct that will run the QR door.</p>
+      <p class="ask">If both are yes, Danielle sends the MD agreement and the spa one-pager this week. Counsel, carrier, and collaborative-practice language still have to close. This slide is the business deal, not the contract.</p>
+      <p class="disclaimer">Hello Gorgeous Med Spa · Oswego, IL · Discussion materials only — not a binding offer. Fees are proposed commercial terms. Clinical care is individualized. Compounded medications are not FDA-approved. Final terms subject to written agreements, Illinois licensing, and malpractice coverage.</p>
+    </section>
+
+  </div>
+
+  <div class="footer">
+    <span>Hello Gorgeous × Dr. Arora · Forward plan</span>
+    <span class="nav-hint">← → or click · <span id="pg">1</span> / <span id="total">0</span></span>
+    <span>Confidential · Illustrative</span>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    const total = document.getElementById("total");
+    const pg = document.getElementById("pg");
+    total.textContent = String(slides.length);
+    let i = 0;
+    function show(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, idx) => s.classList.toggle("active", idx === i));
+      pg.textContent = String(i + 1);
+    }
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); show(i + 1); }
+      if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); show(i - 1); }
+      if (e.key === "Home") show(0);
+      if (e.key === "End") show(slides.length - 1);
+    });
+    document.getElementById("deck").addEventListener("click", (e) => {
+      if (e.target.closest("a")) return;
+      show(e.clientX > window.innerWidth / 2 ? i + 1 : i - 1);
+    });
+  </script>
+</body>
+</html>

@@ -9,6 +9,11 @@ import {
   dollarsToCents,
 } from "@/lib/square/client";
 import { SITE } from "@/lib/seo";
+import {
+  SQUARE_RX_CNP_ERROR,
+  squareRxCnpBlocked,
+  type SquarePaymentLinkPurpose,
+} from "@/lib/square-rx-cnp";
 
 function idempotencyKey(prefix: string): string {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
@@ -47,6 +52,11 @@ export type CreateRxPaymentLinkInput = {
    * Prefixed into quickPay.name and description so it appears on receipts/invoices.
    */
   paymentType?: string;
+  /**
+   * Labs and spa treatment proposals may still use Square payment links.
+   * Prescription products/services default to blocked (Square CNP terms).
+   */
+  purpose?: SquarePaymentLinkPurpose;
 };
 
 export type CreateRxPaymentLinkResult =
@@ -69,6 +79,10 @@ export function formatSquarePaymentLineName(opts: {
 export async function createRxPaymentLink(
   input: CreateRxPaymentLinkInput,
 ): Promise<CreateRxPaymentLinkResult> {
+  if (squareRxCnpBlocked(input.purpose ?? "prescription")) {
+    return { ok: false, error: SQUARE_RX_CNP_ERROR, status: 403 };
+  }
+
   if (!Number.isFinite(input.amountUsd) || input.amountUsd <= 0) {
     return { ok: false, error: "Amount must be greater than zero", status: 400 };
   }

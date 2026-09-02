@@ -20,7 +20,7 @@ export const HRT_PRICING_DISCLAIMER =
 export const HRT_PRICING_NOTE = BOOMRX_CONSUMER_PRICING_NOTE.replace("BoomRx", "Formulation");
 
 export const HRT_PAYMENT_FIRST_COPY =
-  "Pay at checkout, then book your NP telehealth visit on Fresha. Nothing ships until Ryan Kent, FNP-BC approves your protocol.";
+  "Pay in person on the Terminal at Hello Gorgeous in Oswego, then complete your NP visit. Nothing ships until Ryan Kent, FNP-BC approves your protocol.";
 
 export type HrtSupplyQuote = {
   supplyCycle: RxSupplyCycleId;

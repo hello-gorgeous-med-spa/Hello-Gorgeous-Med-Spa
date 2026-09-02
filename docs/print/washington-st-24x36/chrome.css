@@ -1,0 +1,131 @@
+/* Pink chrome + gold chrome on matte black — Washington Street 24×36 */
+
+@font-face {
+  font-family: "Cinzel Chrome";
+  src: url("fonts/cinzel-400.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Cinzel Chrome";
+  src: url("fonts/cinzel-700.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Cinzel Chrome";
+  src: url("fonts/cinzel-900.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Great Vibes Chrome";
+  src: url("fonts/great-vibes.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+.chrome-board {
+  background: #050505;
+  color: #fff;
+}
+.chrome-board .safe {
+  z-index: 1;
+  align-items: center;
+  text-align: center;
+}
+
+.chrome-pink,
+.chrome-gold {
+  display: inline-block;
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.word-svg {
+  display: block;
+  width: 21.4in;
+  height: auto;
+  margin: 0 auto;
+  overflow: visible;
+}
+.word-svg.tight { width: 18in; }
+.word-svg.phone { width: 20in; }
+.word-svg.small { width: 18in; }
+
+
+.chrome-kicker {
+  margin: 0;
+  font-family: "Cinzel Chrome", Cinzel, serif;
+  font-size: 0.28in;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+.chrome-script {
+  margin: 0;
+  font-family: "Great Vibes Chrome", "Great Vibes", cursive;
+  font-weight: 400;
+  line-height: 0.92;
+  font-size: 3.6in;
+}
+.chrome-display {
+  margin: 0;
+  font-family: "Cinzel Chrome", Cinzel, serif;
+  font-weight: 900;
+  line-height: 0.86;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.chrome-serif {
+  margin: 0;
+  font-family: "Cinzel Chrome", Cinzel, serif;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.chrome-frame {
+  padding: 0.07in;
+  background: url("gold-chrome.png") center / cover no-repeat;
+  width: 100%;
+}
+.chrome-frame > div {
+  background: #050505;
+  padding: 0.42in 0.35in 0.38in;
+}
+
+.chrome-rule {
+  width: 4.2in;
+  height: 0.045in;
+  margin: 0.28in auto;
+  background: url("gold-chrome.png") center / cover no-repeat;
+}
+
+.chrome-board .foot {
+  width: 100%;
+  color: #fff;
+}
+.chrome-board .foot .scan {
+  text-align: left;
+  font-family: "Cinzel Chrome", Cinzel, serif;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  font-size: 0.18in;
+}
+.chrome-board .qr {
+  border: 0.07in solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    url("gold-chrome.png") center / cover border-box;
+  border: 0.08in solid #C9A227;
+}

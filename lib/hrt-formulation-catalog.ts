@@ -210,7 +210,7 @@ export function hrtStartRequestCta(
   supplyCycle: RxSupplyCycleId = "90-day",
 ): { label: string; href: string } {
   return {
-    label: "Pay & start request",
+    label: "Start request",
     href: hrtRequestUrl({
       ingredient: ingredientId,
       form: formId,

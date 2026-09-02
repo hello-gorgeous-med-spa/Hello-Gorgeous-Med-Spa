@@ -10,6 +10,7 @@ import {
 } from "@/lib/rx-invoice-notify";
 import { rxStatusHrefWithToken } from "@/lib/rx-patient-status";
 import { SITE } from "@/lib/seo";
+import { SQUARE_RX_CNP_BLOCKED } from "@/lib/square-rx-cnp";
 
 const REMINDER_AFTER_HOURS = 24;
 const MAX_REMINDERS_PER_RUN = 20;
@@ -37,6 +38,10 @@ export type RxCheckoutReminderResult = {
 export async function processRxCheckoutReminders(
   admin: SupabaseClient,
 ): Promise<RxCheckoutReminderResult> {
+  if (SQUARE_RX_CNP_BLOCKED) {
+    return { scanned: 0, sent: 0, skipped: 0, errors: ["square_rx_cnp_blocked"] };
+  }
+
   const cutoff = new Date(Date.now() - REMINDER_AFTER_HOURS * 60 * 60 * 1000).toISOString();
 
   const { data: rows, error } = await admin

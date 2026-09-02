@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { RegenSoldByPicker } from "@/components/admin/RegenSoldByPicker";
+import { RxInPersonPayPanel } from "@/components/rx/RxInPersonPayPanel";
 import { useCart } from "@/lib/regen/cart-context";
 import { formatCatalogMoney } from "@/components/regen/catalog/CatalogProductCard";
 
@@ -33,14 +34,6 @@ function loadSavedContact(): SavedContact {
   }
 }
 
-function saveContact(contact: SavedContact) {
-  try {
-    localStorage.setItem(CONTACT_STORAGE_KEY, JSON.stringify(contact));
-  } catch {
-    /* ignore */
-  }
-}
-
 export function RegenCartDrawer() {
   const pathname = usePathname();
   const {
@@ -60,8 +53,6 @@ export function RegenCartDrawer() {
     hasCatalogItems,
   } = useCart();
 
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [soldByUserId, setSoldByUserId] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
@@ -86,115 +77,6 @@ export function RegenCartDrawer() {
 
   const staffPortalMode =
     path.startsWith("/admin/rx/portal") || path.startsWith("/rx-portal/place-order");
-
-  const validateContact = (): string | null => {
-    if (!customerName.trim() || customerName.trim().length < 2) {
-      return "Enter your full name";
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail.trim())) {
-      return "Enter a valid email";
-    }
-    const digits = customerPhone.replace(/\D/g, "");
-    if (digits.length < 10) {
-      return "Enter a valid US mobile phone";
-    }
-    return null;
-  };
-
-  const handleCheckout = async () => {
-    if (items.length === 0) return;
-
-    const contactError = validateContact();
-    if (contactError) {
-      setError(contactError);
-      return;
-    }
-
-    const contact = {
-      name: customerName.trim(),
-      email: customerEmail.trim().toLowerCase(),
-      phone: customerPhone.trim(),
-    };
-    saveContact(contact);
-
-    if (catalogMode) {
-      setIsCheckingOut(true);
-      setError(null);
-
-      try {
-        const res = await fetch("/api/regen/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            items: items.map((i) => ({
-              id: i.id,
-              name: i.name,
-              priceUsd: i.priceUsd,
-              quantity: i.quantity,
-              category: i.category,
-              rx: i.rx ?? true,
-              variantLabel: i.variantLabel,
-              supplyDays: i.supplyDays,
-            })),
-            customerName: contact.name,
-            customerEmail: contact.email,
-            customerPhone: contact.phone,
-            subscribe,
-            refillWeeks,
-            goal: items[0]?.category,
-            supplyMonths: items.every((i) => i.supplyDays === 90) ? 3 : 1,
-            ...(staffPortalMode && soldByUserId
-              ? { soldByUserId, salesChannel: "staff_portal" as const }
-              : {}),
-          }),
-        });
-
-        const data = await res.json();
-
-        if (!data.success) {
-          throw new Error(data.error || "Checkout failed");
-        }
-        window.location.href = data.checkoutUrl;
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Checkout failed");
-        setIsCheckingOut(false);
-      }
-      return;
-    }
-
-    setIsCheckingOut(true);
-    setError(null);
-
-    try {
-      const res = await fetch("/api/regen/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          items: items.map((i) => ({
-            id: i.id,
-            name: i.name,
-            priceUsd: i.priceUsd,
-            quantity: i.quantity,
-            category: i.category,
-            rx: i.rx,
-          })),
-          customerName: contact.name,
-          customerEmail: contact.email,
-          customerPhone: contact.phone,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!data.success) {
-        throw new Error(data.error || "Checkout failed");
-      }
-      window.location.href = data.checkoutUrl;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Checkout failed");
-      setIsCheckingOut(false);
-    }
-  };
 
   if (!isOpen) return null;
 
@@ -423,11 +305,9 @@ export function RegenCartDrawer() {
                 />
               </label>
               <p className="text-[11px] leading-relaxed text-black/50">
-                We text your intake link after payment and use this for NP follow-up. Not shared for spam.
+                We use this for NP follow-up. Pay on the Terminal in Oswego — not by a Square link.
               </p>
             </div>
-
-            {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
             {staffPortalMode && (
               <RegenSoldByPicker
@@ -438,23 +318,17 @@ export function RegenCartDrawer() {
               />
             )}
 
-            <button
-              type="button"
-              onClick={handleCheckout}
-              disabled={isCheckingOut}
-              className="mt-4 w-full rounded-xl border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-3.5 text-sm font-black text-white shadow-[4px_4px_0_0_#000] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {isCheckingOut
-                ? "Redirecting to Square…"
-                : catalogMode
-                  ? "Pay securely with Square →"
-                  : "Checkout"}
-            </button>
+            <div className="mt-4">
+              <RxInPersonPayPanel
+                amountLabel={catalogMode ? formatCatalogMoney(total) : `$${total.toFixed(2)}`}
+                kind="medication"
+              />
+            </div>
 
             <p className="mt-3 text-center text-xs text-black/50">
-              {catalogMode
-                ? "After payment you’ll complete health intake, then book NP telehealth. Nothing ships without clinical approval."
-                : "A provider must review your intake before any prescription ships."}
+              {staffPortalMode
+                ? "Charge this total on the Terminal (tap, dip, or swipe). Do not send a Square pay link."
+                : "A provider must review your intake before any prescription ships. Pay in person at the spa."}
             </p>
           </div>
         )}

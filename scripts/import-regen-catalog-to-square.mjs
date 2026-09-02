@@ -162,7 +162,8 @@ function productToRow(p) {
 
 function buildRows(products) {
   const slice = LIMIT ? products.slice(0, LIMIT) : products;
-  return [...buildFeeRows(), ...slice.map(productToRow)];
+  const allowed = slice.filter((p) => !/ss-?31|elamipretide|elamipiretide/i.test(`${p.compound || ""} ${p.name || ""}`));
+  return [...buildFeeRows(), ...allowed.map(productToRow)];
 }
 
 async function squarePost(endpoint, body) {

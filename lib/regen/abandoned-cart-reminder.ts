@@ -10,6 +10,7 @@ import {
   notifyOwnerRegenAbandonedCart,
   smsRegenAbandonedCart,
 } from "@/lib/regen/order-notify";
+import { SQUARE_RX_CNP_BLOCKED } from "@/lib/square-rx-cnp";
 
 /** Wait this long after cart create before nudging. */
 const REMINDER_AFTER_HOURS = 2;
@@ -83,6 +84,10 @@ async function resolveCheckoutUrl(row: OrderRow): Promise<string | null> {
 export async function processRegenAbandonedCartReminders(
   admin: SupabaseClient,
 ): Promise<RegenAbandonedCartResult> {
+  if (SQUARE_RX_CNP_BLOCKED) {
+    return { scanned: 0, patientSent: 0, staffAlerted: 0, skipped: 0, errors: ["square_rx_cnp_blocked"] };
+  }
+
   const now = Date.now();
   const olderThan = new Date(now - REMINDER_AFTER_HOURS * 60 * 60 * 1000).toISOString();
   const newerThan = new Date(now - MAX_AGE_DAYS * 24 * 60 * 60 * 1000).toISOString();

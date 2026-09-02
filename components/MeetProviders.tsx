@@ -11,7 +11,7 @@ const providers = [
     name: "Danielle Alcala",
     role: "Founder, Hello Gorgeous Med Spa",
     credentials: "Licensed CNA • CMAA • Phlebotomist",
-    image: "/images/team/danielle.png",
+    image: "/images/team/danielle-alcala-glazier-portrait.png",
     bio: "Passionate about helping clients feel confident and beautiful. Patient-first care philosophy with a focus on personalized treatments.",
     telehealth: false,
   },

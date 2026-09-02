@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>24×36 — Fall Makeover</title>
+  <link rel="stylesheet" href="signs.css" />
+  <style>
+    .board {
+      background: linear-gradient(165deg, #FF2D8E 0%, #E6007E 42%, #9b0a4d 100%);
+      color: #fff;
+    }
+    .kicker {
+      margin: 0.4in 0 0.1in;
+      font-size: 0.26in;
+      letter-spacing: 0.28em;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.55in;
+      line-height: 0.82;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+    .lanes {
+      margin: 0.2in 0 0;
+      font-size: 0.42in;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .nums {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.2in;
+      margin: 0.15in 0;
+    }
+    .nums div {
+      background: #0a0a0a;
+      border: 0.08in solid #000;
+      text-align: center;
+      padding: 0.55in 0.08in 0.4in;
+    }
+    .nums strong {
+      display: block;
+      font-size: 1.05in;
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+    }
+    .nums span {
+      display: block;
+      margin-top: 0.14in;
+      font-size: 0.22in;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #FFB8DC;
+    }
+    .fine {
+      font-size: 0.2in;
+      font-weight: 700;
+      line-height: 1.25;
+      max-width: 18in;
+    }
+  </style>
+</head>
+<body>
+  <div class="no-print">
+    <p><strong>Sign 2 — Walk-by / A-frame sidewalk side.</strong> One season, three numbers, scan to book. Savings lock at consult — not a checkout coupon. Print at 24×36, margins none, background graphics on.</p>
+    <button type="button" onclick="window.print()">Print / Save PDF</button>
+    <a class="btn" href="index.html">All signs</a>
+  </div>
+
+  <article class="board">
+    <div class="safe">
+      <div class="mark">
+        <div class="hg" style="background:#0a0a0a;color:#fff;">HG</div>
+        <div>
+          <div class="name">Hello Gorgeous</div>
+          <div class="sub">74 W. Washington · Oswego</div>
+        </div>
+      </div>
+
+      <p class="kicker">Inside + out · this season</p>
+      <h1>Fall<br />Makeover</h1>
+      <p class="lanes">Repair · Prevent · Lose</p>
+
+      <div class="nums">
+        <div><strong>$100</strong><span>Repair</span></div>
+        <div><strong>$200</strong><span>Prevent</span></div>
+        <div><strong>$150</strong><span>Lose</span></div>
+      </div>
+      <p class="fine">Off at consult — Ryan Kent, FNP-BC maps the lane. Not a published package price.</p>
+
+      <div class="foot">
+        <p class="scan">Scan to book<br />630-636-6193</p>
+        <div class="qr"><img src="qr-fall.png" alt="Scan for Fall Makeover" /></div>
+      </div>
+    </div>
+  </article>
+</body>
+</html>

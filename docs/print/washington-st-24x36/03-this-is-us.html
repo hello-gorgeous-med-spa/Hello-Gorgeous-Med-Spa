@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>24×36 — This is us</title>
+  <link rel="stylesheet" href="signs.css" />
+  <style>
+    .board { background: #fff; color: #0a0a0a; }
+    .frame {
+      margin: 0.28in 0 0.32in;
+      border: 0.14in solid #000;
+      box-shadow: 0.18in 0.18in 0 0 rgba(230,0,126,0.55);
+      background: #e8e2dc;
+      height: 16.4in;
+      overflow: hidden;
+    }
+    .frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 28%;
+      display: block;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.35in;
+      line-height: 0.9;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+    h1 em {
+      font-style: normal;
+      color: #E6007E;
+    }
+    .who {
+      margin: 0.18in 0 0;
+      font-size: 0.28in;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+    .who span { color: #E6007E; }
+  </style>
+</head>
+<body>
+  <div class="no-print">
+    <p><strong>Sign 3 — Sidewalk face.</strong> Danielle and Ryan — the people on this block. Photo stays in a frame so it prints clean at 24×36 (the original is not a billboard file). Print at 24×36, margins none, background graphics on.</p>
+    <button type="button" onclick="window.print()">Print / Save PDF</button>
+    <a class="btn" href="index.html">All signs</a>
+  </div>
+
+  <article class="board">
+    <div class="safe">
+      <div class="mark">
+        <div class="hg">HG</div>
+        <div>
+          <div class="name">Hello Gorgeous</div>
+          <div class="sub">This is us · downtown Oswego</div>
+        </div>
+      </div>
+
+      <div class="frame">
+        <img
+          src="dani-ryan.png"
+          alt="Danielle Alcala and Ryan Kent, FNP-BC at Hello Gorgeous Med Spa"
+        />
+      </div>
+
+      <h1>This is <em>us</em></h1>
+      <p class="who">
+        <span>Ryan Kent, FNP-BC</span> · Danielle Alcala, Owner<br />
+        NP on site · 74 W. Washington
+      </p>
+
+      <div class="foot">
+        <p class="scan">Scan to book<br />630-636-6193</p>
+        <div class="qr"><img src="qr-book.png" alt="Scan to book Hello Gorgeous" /></div>
+      </div>
+    </div>
+  </article>
+</body>
+</html>

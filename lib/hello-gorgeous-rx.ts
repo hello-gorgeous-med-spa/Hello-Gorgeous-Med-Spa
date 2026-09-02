@@ -28,14 +28,14 @@ export const RX_RECURRING_JOURNEY: RxJourneyStep[] = [
   },
   {
     id: "consult",
-    title: "Pre-pay $49 consult (new protocols)",
-    detail: `$${PEPTIDE_CONSULT_FEE_USD} NP evaluation via Square — unlocks telehealth booking. Medication is priced separately after approval.`,
+    title: "Pay $49 consult at the spa (new protocols)",
+    detail: `$${PEPTIDE_CONSULT_FEE_USD} NP evaluation on the Terminal in Oswego (tap, dip, or swipe). Medication is priced separately after approval.`,
     icon: "💳",
   },
   {
     id: "telehealth",
     title: "Book required NP telehealth",
-    detail: "After consult pre-pay, book your NP telehealth visit on Fresha with Ryan Kent, FNP-BC.",
+    detail: "After the consult fee, book your NP telehealth visit on Square with Ryan Kent, FNP-BC.",
     icon: "💻",
   },
   {

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>24×36 — Weight Loss</title>
+  <link rel="stylesheet" href="signs.css" />
+  <style>
+    .board { background: #0a0a0a; color: #fff; }
+    .hero {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.28) 24%, rgba(10,10,10,0.08) 46%, rgba(10,10,10,0.92) 100%),
+        url("weight-hero.jpg") 78% 18% / cover no-repeat;
+    }
+    .safe { z-index: 1; }
+    .name-block { margin: 0; }
+    .name-block .hg-word {
+      margin: 0;
+      font-size: 1.05in;
+      line-height: 0.86;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+    }
+    .name-block .hg-word em {
+      font-style: normal;
+      color: #FF2D8E;
+    }
+    .name-block .med {
+      margin: 0.1in 0 0;
+      font-size: 0.42in;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #FFB8DC;
+    }
+    .name-block .addr {
+      margin: 0.08in 0 0;
+      font-size: 0.22in;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.15in;
+      line-height: 0.82;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
+    h1 em {
+      font-style: normal;
+      color: #FF2D8E;
+    }
+    .prices {
+      display: flex;
+      gap: 0.18in;
+      margin: 0.22in 0 0;
+    }
+    .prices div {
+      flex: 1;
+      background: #E6007E;
+      border: 0.08in solid #000;
+      text-align: center;
+      padding: 0.32in 0.08in 0.26in;
+    }
+    .prices strong {
+      display: block;
+      font-size: 1.35in;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.88;
+    }
+    .prices span {
+      display: block;
+      margin-top: 0.08in;
+      font-size: 0.28in;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .fine {
+      margin: 0.14in 0 0;
+      font-size: 0.18in;
+      font-weight: 700;
+      color: #FFB8DC;
+    }
+    .call {
+      background: #E6007E;
+      border: 0.09in solid #000;
+      padding: 0.28in 0.28in 0.24in;
+      text-align: center;
+    }
+    .call .phone {
+      margin: 0;
+      font-size: 1.48in;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.88;
+      color: #fff;
+    }
+    .call small {
+      display: block;
+      margin-top: 0.1in;
+      font-size: 0.24in;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .foot { margin-top: 0.22in; }
+    .foot .qr { border-color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="no-print">
+    <p><strong>Sign 7 — Weight loss, Pout Now layout.</strong> One offer, photo underneath, name and phone first. Print 24×36, margins none, background graphics on.</p>
+    <button type="button" onclick="window.print()">Print / Save PDF</button>
+    <a class="btn" href="index.html">All signs</a>
+  </div>
+
+  <article class="board">
+    <div class="hero" aria-hidden="true"></div>
+    <div class="safe">
+      <div class="name-block">
+        <p class="hg-word">Hello<br /><em>Gorgeous</em></p>
+        <p class="med">Med Spa</p>
+        <p class="addr">74 W. Washington · Downtown Oswego</p>
+      </div>
+
+      <div>
+        <h1>Weight<br /><em>Loss</em></h1>
+        <div class="prices">
+          <div><strong>$299</strong><span>per month</span></div>
+        </div>
+        <p class="fine">Medical GLP-1 · NP supervised</p>
+      </div>
+
+      <div>
+        <div class="call">
+          <p class="phone">630-636-6193</p>
+          <small>Call to book · walk-ins welcome</small>
+        </div>
+        <div class="foot">
+          <p class="scan">Scan to book<br />hellogorgeousmedspa.com</p>
+          <div class="qr"><img src="qr-weight.png" alt="Scan for Hello Gorgeous weight loss" /></div>
+        </div>
+      </div>
+    </div>
+  </article>
+</body>
+</html>

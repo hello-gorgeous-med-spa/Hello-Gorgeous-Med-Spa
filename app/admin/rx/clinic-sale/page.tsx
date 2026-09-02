@@ -108,8 +108,6 @@ export default function ClinicRxSalePage() {
   const [trackingNumber, setTrackingNumber] = useState("");
   const [carrier, setCarrier] = useState("");
   const [dispatchSaving, setDispatchSaving] = useState(false);
-  const [autopayBusy, setAutopayBusy] = useState(false);
-  const [autopayMsg, setAutopayMsg] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -441,38 +439,6 @@ export default function ClinicRxSalePage() {
       setError(e instanceof Error ? e.message : "Dispatch update failed");
     } finally {
       setDispatchSaving(false);
-    }
-  };
-
-  const setupAutopay = async (sendSms: boolean) => {
-    if (!savedEncounter) return;
-    setAutopayBusy(true);
-    setAutopayMsg(null);
-    setError(null);
-    try {
-      const res = await fetch(
-        `/api/admin/rx/clinic-encounters/${savedEncounter.id}/autopay`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ sendSms }),
-        },
-      );
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Auto-pay failed");
-      setAutopayMsg(
-        sendSms && data.smsSent
-          ? "Auto-pay link sent by text (also copied)"
-          : "Auto-pay link copied to clipboard",
-      );
-      const detail = await fetch(`/api/admin/rx/clinic-encounters/${savedEncounter.id}`);
-      const detailData = await detail.json();
-      if (detail.ok) setSavedEncounter(detailData.encounter);
-      if (data.url) await navigator.clipboard.writeText(data.url);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Auto-pay failed");
-    } finally {
-      setAutopayBusy(false);
     }
   };
 
@@ -947,35 +913,12 @@ export default function ClinicRxSalePage() {
               savedEncounter.status === "shipped") &&
             savedEncounter.supply_cycle === "30-day" &&
             savedEncounter.autopay_status !== "active" && (
-              <div className="rounded-2xl border-4 border-black bg-violet-50 p-4 space-y-3">
-                <h3 className="font-black text-sm">Monthly auto-pay (30-day)</h3>
+              <div className="rounded-2xl border-4 border-black bg-amber-50 p-4 space-y-2">
+                <h3 className="font-black text-sm">Monthly auto-pay is off</h3>
                 <p className="text-xs text-black/70">
-                  Square subscription at list tier price — ships to patient each month.
+                  Square cannot take remote or card-on-file charges for prescription items. Collect
+                  each refill in person on the Terminal (tap, dip, or swipe).
                 </p>
-                {savedEncounter.autopay_payment_url && (
-                  <p className="text-xs font-mono break-all text-black/60">
-                    {savedEncounter.autopay_payment_url}
-                  </p>
-                )}
-                {autopayMsg && <p className="text-xs font-bold text-green-800">{autopayMsg}</p>}
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    disabled={autopayBusy}
-                    onClick={() => void setupAutopay(true)}
-                    className="px-3 py-2 rounded-full bg-violet-600 text-white text-xs font-bold disabled:opacity-50"
-                  >
-                    {autopayBusy ? "…" : "Text auto-pay link"}
-                  </button>
-                  <button
-                    type="button"
-                    disabled={autopayBusy}
-                    onClick={() => void setupAutopay(false)}
-                    className="px-3 py-2 rounded-full border-2 border-black text-xs font-bold disabled:opacity-50"
-                  >
-                    Copy link only
-                  </button>
-                </div>
               </div>
             )}
 

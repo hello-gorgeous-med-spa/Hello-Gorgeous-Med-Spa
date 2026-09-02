@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Partnership Proposal — Dr. Mukesh Arora, MD × Hello Gorgeous / RE GEN</title>
+  <style>
+    :root {
+      --ink: #0a0a0a;
+      --plum: #2d1020;
+      --pink: #E6007E;
+      --hot: #FF2D8E;
+      --soft: #FFB8DC;
+      --paper: #faf7f8;
+      --card: #fff;
+      --line: #e8d4de;
+      --muted: #4a3a42;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", Georgia, system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.5;
+    }
+    a { color: var(--pink); }
+    .hero {
+      background:
+        radial-gradient(80% 80% at 90% 0%, rgba(230,0,126,.35), transparent 50%),
+        linear-gradient(160deg, #0a0a0a 0%, #2d1020 55%, #1a0a12 100%);
+      color: #fff;
+      padding: 56px 8vw 48px;
+    }
+    .hero .kicker {
+      letter-spacing: .22em; text-transform: uppercase; font-size: 11px; font-weight: 800;
+      color: var(--soft);
+    }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.12; max-width: 22ch; margin: 12px 0 16px; }
+    .hero h1 em { font-style: normal; color: var(--hot); }
+    .hero p { max-width: 40rem; color: rgba(255,255,255,.82); font-size: 1.05rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 28px; font-size: 13px; color: rgba(255,255,255,.65); }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 36px 8vw 80px; }
+    nav.toc { background: #fff; border: 3px solid #000; padding: 18px 22px; margin: -28px 8vw 0; max-width: 880px; position: relative; }
+    @media (min-width: 1100px) { nav.toc { margin-left: auto; margin-right: auto; } }
+    nav.toc strong { display: block; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--pink); margin-bottom: 8px; }
+    nav.toc a { margin-right: 14px; font-size: 14px; font-weight: 650; text-decoration: none; color: var(--ink); }
+    nav.toc a:hover { color: var(--pink); }
+    h2 { font-size: 1.45rem; margin: 2.4rem 0 .75rem; }
+    h3 { font-size: 1.05rem; margin: 1.4rem 0 .4rem; }
+    p, li { color: var(--muted); }
+    strong { color: var(--ink); }
+    .grid { display: grid; gap: 14px; }
+    .grid.three { grid-template-columns: repeat(3, 1fr); }
+    .grid.two { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 800px) { .grid.three, .grid.two { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--card);
+      border: 2px solid #000;
+      padding: 16px 18px;
+    }
+    .card h3 { margin-top: 0; }
+    .pink { border-color: var(--pink); }
+    table { width: 100%; border-collapse: collapse; font-size: 14.5px; background: #fff; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--pink); background: #fff5f9; }
+    .num { font-variant-numeric: tabular-nums; font-weight: 750; color: var(--ink); white-space: nowrap; }
+    .call {
+      background: #fff;
+      border-left: 6px solid var(--pink);
+      border: 2px solid #000;
+      border-left-width: 8px;
+      padding: 14px 18px;
+      margin: 18px 0;
+    }
+    .fine { font-size: 12.5px; color: #777; }
+    ol.steps { padding-left: 1.2rem; }
+    ol.steps li { margin: .45rem 0; }
+    .flow { font-family: ui-monospace, Menlo, monospace; font-size: 13px; background: #111; color: #ffd0e6; padding: 16px 18px; line-height: 1.65; }
+    footer.doc {
+      margin-top: 48px; padding-top: 18px; border-top: 2px solid #000;
+      font-size: 12px; color: #777;
+    }
+    @media print {
+      .hero { padding: 28px 12mm; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      nav.toc { display: none; }
+      .wrap { padding: 12mm 12mm 20mm; }
+      h2 { break-after: avoid; }
+      .card, table { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="kicker">Confidential partnership proposal · not a binding offer</div>
+    <h1>Dr. Mukesh Arora, MD — how you make money, how we structure it, how we stand it up.</h1>
+    <p>Hello Gorgeous already runs RE GEN in production (catalog, intake, NP consult, pharmacy, portal). You keep medicine. Danielle runs ops. Your other med spas get the same rails under their names — after Hello Gorgeous is the proof.</p>
+    <div class="meta">
+      <span>Prepared for Dr. Mukesh Arora, MD · Internal Medicine · Medical Director</span>
+      <span>From Danielle Alcala-Glazier, Owner · Hello Gorgeous Med Spa, Oswego, IL</span>
+      <span>August 2026 · hellogorgeousmedspa.com/rx</span>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Contents">
+    <strong>Jump</strong>
+    <a href="#summary">Summary</a>
+    <a href="#money">Money</a>
+    <a href="#structure">Structure</a>
+    <a href="#implement">Implement</a>
+    <a href="#ask">The ask</a>
+  </nav>
+
+  <main class="wrap">
+    <h2 id="summary">1. Executive summary</h2>
+    <p>You already sit as Medical Director for Hello Gorgeous and medical-direct other med spas that want peptides. We are not asking you to build software. We are asking you to <strong>own the clinical gate</strong> while we productize the stack you have already seen live.</p>
+    <div class="grid three">
+      <div class="card pink">
+        <h3>Lane 1 — Hello Gorgeous aesthetics</h3>
+        <p>Physician of record for medical aesthetics in Oswego. Protocols, eligibility, supervision model. Ryan Kent, FNP-BC remains on site six days a week. Danielle does not inject under your license unsupervised.</p>
+      </div>
+      <div class="card pink">
+        <h3>Lane 2 — RE GEN clinical gate</h3>
+        <p>Cash-pay GLP-1 and peptides. Patient pays → intake → your (or designated NP) review → pharmacy ships to the patient. Danielle runs ops. You own judgment.</p>
+      </div>
+      <div class="card pink">
+        <h3>Lane 3 — White-label your network</h3>
+        <p>Same chassis, their brand, their Square, their patients. Setup + SaaS to Hello Gorgeous. Chart fees to you. Spa keeps program margin. Pilot spa #1 only after HG is clean.</p>
+      </div>
+    </div>
+    <div class="call">
+      <strong>Day spas vs med spas.</strong> Peptides and injectables only where there is a medical practice (MD/NP, consents, pharmacy). A facial-only day spa does not get a RE GEN menu until it is structured as medicine. That protects your license and ours.
+    </div>
+
+    <h2 id="money">2. How your involvement makes money</h2>
+    <p>Three checks can hit your practice. They are separate on purpose so medicine is never “buried” in software.</p>
+
+    <h3>2.1 What you personally earn</h3>
+    <table>
+      <thead>
+        <tr><th>Lane</th><th>Instrument</th><th>Proposed range (discussion)</th><th>When it starts</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1 · HG aesthetics MD</td>
+          <td>Monthly retainer</td>
+          <td class="num">$3,000–$8,000 / mo</td>
+          <td>LOI + coverage model signed</td>
+        </tr>
+        <tr>
+          <td>2 · RE GEN at HG</td>
+          <td>Per chart / telehealth review you (or your designee) document</td>
+          <td class="num">$35–$75 / completed review</td>
+          <td>First approved RE GEN chart</td>
+        </tr>
+        <tr>
+          <td>3 · Network spas</td>
+          <td>Same per-chart fee at each spa you personally review — or a smaller QA retainer if a local NP reviews and you protocol + sample charts</td>
+          <td class="num">$35–$75 / chart or $1,500–$4,000 / spa / mo QA</td>
+          <td>After spa #1 go-live</td>
+        </tr>
+        <tr>
+          <td>Optional</td>
+          <td>Software economics (only if you want capital / partnership in the rails, not required to start)</td>
+          <td>Discuss after 90-day HG proof</td>
+          <td>Not Thursday’s close</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>2.2 Worked examples — illustrative, not a quote</h3>
+    <table>
+      <thead>
+        <tr><th>Story</th><th>Assumptions</th><th>Dr. Arora (about)</th><th>Hello Gorgeous software</th><th>That spa</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A. HG only</strong></td>
+          <td>Retainer $5,000 · 80 RE GEN reviews @ $50</td>
+          <td class="num">~$9,000 / mo</td>
+          <td>Retail minus pharmacy COGS minus your fees</td>
+          <td>N/A (this is HG)</td>
+        </tr>
+        <tr>
+          <td><strong>B. HG + 1 spa</strong></td>
+          <td>Setup $10,000 · SaaS $1,500 · 60 pts × $349 · you review those 60 @ $50</td>
+          <td class="num">~$9,000 HG + $3,000 clinical at spa #2</td>
+          <td class="num">SaaS $1,500 + ~10% GMV ~$2,100</td>
+          <td>Program margin after COGS, your fee, platform</td>
+        </tr>
+        <tr>
+          <td><strong>C. Five spas</strong></td>
+          <td>50 pts / spa · $349 · SaaS $1,500 × 5 · you QA (local NP reviews)</td>
+          <td class="num">HG retainer + HG reviews + QA retainers (you choose time mix)</td>
+          <td class="num">SaaS ~$7,500 + ~10% of ~$87k GMV ~$8,700 → ~$16k / mo rails</td>
+          <td>Each location keeps its own remainder</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="fine">If you personally review every network chart (250 × $50), clinical at the network is ~$12,500 / mo on top of HG. Most medical directors will not want that volume — we staff site NPs and you protocol + sample. You pick the mix.</p>
+
+    <h3>2.3 One patient dollar (example $349 / month program)</h3>
+    <table>
+      <thead><tr><th>Slice</th><th>About</th><th>Who gets it</th></tr></thead>
+      <tbody>
+        <tr><td>Pharmacy / medication COGS</td><td class="num">$120–$180</td><td>Compounding pharmacy / manufacturer</td></tr>
+        <tr><td>Clinical review</td><td class="num">$35–$75</td><td>You or the site NP you authorize</td></tr>
+        <tr><td>RE GEN platform</td><td class="num">$25–$45 or 8–15% GMV</td><td>Hello Gorgeous software</td></tr>
+        <tr><td>Remainder</td><td>Ops, front desk, local marketing</td><td>The spa whose name is on the door</td></tr>
+      </tbody>
+    </table>
+    <p class="fine">Cash-pay weight / peptide programs commonly land about $150–$500 / patient / month depending on branded vs compounded supply. We will only put numbers on a patient-facing page that we can defend.</p>
+
+    <h2 id="structure">3. How we structure it</h2>
+    <p>Keep entities simple until the HG pilot works. Do not invent a holding company on Thursday.</p>
+
+    <h3>3.1 Who contracts with whom</h3>
+    <table>
+      <thead><tr><th>Agreement</th><th>Parties</th><th>What it covers</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Medical Director agreement</strong></td>
+          <td>Dr. Arora ↔ Hello Gorgeous Med Spa</td>
+          <td>Lane 1 aesthetics oversight at Oswego: protocols, presence/coverage, quality, advertising review, retainer</td>
+        </tr>
+        <tr>
+          <td><strong>RE GEN clinical services addendum</strong></td>
+          <td>Dr. Arora ↔ Hello Gorgeous (RE GEN)</td>
+          <td>Lane 2: formulary you will oversee, review SLA, per-chart fee, telehealth cadence, Illinois-only until you say otherwise</td>
+        </tr>
+        <tr>
+          <td><strong>Collaborative / supervisory with Ryan Kent, FNP-BC</strong></td>
+          <td>As required by Illinois for the NP on site</td>
+          <td>Day-to-day prescribing at HG stays with Ryan under your medical-director framework — not Danielle</td>
+        </tr>
+        <tr>
+          <td><strong>Software license (white-label)</strong></td>
+          <td>Hello Gorgeous (or a later software LLC) ↔ each spa entity</td>
+          <td>Lane 3: branded instance, their Square, their data, SaaS + setup. Clinical is a separate contract with you (or their NP + your QA)</td>
+        </tr>
+        <tr>
+          <td><strong>Network clinical</strong></td>
+          <td>Dr. Arora ↔ each spa (or one MSA covering the five)</td>
+          <td>You decide which locations you will oversee. We will not flip peptides on a spa you have not accepted</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>3.2 Roles — written so your carrier can read them</h3>
+    <div class="grid two">
+      <div class="card">
+        <h3>You own</h3>
+        <ul>
+          <li>Clinical protocols and formulary yes/no</li>
+          <li>Chart review, approve / deny / modify</li>
+          <li>Who may perform which medical procedures</li>
+          <li>Which of the five spas are in scope</li>
+          <li>Malpractice alignment for telehealth + compounding</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Danielle / Hello Gorgeous own</h3>
+        <ul>
+          <li>Software, intake, Square, pharmacy logistics, shipping status</li>
+          <li>Staff training, consents iPad, front desk</li>
+          <li>White-label deploy (brand, domain, env, their data isolation)</li>
+          <li>Not diagnosing, not prescribing, not unsupervised medical injecting</li>
+        </ul>
+      </div>
+    </div>
+    <p>Ryan Kent, FNP-BC is the on-site NP at Hello Gorgeous (six days). Network spas may use their own NP; you protocol and sample charts, or you review every chart — your choice, priced accordingly.</p>
+
+    <h3>3.3 Money flow (no guessing)</h3>
+    <pre class="flow">Patient pays the SPA (their Square)
+        │
+        ├─► Pharmacy COGS (direct or pass-through)
+        ├─► Clinical fee  → Dr. Arora or site NP (W-9 / invoice monthly)
+        ├─► Platform / SaaS → Hello Gorgeous (subscription + optional % GMV)
+        └─► Remainder     → that spa</pre>
+    <p>HG flagship is the same diagram with Hello Gorgeous as the spa. White-label does not mix PHI: each spa gets its own database / instance.</p>
+
+    <h3>3.4 What we are not structuring on day one</h3>
+    <ul>
+      <li><strong>OpenEMR</strong> as the daily system. Optional later if a location needs hospital-grade EHR or e-prescribe. RE GEN + Square + our chart/consents run the peptide business.</li>
+      <li><strong>Equity in the software</strong> as a Thursday must. If you want to invest capital after the HG pilot, we will sit with counsel. Thursday’s yes is medicine + a 45-day spa #1 path.</li>
+      <li><strong>Five spas live this month.</strong> That would be a compliance failure dressed up as ambition.</li>
+    </ul>
+
+    <h2 id="implement">4. How we implement</h2>
+    <p>Single-tenant white-label (one deploy + one database per spa). Cleanest PHI isolation. Multi-tenant only if the network later demands it.</p>
+
+    <h3>4.1 What is already live (demo this)</h3>
+    <table>
+      <thead><tr><th>Surface</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr><td>Peptide finder</td><td>hellogorgeousmedspa.com/skin-101/find-your-peptide</td></tr>
+        <tr><td>RE GEN catalog + request</td><td>hellogorgeousmedspa.com/rx and /rx/request</td></tr>
+        <tr><td>Intake → NP consult → pay → ship or pickup</td><td>Production at Hello Gorgeous</td></tr>
+        <tr><td>Admin RX pipeline, orders, portal refills</td><td>/admin/rx · /portal/rx</td></tr>
+        <tr><td>Desk consents</td><td>/kiosk (assign forms, patient signs)</td></tr>
+      </tbody>
+    </table>
+    <p>The gap is not “does the product exist.” The gap is <strong>their logo, their domain, their Square, your protocols on their entity</strong> — that is the 45-day spa #1 job.</p>
+
+    <h3>4.2 Calendar</h3>
+    <table>
+      <thead><tr><th>Window</th><th>Clinical</th><th>Software / ops</th><th>Done looks like</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Days 1–14</strong></td>
+          <td>LOI · MD agreement draft · carrier + healthcare counsel · Illinois NP collaboration as needed</td>
+          <td>Confirm RE GEN formulary v1 you will oversee (GLP-1 first is fine)</td>
+          <td>Signed LOI; no patient marketing changes until you say go</td>
+        </tr>
+        <tr>
+          <td><strong>Days 15–45</strong></td>
+          <td>HG aesthetics coverage model live · RE GEN review queue with SLA (e.g. 1 business day)</td>
+          <td>Train HG desk · pressure-test pharmacy path · quality metrics dashboard</td>
+          <td>You have reviewed real HG charts; we have a written yes/no list</td>
+        </tr>
+        <tr>
+          <td><strong>Day 45</strong></td>
+          <td>Pick spa #1 from your five (med spa only)</td>
+          <td>Brand pack: name, logo, colors, domain, Square, SMS, their Supabase</td>
+          <td>Go / no-go. If no-go, we fix HG. We do not clone a broken machine</td>
+        </tr>
+        <tr>
+          <td><strong>Days 46–90</strong></td>
+          <td>Spa #1 clinical agreement · site NP or your reviews</td>
+          <td>White-label instance · staff training · first test order · first live patient</td>
+          <td>Spa #1 live under their brand</td>
+        </tr>
+        <tr>
+          <td><strong>Days 91–180</strong></td>
+          <td>Spas 2–5 only with your written acceptance each</td>
+          <td>Repeat instance playbook; 2–3 weeks per spa once #1 is a template</td>
+          <td>Network on rails; you are not living in every chair</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>4.3 Spa #1 technical playbook (what we actually do)</h3>
+    <ol class="steps">
+      <li>Create their cloud project (Vercel + Supabase) — their data, not ours.</li>
+      <li>Run our migrations. Set env: their Square, SMS, email, site URL.</li>
+      <li>Brand pack: business name, logo, phone, address — no Hello Gorgeous leakage on patient-facing pages.</li>
+      <li>Create first Owner user. Train one desk person + one clinician on the review queue.</li>
+      <li>Load the formulary you approved (subset is better than the whole catalog).</li>
+      <li>Dry-run: fake patient, fake pay in Square sandbox or $1 test, intake, your review, pharmacy staging.</li>
+      <li>Go live. Pause if charts lag your SLA.</li>
+    </ol>
+
+    <h3>4.4 Guardrails we will not violate</h3>
+    <ul>
+      <li>No fulfillment without an approved clinical path.</li>
+      <li>Illinois patients first unless you expand licenses.</li>
+      <li>Ship-to-patient (or HG pickup) — Danielle does not administer RE GEN meds.</li>
+      <li>Client-facing catalog stays on what we already sell. No gray-market compounds, no retatrutide on the storefront.</li>
+      <li>Consents on file before treatment. Charts retained for audit.</li>
+    </ul>
+
+    <h2 id="ask">5. The ask this week</h2>
+    <div class="call">
+      <p><strong>Yes to Lane 1 + Lane 2 at Hello Gorgeous</strong> (retainer + per-chart, ranges above, counsel to paper it).</p>
+      <p><strong>Yes in principle to Lane 3</strong> — one of your five med spas as spa #1 in 45 days after HG proof. The other four on a 90–180 day calendar, each with your written acceptance.</p>
+      <p><strong>Not asked Thursday:</strong> signing a five-spa software deal, OpenEMR, or equity. Those are later conversations if the charts are clean.</p>
+    </div>
+    <p><strong>Next three documents (attorney):</strong> (1) LOI, (2) Medical Director agreement + RE GEN addendum, (3) white-label term sheet for spa #1 (software only — clinical separate).</p>
+    <p>Live demo in the room: <a href="https://www.hellogorgeousmedspa.com/rx">hellogorgeousmedspa.com/rx</a> · finder · request portal · we can show the admin review queue on a staff login.</p>
+
+    <footer class="doc">
+      Hello Gorgeous Med Spa · 74 W Washington St, Oswego, IL · (630) 636-6193 · hellogorgeousmedspa.com
+      · Medical Director named herein: Dr. Mukesh Arora, MD · On-site NP: Ryan Kent, FNP-BC
+      · This document is a discussion proposal. Figures are illustrative. Final terms require contracts, Illinois licensing, compounding rules, telehealth rules, and malpractice carrier approval. Not legal advice. No outcome guarantees.
+    </footer>
+  </main>
+</body>
+</html>

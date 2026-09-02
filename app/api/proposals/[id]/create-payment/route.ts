@@ -46,6 +46,16 @@ export async function POST(request: NextRequest, context: RouteContext) {
     return NextResponse.json({ error: "Proposal is already paid in full." }, { status: 400 });
   }
 
+  if (proposal.rx_requires_consult) {
+    return NextResponse.json(
+      {
+        error:
+          "Prescription items on this proposal cannot use a Square payment link. Collect on the Terminal in Oswego (swipe, dip, or tap).",
+      },
+      { status: 403 },
+    );
+  }
+
   const options = (proposal.options || []) as ProposalOption[];
   if (!options.length) {
     return NextResponse.json({ error: "Proposal has no options to charge." }, { status: 400 });

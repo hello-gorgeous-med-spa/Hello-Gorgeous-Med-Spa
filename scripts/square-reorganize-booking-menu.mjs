@@ -103,7 +103,7 @@ const MOVE_RULES = [
   { re: /\biv\b|nad\+|myers|drip package|hydration drip/i, cat: "IV Drip Package Deals" },
   { re: /hormone lab|biote|bhrt|hormone therapy|pellet/i, cat: "Bioidentical Hormone Therapy (BHRT)" },
   { re: /trigger point/i, cat: "Trigger Point Injections" },
-  { re: /^consultation$|medical visit with ryan|telehealth|peptide therapy consultation/i, cat: "Medical Consultations" },
+  { re: /^consultation$|medical visit with ryan|wellness physical|physical exam|telehealth|peptide therapy consultation/i, cat: "Medical Consultations" },
   { re: /weight loss consultation/i, cat: "Weight Loss Injections" },
   { re: /model special|vip model/i, cat: "Exclusive Model Specials" },
 

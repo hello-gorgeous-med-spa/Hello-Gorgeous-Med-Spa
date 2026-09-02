@@ -21,10 +21,17 @@ const CARDS = [
     internal: true,
   },
   {
+    href: "/admin/owner/consents/print/microblading_pmu_consent",
+    icon: "✍️",
+    title: "Microblading & brow PMU consent",
+    description: "Full informed consent for the iPad or printer — microblading, nano, powder, ombré, combo. Also assign from /kiosk or /admin/owner/consents.",
+    internal: true,
+  },
+  {
     href: BROW_INTAKE_PATH,
     icon: "📋",
     title: "Brow consultation intake",
-    description: "Client-facing 6-step digital intake — health history, shapes, technique, consent & PDF download.",
+    description: "Client-facing 6-step digital intake — health history, shapes, technique, short consent & PDF download.",
     internal: false,
   },
   {

@@ -14,10 +14,15 @@ import { insertRxPaymentLedger } from "@/lib/rx-payment-ledger";
 import { resolveRxSubmissionContext } from "@/lib/rx-submission-context";
 import { SITE } from "@/lib/seo";
 import { createMembershipCheckoutUrl } from "@/lib/square/membership-checkout";
+import { SQUARE_RX_CNP_BLOCKED, SQUARE_RX_CNP_ERROR } from "@/lib/square-rx-cnp";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
+  if (SQUARE_RX_CNP_BLOCKED) {
+    return NextResponse.json({ error: SQUARE_RX_CNP_ERROR }, { status: 403 });
+  }
+
   let body: {
     reference?: string;
     submissionId?: string;

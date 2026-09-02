@@ -116,7 +116,7 @@ export async function generateMetadata({
           url:
             slug === "ryan"
               ? `${SITE.url}/images/providers/ryan-kent-clinic.jpg`
-              : `${SITE.url}/images/team/danielle.png`,
+              : `${SITE.url}/images/team/danielle-alcala-glazier-portrait.png`,
           width: 1200,
           height: 630,
           alt: `${providerName} at Hello Gorgeous Med Spa`,

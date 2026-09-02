@@ -16,10 +16,15 @@ import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import { resolveRxSubmissionContext } from "@/lib/rx-submission-context";
 import { assertTelehealthRecheckClear } from "@/lib/rx-telehealth/recheck";
 import { SITE } from "@/lib/seo";
+import { SQUARE_RX_CNP_BLOCKED, SQUARE_RX_CNP_ERROR } from "@/lib/square-rx-cnp";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
+  if (SQUARE_RX_CNP_BLOCKED) {
+    return NextResponse.json({ error: SQUARE_RX_CNP_ERROR }, { status: 403 });
+  }
+
   let body: {
     reference?: string;
     submissionId?: string;

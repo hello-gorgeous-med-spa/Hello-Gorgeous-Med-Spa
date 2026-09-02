@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello Gorgeous Med Spa — Downtown Oswego service menu</title>
+  <style>
+    @page { size: letter; margin: 0.38in 0.42in; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Avenir Next", "Segoe UI", Georgia, system-ui, sans-serif;
+      color: #0a0a0a;
+      font-size: 8.6pt;
+      line-height: 1.28;
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .no-print { text-align: center; padding: 12px; background: #FFF0F7; border-bottom: 3px solid #000; }
+    .no-print button {
+      font: inherit;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: #E6007E;
+      color: #fff;
+      border: 3px solid #000;
+      padding: 10px 18px;
+      cursor: pointer;
+    }
+    .sheet { page-break-after: always; }
+    .sheet:last-child { page-break-after: auto; }
+    .kicker {
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-size: 7pt;
+      font-weight: 800;
+      color: #E6007E;
+    }
+    h1 { font-size: 18pt; line-height: 1.02; margin: 2px 0 4px; font-weight: 900; }
+    h2 {
+      font-size: 8pt;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+      margin: 0 0 5px;
+      padding: 5px 7px;
+      background: #0a0a0a;
+      color: #fff;
+    }
+    h2 span { color: #FFB8DC; font-weight: 700; letter-spacing: .04em; text-transform: none; }
+    p { margin: 0 0 5px; }
+    .hero {
+      background: linear-gradient(125deg, #0a0a0a 0%, #2d1020 55%, #0a0a0a 100%);
+      color: #fff;
+      padding: 11px 13px 10px;
+      margin: 0 0 7px;
+      border: 3px solid #000;
+    }
+    .hero .kicker { color: #FFB8DC; }
+    .hero h1 { color: #fff; }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, #FFB8DC, #FF2D8E, #E6007E);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p { color: rgba(255,255,255,.9); margin: 0; font-size: 8.4pt; }
+    .nap {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 7px;
+      font-size: 8pt;
+      font-weight: 700;
+      color: #FFB8DC;
+    }
+    .doors { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 0 0 7px; }
+    .door {
+      border: 2.5px solid #000;
+      padding: 6px 8px;
+      background: #fff;
+      box-shadow: 4px 4px 0 0 rgba(230,0,126,.35);
+    }
+    .door strong { display: block; font-size: 9.5pt; }
+    .door span { color: #444; font-size: 7.8pt; }
+    .now {
+      background: #E6007E;
+      color: #fff;
+      border: 2.5px solid #000;
+      padding: 6px 9px;
+      margin: 0 0 7px;
+      font-weight: 800;
+      font-size: 8.2pt;
+    }
+    .cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; }
+    .box { border: 2.5px solid #000; padding: 6px 7px 7px; background: #fff; }
+    .box.rose { background: linear-gradient(#fff, #FFF0F7); }
+    table { width: 100%; border-collapse: collapse; }
+    td { padding: 1.5px 0; vertical-align: top; border-bottom: 1px solid #ead6df; }
+    td:last-child {
+      text-align: right;
+      font-weight: 800;
+      white-space: nowrap;
+      padding-left: 6px;
+      color: #E6007E;
+    }
+    .note { font-size: 7pt; color: #555; margin: 4px 0 0; }
+    .script {
+      border: 2.5px solid #000;
+      background: #FFF0F7;
+      padding: 8px 10px;
+      margin: 7px 0 0;
+    }
+    .script h3 {
+      margin: 0 0 3px;
+      font-size: 8pt;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #E6007E;
+    }
+    .script p { margin: 0; font-size: 10pt; font-weight: 700; line-height: 1.3; }
+    .foot {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      margin-top: 7px;
+      padding-top: 6px;
+      border-top: 3px solid #000;
+      font-size: 7.6pt;
+    }
+    .qr { text-align: center; font-size: 6.6pt; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .qr img { width: 72px; height: 72px; display: block; margin: 0 auto 3px; border: 2px solid #000; }
+    .bookrow { display: grid; grid-template-columns: 1fr 118px; gap: 8px; align-items: stretch; margin: 7px 0 0; }
+    .qr-card {
+      border: 2.5px solid #000;
+      background: #fff;
+      padding: 6px 5px 5px;
+      text-align: center;
+      box-shadow: 4px 4px 0 0 rgba(230,0,126,.35);
+    }
+    .qr-card img { width: 96px; height: 96px; display: block; margin: 0 auto 4px; border: 2px solid #000; }
+    .qr-card .ql {
+      font-size: 6.4pt;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #E6007E;
+    }
+    .qr-card .qu {
+      font-size: 5.6pt;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-top: 2px;
+      word-break: break-all;
+    }
+    .fine { font-size: 6.6pt; color: #555; line-height: 1.3; margin: 6px 0 0; }
+    .ask {
+      border: 2.5px solid #000;
+      background: #0a0a0a;
+      color: #fff;
+      padding: 8px 10px;
+      margin: 0 0 7px;
+    }
+    .ask strong { color: #FFB8DC; }
+    .two { display: grid; grid-template-columns: 1.4fr .9fr; gap: 7px; }
+    .tight td { padding: 1.2px 0; font-size: 7.8pt; }
+    .subhead {
+      font-size: 7.2pt;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #E6007E;
+      margin: 5px 0 2px;
+    }
+    ul { margin: 2px 0 0; padding-left: 1.1em; }
+    li { margin: 0 0 2px; }
+    .mini {
+      margin-top: 6px;
+      padding-top: 5px;
+      border-top: 2px solid #000;
+      font-size: 7.4pt;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .mini img { width: 52px; height: 52px; border: 2px solid #000; flex-shrink: 0; }
+    .team { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; margin-top: 7px; }
+    .tcard { border: 2.5px solid #000; overflow: hidden; background: #fff; }
+    .tcard img {
+      width: 100%; height: 162px; object-fit: cover;
+      display: block; border-bottom: 2.5px solid #000;
+    }
+    .tcard img.photo-dani { object-position: 50% 14%; }
+    .tcard img.photo-arora { object-position: 50% 8%; }
+    .tcard img.photo-ryan { object-position: 30% 22%; }
+    .tcard .meta { padding: 5px 7px 6px; }
+    .tcard .badge { font-size: 6pt; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #E6007E; }
+    .tcard strong { display: block; font-size: 8.4pt; line-height: 1.15; margin: 1px 0; }
+    .tcard .role { font-size: 7pt; color: #E6007E; font-weight: 700; }
+    .tcard .det { font-size: 6.4pt; color: #555; }
+    .collage { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-top: 7px; }
+    .collage figure { margin: 0; border: 2.5px solid #000; overflow: hidden; background: #fff; }
+    .collage img { width: 100%; height: 62px; object-fit: cover; object-position: 50% 40%; display: block; }
+    .collage figcaption {
+      font-size: 6.4pt; font-weight: 800; padding: 3px 5px; text-align: center;
+      background: #FFF0F7; letter-spacing: .04em; text-transform: uppercase;
+    }
+    @media print { .no-print { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="no-print">
+    <button type="button" onclick="window.print()">Print / Save PDF</button>
+    &nbsp; Four letter pages · print double-sided (two sheets)
+  </div>
+
+  <section class="sheet">
+    <header class="hero">
+      <div class="kicker">Downtown Oswego · Ambassador &amp; business menu · 4 pages · August 2026</div>
+      <h1>Hello Gorgeous Med Spa — <em>everything we do on Washington Street.</em></h1>
+      <p>Family-owned since 2017. NP on site. Medical Director Dr. Mukesh Arora, MD. Best of Oswego — #1 Med Spa. 4.6★ Google.</p>
+      <div class="nap">
+        <span>74 W. Washington St, Oswego, IL 60543</span>
+        <span>(630) 636-6193</span>
+        <span>hellogorgeousmedspa.com</span>
+        <span>Book: hello-gorgeous-med-spa-rx.square.site</span>
+      </div>
+    </header>
+
+    <div class="doors">
+      <div class="door">
+        <strong>Med Spa door</strong>
+        <span>Botox, fillers, lasers, facials, brows, lashes — book a free consult.</span>
+      </div>
+      <div class="door">
+        <strong>Hello Gorgeous RX door</strong>
+        <span>Weight loss, hormones, peptides, IV — Ryan Kent, FNP-BC reviews every chart.</span>
+      </div>
+    </div>
+
+    <div class="now">
+      Right now: Xeomin $12/unit · Full-set lashes $89 · HydraFacial Glow $129 · FlowWave first session $49 · New-client IV $99 · New-client vitamin shot free
+      <span style="display:block; font-weight:700; margin-top:2px; opacity:.92;">Pages 3–4 name every facial, IV drip, peptide, and vitamin shot.</span>
+    </div>
+
+    <div class="cols">
+      <div class="box rose">
+        <h2>Injectables <span>all 5 toxins</span></h2>
+        <table>
+          <tr><td>Botox</td><td>$10/unit</td></tr>
+          <tr><td>Jeuveau</td><td>$11/unit</td></tr>
+          <tr><td>Xeomin — now available</td><td>$12/unit</td></tr>
+          <tr><td>Dysport</td><td>$14/unit</td></tr>
+          <tr><td>Daxxify (up to 6 months)</td><td>Consult</td></tr>
+          <tr><td>Lip flip</td><td>From $99</td></tr>
+          <tr><td>Half syringe filler</td><td>$300</td></tr>
+          <tr><td>1 syringe filler / lips</td><td>$599</td></tr>
+          <tr><td>2-syringe package</td><td>$1,098</td></tr>
+          <tr><td>Sculptra · Radiesse · Kybella</td><td>Consult</td></tr>
+          <tr><td>Glass Glow Facial</td><td>$349</td></tr>
+        </table>
+        <p class="note">Units mapped at visit. Glow members save $1/unit on every toxin. Allē rewards on Botox &amp; Juvederm.</p>
+      </div>
+
+      <div class="box">
+        <h2>Devices <span>InMode Trifecta</span></h2>
+        <table>
+          <tr><td>Morpheus8 Burst — face</td><td>From $799</td></tr>
+          <tr><td>Morpheus8 3-session package</td><td>$1,999</td></tr>
+          <tr><td>Solaria CO₂ — face</td><td>$899</td></tr>
+          <tr><td>Quantum RF — neck</td><td>$2,499</td></tr>
+          <tr><td>Quantum RF — abdomen</td><td>$3,999</td></tr>
+          <tr><td>VIP Trifecta (all 3)</td><td>Consult</td></tr>
+          <tr><td>Microneedling + HA</td><td>$249</td></tr>
+          <tr><td>Microneedling + growth factors</td><td>$399</td></tr>
+          <tr><td>Baby Tox Luxe / exosomes</td><td>$499</td></tr>
+          <tr><td>PRP Vampire Facial</td><td>$400</td></tr>
+          <tr><td>Microneedling + PRP</td><td>$500</td></tr>
+        </table>
+        <p class="note">Only med spa in Oswego, Naperville &amp; Aurora with all 3 advanced InMode devices. Free consult. Cherry financing.</p>
+      </div>
+
+      <div class="box rose">
+        <h2>Face, hair, body</h2>
+        <table>
+          <tr><td>Signature Facial</td><td>$99</td></tr>
+          <tr><td>HydraFacial Glow Special</td><td>$129</td></tr>
+          <tr><td>The Trifecta facial</td><td>$199</td></tr>
+          <tr><td>Dermaplaning</td><td>From $75</td></tr>
+          <tr><td>Chemical peel</td><td>From $99</td></tr>
+          <tr><td>IPL photofacial</td><td>$129</td></tr>
+          <tr><td>IPL package of 3</td><td>$300</td></tr>
+          <tr><td>Microblading</td><td>$450</td></tr>
+          <tr><td>Combo brows</td><td>$550</td></tr>
+          <tr><td>Full-set lashes</td><td>$89</td></tr>
+          <tr><td>Laser hair — listed areas</td><td>By area</td></tr>
+          <tr><td>FlowWave shockwave (first)</td><td>$49</td></tr>
+        </table>
+        <p class="note">Current laser &amp; lash specials change — send them to hellogorgeousmedspa.com/specials or have them call.</p>
+      </div>
+    </div>
+
+    <div class="bookrow">
+      <div class="script" style="margin:0;">
+        <h3>What to say at your desk</h3>
+        <p>“Hello Gorgeous is on Washington Street — 74 West. Tell them we sent you. They’ll book you. Botox, weight loss, facials, the whole menu.”</p>
+        <p class="note" style="margin-top:5px;"><strong>Hours:</strong> Mon–Fri 10–8 · Sat 10–5 · Sun by appointment</p>
+      </div>
+      <div class="qr-card">
+        <img src="Downtown-Oswego-QR-square-book.png" alt="Scan to book on Square" />
+        <div class="ql">Scan to book</div>
+        <div class="qu">hello-gorgeous-med-spa-rx.square.site</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <header class="hero">
+      <div class="kicker">Page 2 · Hello Gorgeous RX + how to send someone</div>
+      <h1>Medical programs, IVs, memberships — <em>same building.</em></h1>
+      <p>Ryan Kent, FNP-BC (full Illinois prescriptive authority) · Medical Director Dr. Mukesh Arora, MD · Nothing ships until Ryan approves.</p>
+    </header>
+
+    <div class="cols">
+      <div class="box rose">
+        <h2>Weight loss &amp; RX</h2>
+        <table>
+          <tr><td>NP consult (credited to first month)</td><td>$49</td></tr>
+          <tr><td>Semaglutide</td><td>From $195/mo</td></tr>
+          <tr><td>Tirzepatide</td><td>From $235/mo</td></tr>
+          <tr><td>10-week tirzepatide program</td><td>$600</td></tr>
+          <tr><td>Peptide protocols</td><td>From $149/mo</td></tr>
+          <tr><td>Hormone therapy (women &amp; men)</td><td>After labs</td></tr>
+          <tr><td>Cash-pay labs / in-house draws</td><td>Quoted</td></tr>
+        </table>
+        <p class="note">Medication included at each GLP-1 dose tier after NP evaluation. Compounded meds are not FDA-approved for every use described. No pellets.</p>
+      </div>
+
+      <div class="box">
+        <h2>IV &amp; Vitamin Bar</h2>
+        <table>
+          <tr><td>Vitamin shots (B12, Lipo-C, biotin…)</td><td>$25</td></tr>
+          <tr><td>New-client vitamin shot</td><td>Free</td></tr>
+          <tr><td>NAD+ injection</td><td>$40</td></tr>
+          <tr><td>New-client signature IV</td><td>$99</td></tr>
+          <tr><td>Signature drips</td><td>From $150</td></tr>
+          <tr><td>Myers Cocktail</td><td>$150</td></tr>
+          <tr><td>Beauty / Glow drip</td><td>$175</td></tr>
+          <tr><td>NAD+ IV</td><td>From $350</td></tr>
+          <tr><td>Build-your-bag base</td><td>$89</td></tr>
+        </table>
+        <p class="note">Pull up for shots. Drips ~45 min. NP-supervised. Drive-thru Vitamin Bar on Washington.</p>
+      </div>
+
+      <div class="box rose">
+        <h2>Memberships</h2>
+        <table>
+          <tr><td>Glow</td><td>$79/mo</td></tr>
+          <tr><td>Luxe</td><td>$149/mo</td></tr>
+          <tr><td>Platinum</td><td>$249/mo</td></tr>
+        </table>
+        <p class="note">Glow: 1 vitamin shot/month + $1/unit off all toxins + 10% retail. Luxe: $2/unit off + monthly HydraFacial or dermaplaning + 15% services. Platinum: $3/unit off + monthly IV or advanced facial + 20% off.</p>
+        <p class="note" style="margin-top:6px;"><strong>Ladies &amp; Gentlemen’s Clubs</strong> — hormone / peptide tracks. Ask at the desk.</p>
+      </div>
+    </div>
+
+    <div class="two" style="margin-top:7px;">
+      <div class="ask">
+        <strong>For ambassadors &amp; downtown businesses</strong>
+        <p style="margin:4px 0 0; font-size:9pt; font-weight:700;">Keep a stack at the register. Send people to us. We do the consult, the chart, and the follow-up. You keep doing what you do. Same-day is often available — have them call before noon: (630) 636-6193.</p>
+        <ul style="margin-top:6px; color:#fff; font-weight:600;">
+          <li>Tell them your business name so we can thank you</li>
+          <li>They scan the Square QR, book at hello-gorgeous-med-spa-rx.square.site, or walk in</li>
+          <li>Prescription care is ours — you are not the clinic</li>
+        </ul>
+      </div>
+      <div class="script" style="margin:0;">
+        <h3>Who we are</h3>
+        <p style="font-size:9pt;">Meet the three people behind every chart — owner in clinic daily, physician Medical Director, NP on site six days.</p>
+      </div>
+    </div>
+
+    <div class="team">
+      <article class="tcard">
+        <img class="photo-dani" src="assets/danielle.png" alt="Danielle Alcala-Glazier, Owner and Founder" />
+        <div class="meta">
+          <div class="badge">Owner · in clinic daily</div>
+          <strong>Danielle Alcala-Glazier</strong>
+          <div class="role">Owner &amp; Founder · Practice leadership</div>
+          <div class="det">RN-S · CNA · CMAA · Phlebotomist · Esthetician</div>
+        </div>
+      </article>
+      <article class="tcard">
+        <img class="photo-arora" src="assets/dr-arora.jpg" alt="Dr. Mukesh Arora, MD, Medical Director" />
+        <div class="meta">
+          <div class="badge">Medical Director</div>
+          <strong>Dr. Mukesh Arora, MD</strong>
+          <div class="role">Medical Director · Internal Medicine</div>
+          <div class="det">30+ years · physician Medical Director for Hello Gorgeous</div>
+        </div>
+      </article>
+      <article class="tcard">
+        <img class="photo-ryan" src="assets/ryan-kent.jpg" alt="Ryan Kent, FNP-BC, on-site nurse practitioner" />
+        <div class="meta">
+          <div class="badge">On site 6 days</div>
+          <strong>Ryan Kent, FNP-BC</strong>
+          <div class="role">On-Site Nurse Practitioner · FNP-BC</div>
+          <div class="det">Full Illinois prescriptive authority · on site six days a week</div>
+        </div>
+      </article>
+    </div>
+
+    <div class="foot">
+      <div>
+        <strong>Hello Gorgeous Med Spa</strong><br />
+        74 W. Washington Street, Oswego, IL 60543<br />
+        (630) 636-6193 · hellogorgeousmedspa.com<br />
+        Book: hello-gorgeous-med-spa-rx.square.site
+      </div>
+      <div class="qr">
+        <img src="Downtown-Oswego-QR-square-book.png" alt="Square book QR" />
+        Square Book
+      </div>
+      <div class="qr">
+        <img src="Downtown-Oswego-QR-site.png" alt="Website QR" />
+        Website
+      </div>
+    </div>
+    <p class="fine">
+      Prices as of August 2026 from the published Hello Gorgeous menus. Custom plans, series, membership, and dose are quoted at visit. No outcome guarantees. Neurotoxin units are not interchangeable across brands. Prescription products require NP evaluation and are not billed to insurance. Current specials: hellogorgeousmedspa.com/specials. Not a medical diagnosis. Hand this out — it is a public menu, not a confidential partner sheet. Full named menus continue on pages 3–4.
+    </p>
+  </section>
+
+  <section class="sheet">
+    <header class="hero">
+      <div class="kicker">Page 3 · Every facial · every IV drip</div>
+      <h1>Named menus — <em>facials, peels, IVs.</em></h1>
+      <p>If they ask “what’s on the menu?” — this is the list. Scan the Square QR, or call (630) 636-6193.</p>
+    </header>
+
+    <div class="cols">
+      <div class="box rose">
+        <h2>Signature facials</h2>
+        <table class="tight">
+          <tr><td>Signature Facial · 1 hr</td><td>$99</td></tr>
+          <tr><td>The Calm Restore · 45 min</td><td>$89</td></tr>
+          <tr><td>The Clarity Protocol · 50 min</td><td>$99</td></tr>
+          <tr><td>The Collagen Reset · 75 min</td><td>$189</td></tr>
+          <tr><td>The Gorgeous Glow · 1 hr</td><td>$129</td></tr>
+          <tr><td>The Luminous Reveal · 1 hr</td><td>$139</td></tr>
+          <tr><td>The Poreless Polish · 55 min</td><td>$119</td></tr>
+        </table>
+        <p class="subhead">HydraFacial</p>
+        <table class="tight">
+          <tr><td>HydraFacial Glow Special</td><td>$129</td></tr>
+          <tr><td>HydraFacial Glow-Up + free dermaplane</td><td>$99</td></tr>
+          <tr><td>Hydra Peel Facial</td><td>$75</td></tr>
+          <tr><td>2-in-1 Hydra Pen + HydraFacial</td><td>$169</td></tr>
+        </table>
+        <p class="subhead">Dermaplaning</p>
+        <table class="tight">
+          <tr><td>Dermaplaning Facial</td><td>$75</td></tr>
+          <tr><td>Dermaplaning standalone</td><td>From $89</td></tr>
+          <tr><td>Mini facial</td><td>$100</td></tr>
+          <tr><td>Add dermaplane to HydraFacial</td><td>$40–$60</td></tr>
+        </table>
+      </div>
+
+      <div class="box">
+        <h2>Peels, IPL &amp; combos</h2>
+        <table class="tight">
+          <tr><td>The Trifecta (Hydra + derma + O₂ + MN)</td><td>$199</td></tr>
+          <tr><td>Trifecta + AnteAGE Exosomes</td><td>+$149</td></tr>
+          <tr><td>Trifecta + Baby Botox Glow (topical)</td><td>+$149</td></tr>
+          <tr><td>Glass Glow Facial</td><td>$349</td></tr>
+          <tr><td>Light chemical peel</td><td>From $99</td></tr>
+          <tr><td>Medium chemical peel</td><td>From $189</td></tr>
+          <tr><td>Dermalogica peel facial</td><td>$80</td></tr>
+          <tr><td>SkinCeuticals peel</td><td>$125</td></tr>
+          <tr><td>VI Peel (single / package of 3)</td><td>Consult</td></tr>
+          <tr><td>IPL photofacial</td><td>$129</td></tr>
+          <tr><td>IPL package of 3</td><td>$300</td></tr>
+          <tr><td>IPL package of 6</td><td>$550</td></tr>
+        </table>
+        <p class="subhead">Medical-relief IVs (quoted at visit)</p>
+        <table class="tight">
+          <tr><td>Nausea Rescue</td><td>Consult</td></tr>
+          <tr><td>Migraine Relief</td><td>Consult</td></tr>
+          <tr><td>Cold &amp; Flu Rescue</td><td>Consult</td></tr>
+          <tr><td>Hangover / Rehydrate</td><td>Consult</td></tr>
+          <tr><td>Food Poisoning Rescue</td><td>Consult</td></tr>
+          <tr><td>Iron Infusion (labs required)</td><td>Consult</td></tr>
+          <tr><td>Post-Op Recovery</td><td>Consult</td></tr>
+        </table>
+        <p class="note">New-client signature drip $99. Drips ~45 min. NP on site.</p>
+      </div>
+
+      <div class="box rose">
+        <h2>Every IV drip</h2>
+        <table class="tight">
+          <tr><td>Dehydration (Quench)</td><td>$150</td></tr>
+          <tr><td>Energy Boost (Get Up &amp; Go)</td><td>$150</td></tr>
+          <tr><td>Immune Boost</td><td>$150</td></tr>
+          <tr><td>Myers Cocktail</td><td>$150</td></tr>
+          <tr><td>Headache Relief (Alleviate)</td><td>$150</td></tr>
+          <tr><td>Tri-Immune Boost</td><td>$150</td></tr>
+          <tr><td>Hangover (Reboot)</td><td>$165</td></tr>
+          <tr><td>Mental Clarity (Brainstorm)</td><td>$165</td></tr>
+          <tr><td>Recovery &amp; Performance</td><td>$175</td></tr>
+          <tr><td>Beauty (Snow Bright)</td><td>$175</td></tr>
+          <tr><td>Inner Beauty</td><td>$175</td></tr>
+          <tr><td>NAD+ IV (500 mg)</td><td>$350</td></tr>
+          <tr><td>NAD+ Boost IV</td><td>Consult</td></tr>
+          <tr><td>Niagen IV</td><td>Consult</td></tr>
+          <tr><td>Niagen Boost IV</td><td>Consult</td></tr>
+          <tr><td>Iron IV</td><td>Consult</td></tr>
+          <tr><td>Build-your-bag base</td><td>$89</td></tr>
+        </table>
+        <p class="subhead">IV add-ons +$25 · Rx add-ons +$30</p>
+        <p class="note">Glutathione · B12 · Biotin · Vitamin C · NAD+ · Amino · extra fluids · Magnesium · CoQ10. Rx: Toradol · Zofran · Pepcid · Benadryl.</p>
+      </div>
+    </div>
+    <div class="mini">
+      <span>Hello Gorgeous · 74 W. Washington St, Oswego · (630) 636-6193<br />Book: hello-gorgeous-med-spa-rx.square.site</span>
+      <img src="Downtown-Oswego-QR-square-book.png" alt="Scan to book" />
+      <span>Page 3 of 4</span>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <header class="hero">
+      <div class="kicker">Page 4 · Published RX protocols · vitamin shots · GLP-1 doses</div>
+      <h1>Named menus — <em>RX, shots, dose tiers.</em></h1>
+      <p>$49 NP consult. Nothing ships until Ryan Kent, FNP-BC approves. 3-month peptide prepay saves 10%.</p>
+    </header>
+
+    <div class="cols">
+      <div class="box rose">
+        <h2>Peptides with published from-price</h2>
+        <table class="tight">
+          <tr><td>BPC-157 oral capsules</td><td>From $115/mo</td></tr>
+          <tr><td>Sermorelin injectable</td><td>From $149/mo</td></tr>
+          <tr><td>Sermorelin troche</td><td>From $160/mo</td></tr>
+          <tr><td>BPC-157 injectable</td><td>From $169/mo</td></tr>
+          <tr><td>TB-500</td><td>From $169/mo</td></tr>
+          <tr><td>GHK-Cu</td><td>From $169/mo</td></tr>
+          <tr><td>NAD+ injectable protocol</td><td>From $169/mo</td></tr>
+          <tr><td>PT-141</td><td>From $209/mo</td></tr>
+          <tr><td>Tesamorelin</td><td>From $229/mo</td></tr>
+          <tr><td>Recovery Blend</td><td>From $229/mo</td></tr>
+          <tr><td>HEAL Blend</td><td>From $229/mo</td></tr>
+          <tr><td>CJC-1295</td><td>From $249/mo</td></tr>
+          <tr><td>Ipamorelin</td><td>From $249/mo</td></tr>
+          <tr><td>CJC-1295 / Ipamorelin blend</td><td>From $249/mo</td></tr>
+          <tr><td>NAD+ &amp; Sermorelin bundle</td><td>From $350/mo</td></tr>
+          <tr><td>NAD+ liquid + Sermorelin RDT</td><td>From $350/mo</td></tr>
+        </table>
+        <p class="note">From-price = common protocol after NP evaluation. Labs, shipping (~$35), and stacks quoted separately.</p>
+      </div>
+
+      <div class="box">
+        <h2>How Hello Gorgeous RX works</h2>
+        <p class="note" style="margin:0 0 8px;">GLP-1 and peptide care is medical — not a shopping list. Ryan Kent, FNP-BC writes the plan. Dr. Mukesh Arora, MD is Medical Director. We only print protocols on our published menu.</p>
+        <table class="tight">
+          <tr><td>NP consult</td><td>$49</td></tr>
+          <tr><td>Credited if you start a program</td><td>Yes</td></tr>
+          <tr><td>3-month peptide prepay</td><td>Save 10%</td></tr>
+          <tr><td>Pharmacy shipping (typical)</td><td>~$35</td></tr>
+          <tr><td>Hormone therapy</td><td>Quoted after labs</td></tr>
+          <tr><td>Pellets</td><td>We do not insert</td></tr>
+        </table>
+        <p class="note">Dose, form, and whether a protocol is appropriate are decided with the client in clinic. Nothing ships until the chart is reviewed. Educational overview only — not a diagnosis.</p>
+      </div>
+
+      <div class="box rose">
+        <h2>Vitamin Bar shots</h2>
+        <table class="tight">
+          <tr><td>B12 (Methylcobalamin)</td><td>$25</td></tr>
+          <tr><td>New-client shot (one)</td><td>Free</td></tr>
+          <tr><td>Biotin · Taurine · B-Complex</td><td>$30</td></tr>
+          <tr><td>Skinny Shot (Lipo-B + B12)</td><td>$35</td></tr>
+          <tr><td>MIC / Lipo</td><td>$35</td></tr>
+          <tr><td>Vitamin C</td><td>$35</td></tr>
+          <tr><td>Vitamin D3</td><td>$35</td></tr>
+          <tr><td>Zofran (Rx)</td><td>$35</td></tr>
+          <tr><td>NAD+ injection</td><td>$40</td></tr>
+          <tr><td>Amino Blend</td><td>$40</td></tr>
+          <tr><td>Glutathione</td><td>$45</td></tr>
+          <tr><td>Tri-Immune Boost</td><td>$50</td></tr>
+        </table>
+        <p class="subhead">Shot memberships</p>
+        <table class="tight">
+          <tr><td>Glow Pass · 2 shots/mo</td><td>$49/mo</td></tr>
+          <tr><td>Energy Unlimited · 4 shots/mo</td><td>$89/mo</td></tr>
+          <tr><td>VIP Wellness · weekly + NAD/glut</td><td>$149/mo</td></tr>
+        </table>
+        <p class="subhead">GLP-1 monthly (med included)</p>
+        <table class="tight">
+          <tr><td>Sema 0.25–0.5 · 1.0 · 1.7 · 2.4 mg</td><td>$195–$295</td></tr>
+          <tr><td>Tirz 2.5 · 5 · 7.5 · 10 · 12.5 mg</td><td>$235–$395</td></tr>
+          <tr><td>10-week tirzepatide program</td><td>$600</td></tr>
+          <tr><td>Insurance oversight (your pharmacy)</td><td>$150/mo</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="mini">
+      <span style="font-weight:600; font-size:6.6pt; color:#555;">
+        Compounded GLP-1 and peptide products are not FDA-approved drug products for every use described. Units, vials, and dose are mapped after evaluation. Hormone therapy quoted after labs — we do not insert pellets. Hello Gorgeous Med Spa · 74 W. Washington St, Oswego, IL 60543 · (630) 636-6193 · hellogorgeousmedspa.com · Book: hello-gorgeous-med-spa-rx.square.site
+      </span>
+      <img src="Downtown-Oswego-QR-square-book.png" alt="Scan to book" />
+      <span>Page 4 of 4</span>
+    </div>
+  </section>
+</body>
+</html>

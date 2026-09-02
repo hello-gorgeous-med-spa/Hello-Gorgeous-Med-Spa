@@ -5,7 +5,7 @@ import { SITE } from "@/lib/seo";
 
 /** Code-controlled provider images. Override DB values so you never need to run migrations for headshot changes. */
 export const PROVIDER_HEADSHOT_OVERRIDES: Record<string, string> = {
-  danielle: "/images/team/danielle.png",
+  danielle: "/images/team/danielle-alcala-glazier-portrait.png",
   ryan: "/images/providers/ryan-kent-clinic.jpg",
 };
 
@@ -72,7 +72,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
       "Licensed Esthetician and founder of Hello Gorgeous Med Spa in Oswego, IL — 10+ years serving Naperville, Aurora, Plainfield, and the Fox Valley.",
     philosophy:
       "Your money should buy results you can see in the mirror — honest recommendations, personalized plans, and providers who remember your name, your skin history, and what actually worked for you last time.",
-    headshot_url: "/images/team/danielle.png",
+    headshot_url: "/images/team/danielle-alcala-glazier-portrait.png",
     hero_image_url: `${SITE.url}/images/gallery/treatment-1.png`,
     intro_video_url: "/videos/providers/danielle/intro-clip.mp4",
     booking_url: PROVIDER_BOOKING_URL_DANIELLE,
@@ -107,7 +107,7 @@ export const PROVIDER_MEDIA_FALLBACK: Record<string, ProviderMediaFallback[]> = 
       title: "Lip Filler Technique Explained",
       description: "Watch Danielle demonstrate her signature lip enhancement technique for natural, balanced results.",
       video_url: "/videos/providers/danielle/intro-clip.mp4",
-      thumbnail_url: "/images/team/danielle.png",
+      thumbnail_url: "/images/team/danielle-alcala-glazier-portrait.png",
       duration_seconds: 45,
       featured: true,
     },
@@ -119,7 +119,7 @@ export const PROVIDER_MEDIA_FALLBACK: Record<string, ProviderMediaFallback[]> = 
       title: "Treatment Day Walk-Through",
       description: "What to expect during your visit - from consultation to aftercare instructions.",
       video_url: "/videos/providers/danielle/treatment-demo.mov",
-      thumbnail_url: "/images/team/danielle.png",
+      thumbnail_url: "/images/team/danielle-alcala-glazier-portrait.png",
       duration_seconds: 60,
       featured: false,
     },
@@ -131,7 +131,7 @@ export const PROVIDER_MEDIA_FALLBACK: Record<string, ProviderMediaFallback[]> = 
       title: "Behind the Scenes at Hello Gorgeous",
       description: "Take a peek inside our studio and see how we create a premium, comfortable experience.",
       video_url: "/videos/providers/danielle/behind-scenes.mov",
-      thumbnail_url: "/images/team/danielle.png",
+      thumbnail_url: "/images/team/danielle-alcala-glazier-portrait.png",
       duration_seconds: 90,
       featured: false,
     },

@@ -13,6 +13,7 @@ import {
 } from "@/components/rx/intake/RxPostSubmitHeader";
 import { RxSecureMessages } from "@/components/rx/RxSecureMessages";
 import { RxPatientStatusCard } from "@/components/rx/RxPatientStatusCard";
+import { RxInPersonPayPanel } from "@/components/rx/RxInPersonPayPanel";
 import {
   HG_RX_TELEHEALTH_BOOKING_LABEL,
   HG_RX_TELEHEALTH_BOOKING_URL,
@@ -28,8 +29,6 @@ import {
   markGlp1RefillPaid,
   readPendingGlp1RefillSuccess,
   savePendingGlp1RefillSuccess,
-  startGlp1RefillAutopay,
-  startGlp1RefillCheckout,
 } from "@/lib/glp1-refill-pay";
 import {
   GLP1_REFILL_DISQUALIFIED_MESSAGE,
@@ -246,8 +245,6 @@ export function Glp1RefillForm() {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
-  const [payBusy, setPayBusy] = useState(false);
-  const [autopayBusy, setAutopayBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [result, setResult] = useState<SubmitResult | null>(null);
 
@@ -349,48 +346,6 @@ export function Glp1RefillForm() {
     setErr(null);
     setErrors({});
     setStep((s) => Math.max(s - 1, 0));
-  }
-
-  async function payRefill(
-    reference: string,
-    templateId: string,
-    priceUsd?: number,
-    submissionId?: string,
-    supplyCycle?: string,
-  ) {
-    setPayBusy(true);
-    setErr(null);
-    const outcome = await startGlp1RefillCheckout({
-      reference,
-      submissionId,
-      templateId,
-      amountUsd: priceUsd,
-      supplyCycle,
-    });
-    if (outcome.error) setErr(outcome.error);
-    setPayBusy(false);
-  }
-
-  async function setupAutopay(
-    reference: string,
-    templateId: string,
-    priceUsd?: number,
-    lineLabel?: string,
-    submissionId?: string,
-    supplyCycle?: string,
-  ) {
-    setAutopayBusy(true);
-    setErr(null);
-    const outcome = await startGlp1RefillAutopay({
-      reference,
-      submissionId,
-      templateId,
-      amountUsd: priceUsd,
-      lineLabel,
-      supplyCycle,
-    });
-    if (outcome.error) setErr(outcome.error);
-    setAutopayBusy(false);
   }
 
   async function submit(e: React.FormEvent) {
@@ -527,7 +482,7 @@ export function Glp1RefillForm() {
         ]
       : [
           { label: "Refill request submitted", status: "complete" },
-          { label: "Pay your invoice (medication + shipping)", status: "current" },
+          { label: "Pay at the spa Terminal (tap / dip / swipe)", status: "current" },
           { label: "Clinical review by Ryan Kent, FNP-BC", status: "upcoming" },
           { label: "Cold-chain home delivery", status: "upcoming" },
         ];
@@ -540,7 +495,7 @@ export function Glp1RefillForm() {
         intro={
           <>
             {!refillPaid
-              ? " Pay now — our team reviews your request after payment. Medication is not shipped until clinically approved."
+              ? " Next: pay at Hello Gorgeous in Oswego on the Terminal. Our team reviews after payment. Medication is not shipped until clinically approved."
               : " Our clinical team will review and ship after approval (typically within one business day)."}
             {String(formData.ship_to_home || "").startsWith("Yes")
               ? " Cold-chain delivery to your home address."
@@ -601,47 +556,7 @@ export function Glp1RefillForm() {
 
         <div className="mt-6 mx-auto max-w-sm space-y-3 text-left">
           {canPay && !refillPaid && (
-            <button
-              type="button"
-              disabled={payBusy || autopayBusy}
-              onClick={() =>
-                payRefill(
-                  result.reference,
-                  result.invoiceTemplateId!,
-                  result.priceUsd,
-                  result.submissionId,
-                  result.supplyCycle,
-                )
-              }
-              className="flex w-full items-center justify-between rounded-xl bg-[#E6007E] px-4 py-3.5 text-sm font-bold text-white hover:bg-black transition-colors disabled:opacity-60 shadow-[4px_4px_0_0_rgba(0,0,0,0.2)]"
-            >
-              <span>{payBusy ? "Starting checkout…" : `Pay now — ${payAmountLabel}`}</span>
-              <span aria-hidden="true">→</span>
-            </button>
-          )}
-          {canPay && !refillPaid && !is90Day && (
-            <button
-              type="button"
-              disabled={payBusy || autopayBusy}
-              onClick={() =>
-                setupAutopay(
-                  result.reference,
-                  result.invoiceTemplateId!,
-                  result.priceUsd,
-                  result.lineLabel,
-                  result.submissionId,
-                  result.supplyCycle,
-                )
-              }
-              className="flex w-full items-center justify-between rounded-xl border-2 border-[#E6007E] bg-white px-4 py-3.5 text-sm font-bold text-[#E6007E] hover:bg-[#FFF0F7] transition-colors disabled:opacity-60"
-            >
-              <span>
-                {autopayBusy
-                  ? "Starting auto-pay…"
-                  : `3-month auto-pay — ${result.priceLabel} (no telehealth for this cycle)`}
-              </span>
-              <span aria-hidden="true">↻</span>
-            </button>
+            <RxInPersonPayPanel amountLabel={payAmountLabel} kind="medication" />
           )}
           <a
             href={GLP1_SUBCUTANEOUS_INJECTION_GUIDE_URL}
@@ -661,26 +576,10 @@ export function Glp1RefillForm() {
             <span>{glp1PatientGuideLabel(medication)}</span>
             <span aria-hidden="true">↓</span>
           </a>
-          {result.addon && (
-            <button
-              type="button"
-              disabled={payBusy || autopayBusy}
-              onClick={() =>
-                payRefill(
-                  result.reference,
-                  result.addon!.invoiceTemplateId,
-                  result.addon!.monthlyUsd,
-                )
-              }
-              className="flex w-full items-center justify-between rounded-xl border-2 border-black bg-white px-4 py-3.5 text-sm font-bold text-green-900 hover:border-[#E6007E] transition-colors disabled:opacity-60"
-            >
-              <span>
-                {payBusy
-                  ? "Starting checkout…"
-                  : `Pay add-on — ${formatAddonPriceLabel(result.addon.monthlyUsd)} (${result.addon.shortLabel})`}
-              </span>
-              <span aria-hidden="true">→</span>
-            </button>
+          {result.addon && !refillPaid && (
+            <p className="text-xs text-black/70 px-1">
+              Add-on ({result.addon.shortLabel}) is included when you pay at the desk.
+            </p>
           )}
           {result.addon &&
             peptidePatientPdfsForAddon(result.addon.id).map((pdf) => (

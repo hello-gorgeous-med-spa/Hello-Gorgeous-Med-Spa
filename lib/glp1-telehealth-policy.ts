@@ -10,13 +10,13 @@ import { parseRxSupplyCycle, type RxSupplyCycleId } from "@/lib/rx-supply-cycle"
 export const GLP1_REORDER_TELEHEALTH_FEE_USD = PROGRAM_CONSULT_FEE_USD;
 
 export const GLP1_PAYMENT_FIRST_FINE_PRINT =
-  "Payment is collected at checkout. We will reach out via email and text if a telehealth appointment is required before we ship your medication.";
+  "Prescription payments are collected in person on the Terminal at Hello Gorgeous in Oswego (tap, dip, or swipe). We will reach out via email and text if a telehealth appointment is required before we ship your medication.";
 
 export const GLP1_SUPPLY_CYCLE_TELEHEALTH_COPY = {
   "90-day":
     "90-day supply — prepay 3 months + one shipping fee. No telehealth required for this order.",
   "30-day":
-    "30-day supply — pay monthly. Set up 3-month auto-pay after checkout to skip telehealth for this cycle.",
+    "30-day supply — pay monthly in person on the Terminal. Telehealth rules still apply to your cycle.",
 } as const;
 
 export const GLP1_REORDER_TELEHEALTH_COPY = `After your 90-day supply or 3-month monthly program, a $${GLP1_REORDER_TELEHEALTH_FEE_USD} telehealth check-in with Ryan is required before your next reorder.`;

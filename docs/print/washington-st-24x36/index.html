@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Washington Street 24×36 — Hello Gorgeous × Quick Signs</title>
+  <style>
+    body { margin: 0; font-family: "Avenir Next", "Helvetica Neue", sans-serif; color: #111; background: #FAF7F4; }
+    .wrap { max-width: 820px; margin: 0 auto; padding: 28px 22px 60px; }
+    h1 { font-size: 28px; margin: 0 0 8px; }
+    h2 { font-size: 15px; letter-spacing: .08em; text-transform: uppercase; color: #E6007E; border-bottom: 3px solid #000; padding-bottom: 4px; margin: 28px 0 10px; }
+    p, li { font-size: 15px; line-height: 1.5; }
+    .ask { background: #0a0a0a; color: #fff; padding: 16px 18px; border: 3px solid #000; }
+    a { color: #E6007E; font-weight: 800; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+    .grid a {
+      display: block; background: #fff; border: 3px solid #000; padding: 14px 12px;
+      text-decoration: none; color: #111; box-shadow: 6px 6px 0 0 rgba(230,0,126,.35);
+    }
+    .grid strong { display: block; color: #E6007E; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { border: 1.5px solid #000; padding: 8px; text-align: left; vertical-align: top; }
+    th { background: #111; color: #fff; }
+    .note { font-size: 13px; color: #555; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Washington Street signs</h1>
+    <p>24×36 print files for <strong>Quick Signs Inc.</strong> · 424 Treasure Drive, Oswego · 630-554-7370</p>
+
+    <div class="ask">
+      <strong>What actually stops traffic on this block:</strong>
+      not a menu. Cars get three seconds. Walkers get a QR. Order <em>A-frames</em> (their 24×36 sidewalk product), not H-stake yard signs on the concrete. One board facing Washington, one facing the sidewalk.
+    </div>
+
+    <h2>Order this at Quick Signs</h2>
+    <table>
+      <tr><th>Piece</th><th>Why</th></tr>
+      <tr>
+        <td><strong>1 Plasticade A-frame</strong> · double-sided 24×36 UV print</td>
+        <td>Street side = Sign 8 (chrome welcome) or Sign 1. Sidewalk side = <strong>Sign 5 (Pout now)</strong>, <strong>Sign 9 (chrome Botox)</strong>, or <strong>Sign 10 (chrome weight loss)</strong>. One offer per face. Sign 11 is the chrome A-frame if you want three offers on one sidewalk face.</td>
+      </tr>
+      <tr>
+        <td><strong>Optional 2nd A-frame</strong> or coroplast 24×36</td>
+        <td>Sign 3 (This is us) if you have a second doorway, parking strip, or window well. Skip H-stakes on the sidewalk — Village typically wants A-frames, not lawn signs in downtown.</td>
+      </tr>
+      <tr>
+        <td><strong>Optional pink feather flag</strong></td>
+        <td>Motion is what drivers see from the light. Copy: HELLO GORGEOUS only. No QR on a flag.</td>
+      </tr>
+    </table>
+    <p class="note">Ask them to confirm Village downtown A-frame rules (hours out, how far from curb). Pink ink: <strong>#E6007E</strong>. Files are RGB PDF — they will convert to CMYK.</p>
+
+    <h2>The boards</h2>
+    <div class="grid">
+      <a href="01-youre-here.html">
+        <strong>01 · Street</strong>
+        Hello Gorgeous<br />74 W Washington<br />630-636-6193
+      </a>
+      <a href="02-fall-makeover.html">
+        <strong>02 · Offer</strong>
+        Fall Makeover<br />$100 / $200 / $150<br />Scan to book
+      </a>
+      <a href="03-this-is-us.html">
+        <strong>03 · Face</strong>
+        Danielle + Ryan<br />NP on site<br />Scan to book
+      </a>
+      <a href="04-botox.html">
+        <strong>04 · Botox</strong>
+        Botox®<br />$10 / unit first-time<br />Scan to book
+      </a>
+      <a href="05-pout-now.html">
+        <strong>05 · Pout now</strong>
+        Lip filler · Cherry<br />$300 / $599<br />630-636-6193
+      </a>
+      <a href="06-alive-menu.html">
+        <strong>06 · Botox photo</strong>
+        Same layout as Pout Now<br />$10 / unit first-time
+      </a>
+      <a href="07-weight-loss.html">
+        <strong>07 · Weight loss</strong>
+        Same layout as Pout Now<br />$299 / month
+      </a>
+      <a href="08-chrome-welcome.html">
+        <strong>08 · Chrome welcome</strong>
+        Black · pink chrome · gold chrome<br />Hello Gorgeous
+      </a>
+      <a href="09-chrome-botox.html">
+        <strong>09 · Chrome Botox</strong>
+        Pink chrome Botox<br />$10 / unit first-time
+      </a>
+      <a href="10-chrome-weight.html">
+        <strong>10 · Chrome weight loss</strong>
+        Pink chrome Weight Loss<br />$299 / month
+      </a>
+      <a href="11-chrome-aframe.html">
+        <strong>11 · Chrome A-frame</strong>
+        Botox · Peptides · Filler<br />Class 4 lasers · GLP-1
+      </a>
+      <a href="12-financing-alive.html">
+        <strong>12 · 0% financing</strong>
+        Your type A-frame + photo<br />Botox · lips · GLP-1 · 0%
+      </a>
+    </div>
+
+    <h2>How to hand them a file</h2>
+    <ol>
+      <li>Open a sign in Chrome.</li>
+      <li>Print → Save as PDF.</li>
+      <li>Paper size <strong>24 × 36 inches</strong> (portrait). Margins <strong>none</strong>. <strong>Background graphics on</strong>.</li>
+      <li>Or run <code>node scripts/export-washington-yard-signs.mjs</code> from the repo — writes PDFs next to these HTML files.</li>
+    </ol>
+    <p>QR codes already live in this folder at 1400px (high enough for a 3.4″ print square). Book QR → <code>/book</code>. Fall QR → <code>/fall-makeover</code>. Botox QR → <code>/botox-oswego</code>. Pout QR → <code>/book</code> (lips campaign). Weight-loss QR → <code>/glp1-weight-loss</code>. All tagged Washington Street.</p>
+
+    <h2>What I would not print</h2>
+    <ul>
+      <li>A service list. Nobody reads Botox / Morpheus8 / HydraFacial from a car.</li>
+      <li>Client treatment photos. Faces of guests on a street sign is not worth it.</li>
+      <li>A giant photo of Danielle or Ryan full-bleed — those portraits are ~800px, they will look soft at 36″. Sign 3 keeps the photo in a frame on purpose.</li>
+      <li>Medical promises. No shade, pound, or wrinkle claims on Washington Street.</li>
+    </ul>
+  </div>
+</body>
+</html>

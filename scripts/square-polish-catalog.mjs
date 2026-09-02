@@ -216,7 +216,7 @@ const CATEGORY_KEYWORDS = [
   // Vitamins before weight-loss so B12 / MIC / glutathione stay pink, not red
   { cat: "Vitamin Injections", re: /^(b12|b-complex|glutathione) injection$|vitamin injection|mic\/?lipo|lipo-b injection|lipo.?shot|biotin injection|vitamin d injection/i },
   { cat: "Weight Loss Injections", re: /tirzepatide|semaglutide|retatrutide|glp|weight loss|lipo-mino|phentermine|contrave|metabolic|body composition/i },
-  { cat: "Botox", re: /botox|jeuveau|dysport|lip flip|neuromodulator|baby tox|babytox/i },
+  { cat: "Botox", re: /botox|jeuveau|dysport|xeomin|daxxify|lip flip|neuromodulator|baby tox|babytox/i },
   { cat: "GlowTox Facial", re: /glowtox/i },
   { cat: "Dermal Fillers", re: /filler|hylanex|dissolver|per syringe/i },
   { cat: "AnteAGE Skin Regeneration", re: /anteage|exosome|biosome|stem cell growth|scalp treatment/i },
@@ -233,7 +233,7 @@ const CATEGORY_KEYWORDS = [
   { cat: "Body Contouring & Devices", re: /body contour|quantum rf|morpheus8|solaria|co₂|co2|mommy makeover|trifecta|dani,? fix me/i },
   { cat: "Body Spa", re: /body spa|spa package/i },
   { cat: "Skin Spa", re: /hydra|facial|peel|microneedling|nano needling|dermaplan|photofacial|ipl|carbon laser|diamond glow|signature facial|vi peel|oxygen facial|microderm|geneo|acne facial/i },
-  { cat: "Medical Consultations", re: /hormone lab panel|consultation|medical visit|telehealth|follow-up|intake|peptide therapy consultation/i },
+  { cat: "Medical Consultations", re: /hormone lab panel|consultation|medical visit|wellness physical|physical exam|telehealth|follow-up|intake|peptide therapy consultation/i },
   { cat: "Hello Gorgeous RX™ — Peptides", re: /bpc-157|peptide|sermorelin|tesamorelin|ipamorelin|cjc|ghk|semax|selank|epithalon|mots-c|pt-141|heal blend/i },
   { cat: "Hello Gorgeous RX™ — Recovery & Healing", re: /recovery blend|healing|post-procedure/i },
   { cat: "Exclusive Model Specials", re: /vip model|model special|most popular combo|burst x3|buy one area/i },

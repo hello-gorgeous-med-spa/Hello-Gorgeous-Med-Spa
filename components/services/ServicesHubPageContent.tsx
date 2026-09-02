@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
+import { ClinicServicesBand } from "@/components/marketing/ClinicServicesBand";
 import { FadeUp, Section } from "@/components/Section";
 import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
@@ -111,6 +112,8 @@ export function ServicesHubPageContent() {
             ))}
           </div>
         </nav>
+
+        <ClinicServicesBand />
 
         <section id="lookbook" className="scroll-mt-14 border-b border-black/10">
           <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 md:px-8 md:py-14">

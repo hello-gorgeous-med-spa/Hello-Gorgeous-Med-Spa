@@ -7,6 +7,7 @@ import "server-only";
 
 import { getAccessToken } from "@/lib/square/oauth";
 import { resolveSquareLocationId } from "@/lib/square/membership-checkout";
+import { SQUARE_RX_CNP_BLOCKED, SQUARE_RX_CNP_ERROR } from "@/lib/square-rx-cnp";
 
 const SQUARE_API_HOST =
   process.env.SQUARE_ENVIRONMENT === "production" || process.env.SQUARE_ENV === "production"
@@ -107,6 +108,9 @@ export async function createRegenCheckout(opts: {
   shippingSquareVariationId?: string;
   shippingUsd?: number;
 }): Promise<RegenCheckoutResult> {
+  if (SQUARE_RX_CNP_BLOCKED) {
+    throw new Error(SQUARE_RX_CNP_ERROR);
+  }
   if (!opts.items.length) {
     throw new Error("Cart is empty");
   }
@@ -254,6 +258,9 @@ export async function createRegenQuickPay(opts: {
   priceUsd: number;
   redirectUrl: string;
 }): Promise<RegenCheckoutResult> {
+  if (SQUARE_RX_CNP_BLOCKED) {
+    throw new Error(SQUARE_RX_CNP_ERROR);
+  }
   const locationId = await resolveSquareLocationId();
 
   const totalCents = Math.round(opts.priceUsd * 100) + 3000;

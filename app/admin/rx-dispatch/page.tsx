@@ -668,10 +668,10 @@ export default function RxDispatchPage() {
               Open BoomRx ↗
             </a>
             <Link
-              href={`/admin/rx-invoices?ref=${encodeURIComponent(selected.intakeRef)}&name=${encodeURIComponent(selected.patientName)}&email=${encodeURIComponent(selected.email || "")}&phone=${encodeURIComponent(selected.phone || "")}`}
+              href="/admin/rx/clinic-sale"
               className="rounded-lg bg-gradient-to-r from-[#FF2D8E]/80 to-[#E6007E]/80 px-3 py-2 text-xs font-bold"
             >
-              Send payment link →
+              Collect on Terminal →
             </Link>
           </div>
 

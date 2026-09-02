@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp } from "@/components/Section";
 import { CONVERSION_HIERARCHY } from "@/lib/illinois-excellence";
+import { DANI_FULL_NAME } from "@/lib/founder-credentials";
 import {
   MEDICAL_TEAM_QUOTE,
   MEDICAL_TRUST_BADGES,
@@ -125,7 +126,11 @@ export function MedicalTrustBand({
                         src={provider.image}
                         alt={provider.imageAlt}
                         fill
-                        className="object-cover object-center"
+                        className={
+                          provider.name === DANI_FULL_NAME
+                            ? "object-cover object-[center_12%]"
+                            : "object-cover object-center"
+                        }
                         sizes="(max-width: 768px) 30vw, 180px"
                       />
                     </div>

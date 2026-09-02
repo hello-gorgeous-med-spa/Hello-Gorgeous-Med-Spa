@@ -78,7 +78,7 @@ export async function startHrtRequestCheckout(input: {
     });
     const data = (await res.json().catch(() => ({}))) as { url?: string; error?: string };
     if (!res.ok || !data.url) {
-      return { error: data.error || "Could not start payment. Call 630-636-6193 to pay by phone." };
+      return { error: data.error || "Could not start payment. Pay in person on the Terminal in Oswego, or call 630-636-6193." };
     }
     window.location.href = data.url;
     return {};

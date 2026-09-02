@@ -105,6 +105,7 @@ export async function createProposalPaymentLink(input: {
     clientLabel: input.clientName,
     redirectUrl: `${SITE.url}/proposals/${input.publicId}?paid=1`,
     askForShippingAddress: false,
+    purpose: "non_prescription",
   });
 
   if (!link.ok) {

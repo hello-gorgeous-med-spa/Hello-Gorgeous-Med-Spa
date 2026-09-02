@@ -46,7 +46,7 @@ const SPOT = [
   { label: "Devices → orange", re: /morpheus8 burst — 3 session|morpheus8 burst x3/i, cat: "Body Contouring & Devices" },
   { label: "Laser → sky blue", re: /laser hair removal — brazilian|laser brazilian/i, cat: "Laser Hair Removal" },
   { label: "Lashes → lavender", re: /hybrid full set|lash lift & tint/i, cat: "Lash Spa" },
-  { label: "Consults → charcoal", re: /medical visit with ryan|^consultation$/i, cat: "Medical Consultations" },
+  { label: "Consults → charcoal", re: /medical visit with ryan|wellness physical|^consultation$/i, cat: "Medical Consultations" },
 ];
 
 if (!TOKEN || TOKEN.length < 10) {

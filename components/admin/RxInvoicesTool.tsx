@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { SQUARE_RX_CNP_BLOCKED, SQUARE_RX_CNP_DESK, SQUARE_RX_CNP_ERROR } from "@/lib/square-rx-cnp";
 
 type RxTrack = "weight-loss" | "peptides" | "fees" | "proposals";
 
@@ -256,6 +257,10 @@ export function RxInvoicesTool() {
   }, [selected, customAmount]);
 
   const sendInvoice = async () => {
+    if (SQUARE_RX_CNP_BLOCKED) {
+      setResult({ ok: false, error: SQUARE_RX_CNP_ERROR });
+      return;
+    }
     if (!selected) return;
     if (resolvedAmount == null) {
       alert(
@@ -325,7 +330,8 @@ export function RxInvoicesTool() {
             <span className="text-[#FF2D8E]">RX</span> Payment Links
           </h1>
           <p className="text-xs text-gray-400 mt-1 max-w-md">
-            Premade GLP-1, peptide &amp; fee invoices — Square link, email, or text in one tap.
+            Square cannot send RX payment links. Collect tap/dip/swipe on the Terminal in Oswego, then
+            dispatch. Spa services still use normal Square checkout.
           </p>
         </div>
         <div className="flex flex-col items-end gap-1 shrink-0">
@@ -336,6 +342,13 @@ export function RxInvoicesTool() {
             ← Admin
           </Link>
         </div>
+      </div>
+
+      <div className="mb-4 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+        {SQUARE_RX_CNP_DESK}{" "}
+        <Link href="/admin/rx/clinic-sale" className="font-bold underline text-white">
+          Open clinic sale →
+        </Link>
       </div>
 
       {paidBanner ? (
@@ -634,11 +647,15 @@ export function RxInvoicesTool() {
 
           <button
             type="button"
-            disabled={sending}
+            disabled={sending || SQUARE_RX_CNP_BLOCKED}
             onClick={sendInvoice}
             className="w-full rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] py-3.5 text-sm font-black uppercase tracking-wide disabled:opacity-50"
           >
-            {sending ? "Creating link…" : `Send ${resolvedAmount != null ? formatUsd(resolvedAmount) : "invoice"}`}
+            {SQUARE_RX_CNP_BLOCKED
+              ? "Square RX links disabled — use Terminal"
+              : sending
+                ? "Creating link…"
+                : `Send ${resolvedAmount != null ? formatUsd(resolvedAmount) : "invoice"}`}
           </button>
 
           {result ? (
@@ -688,7 +705,7 @@ export function RxInvoicesTool() {
         </div>
       ) : (
         <p className="text-center text-sm text-gray-500 py-4">
-          Tap a template above to send a payment link.
+          Tap a template to preview amounts. Do not send Square RX payment links.
         </p>
       )}
     </div>

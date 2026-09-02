@@ -11,6 +11,7 @@ import {
   type RxPostSubmitStep,
 } from "@/components/rx/intake/RxPostSubmitHeader";
 import { RxTelehealthHandoff } from "@/components/rx/intake/RxTelehealthHandoff";
+import { RxInPersonPayPanel } from "@/components/rx/RxInPersonPayPanel";
 import {
   HG_RX_PEPTIDE_CONSULT_BOOKING_URL,
   HG_RX_TELEHEALTH_BOOKING_LABEL,
@@ -39,8 +40,6 @@ import {
   readPendingRxSuccess,
   readPendingScreener,
   savePendingRxSuccess,
-  savePendingScreener,
-  startConsultCheckout,
 } from "@/lib/peptide-rx-consult-pay";
 import {
   cleanPeptideRefillReturnUrl,
@@ -48,8 +47,6 @@ import {
   markPeptideRefillPaid,
   readPendingPeptideRefillSuccess,
   savePendingPeptideRefillSuccess,
-  startPeptideRefillAutopay,
-  startPeptideRefillCheckout,
 } from "@/lib/peptide-refill-pay";
 import {
   computePeptideCombinedQuote,
@@ -268,12 +265,10 @@ export function PeptideRequestForm({
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
-  const [payBusy, setPayBusy] = useState(false);
   /** Screener outcome for new protocols: pay the consult fee or stop here. */
   const [gate, setGate] = useState<"none" | "pay" | "blocked">("none");
   const [blockReasons, setBlockReasons] = useState<string[]>([]);
   const [prepaidRef, setPrepaidRef] = useState<string | null>(null);
-  const [autopayBusy, setAutopayBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [result, setResult] = useState<SubmitResult | null>(null);
 
@@ -415,22 +410,17 @@ export function PeptideRequestForm({
     setStep((s) => Math.max(s - 1, 0));
   }
 
-  async function payScreenerConsult() {
+  function continueIntakePayInPerson() {
     const ref = prepaidRef ?? newConsultReference();
-    savePendingScreener({ reference: ref, data: formData });
-    setPayBusy(true);
+    setPrepaidRef(ref);
+    setFormData((prev) => ({
+      ...prev,
+      consult_payment_ref: ref,
+      consult_fee_pay_in_person: true,
+    }));
+    setGate("none");
     setErr(null);
-    const outcome = await startConsultCheckout(ref);
-    if (outcome.error) setErr(outcome.error);
-    setPayBusy(false);
-  }
-
-  async function payConsult(reference: string) {
-    setPayBusy(true);
-    setErr(null);
-    const outcome = await startConsultCheckout(reference);
-    if (outcome.error) setErr(outcome.error);
-    setPayBusy(false);
+    setStep(STEP_AFTER_SCREENER);
   }
 
   async function submit(e: React.FormEvent) {
@@ -562,38 +552,6 @@ export function PeptideRequestForm({
     }
   }
 
-  async function payRefill(result: Extract<SubmitResult, { kind: "qualified" }>) {
-    if (!result.invoiceTemplateId || result.priceUsd == null) return;
-    setPayBusy(true);
-    setErr(null);
-    const outcome = await startPeptideRefillCheckout({
-      reference: result.reference,
-      submissionId: result.submissionId,
-      templateId: result.invoiceTemplateId,
-      amountUsd: result.priceUsd,
-      supplyCycle: result.supplyCycle,
-      lineLabel: result.lineLabel,
-    });
-    if (outcome.error) setErr(outcome.error);
-    setPayBusy(false);
-  }
-
-  async function setupAutopay(result: Extract<SubmitResult, { kind: "qualified" }>) {
-    if (!result.invoiceTemplateId) return;
-    setAutopayBusy(true);
-    setErr(null);
-    const outcome = await startPeptideRefillAutopay({
-      reference: result.reference,
-      submissionId: result.submissionId,
-      templateId: result.invoiceTemplateId,
-      amountUsd: result.priceUsd,
-      lineLabel: result.lineLabel,
-      supplyCycle: result.supplyCycle,
-    });
-    if (outcome.error) setErr(outcome.error);
-    setAutopayBusy(false);
-  }
-
   if (result?.kind === "qualified") {
     const isNew = result.requestType === "new";
     const consultPaid =
@@ -621,7 +579,7 @@ export function PeptideRequestForm({
           ]
         : [
             { label: "Refill request submitted", status: "complete" },
-            { label: "Pay your refill invoice", status: "current" },
+            { label: "Pay at the spa Terminal", status: "current" },
             { label: "Clinical review by Ryan Kent, FNP-BC", status: "upcoming" },
             { label: "Home delivery", status: "upcoming" },
           ];
@@ -633,7 +591,7 @@ export function PeptideRequestForm({
           reference={result.reference}
           intro={
             !refillPaid
-              ? "Pay now — Ryan reviews after payment. Medication ships only after clinical approval."
+              ? "Pay at Hello Gorgeous in Oswego on the Terminal. Ryan reviews after payment. Medication ships only after clinical approval."
               : "Our team will review and ship after approval."
           }
           steps={postSubmitSteps}
@@ -662,26 +620,7 @@ export function PeptideRequestForm({
           )}
           <div className="mt-6 flex flex-col items-center gap-3 max-w-sm mx-auto">
             {canPayRefill && (
-              <button
-                type="button"
-                disabled={payBusy || autopayBusy}
-                onClick={() => payRefill(result)}
-                className="inline-flex w-full items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
-              >
-                {payBusy ? "Starting checkout…" : `Pay now — ${result.priceLabel}`}
-              </button>
-            )}
-            {canPayRefill && !is90Day && (
-              <button
-                type="button"
-                disabled={payBusy || autopayBusy}
-                onClick={() => setupAutopay(result)}
-                className="inline-flex w-full items-center justify-center rounded-xl border-2 border-[#E6007E] bg-white px-8 py-3.5 text-sm font-bold text-[#E6007E] hover:bg-[#FFF0F7] transition-colors disabled:opacity-60"
-              >
-                {autopayBusy
-                  ? "Starting auto-pay…"
-                  : `3-month auto-pay — ${result.priceLabel}`}
-              </button>
+              <RxInPersonPayPanel amountLabel={result.priceLabel} kind="medication" />
             )}
             {telehealthBeforeShip && (
               <a
@@ -713,7 +652,7 @@ export function PeptideRequestForm({
     const newSteps: RxPostSubmitStep[] = needsPrepay
       ? [
           { label: "Protocol request submitted", status: "complete" },
-          { label: `Pay $${PEPTIDE_CONSULT_FEE_USD} consult fee`, status: "current" },
+          { label: `Pay $${PEPTIDE_CONSULT_FEE_USD} consult at the spa Terminal`, status: "current" },
           { label: "Book telehealth with Ryan Kent, FNP-BC", status: "upcoming" },
           { label: "Protocol approval & medication pricing", status: "upcoming" },
         ]
@@ -728,7 +667,7 @@ export function PeptideRequestForm({
         emoji={needsPrepay ? "🎉" : "✓"}
         headline={
           needsPrepay
-            ? "Request received — pre-pay to book telehealth"
+            ? "Request received — pay your consult in Oswego, then book telehealth"
             : "Consult paid — book your telehealth visit"
         }
         reference={result.reference}
@@ -748,22 +687,9 @@ export function PeptideRequestForm({
         <div className="mt-6 flex flex-col items-center gap-3">
           {needsPrepay ? (
             <>
-              <button
-                type="button"
-                disabled={payBusy}
-                onClick={() => payConsult(result.reference)}
-                className="inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
-              >
-                {payBusy
-                  ? "Starting Square checkout…"
-                  : `Pay $${PEPTIDE_CONSULT_FEE_USD} & book telehealth`}
-              </button>
-              <p className="text-[11px] text-green-700/80 max-w-sm text-center">
-                Secure Square checkout — same pre-pay flow as our Vitamin Bar. Telehealth booking unlocks after
-                payment.
-              </p>
+              <RxInPersonPayPanel amountLabel={`$${PEPTIDE_CONSULT_FEE_USD}`} kind="consult" />
               <RxTelehealthHandoff
-                showBooking={false}
+                showBooking
                 statusHref={rxStatusHref(result.recordToken)}
                 bookingHref={HG_RX_PEPTIDE_CONSULT_BOOKING_URL}
               />
@@ -859,8 +785,8 @@ export function PeptideRequestForm({
             Reserve your consult with Ryan Kent, FNP-BC
           </h3>
           <p className="mt-2 text-sm text-black/70 leading-relaxed">
-            Your ${PEPTIDE_CONSULT_FEE_USD} consult fee holds your telehealth visit. After you pay,
-            you&apos;ll finish the rest of your intake — goals, delivery preference, and consent.
+            Your ${PEPTIDE_CONSULT_FEE_USD} consult fee is collected in person on the Terminal at the
+            spa. Continue your intake now, then pay tap / dip / swipe in Oswego and book telehealth.
             Medication is quoted and invoiced separately, only after Ryan approves your protocol.
           </p>
 
@@ -879,15 +805,13 @@ export function PeptideRequestForm({
           {err && <p className="mt-4 rounded-xl bg-red-50 px-3 py-2 text-sm text-red-700">{err}</p>}
 
           <div className="mt-6 flex flex-col gap-3">
+            <RxInPersonPayPanel amountLabel={`$${PEPTIDE_CONSULT_FEE_USD}`} kind="consult" />
             <button
               type="button"
-              disabled={payBusy}
-              onClick={payScreenerConsult}
-              className="inline-flex items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
+              onClick={continueIntakePayInPerson}
+              className="inline-flex items-center justify-center rounded-xl bg-[#E6007E] px-8 py-4 font-bold text-white hover:bg-black transition-colors"
             >
-              {payBusy
-                ? "Starting Square checkout…"
-                : `Pay $${PEPTIDE_CONSULT_FEE_USD} & continue intake →`}
+              Continue intake — I&apos;ll pay at the spa →
             </button>
             <button
               type="button"
@@ -902,8 +826,7 @@ export function PeptideRequestForm({
           </div>
 
           <p className="mt-5 text-[11px] text-black/50 leading-relaxed">
-            Secure Square checkout. Your answers are saved in this browser while you pay. Prefer to
-            pay by phone? Call{" "}
+            Square cannot take this consult fee by text, email, or saved card. Questions? Call{" "}
             <a href="tel:+16306366193" className="font-semibold text-[#E6007E] underline">
               630-636-6193
             </a>

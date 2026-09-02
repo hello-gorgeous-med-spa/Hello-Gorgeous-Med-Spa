@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>24×36 — Chrome welcome</title>
+  <link rel="stylesheet" href="signs.css" />
+  <link rel="stylesheet" href="chrome.css" />
+</head>
+<body>
+  <div class="no-print">
+    <p><strong>Sign 8 — Chrome welcome.</strong> Matte black, pink chrome script, gold chrome name. Print 24×36, margins none, background graphics on.</p>
+    <button type="button" onclick="window.print()">Print / Save PDF</button>
+    <a class="btn" href="index.html">All signs</a>
+  </div>
+
+  <article class="board chrome-board">
+    <svg class="defs" aria-hidden="true">
+      <defs>
+        <pattern id="pinkChrome" patternUnits="userSpaceOnUse" width="720" height="480">
+          <image href="pink-chrome.png" width="720" height="480" preserveAspectRatio="xMidYMid slice" />
+        </pattern>
+        <pattern id="goldChrome" patternUnits="userSpaceOnUse" width="720" height="480">
+          <image href="gold-chrome.png" width="720" height="480" preserveAspectRatio="xMidYMid slice" />
+        </pattern>
+      </defs>
+    </svg>
+    <div class="safe">
+      <svg class="word-svg small" viewBox="0 0 2000 80" role="img" aria-label="Downtown Oswego">
+        <text x="1000" y="60" text-anchor="middle" fill="url(#goldChrome)" font-family="Cinzel Chrome, Cinzel, serif" font-weight="700" font-size="42" letter-spacing="18">DOWNTOWN OSWEGO</text>
+      </svg>
+
+      <div>
+        <svg class="word-svg" viewBox="0 0 2000 220" role="img" aria-label="Hello">
+          <text x="1000" y="180" text-anchor="middle" fill="url(#goldChrome)" font-family="Cinzel Chrome, Cinzel, serif" font-weight="900" font-size="168" letter-spacing="10">HELLO</text>
+        </svg>
+        <svg class="word-svg" viewBox="0 0 2000 520" role="img" aria-label="Gorgeous">
+          <text x="1000" y="390" text-anchor="middle" fill="url(#pinkChrome)" font-family="Great Vibes Chrome, Great Vibes, cursive" font-size="420">Gorgeous</text>
+        </svg>
+        <svg class="word-svg small" viewBox="0 0 2000 90" role="img" aria-label="Med Spa">
+          <text x="1000" y="70" text-anchor="middle" fill="url(#goldChrome)" font-family="Cinzel Chrome, Cinzel, serif" font-weight="700" font-size="52" letter-spacing="16">MED SPA</text>
+        </svg>
+        <div class="chrome-rule"></div>
+        <svg class="word-svg small" viewBox="0 0 2000 70" role="img" aria-label="74 W. Washington Street">
+          <text x="1000" y="52" text-anchor="middle" fill="url(#goldChrome)" font-family="Cinzel Chrome, Cinzel, serif" font-weight="700" font-size="36" letter-spacing="10">74 W. WASHINGTON ST.</text>
+        </svg>
+        <svg class="word-svg phone" viewBox="0 0 2000 180" role="img" aria-label="630-636-6193">
+          <text x="1000" y="140" text-anchor="middle" fill="url(#pinkChrome)" font-family="Cinzel Chrome, Cinzel, serif" font-weight="900" font-size="118" letter-spacing="6">630-636-6193</text>
+        </svg>
+      </div>
+
+      <div class="foot">
+        <p class="scan">Scan to book<br />hellogorgeousmedspa.com</p>
+        <div class="qr"><img src="qr-book.png" alt="Scan to book Hello Gorgeous" /></div>
+      </div>
+    </div>
+  </article>
+</body>
+</html>

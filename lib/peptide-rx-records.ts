@@ -57,7 +57,7 @@ export function statusLabelForRecord(r: StoredRxRecord): string {
   if (!r.qualified) return "Needs clinical review";
   if (r.requestType === "refill") return "Refill submitted — book Square telehealth";
   if (isConsultPaid(r.reference)) return "Consult paid — book Square telehealth";
-  return "Submitted — pre-pay $49 consult to book telehealth";
+  return "Submitted — pay $49 consult at the spa Terminal to book telehealth";
 }
 
 export function recordsToSummaries(records: StoredRxRecord[]): RxRecordSummary[] {

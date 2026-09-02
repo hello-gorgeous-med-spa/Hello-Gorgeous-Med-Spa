@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import { RxIntakeFormCard } from "@/components/rx/intake/RxIntakeFormCard";
 import { RxPostSubmitCard } from "@/components/rx/intake/RxPostSubmitHeader";
 import { RxTelehealthHandoff } from "@/components/rx/intake/RxTelehealthHandoff";
+import { RxInPersonPayPanel } from "@/components/rx/RxInPersonPayPanel";
 import { SMSDisclosure } from "@/components/SMSDisclosure";
 import { HRT_BOOKING_CTA } from "@/lib/hrt-formulation-catalog";
 import {
@@ -25,7 +26,6 @@ import {
   markHrtRequestPaid,
   readPendingHrtRequestSuccess,
   savePendingHrtRequestSuccess,
-  startHrtRequestCheckout,
 } from "@/lib/hrt-request-pay";
 import { RX_SUPPLY_CYCLES, type RxSupplyCycleId } from "@/lib/rx-supply-cycle";
 import type { IntakeFormField } from "@/lib/hgos/intake-forms";
@@ -62,7 +62,6 @@ export function HrtRequestForm({
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
-  const [paying, setPaying] = useState(false);
   const [reference, setReference] = useState<string | null>(paidRef || null);
   const [submitted, setSubmitted] = useState(false);
   const [paymentComplete, setPaymentComplete] = useState(paid);
@@ -163,22 +162,6 @@ export function HrtRequestForm({
     }
   }
 
-  async function handlePay() {
-    if (!reference || !quote) return;
-    const pending = readPendingHrtRequestSuccess();
-    setPaying(true);
-    const result = await startHrtRequestCheckout({
-      reference,
-      submissionId: pending?.submissionId,
-      templateId: quote.invoiceTemplateId,
-      amountUsd: quote.totalUsd,
-      supplyCycle,
-      lineLabel: `${quote.ingredient.name} · ${quote.form.label}`,
-    });
-    if (result.error) setErrors({ _form: result.error });
-    setPaying(false);
-  }
-
   if (!selection || !quote) {
     return (
       <RxIntakeFormCard stepTitle="Select a hormone first">
@@ -187,7 +170,7 @@ export function HrtRequestForm({
           <Link href="/rx/hormones" className="font-semibold text-[#E6007E] underline">
             hormone therapy page
           </Link>
-          , then tap <strong>Pay &amp; start request</strong>.
+          , then tap <strong>Start request</strong>.
         </p>
         <Link
           href="/rx/hormones"
@@ -409,8 +392,9 @@ export function HrtRequestForm({
               }
             />
             <span>
-              I understand payment is collected now, telehealth with Ryan Kent, FNP-BC is required before
-              medication ships, and my order is not a prescription until clinically approved.
+              I understand I will pay in person on the Terminal at Hello Gorgeous in Oswego, telehealth
+              with Ryan Kent, FNP-BC is required before medication ships, and my order is not a
+              prescription until clinically approved.
             </span>
           </label>
           {errors.consent_payment_telehealth ? (
@@ -427,13 +411,13 @@ export function HrtRequestForm({
             className="mt-6 w-full rounded-xl py-3.5 text-sm font-bold text-white transition hover:opacity-95 disabled:opacity-60"
             style={{ backgroundColor: PINK }}
           >
-            {submitting ? "Submitting…" : "Continue to payment"}
+            {submitting ? "Submitting…" : "Submit request"}
           </button>
         </RxIntakeFormCard>
       ) : (
         <RxIntakeFormCard stepTitle="Pay for your supply">
           <p className="text-sm text-black/65">
-            Total due now:{" "}
+            Total due:{" "}
             <strong className="text-black text-lg">${quote.totalUsd}</strong>{" "}
             <span className="text-black/50">({quote.priceLabel} + ${quote.shippingUsd} shipping)</span>
           </p>
@@ -442,15 +426,9 @@ export function HrtRequestForm({
           ) : null}
           <p className="mt-3 text-xs text-black/50">Ref {reference}</p>
           {errors._form ? <p className="mt-3 text-sm text-red-600">{errors._form}</p> : null}
-          <button
-            type="button"
-            onClick={handlePay}
-            disabled={paying}
-            className="mt-5 w-full rounded-xl py-3.5 text-sm font-bold text-white transition hover:opacity-95 disabled:opacity-60"
-            style={{ backgroundColor: PINK }}
-          >
-            {paying ? "Starting checkout…" : `Pay $${quote.totalUsd} securely`}
-          </button>
+          <div className="mt-5">
+            <RxInPersonPayPanel amountLabel={`$${quote.totalUsd}`} kind="medication" />
+          </div>
           <RxTelehealthHandoff showBooking={false} />
         </RxIntakeFormCard>
       )}

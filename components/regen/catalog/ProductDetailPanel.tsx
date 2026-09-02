@@ -38,8 +38,8 @@ const SHIPPING_LABEL = `$${REGEN_SHOP_SHIPPING_USD}`;
 /** Staff point-of-sale gate — mirrors app/api/regen/checkout + post-payment intake. */
 const CHECKOUT_STEPS = [
   { title: "Add to cart", body: "Pick your strength and 30- or 90-day supply." },
-  { title: "Pay securely", body: "Checkout reserves your order — nothing is filled yet." },
-  { title: "Health intake", body: "History, meds and consent right after checkout." },
+  { title: "Pay at the spa", body: "Tap, dip, or swipe on the Terminal in Oswego — Square cannot take RX by a link." },
+  { title: "Health intake", body: "History, meds and consent after you pay in person." },
   { title: "NP review", body: "Ryan Kent, FNP-BC approves, with telehealth when required." },
   { title: "Ships to you", body: `Licensed pharmacy · flat ${SHIPPING_LABEL} shipping, tracked.` },
 ] as const;
@@ -308,7 +308,7 @@ export function ProductDetailPanel({
             >
               {consultMode
                 ? `Free to submit · $${PROGRAM_CONSULT_FEE_USD} consult reserves your visit · pick up in Oswego or ship flat ${SHIPPING_LABEL}`
-                : `${supply === 90 ? "90-day supply" : "30-day supply"} · flat ${SHIPPING_LABEL} shipping · health intake after checkout`}
+                : `${supply === 90 ? "90-day supply" : "30-day supply"} · flat ${SHIPPING_LABEL} shipping · pay in person at the spa`}
             </p>
 
             {educationHref ? (

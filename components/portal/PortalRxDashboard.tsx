@@ -51,9 +51,9 @@ function OrderCard({ order }: { order: RxPortalOrder }) {
           <span className="text-[10px] font-bold uppercase bg-green-100 text-green-800 px-2 py-1 rounded-full">
             Paid
           </span>
-        ) : order.paymentUrl ? (
+        ) : order.status?.payment?.status === "pending" ? (
           <span className="text-[10px] font-bold uppercase bg-amber-100 text-amber-800 px-2 py-1 rounded-full">
-            Pay now
+            Pay at spa
           </span>
         ) : null}
       </div>
@@ -77,15 +77,10 @@ function OrderCard({ order }: { order: RxPortalOrder }) {
         )}
 
         <div className="flex flex-wrap gap-2 pt-1">
-          {order.paymentUrl && order.status?.payment?.status !== "paid" && (
-            <a
-              href={order.paymentUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-lg bg-[#E6007E] px-3 py-2 text-xs font-bold text-white hover:bg-black"
-            >
-              Pay ${order.status?.payment?.amountUsd?.toFixed(0) ?? ""}
-            </a>
+          {order.status?.payment?.status === "pending" && (
+            <p className="w-full text-xs font-semibold text-[#E6007E]">
+              Pay in person on the Terminal in Oswego — tap, dip, or swipe. Same price.
+            </p>
           )}
           <Link
             href={order.statusHref}

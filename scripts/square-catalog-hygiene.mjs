@@ -259,7 +259,7 @@ async function main() {
     [/morpheus8 burst — 3 session/i, "Body Contouring & Devices"],
     [/laser hair removal — brazilian \(single/i, "Laser Hair Removal"],
     [/hybrid full set|lash lift/i, "Lash Spa"],
-    [/medical visit with ryan|^consultation$/i, "Medical Consultations"],
+    [/medical visit with ryan|wellness physical|^consultation$/i, "Medical Consultations"],
   ];
   for (const [re, expect] of samples) {
     const hit = items.find((o) => re.test(o.item_data.name));

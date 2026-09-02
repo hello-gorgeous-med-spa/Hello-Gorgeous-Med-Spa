@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
     description,
     redirectUrl,
     askForShippingAddress: false,
+    purpose: "non_prescription",
   });
 
   if (!linkResult.ok) {

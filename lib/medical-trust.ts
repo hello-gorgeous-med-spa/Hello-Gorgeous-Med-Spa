@@ -1,4 +1,4 @@
-import { DANI_FULL_NAME, RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import { DANI_FULL_NAME, DANI_IMAGE, RYAN_FULL_NAME } from "@/lib/founder-credentials";
 import {
   MEDICAL_DIRECTOR,
   MEDICAL_DIRECTOR_AFFILIATIONS,
@@ -31,7 +31,7 @@ export const MEDICAL_TRUST_PROVIDERS = [
     // this band sits next to the prescriber and the physician Medical Director.
     role: "Owner & Founder · Practice leadership",
     detail: "RN-S · CNA · CMAA · Licensed Phlebotomist · Licensed Esthetician",
-    image: "/images/team/danielle.png",
+    image: DANI_IMAGE,
     imageAlt: `${DANI_FULL_NAME}, Owner & Founder of Hello Gorgeous Med Spa`,
     badge: "Owner · in clinic daily",
   },

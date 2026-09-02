@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { ClinicServicesBand } from "@/components/marketing/ClinicServicesBand";
 import { NewStudioRevealBand } from "@/components/marketing/NewStudioRevealBand";
 import { HOME_THIS_IS_US_PHOTOS } from "@/lib/campaigns/fall-makeover-2026";
 import { MdOversightWelcomeBand } from "@/components/MdOversightWelcomeBand";
@@ -168,6 +169,7 @@ export default function HomePage() {
       <main>
         <HeroV3 />
         <NewStudioRevealBand />
+        <ClinicServicesBand />
         <MdOversightWelcomeBand />
         <BuildYourProposalHomeInvite />
         <HomepageLookbookPageContent />

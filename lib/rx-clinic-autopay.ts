@@ -9,6 +9,7 @@ import { insertRxPaymentLedger } from "@/lib/rx-payment-ledger";
 import { sendSms } from "@/lib/notifications/sms-outbound";
 import { SITE } from "@/lib/seo";
 import { createMembershipCheckoutUrl } from "@/lib/square/membership-checkout";
+import { SQUARE_RX_CNP_BLOCKED, SQUARE_RX_CNP_ERROR } from "@/lib/square-rx-cnp";
 import {
   computeClinicSalePricing,
   getClinicEncounter,
@@ -48,6 +49,8 @@ export async function setupClinicEncounterAutopay(
   },
   client?: SupabaseClient | null,
 ): Promise<{ result: ClinicAutopayResult } | { error: string }> {
+  if (SQUARE_RX_CNP_BLOCKED) return { error: SQUARE_RX_CNP_ERROR };
+
   const admin = client ?? getSupabaseAdminClient();
   if (!admin) return { error: "Database unavailable" };
 

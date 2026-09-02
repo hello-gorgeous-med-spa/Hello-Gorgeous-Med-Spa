@@ -28,6 +28,7 @@ export type ConsentFormType =
   | 'hydrafacial_consent'
   | 'dermaplaning_consent'
   | 'lash_brow_consent'
+  | 'microblading_pmu_consent'
   | 'body_contouring_consent'
   | 'kybella_consent'
   | 'pdo_threads_consent'
@@ -1688,6 +1689,101 @@ export const CONSENT_FORMS: ConsentForm[] = [
   },
 
   {
+    id: 'microblading_pmu_consent',
+    name: 'Microblading & Brow PMU Consent',
+    shortName: 'Microblading / PMU',
+    description: 'Consent for microblading, nano, powder, ombré, and combo brow permanent makeup',
+    version: '1.0',
+    lastUpdated: '2026-08-31',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 30,
+    requiredForServices: [
+      'microblading',
+      'brow-pmu',
+      'nano-brows',
+      'powder-brows',
+      'ombre-brows',
+      'combo-brows',
+      'permanent-makeup',
+      'pmu',
+    ],
+    content: `
+      <h2>INFORMED CONSENT FOR MICROBLADING &amp; BROW PERMANENT MAKEUP</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. NATURE OF TREATMENT</h3>
+      <p>I understand that microblading and brow permanent makeup (PMU) are <strong>cosmetic tattoo procedures</strong>. Pigment is implanted into the upper layers of the skin using a manual microblade and/or a digital machine. Results are <strong>semi-permanent</strong> — color fades and may shift over time. This is not a conventional body tattoo and is not a guarantee of a specific shape, density, or color.</p>
+      
+      <h3>2. TECHNIQUES COVERED</h3>
+      <p>This consent covers the technique(s) recommended and performed today, which may include:</p>
+      <ul>
+        <li><strong>Hand-stroke microblading</strong> — manual blade creating hair-like strokes</li>
+        <li><strong>Nano brows</strong> — machine hair strokes with a fine needle</li>
+        <li><strong>Powder / ombré brows</strong> — machine shading for a soft filled look</li>
+        <li><strong>Combo / hybrid brows</strong> — strokes plus shading</li>
+      </ul>
+      <p>My provider will map my brows. I will approve the drawn shape in the mirror <strong>before</strong> pigment is placed. Once tattooing begins, the outline cannot be fully erased.</p>
+      
+      <h3>3. HEALING, COLOR &amp; TOUCH-UP</h3>
+      <ul>
+        <li>Day-one color looks darker and bolder than the healed result. Healed pigment typically appears <strong>30–50% lighter and softer</strong>.</li>
+        <li>Brows commonly darken, flake, look patchy, or briefly “ghost” (appear very light) during the first 2–6 weeks. This is expected.</li>
+        <li>A <strong>perfecting touch-up at about 6–8 weeks</strong> is part of the process — not a sign that the first visit failed. Final shape, color, and density are judged after that visit, not on day one.</li>
+        <li>Skin type (especially oily or mature skin), sun, skincare acids, swimming, and aftercare all affect how pigment holds. Some clients retain less color and may need additional paid touch-ups.</li>
+        <li>Color can fade, blur, or shift (including warmer or ashier tones) as the skin heals and as pigment ages. No specific longevity is guaranteed.</li>
+      </ul>
+      
+      <h3>4. RISKS AND SIDE EFFECTS</h3>
+      <p>I understand the following may occur:</p>
+      <ul>
+        <li><strong>Common:</strong> Redness, swelling, tenderness, itching, tightness, scabbing, flaking, uneven or patchy color while healing</li>
+        <li><strong>Less common:</strong> Prolonged redness, pigment loss, color change, migration or blur of strokes, asymmetry that needs correction, allergic reaction to pigment, numbing cream, or aftercare products</li>
+        <li><strong>Uncommon / rare:</strong> Infection, scarring, keloid or hypertrophic scarring, hyperpigmentation or hypopigmentation, cold-sore (herpes) outbreak if I have a history of them, unsatisfactory cosmetic result</li>
+      </ul>
+      <p>I will call the clinic at (630) 636-6193 if I notice spreading redness, warmth, pus, fever, or other signs of infection.</p>
+      
+      <h3>5. CONTRAINDICATIONS &amp; DISCLOSURE</h3>
+      <p>I confirm I have disclosed my health history, medications, and allergies. I understand treatment may be delayed or declined, and that I should not receive brow PMU if I have (unless my provider has specifically cleared me):</p>
+      <ul>
+        <li>Pregnancy or nursing</li>
+        <li>Active cold sore, rash, sunburn, or skin infection in or near the brow area</li>
+        <li>Accutane (isotretinoin) use — typically wait as advised by my physician / this clinic</li>
+        <li>History of keloid or hypertrophic scarring</li>
+        <li>Uncontrolled diabetes, bleeding or clotting disorders, or blood thinners that increase bleeding (which can dilute pigment)</li>
+        <li>Chemotherapy or radiation (without physician clearance)</li>
+        <li>Known allergy to pigments, metals, topical anesthetics, or aftercare products</li>
+      </ul>
+      <p>I am not under the influence of alcohol or recreational drugs today. I have followed pre-care as instructed (including avoiding alcohol, aspirin/ibuprofen, fish oil, and vitamin E when not prescribed, and pausing retinol/acids on the brow area as directed).</p>
+      
+      <h3>6. ANESTHETIC &amp; PRODUCTS</h3>
+      <p>Topical numbing may be used. I understand numbness is not complete for every client, and that I may still feel scratching, vibration, or pressure. Pigments used are professional cosmetic tattoo pigments selected for my skin and desired look. A patch test is not a guarantee against later reaction; I may request or decline a patch test and accept the related risk.</p>
+      
+      <h3>7. AFTERCARE</h3>
+      <p>I agree to follow written aftercare, including (unless my provider gives different instructions):</p>
+      <ul>
+        <li>Keep brows clean and as dry as instructed; blot lymph gently with a clean tissue the first day if directed</li>
+        <li>Do not pick, scratch, or peel scabs or flakes</li>
+        <li>Avoid getting brows wet, sweaty, or steamy (typically about 10 days)</li>
+        <li>No makeup on the brow area while healing</li>
+        <li>No sun, tanning beds, pools, saunas, or heavy workouts until cleared</li>
+        <li>No retinol, acids, or exfoliants on the brows until healed</li>
+        <li>Apply only the aftercare product this clinic recommends, sparingly if directed</li>
+      </ul>
+      <p>I understand poor aftercare is a common reason pigment heals light, patchy, or uneven, and that is not the fault of the mapping or the first-pass work.</p>
+      
+      <h3>8. PHOTOS &amp; RECORDS</h3>
+      <p>I consent to before-and-after photographs for my clinical chart. Separate written permission is required before any photo is used in marketing.</p>
+      
+      <h3>9. NO GUARANTEE</h3>
+      <p>I have had the chance to ask questions. I understand results vary, symmetry is improved but not mathematically perfect, and Hello Gorgeous Med Spa does not guarantee a specific shade, stroke crispness, or how long pigment will last. I voluntarily consent to microblading and/or brow permanent makeup as described above.</p>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO MICROBLADING AND/OR BROW PERMANENT MAKEUP.</strong></p>
+    `,
+  },
+
+  {
     id: 'body_contouring_consent',
     name: 'Body Contouring Consent',
     shortName: 'Body Contouring',
@@ -2047,6 +2143,7 @@ export function consentFormCategory(form: Pick<ConsentForm, "id" | "phase">): st
   if (form.id.includes("body") || form.id.includes("contouring")) return "Body";
   if (form.id.includes("iv_") || form.id.includes("bhrt") || form.id.includes("weight") || form.id.includes("prp")) return "Wellness";
   if (form.id.includes("photo") || form.id.includes("sms")) return "Marketing";
+  if (form.id.includes("lash") || form.id.includes("brow") || form.id.includes("microblad") || form.id.includes("pmu")) return "Treatment";
   return "Treatment";
 }
 

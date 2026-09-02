@@ -73,7 +73,7 @@ export default async function PeptideRequestPage({ searchParams }: PageProps) {
           priced separately after your plan)
         </p>
         <p>{PEPTIDE_TELEHEALTH_NOTE}</p>
-        <p>Refills: pay at checkout after Ryan approves your protocol · 90-day supply options available</p>
+        <p>Refills: pay on the Terminal in Oswego after Ryan approves your protocol · 90-day supply options available</p>
         <p className="text-black/55">{PEPTIDE_REQUEST_DISCLAIMER}</p>
         <p>
           Not sure which peptide?{" "}

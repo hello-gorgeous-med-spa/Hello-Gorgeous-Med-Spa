@@ -1,6 +1,7 @@
 # Talking points — Dr. Arora (with revenue examples)
 
-**Deck:** Desktop `Dr-Arora-Medical-Oversight-Pitch.html`
+**Proposal (give him this):** `docs/pitches/Dr-Arora-RE-GEN-Partnership-Proposal.html`  
+**Deck (click through in the room):** `docs/pitches/dr-arora-medical-oversight-pitch.html`
 
 ---
 

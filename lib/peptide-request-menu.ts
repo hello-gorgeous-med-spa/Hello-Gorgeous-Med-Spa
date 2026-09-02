@@ -46,7 +46,7 @@ export type PeptideRequestItem = {
 export const PEPTIDE_CONSULT_FEE_USD = 49;
 
 export const PEPTIDE_CONSULT_PAY_NOTE =
-  "New peptide protocols require a $49 NP consult pre-pay via Square before booking telehealth — same secure checkout as our Vitamin Bar.";
+  "New peptide protocols: pay the $49 NP consult on the Terminal at Hello Gorgeous in Oswego (tap, dip, or swipe), then book telehealth. Medication is priced separately after approval.";
 
 export const PEPTIDE_INVESTIGATIONAL_NOTE =
   "Investigational compound — not FDA-approved for any use and still in clinical trials. Ryan Kent, FNP-BC will review whether an approved alternative fits your goals before anything is dispensed.";

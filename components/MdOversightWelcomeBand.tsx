@@ -101,7 +101,11 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
                           src={provider.image}
                           alt={provider.imageAlt}
                           fill
-                          className="object-cover object-center transition duration-300 group-hover:scale-[1.02]"
+                          className={
+                            provider.name === DANI_FULL_NAME
+                              ? "object-cover object-[center_12%] transition duration-300 group-hover:scale-[1.02]"
+                              : "object-cover object-center transition duration-300 group-hover:scale-[1.02]"
+                          }
                           sizes="(max-width: 640px) 100vw, 33vw"
                         />
                         <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-3 pt-10">

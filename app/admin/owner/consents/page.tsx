@@ -41,7 +41,7 @@ function getCategoryFromForm(form: ConsentFormType): string {
   if (form.id.includes('body') || form.id.includes('contouring')) return 'Body';
   if (form.id.includes('iv_') || form.id.includes('bhrt') || form.id.includes('weight') || form.id.includes('prp')) return 'Wellness';
   if (form.id.includes('photo') || form.id.includes('sms')) return 'Marketing';
-  if (form.id.includes('lash') || form.id.includes('brow')) return 'Treatment';
+  if (form.id.includes('lash') || form.id.includes('brow') || form.id.includes('microblad') || form.id.includes('pmu')) return 'Treatment';
   return 'Treatment';
 }
 

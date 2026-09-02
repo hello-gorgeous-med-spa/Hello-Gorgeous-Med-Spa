@@ -56,7 +56,7 @@ export const LOCAL_DOMINANCE_TASKS: SprintTask[] = [
     why: "$30k RX goal needs ~3 paid starts/week — speed beats competitors.",
     checklist: [
       "Open Oswego hub warm leads list — text/call every open intake",
-      "Ryan approves → RX Invoice payment link same day",
+      "Ryan approves → collect on Terminal same day",
       "Approved + paid → RX Dispatch to pharmacy same day",
       "Schedule included monthly check-in before patient leaves",
     ],

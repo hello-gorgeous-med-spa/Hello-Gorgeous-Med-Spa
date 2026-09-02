@@ -18,6 +18,7 @@ import {
 } from "@/lib/rx-refill-plans/plans";
 import { getTelehealthRecheckStatus } from "@/lib/rx-telehealth/recheck";
 import { daysUntilDue, refillUrgencyForDue } from "@/lib/rx-clinic-refill";
+import { SQUARE_RX_CNP_BLOCKED } from "@/lib/square-rx-cnp";
 
 export type RefillDraftTriggerResult = {
   scanned: number;
@@ -50,6 +51,11 @@ export async function processRefillPlanDraftInvoices(
 
   if (!db) {
     result.errors.push("database unavailable");
+    return result;
+  }
+
+  if (SQUARE_RX_CNP_BLOCKED) {
+    result.errors.push("square_rx_cnp_blocked");
     return result;
   }
 

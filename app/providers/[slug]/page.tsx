@@ -52,7 +52,7 @@ const FALLBACK_PROVIDERS: Record<string, Provider> = {
     bio: DANI_PROVIDER_BIO,
     philosophy:
       "Your money should buy results you can see in the mirror — honest recommendations, personalized plans, and providers who remember your name, your skin history, and what actually worked for you last time.",
-    headshot_url: '/images/team/danielle.png',
+    headshot_url: '/images/team/danielle-alcala-glazier-portrait.png',
     booking_url: PROVIDER_BOOKING_URL_DANIELLE,
     is_active: true,
     display_order: 1,

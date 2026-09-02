@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello Gorgeous — $399 tirzepatide unit economics</title>
+  <style>
+    @page { size: letter; margin: 0.42in 0.5in; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Avenir Next", "Segoe UI", Georgia, system-ui, sans-serif;
+      color: #0a0a0a;
+      font-size: 9.3pt;
+      line-height: 1.32;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .kicker {
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: 7.5pt;
+      font-weight: 800;
+      color: #E6007E;
+    }
+    h1 {
+      font-size: 16pt;
+      line-height: 1.12;
+      margin: 3px 0 6px;
+      font-weight: 900;
+    }
+    h2 {
+      font-size: 8pt;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin: 10px 0 5px;
+      padding-top: 7px;
+      border-top: 2.5px solid #000;
+    }
+    p { margin: 0 0 6px; }
+    .hero {
+      background: #0a0a0a;
+      color: #fff;
+      padding: 12px 14px 11px;
+      margin: 0 0 8px;
+    }
+    .hero .kicker { color: #FFB8DC; }
+    .hero h1 { color: #fff; margin: 3px 0 5px; }
+    .hero p { color: rgba(255,255,255,.88); margin: 0; font-size: 9pt; }
+    .ask {
+      background: #E6007E;
+      color: #fff;
+      padding: 8px 12px;
+      margin: 0 0 8px;
+      font-weight: 700;
+      font-size: 10pt;
+    }
+    .ask strong { color: #fff; }
+    table { width: 100%; border-collapse: collapse; font-size: 8.7pt; margin: 0 0 6px; }
+    th, td { text-align: left; padding: 5px 7px; vertical-align: top; border-bottom: 1px solid #ead6df; }
+    th {
+      font-size: 7pt;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #E6007E;
+      background: #FFF0F7;
+    }
+    td.r, th.r { text-align: right; white-space: nowrap; }
+    td.neg { color: #6b0a3a; }
+    tr.total td { font-weight: 900; border-top: 2px solid #000; border-bottom: 2px solid #000; background: #FFF0F7; font-size: 10pt; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .box { border: 2px solid #000; padding: 8px 10px; }
+    .box h3 { margin: 0 0 4px; font-size: 10pt; }
+    .ok { border-left: 7px solid #E6007E; }
+    .no { border-left: 7px solid #111; }
+    .fine { font-size: 7.4pt; color: #555; line-height: 1.32; margin: 8px 0 0; }
+    .foot {
+      margin-top: 8px;
+      padding-top: 7px;
+      border-top: 2px solid #000;
+      font-size: 8pt;
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="kicker">Confidential · Internal unit economics · August 20, 2026</div>
+    <h1>One month of low-dose tirzepatide: $40 vial, $399 to the client.</h1>
+    <p>Referred by a spa · $100 to the spa · $25 to Dr. Arora · 20% to Ryan Kent for prescribing · what is left for Hello Gorgeous</p>
+  </header>
+
+  <div class="ask">
+    Month 1 keeps about <strong>$142</strong> (or ~$112 if Hello Gorgeous eats $30 shipping). Month 2 keeps about <strong>$267</strong>. The spa cut is a first-order cost. Do not pay it again on refills.
+  </div>
+
+  <p>
+    Assumptions for this sheet only: client is charged <strong>$399</strong> for one month; vial cost <strong>$40</strong>; referring spa <strong>$100</strong> on first paid medication only; Dr. Arora override <strong>$25</strong> on first paid medication only; Ryan <strong>20% of the $399</strong> (your working number for this page). Square estimated at 2.9% + $0.30 card-not-present. Not a forecast.
+  </p>
+
+  <h2>Month 1 vs month 2+ (same patient, 20% Ryan on $399)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Line</th>
+        <th class="r">Month 1 — first paid med, referred</th>
+        <th class="r">Month 2+ — refill</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Client pays Hello Gorgeous</td><td class="r">399.00</td><td class="r">399.00</td></tr>
+      <tr><td class="neg">Vial (low-dose, 1 month)</td><td class="r neg">−40.00</td><td class="r neg">−40.00</td></tr>
+      <tr><td class="neg">Referring spa</td><td class="r neg">−100.00</td><td class="r">0.00</td></tr>
+      <tr><td class="neg">Dr. Arora override</td><td class="r neg">−25.00</td><td class="r">0.00</td></tr>
+      <tr><td class="neg">Ryan 20% × $399</td><td class="r neg">−79.80</td><td class="r neg">−79.80</td></tr>
+      <tr><td class="neg">Square (~2.9% + $0.30)</td><td class="r neg">−11.87</td><td class="r neg">−11.87</td></tr>
+      <tr class="total"><td>Left in Hello Gorgeous</td><td class="r">142.33</td><td class="r">267.33</td></tr>
+    </tbody>
+  </table>
+  <p>
+    If Hello Gorgeous pays <strong>$30 shipping</strong> and does not add it on top of $399, month 1 is <strong>~$112</strong> and month 2 is <strong>~$237</strong>.
+    If the client pays $30 ship and it costs $30, shipping is a wash and the table above stands.
+  </p>
+
+  <h2>Ryan at 20% of sticker vs how you already pay him</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Ryan rule</th>
+        <th class="r">His pay on this $399</th>
+        <th class="r">HG leftover, month 1</th>
+        <th class="r">HG leftover, month 2+</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>20% of $399 (this page)</td>
+        <td class="r">79.80</td>
+        <td class="r">142.33</td>
+        <td class="r">267.33</td>
+      </tr>
+      <tr>
+        <td>20% of ($399 − $40 vial)</td>
+        <td class="r">71.80</td>
+        <td class="r">~150</td>
+        <td class="r">~275</td>
+      </tr>
+      <tr>
+        <td>10% of collected — his signed RE GEN bucket today</td>
+        <td class="r">39.90</td>
+        <td class="r">~182</td>
+        <td class="r">~307</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="two">
+    <div class="box ok">
+      <h3>What this one vial does pay</h3>
+      Pharmacy cost, spa acquisition, Arora’s $25, Ryan’s commission, card fees. Hello Gorgeous still clears three figures on month 1 and almost double that on every refill at $399 / $40.
+    </div>
+    <div class="box no">
+      <h3>What this one vial does not pay</h3>
+      Dr. Arora’s $1,500 Medical Director fee or $500 network retainer (those sit on the month, not this line). Syringes, cold pack, label, desk time. Refunds and failed cards.
+    </div>
+  </div>
+
+  <p style="margin-top:8px;">
+    <strong>Read this once:</strong> you are thin on month 1 because $100 + $25 + 20% Ryan is $205 of split on a $399 ticket. You are fine on month 2. Do not put 20% Ryan <em>and</em> a $100 spa cut on every refill.
+  </p>
+
+  <div class="foot">
+    <div>Hello Gorgeous Med Spa · RE GEN · 74 W. Washington Street, Oswego, IL · 630-636-6193</div>
+    <div>Do not give this page to a referring spa — it shows vial cost.</div>
+  </div>
+  <p class="fine">
+    Working numbers from Danielle, August 2026. Illustrative only — not a quote, forecast, or outcome guarantee. Vial cost is internal COGS. Square fee is an estimate. Ryan’s current signed plan pays 10% of collected RE GEN, not 20%; 20% is modeled here because that is the split under discussion.
+  </p>
+</body>
+</html>

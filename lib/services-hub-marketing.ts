@@ -151,6 +151,7 @@ export const SERVICES_HUB_MORE = [
 ] as const;
 
 export const SERVICES_HUB_NAV = [
+  { href: "#clinic-services", label: "Clinic services" },
   { href: "#lookbook", label: "Lookbook" },
   { href: "#more", label: "More care" },
   { href: "#catalog", label: "Full catalog" },

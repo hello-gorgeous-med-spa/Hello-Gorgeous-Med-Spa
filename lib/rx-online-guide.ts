@@ -8,7 +8,7 @@ export const RX_ONLINE_GUIDE_PATH = "/rx/guide" as const;
 export const RX_GUIDE_PILLS = [
   { emoji: "📍", label: "Track your order" },
   { emoji: "💬", label: "Message us 24/7" },
-  { emoji: "💳", label: "Pay by text or email" },
+  { emoji: "💳", label: "Pay at the spa Terminal" },
   { emoji: "📅", label: "Book on Square" },
 ] as const;
 
@@ -22,8 +22,8 @@ export const RX_GUIDE_STEPS = [
     description: `Book Ryan on Square ($${PROGRAM_CONSULT_FEE_USD} consult for new protocols)`,
   },
   {
-    title: "Pay your invoice",
-    description: "Secure link by text or email — pay on your phone",
+    title: "Pay at the spa",
+    description: "Tap, dip, or swipe on the Terminal in Oswego — Square cannot take RX by link anymore",
   },
   {
     title: "Clinical review",
@@ -42,7 +42,7 @@ export const RX_GUIDE_PATHS = [
     items: [
       "Visit our RX home page & pick a program",
       "Complete your intake form",
-      "Pay your NP consult when prompted",
+      "Pay your NP consult on the Terminal in Oswego",
       "Book your Square telehealth visit",
       "Save your confirmation email — it has your personal status link",
     ],
@@ -54,7 +54,7 @@ export const RX_GUIDE_PATHS = [
     items: [
       "Open your care hub & submit your refill",
       "Choose 90-day supply (most popular) or 30-day",
-      "Pay the invoice we text or email you",
+      "Pay at the spa Terminal (tap, dip, or swipe)",
       `Book a visit only if your dose changed or it's been ${RX_TELEHEALTH_CADENCE_DAYS}+ days`,
       "Check your status page anytime for shipping updates",
     ],
@@ -122,7 +122,7 @@ export const RX_GUIDE_LINKS: RxGuideLink[] = [
   },
   {
     title: "My RX portal",
-    description: "Logged-in patients — orders, pay links & refills",
+    description: "Logged-in patients — orders, refills & visit status",
     href: "/portal/rx",
   },
 ];
@@ -137,8 +137,8 @@ export const RX_GUIDE_TIPS = [
     text: `is usually every ${RX_TELEHEALTH_CADENCE_DAYS} days when your dose is stable — not every month.`,
   },
   {
-    strong: "Payment links",
-    text: "come by text and/or email. Tap the link and pay securely on your phone.",
+    strong: "Pay at the spa",
+    text: "Prescription charges are tap, dip, or swipe on the Terminal in Oswego. We cannot send a Square pay link for medication.",
   },
   {
     strong: "Your status link",
