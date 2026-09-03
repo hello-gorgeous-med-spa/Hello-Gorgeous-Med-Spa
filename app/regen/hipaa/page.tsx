@@ -98,7 +98,7 @@ export default function HipaaPage() {
               Hello Gorgeous PC<br />
               Oswego, Illinois<br />
               Phone: (630) 636-6193<br />
-              Email: privacy@tryregenrx.com
+              Email: hello@tryregenrx.com
             </p>
           </div>
 
@@ -227,9 +227,28 @@ export default function HipaaPage() {
             in accordance with HIPAA requirements.
           </p>
 
-          {/* Section 8 */}
+          {/* Section 8 - Data Retention */}
           <h2 style={{ color: BRAND.cream, fontSize: 22, fontWeight: 700, marginBottom: 16, marginTop: 40 }}>
-            8. Changes to This Notice
+            8. Data Retention
+          </h2>
+          <p>
+            We retain your Protected Health Information for the following periods:
+          </p>
+          <ul style={{ paddingLeft: 24 }}>
+            <li><strong style={{ color: '#fff' }}>Medical Records:</strong> Minimum of 10 years from the date of last treatment, or as required by Illinois law</li>
+            <li><strong style={{ color: '#fff' }}>Prescription Records:</strong> Minimum of 5 years as required by pharmacy regulations</li>
+            <li><strong style={{ color: '#fff' }}>Billing Records:</strong> 7 years for tax and audit purposes</li>
+            <li><strong style={{ color: '#fff' }}>Communication Records:</strong> Duration of treatment relationship plus 6 years</li>
+          </ul>
+          <p style={{ marginTop: 16 }}>
+            After the retention period expires, records are securely destroyed using industry-standard methods 
+            (digital shredding, secure deletion). You may request earlier deletion of non-required records, 
+            though we may retain information necessary for legal compliance, dispute resolution, or ongoing care.
+          </p>
+
+          {/* Section 9 */}
+          <h2 style={{ color: BRAND.cream, fontSize: 22, fontWeight: 700, marginBottom: 16, marginTop: 40 }}>
+            9. Changes to This Notice
           </h2>
           <p>
             We reserve the right to change this notice and make the new provisions effective for all PHI we 
@@ -237,9 +256,9 @@ export default function HipaaPage() {
             the effective date. The current notice is always available at tryregenrx.com/hipaa.
           </p>
 
-          {/* Section 9 */}
+          {/* Section 10 */}
           <h2 style={{ color: BRAND.cream, fontSize: 22, fontWeight: 700, marginBottom: 16, marginTop: 40 }}>
-            9. Complaints
+            10. Complaints
           </h2>
           <p>
             If you believe your privacy rights have been violated, you may file a complaint with us or with the 
@@ -253,7 +272,7 @@ export default function HipaaPage() {
                 Privacy Officer<br />
                 Hello Gorgeous PC<br />
                 Phone: (630) 636-6193<br />
-                Email: privacy@tryregenrx.com
+                Email: hello@tryregenrx.com
               </p>
             </div>
             <div style={{ backgroundColor: BRAND.darkAlt, borderRadius: 12, padding: 20 }}>

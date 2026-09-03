@@ -210,6 +210,22 @@ export default function PrivacyPage() {
             industry best practices.
           </p>
 
+          <h2 style={{ color: BRAND.cream }}>Data Retention</h2>
+          <p>
+            We retain your information for as long as necessary to provide our services and comply with legal obligations:
+          </p>
+          <ul style={{ color: BRAND.gray }}>
+            <li><strong>Medical Records:</strong> Minimum 10 years from last treatment (as required by Illinois law)</li>
+            <li><strong>Prescription Records:</strong> Minimum 5 years (pharmacy regulations)</li>
+            <li><strong>Billing Records:</strong> 7 years (tax and audit requirements)</li>
+            <li><strong>Account Information:</strong> Duration of your account plus 3 years</li>
+            <li><strong>Communication Logs:</strong> Duration of treatment plus 6 years</li>
+          </ul>
+          <p>
+            After the retention period, data is securely deleted. You may request earlier deletion of non-required 
+            information by contacting us.
+          </p>
+
           <h2 style={{ color: BRAND.cream }}>Changes to This Policy</h2>
           <p>
             We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated "Last 

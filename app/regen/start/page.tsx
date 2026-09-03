@@ -142,6 +142,7 @@ function RegenStartContent() {
     dob: '',
     state: 'IL',
     agreeTerms: false,
+    agreeHipaa: false,
   });
   const [screeningAnswers, setScreeningAnswers] = useState<Record<string, string>>({});
   const [disqualified, setDisqualified] = useState(false);
@@ -163,7 +164,11 @@ function RegenStartContent() {
   const handleInfoSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.agreeTerms) {
-      alert('Please agree to the terms to continue');
+      alert('Please agree to the Terms of Service and Privacy Policy to continue');
+      return;
+    }
+    if (!formData.agreeHipaa) {
+      alert('Please acknowledge receipt of the HIPAA Notice of Privacy Practices to continue');
       return;
     }
     // Move to medical screening instead of checkout
@@ -441,13 +446,30 @@ function RegenStartContent() {
                   onChange={(e) => setFormData({ ...formData, agreeTerms: e.target.checked })}
                   className="mt-1 w-4 h-4 rounded"
                   style={{ accentColor: BRAND.pink }}
+                  required
                 />
                 <label htmlFor="terms" className="text-sm" style={{ color: BRAND.gray }}>
                   I agree to the{' '}
                   <Link href="/terms" className="hover:underline" style={{ color: BRAND.teal }}>Terms of Service</Link>
                   {' '}and{' '}
                   <Link href="/privacy" className="hover:underline" style={{ color: BRAND.teal }}>Privacy Policy</Link>
-                  , and I consent to receive telehealth services.
+                  , and I consent to receive telehealth services. <span style={{ color: BRAND.pink }}>*</span>
+                </label>
+              </div>
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="hipaa"
+                  checked={formData.agreeHipaa}
+                  onChange={(e) => setFormData({ ...formData, agreeHipaa: e.target.checked })}
+                  className="mt-1 w-4 h-4 rounded"
+                  style={{ accentColor: BRAND.pink }}
+                  required
+                />
+                <label htmlFor="hipaa" className="text-sm" style={{ color: BRAND.gray }}>
+                  I acknowledge that I have received and reviewed the{' '}
+                  <Link href="/hipaa" className="hover:underline" style={{ color: BRAND.teal }}>Notice of Privacy Practices (HIPAA)</Link>
+                  {' '}and understand how my health information may be used and disclosed. <span style={{ color: BRAND.pink }}>*</span>
                 </label>
               </div>
               <button
