@@ -47,16 +47,10 @@ const CREDENTIALS = [
 
 const PHARMACIES = [
   {
-    name: 'BoomRx',
+    name: 'Formulation Rx',
     type: '503A Compounding Pharmacy',
-    description: 'Our primary pharmacy partner for compounded medications including GLP-1s, HRT, peptides, and custom skincare formulations.',
-    location: 'FDA-Registered',
-  },
-  {
-    name: 'Olympia Pharmaceuticals',
-    type: '503A/503B Compounding',
-    description: 'Additional pharmacy partner for specialized compounds and overflow capacity.',
-    location: 'FDA-Registered',
+    description: 'Our exclusive pharmacy partner. FDA-registered, state-licensed compounding pharmacy specializing in GLP-1s, peptides, hormones, and custom formulations. Powered by FormuConnect for seamless ordering and real-time tracking.',
+    location: 'Lewisville, TX · FDA-Registered',
   },
 ];
 

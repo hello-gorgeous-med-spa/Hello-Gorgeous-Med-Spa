@@ -88,7 +88,7 @@ const CATEGORIES = [
 
 const TRUST_POINTS = [
   { icon: '🏥', title: 'Licensed Providers', desc: 'Illinois FPA Nurse Practitioner with MD oversight' },
-  { icon: '💊', title: 'FDA-Registered Pharmacies', desc: '503A compounding partners like BoomRx' },
+  { icon: '💊', title: 'FDA-Registered Pharmacy', desc: 'Formulation Rx — our exclusive 503A partner' },
   { icon: '📋', title: 'Real Prescriptions', desc: 'Legitimate telehealth — not research chemicals' },
   { icon: '🔒', title: 'HIPAA Compliant', desc: 'Your health information is protected' },
 ];

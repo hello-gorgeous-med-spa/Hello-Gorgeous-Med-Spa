@@ -251,7 +251,7 @@ export default function HipaaPage() {
             These include:
           </p>
           <ul style={{ paddingLeft: 24 }}>
-            <li><strong style={{ color: '#fff' }}>Compounding Pharmacies:</strong> To fill your prescriptions (e.g., BoomRx, Olympia)</li>
+            <li><strong style={{ color: '#fff' }}>Compounding Pharmacy:</strong> To fill your prescriptions (Formulation Rx — our exclusive pharmacy partner)</li>
             <li><strong style={{ color: '#fff' }}>Payment Processors:</strong> To process payments securely (Stripe)</li>
             <li><strong style={{ color: '#fff' }}>Communication Platforms:</strong> For secure messaging and video consultations (Doxy.me)</li>
             <li><strong style={{ color: '#fff' }}>Cloud Service Providers:</strong> For secure data storage</li>

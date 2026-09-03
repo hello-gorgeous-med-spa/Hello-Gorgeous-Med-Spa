@@ -99,8 +99,8 @@ export default function SafetyPage() {
           {[
             {
               icon: '🏥',
-              title: 'FDA-Registered Pharmacies',
-              description: 'Our pharmacy partners are FDA-registered 503A and 503B facilities, subject to oversight by state boards of pharmacy and compliance with strict quality and safety standards.',
+              title: 'FDA-Registered Pharmacy',
+              description: 'We partner exclusively with Formulation Rx, an FDA-registered 503A compounding pharmacy in Lewisville, TX. They are subject to oversight by state boards of pharmacy and comply with strict quality and safety standards.',
             },
             {
               icon: '💊',
