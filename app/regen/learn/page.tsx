@@ -65,6 +65,16 @@ const CATEGORIES = [
     color: BRAND.teal,
   },
   {
+    id: 'vitamins',
+    title: 'Vitamin Injectables',
+    subtitle: 'Energy & Wellness Shots',
+    description: 'Fast-acting nutrients like B12, Biotin, Glutathione, and NAD+ — delivered straight to your cells for maximum absorption.',
+    icon: '💉',
+    href: '/learn/vitamins',
+    topics: ['Why injectable vs oral', 'B12 for energy', 'Biotin for hair & nails', 'Glutathione for detox & glow', 'NAD+ for longevity'],
+    color: BRAND.teal,
+  },
+  {
     id: 'sexual-health',
     title: 'Sexual Wellness',
     subtitle: 'Intimacy & Performance',

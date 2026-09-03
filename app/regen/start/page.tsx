@@ -48,6 +48,18 @@ const GOALS = [
     ],
   },
   {
+    id: 'vitamins',
+    title: 'Vitamin Injectables',
+    description: 'Energy, immunity & wellness shots',
+    icon: '💉',
+    programs: [
+      { id: 'b12', name: 'Vitamin B12 Injection', price: 35, description: 'Energy boost, metabolism support & nerve health' },
+      { id: 'biotin', name: 'Biotin Injection', price: 45, description: 'Hair, skin & nail strengthening' },
+      { id: 'glutathione', name: 'Glutathione Injection', price: 75, description: 'Master antioxidant for detox, skin brightening & immunity' },
+      { id: 'nad-injection', name: 'NAD+ Injection', price: 125, description: 'Cellular energy, anti-aging & brain clarity' },
+    ],
+  },
+  {
     id: 'sexual-health',
     title: 'Sexual Wellness',
     description: 'Discreet solutions for intimacy',
