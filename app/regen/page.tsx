@@ -778,6 +778,7 @@ export default function RegenLandingPage() {
               <Link href="/providers" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Team</Link>
               <Link href="/contact" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Contact</Link>
               <Link href="/safety" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Safety</Link>
+              <Link href="/hipaa" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>HIPAA</Link>
               <Link href="/terms" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Terms</Link>
               <Link href="/privacy" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Privacy</Link>
               <a href="tel:+16306366193" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>(630) 636-6193</a>
