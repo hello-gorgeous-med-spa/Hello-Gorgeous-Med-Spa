@@ -168,8 +168,116 @@ export default function ProvidersPage() {
         </div>
       </section>
 
+      {/* Meet Your Provider - Ryan Kent */}
+      <section className="py-16 px-6" style={{ backgroundColor: BRAND.darkAlt }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <span 
+              className="inline-block px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase mb-4"
+              style={{ backgroundColor: `${BRAND.pink}20`, color: BRAND.pink, border: `1px solid ${BRAND.pink}40` }}
+            >
+              Meet Your Provider
+            </span>
+            <h2 className="text-3xl md:text-4xl font-black" style={{ color: BRAND.cream }}>
+              Backed by clinical expertise
+            </h2>
+          </div>
+
+          <div 
+            className="rounded-3xl p-8 md:p-12"
+            style={{ 
+              background: `linear-gradient(135deg, ${BRAND.dark} 0%, #0d1f1d 100%)`,
+              border: `2px solid ${BRAND.teal}30`,
+            }}
+          >
+            <div className="grid md:grid-cols-3 gap-8 items-start">
+              {/* Photo/Avatar */}
+              <div className="text-center">
+                <div 
+                  className="w-48 h-48 mx-auto rounded-2xl flex items-center justify-center mb-4"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${BRAND.teal} 0%, ${BRAND.pink} 100%)`,
+                    boxShadow: `0 0 40px ${BRAND.teal}40`,
+                  }}
+                >
+                  <span className="text-7xl">👨‍⚕️</span>
+                </div>
+                <h3 className="text-2xl font-black" style={{ color: BRAND.cream }}>Ryan Kent</h3>
+                <p className="font-medium" style={{ color: BRAND.teal }}>FNP-BC, MSN</p>
+                <p className="text-sm mt-1" style={{ color: BRAND.gray }}>Lead Provider</p>
+              </div>
+
+              {/* Credentials */}
+              <div className="md:col-span-2">
+                <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                  {[
+                    { label: 'Board Certification', value: 'Family Nurse Practitioner (ANCC)' },
+                    { label: 'Education', value: 'MSN, Family Practice' },
+                    { label: 'License', value: 'Full Practice Authority — Illinois' },
+                    { label: 'Experience', value: '10+ Years Clinical Practice' },
+                    { label: 'Specializations', value: 'Weight Loss, HRT, Peptides' },
+                    { label: 'DEA Licensed', value: 'Schedule II-V Prescribing' },
+                  ].map((cred) => (
+                    <div key={cred.label} className="p-4 rounded-xl" style={{ backgroundColor: `${BRAND.teal}10` }}>
+                      <p className="text-xs uppercase tracking-wider mb-1" style={{ color: BRAND.teal }}>{cred.label}</p>
+                      <p className="font-semibold text-sm" style={{ color: BRAND.cream }}>{cred.value}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mb-6">
+                  <h4 className="font-bold mb-3" style={{ color: BRAND.cream }}>About Ryan</h4>
+                  <p className="text-sm mb-3" style={{ color: BRAND.gray }}>
+                    Ryan Kent is a board-certified Family Nurse Practitioner with Full Practice Authority in Illinois, 
+                    meaning he can independently diagnose, treat, and prescribe without physician supervision. With over 
+                    a decade of clinical experience, Ryan specializes in metabolic health, hormone optimization, and 
+                    regenerative medicine.
+                  </p>
+                  <p className="text-sm" style={{ color: BRAND.gray }}>
+                    Prior to founding REGEN RX, Ryan worked in primary care, urgent care, and medical aesthetics, 
+                    developing expertise in weight management and hormone therapy. He stays current on the latest 
+                    clinical evidence for GLP-1 medications, peptide therapy, and bioidentical HRT.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-3">
+                  {['GLP-1 Weight Loss', 'Hormone Therapy', 'Peptide Protocols', 'Metabolic Health', 'Anti-Aging Medicine'].map((tag) => (
+                    <span 
+                      key={tag}
+                      className="px-3 py-1 rounded-full text-xs font-medium"
+                      style={{ backgroundColor: `${BRAND.pink}15`, color: BRAND.pink }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Physician Oversight */}
+            <div className="mt-8 pt-8" style={{ borderTop: `1px solid ${BRAND.teal}20` }}>
+              <div className="flex items-center gap-4">
+                <div 
+                  className="w-16 h-16 rounded-xl flex items-center justify-center"
+                  style={{ backgroundColor: `${BRAND.teal}20` }}
+                >
+                  <span className="text-2xl">🩺</span>
+                </div>
+                <div>
+                  <p className="font-bold" style={{ color: BRAND.cream }}>Physician Oversight</p>
+                  <p className="text-sm" style={{ color: BRAND.gray }}>
+                    All clinical protocols are developed with board-certified physician oversight for complex cases, 
+                    quality assurance, and ongoing medical direction.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Credentials Grid */}
-      <section className="py-12 px-6" style={{ backgroundColor: BRAND.darkAlt }}>
+      <section className="py-12 px-6" style={{ backgroundColor: BRAND.dark }}>
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold mb-8 text-center" style={{ color: BRAND.cream }}>Our Credentials</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

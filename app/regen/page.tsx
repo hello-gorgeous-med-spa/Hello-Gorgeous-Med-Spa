@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -81,10 +82,116 @@ const PROGRAMS = [
 ];
 
 const STEPS = [
-  { num: '01', title: 'Complete your visit', desc: 'Answer health questions online. Takes 5 minutes.' },
-  { num: '02', title: 'Provider review', desc: 'Licensed Illinois provider reviews within 24-48 hours.' },
-  { num: '03', title: 'Medication delivered', desc: 'Ships from FDA-registered pharmacy. Free delivery.' },
+  { num: '01', title: 'Start your online visit', desc: 'Answer questions about your health and goals — all online, no appointments needed.', icon: '📋', time: '5 min' },
+  { num: '02', title: 'Provider reviews your info', desc: 'A licensed Illinois provider evaluates your history and determines if treatment is right for you.', icon: '👨‍⚕️', time: '24-48 hrs' },
+  { num: '03', title: 'Get your prescription', desc: 'If approved, your provider sends your Rx to an FDA-registered compounding pharmacy.', icon: '💊', time: 'Same day' },
+  { num: '04', title: 'Medication ships to you', desc: 'Your treatment ships directly to your door — discreet packaging, free delivery.', icon: '📦', time: '3-5 days' },
+  { num: '05', title: 'Ongoing support', desc: 'Message your provider anytime. Get dosing help, manage side effects, and track progress.', icon: '💬', time: '24/7' },
 ];
+
+function WeightLossCalculator() {
+  const [weight, setWeight] = useState(220);
+  const potentialLoss15 = Math.round(weight * 0.15);
+  const potentialLoss20 = Math.round(weight * 0.20);
+  const newWeight = weight - potentialLoss20;
+
+  return (
+    <section className="py-16 px-6" style={{ backgroundColor: BRAND.darkAlt }}>
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-10">
+          <span 
+            className="inline-block px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase mb-4"
+            style={{ backgroundColor: `${BRAND.pink}20`, color: BRAND.pink, border: `1px solid ${BRAND.pink}40` }}
+          >
+            Weight Loss Calculator
+          </span>
+          <h2 className="text-3xl md:text-4xl font-black" style={{ color: BRAND.cream }}>
+            See what you could lose
+          </h2>
+        </div>
+
+        <div 
+          className="rounded-3xl p-8 md:p-10"
+          style={{ 
+            background: `linear-gradient(135deg, ${BRAND.dark} 0%, #0d1f1d 100%)`,
+            border: `2px solid ${BRAND.teal}30`,
+          }}
+        >
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            {/* Slider Side */}
+            <div>
+              <label className="block text-sm font-medium mb-3" style={{ color: BRAND.gray }}>
+                Your current weight
+              </label>
+              <div className="mb-6">
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-5xl font-black" style={{ color: BRAND.cream }}>{weight}</span>
+                  <span className="text-2xl font-medium" style={{ color: BRAND.gray }}>lbs</span>
+                </div>
+                <input
+                  type="range"
+                  min="150"
+                  max="400"
+                  value={weight}
+                  onChange={(e) => setWeight(parseInt(e.target.value))}
+                  className="w-full h-3 rounded-full appearance-none cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, ${BRAND.teal} 0%, ${BRAND.teal} ${((weight - 150) / 250) * 100}%, #333 ${((weight - 150) / 250) * 100}%, #333 100%)`,
+                  }}
+                />
+                <div className="flex justify-between text-xs mt-2" style={{ color: BRAND.gray }}>
+                  <span>150 lbs</span>
+                  <span>400 lbs</span>
+                </div>
+              </div>
+
+              <p className="text-sm" style={{ color: BRAND.gray }}>
+                Based on clinical trials of GLP-1 medications like Wegovy® and Zepbound®, 
+                patients lose an average of 15-20% of their body weight.*
+              </p>
+            </div>
+
+            {/* Results Side */}
+            <div className="text-center md:text-left">
+              <div className="mb-6">
+                <div className="text-sm font-medium mb-2" style={{ color: BRAND.gray }}>Weight you could lose:</div>
+                <div className="flex items-baseline gap-3 justify-center md:justify-start">
+                  <span className="text-6xl font-black" style={{ color: BRAND.pink }}>{potentialLoss15}-{potentialLoss20}</span>
+                  <span className="text-2xl font-medium" style={{ color: BRAND.gray }}>lbs</span>
+                </div>
+              </div>
+
+              <div 
+                className="inline-block px-6 py-4 rounded-2xl mb-6"
+                style={{ backgroundColor: `${BRAND.teal}15`, border: `1px solid ${BRAND.teal}30` }}
+              >
+                <div className="text-sm" style={{ color: BRAND.gray }}>Your new weight could be</div>
+                <div className="text-3xl font-black" style={{ color: BRAND.teal }}>{newWeight} lbs</div>
+              </div>
+
+              <div>
+                <Link
+                  href="/start?goal=weight-loss"
+                  className="inline-flex items-center gap-2 px-8 py-4 text-lg font-bold rounded-full transition-all hover:scale-105"
+                  style={{ backgroundColor: BRAND.pink, color: 'white' }}
+                >
+                  See If You Qualify
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-xs text-center mt-8" style={{ color: '#555' }}>
+            *Based on clinical trials. Individual results may vary. Not all patients qualify for treatment.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function RegenLandingPage() {
   return (
@@ -239,6 +346,9 @@ export default function RegenLandingPage() {
         </div>
       </section>
 
+      {/* Weight Loss Calculator */}
+      <WeightLossCalculator />
+
       {/* Scrolling Trust Strip */}
       <section className="py-5 overflow-hidden border-y" style={{ backgroundColor: BRAND.darkAlt, borderColor: `${BRAND.teal}20` }}>
         <div className="animate-marquee whitespace-nowrap flex">
@@ -338,21 +448,36 @@ export default function RegenLandingPage() {
                 No video calls. No waiting rooms. Just real care, delivered.
               </p>
               
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {STEPS.map((step, idx) => (
-                  <div key={step.num} className="flex gap-6 items-start group">
+                  <div key={step.num} className="flex gap-5 items-start group relative">
+                    {/* Timeline connector */}
+                    {idx < STEPS.length - 1 && (
+                      <div 
+                        className="absolute left-7 top-14 w-0.5 h-full"
+                        style={{ backgroundColor: `${BRAND.teal}30` }}
+                      />
+                    )}
                     <div 
-                      className="flex-shrink-0 w-16 h-16 rounded-xl flex items-center justify-center text-white font-black text-xl transition-all group-hover:scale-110"
+                      className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center text-2xl transition-all group-hover:scale-110 relative z-10"
                       style={{ 
-                        backgroundColor: idx === 2 ? BRAND.pink : BRAND.teal,
-                        boxShadow: `0 0 20px ${idx === 2 ? BRAND.pink : BRAND.teal}40`
+                        backgroundColor: idx === STEPS.length - 1 ? BRAND.pink : BRAND.teal,
+                        boxShadow: `0 0 20px ${idx === STEPS.length - 1 ? BRAND.pink : BRAND.teal}30`
                       }}
                     >
-                      {step.num}
+                      {step.icon}
                     </div>
-                    <div>
-                      <h3 className="text-xl font-bold mb-1" style={{ color: BRAND.cream }}>{step.title}</h3>
-                      <p style={{ color: BRAND.gray }}>{step.desc}</p>
+                    <div className="flex-1 pb-4">
+                      <div className="flex items-center gap-3 mb-1">
+                        <h3 className="text-lg font-bold" style={{ color: BRAND.cream }}>{step.title}</h3>
+                        <span 
+                          className="text-xs px-2 py-0.5 rounded-full font-medium"
+                          style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal }}
+                        >
+                          {step.time}
+                        </span>
+                      </div>
+                      <p className="text-sm" style={{ color: BRAND.gray }}>{step.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -516,6 +641,99 @@ export default function RegenLandingPage() {
               Save up to 20% with prepay plans · Cancel anytime
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials / Social Proof */}
+      <section className="py-24 px-6" style={{ backgroundColor: BRAND.dark }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <span 
+              className="inline-block px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase mb-4"
+              style={{ backgroundColor: `${BRAND.pink}20`, color: BRAND.pink, border: `1px solid ${BRAND.pink}40` }}
+            >
+              Real Results
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black mb-4" style={{ color: BRAND.cream }}>
+              What our <span style={{ color: BRAND.teal }}>patients</span> are saying
+            </h2>
+            
+            {/* Stats Bar */}
+            <div className="flex flex-wrap justify-center gap-8 mt-8 mb-12">
+              {[
+                { stat: '95%', label: 'Patient Satisfaction' },
+                { stat: '15-20%', label: 'Average Weight Loss' },
+                { stat: '24/7', label: 'Provider Support' },
+              ].map((item) => (
+                <div key={item.label} className="text-center">
+                  <div className="text-4xl font-black" style={{ color: BRAND.pink }}>{item.stat}</div>
+                  <div className="text-sm" style={{ color: BRAND.gray }}>{item.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Testimonial Cards */}
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                quote: "I was skeptical about online weight loss programs, but REGEN RX changed everything. Down 35 lbs in 4 months and I finally feel like myself again.",
+                name: "Michelle T.",
+                location: "Naperville, IL",
+                result: "Lost 35 lbs",
+                program: "Weight Loss",
+              },
+              {
+                quote: "The process was so easy. I did my intake on my lunch break, got approved the next day, and had my medication within a week. No annoying doctor visits.",
+                name: "David K.",
+                location: "Aurora, IL",
+                result: "Lost 28 lbs",
+                program: "Weight Loss",
+              },
+              {
+                quote: "Finally a provider who actually listens. Ryan adjusted my dosing when I had nausea and it made all the difference. Real support, not just a prescription.",
+                name: "Jennifer M.",
+                location: "Oswego, IL",
+                result: "Lost 42 lbs",
+                program: "Weight Loss",
+              },
+            ].map((testimonial, i) => (
+              <div 
+                key={i}
+                className="p-6 rounded-2xl"
+                style={{ 
+                  backgroundColor: BRAND.darkAlt, 
+                  border: `1px solid ${BRAND.teal}20`,
+                }}
+              >
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, j) => (
+                    <svg key={j} className="w-5 h-5" style={{ color: '#FCD34D' }} fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="mb-6 text-[15px] leading-relaxed" style={{ color: '#ccc' }}>
+                  &ldquo;{testimonial.quote}&rdquo;
+                </p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="font-bold" style={{ color: BRAND.cream }}>{testimonial.name}</div>
+                    <div className="text-sm" style={{ color: BRAND.gray }}>{testimonial.location}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-sm font-semibold" style={{ color: BRAND.pink }}>{testimonial.result}</div>
+                    <div className="text-xs" style={{ color: BRAND.gray }}>{testimonial.program}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-xs mt-8" style={{ color: '#555' }}>
+            *Individual results may vary. Testimonials represent typical patient experiences but are not guarantees. 
+            Patients compensated for sharing their stories.
+          </p>
         </div>
       </section>
 
