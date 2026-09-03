@@ -12,6 +12,12 @@ import {
 } from "@/lib/campaigns/botox-bash-aug-2026";
 import { FALL_FACIALS_CAMPAIGN, FALL_FACIALS_GBP } from "@/lib/campaigns/fall-into-facials-2026";
 import { FALL_MAKEOVER_CAMPAIGN, FALL_MAKEOVER_GBP } from "@/lib/campaigns/fall-makeover-2026";
+import {
+  REGEN_LAUNCH_GBP,
+  REGEN_WEIGHT_LOSS_GBP,
+  REGEN_PEPTIDES_GBP,
+  REGEN_SKINCARE_GBP,
+} from "@/lib/campaigns/regen-rx-launch-2026";
 
 export type GbpPostPreset = {
   id: string;
@@ -23,6 +29,36 @@ export type GbpPostPreset = {
 };
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
+  // REGEN RX Telehealth Launch
+  {
+    id: "regen-rx-launch",
+    label: "🚀 REGEN RX Launch — Telehealth is live!",
+    message: REGEN_LAUNCH_GBP,
+    linkPath: "/regen?utm_source=google&utm_medium=gbp_post&utm_campaign=regen_launch_2026",
+    imagePath: "/images/regen/logo-full.png",
+  },
+  {
+    id: "regen-rx-weight-loss",
+    label: "REGEN RX — Weight Loss (GLP-1s)",
+    message: REGEN_WEIGHT_LOSS_GBP,
+    linkPath: "/regen/learn/weight-loss?utm_source=google&utm_medium=gbp_post&utm_campaign=regen_glp1_2026",
+    imagePath: "/images/regen/logo-full.png",
+  },
+  {
+    id: "regen-rx-peptides",
+    label: "REGEN RX — Peptide Therapy",
+    message: REGEN_PEPTIDES_GBP,
+    linkPath: "/regen/learn/peptides?utm_source=google&utm_medium=gbp_post&utm_campaign=regen_peptides_2026",
+    imagePath: "/images/regen/logo-full.png",
+  },
+  {
+    id: "regen-rx-skincare",
+    label: "REGEN RX — Prescription Skincare",
+    message: REGEN_SKINCARE_GBP,
+    linkPath: "/regen/learn/skincare?utm_source=google&utm_medium=gbp_post&utm_campaign=regen_skincare_2026",
+    imagePath: "/images/regen/logo-full.png",
+  },
+  // Hello Gorgeous Med Spa
   {
     id: "botox-bash-aug-2026",
     label: "Weekend Botox Bash — $9/unit Aug 28–29",
