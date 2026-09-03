@@ -251,8 +251,11 @@ export default function RegenLandingPage() {
             <Link href="/learn" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
               Learn
             </Link>
+            <Link href="/about" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
+              Our Story
+            </Link>
             <Link href="/providers" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
-              About Us
+              Our Team
             </Link>
             <Link href="/contact" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
               Contact
@@ -771,7 +774,8 @@ export default function RegenLandingPage() {
               <Link href="/products" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Products</Link>
               <Link href="/pricing" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Pricing</Link>
               <Link href="/learn" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Learn</Link>
-              <Link href="/providers" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>About</Link>
+              <Link href="/about" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Our Story</Link>
+              <Link href="/providers" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Team</Link>
               <Link href="/contact" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Contact</Link>
               <Link href="/safety" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Safety</Link>
               <Link href="/terms" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Terms</Link>
