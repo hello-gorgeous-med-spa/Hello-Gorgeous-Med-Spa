@@ -165,6 +165,40 @@ export default function HipaaPage() {
           </h2>
           <p>You have the following rights concerning your health information:</p>
           
+          {/* Authorization Form Link */}
+          <div style={{
+            backgroundColor: `${BRAND.teal}15`,
+            border: `1px solid ${BRAND.teal}30`,
+            borderRadius: 12,
+            padding: 16,
+            marginTop: 16,
+            marginBottom: 16,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: 12,
+          }}>
+            <div>
+              <p style={{ margin: 0, fontWeight: 600, color: BRAND.cream }}>Need to release your records?</p>
+              <p style={{ margin: 0, fontSize: 13, color: '#888' }}>Download our HIPAA Authorization Form</p>
+            </div>
+            <Link 
+              href="/forms/authorization"
+              style={{
+                padding: '10px 20px',
+                backgroundColor: BRAND.teal,
+                color: '#fff',
+                borderRadius: 8,
+                fontSize: 14,
+                fontWeight: 600,
+                textDecoration: 'none',
+              }}
+            >
+              Get Form →
+            </Link>
+          </div>
+          
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 16 }}>
             {[
               { right: 'Right to Access', desc: 'You may request copies of your medical records. We will provide them within 30 days of your request. A reasonable fee may apply.' },
