@@ -136,8 +136,63 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      {/* Other Categories */}
+      {/* Featured Protocols */}
       <section className="py-16 px-6" style={{ backgroundColor: BRAND.darkAlt }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3 mb-8">
+            <span className="text-3xl">✨</span>
+            <h2 className="text-3xl font-bold" style={{ color: BRAND.cream }}>Featured Protocols</h2>
+          </div>
+          
+          <Link
+            href="/products/fountain-of-youth"
+            className="block rounded-2xl overflow-hidden transition-all hover:scale-[1.01]"
+            style={{ 
+              background: `linear-gradient(135deg, ${BRAND.dark} 0%, #1a2e2b 100%)`,
+              border: `2px solid ${BRAND.teal}40`,
+            }}
+          >
+            <div className="p-8 md:p-12">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                  <span 
+                    className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4"
+                    style={{ backgroundColor: `${BRAND.pink}20`, color: BRAND.pink }}
+                  >
+                    Anti-Aging Protocol
+                  </span>
+                  <h3 className="text-3xl font-bold mb-2" style={{ color: BRAND.cream }}>
+                    Fountain of Youth
+                  </h3>
+                  <p className="text-lg mb-4" style={{ color: BRAND.teal }}>
+                    Epitalon + GHK-Cu
+                  </p>
+                  <p className="max-w-xl" style={{ color: BRAND.gray }}>
+                    A powerful peptide stack targeting cellular longevity and skin regeneration. 
+                    Telomerase activation meets collagen synthesis for comprehensive anti-aging support.
+                  </p>
+                </div>
+                <div className="text-center md:text-right">
+                  <div className="text-sm uppercase tracking-wider mb-1" style={{ color: BRAND.gray }}>Starting at</div>
+                  <div className="text-4xl font-black" style={{ color: BRAND.cream }}>$349<span className="text-lg font-normal">/mo</span></div>
+                  <div 
+                    className="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-full font-bold"
+                    style={{ backgroundColor: BRAND.pink, color: 'white' }}
+                  >
+                    Learn More
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* Other Categories */}
+      <section className="py-16 px-6" style={{ backgroundColor: BRAND.dark }}>
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl font-bold mb-8" style={{ color: BRAND.cream }}>Explore All Programs</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
