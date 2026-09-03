@@ -18,7 +18,7 @@ const VITAMIN_INJECTABLES = [
     id: 'b12',
     name: 'Vitamin B12',
     subtitle: 'Energy & Metabolism',
-    description: 'Boost energy, improve focus, and fight fatigue with 100% absorption.',
+    description: 'Boost energy, improve focus, and fight fatigue with direct-to-bloodstream delivery.',
     price: '$35',
     href: '/products/b12',
     benefits: ['Energy boost', 'Mental clarity', 'Mood support'],
@@ -35,11 +35,11 @@ const VITAMIN_INJECTABLES = [
   {
     id: 'glutathione',
     name: 'Glutathione',
-    subtitle: 'Detox & Glow',
-    description: 'Master antioxidant for radiant skin, detox, and immune support.',
+    subtitle: 'Antioxidant Support',
+    description: 'Master antioxidant for radiant skin, cellular health, and immune support.',
     price: '$75',
     href: '/products/glutathione',
-    benefits: ['Skin brightening', 'Detoxification', 'Immune boost'],
+    benefits: ['Skin brightening', 'Antioxidant support', 'Immune boost'],
   },
   {
     id: 'nad',
@@ -100,7 +100,7 @@ export default function ProductsPage() {
             <h2 className="text-3xl font-bold" style={{ color: BRAND.cream }}>Vitamin Injectables</h2>
           </div>
           <p className="mb-8 max-w-2xl" style={{ color: BRAND.gray }}>
-            Fast-acting nutrients delivered directly to your bloodstream for 100% absorption. 
+            Fast-acting nutrients delivered directly to your bloodstream, bypassing digestive absorption loss. 
             Self-injectable at home — no office visits required.
           </p>
           
@@ -169,7 +169,7 @@ export default function ProductsPage() {
                   </p>
                   <p className="max-w-xl" style={{ color: BRAND.gray }}>
                     A powerful peptide stack targeting cellular longevity and skin regeneration. 
-                    Telomerase activation meets collagen synthesis for comprehensive anti-aging support.
+                    Research-backed peptides support cellular health and collagen synthesis for comprehensive wellness.
                   </p>
                 </div>
                 <div className="text-center md:text-right">

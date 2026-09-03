@@ -14,16 +14,16 @@ const BRAND = {
 };
 
 const TIMELINE = [
-  { time: '1-2 Weeks', title: 'Antioxidant Support', desc: 'Glutathione begins neutralizing free radicals and supporting your body\'s natural detoxification processes.' },
+  { time: '1-2 Weeks', title: 'Antioxidant Support', desc: 'Glutathione begins neutralizing free radicals and supporting your body\'s natural cellular processes.' },
   { time: '3-4 Weeks', title: 'Skin Clarity', desc: 'Many notice improved skin clarity, reduced dullness, and a subtle brightening effect.' },
   { time: '2-3 Months', title: 'Visible Glow', desc: 'Skin tone appears more even, hyperpigmentation begins to fade, and overall radiance improves.' },
-  { time: '6+ Months', title: 'Sustained Results', desc: 'Continued use supports ongoing detoxification, immune function, and skin health maintenance.' },
+  { time: '6+ Months', title: 'Sustained Results', desc: 'Continued use supports ongoing cellular health, immune function, and skin health maintenance.' },
 ];
 
 const FAQS = [
   {
     q: 'What is Glutathione?',
-    a: 'Glutathione is your body\'s "master antioxidant" — a molecule made of three amino acids that plays a crucial role in detoxification, immune function, and protecting cells from oxidative damage.',
+    a: 'Glutathione is your body\'s "master antioxidant" — a molecule made of three amino acids that plays a crucial role in cellular health, immune function, and protecting cells from oxidative damage.',
   },
   {
     q: 'Why do I need injections instead of oral supplements?',
@@ -50,7 +50,7 @@ const FAQS = [
 const BENEFITS = [
   { icon: '✨', title: 'Skin Brightening', desc: 'Inhibits melanin production for a more even, radiant complexion' },
   { icon: '🛡️', title: 'Master Antioxidant', desc: 'Neutralizes free radicals and protects cells from oxidative stress' },
-  { icon: '🧹', title: 'Detoxification', desc: 'Supports liver function and helps eliminate toxins and heavy metals' },
+  { icon: '🧹', title: 'Liver Support', desc: 'Supports healthy liver function and cellular antioxidant processes' },
   { icon: '🦠', title: 'Immune Support', desc: 'Enhances immune cell function and overall immune response' },
   { icon: '⚡', title: 'Energy & Recovery', desc: 'Supports mitochondrial function and cellular energy production' },
   { icon: '🧬', title: 'Anti-Aging', desc: 'Protects DNA from damage and supports healthy cellular aging' },
@@ -82,7 +82,7 @@ export default function GlutathioneProductPage() {
               Glutathione Injection
             </h1>
             <p className="text-xl mb-6" style={{ color: BRAND.gray }}>
-              The "master antioxidant" for radiant skin, powerful detox, and cellular protection. Brighten your complexion and support your body's natural defense systems.
+              The "master antioxidant" for radiant skin, cellular health, and immune support. Brighten your complexion and support your body's natural defense systems.
             </p>
             
             <div className="flex items-baseline gap-2 mb-6">
@@ -92,7 +92,7 @@ export default function GlutathioneProductPage() {
             
             <div className="flex flex-wrap gap-3 mb-8">
               <span className="px-3 py-2 rounded-lg text-sm" style={{ backgroundColor: BRAND.darkAlt, color: BRAND.cream }}>✓ Skin brightening</span>
-              <span className="px-3 py-2 rounded-lg text-sm" style={{ backgroundColor: BRAND.darkAlt, color: BRAND.cream }}>✓ Detox support</span>
+              <span className="px-3 py-2 rounded-lg text-sm" style={{ backgroundColor: BRAND.darkAlt, color: BRAND.cream }}>✓ Antioxidant support</span>
               <span className="px-3 py-2 rounded-lg text-sm" style={{ backgroundColor: BRAND.darkAlt, color: BRAND.cream }}>✓ Immune boost</span>
             </div>
             
@@ -124,7 +124,7 @@ export default function GlutathioneProductPage() {
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
             { stat: '#1', label: 'Antioxidant in body' },
-            { stat: '100%', label: 'Bioavailability' },
+            { stat: 'Direct', label: 'To Bloodstream' },
             { stat: '2-3 mo', label: 'For skin brightening' },
             { stat: '1-2x', label: 'Weekly dosing' },
           ].map((item) => (

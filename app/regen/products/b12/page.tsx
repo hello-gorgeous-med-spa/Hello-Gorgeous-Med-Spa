@@ -23,7 +23,7 @@ const TIMELINE = [
 const FAQS = [
   {
     q: 'Why choose B12 injections over oral supplements?',
-    a: 'Injections bypass the digestive system entirely, delivering 100% of the B12 directly to your bloodstream. Oral supplements lose 50-90% of their potency during digestion, especially as we age and absorption decreases.',
+    a: 'Injections bypass the digestive system entirely, delivering B12 directly to your bloodstream. Oral supplements may lose 50-90% of their potency during digestion, especially as we age and absorption decreases.',
   },
   {
     q: 'How much B12 is in each injection?',
@@ -82,7 +82,7 @@ export default function B12ProductPage() {
               Vitamin B12 Injection
             </h1>
             <p className="text-xl mb-6" style={{ color: BRAND.gray }}>
-              Boost energy, improve focus, and fight fatigue with the most efficient way to restore B12 levels — delivering 100% absorption vs. 10-50% from oral supplements.
+              Boost energy, improve focus, and fight fatigue with the most efficient way to restore B12 levels — bypassing digestive absorption loss that affects oral supplements.
             </p>
             
             <div className="flex items-baseline gap-2 mb-6">
@@ -123,7 +123,7 @@ export default function B12ProductPage() {
       <section className="py-8 px-6 border-y" style={{ backgroundColor: BRAND.darkAlt, borderColor: `${BRAND.teal}20` }}>
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
-            { stat: '100%', label: 'Bioavailability' },
+            { stat: 'Direct', label: 'To Bloodstream' },
             { stat: '3-10x', label: 'Better absorption than pills' },
             { stat: '1000mcg', label: 'Per injection' },
             { stat: 'Weekly', label: 'Typical dosing' },
@@ -167,7 +167,7 @@ export default function B12ProductPage() {
               </h3>
               <ul className="space-y-3">
                 {[
-                  '100% absorption — bypasses digestion',
+                  'Direct absorption — bypasses digestion',
                   'Feel results within days',
                   'Once weekly, takes 30 seconds',
                   'No stomach issues or interference',

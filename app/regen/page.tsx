@@ -84,9 +84,9 @@ const PROGRAMS = [
 const STEPS = [
   { num: '01', title: 'Start your online visit', desc: 'Answer questions about your health and goals — all online, no appointments needed.', icon: '📋', time: '5 min' },
   { num: '02', title: 'Provider reviews your info', desc: 'A licensed Illinois provider evaluates your history and determines if treatment is right for you.', icon: '👨‍⚕️', time: '24-48 hrs' },
-  { num: '03', title: 'Get your prescription', desc: 'If approved, your provider sends your Rx to an FDA-registered compounding pharmacy.', icon: '💊', time: 'Same day' },
-  { num: '04', title: 'Medication ships to you', desc: 'Your treatment ships directly to your door — discreet packaging, free delivery.', icon: '📦', time: '3-5 days' },
-  { num: '05', title: 'Ongoing support', desc: 'Message your provider anytime. Get dosing help, manage side effects, and track progress.', icon: '💬', time: '24/7' },
+  { num: '03', title: 'Clinical decision', desc: 'If appropriate, your provider may request labs, a video visit, or additional info before prescribing.', icon: '💊', time: 'Varies' },
+  { num: '04', title: 'Medication ships to you', desc: 'Once approved, your treatment ships directly to your door — discreet packaging included.', icon: '📦', time: '3-5 days' },
+  { num: '05', title: 'Ongoing care', desc: 'Message your care team for support. Your provider may request follow-ups when clinically necessary.', icon: '💬', time: 'As needed' },
 ];
 
 function WeightLossCalculator() {
@@ -448,7 +448,7 @@ export default function RegenLandingPage() {
                 <span style={{ color: BRAND.pink }}>Big results.</span>
               </h2>
               <p className="text-xl mb-12" style={{ color: BRAND.gray }}>
-                No video calls. No waiting rooms. Just real care, delivered.
+                Most visits begin online. Your provider may request labs, additional information, or a video visit when clinically necessary.
               </p>
               
               <div className="space-y-6">
@@ -578,7 +578,7 @@ export default function RegenLandingPage() {
                 subtitle: 'BPC-157 + TB-500',
                 price: 249, 
                 icon: '🧬',
-                features: ['Healing peptides', 'Recovery support', 'Custom dosing'],
+                features: ['Research-backed peptides', 'Recovery support', 'Provider-guided dosing'],
               },
               { 
                 name: 'Hormone Balance', 
@@ -664,9 +664,9 @@ export default function RegenLandingPage() {
             {/* Stats Bar */}
             <div className="flex flex-wrap justify-center gap-8 mt-8 mb-12">
               {[
-                { stat: '95%', label: 'Patient Satisfaction' },
-                { stat: '15-20%', label: 'Average Weight Loss' },
-                { stat: '24/7', label: 'Provider Support' },
+                { stat: '1,900+', label: 'Five-Star Reviews' },
+                { stat: '15-20%', label: 'Avg Weight Loss*' },
+                { stat: 'Illinois', label: 'Licensed Providers' },
               ].map((item) => (
                 <div key={item.label} className="text-center">
                   <div className="text-4xl font-black" style={{ color: BRAND.pink }}>{item.stat}</div>

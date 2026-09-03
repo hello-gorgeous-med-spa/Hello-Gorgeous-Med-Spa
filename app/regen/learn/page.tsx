@@ -71,7 +71,7 @@ const CATEGORIES = [
     description: 'Fast-acting nutrients like B12, Biotin, Glutathione, and NAD+ — delivered straight to your cells for maximum absorption.',
     icon: '💉',
     href: '/learn/vitamins',
-    topics: ['Why injectable vs oral', 'B12 for energy', 'Biotin for hair & nails', 'Glutathione for detox & glow', 'NAD+ for longevity'],
+    topics: ['Why injectable vs oral', 'B12 for energy', 'Biotin for hair & nails', 'Glutathione for skin & immunity', 'NAD+ for cellular health'],
     color: BRAND.teal,
   },
   {

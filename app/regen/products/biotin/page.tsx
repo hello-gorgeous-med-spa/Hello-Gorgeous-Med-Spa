@@ -123,7 +123,7 @@ export default function BiotinProductPage() {
       <section className="py-8 px-6 border-y" style={{ backgroundColor: BRAND.darkAlt, borderColor: `${BRAND.teal}20` }}>
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
-            { stat: '100%', label: 'Bioavailability' },
+            { stat: 'Direct', label: 'To Bloodstream' },
             { stat: 'B7', label: 'Vitamin (Biotin)' },
             { stat: '3-4 mo', label: 'For visible hair results' },
             { stat: 'Weekly', label: 'Typical dosing' },

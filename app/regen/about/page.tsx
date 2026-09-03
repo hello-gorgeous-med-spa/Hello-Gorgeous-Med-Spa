@@ -224,7 +224,7 @@ export default function AboutPage() {
               { stat: '1,900+', label: 'Five-Star Reviews', sub: 'Hello Gorgeous Med Spa' },
               { stat: '7+ Years', label: 'Serving Illinois', sub: 'Since 2019' },
               { stat: '10,000+', label: 'Patients Treated', sub: 'And counting' },
-              { stat: '24/7', label: 'Provider Support', sub: 'Real humans, real care' },
+              { stat: 'Illinois', label: 'Licensed Providers', sub: 'FPA NP + MD oversight' },
             ].map((item) => (
               <div 
                 key={item.label}

@@ -37,11 +37,11 @@ const INJECTABLES = [
     id: 'glutathione',
     name: 'Glutathione',
     subtitle: 'Master Antioxidant',
-    benefits: ['Skin brightening & glow', 'Liver detoxification', 'Immune system boost', 'Reduced oxidative stress'],
-    bestFor: 'Dull skin, hyperpigmentation, detox support, immune health',
+    benefits: ['Skin brightening & glow', 'Liver support', 'Immune system boost', 'Reduced oxidative stress'],
+    bestFor: 'Dull skin, hyperpigmentation, antioxidant support, immune health',
     frequency: 'Weekly for 4-8 weeks, then monthly',
     price: '$75',
-    science: 'Glutathione is the body\'s most powerful antioxidant. It neutralizes free radicals, supports detox pathways, and inhibits melanin for a brighter complexion.',
+    science: 'Glutathione is the body\'s most powerful antioxidant. It neutralizes free radicals, supports cellular health, and may help brighten complexion.',
   },
   {
     id: 'nad',
@@ -58,7 +58,7 @@ const INJECTABLES = [
 const FAQS = [
   {
     q: 'How are vitamin injections different from pills?',
-    a: 'Injections deliver nutrients directly into your bloodstream, bypassing the digestive system. This means 100% bioavailability vs. 10-50% absorption with oral supplements. Results are faster and more reliable.',
+    a: 'Injections deliver nutrients directly into your bloodstream, bypassing the digestive system. This bypasses digestive absorption loss compared to oral supplements, where 50-90% may be lost during digestion.',
   },
   {
     q: 'Do I need to come into the office?',
@@ -121,7 +121,7 @@ export default function VitaminsLearnPage() {
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: '⚡', title: '100% Absorption', desc: 'Bypass digestion — nutrients go straight to your bloodstream' },
+              { icon: '⚡', title: 'Direct Absorption', desc: 'Bypass digestion — nutrients go straight to your bloodstream' },
               { icon: '🚀', title: 'Fast Results', desc: 'Feel the difference within days, not weeks' },
               { icon: '🏠', title: 'At-Home Convenience', desc: 'Self-inject at home — no office visits required' },
             ].map((item) => (

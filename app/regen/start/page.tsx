@@ -55,7 +55,7 @@ const GOALS = [
     programs: [
       { id: 'b12', name: 'Vitamin B12 Injection', price: 35, description: 'Energy boost, metabolism support & nerve health' },
       { id: 'biotin', name: 'Biotin Injection', price: 45, description: 'Hair, skin & nail strengthening' },
-      { id: 'glutathione', name: 'Glutathione Injection', price: 75, description: 'Master antioxidant for detox, skin brightening & immunity' },
+      { id: 'glutathione', name: 'Glutathione Injection', price: 75, description: 'Master antioxidant for skin brightening, cellular health & immunity' },
       { id: 'nad-injection', name: 'NAD+ Injection', price: 125, description: 'Cellular energy, anti-aging & brain clarity' },
     ],
   },
