@@ -98,6 +98,102 @@ export default function PricingPage() {
           All subscriptions include provider oversight, free shipping, and easy pause/cancel anytime.
         </p>
 
+        {/* Expert Consultation CTA */}
+        <div style={{
+          maxWidth: 800,
+          margin: '0 auto 40px',
+          padding: 32,
+          background: `linear-gradient(135deg, ${BRAND.teal}15 0%, ${BRAND.pink}15 100%)`,
+          borderRadius: 20,
+          border: `2px solid ${BRAND.teal}`,
+          textAlign: 'left',
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 24,
+          alignItems: 'center',
+        }}>
+          <div style={{ flex: '1 1 300px' }}>
+            <div style={{ 
+              display: 'inline-block',
+              padding: '4px 12px',
+              backgroundColor: BRAND.teal,
+              borderRadius: 999,
+              fontSize: 11,
+              fontWeight: 700,
+              color: '#fff',
+              marginBottom: 12,
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+            }}>
+              Not Sure Where to Start?
+            </div>
+            <h3 style={{ 
+              fontSize: 24, 
+              fontWeight: 700, 
+              marginBottom: 8,
+              color: '#fff',
+            }}>
+              Book a 1-on-1 Expert Consultation
+            </h3>
+            <p style={{ fontSize: 15, color: '#aaa', marginBottom: 16, lineHeight: 1.6 }}>
+              Speak directly with <strong style={{ color: '#fff' }}>Ryan Kent, FNP-BC</strong> — our lead provider with 10+ years experience. 
+              Get personalized recommendations, ask questions, and find the perfect treatment plan for your goals.
+            </p>
+            <ul style={{ 
+              listStyle: 'none', 
+              padding: 0, 
+              margin: 0,
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '8px 20px',
+              fontSize: 13,
+              color: '#ccc',
+            }}>
+              <li>✓ 30-minute video call</li>
+              <li>✓ Review your health history</li>
+              <li>✓ Personalized treatment plan</li>
+              <li>✓ All questions answered</li>
+            </ul>
+          </div>
+          <div style={{ 
+            flex: '0 0 auto',
+            textAlign: 'center',
+            padding: '0 20px',
+          }}>
+            <div style={{ 
+              fontSize: 48, 
+              fontWeight: 800, 
+              color: BRAND.pink,
+              lineHeight: 1,
+            }}>
+              $99
+            </div>
+            <div style={{ fontSize: 13, color: '#888', marginBottom: 16 }}>
+              one-time consultation
+            </div>
+            <Link
+              href="/consult"
+              style={{
+                display: 'inline-block',
+                padding: '14px 32px',
+                background: `linear-gradient(135deg, ${BRAND.pink} 0%, #c4157a 100%)`,
+                color: '#fff',
+                fontSize: 16,
+                fontWeight: 700,
+                borderRadius: 12,
+                textDecoration: 'none',
+                boxShadow: `0 8px 30px ${BRAND.pink}40`,
+                transition: 'transform 0.2s',
+              }}
+            >
+              Book with Ryan
+            </Link>
+            <p style={{ fontSize: 11, color: '#666', marginTop: 12 }}>
+              $99 credited toward your first order
+            </p>
+          </div>
+        </div>
+
         {/* Billing Toggle */}
         <div style={{ 
           display: 'inline-flex',
