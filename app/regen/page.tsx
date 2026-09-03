@@ -417,6 +417,108 @@ export default function RegenLandingPage() {
         </div>
       </section>
 
+      {/* Pricing Preview Section */}
+      <section className="py-24 px-6" style={{ backgroundColor: BRAND.darkAlt }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <span 
+              className="inline-block px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase mb-4"
+              style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal, border: `1px solid ${BRAND.teal}40` }}
+            >
+              Transparent Pricing
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black mb-4" style={{ color: BRAND.cream }}>
+              Simple, honest <span style={{ color: BRAND.pink }}>pricing</span>
+            </h2>
+            <p className="text-lg max-w-2xl mx-auto" style={{ color: BRAND.gray }}>
+              No hidden fees. No insurance games. Just straightforward monthly plans.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {[
+              { 
+                name: 'Weight Loss', 
+                subtitle: 'Semaglutide',
+                price: 299, 
+                icon: '⚡',
+                features: ['GLP-1 medication', 'Provider oversight', 'Shipped monthly'],
+                popular: true,
+              },
+              { 
+                name: 'Peptide Therapy', 
+                subtitle: 'BPC-157 + TB-500',
+                price: 249, 
+                icon: '🧬',
+                features: ['Healing peptides', 'Recovery support', 'Custom dosing'],
+              },
+              { 
+                name: 'Hormone Balance', 
+                subtitle: 'Women\'s HRT',
+                price: 179, 
+                icon: '✨',
+                features: ['Estrogen + Progesterone', 'Lab monitoring', 'Provider consults'],
+              },
+              { 
+                name: 'Vitamin Boost', 
+                subtitle: 'B12 + NAD+',
+                price: 149, 
+                icon: '💉',
+                features: ['Energy injectables', 'Monthly supply', 'At-home admin'],
+              },
+            ].map((tier) => (
+              <div 
+                key={tier.name}
+                className="relative p-6 rounded-2xl transition-all hover:scale-[1.02]"
+                style={{ 
+                  backgroundColor: BRAND.dark, 
+                  border: tier.popular ? `2px solid ${BRAND.pink}` : `1px solid ${BRAND.teal}30`,
+                }}
+              >
+                {tier.popular && (
+                  <div 
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs font-bold"
+                    style={{ backgroundColor: BRAND.pink, color: 'white' }}
+                  >
+                    Most Popular
+                  </div>
+                )}
+                <div className="text-3xl mb-3">{tier.icon}</div>
+                <h3 className="font-bold text-lg" style={{ color: BRAND.cream }}>{tier.name}</h3>
+                <p className="text-sm mb-4" style={{ color: BRAND.gray }}>{tier.subtitle}</p>
+                <div className="mb-4">
+                  <span className="text-3xl font-black" style={{ color: BRAND.teal }}>${tier.price}</span>
+                  <span className="text-sm" style={{ color: BRAND.gray }}>/mo</span>
+                </div>
+                <ul className="space-y-2">
+                  {tier.features.map((f) => (
+                    <li key={f} className="flex items-center gap-2 text-sm" style={{ color: BRAND.gray }}>
+                      <span style={{ color: BRAND.teal }}>✓</span> {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold transition-all hover:scale-105"
+              style={{ backgroundColor: BRAND.teal, color: 'white' }}
+            >
+              View All Plans
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+            <p className="mt-4 text-sm" style={{ color: BRAND.gray }}>
+              Save up to 20% with prepay plans · Cancel anytime
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-24 px-6 relative overflow-hidden" style={{ backgroundColor: BRAND.teal }}>
         <div className="absolute inset-0 opacity-30" style={{
