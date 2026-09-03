@@ -99,7 +99,33 @@ const GOALS = [
   },
 ];
 
-type Step = 'goal' | 'program' | 'info' | 'checkout';
+type Step = 'goal' | 'program' | 'info' | 'screening' | 'checkout';
+
+// Medical screening questions by goal
+const SCREENING_QUESTIONS: Record<string, Array<{id: string; question: string; type: 'yesno' | 'text'; disqualifyIf?: 'yes' | 'no'}>> = {
+  'weight-loss': [
+    { id: 'thyroid-cancer', question: 'Do you or any family members have a history of medullary thyroid carcinoma (MTC) or Multiple Endocrine Neoplasia syndrome type 2 (MEN 2)?', type: 'yesno', disqualifyIf: 'yes' },
+    { id: 'pancreatitis', question: 'Have you ever been diagnosed with pancreatitis?', type: 'yesno', disqualifyIf: 'yes' },
+    { id: 'pregnant', question: 'Are you currently pregnant, breastfeeding, or planning to become pregnant in the next 6 months?', type: 'yesno', disqualifyIf: 'yes' },
+    { id: 'diabetes-meds', question: 'Are you currently taking insulin or other diabetes medications?', type: 'yesno' },
+    { id: 'current-meds', question: 'Please list any medications you are currently taking:', type: 'text' },
+    { id: 'allergies', question: 'Do you have any known drug allergies?', type: 'text' },
+    { id: 'medical-conditions', question: 'Please list any medical conditions you have been diagnosed with:', type: 'text' },
+  ],
+  'hormones': [
+    { id: 'hormone-cancer', question: 'Do you have a history of hormone-sensitive cancer (breast, prostate, uterine)?', type: 'yesno', disqualifyIf: 'yes' },
+    { id: 'blood-clots', question: 'Have you ever had blood clots, stroke, or heart attack?', type: 'yesno' },
+    { id: 'pregnant', question: 'Are you currently pregnant, breastfeeding, or planning to become pregnant?', type: 'yesno', disqualifyIf: 'yes' },
+    { id: 'current-meds', question: 'Please list any medications you are currently taking:', type: 'text' },
+    { id: 'symptoms', question: 'What symptoms are you hoping to address with hormone therapy?', type: 'text' },
+  ],
+  'default': [
+    { id: 'pregnant', question: 'Are you currently pregnant or breastfeeding?', type: 'yesno' },
+    { id: 'current-meds', question: 'Please list any medications you are currently taking:', type: 'text' },
+    { id: 'allergies', question: 'Do you have any known drug allergies?', type: 'text' },
+    { id: 'medical-conditions', question: 'Please list any relevant medical conditions:', type: 'text' },
+  ],
+};
 
 function RegenStartContent() {
   const searchParams = useSearchParams();
@@ -117,6 +143,8 @@ function RegenStartContent() {
     state: 'IL',
     agreeTerms: false,
   });
+  const [screeningAnswers, setScreeningAnswers] = useState<Record<string, string>>({});
+  const [disqualified, setDisqualified] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const currentGoal = GOALS.find(g => g.id === selectedGoal);
@@ -132,12 +160,32 @@ function RegenStartContent() {
     setStep('info');
   };
 
-  const handleInfoSubmit = async (e: React.FormEvent) => {
+  const handleInfoSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.agreeTerms) {
       alert('Please agree to the terms to continue');
       return;
     }
+    // Move to medical screening instead of checkout
+    setStep('screening');
+  };
+
+  const getScreeningQuestions = () => {
+    return SCREENING_QUESTIONS[selectedGoal] || SCREENING_QUESTIONS['default'];
+  };
+
+  const handleScreeningSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Check for disqualifying answers
+    const questions = getScreeningQuestions();
+    for (const q of questions) {
+      if (q.disqualifyIf && screeningAnswers[q.id] === q.disqualifyIf) {
+        setDisqualified(true);
+        return;
+      }
+    }
+    
     setLoading(true);
     
     // Create checkout session
@@ -165,6 +213,7 @@ function RegenStartContent() {
             program: selectedProgram,
             goal: selectedGoal,
             dob: formData.dob,
+            screening: JSON.stringify(screeningAnswers),
           },
         }),
       });
@@ -403,13 +452,129 @@ function RegenStartContent() {
               </div>
               <button
                 type="submit"
+                className="w-full py-4 text-white font-bold rounded-lg transition-all hover:scale-[1.02]"
+                style={{ backgroundColor: BRAND.pink }}
+              >
+                Continue to Health Questions
+              </button>
+            </form>
+          </div>
+        )}
+
+        {/* Step 4: Medical Screening */}
+        {step === 'screening' && currentProgram && !disqualified && (
+          <div>
+            <button onClick={() => setStep('info')} className="flex items-center gap-2 mb-6 hover:opacity-80" style={{ color: BRAND.gray }}>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+            
+            <div className="mb-6">
+              <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal }}>
+                Step 4 of 4
+              </span>
+            </div>
+            
+            <h2 className="text-2xl font-bold mb-2" style={{ color: BRAND.cream }}>Medical Screening</h2>
+            <p className="mb-8" style={{ color: BRAND.gray }}>
+              Please answer these questions so our provider can evaluate your eligibility.
+            </p>
+
+            <form onSubmit={handleScreeningSubmit} className="space-y-6">
+              {getScreeningQuestions().map((q) => (
+                <div key={q.id} className="p-4 rounded-xl" style={{ backgroundColor: BRAND.darkAlt, border: '1px solid #333' }}>
+                  <label className="block font-medium mb-3" style={{ color: BRAND.cream }}>
+                    {q.question}
+                    {q.disqualifyIf && <span style={{ color: BRAND.pink }}> *</span>}
+                  </label>
+                  {q.type === 'yesno' ? (
+                    <div className="flex gap-4">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name={q.id}
+                          value="yes"
+                          checked={screeningAnswers[q.id] === 'yes'}
+                          onChange={() => setScreeningAnswers({ ...screeningAnswers, [q.id]: 'yes' })}
+                          required
+                          style={{ accentColor: BRAND.teal }}
+                        />
+                        <span style={{ color: BRAND.cream }}>Yes</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name={q.id}
+                          value="no"
+                          checked={screeningAnswers[q.id] === 'no'}
+                          onChange={() => setScreeningAnswers({ ...screeningAnswers, [q.id]: 'no' })}
+                          required
+                          style={{ accentColor: BRAND.teal }}
+                        />
+                        <span style={{ color: BRAND.cream }}>No</span>
+                      </label>
+                    </div>
+                  ) : (
+                    <textarea
+                      value={screeningAnswers[q.id] || ''}
+                      onChange={(e) => setScreeningAnswers({ ...screeningAnswers, [q.id]: e.target.value })}
+                      rows={3}
+                      className="w-full px-4 py-3 rounded-lg focus:ring-2 focus:outline-none"
+                      style={{ backgroundColor: BRAND.dark, border: `1px solid ${BRAND.teal}30`, color: BRAND.cream }}
+                      placeholder="Type your answer..."
+                    />
+                  )}
+                </div>
+              ))}
+
+              <div className="p-4 rounded-xl" style={{ backgroundColor: `${BRAND.teal}10`, border: `1px solid ${BRAND.teal}30` }}>
+                <p className="text-sm" style={{ color: BRAND.teal }}>
+                  <strong>Note:</strong> Your answers will be reviewed by a licensed provider who will determine if treatment is appropriate for you. 
+                  If you do not qualify, you will receive a full refund.
+                </p>
+              </div>
+
+              <button
+                type="submit"
                 disabled={loading}
                 className="w-full py-4 text-white font-bold rounded-lg transition-all hover:scale-[1.02] disabled:opacity-50"
                 style={{ backgroundColor: BRAND.pink }}
               >
-                {loading ? 'Processing...' : `Continue to Payment — $${currentProgram.price}`}
+                {loading ? 'Processing...' : `Complete & Pay — $${currentProgram.price}`}
               </button>
             </form>
+          </div>
+        )}
+
+        {/* Disqualified Message */}
+        {disqualified && (
+          <div className="text-center py-12">
+            <div className="text-6xl mb-6">⚠️</div>
+            <h2 className="text-2xl font-bold mb-4" style={{ color: BRAND.cream }}>
+              We Can&apos;t Proceed Online
+            </h2>
+            <p className="mb-6 max-w-md mx-auto" style={{ color: BRAND.gray }}>
+              Based on your responses, this treatment may not be safe for you without additional evaluation. 
+              Please consult with your primary care provider or contact us directly to discuss your options.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="tel:+16306366193"
+                className="px-8 py-4 font-bold rounded-lg transition-all hover:scale-105"
+                style={{ backgroundColor: BRAND.teal, color: 'white' }}
+              >
+                Call Us: (630) 636-6193
+              </a>
+              <Link
+                href="/consult"
+                className="px-8 py-4 font-bold rounded-lg border-2 transition-all hover:scale-105"
+                style={{ borderColor: BRAND.pink, color: BRAND.pink }}
+              >
+                Book a Consultation
+              </Link>
+            </div>
           </div>
         )}
       </main>
