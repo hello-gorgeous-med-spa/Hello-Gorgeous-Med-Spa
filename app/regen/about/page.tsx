@@ -75,10 +75,34 @@ export default function AboutPage() {
             backgroundColor: BRAND.darkAlt,
             borderRadius: 24,
             padding: 'clamp(32px, 6vw, 56px)',
-            border: `1px solid ${BRAND.teal}20`,
-            boxShadow: `0 0 60px ${BRAND.teal}10`,
+            border: `3px solid ${BRAND.teal}`,
+            boxShadow: `0 0 60px ${BRAND.teal}30`,
           }}>
             
+            {/* Founder Photo */}
+            <div style={{ textAlign: 'center', marginBottom: 32 }}>
+              <div style={{
+                width: 140,
+                height: 140,
+                borderRadius: '50%',
+                margin: '0 auto 16px',
+                border: `4px solid ${BRAND.teal}`,
+                overflow: 'hidden',
+                boxShadow: `0 0 30px ${BRAND.teal}40`,
+              }}>
+                <Image 
+                  src="/images/brow-journey/founder-dani.png" 
+                  alt="Danielle Alcala, Founder" 
+                  width={140} 
+                  height={140}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <p style={{ fontSize: 14, color: BRAND.teal, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px' }}>
+                A Letter From Our Founder
+              </p>
+            </div>
+
             {/* Opening */}
             <p style={{ fontSize: 18, color: '#ccc', lineHeight: 1.9, marginBottom: 28 }}>
               Dear Friend,
