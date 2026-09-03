@@ -81,6 +81,7 @@ export async function POST(request: NextRequest) {
     const sessionParams: Stripe.Checkout.SessionCreateParams = {
       mode: price.recurring ? 'subscription' : 'payment',
       payment_method_types: ['card'],
+      allow_promotion_codes: true, // Enable promo codes like GORGEOUS20
       line_items: [
         {
           price: price.id,

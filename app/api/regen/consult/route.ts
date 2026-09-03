@@ -60,6 +60,7 @@ export async function POST(request: NextRequest) {
       mode: 'payment',
       customer: customer.id,
       payment_method_types: ['card'],
+      allow_promotion_codes: true, // Enable promo codes like GORGEOUS20
       line_items: [
         {
           price_data: {

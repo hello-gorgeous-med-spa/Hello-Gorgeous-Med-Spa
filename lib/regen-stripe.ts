@@ -332,6 +332,7 @@ export async function createRegenCheckoutSession(
     mode: params.mode,
     success_url: params.successUrl,
     cancel_url: params.cancelUrl,
+    allow_promotion_codes: true, // Enable promo codes like GORGEOUS20
     line_items: params.lineItems.map((item) => ({
       price_data: {
         currency: 'usd',
