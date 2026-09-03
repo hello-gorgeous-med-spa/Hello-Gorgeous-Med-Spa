@@ -135,6 +135,9 @@ export default function RegenLandingPage() {
             <Link href="#programs" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
               Programs
             </Link>
+            <Link href="/contact" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
+              Contact
+            </Link>
             <Link
               href="/start"
               className="px-6 py-3 text-white text-sm font-bold rounded-full transition-all hover:scale-105"
@@ -451,9 +454,10 @@ export default function RegenLandingPage() {
               <p style={{ color: BRAND.gray }}>Renew. Rebalance. Regenerate.</p>
             </div>
             <div className="flex flex-wrap items-center gap-8 text-sm">
-              <Link href="/privacy" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Privacy</Link>
-              <Link href="/terms" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Terms</Link>
+              <Link href="/learn" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Learn</Link>
+              <Link href="/providers" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>About</Link>
               <Link href="/contact" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Contact</Link>
+              <Link href="/privacy" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Privacy</Link>
               <a href="tel:+16306366193" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>(630) 636-6193</a>
             </div>
           </div>
