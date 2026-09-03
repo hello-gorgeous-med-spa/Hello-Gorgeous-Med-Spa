@@ -56,9 +56,18 @@ const PROGRAMS = [
     title: 'Rx Skincare',
     subtitle: 'Prescription Anti-Aging',
     description: 'Tretinoin, GHK-Cu peptides, and custom compounds for medical-grade results',
-    price: '$70',
+    price: '$125',
     href: '/start?goal=skincare',
     image: '/images/regen/woman-bedroom.png',
+  },
+  {
+    id: 'hair',
+    title: 'Hair Restoration',
+    subtitle: 'Prescription Hair Growth',
+    description: 'Finasteride, minoxidil & advanced compounds to stop loss and regrow hair',
+    price: '$40',
+    href: '/start?goal=hair',
+    image: '/images/regen/man-professional.png',
   },
 ];
 
