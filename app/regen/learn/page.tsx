@@ -100,7 +100,7 @@ export default function LearnHubPage() {
       <nav className="border-b" style={{ backgroundColor: BRAND.darkAlt, borderColor: `${BRAND.teal}20` }}>
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center">
-            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={120} height={40} className="h-8 w-auto" />
+            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={160} height={50} className="h-12 w-auto brightness-110" />
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/learn" className="text-sm font-medium" style={{ color: BRAND.teal }}>Learn</Link>
@@ -216,7 +216,7 @@ export default function LearnHubPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
             <div className="flex items-center gap-4">
-              <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={100} height={35} className="h-7 w-auto" />
+              <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={140} height={45} className="h-10 w-auto brightness-110" />
               <span style={{ color: BRAND.gray }}>Renew. Rebalance. Regenerate.</span>
             </div>
             <div className="flex items-center gap-6 text-sm" style={{ color: BRAND.gray }}>

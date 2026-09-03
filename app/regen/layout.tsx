@@ -11,6 +11,21 @@ export const metadata: Metadata = {
     title: 'REGEN RX | Prescription Wellness, Delivered',
     description: 'Doctor-guided weight loss, hormone therapy, and peptides. Illinois telehealth with licensed providers.',
     type: 'website',
+    siteName: 'REGEN RX',
+    images: [
+      {
+        url: 'https://tryregenrx.com/images/regen/regen-og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'REGEN RX - Prescription Wellness, Delivered',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'REGEN RX | Prescription Wellness, Delivered',
+    description: 'Doctor-guided weight loss, hormone therapy, and peptides. Illinois telehealth.',
+    images: ['https://tryregenrx.com/images/regen/regen-og-image.png'],
   },
 };
 

@@ -45,7 +45,7 @@ export default function TermsPage() {
       <nav className="border-b px-6 py-4" style={{ borderColor: `${BRAND.teal}20` }}>
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={120} height={40} className="h-8 w-auto" />
+            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={160} height={50} className="h-12 w-auto brightness-110" />
           </Link>
           <Link href="/" className="text-sm hover:underline" style={{ color: BRAND.gray }}>
             ← Back to Home

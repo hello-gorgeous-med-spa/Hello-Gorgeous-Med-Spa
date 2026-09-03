@@ -239,7 +239,7 @@ export default function RegenLandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b" style={{ backgroundColor: 'rgba(10,10,10,0.9)', borderColor: `${BRAND.teal}30` }}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center">
-            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={140} height={50} className="h-10 w-auto" />
+            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={180} height={60} className="h-14 w-auto brightness-110" />
           </Link>
           <div className="flex items-center gap-8">
             <Link href="/products" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
@@ -767,7 +767,7 @@ export default function RegenLandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="flex items-center gap-4">
-              <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={120} height={40} className="h-8 w-auto" />
+              <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={140} height={45} className="h-10 w-auto brightness-110" />
               <p style={{ color: BRAND.gray }}>Renew. Rebalance. Regenerate.</p>
             </div>
             <div className="flex flex-wrap items-center gap-8 text-sm">
