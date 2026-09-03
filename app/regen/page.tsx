@@ -138,6 +138,9 @@ export default function RegenLandingPage() {
             <Link href="/products" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
               Products
             </Link>
+            <Link href="/pricing" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
+              Pricing
+            </Link>
             <Link href="/learn" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
               Learn
             </Link>
@@ -446,6 +449,7 @@ export default function RegenLandingPage() {
             </div>
             <div className="flex flex-wrap items-center gap-8 text-sm">
               <Link href="/products" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Products</Link>
+              <Link href="/pricing" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Pricing</Link>
               <Link href="/learn" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Learn</Link>
               <Link href="/providers" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>About</Link>
               <Link href="/contact" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Contact</Link>
