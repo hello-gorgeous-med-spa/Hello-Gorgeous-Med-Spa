@@ -135,14 +135,14 @@ export default function RegenLandingPage() {
             <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={140} height={50} className="h-10 w-auto" />
           </Link>
           <div className="flex items-center gap-8">
+            <Link href="/products" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
+              Products
+            </Link>
             <Link href="/learn" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
               Learn
             </Link>
             <Link href="/providers" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
               About Us
-            </Link>
-            <Link href="#programs" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
-              Programs
             </Link>
             <Link href="/contact" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
               Contact
@@ -445,10 +445,10 @@ export default function RegenLandingPage() {
               <p style={{ color: BRAND.gray }}>Renew. Rebalance. Regenerate.</p>
             </div>
             <div className="flex flex-wrap items-center gap-8 text-sm">
+              <Link href="/products" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Products</Link>
               <Link href="/learn" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Learn</Link>
               <Link href="/providers" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>About</Link>
               <Link href="/contact" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Contact</Link>
-              <Link href="/privacy" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Privacy</Link>
               <a href="tel:+16306366193" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>(630) 636-6193</a>
             </div>
           </div>
