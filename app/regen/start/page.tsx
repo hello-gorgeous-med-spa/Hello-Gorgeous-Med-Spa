@@ -57,6 +57,19 @@ const GOALS = [
       { id: 'libido-women', name: 'Women\'s Desire', price: 79, description: 'PT-141, Oxytocin & arousal support' },
     ],
   },
+  {
+    id: 'skincare',
+    title: 'Prescription Skincare',
+    description: 'Medical-grade anti-aging treatments',
+    icon: '✨',
+    programs: [
+      { id: 'tretinoin', name: 'Tretinoin Cream', price: 70, description: 'Prescription retinoid for wrinkles, collagen & acne' },
+      { id: 'tretinoin-ha', name: 'Tretinoin + HA Blend', price: 85, description: 'Tretinoin with hyaluronic acid for hydration' },
+      { id: 'hydroquinone', name: 'Hydroquinone 4%', price: 55, description: 'Prescription strength for dark spots & melasma' },
+      { id: 'ghk-cu', name: 'GHK-Cu Copper Peptide', price: 99, description: 'Firming, repair & collagen support' },
+      { id: 'custom-compound', name: 'Custom Compound', price: 120, description: 'Personalized blend for your skin needs' },
+    ],
+  },
 ];
 
 type Step = 'goal' | 'program' | 'info' | 'checkout';

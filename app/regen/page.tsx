@@ -51,6 +51,15 @@ const PROGRAMS = [
     href: '/start?goal=sexual-health',
     image: '/images/regen/man-professional.png',
   },
+  {
+    id: 'skincare',
+    title: 'Rx Skincare',
+    subtitle: 'Prescription Anti-Aging',
+    description: 'Tretinoin, GHK-Cu peptides, and custom compounds for medical-grade results',
+    price: '$70',
+    href: '/start?goal=skincare',
+    image: '/images/regen/woman-bedroom.png',
+  },
 ];
 
 const STEPS = [
