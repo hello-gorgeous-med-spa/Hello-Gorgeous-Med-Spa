@@ -332,7 +332,19 @@ const nextConfig = {
     { source: "/your-care-team", destination: "/providers", permanent: true },
     { source: "/care-and-support", destination: "/pre-post-care", permanent: true },
     // Sitemap/legacy URLs that have no page - redirect to avoid 404
-    { source: "/pricing", destination: "/book", permanent: true },
+    // Pricing redirect only for main site (not tryregenrx.com which has its own /pricing page)
+    { 
+      source: "/pricing", 
+      destination: "/book", 
+      permanent: true,
+      has: [{ type: 'host', value: 'hellogorgeousmedspa.com' }],
+    },
+    { 
+      source: "/pricing", 
+      destination: "/book", 
+      permanent: true,
+      has: [{ type: 'host', value: 'www.hellogorgeousmedspa.com' }],
+    },
     { source: "/pharmacy-partner", destination: "/products-we-offer", permanent: true },
     // Semaglutide/hormone-therapy/prp location URLs (no page) -> main service page
     { source: "/semaglutide-oswego-il", destination: "/glp1-weight-loss", permanent: true },
