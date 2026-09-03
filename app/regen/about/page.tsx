@@ -92,7 +92,7 @@ export default function AboutPage() {
 
             {/* The Loss */}
             <p style={{ fontSize: 17, color: '#bbb', lineHeight: 1.9, marginBottom: 28 }}>
-              In 2019, I lost my best friend — <strong style={{ color: '#fff' }}>my father</strong> — to cardiovascular disease. 
+              In 2025, I lost my best friend — <strong style={{ color: '#fff' }}>my father</strong> — to cardiovascular disease. 
               He was the kind of man who gave everything to everyone else and never took time for himself. 
               By the time he finally went to see a doctor, it was too late. The damage was done. 
               And I was left wondering: <em style={{ color: BRAND.teal }}>what if someone had caught it sooner? 
@@ -178,7 +178,7 @@ export default function AboutPage() {
                 Danielle
               </p>
               <p style={{ fontSize: 14, color: BRAND.gray, marginBottom: 4 }}>
-                <strong style={{ color: BRAND.cream }}>Danielle Kent</strong>
+                <strong style={{ color: BRAND.cream }}>Danielle Alcala</strong>
               </p>
               <p style={{ fontSize: 13, color: BRAND.gray }}>
                 Founder, REGEN RX & Hello Gorgeous Med Spa
