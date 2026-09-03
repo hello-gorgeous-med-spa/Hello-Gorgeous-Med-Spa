@@ -90,7 +90,7 @@ function SuccessContent() {
               <strong style={{ color: '#fff' }}>Check your email</strong> — You'll receive a confirmation with your appointment details
             </li>
             <li>
-              <strong style={{ color: '#fff' }}>Video link</strong> — A Zoom/Google Meet link will be sent 24 hours before your call
+              <strong style={{ color: '#fff' }}>Join your video call</strong> — Use the secure Doxy.me link below at your scheduled time
             </li>
             <li>
               <strong style={{ color: '#fff' }}>Prepare questions</strong> — Write down any health concerns or goals you want to discuss
@@ -99,6 +99,41 @@ function SuccessContent() {
               <strong style={{ color: '#fff' }}>$99 credit</strong> — Your consultation fee will be applied to your first prescription order
             </li>
           </ol>
+        </div>
+
+        {/* Doxy.me Video Link */}
+        <div style={{
+          backgroundColor: '#1a1a1a',
+          borderRadius: 16,
+          padding: 24,
+          marginBottom: 32,
+          textAlign: 'center',
+          border: `2px solid ${BRAND.teal}`,
+        }}>
+          <div style={{ fontSize: 14, color: '#888', marginBottom: 8 }}>
+            Your secure video call link:
+          </div>
+          <a
+            href="https://doxy.me/ryankent"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-block',
+              padding: '16px 32px',
+              backgroundColor: BRAND.teal,
+              color: '#fff',
+              fontSize: 18,
+              fontWeight: 700,
+              borderRadius: 12,
+              textDecoration: 'none',
+              marginBottom: 12,
+            }}
+          >
+            doxy.me/ryankent
+          </a>
+          <p style={{ fontSize: 12, color: '#666', margin: 0 }}>
+            Bookmark this link — join at your scheduled appointment time
+          </p>
         </div>
 
         <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
