@@ -149,97 +149,79 @@ export default function RegenLandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section - Dark & Bold */}
-      <section className="pt-28 pb-16 md:pt-40 md:pb-24 px-6 relative overflow-hidden">
+      {/* Hero Section - Video Centered */}
+      <section className="pt-24 pb-8 md:pt-32 md:pb-12 px-6 relative overflow-hidden">
         {/* Background molecular pattern */}
         <div className="absolute inset-0 opacity-20" style={{
           backgroundImage: `radial-gradient(circle at 20% 50%, ${BRAND.teal}40 0%, transparent 50%), radial-gradient(circle at 80% 50%, ${BRAND.pink}30 0%, transparent 50%)`,
         }} />
         
-        <div className="max-w-7xl mx-auto relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Text */}
-            <div className="space-y-8">
-              <div className="animate-fade-in-up">
-                <span 
-                  className="inline-block px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase"
-                  style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal, border: `1px solid ${BRAND.teal}40` }}
-                >
-                  Illinois Telehealth
-                </span>
-              </div>
-              
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.05] animate-fade-in-up delay-100" style={{ color: BRAND.cream }}>
-                Renew.
-                <br />
-                <span style={{ color: BRAND.teal }}>Rebalance.</span>
-                <br />
-                <span style={{ color: BRAND.pink }}>Regenerate.</span>
-              </h1>
-              
-              <p className="text-xl max-w-lg animate-fade-in-up delay-200" style={{ color: BRAND.gray }}>
-                Doctor-guided weight loss, hormone optimization, and peptide therapy — 
-                delivered to your door. No appointments. No waiting rooms.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-300">
-                <Link
-                  href="/start"
-                  className="px-8 py-4 text-lg font-bold rounded-full transition-all hover:scale-105 shadow-xl text-center text-white"
-                  style={{ backgroundColor: BRAND.pink }}
-                >
-                  Start Your Visit — Free
-                </Link>
-                <Link
-                  href="#programs"
-                  className="px-8 py-4 text-lg font-bold rounded-full border-2 transition-all hover:scale-105 text-center"
-                  style={{ borderColor: BRAND.teal, color: BRAND.teal }}
-                >
-                  View Programs
-                </Link>
-              </div>
-              
-              <div className="flex items-center gap-6 pt-4 animate-fade-in-up delay-400">
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-sm font-medium" style={{ color: BRAND.gray }}>Licensed Providers</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-sm font-medium" style={{ color: BRAND.gray }}>Free Shipping</span>
-                </div>
-              </div>
+        <div className="max-w-5xl mx-auto relative text-center">
+          {/* Video - Front and Center */}
+          <div className="mb-8 animate-scale-in">
+            <div 
+              className="relative rounded-2xl overflow-hidden mx-auto max-w-2xl"
+              style={{ boxShadow: `0 0 80px ${BRAND.teal}40, 0 0 40px ${BRAND.pink}30` }}
+            >
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline
+                className="w-full h-auto"
+              >
+                <source src="/images/regen/logo-reveal.mp4" type="video/mp4" />
+              </video>
             </div>
-            
-            {/* Right: Photo Grid */}
-            <div className="relative hidden lg:block">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-4">
-                  <div className="rounded-2xl overflow-hidden animate-scale-in delay-200 hover:scale-105 transition-transform duration-500" style={{ boxShadow: `0 0 30px ${BRAND.teal}30` }}>
-                    <Image src="/images/regen/woman-stretching.png" alt="Woman staying active" width={400} height={500} className="w-full h-64 object-cover" />
-                  </div>
-                  <div className="rounded-2xl overflow-hidden animate-scale-in delay-400 hover:scale-105 transition-transform duration-500" style={{ boxShadow: `0 0 30px ${BRAND.pink}20` }}>
-                    <Image src="/images/regen/man-professional.png" alt="Professional man confident" width={400} height={400} className="w-full h-48 object-cover" />
-                  </div>
-                </div>
-                <div className="space-y-4 pt-8">
-                  <div className="rounded-2xl overflow-hidden animate-scale-in delay-300 hover:scale-105 transition-transform duration-500" style={{ boxShadow: `0 0 30px ${BRAND.teal}30` }}>
-                    <Image src="/images/regen/woman-bedroom.png" alt="Woman feeling balanced" width={400} height={400} className="w-full h-48 object-cover" />
-                  </div>
-                  <div className="rounded-2xl overflow-hidden animate-scale-in delay-500 hover:scale-105 transition-transform duration-500" style={{ boxShadow: `0 0 30px ${BRAND.pink}20` }}>
-                    <Image src="/images/regen/couple-couch.png" alt="Couple enjoying life together" width={400} height={500} className="w-full h-64 object-cover" />
-                  </div>
-                </div>
-              </div>
-              {/* Floating molecular accent */}
-              <div 
-                className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full animate-pulse-glow" 
-                style={{ backgroundColor: `${BRAND.teal}20`, border: `1px solid ${BRAND.teal}40` }}
-              />
+          </div>
+
+          {/* Tagline */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-6 animate-fade-in-up delay-100" style={{ color: BRAND.cream }}>
+            <span style={{ color: BRAND.teal }}>Renew.</span>{' '}
+            <span style={{ color: BRAND.cream }}>Rebalance.</span>{' '}
+            <span style={{ color: BRAND.pink }}>Regenerate.</span>
+          </h1>
+          
+          <p className="text-xl max-w-2xl mx-auto mb-8 animate-fade-in-up delay-200" style={{ color: BRAND.gray }}>
+            Doctor-guided weight loss, hormone optimization, and peptide therapy — 
+            delivered to your door. No appointments. No waiting rooms.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-300">
+            <Link
+              href="/start"
+              className="px-10 py-4 text-lg font-bold rounded-full transition-all hover:scale-105 shadow-xl text-center text-white"
+              style={{ backgroundColor: BRAND.pink }}
+            >
+              Start Your Visit — Free
+            </Link>
+            <Link
+              href="#programs"
+              className="px-10 py-4 text-lg font-bold rounded-full border-2 transition-all hover:scale-105 text-center"
+              style={{ borderColor: BRAND.teal, color: BRAND.teal }}
+            >
+              View Programs
+            </Link>
+          </div>
+          
+          <div className="flex flex-wrap items-center justify-center gap-6 pt-8 animate-fade-in-up delay-400">
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              <span className="text-sm font-medium" style={{ color: BRAND.gray }}>Licensed Providers</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              <span className="text-sm font-medium" style={{ color: BRAND.gray }}>Free Shipping</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              <span className="text-sm font-medium" style={{ color: BRAND.gray }}>Illinois Telehealth</span>
             </div>
           </div>
         </div>
