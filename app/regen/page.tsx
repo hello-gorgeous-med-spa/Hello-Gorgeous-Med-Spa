@@ -126,11 +126,14 @@ export default function RegenLandingPage() {
             <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={140} height={50} className="h-10 w-auto" />
           </Link>
           <div className="flex items-center gap-8">
+            <Link href="/learn" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
+              Learn
+            </Link>
+            <Link href="/providers" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
+              About Us
+            </Link>
             <Link href="#programs" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
               Programs
-            </Link>
-            <Link href="#how-it-works" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden md:block">
-              How It Works
             </Link>
             <Link
               href="/start"
