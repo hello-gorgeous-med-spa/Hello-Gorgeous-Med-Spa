@@ -416,9 +416,14 @@ function RegenStartContent() {
 
       {/* Footer */}
       <footer className="py-8" style={{ backgroundColor: BRAND.darkAlt, borderTop: `1px solid ${BRAND.teal}20` }}>
-        <div className="max-w-3xl mx-auto px-6 text-center text-sm" style={{ color: BRAND.gray }}>
+        <div className="max-w-3xl mx-auto px-6 text-center text-xs" style={{ color: BRAND.gray }}>
           <p>Need help? Call <a href="tel:+16306366193" className="hover:underline" style={{ color: BRAND.teal }}>(630) 636-6193</a></p>
-          <p className="mt-2">REGEN RX by Hello Gorgeous Med Spa LLC</p>
+          <p className="mt-4" style={{ color: '#555', lineHeight: 1.6 }}>
+            <strong>DISCLAIMER:</strong> The information provided is for educational purposes only and is not medical advice. 
+            Compounded medications are not FDA-approved but are prepared by FDA-registered pharmacies. 
+            Treatments may be prescribed off-label. Results vary. Not all patients qualify.
+          </p>
+          <p className="mt-4" style={{ color: '#666' }}>© {new Date().getFullYear()} Hello Gorgeous PC</p>
         </div>
       </footer>
     </div>

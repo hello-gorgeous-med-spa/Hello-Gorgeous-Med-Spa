@@ -561,11 +561,24 @@ export default function RegenLandingPage() {
               <a href="tel:+16306366193" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>(630) 636-6193</a>
             </div>
           </div>
-          <div className="mt-12 pt-8 text-xs" style={{ borderTop: `1px solid ${BRAND.teal}15`, color: BRAND.gray }}>
+          <div className="mt-12 pt-8 text-xs space-y-3" style={{ borderTop: `1px solid ${BRAND.teal}15`, color: BRAND.gray }}>
             <p>
-              REGEN RX is a telehealth platform operated by Hello Gorgeous Med Spa LLC. 
-              Medical services provided by licensed Illinois healthcare providers. 
-              Prescription products require a valid prescription. Not all patients will qualify.
+              © {new Date().getFullYear()} REGEN RX · A telehealth platform operated by Hello Gorgeous PC. 
+              Medical services provided by licensed Illinois healthcare providers with physician oversight.
+            </p>
+            <p style={{ color: '#666' }}>
+              <strong>IMPORTANT DISCLAIMER:</strong> The information on this website is for educational purposes only and is not intended as medical advice, diagnosis, or treatment. 
+              Always seek the advice of your physician or qualified healthcare provider with any questions regarding a medical condition. 
+              Never disregard professional medical advice or delay seeking it because of information on this site.
+            </p>
+            <p style={{ color: '#666' }}>
+              Compounded medications are not FDA-approved but are prepared by FDA-registered 503A/503B pharmacies. 
+              Peptides, GLP-1 medications, hormone therapies, and other treatments may be prescribed off-label based on clinical evidence and provider judgment. 
+              Individual results may vary. Not all patients will qualify for treatment. 
+              Completing an intake form does not guarantee a prescription will be issued.
+            </p>
+            <p style={{ color: '#555' }}>
+              REGEN RX does not provide emergency medical services. If you are experiencing a medical emergency, call 911 immediately.
             </p>
           </div>
         </div>

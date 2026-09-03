@@ -427,17 +427,23 @@ export default function SafetyPage() {
       {/* Footer */}
       <footer style={{ 
         padding: '40px 24px',
-        textAlign: 'center',
         borderTop: '1px solid #222',
       }}>
-        <div style={{ fontSize: 12, color: '#666' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto', fontSize: 11, color: '#555', textAlign: 'center' }}>
           <p>REGEN RX · tryregenrx.com · 630-636-6193</p>
           <p style={{ marginTop: 8 }}>
+            <Link href="/safety" style={{ color: '#888', marginRight: 16 }}>Safety</Link>
             <Link href="/terms" style={{ color: '#888', marginRight: 16 }}>Terms</Link>
             <Link href="/privacy" style={{ color: '#888', marginRight: 16 }}>Privacy</Link>
             <Link href="/providers" style={{ color: '#888' }}>Our Team</Link>
           </p>
-          <p style={{ marginTop: 16, color: '#555' }}>
+          <p style={{ marginTop: 16, color: '#444', lineHeight: 1.6 }}>
+            <strong>DISCLAIMER:</strong> The information on this website is for educational purposes only and is not intended as medical advice. 
+            Compounded medications are not FDA-approved but are prepared by FDA-registered pharmacies. 
+            Treatments may be prescribed off-label. Individual results vary. Not all patients qualify. 
+            Completing an intake does not guarantee a prescription.
+          </p>
+          <p style={{ marginTop: 8, color: '#444' }}>
             © {new Date().getFullYear()} Hello Gorgeous PC. All rights reserved.
           </p>
         </div>

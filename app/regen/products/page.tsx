@@ -192,8 +192,14 @@ export default function ProductsPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 text-center text-sm" style={{ backgroundColor: BRAND.dark, color: BRAND.gray }}>
-        <p>REGEN RX • Illinois Telehealth • <a href="tel:+16306366193" className="underline">(630) 636-6193</a></p>
+      <footer className="py-8 px-6 text-center" style={{ backgroundColor: BRAND.dark, color: BRAND.gray }}>
+        <p className="text-sm">REGEN RX • Illinois Telehealth • <a href="tel:+16306366193" className="underline">(630) 636-6193</a></p>
+        <p className="text-xs mt-4 max-w-2xl mx-auto" style={{ color: '#555', lineHeight: 1.6 }}>
+          <strong>DISCLAIMER:</strong> Information provided is for educational purposes only and is not medical advice. 
+          Compounded medications are not FDA-approved but are prepared by FDA-registered pharmacies. 
+          Treatments may be prescribed off-label. Results vary. Not all patients qualify.
+        </p>
+        <p className="text-xs mt-4" style={{ color: '#666' }}>© {new Date().getFullYear()} Hello Gorgeous PC</p>
       </footer>
     </div>
   );

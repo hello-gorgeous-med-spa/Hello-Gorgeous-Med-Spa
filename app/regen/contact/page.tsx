@@ -308,9 +308,15 @@ export default function ContactPage() {
       <footer className="py-12 px-6 border-t" style={{ backgroundColor: BRAND.dark, borderColor: `${BRAND.teal}15` }}>
         <div className="max-w-4xl mx-auto text-center">
           <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={100} height={35} className="h-7 w-auto mx-auto mb-4" />
-          <p className="text-sm" style={{ color: BRAND.gray }}>
-            REGEN RX by Hello Gorgeous Med Spa LLC · Oswego, Illinois
+          <p className="text-sm mb-2" style={{ color: BRAND.gray }}>
+            REGEN RX by Hello Gorgeous PC · Illinois
           </p>
+          <p className="text-xs mt-4 max-w-2xl mx-auto" style={{ color: '#555', lineHeight: 1.6 }}>
+            <strong>DISCLAIMER:</strong> Information provided is for educational purposes only and is not medical advice. 
+            Compounded medications are not FDA-approved but are prepared by FDA-registered pharmacies. 
+            Treatments may be prescribed off-label. Results vary. Not all patients qualify.
+          </p>
+          <p className="text-xs mt-4" style={{ color: '#666' }}>© {new Date().getFullYear()} Hello Gorgeous PC</p>
         </div>
       </footer>
     </div>

@@ -213,16 +213,25 @@ export default function LearnHubPage() {
 
       {/* Footer */}
       <footer className="py-12 px-6 border-t" style={{ backgroundColor: BRAND.dark, borderColor: `${BRAND.teal}15` }}>
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={100} height={35} className="h-7 w-auto" />
-            <span style={{ color: BRAND.gray }}>Renew. Rebalance. Regenerate.</span>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+            <div className="flex items-center gap-4">
+              <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={100} height={35} className="h-7 w-auto" />
+              <span style={{ color: BRAND.gray }}>Renew. Rebalance. Regenerate.</span>
+            </div>
+            <div className="flex items-center gap-6 text-sm" style={{ color: BRAND.gray }}>
+              <Link href="/safety" className="hover:text-white">Safety</Link>
+              <Link href="/privacy" className="hover:text-white">Privacy</Link>
+              <Link href="/terms" className="hover:text-white">Terms</Link>
+              <a href="tel:+16306366193" className="hover:text-white">(630) 636-6193</a>
+            </div>
           </div>
-          <div className="flex items-center gap-6 text-sm" style={{ color: BRAND.gray }}>
-            <Link href="/privacy" className="hover:text-white">Privacy</Link>
-            <Link href="/terms" className="hover:text-white">Terms</Link>
-            <a href="tel:+16306366193" className="hover:text-white">(630) 636-6193</a>
-          </div>
+          <p className="text-xs text-center max-w-3xl mx-auto" style={{ color: '#555', lineHeight: 1.6 }}>
+            <strong>DISCLAIMER:</strong> Information provided is for educational purposes only and is not medical advice. 
+            Compounded medications are not FDA-approved but are prepared by FDA-registered pharmacies. 
+            Treatments may be prescribed off-label. Results vary. Not all patients qualify.
+          </p>
+          <p className="text-xs text-center mt-4" style={{ color: '#666' }}>© {new Date().getFullYear()} Hello Gorgeous PC</p>
         </div>
       </footer>
     </div>
