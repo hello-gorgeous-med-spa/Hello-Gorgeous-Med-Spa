@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { href: '/ops/prescriptions', label: 'Prescriptions', icon: '💊' },
   { href: '/ops/orders', label: 'Orders', icon: '📦' },
   { href: '/ops/catalog', label: 'Catalog', icon: '🔬' },
+  { href: '/ops/calculator', label: 'Dosing Calc', icon: '🧮' },
   { href: '/ops/messages', label: 'Messages', icon: '💬' },
   { href: '/ops/payments', label: 'Payments', icon: '💳' },
   { href: '/ops/reports', label: 'Reports', icon: '📈' },
