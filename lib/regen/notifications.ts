@@ -33,7 +33,9 @@ interface NotificationPayload {
     | 'rx_declined'
     | 'order_shipped'
     | 'order_delivered'
-    | 'welcome';
+    | 'welcome'
+    | 'refill_reminder'
+    | 'referral_earned';
   patient: {
     name: string;
     email: string;
@@ -91,6 +93,14 @@ export async function sendRegenNotification(payload: NotificationPayload): Promi
 
       case 'welcome':
         await sendPatientWelcomeEmail(patient);
+        break;
+
+      case 'refill_reminder':
+        await sendPatientRefillReminderEmail(patient, intake!);
+        break;
+
+      case 'referral_earned':
+        await sendPatientReferralEarnedEmail(patient, notes);
         break;
     }
   } catch (error) {
@@ -405,6 +415,89 @@ async function sendPatientOrderDeliveredEmail(
               View Your Portal →
             </a>
           </div>
+        </div>
+      </div>
+    `,
+  });
+}
+
+async function sendPatientRefillReminderEmail(
+  patient: { name: string; email: string },
+  intake: { goal: string }
+) {
+  await resend.emails.send({
+    from: FROM_EMAIL,
+    to: patient.email,
+    subject: `⏰ Time to refill your ${intake.goal} prescription`,
+    html: `
+      <div style="font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background: ${BRAND.dark}; padding: 32px; border-radius: 12px;">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <span style="font-size: 48px;">⏰</span>
+          </div>
+          <h1 style="color: ${BRAND.teal}; margin: 0 0 16px; text-align: center;">Time for a Refill!</h1>
+          <p style="color: #9CA3AF; line-height: 1.6; text-align: center;">
+            Hi ${patient.name.split(' ')[0]},<br><br>
+            Your ${intake.goal} supply is running low. Refill now to avoid any gaps in your treatment.
+          </p>
+          <div style="background: ${BRAND.teal}20; padding: 16px; border-radius: 8px; margin: 24px 0; text-align: center;">
+            <p style="color: ${BRAND.teal}; margin: 0; font-weight: bold;">Don't miss a dose!</p>
+            <p style="color: #9CA3AF; margin: 8px 0 0;">
+              Refilling early ensures your medication arrives before you run out.
+            </p>
+          </div>
+          <div style="text-align: center;">
+            <a href="https://tryregenrx.com/start" 
+               style="display: inline-block; background: ${BRAND.pink}; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+              Refill Now →
+            </a>
+          </div>
+          <p style="color: #6B7280; font-size: 14px; margin-top: 24px; text-align: center;">
+            Questions? Reply to this email or call (630) 636-6193.
+          </p>
+        </div>
+      </div>
+    `,
+  });
+}
+
+async function sendPatientReferralEarnedEmail(
+  patient: { name: string; email: string },
+  reward?: string
+) {
+  await resend.emails.send({
+    from: FROM_EMAIL,
+    to: patient.email,
+    subject: `🎁 You earned a referral reward!`,
+    html: `
+      <div style="font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background: ${BRAND.dark}; padding: 32px; border-radius: 12px;">
+          <div style="text-align: center; margin-bottom: 24px;">
+            <span style="font-size: 48px;">🎁</span>
+          </div>
+          <h1 style="color: ${BRAND.pink}; margin: 0 0 16px; text-align: center;">You Earned a Reward!</h1>
+          <p style="color: #9CA3AF; line-height: 1.6; text-align: center;">
+            Hi ${patient.name.split(' ')[0]},<br><br>
+            Someone you referred just made their first purchase! As a thank you, 
+            you've earned ${reward || '$25 off your next order'}.
+          </p>
+          <div style="background: ${BRAND.pink}20; padding: 20px; border-radius: 8px; margin: 24px 0; text-align: center;">
+            <p style="color: ${BRAND.pink}; margin: 0; font-size: 24px; font-weight: bold;">
+              ${reward || '$25 OFF'}
+            </p>
+            <p style="color: #9CA3AF; margin: 8px 0 0;">
+              Applied automatically to your next order
+            </p>
+          </div>
+          <div style="text-align: center;">
+            <a href="https://tryregenrx.com/account" 
+               style="display: inline-block; background: ${BRAND.pink}; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+              View Your Account →
+            </a>
+          </div>
+          <p style="color: #6B7280; font-size: 14px; margin-top: 24px; text-align: center;">
+            Keep sharing! You earn rewards for every friend who joins.
+          </p>
         </div>
       </div>
     `,
