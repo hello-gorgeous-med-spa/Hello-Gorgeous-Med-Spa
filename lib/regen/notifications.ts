@@ -11,7 +11,15 @@
 
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy init to avoid build-time errors
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    console.warn('[regen/notifications] RESEND_API_KEY not configured');
+    return null;
+  }
+  return new Resend(key);
+}
 
 const STAFF_EMAIL = 'provider@hellogorgeousmedspa.com';
 const STAFF_PHONE = '+16308813398';
@@ -117,7 +125,7 @@ async function sendStaffNewIntakeEmail(
   patient: { name: string; email: string; phone?: string },
   intake: { id: string; goal: string }
 ) {
-  await resend.emails.send({
+  const resend = getResend(); if (!resend) return; await resend.emails.send({
     from: FROM_EMAIL,
     to: STAFF_EMAIL,
     subject: `🔔 New Intake: ${patient.name} - ${intake.goal}`,
@@ -165,7 +173,7 @@ async function sendStaffNewIntakeSMS(
 // ============================================================
 
 async function sendPatientWelcomeEmail(patient: { name: string; email: string }) {
-  await resend.emails.send({
+  const resend = getResend(); if (!resend) return; await resend.emails.send({
     from: FROM_EMAIL,
     to: patient.email,
     subject: `Welcome to REGEN RX, ${patient.name.split(' ')[0]}! 🎉`,
@@ -202,7 +210,7 @@ async function sendPatientRxApprovedEmail(
   patient: { name: string; email: string },
   intake: { goal: string }
 ) {
-  await resend.emails.send({
+  const resend = getResend(); if (!resend) return; await resend.emails.send({
     from: FROM_EMAIL,
     to: patient.email,
     subject: `✅ Great news! Your ${intake.goal} prescription is approved`,
@@ -236,7 +244,7 @@ async function sendPatientRxApprovedEmail(
 }
 
 async function sendPatientNeedsLabsEmail(patient: { name: string; email: string }, notes?: string) {
-  await resend.emails.send({
+  const resend = getResend(); if (!resend) return; await resend.emails.send({
     from: FROM_EMAIL,
     to: patient.email,
     subject: `🧪 Action needed: Lab work required for your visit`,
@@ -274,7 +282,7 @@ async function sendPatientNeedsLabsEmail(patient: { name: string; email: string 
 }
 
 async function sendPatientNeedsVideoEmail(patient: { name: string; email: string }) {
-  await resend.emails.send({
+  const resend = getResend(); if (!resend) return; await resend.emails.send({
     from: FROM_EMAIL,
     to: patient.email,
     subject: `📹 Action needed: Video visit required`,
@@ -308,7 +316,7 @@ async function sendPatientNeedsVideoEmail(patient: { name: string; email: string
 }
 
 async function sendPatientRxDeclinedEmail(patient: { name: string; email: string }, notes?: string) {
-  await resend.emails.send({
+  const resend = getResend(); if (!resend) return; await resend.emails.send({
     from: FROM_EMAIL,
     to: patient.email,
     subject: `Update on your REGEN RX visit`,
@@ -351,7 +359,7 @@ async function sendPatientOrderShippedEmail(
     ? `https://www.google.com/search?q=${order.trackingCarrier || 'USPS'}+tracking+${order.trackingNumber}`
     : null;
 
-  await resend.emails.send({
+  const resend = getResend(); if (!resend) return; await resend.emails.send({
     from: FROM_EMAIL,
     to: patient.email,
     subject: `📦 Your order ${order.number} has shipped!`,
@@ -388,7 +396,7 @@ async function sendPatientOrderDeliveredEmail(
   patient: { name: string; email: string },
   order: { number: string }
 ) {
-  await resend.emails.send({
+  const resend = getResend(); if (!resend) return; await resend.emails.send({
     from: FROM_EMAIL,
     to: patient.email,
     subject: `✅ Your order ${order.number} has been delivered!`,
@@ -425,7 +433,7 @@ async function sendPatientRefillReminderEmail(
   patient: { name: string; email: string },
   intake: { goal: string }
 ) {
-  await resend.emails.send({
+  const resend = getResend(); if (!resend) return; await resend.emails.send({
     from: FROM_EMAIL,
     to: patient.email,
     subject: `⏰ Time to refill your ${intake.goal} prescription`,
@@ -465,7 +473,7 @@ async function sendPatientReferralEarnedEmail(
   patient: { name: string; email: string },
   reward?: string
 ) {
-  await resend.emails.send({
+  const resend = getResend(); if (!resend) return; await resend.emails.send({
     from: FROM_EMAIL,
     to: patient.email,
     subject: `🎁 You earned a referral reward!`,
