@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
 type OrderStatus = 'pending' | 'processing' | 'compounding' | 'shipped' | 'delivered';
@@ -8,7 +8,7 @@ type OrderStatus = 'pending' | 'processing' | 'compounding' | 'shipped' | 'deliv
 interface DashboardStats {
   revenue: { today: number; week: number; month: number };
   orders: { pending: number; shipped: number; total: number };
-  patients: { new: number; active: number };
+  patients: { new: number; active: number; total: number };
   intakeQueue: number;
   prescriptionQueue: number;
   messages: number;
@@ -16,11 +16,12 @@ interface DashboardStats {
 
 interface RecentOrder {
   id: string;
-  patient: string;
-  product: string;
+  order_number: string;
+  patient: { name: string; email: string } | null;
+  items: Array<{ name: string; qty: number }>;
   status: OrderStatus;
-  amount: number;
-  date: string;
+  total: number;
+  created_at: string;
 }
 
 interface IntakeItem {
@@ -28,10 +29,10 @@ interface IntakeItem {
   name: string;
   email: string;
   goal: string;
-  submitted: string;
+  created_at: string;
 }
 
-const STATUS_COLORS: Record<OrderStatus, string> = {
+const STATUS_COLORS: Record<string, string> = {
   pending: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
   processing: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
   compounding: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
@@ -39,29 +40,67 @@ const STATUS_COLORS: Record<OrderStatus, string> = {
   delivered: 'bg-green-500/20 text-green-300 border-green-500/30',
 };
 
+function timeAgo(dateStr: string): string {
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+  
+  if (diffMins < 60) return `${diffMins} min ago`;
+  if (diffHours < 24) return `${diffHours} hours ago`;
+  return `${diffDays} days ago`;
+}
+
 export default function RegenOpsDashboard() {
   const [stats, setStats] = useState<DashboardStats>({
-    revenue: { today: 1249, week: 8750, month: 32450 },
-    orders: { pending: 5, shipped: 3, total: 47 },
-    patients: { new: 8, active: 156 },
-    intakeQueue: 3,
-    prescriptionQueue: 5,
-    messages: 2,
+    revenue: { today: 0, week: 0, month: 0 },
+    orders: { pending: 0, shipped: 0, total: 0 },
+    patients: { new: 0, active: 0, total: 0 },
+    intakeQueue: 0,
+    prescriptionQueue: 0,
+    messages: 0,
   });
+  const [loading, setLoading] = useState(true);
+  const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([]);
+  const [intakeQueue, setIntakeQueue] = useState<IntakeItem[]>([]);
 
-  const [recentOrders] = useState<RecentOrder[]>([
-    { id: 'ORD-001', patient: 'Sarah M.', product: 'Semaglutide 2.5mg/mL (4mL)', status: 'shipped', amount: 299, date: '2 hours ago' },
-    { id: 'ORD-002', patient: 'Michael R.', product: 'Tirzepatide 12.5mg/mL (2mL)', status: 'compounding', amount: 349, date: '5 hours ago' },
-    { id: 'ORD-003', patient: 'Jennifer L.', product: 'Testosterone Cypionate', status: 'pending', amount: 189, date: '1 day ago' },
-    { id: 'ORD-004', patient: 'David K.', product: 'NAD+ 200mg/mL', status: 'delivered', amount: 140, date: '2 days ago' },
-    { id: 'ORD-005', patient: 'Amanda T.', product: 'B12 + Biotin Bundle', status: 'processing', amount: 89, date: '2 days ago' },
-  ]);
+  const fetchData = useCallback(async () => {
+    try {
+      // Fetch stats
+      const statsRes = await fetch('/api/regen/ops/stats');
+      if (statsRes.ok) {
+        const statsData = await statsRes.json();
+        setStats(statsData);
+      }
 
-  const [intakeQueue] = useState<IntakeItem[]>([
-    { id: 'INT-001', name: 'Emily Johnson', email: 'emily.j@email.com', goal: 'Weight Loss', submitted: '30 min ago' },
-    { id: 'INT-002', name: 'Robert Chen', email: 'rchen@email.com', goal: 'Hormone Therapy', submitted: '2 hours ago' },
-    { id: 'INT-003', name: 'Lisa Martinez', email: 'lisa.m@email.com', goal: 'Peptides', submitted: '4 hours ago' },
-  ]);
+      // Fetch recent orders
+      const ordersRes = await fetch('/api/regen/ops/orders?limit=5');
+      if (ordersRes.ok) {
+        const ordersData = await ordersRes.json();
+        setRecentOrders(ordersData.orders || []);
+      }
+
+      // Fetch intake queue
+      const intakesRes = await fetch('/api/regen/ops/intakes?status=pending&limit=5');
+      if (intakesRes.ok) {
+        const intakesData = await intakesRes.json();
+        setIntakeQueue(intakesData.intakes || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch dashboard data:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+    // Refresh every 30 seconds
+    const interval = setInterval(fetchData, 30000);
+    return () => clearInterval(interval);
+  }, [fetchData]);
 
   const [time, setTime] = useState(new Date());
 
@@ -165,6 +204,9 @@ export default function RegenOpsDashboard() {
             <Link href="/regen/ops/orders" className="text-teal-400 text-sm hover:underline">View all →</Link>
           </div>
           <div className="space-y-3">
+            {recentOrders.length === 0 && !loading && (
+              <p className="text-white/50 text-center py-4">No orders yet</p>
+            )}
             {recentOrders.map((order) => (
               <div
                 key={order.id}
@@ -172,18 +214,20 @@ export default function RegenOpsDashboard() {
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-pink-500 flex items-center justify-center text-white font-semibold">
-                    {order.patient[0]}
+                    {order.patient?.name?.[0] || '?'}
                   </div>
                   <div>
-                    <p className="text-white font-medium">{order.patient}</p>
-                    <p className="text-white/50 text-sm truncate max-w-[200px]">{order.product}</p>
+                    <p className="text-white font-medium">{order.patient?.name || 'Unknown'}</p>
+                    <p className="text-white/50 text-sm truncate max-w-[200px]">
+                      {order.items?.[0]?.name || order.order_number}
+                    </p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium border ${STATUS_COLORS[order.status]}`}>
+                  <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium border ${STATUS_COLORS[order.status] || STATUS_COLORS.pending}`}>
                     {order.status}
                   </span>
-                  <p className="text-white/50 text-xs mt-1">${order.amount}</p>
+                  <p className="text-white/50 text-xs mt-1">${order.total}</p>
                 </div>
               </div>
             ))}
@@ -197,6 +241,9 @@ export default function RegenOpsDashboard() {
             <Link href="/regen/ops/intake" className="text-pink-400 text-sm hover:underline">Review all →</Link>
           </div>
           <div className="space-y-3">
+            {intakeQueue.length === 0 && !loading && (
+              <p className="text-white/50 text-center py-4">No pending intakes 🎉</p>
+            )}
             {intakeQueue.map((item) => (
               <div
                 key={item.id}
@@ -204,7 +251,7 @@ export default function RegenOpsDashboard() {
               >
                 <div className="flex items-center justify-between mb-2">
                   <p className="text-white font-medium">{item.name}</p>
-                  <span className="text-white/50 text-xs">{item.submitted}</span>
+                  <span className="text-white/50 text-xs">{timeAgo(item.created_at)}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>

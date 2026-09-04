@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface Product {
   sku: string;
@@ -10,83 +10,72 @@ interface Product {
   patient_price: number;
 }
 
-// This will be populated from the Formulation Rx catalog
-const CATEGORIES = [
-  'All Categories',
-  'Weight Management',
-  'Hormone Therapy',
-  'Sexual Health',
-  'Peptide',
-  'Anti-Aging',
-  'Hair Loss',
-  'Injectable Nutrients',
-  'Dermatology',
-  'Wellness',
-  'IV Therapy',
-  'Retail Generic',
-];
-
-// Sample data - will be replaced with real Formulation Rx catalog
-const SAMPLE_PRODUCTS: Product[] = [
-  { sku: '2488', product: 'Semaglutide / B6 (Pyridoxine)', strength: '1mL Vial · 2.5mg/10mg/mL', category: 'Weight Management', patient_price: 75 },
-  { sku: '2489', product: 'Semaglutide / B6 (Pyridoxine)', strength: '2mL Vial · 2.5mg/10mg/mL', category: 'Weight Management', patient_price: 125 },
-  { sku: '2490', product: 'Semaglutide / B6 (Pyridoxine)', strength: '3mL · 2.5mg/10mg/mL', category: 'Weight Management', patient_price: 165 },
-  { sku: '2491', product: 'Semaglutide / B6 (Pyridoxine)', strength: '4mL · 2.5mg/10mg/mL', category: 'Weight Management', patient_price: 200 },
-  { sku: '2498', product: 'Tirzepatide / B6 (Pyridoxine)', strength: '1mL Vial · 12.5mg/10mg/mL', category: 'Weight Management', patient_price: 135 },
-  { sku: '2499', product: 'Tirzepatide / B6 (Pyridoxine)', strength: '2mL · 12.5mg/10mg/mL', category: 'Weight Management', patient_price: 225 },
-  { sku: '2500', product: 'Tirzepatide / B6 (Pyridoxine)', strength: '3mL · 12.5mg/10mg/mL', category: 'Weight Management', patient_price: 315 },
-  { sku: '4041', product: 'B12 Methylcobalamin', strength: '10mL · 5mg/mL', category: 'Injectable Nutrients', patient_price: 30 },
-  { sku: '4042', product: 'B12 Methylcobalamin', strength: '30mL · 5mg/mL', category: 'Injectable Nutrients', patient_price: 65 },
-  { sku: '4039', product: 'Biotin', strength: '10mL · 10mg/mL', category: 'Injectable Nutrients', patient_price: 57 },
-  { sku: '4033', product: 'Glutathione', strength: '30mL · 200mg/mL', category: 'Injectable Nutrients', patient_price: 58 },
-  { sku: '3839', product: 'NAD+ Sterile Injection Solution', strength: '10mL vial · 200mg/mL', category: 'Anti-Aging', patient_price: 140 },
-  { sku: '3640', product: 'NAD Injectable Solution', strength: '20mL (10 vials) · 50mg/ml', category: 'Anti-Aging', patient_price: 300 },
-  { sku: '2884', product: 'Sermorelin Injection', strength: '6mL Vial · 1mg/mL', category: 'Peptide', patient_price: 65 },
-  { sku: '2885', product: 'Sermorelin Injection', strength: '6mL Vial · 1.5mg/mL', category: 'Peptide', patient_price: 85 },
-  { sku: '3502', product: 'PT-141 (Bremelanotide)', strength: '10mL Vial · 2mg/mL', category: 'Peptide', patient_price: 125 },
-  { sku: '2896', product: 'Tesamorelin Sterile Injection', strength: '3mL Vial · 5mg/mL', category: 'Peptide', patient_price: 320 },
-  { sku: '3096', product: 'Dutasteride Capsules', strength: '30 Capsules · 2.5mg', category: 'Hair Loss', patient_price: 55 },
-  { sku: '3098', product: 'Finasteride / Tretinoin / Fluocinolone', strength: '30mL Topical · 0.25%/0.01%/0.01%', category: 'Hair Loss', patient_price: 60 },
-  { sku: '2785', product: 'Anastrozole Capsules', strength: '30 Capsules · 0.5mg', category: 'Hormone Therapy', patient_price: 49 },
-  { sku: '2575', product: 'Bi-Est (E3/E2) 50/50 Sublingual', strength: '30 Tablets · 1mg', category: 'Hormone Therapy', patient_price: 56 },
-  { sku: '4031', product: 'Myers Cocktail', strength: '10mL · Mag/Ca/B-complex/C premix', category: 'Injectable Nutrients', patient_price: 62 },
-  { sku: '4034', product: 'Tri-Immune Boost', strength: '30mL · Ascorbic/Glutathione/Zinc', category: 'Injectable Nutrients', patient_price: 65 },
-];
-
 export default function CatalogPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [catalogTotal, setCatalogTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('All Categories');
   const [sortBy, setSortBy] = useState<'name' | 'price-low' | 'price-high'>('name');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [page, setPage] = useState(0);
+  const LIMIT = 50;
 
-  const filteredProducts = useMemo(() => {
-    let products = SAMPLE_PRODUCTS;
+  const fetchCatalog = useCallback(async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({
+        limit: LIMIT.toString(),
+        offset: (page * LIMIT).toString(),
+      });
+      if (search) params.set('search', search);
+      if (category && category !== 'All Categories') params.set('category', category);
 
-    // Filter by search
-    if (search) {
-      const searchLower = search.toLowerCase();
-      products = products.filter(
-        (p) =>
-          p.product.toLowerCase().includes(searchLower) ||
-          p.strength.toLowerCase().includes(searchLower) ||
-          p.sku.includes(search)
-      );
+      const res = await fetch(`/api/regen/ops/catalog?${params}`);
+      if (res.ok) {
+        const data = await res.json();
+        let sorted = data.products || [];
+        
+        // Client-side sort
+        if (sortBy === 'price-low') {
+          sorted = sorted.sort((a: Product, b: Product) => a.patient_price - b.patient_price);
+        } else if (sortBy === 'price-high') {
+          sorted = sorted.sort((a: Product, b: Product) => b.patient_price - a.patient_price);
+        } else {
+          sorted = sorted.sort((a: Product, b: Product) => a.product.localeCompare(b.product));
+        }
+        
+        setProducts(sorted);
+        setTotalProducts(data.total || 0);
+        setCatalogTotal(data.catalogTotal || 0);
+        if (data.categories) {
+          setCategories(['All Categories', ...data.categories]);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch catalog:', error);
+    } finally {
+      setLoading(false);
     }
+  }, [search, category, sortBy, page]);
 
-    // Filter by category
-    if (category !== 'All Categories') {
-      products = products.filter((p) => p.category === category);
-    }
+  useEffect(() => {
+    fetchCatalog();
+  }, [fetchCatalog]);
 
-    // Sort
-    products = [...products].sort((a, b) => {
-      if (sortBy === 'price-low') return a.patient_price - b.patient_price;
-      if (sortBy === 'price-high') return b.patient_price - a.patient_price;
-      return a.product.localeCompare(b.product);
-    });
+  // Debounce search
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPage(0);
+      fetchCatalog();
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [search]);
 
-    return products;
-  }, [search, category, sortBy]);
+  const filteredProducts = products;
 
   return (
     <div className="space-y-6">
@@ -94,11 +83,22 @@ export default function CatalogPage() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-white">Product Catalog</h1>
-          <p className="text-white/50">4,974 products from Formulation Rx</p>
+          <p className="text-white/50">
+            {catalogTotal > 0 ? `${catalogTotal.toLocaleString()} products` : 'Loading...'} from Formulation Rx
+          </p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-green-400 text-sm">Live sync</span>
+          {loading ? (
+            <>
+              <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              <span className="text-amber-400 text-sm">Loading...</span>
+            </>
+          ) : (
+            <>
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-green-400 text-sm">Live catalog</span>
+            </>
+          )}
         </div>
       </div>
 
@@ -124,10 +124,10 @@ export default function CatalogPage() {
           {/* Category Filter */}
           <select
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => { setCategory(e.target.value); setPage(0); }}
             className="px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-teal-400 appearance-none cursor-pointer min-w-[180px]"
           >
-            {CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <option key={cat} value={cat} className="bg-slate-800">
                 {cat}
               </option>
@@ -149,7 +149,7 @@ export default function CatalogPage() {
 
       {/* Results Count */}
       <p className="text-white/50 text-sm">
-        Showing {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
+        Showing {filteredProducts.length} of {totalProducts.toLocaleString()} product{totalProducts !== 1 ? 's' : ''}
         {category !== 'All Categories' && ` in ${category}`}
         {search && ` matching "${search}"`}
       </p>
