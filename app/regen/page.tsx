@@ -263,7 +263,7 @@ export default function RegenLandingPage() {
       <nav className="fixed top-8 left-0 right-0 z-50 backdrop-blur-xl border-b" style={{ backgroundColor: 'rgba(10,10,10,0.9)', borderColor: `${BRAND.teal}30` }}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center">
-            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={180} height={60} className="h-14 w-auto brightness-110" />
+            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={220} height={70} className="h-16 md:h-20 w-auto brightness-110" />
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/products" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden lg:block">
