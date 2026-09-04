@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { href: '/ops', label: 'Dashboard', icon: '📊' },
   { href: '/ops/patients', label: 'Patients', icon: '👥' },
   { href: '/ops/intake', label: 'Intake Queue', icon: '📋' },
+  { href: '/ops/labs', label: 'Lab Review', icon: '🧪' },
   { href: '/ops/prescriptions', label: 'Prescriptions', icon: '💊' },
   { href: '/ops/orders', label: 'Orders', icon: '📦' },
   { href: '/ops/catalog', label: 'Catalog', icon: '🔬' },
