@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     
     // Fullscript wants us to return OUR challenge token with every response
-    const challengeToken = process.env.FULLSCRIPT_CHALLENGE_TOKEN;
+    const challengeToken = process.env.FULLSCRIPT_CHALLENGE_TOKEN?.trim();
     
     console.log('Fullscript webhook received:', JSON.stringify(body, null, 2));
     
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('Fullscript webhook error:', error);
     // Still return 200 to acknowledge receipt
-    const challengeToken = process.env.FULLSCRIPT_CHALLENGE_TOKEN;
+    const challengeToken = process.env.FULLSCRIPT_CHALLENGE_TOKEN?.trim();
     return NextResponse.json({ 
       received: true, 
       challenge: challengeToken,
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
 // GET endpoint for webhook verification
 export async function GET() {
   // Fullscript wants us to return OUR challenge token (from their dashboard)
-  const challengeToken = process.env.FULLSCRIPT_CHALLENGE_TOKEN;
+  const challengeToken = process.env.FULLSCRIPT_CHALLENGE_TOKEN?.trim();
   
   if (challengeToken) {
     return NextResponse.json({ challenge: challengeToken });
