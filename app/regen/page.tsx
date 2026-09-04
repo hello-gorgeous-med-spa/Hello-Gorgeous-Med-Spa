@@ -384,9 +384,6 @@ export default function RegenLandingPage() {
         </div>
       </section>
 
-      {/* Weight Loss Calculator */}
-      <WeightLossCalculator />
-
       {/* Scrolling Trust Strip */}
       <section className="py-5 overflow-hidden border-y" style={{ backgroundColor: BRAND.darkAlt, borderColor: `${BRAND.teal}20` }}>
         <div className="animate-marquee whitespace-nowrap flex">
