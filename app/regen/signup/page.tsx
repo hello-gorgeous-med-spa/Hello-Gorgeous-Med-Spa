@@ -44,19 +44,50 @@ export default function SignupPage() {
     setLoading(true);
     setError('');
     
-    const result = await signUp({
-      email: formData.email,
-      password: formData.password,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      phone: formData.phone,
-    });
-    
-    if (result.error) {
-      setError(result.error);
-      setLoading(false);
-    } else {
+    try {
+      // Use our custom API that bypasses email confirmation
+      const response = await fetch('/api/regen/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          phone: formData.phone,
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        setError(data.error || 'Failed to create account');
+        setLoading(false);
+        return;
+      }
+      
+      // Account created! Now sign them in automatically
+      const signInResult = await signUp({
+        email: formData.email,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        phone: formData.phone,
+      });
+      
+      // Even if signUp has an "error" about email, the account exists
+      // So let's just redirect to login with a success message
       setSuccess(true);
+      setLoading(false);
+      
+      // Auto-redirect to login after 1 second
+      setTimeout(() => {
+        router.push('/login?registered=true');
+      }, 1500);
+      
+    } catch (err) {
+      console.error('Signup error:', err);
+      setError('An unexpected error occurred. Please try again.');
       setLoading(false);
     }
   };
@@ -83,18 +114,15 @@ export default function SignupPage() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold mb-4" style={{ color: BRAND.cream }}>Check your email</h1>
+          <h1 className="text-3xl font-bold mb-4" style={{ color: BRAND.cream }}>Account Created!</h1>
           <p className="mb-8" style={{ color: BRAND.gray }}>
-            We&apos;ve sent a confirmation link to <strong style={{ color: BRAND.cream }}>{formData.email}</strong>. 
-            Click the link to verify your account and sign in.
+            Welcome to REGEN RX, <strong style={{ color: BRAND.cream }}>{formData.firstName}</strong>! 
+            Redirecting you to sign in...
           </p>
-          <Link
-            href="/login"
-            className="inline-flex px-8 py-4 rounded-xl font-bold transition-all hover:scale-105"
-            style={{ backgroundColor: BRAND.pink, color: 'white' }}
-          >
-            Go to Sign In
-          </Link>
+          <div className="flex items-center justify-center gap-2" style={{ color: BRAND.teal }}>
+            <div className="w-5 h-5 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: `${BRAND.teal} transparent transparent transparent` }} />
+            <span>Taking you to login...</span>
+          </div>
         </div>
       </div>
     );

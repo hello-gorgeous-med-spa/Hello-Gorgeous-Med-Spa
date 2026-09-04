@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useRegenAuth } from '@/components/regen/RegenAuthProvider';
+import { Suspense } from 'react';
 
 const BRAND = {
   teal: '#0D9488',
@@ -16,14 +17,23 @@ const BRAND = {
   gray: '#9CA3AF',
 };
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, loading: authLoading, signIn } = useRegenAuth();
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [justRegistered, setJustRegistered] = useState(false);
+  
+  // Check if user just registered
+  useEffect(() => {
+    if (searchParams.get('registered') === 'true') {
+      setJustRegistered(true);
+    }
+  }, [searchParams]);
 
   // Redirect if already logged in
   useEffect(() => {
@@ -71,6 +81,15 @@ export default function LoginPage() {
           <p className="text-center mb-8" style={{ color: BRAND.gray }}>
             Sign in to manage your prescriptions and orders.
           </p>
+
+          {justRegistered && (
+            <div 
+              className="mb-6 p-4 rounded-lg text-sm"
+              style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal, border: `1px solid ${BRAND.teal}40` }}
+            >
+              ✓ Account created successfully! Sign in with your email and password.
+            </div>
+          )}
 
           {error && (
             <div 
@@ -184,5 +203,17 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0A0A0A' }}>
+        <div className="w-8 h-8 border-4 border-t-transparent rounded-full animate-spin" style={{ borderColor: '#E91E8C transparent transparent transparent' }} />
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }
