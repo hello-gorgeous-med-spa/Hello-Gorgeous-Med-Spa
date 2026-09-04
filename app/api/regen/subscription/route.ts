@@ -2,9 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getSubscriptionTierById, SUBSCRIPTION_TIERS } from '@/lib/regen/subscriptions/subscription-tiers';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-06-20',
-});
+// Lazy init to avoid build-time errors
+function getStripe() {
+  const key = process.env.REGEN_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error('Stripe API key not configured');
+  return new Stripe(key, { apiVersion: '2024-06-20' });
+}
 
 /**
  * POST /api/regen/subscription
@@ -27,11 +30,11 @@ export async function POST(request: NextRequest) {
     // Find or create customer
     let customer: Stripe.Customer | undefined;
     if (email) {
-      const existingCustomers = await stripe.customers.list({ email, limit: 1 });
+      const existingCustomers = await getStripe().customers.list({ email, limit: 1 });
       if (existingCustomers.data.length > 0) {
         customer = existingCustomers.data[0];
       } else {
-        customer = await stripe.customers.create({
+        customer = await getStripe().customers.create({
           email,
           metadata: { source: 'regen-rx-subscription' },
         });
@@ -39,7 +42,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Find the product in Stripe
-    const products = await stripe.products.search({
+    const products = await getStripe().products.search({
       query: `metadata['regen_tier_id']:'${tierId}'`,
     });
 
@@ -53,7 +56,7 @@ export async function POST(request: NextRequest) {
     const product = products.data[0];
 
     // Get the appropriate price
-    const prices = await stripe.prices.list({
+    const prices = await getStripe().prices.list({
       product: product.id,
       active: true,
     });
@@ -107,7 +110,7 @@ export async function POST(request: NextRequest) {
       sessionParams.customer_email = email;
     }
 
-    const session = await stripe.checkout.sessions.create(sessionParams);
+    const session = await getStripe().checkout.sessions.create(sessionParams);
 
     return NextResponse.json({
       success: true,
@@ -135,7 +138,7 @@ export async function GET(request: NextRequest) {
   // If customerId provided, get their subscriptions
   if (customerId) {
     try {
-      const subscriptions = await stripe.subscriptions.list({
+      const subscriptions = await getStripe().subscriptions.list({
         customer: customerId,
         status: 'all',
         expand: ['data.items.data.price.product'],

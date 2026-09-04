@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase-server';
+import { getSupabase } from '@/lib/supabase-server';
 import { sendRegenNotification } from '@/lib/regen/notifications';
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getSupabase();
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status') || 'pending';
     const limit = parseInt(searchParams.get('limit') || '50');
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getSupabase();
     const body = await request.json();
     const { id, status, review_notes, reviewed_by } = body;
 

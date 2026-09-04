@@ -1,18 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase-server';
+import { getSupabase } from '@/lib/supabase-server';
 import { sendRegenNotification } from '@/lib/regen/notifications';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-06-20',
-});
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || '';
+// Lazy init to avoid build-time errors
+function getStripe() {
+  const key = process.env.REGEN_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error('Stripe API key not configured');
+  return new Stripe(key, { apiVersion: '2024-06-20' });
+}
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.text();
     const signature = request.headers.get('stripe-signature');
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || '';
 
     if (!signature) {
       return NextResponse.json({ error: 'No signature' }, { status: 400 });
@@ -20,13 +22,13 @@ export async function POST(request: NextRequest) {
 
     let event: Stripe.Event;
     try {
-      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+      event = getStripe().webhooks.constructEvent(body, signature, webhookSecret);
     } catch (err) {
       console.error('Webhook signature verification failed:', err);
       return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
     }
 
-    const supabase = createServerSupabaseClient();
+    const supabase = getSupabase();
 
     switch (event.type) {
       case 'checkout.session.completed': {
@@ -68,7 +70,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function handleCheckoutComplete(supabase: ReturnType<typeof createServerSupabaseClient>, session: Stripe.Checkout.Session) {
+async function handleCheckoutComplete(supabase: ReturnType<typeof getSupabase>, session: Stripe.Checkout.Session) {
   const email = session.customer_email || session.customer_details?.email;
   if (!email) return;
 
@@ -102,7 +104,7 @@ async function handleCheckoutComplete(supabase: ReturnType<typeof createServerSu
   }
 }
 
-async function handlePaymentSuccess(supabase: ReturnType<typeof createServerSupabaseClient>, paymentIntent: Stripe.PaymentIntent) {
+async function handlePaymentSuccess(supabase: ReturnType<typeof getSupabase>, paymentIntent: Stripe.PaymentIntent) {
   // Update any orders with this payment intent
   await supabase
     .from('regen_orders')
@@ -114,7 +116,7 @@ async function handlePaymentSuccess(supabase: ReturnType<typeof createServerSupa
     .eq('status', 'pending');
 }
 
-async function handleInvoicePaid(supabase: ReturnType<typeof createServerSupabaseClient>, invoice: Stripe.Invoice) {
+async function handleInvoicePaid(supabase: ReturnType<typeof getSupabase>, invoice: Stripe.Invoice) {
   const email = invoice.customer_email;
   if (!email) return;
 
@@ -129,7 +131,7 @@ async function handleInvoicePaid(supabase: ReturnType<typeof createServerSupabas
     .eq('status', 'pending');
 }
 
-async function handleSubscriptionUpdate(supabase: ReturnType<typeof createServerSupabaseClient>, subscription: Stripe.Subscription) {
+async function handleSubscriptionUpdate(supabase: ReturnType<typeof getSupabase>, subscription: Stripe.Subscription) {
   const customerId = subscription.customer as string;
   
   // Get customer email
@@ -164,7 +166,7 @@ async function handleSubscriptionUpdate(supabase: ReturnType<typeof createServer
     });
 }
 
-async function handleSubscriptionCanceled(supabase: ReturnType<typeof createServerSupabaseClient>, subscription: Stripe.Subscription) {
+async function handleSubscriptionCanceled(supabase: ReturnType<typeof getSupabase>, subscription: Stripe.Subscription) {
   await supabase
     .from('regen_subscriptions')
     .update({
@@ -175,7 +177,7 @@ async function handleSubscriptionCanceled(supabase: ReturnType<typeof createServ
     .eq('stripe_subscription_id', subscription.id);
 }
 
-async function processReferral(supabase: ReturnType<typeof createServerSupabaseClient>, referralCode: string, referredEmail: string) {
+async function processReferral(supabase: ReturnType<typeof getSupabase>, referralCode: string, referredEmail: string) {
   // Find the referrer
   const { data: referrer } = await supabase
     .from('regen_patients')

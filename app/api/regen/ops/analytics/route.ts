@@ -1,14 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase-server';
+import { getSupabase } from '@/lib/supabase-server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-06-20',
-});
+// Lazy init to avoid build-time errors
+function getStripe() {
+  const key = process.env.REGEN_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error('Stripe API key not configured');
+  return new Stripe(key, { apiVersion: '2024-06-20' });
+}
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getSupabase();
     const { searchParams } = new URL(request.url);
     const period = searchParams.get('period') || 'month';
 
@@ -25,7 +28,7 @@ export async function GET(request: NextRequest) {
     let revenue = { today: 0, week: 0, month: 0, year: 0, lastMonth: 0 };
     try {
       // This month
-      const charges = await stripe.charges.list({
+      const charges = await getStripe().charges.list({
         created: { gte: Math.floor(yearStart.getTime() / 1000) },
         limit: 100,
       });
@@ -91,7 +94,7 @@ export async function GET(request: NextRequest) {
     // Subscriptions (from Stripe)
     let subscriptionStats = { active: 0, mrr: 0, growth: 0 };
     try {
-      const subscriptions = await stripe.subscriptions.list({
+      const subscriptions = await getStripe().subscriptions.list({
         status: 'active',
         limit: 100,
       });

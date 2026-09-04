@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-06-20',
-});
+// Lazy init to avoid build-time errors
+function getStripe() {
+  const key = process.env.REGEN_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error('Stripe API key not configured');
+  return new Stripe(key, { apiVersion: '2024-06-20' });
+}
 
 /**
  * POST /api/regen/subscription/manage
@@ -24,7 +27,7 @@ export async function POST(request: NextRequest) {
     switch (action) {
       case 'cancel': {
         // Cancel at end of billing period
-        const subscription = await stripe.subscriptions.update(subscriptionId, {
+        const subscription = await getStripe().subscriptions.update(subscriptionId, {
           cancel_at_period_end: true,
         });
         return NextResponse.json({
@@ -36,7 +39,7 @@ export async function POST(request: NextRequest) {
 
       case 'cancel-immediately': {
         // Cancel immediately
-        const subscription = await stripe.subscriptions.cancel(subscriptionId);
+        const subscription = await getStripe().subscriptions.cancel(subscriptionId);
         return NextResponse.json({
           success: true,
           message: 'Subscription cancelled immediately',
@@ -46,7 +49,7 @@ export async function POST(request: NextRequest) {
 
       case 'resume': {
         // Resume a subscription that was set to cancel
-        const subscription = await stripe.subscriptions.update(subscriptionId, {
+        const subscription = await getStripe().subscriptions.update(subscriptionId, {
           cancel_at_period_end: false,
         });
         return NextResponse.json({
@@ -58,7 +61,7 @@ export async function POST(request: NextRequest) {
 
       case 'pause': {
         // Pause collection (skip next payment)
-        const subscription = await stripe.subscriptions.update(subscriptionId, {
+        const subscription = await getStripe().subscriptions.update(subscriptionId, {
           pause_collection: {
             behavior: 'mark_uncollectible',
           },
@@ -72,7 +75,7 @@ export async function POST(request: NextRequest) {
 
       case 'unpause': {
         // Resume collection
-        const subscription = await stripe.subscriptions.update(subscriptionId, {
+        const subscription = await getStripe().subscriptions.update(subscriptionId, {
           pause_collection: null,
         });
         return NextResponse.json({
@@ -88,7 +91,7 @@ export async function POST(request: NextRequest) {
           return NextResponse.json({ error: 'Customer ID required for portal' }, { status: 400 });
         }
         
-        const session = await stripe.billingPortal.sessions.create({
+        const session = await getStripe().billingPortal.sessions.create({
           customer: customerId,
           return_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://tryregenrx.com'}/account`,
         });

@@ -1,14 +1,17 @@
 import { NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase-server';
+import { getSupabase } from '@/lib/supabase-server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-06-20',
-});
+// Lazy init to avoid build-time errors
+function getStripe() {
+  const key = process.env.REGEN_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error('Stripe API key not configured');
+  return new Stripe(key, { apiVersion: '2024-06-20' });
+}
 
 export async function GET() {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getSupabase();
     
     // Get date ranges
     const now = new Date();
@@ -20,7 +23,7 @@ export async function GET() {
     // Fetch Stripe revenue data
     let revenue = { today: 0, week: 0, month: 0 };
     try {
-      const charges = await stripe.charges.list({
+      const charges = await getStripe().charges.list({
         created: { gte: Math.floor(monthStart.getTime() / 1000) },
         limit: 100,
       });

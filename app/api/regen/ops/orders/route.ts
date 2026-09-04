@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase-server';
+import { getSupabase } from '@/lib/supabase-server';
 
 // Generate order number: REGEN-YYYYMM-XXXXX
 function generateOrderNumber(): string {
@@ -12,7 +12,7 @@ function generateOrderNumber(): string {
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getSupabase();
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status') || 'all';
     const search = searchParams.get('search') || '';
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getSupabase();
     const body = await request.json();
     
     const orderNumber = generateOrderNumber();
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getSupabase();
     const body = await request.json();
     const { id, status, tracking_number, tracking_carrier, pharmacy_order_id, actor_id, notes } = body;
 

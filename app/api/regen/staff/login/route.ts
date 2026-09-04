@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase-server';
+import { getSupabase } from '@/lib/supabase-server';
 import { ROLE_PERMISSIONS, type StaffRole } from '@/lib/regen/permissions';
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getSupabase();
     const { email, password } = await request.json();
 
     if (!email || !password) {

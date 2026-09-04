@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase-server';
+import { getSupabase } from '@/lib/supabase-server';
 import { ROLE_PERMISSIONS, type StaffRole } from '@/lib/regen/permissions';
 
 export async function GET() {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getSupabase();
     
     const { data: { user } } = await supabase.auth.getUser();
     if (!user?.email) {
@@ -41,7 +41,7 @@ export async function GET() {
 
 export async function DELETE() {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getSupabase();
     await supabase.auth.signOut();
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -2,11 +2,18 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { Resend } from 'resend';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-06-20',
-});
+// Lazy initialization to avoid build-time errors when env vars aren't set
+function getStripe() {
+  const key = process.env.REGEN_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
+  if (!key) {
+    throw new Error('Stripe API key not configured');
+  }
+  return new Stripe(key, { apiVersion: '2024-06-20' });
+}
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 const CONSULTATION_PRICE_USD = 99;
 const DOXY_ME_LINK = 'https://doxy.me/ryankent';
@@ -39,12 +46,12 @@ export async function POST(request: NextRequest) {
 
     // Find or create customer
     let customer: Stripe.Customer;
-    const existingCustomers = await stripe.customers.list({ email, limit: 1 });
+    const existingCustomers = await getStripe().customers.list({ email, limit: 1 });
     
     if (existingCustomers.data.length > 0) {
       customer = existingCustomers.data[0];
     } else {
-      customer = await stripe.customers.create({
+      customer = await getStripe().customers.create({
         email,
         name: `${firstName} ${lastName}`,
         phone,
@@ -56,7 +63,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create checkout session for consultation
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       mode: 'payment',
       customer: customer.id,
       payment_method_types: ['card'],
@@ -137,7 +144,7 @@ async function sendStaffNotification(data: {
   selectedTime: string;
 }) {
   try {
-    await resend.emails.send({
+    await getResend().emails.send({
       from: 'REGEN RX <noreply@tryregenrx.com>',
       to: ['info@hellogorgeousmedspa.com'],
       subject: `📅 New Consultation Booking: ${data.firstName} ${data.lastName}`,
@@ -166,7 +173,7 @@ async function sendPatientConfirmation(data: {
   selectedTime: string;
 }) {
   try {
-    await resend.emails.send({
+    await getResend().emails.send({
       from: 'REGEN RX <noreply@tryregenrx.com>',
       to: [data.email],
       subject: `Your REGEN RX Consultation is Confirmed ✓`,
