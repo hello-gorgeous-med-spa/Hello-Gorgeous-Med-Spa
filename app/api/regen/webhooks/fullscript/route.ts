@@ -15,15 +15,8 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     
-    // Handle challenge verification (some services send it in POST body)
-    if (body.challenge || body.challenge_token || body.hub?.challenge) {
-      const challenge = body.challenge || body.challenge_token || body.hub?.challenge;
-      // Return as plain text
-      return new NextResponse(challenge, {
-        status: 200,
-        headers: { 'Content-Type': 'text/plain' },
-      });
-    }
+    // Fullscript wants us to return OUR challenge token with every response
+    const challengeToken = process.env.FULLSCRIPT_CHALLENGE_TOKEN;
     
     console.log('Fullscript webhook received:', JSON.stringify(body, null, 2));
     
@@ -46,26 +39,30 @@ export async function POST(req: NextRequest) {
         console.log(`Unhandled Fullscript event: ${event_type}`);
     }
     
-    return NextResponse.json({ received: true });
+    // Always include challenge token in response
+    return NextResponse.json({ 
+      received: true,
+      challenge: challengeToken,
+    });
   } catch (error) {
     console.error('Fullscript webhook error:', error);
     // Still return 200 to acknowledge receipt
-    return NextResponse.json({ received: true, error: 'Processing error' });
+    const challengeToken = process.env.FULLSCRIPT_CHALLENGE_TOKEN;
+    return NextResponse.json({ 
+      received: true, 
+      challenge: challengeToken,
+      error: 'Processing error' 
+    });
   }
 }
 
 // GET endpoint for webhook verification
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const challenge = searchParams.get('challenge') || searchParams.get('challenge_token') || searchParams.get('hub.challenge');
+export async function GET() {
+  // Fullscript wants us to return OUR challenge token (from their dashboard)
+  const challengeToken = process.env.FULLSCRIPT_CHALLENGE_TOKEN;
   
-  // If challenge token provided, echo it back for verification
-  if (challenge) {
-    // Try plain text response (some services expect this)
-    return new NextResponse(challenge, {
-      status: 200,
-      headers: { 'Content-Type': 'text/plain' },
-    });
+  if (challengeToken) {
+    return NextResponse.json({ challenge: challengeToken });
   }
   
   return NextResponse.json({ 
