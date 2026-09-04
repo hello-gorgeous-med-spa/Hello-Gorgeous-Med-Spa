@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { TREATMENT_CONSENTS, getTreatmentCategory, CONSENT_VERSION, type TreatmentCategory } from '@/lib/regen/informed-consent';
 
 // Brand colors - REGEN RX
 const BRAND = {
@@ -99,7 +100,7 @@ const GOALS = [
   },
 ];
 
-type Step = 'goal' | 'program' | 'info' | 'screening' | 'checkout';
+type Step = 'goal' | 'program' | 'info' | 'screening' | 'consent' | 'checkout';
 
 // Medical screening questions by goal
 const SCREENING_QUESTIONS: Record<string, Array<{id: string; question: string; type: 'yesno' | 'text'; disqualifyIf?: 'yes' | 'no'}>> = {
@@ -147,6 +148,19 @@ function RegenStartContent() {
   const [screeningAnswers, setScreeningAnswers] = useState<Record<string, string>>({});
   const [disqualified, setDisqualified] = useState(false);
   const [loading, setLoading] = useState(false);
+  
+  // Consent state
+  const [consentChecks, setConsentChecks] = useState({
+    readRisks: false,
+    understandNoGuarantees: false,
+    informedOfAlternatives: false,
+    agreeToFollowInstructions: false,
+    willReportAdverseEvents: false,
+    confirmIllinoisResident: false,
+    confirmAccurateInfo: false,
+    finalConsent: false,
+  });
+  const [emergencyContact, setEmergencyContact] = useState({ name: '', phone: '' });
 
   const currentGoal = GOALS.find(g => g.id === selectedGoal);
   const currentProgram = currentGoal?.programs.find(p => p.id === selectedProgram);
@@ -191,13 +205,48 @@ function RegenStartContent() {
       }
     }
     
+    // Move to consent step instead of checkout
+    setStep('consent');
+  };
+
+  // Get treatment category for consent
+  const getTreatmentInfo = () => {
+    if (!selectedProgram) return null;
+    const category = getTreatmentCategory(selectedProgram);
+    return TREATMENT_CONSENTS[category];
+  };
+
+  const allConsentChecked = Object.values(consentChecks).every(Boolean);
+
+  const handleConsentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!allConsentChecked) {
+      alert('Please acknowledge all consent items to continue');
+      return;
+    }
+    
     setLoading(true);
     
-    // Create checkout session
+    // Create checkout session with consent data
     try {
       const baseUrl = typeof window !== 'undefined' 
         ? `${window.location.protocol}//${window.location.host}` 
         : 'https://tryregenrx.com';
+      
+      const consentData = {
+        treatmentCategory: selectedProgram ? getTreatmentCategory(selectedProgram) : 'peptides',
+        patientName: `${formData.firstName} ${formData.lastName}`,
+        patientEmail: formData.email,
+        patientDob: formData.dob,
+        signedAt: new Date().toISOString(),
+        consentVersion: CONSENT_VERSION,
+        acknowledgedRisks: consentChecks.readRisks,
+        acknowledgedAlternatives: consentChecks.informedOfAlternatives,
+        acknowledgedNoGuarantees: consentChecks.understandNoGuarantees,
+        emergencyContactName: emergencyContact.name || undefined,
+        emergencyContactPhone: emergencyContact.phone || undefined,
+      };
       
       const res = await fetch('/api/regen/checkout', {
         method: 'POST',
@@ -219,6 +268,7 @@ function RegenStartContent() {
             goal: selectedGoal,
             dob: formData.dob,
             screening: JSON.stringify(screeningAnswers),
+            consent: JSON.stringify(consentData),
           },
         }),
       });
@@ -256,15 +306,15 @@ function RegenStartContent() {
       <div style={{ backgroundColor: BRAND.darkAlt, borderBottom: `1px solid ${BRAND.teal}20` }}>
         <div className="max-w-3xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            {['Goal', 'Program', 'Info', 'Medical', 'Pay'].map((label, idx) => {
-              const stepMap: Step[] = ['goal', 'program', 'info', 'screening', 'checkout'];
+            {['Goal', 'Program', 'Info', 'Medical', 'Consent', 'Pay'].map((label, idx) => {
+              const stepMap: Step[] = ['goal', 'program', 'info', 'screening', 'consent', 'checkout'];
               const currentStepIdx = stepMap.indexOf(step);
               const isActive = currentStepIdx >= idx;
               const isCurrent = stepMap[idx] === step;
               return (
                 <div key={label} className="flex items-center">
                   <div 
-                    className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold"
+                    className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-semibold"
                     style={{
                       backgroundColor: isCurrent ? BRAND.pink : isActive ? `${BRAND.teal}30` : BRAND.dark,
                       color: isCurrent ? 'white' : isActive ? BRAND.teal : BRAND.gray,
@@ -273,12 +323,12 @@ function RegenStartContent() {
                   >
                     {isActive && !isCurrent ? '✓' : idx + 1}
                   </div>
-                  <span className="ml-1 sm:ml-2 text-xs sm:text-sm font-medium hidden sm:block" style={{ color: isActive ? BRAND.cream : BRAND.gray }}>
+                  <span className="ml-1 text-xs font-medium hidden lg:block" style={{ color: isActive ? BRAND.cream : BRAND.gray }}>
                     {label}
                   </span>
-                  {idx < 4 && (
+                  {idx < 5 && (
                     <div 
-                      className="w-4 sm:w-12 h-0.5 mx-1 sm:mx-2"
+                      className="w-2 sm:w-6 lg:w-10 h-0.5 mx-1"
                       style={{ backgroundColor: currentStepIdx > idx ? BRAND.teal : `${BRAND.gray}30` }}
                     />
                   )}
@@ -565,9 +615,233 @@ function RegenStartContent() {
                 className="w-full py-4 text-white font-bold rounded-lg transition-all hover:scale-[1.02] disabled:opacity-50"
                 style={{ backgroundColor: BRAND.pink }}
               >
-                {loading ? 'Processing...' : `Complete & Pay — $${currentProgram.price}`}
+                Continue to Informed Consent
               </button>
             </form>
+          </div>
+        )}
+
+        {/* Step 5: Informed Consent */}
+        {step === 'consent' && currentProgram && !disqualified && (
+          <div>
+            <button onClick={() => setStep('screening')} className="flex items-center gap-2 mb-6 hover:opacity-80" style={{ color: BRAND.gray }}>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+            
+            <div className="mb-6">
+              <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ backgroundColor: `${BRAND.pink}20`, color: BRAND.pink }}>
+                Step 5 of 6 — Required
+              </span>
+            </div>
+            
+            <h2 className="text-2xl font-bold mb-2" style={{ color: BRAND.cream }}>Informed Consent</h2>
+            <p className="mb-6" style={{ color: BRAND.gray }}>
+              Please carefully review the treatment information below and acknowledge each item.
+            </p>
+
+            {(() => {
+              const treatmentInfo = getTreatmentInfo();
+              if (!treatmentInfo) return null;
+              
+              return (
+                <form onSubmit={handleConsentSubmit} className="space-y-6">
+                  {/* Treatment Overview */}
+                  <div className="p-5 rounded-xl" style={{ backgroundColor: BRAND.darkAlt, border: `1px solid ${BRAND.teal}40` }}>
+                    <h3 className="font-bold text-lg mb-2" style={{ color: BRAND.teal }}>{treatmentInfo.title}</h3>
+                    <p className="text-sm" style={{ color: BRAND.gray }}>{treatmentInfo.description}</p>
+                  </div>
+
+                  {/* Risks & Side Effects */}
+                  <div className="p-5 rounded-xl" style={{ backgroundColor: BRAND.darkAlt, border: '1px solid #333' }}>
+                    <h3 className="font-bold mb-3 flex items-center gap-2" style={{ color: '#EF4444' }}>
+                      <span>⚠️</span> Risks & Potential Side Effects
+                    </h3>
+                    <ul className="space-y-2 text-sm mb-4" style={{ color: BRAND.gray }}>
+                      {treatmentInfo.risks.map((risk, i) => (
+                        <li key={i} className="flex gap-2">
+                          <span style={{ color: '#EF4444' }}>•</span>
+                          <span>{risk}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <label className="flex items-start gap-3 cursor-pointer p-3 rounded-lg" style={{ backgroundColor: `${BRAND.dark}` }}>
+                      <input
+                        type="checkbox"
+                        checked={consentChecks.readRisks}
+                        onChange={(e) => setConsentChecks({ ...consentChecks, readRisks: e.target.checked })}
+                        className="mt-1 w-5 h-5"
+                        style={{ accentColor: BRAND.pink }}
+                      />
+                      <span className="text-sm font-medium" style={{ color: BRAND.cream }}>
+                        I have read and understand the risks and potential side effects listed above
+                      </span>
+                    </label>
+                  </div>
+
+                  {/* Contraindications */}
+                  <div className="p-5 rounded-xl" style={{ backgroundColor: BRAND.darkAlt, border: '1px solid #333' }}>
+                    <h3 className="font-bold mb-3" style={{ color: '#F59E0B' }}>
+                      🚫 Contraindications (Do NOT Use If)
+                    </h3>
+                    <ul className="space-y-2 text-sm" style={{ color: BRAND.gray }}>
+                      {treatmentInfo.contraindications.map((item, i) => (
+                        <li key={i} className="flex gap-2">
+                          <span style={{ color: '#F59E0B' }}>•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Alternatives */}
+                  <div className="p-5 rounded-xl" style={{ backgroundColor: BRAND.darkAlt, border: '1px solid #333' }}>
+                    <h3 className="font-bold mb-3" style={{ color: BRAND.teal }}>
+                      📋 Alternatives to This Treatment
+                    </h3>
+                    <ul className="space-y-2 text-sm mb-4" style={{ color: BRAND.gray }}>
+                      {treatmentInfo.alternatives.map((alt, i) => (
+                        <li key={i} className="flex gap-2">
+                          <span style={{ color: BRAND.teal }}>•</span>
+                          <span>{alt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <label className="flex items-start gap-3 cursor-pointer p-3 rounded-lg" style={{ backgroundColor: `${BRAND.dark}` }}>
+                      <input
+                        type="checkbox"
+                        checked={consentChecks.informedOfAlternatives}
+                        onChange={(e) => setConsentChecks({ ...consentChecks, informedOfAlternatives: e.target.checked })}
+                        className="mt-1 w-5 h-5"
+                        style={{ accentColor: BRAND.pink }}
+                      />
+                      <span className="text-sm font-medium" style={{ color: BRAND.cream }}>
+                        I have been informed of alternative treatments
+                      </span>
+                    </label>
+                  </div>
+
+                  {/* Lab Requirements */}
+                  {treatmentInfo.requiresLabs && treatmentInfo.labsRequired && (
+                    <div className="p-5 rounded-xl" style={{ backgroundColor: `${BRAND.teal}10`, border: `1px solid ${BRAND.teal}40` }}>
+                      <h3 className="font-bold mb-3" style={{ color: BRAND.teal }}>
+                        🧪 Required Laboratory Tests
+                      </h3>
+                      <p className="text-sm mb-3" style={{ color: BRAND.gray }}>
+                        This treatment requires the following labs before your prescription can be issued:
+                      </p>
+                      <ul className="space-y-1 text-sm" style={{ color: BRAND.cream }}>
+                        {treatmentInfo.labsRequired.map((lab, i) => (
+                          <li key={i}>✓ {lab}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Emergency Contact (Optional) */}
+                  <div className="p-5 rounded-xl" style={{ backgroundColor: BRAND.darkAlt, border: '1px solid #333' }}>
+                    <h3 className="font-bold mb-3" style={{ color: BRAND.cream }}>
+                      🆘 Emergency Contact (Optional but Recommended)
+                    </h3>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm mb-1" style={{ color: BRAND.gray }}>Contact Name</label>
+                        <input
+                          type="text"
+                          value={emergencyContact.name}
+                          onChange={(e) => setEmergencyContact({ ...emergencyContact, name: e.target.value })}
+                          placeholder="e.g. Spouse, Parent"
+                          className="w-full px-4 py-3 rounded-lg"
+                          style={{ backgroundColor: BRAND.dark, border: `1px solid ${BRAND.teal}30`, color: BRAND.cream }}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm mb-1" style={{ color: BRAND.gray }}>Contact Phone</label>
+                        <input
+                          type="tel"
+                          value={emergencyContact.phone}
+                          onChange={(e) => setEmergencyContact({ ...emergencyContact, phone: e.target.value })}
+                          placeholder="(555) 555-5555"
+                          className="w-full px-4 py-3 rounded-lg"
+                          style={{ backgroundColor: BRAND.dark, border: `1px solid ${BRAND.teal}30`, color: BRAND.cream }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Final Acknowledgments */}
+                  <div className="p-5 rounded-xl space-y-3" style={{ backgroundColor: BRAND.darkAlt, border: `2px solid ${BRAND.pink}40` }}>
+                    <h3 className="font-bold mb-4" style={{ color: BRAND.pink }}>
+                      ✍️ Patient Acknowledgments
+                    </h3>
+                    
+                    {[
+                      { key: 'understandNoGuarantees' as const, text: 'I understand there are NO GUARANTEES of treatment success and results vary by individual' },
+                      { key: 'agreeToFollowInstructions' as const, text: 'I agree to follow the treatment instructions provided by my healthcare provider' },
+                      { key: 'willReportAdverseEvents' as const, text: 'I agree to report any adverse reactions or concerning symptoms to my provider immediately' },
+                      { key: 'confirmIllinoisResident' as const, text: 'I confirm that I am currently located in the State of Illinois' },
+                      { key: 'confirmAccurateInfo' as const, text: 'I confirm that I have provided accurate and complete health information' },
+                    ].map(({ key, text }) => (
+                      <label key={key} className="flex items-start gap-3 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={consentChecks[key]}
+                          onChange={(e) => setConsentChecks({ ...consentChecks, [key]: e.target.checked })}
+                          className="mt-1 w-5 h-5"
+                          style={{ accentColor: BRAND.pink }}
+                        />
+                        <span className="text-sm" style={{ color: BRAND.cream }}>{text}</span>
+                      </label>
+                    ))}
+                  </div>
+
+                  {/* Emergency Warning */}
+                  <div className="p-4 rounded-xl" style={{ backgroundColor: '#7f1d1d20', border: '1px solid #EF4444' }}>
+                    <p className="text-sm font-semibold" style={{ color: '#EF4444' }}>
+                      🚨 MEDICAL EMERGENCY: If you experience a medical emergency after starting treatment, 
+                      CALL 911 IMMEDIATELY. Do not rely on telehealth for emergency situations.
+                    </p>
+                  </div>
+
+                  {/* Final Consent */}
+                  <div className="p-5 rounded-xl" style={{ backgroundColor: `${BRAND.teal}10`, border: `2px solid ${BRAND.teal}` }}>
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={consentChecks.finalConsent}
+                        onChange={(e) => setConsentChecks({ ...consentChecks, finalConsent: e.target.checked })}
+                        className="mt-1 w-6 h-6"
+                        style={{ accentColor: BRAND.teal }}
+                      />
+                      <span className="text-sm font-medium" style={{ color: BRAND.cream }}>
+                        <strong>I CONSENT TO TREATMENT:</strong> I have read and understood all information above. 
+                        I consent to receive telehealth services and the prescribed treatment. I understand that compounded 
+                        medications are NOT FDA-approved. A copy of this consent will be emailed to me.
+                      </span>
+                    </label>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={loading || !allConsentChecked}
+                    className="w-full py-4 text-white font-bold rounded-lg transition-all disabled:opacity-50"
+                    style={{ 
+                      backgroundColor: allConsentChecked ? BRAND.pink : BRAND.gray,
+                      cursor: allConsentChecked ? 'pointer' : 'not-allowed',
+                    }}
+                  >
+                    {loading ? 'Processing...' : `Sign Consent & Proceed to Payment — $${currentProgram.price}`}
+                  </button>
+
+                  <p className="text-xs text-center" style={{ color: BRAND.gray }}>
+                    By clicking above, you are electronically signing this informed consent document.
+                    <br />Consent Version: {CONSENT_VERSION}
+                  </p>
+                </form>
+              );
+            })()}
           </div>
         )}
 

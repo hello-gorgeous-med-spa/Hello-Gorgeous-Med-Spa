@@ -57,6 +57,22 @@ export default function PrescriptionsPage() {
   const [selectedRx, setSelectedRx] = useState<Prescription | null>(null);
   const [actionNote, setActionNote] = useState('');
   const [processing, setProcessing] = useState(false);
+  
+  // Provider attestation state
+  const [attestation, setAttestation] = useState({
+    reviewedHistory: false,
+    reviewedContraindications: false,
+    appropriateForTelehealth: false,
+    providerSignature: false,
+  });
+  
+  const PROVIDER_INFO = {
+    name: 'Ryan Kent, FNP-BC',
+    npi: '1234567890', // Replace with actual NPI
+    license: 'IL-RN-041.123456', // Replace with actual license
+  };
+  
+  const attestationComplete = Object.values(attestation).every(Boolean);
 
   // Fetch from intakes with status=approved (awaiting Rx review)
   const fetchPrescriptions = useCallback(async () => {
@@ -103,8 +119,26 @@ export default function PrescriptionsPage() {
   }, [fetchPrescriptions]);
 
   const handleAction = async (rx: Prescription, newStatus: PrescriptionStatus, note: string) => {
+    // Require attestation for approvals
+    if (newStatus === 'approved' && !attestationComplete) {
+      alert('Please complete all attestation checkboxes before approving.');
+      return;
+    }
+    
     setProcessing(true);
     try {
+      // Create attestation record if approving
+      const attestationData = newStatus === 'approved' ? {
+        provider_name: PROVIDER_INFO.name,
+        provider_npi: PROVIDER_INFO.npi,
+        provider_license: PROVIDER_INFO.license,
+        attested_at: new Date().toISOString(),
+        attestation_text: `I, ${PROVIDER_INFO.name}, have reviewed the patient's medical history, screening responses, and contraindications. Based on my clinical judgment, I have determined that this treatment is appropriate for this patient via telehealth services. I attest that I have not been influenced by anyone other than the patient in making this prescribing decision.`,
+        reviewed_history: attestation.reviewedHistory,
+        reviewed_contraindications: attestation.reviewedContraindications,
+        appropriate_for_telehealth: attestation.appropriateForTelehealth,
+      } : null;
+      
       const res = await fetch('/api/regen/ops/intakes', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
@@ -112,6 +146,7 @@ export default function PrescriptionsPage() {
           id: rx.intake_id,
           status: mapRxStatusToIntakeStatus(newStatus),
           review_notes: note,
+          attestation: attestationData,
         }),
       });
       
@@ -119,6 +154,12 @@ export default function PrescriptionsPage() {
         await fetchPrescriptions();
         setSelectedRx(null);
         setActionNote('');
+        setAttestation({
+          reviewedHistory: false,
+          reviewedContraindications: false,
+          appropriateForTelehealth: false,
+          providerSignature: false,
+        });
       }
     } catch (error) {
       console.error('Failed to update prescription:', error);
@@ -366,14 +407,48 @@ export default function PrescriptionsPage() {
                 />
               </div>
 
+              {/* Provider Attestation - Required for Approval */}
+              <div className="bg-pink-500/10 rounded-xl p-4 border-2 border-pink-500/40">
+                <h3 className="text-pink-300 font-semibold mb-4 flex items-center gap-2">
+                  <span>⚕️</span>
+                  Provider Attestation (Required for Approval)
+                </h3>
+                <div className="space-y-3">
+                  {[
+                    { key: 'reviewedHistory' as const, text: 'I have reviewed the patient\'s complete medical history and screening responses' },
+                    { key: 'reviewedContraindications' as const, text: 'I have reviewed all contraindications and this patient has no disqualifying conditions' },
+                    { key: 'appropriateForTelehealth' as const, text: 'I have determined this treatment is appropriate to prescribe via telehealth' },
+                    { key: 'providerSignature' as const, text: `I, ${PROVIDER_INFO.name}, attest that this prescribing decision is based solely on my clinical judgment` },
+                  ].map(({ key, text }) => (
+                    <label key={key} className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={attestation[key]}
+                        onChange={(e) => setAttestation({ ...attestation, [key]: e.target.checked })}
+                        className="mt-1 w-5 h-5"
+                        style={{ accentColor: '#E91E8C' }}
+                      />
+                      <span className="text-sm text-white/90">{text}</span>
+                    </label>
+                  ))}
+                </div>
+                {!attestationComplete && (
+                  <p className="mt-3 text-xs text-pink-300">
+                    ⚠️ All attestation items must be checked to approve this prescription
+                  </p>
+                )}
+              </div>
+
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-3 pt-4 border-t border-white/10">
                 <button
                   onClick={() => handleAction(selectedRx, 'approved', actionNote)}
-                  disabled={processing}
-                  className="flex-1 px-6 py-3 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-400 transition-colors disabled:opacity-50"
+                  disabled={processing || !attestationComplete}
+                  className={`flex-1 px-6 py-3 text-white rounded-xl font-semibold transition-colors disabled:opacity-50 ${
+                    attestationComplete ? 'bg-green-500 hover:bg-green-400' : 'bg-gray-500 cursor-not-allowed'
+                  }`}
                 >
-                  ✓ Approve & Send to Pharmacy
+                  {attestationComplete ? '✓ Approve & Send to Pharmacy' : '⚠️ Complete Attestation First'}
                 </button>
                 <button
                   onClick={() => handleAction(selectedRx, 'needs-labs', actionNote)}
