@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase-server';
+import { sendRegenNotification } from '@/lib/regen/notifications';
 
 export async function GET(request: NextRequest) {
   try {
@@ -69,6 +70,28 @@ export async function PATCH(request: NextRequest) {
       actor_type: 'staff',
       details: { status, notes: review_notes },
     });
+
+    // Send patient notification based on status
+    try {
+      const notificationType = {
+        'approved': 'rx_approved',
+        'needs_labs': 'rx_needs_labs',
+        'needs_video': 'rx_needs_video',
+        'declined': 'rx_declined',
+      }[status];
+
+      if (notificationType && data.email) {
+        await sendRegenNotification({
+          type: notificationType as 'rx_approved' | 'rx_needs_labs' | 'rx_needs_video' | 'rx_declined',
+          patient: { name: data.name, email: data.email, phone: data.phone },
+          intake: { id: data.id, goal: data.goal },
+          notes: review_notes,
+        });
+      }
+    } catch (notifyError) {
+      console.error('Failed to send notification:', notifyError);
+      // Don't fail the request
+    }
 
     return NextResponse.json({ intake: data });
   } catch (error) {
