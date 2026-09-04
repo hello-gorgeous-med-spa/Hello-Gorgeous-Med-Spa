@@ -123,13 +123,13 @@ export default function RegenOpsDashboard() {
         </div>
         <div className="flex gap-3">
           <Link
-            href="/regen/ops/payments?action=invoice"
+            href="/ops/payments?action=invoice"
             className="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-teal-600 text-white font-semibold hover:from-teal-400 hover:to-teal-500 transition-all flex items-center gap-2"
           >
             <span>💰</span> Send Invoice
           </Link>
           <Link
-            href="/regen/ops/orders/new"
+            href="/ops/orders/new"
             className="px-4 py-2 rounded-xl bg-white/10 text-white font-semibold hover:bg-white/20 transition-all flex items-center gap-2"
           >
             <span>📦</span> New Order
@@ -151,7 +151,7 @@ export default function RegenOpsDashboard() {
         <div className="bg-gradient-to-br from-pink-500/20 to-pink-600/10 rounded-2xl p-5 border border-pink-500/20">
           <div className="flex items-center justify-between mb-3">
             <span className="text-3xl">📦</span>
-            <Link href="/regen/ops/orders" className="text-pink-400 text-xs hover:underline">View all</Link>
+            <Link href="/ops/orders" className="text-pink-400 text-xs hover:underline">View all</Link>
           </div>
           <p className="text-white/50 text-sm">Pending Orders</p>
           <p className="text-2xl font-bold text-white">{stats.orders.pending}</p>
@@ -160,7 +160,7 @@ export default function RegenOpsDashboard() {
         <div className="bg-gradient-to-br from-amber-500/20 to-amber-600/10 rounded-2xl p-5 border border-amber-500/20">
           <div className="flex items-center justify-between mb-3">
             <span className="text-3xl">📋</span>
-            <Link href="/regen/ops/intake" className="text-amber-400 text-xs hover:underline">Review</Link>
+            <Link href="/ops/intake" className="text-amber-400 text-xs hover:underline">Review</Link>
           </div>
           <p className="text-white/50 text-sm">Intake Queue</p>
           <p className="text-2xl font-bold text-white">{stats.intakeQueue}</p>
@@ -169,7 +169,7 @@ export default function RegenOpsDashboard() {
         <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/10 rounded-2xl p-5 border border-purple-500/20">
           <div className="flex items-center justify-between mb-3">
             <span className="text-3xl">💊</span>
-            <Link href="/regen/ops/prescriptions" className="text-purple-400 text-xs hover:underline">Review</Link>
+            <Link href="/ops/prescriptions" className="text-purple-400 text-xs hover:underline">Review</Link>
           </div>
           <p className="text-white/50 text-sm">Awaiting Rx</p>
           <p className="text-2xl font-bold text-white">{stats.prescriptionQueue}</p>
@@ -201,7 +201,7 @@ export default function RegenOpsDashboard() {
         <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Recent Orders</h2>
-            <Link href="/regen/ops/orders" className="text-teal-400 text-sm hover:underline">View all →</Link>
+            <Link href="/ops/orders" className="text-teal-400 text-sm hover:underline">View all →</Link>
           </div>
           <div className="space-y-3">
             {recentOrders.length === 0 && !loading && (
@@ -238,7 +238,7 @@ export default function RegenOpsDashboard() {
         <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">🔔 Intake Queue</h2>
-            <Link href="/regen/ops/intake" className="text-pink-400 text-sm hover:underline">Review all →</Link>
+            <Link href="/ops/intake" className="text-pink-400 text-sm hover:underline">Review all →</Link>
           </div>
           <div className="space-y-3">
             {intakeQueue.length === 0 && !loading && (
@@ -278,35 +278,35 @@ export default function RegenOpsDashboard() {
         <h2 className="text-lg font-semibold text-white mb-4">⚡ Quick Actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <Link
-            href="/regen/ops/payments?action=invoice"
+            href="/ops/payments?action=invoice"
             className="flex flex-col items-center gap-2 p-4 bg-white/5 rounded-xl hover:bg-teal-500/20 transition-all group"
           >
             <span className="text-3xl group-hover:scale-110 transition-transform">💰</span>
             <span className="text-white/70 text-sm group-hover:text-white">Send Invoice</span>
           </Link>
           <Link
-            href="/regen/ops/payments?action=link"
+            href="/ops/payments?action=link"
             className="flex flex-col items-center gap-2 p-4 bg-white/5 rounded-xl hover:bg-teal-500/20 transition-all group"
           >
             <span className="text-3xl group-hover:scale-110 transition-transform">🔗</span>
             <span className="text-white/70 text-sm group-hover:text-white">Payment Link</span>
           </Link>
           <Link
-            href="/regen/ops/patients/new"
+            href="/ops/patients/new"
             className="flex flex-col items-center gap-2 p-4 bg-white/5 rounded-xl hover:bg-pink-500/20 transition-all group"
           >
             <span className="text-3xl group-hover:scale-110 transition-transform">👤</span>
             <span className="text-white/70 text-sm group-hover:text-white">Add Patient</span>
           </Link>
           <Link
-            href="/regen/ops/catalog"
+            href="/ops/catalog"
             className="flex flex-col items-center gap-2 p-4 bg-white/5 rounded-xl hover:bg-purple-500/20 transition-all group"
           >
             <span className="text-3xl group-hover:scale-110 transition-transform">🔬</span>
             <span className="text-white/70 text-sm group-hover:text-white">Browse Catalog</span>
           </Link>
           <Link
-            href="/regen/ops/messages"
+            href="/ops/messages"
             className="flex flex-col items-center gap-2 p-4 bg-white/5 rounded-xl hover:bg-blue-500/20 transition-all group relative"
           >
             <span className="text-3xl group-hover:scale-110 transition-transform">💬</span>
@@ -318,7 +318,7 @@ export default function RegenOpsDashboard() {
             )}
           </Link>
           <Link
-            href="/regen/ops/orders/new"
+            href="/ops/orders/new"
             className="flex flex-col items-center gap-2 p-4 bg-white/5 rounded-xl hover:bg-amber-500/20 transition-all group"
           >
             <span className="text-3xl group-hover:scale-110 transition-transform">📦</span>
@@ -334,7 +334,7 @@ export default function RegenOpsDashboard() {
             <span className="text-white/70 text-sm group-hover:text-white">Start Video Call</span>
           </a>
           <Link
-            href="/regen/ops/reports"
+            href="/ops/reports"
             className="flex flex-col items-center gap-2 p-4 bg-white/5 rounded-xl hover:bg-slate-500/20 transition-all group"
           >
             <span className="text-3xl group-hover:scale-110 transition-transform">📈</span>

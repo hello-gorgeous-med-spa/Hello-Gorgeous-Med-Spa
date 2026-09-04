@@ -4,16 +4,19 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
+// Use /ops/... paths for tryregenrx.com (middleware adds /regen prefix)
+// This ensures links work correctly on the external domain
 const NAV_ITEMS = [
-  { href: '/regen/ops', label: 'Dashboard', icon: '📊' },
-  { href: '/regen/ops/patients', label: 'Patients', icon: '👥' },
-  { href: '/regen/ops/intake', label: 'Intake Queue', icon: '📋' },
-  { href: '/regen/ops/prescriptions', label: 'Prescriptions', icon: '💊' },
-  { href: '/regen/ops/orders', label: 'Orders', icon: '📦' },
-  { href: '/regen/ops/catalog', label: 'Catalog', icon: '🔬' },
-  { href: '/regen/ops/messages', label: 'Messages', icon: '💬' },
-  { href: '/regen/ops/payments', label: 'Payments', icon: '💳' },
-  { href: '/regen/ops/reports', label: 'Reports', icon: '📈' },
+  { href: '/ops', label: 'Dashboard', icon: '📊' },
+  { href: '/ops/patients', label: 'Patients', icon: '👥' },
+  { href: '/ops/intake', label: 'Intake Queue', icon: '📋' },
+  { href: '/ops/prescriptions', label: 'Prescriptions', icon: '💊' },
+  { href: '/ops/orders', label: 'Orders', icon: '📦' },
+  { href: '/ops/catalog', label: 'Catalog', icon: '🔬' },
+  { href: '/ops/messages', label: 'Messages', icon: '💬' },
+  { href: '/ops/payments', label: 'Payments', icon: '💳' },
+  { href: '/ops/reports', label: 'Reports', icon: '📈' },
+  { href: '/ops/analytics', label: 'Analytics', icon: '📉' },
 ];
 
 const STAFF_USERS = [
@@ -98,7 +101,7 @@ export default function RegenOpsLayout({ children }: { children: React.ReactNode
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          <Link href="/regen/ops" className="flex items-center gap-3">
+          <Link href="/ops" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
               <span className="text-white font-bold text-lg">R</span>
             </div>
@@ -113,13 +116,13 @@ export default function RegenOpsLayout({ children }: { children: React.ReactNode
           {/* Quick Actions */}
           <div className="hidden md:flex items-center gap-2">
             <Link
-              href="/regen/ops/payments?action=invoice"
+              href="/ops/payments?action=invoice"
               className="px-3 py-1.5 rounded-lg bg-teal-500/20 text-teal-300 text-sm font-medium hover:bg-teal-500/30 transition-colors"
             >
               + Invoice
             </Link>
             <Link
-              href="/regen/ops/intake"
+              href="/ops/intake"
               className="px-3 py-1.5 rounded-lg bg-pink-500/20 text-pink-300 text-sm font-medium hover:bg-pink-500/30 transition-colors"
             >
               Review Intake
@@ -187,7 +190,9 @@ export default function RegenOpsLayout({ children }: { children: React.ReactNode
       >
         <nav className="p-4 space-y-1">
           {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.href || (item.href !== '/regen/ops' && pathname.startsWith(item.href));
+            // Normalize pathname: /regen/ops/... -> /ops/...
+            const normalizedPath = pathname.replace('/regen/ops', '/ops').replace('/regen', '');
+            const isActive = normalizedPath === item.href || (item.href !== '/ops' && normalizedPath.startsWith(item.href));
             return (
               <Link
                 key={item.href}
