@@ -15,6 +15,12 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     
+    // Handle challenge verification (some services send it in POST body)
+    if (body.challenge || body.challenge_token) {
+      const challenge = body.challenge || body.challenge_token;
+      return NextResponse.json({ challenge });
+    }
+    
     console.log('Fullscript webhook received:', JSON.stringify(body, null, 2));
     
     const { event_type, data } = body;
@@ -45,7 +51,15 @@ export async function POST(req: NextRequest) {
 }
 
 // GET endpoint for webhook verification
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const challenge = searchParams.get('challenge') || searchParams.get('challenge_token');
+  
+  // If challenge token provided, echo it back for verification
+  if (challenge) {
+    return NextResponse.json({ challenge });
+  }
+  
   return NextResponse.json({ 
     status: 'ok',
     endpoint: 'Fullscript webhook receiver',
