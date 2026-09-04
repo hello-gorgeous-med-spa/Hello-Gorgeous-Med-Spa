@@ -16,9 +16,13 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     
     // Handle challenge verification (some services send it in POST body)
-    if (body.challenge || body.challenge_token) {
-      const challenge = body.challenge || body.challenge_token;
-      return NextResponse.json({ challenge });
+    if (body.challenge || body.challenge_token || body.hub?.challenge) {
+      const challenge = body.challenge || body.challenge_token || body.hub?.challenge;
+      // Return as plain text
+      return new NextResponse(challenge, {
+        status: 200,
+        headers: { 'Content-Type': 'text/plain' },
+      });
     }
     
     console.log('Fullscript webhook received:', JSON.stringify(body, null, 2));
@@ -53,11 +57,15 @@ export async function POST(req: NextRequest) {
 // GET endpoint for webhook verification
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const challenge = searchParams.get('challenge') || searchParams.get('challenge_token');
+  const challenge = searchParams.get('challenge') || searchParams.get('challenge_token') || searchParams.get('hub.challenge');
   
   // If challenge token provided, echo it back for verification
   if (challenge) {
-    return NextResponse.json({ challenge });
+    // Try plain text response (some services expect this)
+    return new NextResponse(challenge, {
+      status: 200,
+      headers: { 'Content-Type': 'text/plain' },
+    });
   }
   
   return NextResponse.json({ 
