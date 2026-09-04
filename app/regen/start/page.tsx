@@ -256,29 +256,30 @@ function RegenStartContent() {
       <div style={{ backgroundColor: BRAND.darkAlt, borderBottom: `1px solid ${BRAND.teal}20` }}>
         <div className="max-w-3xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            {['Goal', 'Program', 'Your Info', 'Checkout'].map((label, idx) => {
-              const stepMap: Step[] = ['goal', 'program', 'info', 'checkout'];
-              const isActive = stepMap.indexOf(step) >= idx;
+            {['Goal', 'Program', 'Info', 'Medical', 'Pay'].map((label, idx) => {
+              const stepMap: Step[] = ['goal', 'program', 'info', 'screening', 'checkout'];
+              const currentStepIdx = stepMap.indexOf(step);
+              const isActive = currentStepIdx >= idx;
               const isCurrent = stepMap[idx] === step;
               return (
                 <div key={label} className="flex items-center">
                   <div 
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold"
+                    className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold"
                     style={{
                       backgroundColor: isCurrent ? BRAND.pink : isActive ? `${BRAND.teal}30` : BRAND.dark,
                       color: isCurrent ? 'white' : isActive ? BRAND.teal : BRAND.gray,
                       border: `1px solid ${isCurrent ? BRAND.pink : isActive ? BRAND.teal : BRAND.gray}40`
                     }}
                   >
-                    {idx + 1}
+                    {isActive && !isCurrent ? '✓' : idx + 1}
                   </div>
-                  <span className="ml-2 text-sm font-medium hidden sm:block" style={{ color: isActive ? BRAND.cream : BRAND.gray }}>
+                  <span className="ml-1 sm:ml-2 text-xs sm:text-sm font-medium hidden sm:block" style={{ color: isActive ? BRAND.cream : BRAND.gray }}>
                     {label}
                   </span>
-                  {idx < 3 && (
+                  {idx < 4 && (
                     <div 
-                      className="w-12 sm:w-20 h-0.5 mx-3"
-                      style={{ backgroundColor: isActive ? BRAND.teal : `${BRAND.gray}30` }}
+                      className="w-4 sm:w-12 h-0.5 mx-1 sm:mx-2"
+                      style={{ backgroundColor: currentStepIdx > idx ? BRAND.teal : `${BRAND.gray}30` }}
                     />
                   )}
                 </div>
