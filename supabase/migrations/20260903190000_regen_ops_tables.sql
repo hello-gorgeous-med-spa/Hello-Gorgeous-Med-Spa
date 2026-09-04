@@ -248,6 +248,18 @@ CREATE INDEX IF NOT EXISTS idx_regen_intakes_created ON regen_intakes(created_at
 CREATE INDEX IF NOT EXISTS idx_regen_orders_status ON regen_orders(status);
 CREATE INDEX IF NOT EXISTS idx_regen_orders_patient ON regen_orders(patient_id);
 CREATE INDEX IF NOT EXISTS idx_regen_orders_created ON regen_orders(created_at DESC);
+
+-- Add order_number column if it doesn't exist (for existing tables)
+DO $$ 
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'regen_orders' AND column_name = 'order_number') THEN
+    ALTER TABLE regen_orders ADD COLUMN order_number VARCHAR(50) UNIQUE;
+    -- Generate order numbers for existing rows
+    UPDATE regen_orders SET order_number = 'RX-' || EXTRACT(EPOCH FROM created_at)::bigint || '-' || LEFT(id::text, 4) WHERE order_number IS NULL;
+    ALTER TABLE regen_orders ALTER COLUMN order_number SET NOT NULL;
+  END IF;
+END $$;
+
 CREATE INDEX IF NOT EXISTS idx_regen_orders_number ON regen_orders(order_number);
 
 CREATE INDEX IF NOT EXISTS idx_regen_order_history_order ON regen_order_status_history(order_id);
