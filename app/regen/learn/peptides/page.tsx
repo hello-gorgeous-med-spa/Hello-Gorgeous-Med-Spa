@@ -37,7 +37,7 @@ const PEPTIDES = [
     description: 'A growth hormone-releasing hormone (GHRH) analog that stimulates your pituitary gland to produce more natural growth hormone.',
     benefits: ['Improved sleep quality', 'Increased energy', 'Better body composition', 'Enhanced recovery'],
     dosing: 'Subcutaneous injection before bed',
-    research: 'FDA-approved for GH deficiency diagnosis; off-label for optimization',
+    research: 'Used clinically for GH assessment; compounded for optimization protocols',
     price: '$225/vial',
   },
   {

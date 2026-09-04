@@ -313,7 +313,7 @@ export default function ContactPage() {
           </p>
           <p className="text-xs mt-4 max-w-2xl mx-auto" style={{ color: '#555', lineHeight: 1.6 }}>
             <strong>DISCLAIMER:</strong> Information provided is for educational purposes only and is not medical advice. 
-            Compounded medications are not FDA-approved but are prepared by FDA-registered pharmacies. 
+            Compounded medications are patient-specific preparations made by 503A-licensed pharmacies. They are not FDA-approved drugs. 
             Treatments may be prescribed off-label. Results vary. Not all patients qualify.
           </p>
           <p className="text-xs mt-4" style={{ color: '#666' }}>© {new Date().getFullYear()} Hello Gorgeous PC</p>

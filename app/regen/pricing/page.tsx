@@ -533,7 +533,7 @@ export default function PricingPage() {
           </p>
           <p style={{ marginTop: 16, color: '#444', lineHeight: 1.6 }}>
             <strong>DISCLAIMER:</strong> The information on this website is for educational purposes only and is not intended as medical advice. 
-            Compounded medications are not FDA-approved but are prepared by FDA-registered pharmacies. 
+            Compounded medications are patient-specific preparations made by 503A-licensed pharmacies. They are not FDA-approved drugs. 
             Treatments may be prescribed off-label. Individual results vary. Not all patients qualify. 
             Completing an intake does not guarantee a prescription.
           </p>

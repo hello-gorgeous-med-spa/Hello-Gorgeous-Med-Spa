@@ -88,7 +88,7 @@ const CATEGORIES = [
 
 const TRUST_POINTS = [
   { icon: '🏥', title: 'Licensed Providers', desc: 'Illinois FPA Nurse Practitioner with MD oversight' },
-  { icon: '💊', title: 'FDA-Registered Pharmacy', desc: 'Formulation Rx — our exclusive 503A partner' },
+  { icon: '💊', title: '503A Compounding Pharmacy', desc: 'Formulation Rx — licensed, inspected, compliant' },
   { icon: '📋', title: 'Real Prescriptions', desc: 'Legitimate telehealth — not research chemicals' },
   { icon: '🔒', title: 'HIPAA Compliant', desc: 'Your health information is protected' },
 ];
@@ -228,7 +228,7 @@ export default function LearnHubPage() {
           </div>
           <p className="text-xs text-center max-w-3xl mx-auto" style={{ color: '#555', lineHeight: 1.6 }}>
             <strong>DISCLAIMER:</strong> Information provided is for educational purposes only and is not medical advice. 
-            Compounded medications are not FDA-approved but are prepared by FDA-registered pharmacies. 
+            Compounded medications are patient-specific preparations made by 503A-licensed pharmacies. They are not FDA-approved drugs. 
             Treatments may be prescribed off-label. Results vary. Not all patients qualify.
           </p>
           <p className="text-xs text-center mt-4" style={{ color: '#666' }}>© {new Date().getFullYear()} Hello Gorgeous PC</p>

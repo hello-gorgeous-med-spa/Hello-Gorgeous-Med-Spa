@@ -795,7 +795,7 @@ export default function RegenLandingPage() {
               Never disregard professional medical advice or delay seeking it because of information on this site.
             </p>
             <p style={{ color: '#666' }}>
-              Compounded medications are not FDA-approved but are prepared by FDA-registered 503A/503B pharmacies. 
+              Compounded medications are patient-specific preparations made by 503A-licensed pharmacies. They are not FDA-approved drugs. 
               Peptides, GLP-1 medications, hormone therapies, and other treatments may be prescribed off-label based on clinical evidence and provider judgment. 
               Individual results may vary. Not all patients will qualify for treatment. 
               Completing an intake form does not guarantee a prescription will be issued.

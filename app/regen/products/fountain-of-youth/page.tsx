@@ -46,7 +46,7 @@ const FAQS = [
   },
   {
     q: 'Is this safe?',
-    a: 'Peptides like Epitalon and GHK-Cu have been studied for decades with generally favorable safety profiles. Common side effects may include mild injection site irritation or fatigue. As with any treatment, your provider will review your medical history and monitor your response. These compounds are not FDA-approved medications but are prepared by FDA-registered compounding pharmacies.',
+    a: 'Peptides like Epitalon and GHK-Cu have been studied for decades with generally favorable safety profiles. Common side effects may include mild injection site irritation or fatigue. As with any treatment, your provider will review your medical history and monitor your response. These are compounded medications prepared by a 503A-licensed pharmacy — they are not FDA-approved drugs.',
   },
 ];
 
@@ -423,7 +423,7 @@ export default function FountainOfYouthPage() {
               {
                 step: '3',
                 title: 'Delivered to You',
-                desc: 'Your prescription is sent to an FDA-registered pharmacy and shipped directly to your door.',
+                desc: 'Your prescription is sent to our 503A compounding pharmacy and shipped directly to your door.',
               },
             ].map((item) => (
               <div key={item.step} style={{ textAlign: 'center' }}>
@@ -489,7 +489,7 @@ export default function FountainOfYouthPage() {
           </p>
           <p style={{ marginTop: 16, color: '#444', lineHeight: 1.6 }}>
             <strong>DISCLAIMER:</strong> The information on this website is for educational purposes only and is not intended as medical advice. 
-            Compounded medications are not FDA-approved but are prepared by FDA-registered pharmacies. 
+            Compounded medications are patient-specific preparations made by 503A-licensed pharmacies. They are not FDA-approved drugs. 
             Treatments may be prescribed off-label. Individual results vary. Not all patients qualify.
           </p>
           <p style={{ marginTop: 8, color: '#444' }}>

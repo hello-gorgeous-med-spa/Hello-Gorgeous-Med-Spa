@@ -134,7 +134,7 @@ export default function ProvidersPage() {
               </p>
               <p className="mb-4" style={{ color: BRAND.gray }}>
                 Our clinical team includes a Full Practice Authority Nurse Practitioner — meaning 
-                she can diagnose, treat, and prescribe independently under Illinois law — with 
+                he can diagnose, treat, and prescribe independently under Illinois law — with 
                 physician oversight for complex cases.
               </p>
               <div className="flex flex-wrap gap-4">
