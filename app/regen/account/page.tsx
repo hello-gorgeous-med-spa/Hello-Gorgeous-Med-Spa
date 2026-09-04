@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRegenAuth } from '@/components/regen/RegenAuthProvider';
 
@@ -13,34 +14,26 @@ const BRAND = {
   gray: '#9CA3AF',
 };
 
+interface DashboardData {
+  stats: {
+    activePrescriptions: number;
+    pendingOrders: number;
+    unreadMessages: number;
+  };
+  recentActivity: Array<{
+    id: string;
+    type: string;
+    title: string;
+    status: string;
+    date: string;
+    icon: string;
+  }>;
+}
+
 const QUICK_ACTIONS = [
   { label: 'Start New Visit', href: '/start', icon: 'plus', color: BRAND.pink },
   { label: 'View Orders', href: '/account/orders', icon: 'package', color: BRAND.teal },
   { label: 'Message Provider', href: '/account/messages', icon: 'message', color: BRAND.teal },
-];
-
-const STATUS_CARDS = [
-  {
-    title: 'Active Prescriptions',
-    value: '0',
-    subtitle: 'No active prescriptions',
-    icon: 'pill',
-    color: BRAND.teal,
-  },
-  {
-    title: 'Pending Orders',
-    value: '0',
-    subtitle: 'No pending orders',
-    icon: 'clock',
-    color: BRAND.pink,
-  },
-  {
-    title: 'Unread Messages',
-    value: '0',
-    subtitle: 'All caught up',
-    icon: 'message',
-    color: BRAND.teal,
-  },
 ];
 
 function Icon({ name, className, style }: { name: string; className?: string; style?: React.CSSProperties }) {
@@ -79,12 +72,89 @@ function Icon({ name, className, style }: { name: string; className?: string; st
   return icons[name] || null;
 }
 
+function timeAgo(dateStr: string): string {
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+  
+  if (diffMins < 60) return `${diffMins}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays < 7) return `${diffDays}d ago`;
+  return date.toLocaleDateString();
+}
+
+const STATUS_LABELS: Record<string, { label: string; color: string }> = {
+  pending: { label: 'Pending Review', color: BRAND.pink },
+  approved: { label: 'Approved', color: '#22C55E' },
+  processing: { label: 'Processing', color: BRAND.teal },
+  shipped: { label: 'Shipped', color: '#3B82F6' },
+  delivered: { label: 'Delivered', color: '#22C55E' },
+  declined: { label: 'Not Approved', color: '#EF4444' },
+};
+
 export default function AccountDashboard() {
   const { user, patient } = useRegenAuth();
+  const [data, setData] = useState<DashboardData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchDashboard = useCallback(async () => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+    
+    try {
+      const res = await fetch('/api/regen/patient/dashboard');
+      if (res.ok) {
+        const dashboardData = await res.json();
+        setData(dashboardData);
+      }
+    } catch (error) {
+      console.error('Failed to fetch dashboard:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    fetchDashboard();
+  }, [fetchDashboard]);
   
   const displayName = patient 
     ? patient.first_name || 'there'
     : user?.user_metadata?.first_name || 'there';
+
+  const stats = data?.stats || { activePrescriptions: 0, pendingOrders: 0, unreadMessages: 0 };
+  
+  const STATUS_CARDS = [
+    {
+      title: 'Active Prescriptions',
+      value: stats.activePrescriptions.toString(),
+      subtitle: stats.activePrescriptions === 0 ? 'No active prescriptions' : 'Currently active',
+      icon: 'pill',
+      color: BRAND.teal,
+      href: '/account/prescriptions',
+    },
+    {
+      title: 'Pending Orders',
+      value: stats.pendingOrders.toString(),
+      subtitle: stats.pendingOrders === 0 ? 'No pending orders' : 'In progress',
+      icon: 'clock',
+      color: BRAND.pink,
+      href: '/account/orders',
+    },
+    {
+      title: 'Messages',
+      value: stats.unreadMessages.toString(),
+      subtitle: stats.unreadMessages === 0 ? 'All caught up' : 'Unread messages',
+      icon: 'message',
+      color: BRAND.teal,
+      href: '/account/messages',
+    },
+  ];
 
   return (
     <div className="space-y-8">
@@ -199,9 +269,10 @@ export default function AccountDashboard() {
         <h2 className="text-lg font-semibold mb-4" style={{ color: BRAND.cream }}>Your Status</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {STATUS_CARDS.map((card) => (
-            <div
+            <Link
               key={card.title}
-              className="p-6 rounded-xl"
+              href={card.href}
+              className="p-6 rounded-xl transition-all hover:scale-[1.02]"
               style={{ 
                 backgroundColor: BRAND.darkCard,
                 border: `1px solid ${BRAND.teal}20`,
@@ -214,44 +285,93 @@ export default function AccountDashboard() {
                 >
                   <Icon name={card.icon} className="w-5 h-5" style={{ color: card.color }} />
                 </div>
+                {parseInt(card.value) > 0 && (
+                  <span 
+                    className="px-2 py-1 rounded-full text-xs font-bold"
+                    style={{ backgroundColor: card.color, color: 'white' }}
+                  >
+                    {card.value}
+                  </span>
+                )}
               </div>
               <p className="text-3xl font-bold mb-1" style={{ color: BRAND.cream }}>{card.value}</p>
               <p className="text-sm font-medium" style={{ color: BRAND.gray }}>{card.title}</p>
               <p className="text-xs mt-1" style={{ color: BRAND.gray }}>{card.subtitle}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
 
-      {/* Recent Activity - Empty State */}
+      {/* Recent Activity */}
       <div>
         <h2 className="text-lg font-semibold mb-4" style={{ color: BRAND.cream }}>Recent Activity</h2>
-        <div 
-          className="p-8 rounded-xl text-center"
-          style={{ 
-            backgroundColor: BRAND.darkCard,
-            border: `1px solid ${BRAND.teal}20`,
-          }}
-        >
+        {loading ? (
           <div 
-            className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-            style={{ backgroundColor: `${BRAND.teal}10` }}
+            className="p-8 rounded-xl text-center"
+            style={{ backgroundColor: BRAND.darkCard, border: `1px solid ${BRAND.teal}20` }}
           >
-            <Icon name="clock" className="w-8 h-8" style={{ color: BRAND.teal }} />
+            <div className="animate-spin w-8 h-8 border-2 border-teal-400 border-t-transparent rounded-full mx-auto" />
           </div>
-          <h3 className="text-lg font-semibold mb-2" style={{ color: BRAND.cream }}>No activity yet</h3>
-          <p className="mb-4" style={{ color: BRAND.gray }}>
-            Start your first visit to see your activity here.
-          </p>
-          <Link
-            href="/start"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105"
-            style={{ backgroundColor: BRAND.pink, color: 'white' }}
+        ) : data?.recentActivity && data.recentActivity.length > 0 ? (
+          <div 
+            className="rounded-xl overflow-hidden"
+            style={{ backgroundColor: BRAND.darkCard, border: `1px solid ${BRAND.teal}20` }}
           >
-            Start Your Visit
-            <Icon name="arrow" className="w-4 h-4" />
-          </Link>
-        </div>
+            {data.recentActivity.map((activity, index) => (
+              <div 
+                key={activity.id}
+                className="flex items-center gap-4 p-4"
+                style={{ borderBottom: index < data.recentActivity.length - 1 ? `1px solid ${BRAND.teal}10` : 'none' }}
+              >
+                <div 
+                  className="w-10 h-10 rounded-lg flex items-center justify-center text-xl"
+                  style={{ backgroundColor: `${BRAND.teal}20` }}
+                >
+                  {activity.icon}
+                </div>
+                <div className="flex-1">
+                  <p className="font-medium" style={{ color: BRAND.cream }}>{activity.title}</p>
+                  <div className="flex items-center gap-2">
+                    <span 
+                      className="px-2 py-0.5 rounded text-xs font-medium"
+                      style={{ 
+                        backgroundColor: `${STATUS_LABELS[activity.status]?.color || BRAND.gray}20`,
+                        color: STATUS_LABELS[activity.status]?.color || BRAND.gray,
+                      }}
+                    >
+                      {STATUS_LABELS[activity.status]?.label || activity.status}
+                    </span>
+                  </div>
+                </div>
+                <p className="text-sm" style={{ color: BRAND.gray }}>{timeAgo(activity.date)}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div 
+            className="p-8 rounded-xl text-center"
+            style={{ backgroundColor: BRAND.darkCard, border: `1px solid ${BRAND.teal}20` }}
+          >
+            <div 
+              className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+              style={{ backgroundColor: `${BRAND.teal}10` }}
+            >
+              <Icon name="clock" className="w-8 h-8" style={{ color: BRAND.teal }} />
+            </div>
+            <h3 className="text-lg font-semibold mb-2" style={{ color: BRAND.cream }}>No activity yet</h3>
+            <p className="mb-4" style={{ color: BRAND.gray }}>
+              Start your first visit to see your activity here.
+            </p>
+            <Link
+              href="/start"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105"
+              style={{ backgroundColor: BRAND.pink, color: 'white' }}
+            >
+              Start Your Visit
+              <Icon name="arrow" className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Help */}
