@@ -17,14 +17,56 @@ interface FullscriptConfig {
 
 function getConfig(): FullscriptConfig {
   const publicKey = process.env.FULLSCRIPT_PUBLIC_KEY;
-  const secretKey = process.env.FULLSCRIPT_SECRET_KEY;
-  const signatureKey = process.env.FULLSCRIPT_SIGNATURE_KEY;
+  // Support both naming conventions
+  const secretKey = process.env.FULLSCRIPT_SECRET_KEY || process.env.FULLSCRIPT_SECRET_CHALLENGE_TOKEN;
+  const signatureKey = process.env.FULLSCRIPT_SIGNATURE_KEY || process.env.FULLSCRIPT_SIGNATURE_SECRETKEY;
   
   if (!publicKey) {
     throw new Error('FULLSCRIPT_PUBLIC_KEY is not configured');
   }
   
   return { publicKey, secretKey, signatureKey };
+}
+
+/**
+ * Check if Fullscript is configured
+ */
+export function isFullscriptConfigured(): boolean {
+  return !!process.env.FULLSCRIPT_PUBLIC_KEY;
+}
+
+/**
+ * Test the Fullscript API connection
+ */
+export async function testFullscriptConnection(): Promise<{ success: boolean; message: string; details?: unknown }> {
+  try {
+    const config = getConfig();
+    
+    // Try to hit the ping or a simple endpoint
+    const res = await fullscriptFetch('/api/clinic/ping');
+    
+    if (res.ok) {
+      return { success: true, message: 'Connected to Fullscript API' };
+    }
+    
+    // If ping doesn't exist, try labs endpoint
+    const labsRes = await fullscriptFetch('/api/clinic/labs/tests?limit=1');
+    if (labsRes.ok) {
+      return { success: true, message: 'Fullscript API connected (labs access confirmed)' };
+    }
+    
+    const errorText = await labsRes.text();
+    return { 
+      success: false, 
+      message: `API returned ${labsRes.status}`,
+      details: errorText.substring(0, 200)
+    };
+  } catch (error) {
+    return { 
+      success: false, 
+      message: error instanceof Error ? error.message : 'Connection failed',
+    };
+  }
 }
 
 /**
