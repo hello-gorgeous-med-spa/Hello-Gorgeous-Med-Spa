@@ -39,20 +39,13 @@ export async function POST(req: NextRequest) {
         console.log(`Unhandled Fullscript event: ${event_type}`);
     }
     
-    // Always include challenge token in response
-    return NextResponse.json({ 
-      received: true,
-      challenge: challengeToken,
-    });
+    // Return ONLY the challenge token (Fullscript may be strict about extra fields)
+    return NextResponse.json({ challenge: challengeToken });
   } catch (error) {
     console.error('Fullscript webhook error:', error);
-    // Still return 200 to acknowledge receipt
+    // Still return 200 with challenge token
     const challengeToken = process.env.FULLSCRIPT_CHALLENGE_TOKEN?.trim();
-    return NextResponse.json({ 
-      received: true, 
-      challenge: challengeToken,
-      error: 'Processing error' 
-    });
+    return NextResponse.json({ challenge: challengeToken });
   }
 }
 
