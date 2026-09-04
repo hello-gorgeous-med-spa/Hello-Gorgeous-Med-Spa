@@ -26,25 +26,21 @@ export default function PricingPage() {
     ? SUBSCRIPTION_TIERS.filter(t => t.category === selectedCategory)
     : SUBSCRIPTION_TIERS;
 
-  const handleSubscribe = async (tier: SubscriptionTier) => {
-    try {
-      const response = await fetch('/api/regen/subscription', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tierId: tier.id,
-          prepayMonths: billingCycle === 'monthly' ? null : billingCycle,
-        }),
-      });
-      
-      const data = await response.json();
-      
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.error('Subscription error:', error);
-    }
+  // Map tier category to intake goal
+  const getStartUrl = (tier: SubscriptionTier): string => {
+    const categoryToGoal: Record<string, string> = {
+      'weight-loss': 'weight-loss',
+      'trt': 'hormones',
+      'hrt': 'hormones',
+      'peptides': 'peptides',
+      'sexual-health': 'sexual-health',
+      'hair': 'hair',
+      'skincare': 'skincare',
+      'vitamins': 'vitamins',
+    };
+    const goal = categoryToGoal[tier.category] || 'weight-loss';
+    // Pass tier info so intake can pre-select the right program
+    return `/start?goal=${goal}&tier=${tier.id}`;
   };
 
   const getPrice = (tier: SubscriptionTier): { price: number; perMonth: number; savings?: number } => {
@@ -404,10 +400,11 @@ export default function PricingPage() {
                   ))}
                 </ul>
 
-                {/* CTA Button */}
-                <button
-                  onClick={() => handleSubscribe(tier)}
+                {/* CTA Button - Links to intake form */}
+                <Link
+                  href={getStartUrl(tier)}
                   style={{
+                    display: 'block',
                     width: '100%',
                     padding: '14px 24px',
                     borderRadius: 12,
@@ -418,6 +415,8 @@ export default function PricingPage() {
                     fontWeight: 700,
                     cursor: 'pointer',
                     transition: 'transform 0.2s, box-shadow 0.2s',
+                    textAlign: 'center',
+                    textDecoration: 'none',
                   }}
                   onMouseOver={e => {
                     e.currentTarget.style.transform = 'scale(1.02)';
@@ -429,7 +428,7 @@ export default function PricingPage() {
                   }}
                 >
                   Get Started
-                </button>
+                </Link>
               </div>
             );
           })}
