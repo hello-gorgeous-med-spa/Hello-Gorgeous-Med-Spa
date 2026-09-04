@@ -682,6 +682,133 @@ export default function RegenLandingPage() {
         </div>
       </section>
 
+      {/* Featured Lab Panels */}
+      <section className="py-20 px-6" style={{ backgroundColor: BRAND.dark }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <span 
+              className="inline-block px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase mb-4"
+              style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal, border: `1px solid ${BRAND.teal}40` }}
+            >
+              🧪 Lab Services
+            </span>
+            <h2 className="text-3xl md:text-4xl font-black mb-4" style={{ color: BRAND.cream }}>
+              Baseline Labs — <span style={{ color: BRAND.pink }}>Know Before You Start</span>
+            </h2>
+            <p className="text-lg max-w-2xl mx-auto" style={{ color: BRAND.gray }}>
+              Get a clear picture of your health before treatment. Labs help ensure safety and track your progress.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Weight Loss Panel */}
+            <div 
+              className="rounded-2xl p-8 relative overflow-hidden"
+              style={{ 
+                backgroundColor: BRAND.darkAlt, 
+                border: `2px solid ${BRAND.teal}`,
+                boxShadow: `0 0 40px ${BRAND.teal}20`,
+              }}
+            >
+              <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold" style={{ backgroundColor: BRAND.teal, color: 'white' }}>
+                RECOMMENDED
+              </div>
+              <div className="text-4xl mb-4">📉</div>
+              <h3 className="text-2xl font-bold mb-2" style={{ color: BRAND.cream }}>
+                GLP-1 Weight Loss Panel
+              </h3>
+              <p className="mb-4" style={{ color: BRAND.gray }}>
+                Baseline metabolic check before starting Semaglutide or Tirzepatide.
+              </p>
+              
+              <div className="mb-6">
+                <span className="text-4xl font-black" style={{ color: BRAND.pink }}>$149</span>
+                <span className="text-sm ml-2" style={{ color: BRAND.gray }}>one-time</span>
+              </div>
+
+              <ul className="space-y-2 mb-6 text-sm" style={{ color: BRAND.gray }}>
+                <li className="flex items-center gap-2"><span style={{ color: BRAND.teal }}>✓</span> Comprehensive Metabolic Panel</li>
+                <li className="flex items-center gap-2"><span style={{ color: BRAND.teal }}>✓</span> Lipid Panel (Cholesterol)</li>
+                <li className="flex items-center gap-2"><span style={{ color: BRAND.teal }}>✓</span> HbA1c (Blood Sugar)</li>
+                <li className="flex items-center gap-2"><span style={{ color: BRAND.teal }}>✓</span> Thyroid (TSH)</li>
+              </ul>
+
+              <div className="flex items-center gap-2 text-sm mb-6" style={{ color: BRAND.teal }}>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Results in 2-3 days · Quest or Labcorp
+              </div>
+
+              <Link
+                href="/labs?panel=glp1-panel"
+                className="block w-full py-3 text-center rounded-xl font-bold transition-all hover:scale-[1.02]"
+                style={{ backgroundColor: BRAND.teal, color: 'white' }}
+              >
+                Order This Panel →
+              </Link>
+            </div>
+
+            {/* Hormone Panel */}
+            <div 
+              className="rounded-2xl p-8 relative overflow-hidden"
+              style={{ 
+                backgroundColor: BRAND.darkAlt, 
+                border: `2px solid ${BRAND.pink}40`,
+              }}
+            >
+              <div className="text-4xl mb-4">⚡</div>
+              <h3 className="text-2xl font-bold mb-2" style={{ color: BRAND.cream }}>
+                Hormone Panel
+              </h3>
+              <p className="mb-4" style={{ color: BRAND.gray }}>
+                Complete hormone assessment for HRT or testosterone optimization.
+              </p>
+              
+              <div className="mb-6">
+                <span className="text-4xl font-black" style={{ color: BRAND.pink }}>$199</span>
+                <span className="text-sm ml-2" style={{ color: BRAND.gray }}>one-time</span>
+              </div>
+
+              <ul className="space-y-2 mb-6 text-sm" style={{ color: BRAND.gray }}>
+                <li className="flex items-center gap-2"><span style={{ color: BRAND.pink }}>✓</span> Total & Free Testosterone</li>
+                <li className="flex items-center gap-2"><span style={{ color: BRAND.pink }}>✓</span> Estradiol & SHBG</li>
+                <li className="flex items-center gap-2"><span style={{ color: BRAND.pink }}>✓</span> FSH, LH & Thyroid</li>
+                <li className="flex items-center gap-2"><span style={{ color: BRAND.pink }}>✓</span> CBC & Metabolic Panel</li>
+              </ul>
+
+              <div className="flex items-center gap-2 text-sm mb-6" style={{ color: BRAND.teal }}>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Results in 3-5 days · Quest or Labcorp
+              </div>
+
+              <Link
+                href="/labs?panel=mens-hormone-panel"
+                className="block w-full py-3 text-center rounded-xl font-bold transition-all hover:scale-[1.02]"
+                style={{ backgroundColor: BRAND.pink, color: 'white' }}
+              >
+                Order This Panel →
+              </Link>
+            </div>
+          </div>
+
+          <div className="text-center mt-8">
+            <p className="text-sm mb-4" style={{ color: BRAND.gray }}>
+              Already have recent labs from your doctor?
+            </p>
+            <Link
+              href="/labs/upload"
+              className="inline-flex items-center gap-2 text-sm font-medium hover:underline"
+              style={{ color: BRAND.teal }}
+            >
+              Upload your existing lab results →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials / Social Proof */}
       <section className="py-24 px-6" style={{ backgroundColor: BRAND.dark }}>
         <div className="max-w-6xl mx-auto">
