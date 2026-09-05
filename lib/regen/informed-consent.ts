@@ -368,6 +368,17 @@ export function getTreatmentCategory(programId: string): TreatmentCategory {
     'fin-minox-solution': 'hair-restoration',
     'advanced-hair': 'hair-restoration',
     'oral-minox': 'hair-restoration',
+
+    // Goal slugs from /start
+    'weight-loss': 'glp1-weight-loss',
+    'glp1': 'glp1-weight-loss',
+    'hormones': 'hormone-therapy',
+    'hrt': 'hormone-therapy',
+    'peptides': 'peptides',
+    'sexual-health': 'sexual-wellness',
+    'vitamins': 'vitamin-injectables',
+    'skincare': 'prescription-skincare',
+    'hair': 'hair-restoration',
   };
   
   return mapping[programId] || 'peptides'; // Default to peptides as safest catch-all

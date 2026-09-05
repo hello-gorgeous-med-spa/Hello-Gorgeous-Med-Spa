@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase-server';
 import { sendRegenNotification } from '@/lib/regen/notifications';
+import { fulfillApprovedIntake } from '@/lib/regen/fulfill-approved-intake';
 
 export async function GET(request: NextRequest) {
   try {
@@ -67,6 +68,25 @@ export async function PATCH(request: NextRequest) {
 
     if (error) throw error;
 
+    let fulfillment: Awaited<ReturnType<typeof fulfillApprovedIntake>> | null = null;
+    if (status === 'approved' && data) {
+      try {
+        fulfillment = await fulfillApprovedIntake({
+          id: data.id,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          goal: data.goal,
+          patient_id: data.patient_id,
+          amount_paid: data.amount_paid,
+          medical_history: data.medical_history,
+          review_notes: review_notes || data.review_notes,
+        });
+      } catch (fulfillError) {
+        console.error('Fulfillment error:', fulfillError);
+      }
+    }
+
     // Log the action
     await supabase.from('regen_audit_log').insert({
       action: `intake_${status}`,
@@ -99,7 +119,7 @@ export async function PATCH(request: NextRequest) {
       // Don't fail the request
     }
 
-    return NextResponse.json({ intake: data });
+    return NextResponse.json({ intake: data, fulfillment });
   } catch (error) {
     console.error('Intake update error:', error);
     return NextResponse.json(

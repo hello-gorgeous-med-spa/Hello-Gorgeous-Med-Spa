@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase-server';
 import { sendRegenNotification } from '@/lib/regen/notifications';
+import {
+  CONSENT_VERSION,
+  generateConsentDocument,
+  getTreatmentCategory,
+} from '@/lib/regen/informed-consent';
 
 function splitName(name: string): { first_name: string; last_name: string } {
   const parts = String(name || '').trim().split(/\s+/);
@@ -141,6 +146,41 @@ export async function POST(request: NextRequest) {
         { error: intakeError.message || 'Failed to save intake' },
         { status: 500 }
       );
+    }
+
+    try {
+      const category = getTreatmentCategory(goal);
+      const signedAt = new Date().toISOString();
+      await supabase.from('regen_signed_consents').insert({
+        patient_id: patientId,
+        patient_name: name,
+        patient_email: email.toLowerCase(),
+        patient_dob: dateOfBirth || '1990-01-01',
+        treatment_category: category,
+        program_id: goal,
+        consent_version: CONSENT_VERSION,
+        consent_document: generateConsentDocument({
+          treatmentCategory: category,
+          patientName: name,
+          patientEmail: email,
+          patientDob: dateOfBirth || '',
+          signedAt,
+          ipAddress: request.headers.get('x-forwarded-for') || '',
+          userAgent: request.headers.get('user-agent') || '',
+          consentVersion: CONSENT_VERSION,
+          acknowledgedRisks: [],
+          acknowledgedAlternatives: !!treatmentConsent,
+          acknowledgedNoGuarantees: true,
+        }),
+        signed_at: signedAt,
+        ip_address: request.headers.get('x-forwarded-for') || '',
+        user_agent: request.headers.get('user-agent') || '',
+        acknowledged_risks: !!treatmentConsent,
+        acknowledged_alternatives: !!treatmentConsent,
+        acknowledged_no_guarantees: true,
+      });
+    } catch (consentError) {
+      console.error('Failed to store signed consent:', consentError);
     }
 
     try {

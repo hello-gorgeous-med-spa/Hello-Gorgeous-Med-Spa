@@ -142,6 +142,9 @@ function RegenStartContent() {
     phone: '',
     dob: '',
     state: 'IL',
+    address: '',
+    city: '',
+    zip: '',
     agreeTerms: false,
     agreeHipaa: false,
   });
@@ -258,8 +261,20 @@ function RegenStartContent() {
           phone: formData.phone,
           dateOfBirth: formData.dob,
           goal: selectedGoal,
-          state: 'IL', // REGEN RX is Illinois only
-          medicalHistory: screeningAnswers,
+          state: 'IL',
+          address: formData.address,
+          city: formData.city,
+          zip: formData.zip,
+          medicalHistory: {
+            ...screeningAnswers,
+            dob: formData.dob,
+            shipping: {
+              street1: formData.address,
+              city: formData.city,
+              state: 'IL',
+              zip: formData.zip,
+            },
+          },
           age: formData.dob ? Math.floor((Date.now() - new Date(formData.dob).getTime()) / 31557600000) : undefined,
           hipaaConsent: true,
           telehealthConsent: true,
@@ -514,6 +529,38 @@ function RegenStartContent() {
                   <option value="IL">Illinois</option>
                 </select>
                 <p className="text-xs text-gray-500 mt-1">Currently available in Illinois only</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Shipping street</label>
+                <input
+                  type="text"
+                  required
+                  value={formData.address}
+                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                />
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.city}
+                    onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">ZIP</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.zip}
+                    onChange={(e) => setFormData({ ...formData, zip: e.target.value })}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+                  />
+                </div>
               </div>
               <div className="flex items-start gap-3">
                 <input

@@ -73,7 +73,9 @@ export async function POST(request: NextRequest) {
         cancelUrl: finalCancelUrl,
         metadata: {
           patientEmail: patientInfo?.email || '',
-          program: patientInfo?.program || '',
+          program: patientInfo?.program || body.metadata?.program || '',
+          intakeId: body.metadata?.intakeId || '',
+          goal: body.metadata?.goal || '',
         },
       });
 
