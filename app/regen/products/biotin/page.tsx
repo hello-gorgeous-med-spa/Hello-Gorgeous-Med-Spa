@@ -86,8 +86,8 @@ export default function BiotinProductPage() {
             </p>
             
             <div className="flex items-baseline gap-2 mb-6">
-              <span className="text-4xl font-black" style={{ color: BRAND.pink }}>$45</span>
-              <span style={{ color: BRAND.gray }}>/month</span>
+              <span className="text-4xl font-black" style={{ color: BRAND.pink }}>$82.65</span>
+              <span style={{ color: BRAND.gray }}> per vial</span>
             </div>
             
             <div className="flex flex-wrap gap-3 mb-8">
@@ -226,7 +226,7 @@ export default function BiotinProductPage() {
             className="inline-block px-10 py-4 font-bold rounded-full transition-all hover:scale-105"
             style={{ backgroundColor: BRAND.pink, color: 'white' }}
           >
-            Get Started — $45/month
+            Get Started — $82.65 per vial
           </Link>
         </div>
       </section>

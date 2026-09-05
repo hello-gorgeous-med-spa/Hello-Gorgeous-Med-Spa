@@ -65,8 +65,8 @@ export const REGEN_BROCHURE_PRICING_SECTIONS: BrochurePriceSection[] = [
     hook: "Radiance, collagen & antioxidant support",
     rows: [
       { name: "GHK-Cu", detail: "10 mg/mL · 5 mL · monthly protocol", price: "$175/mo" },
-      { name: "Glutathione", detail: "Injectable antioxidant", price: "from $66/mo" },
-      { name: "Biotin", detail: "Hair, skin & nails", price: "from $83/mo" },
+      { name: "Glutathione", detail: "Injectable antioxidant", price: "from $100/vial" },
+      { name: "Biotin", detail: "Hair, skin & nails", price: "from $83/vial" },
       { name: "Methylene Blue", detail: "Cognitive · anti-aging caps", price: "consult" },
     ],
   },

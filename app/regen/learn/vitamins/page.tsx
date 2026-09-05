@@ -20,7 +20,7 @@ const INJECTABLES = [
     benefits: ['Energy & metabolism boost', 'Nerve health support', 'Mood enhancement', 'Red blood cell production'],
     bestFor: 'Fatigue, brain fog, vegetarians/vegans, post-bariatric patients',
     frequency: 'Weekly or bi-weekly',
-    price: '$35',
+    price: '$72.75',
     science: 'B12 is essential for energy production at the cellular level. Many people are deficient due to diet, absorption issues, or medications like metformin.',
   },
   {
@@ -30,7 +30,7 @@ const INJECTABLES = [
     benefits: ['Hair growth & strength', 'Nail health', 'Skin radiance', 'Metabolism support'],
     bestFor: 'Thinning hair, brittle nails, those on weight loss medications',
     frequency: 'Weekly',
-    price: '$45',
+    price: '$82.65',
     science: 'Biotin is a water-soluble B vitamin crucial for keratin production. Injectable form bypasses digestive absorption issues for faster, more reliable results.',
   },
   {
@@ -40,7 +40,7 @@ const INJECTABLES = [
     benefits: ['Skin brightening & glow', 'Liver support', 'Immune system boost', 'Reduced oxidative stress'],
     bestFor: 'Dull skin, hyperpigmentation, antioxidant support, immune health',
     frequency: 'Weekly for 4-8 weeks, then monthly',
-    price: '$75',
+    price: '$100',
     science: 'Glutathione is the body\'s most powerful antioxidant. It neutralizes free radicals, supports cellular health, and may help brighten complexion.',
   },
   {
@@ -50,7 +50,7 @@ const INJECTABLES = [
     benefits: ['Cellular energy production', 'Brain clarity & focus', 'Anti-aging at cellular level', 'DNA repair support'],
     bestFor: 'Chronic fatigue, brain fog, longevity optimization, recovery',
     frequency: 'Weekly or bi-weekly',
-    price: '$125',
+    price: '$150',
     science: 'NAD+ levels decline with age. Supplementing NAD+ supports mitochondrial function, sirtuin activation, and cellular repair mechanisms linked to healthy aging.',
   },
 ];
@@ -108,7 +108,7 @@ export default function VitaminsLearnPage() {
             className="inline-block px-8 py-4 font-bold rounded-full transition-all hover:scale-105"
             style={{ backgroundColor: BRAND.pink, color: 'white' }}
           >
-            Get Started — From $35
+            Get Started — From $72.75 per vial
           </Link>
         </div>
       </section>
@@ -179,7 +179,7 @@ export default function VitaminsLearnPage() {
                   </div>
                   
                   <div className="text-center md:text-right">
-                    <div className="text-3xl font-black mb-2" style={{ color: BRAND.pink }}>{item.price}</div>
+                    <div className="text-3xl font-black mb-2" style={{ color: BRAND.pink }}>{item.price}<span className="text-base font-normal" style={{ color: BRAND.gray }}> per vial</span></div>
                     <Link
                       href={`/start?goal=vitamins&program=${item.id}`}
                       className="inline-block px-6 py-3 text-sm font-bold rounded-full transition-all hover:scale-105"

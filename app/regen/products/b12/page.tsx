@@ -86,8 +86,8 @@ export default function B12ProductPage() {
             </p>
             
             <div className="flex items-baseline gap-2 mb-6">
-              <span className="text-4xl font-black" style={{ color: BRAND.pink }}>$35</span>
-              <span style={{ color: BRAND.gray }}>/month</span>
+              <span className="text-4xl font-black" style={{ color: BRAND.pink }}>$72.75</span>
+              <span style={{ color: BRAND.gray }}> per vial</span>
             </div>
             
             <div className="flex flex-wrap gap-3 mb-8">
@@ -268,7 +268,7 @@ export default function B12ProductPage() {
             className="inline-block px-10 py-4 font-bold rounded-full transition-all hover:scale-105"
             style={{ backgroundColor: BRAND.pink, color: 'white' }}
           >
-            Get Started — $35/month
+            Get Started — $72.75 per vial
           </Link>
         </div>
       </section>

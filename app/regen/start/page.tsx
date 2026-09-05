@@ -4,6 +4,7 @@ import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { TREATMENT_CONSENTS, getTreatmentCategory, CONSENT_VERSION, type TreatmentCategory } from '@/lib/regen/informed-consent';
+import { formatUsd, isVitaminVialProgram, REGEN_VIAL_SHIPPING_USD, vitaminVialRetailUsd } from '@/lib/regen/vitamin-vial-pricing';
 
 // Brand colors - REGEN RX
 const BRAND = {
@@ -54,10 +55,10 @@ const GOALS = [
     description: 'Energy, immunity & wellness shots',
     icon: '💉',
     programs: [
-      { id: 'b12', name: 'Vitamin B12 Injection', price: 35, description: 'Energy boost, metabolism support & nerve health' },
-      { id: 'biotin', name: 'Biotin Injection', price: 45, description: 'Hair, skin & nail strengthening' },
-      { id: 'glutathione', name: 'Glutathione Injection', price: 75, description: 'Master antioxidant for skin brightening, cellular health & immunity' },
-      { id: 'nad-injection', name: 'NAD+ Injection', price: 125, description: 'Cellular energy, anti-aging & brain clarity' },
+      { id: 'b12', name: 'Vitamin B12 Injection', price: vitaminVialRetailUsd('b12')!, unit: 'vial' as const, description: 'Energy boost, metabolism support & nerve health' },
+      { id: 'biotin', name: 'Biotin Injection', price: vitaminVialRetailUsd('biotin')!, unit: 'vial' as const, description: 'Hair, skin & nail strengthening' },
+      { id: 'glutathione', name: 'Glutathione Injection', price: vitaminVialRetailUsd('glutathione')!, unit: 'vial' as const, description: 'Master antioxidant for skin brightening, cellular health & immunity' },
+      { id: 'nad-injection', name: 'NAD+ Injection', price: vitaminVialRetailUsd('nad-injection')!, unit: 'vial' as const, description: 'Cellular energy, anti-aging & brain clarity' },
     ],
   },
   {
@@ -435,7 +436,17 @@ function RegenStartContent() {
                     <h3 className="text-xl font-bold transition-colors" style={{ color: BRAND.cream }}>
                       {program.name}
                     </h3>
-                    <span className="text-2xl font-bold" style={{ color: BRAND.pink }}>${program.price}<span className="text-sm font-normal" style={{ color: BRAND.gray }}>/mo</span></span>
+                    <span className="text-right">
+                      <span className="text-2xl font-bold" style={{ color: BRAND.pink }}>
+                        {formatUsd(program.price)}
+                        <span className="text-sm font-normal" style={{ color: BRAND.gray }}>
+                          {'unit' in program && program.unit === 'vial' ? ' per vial' : '/mo'}
+                        </span>
+                      </span>
+                      {'unit' in program && program.unit === 'vial' && (
+                        <span className="block text-xs mt-1" style={{ color: BRAND.gray }}>+ {formatUsd(REGEN_VIAL_SHIPPING_USD)} shipping</span>
+                      )}
+                    </span>
                   </div>
                   <p style={{ color: BRAND.gray }}>{program.description}</p>
                 </button>
@@ -462,7 +473,12 @@ function RegenStartContent() {
                   <p className="font-semibold" style={{ color: BRAND.cream }}>{currentProgram.name}</p>
                   <p className="text-sm" style={{ color: BRAND.teal }}>{currentProgram.description}</p>
                 </div>
-                <span className="text-2xl font-bold" style={{ color: BRAND.pink }}>${currentProgram.price}</span>
+                <span className="text-right">
+                  <span className="text-2xl font-bold" style={{ color: BRAND.pink }}>{formatUsd(currentProgram.price)}</span>
+                  {isVitaminVialProgram(currentProgram.id, selectedGoal) && (
+                    <span className="block text-xs" style={{ color: BRAND.gray }}>per vial · + {formatUsd(REGEN_VIAL_SHIPPING_USD)} shipping</span>
+                  )}
+                </span>
               </div>
             </div>
 
@@ -905,7 +921,11 @@ function RegenStartContent() {
                       cursor: allConsentChecked ? 'pointer' : 'not-allowed',
                     }}
                   >
-                    {loading ? 'Processing...' : `Sign Consent & Proceed to Payment — $${currentProgram.price}`}
+                    {loading
+                      ? 'Processing...'
+                      : isVitaminVialProgram(currentProgram.id, selectedGoal)
+                        ? `Sign Consent & Proceed to Payment — ${formatUsd(currentProgram.price)} + ${formatUsd(REGEN_VIAL_SHIPPING_USD)} shipping`
+                        : `Sign Consent & Proceed to Payment — ${formatUsd(currentProgram.price)}`}
                   </button>
 
                   <p className="text-xs text-center" style={{ color: BRAND.gray }}>

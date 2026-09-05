@@ -50,7 +50,8 @@ const PROGRAMS = [
     title: 'Vitamin Injectables',
     subtitle: 'Energy & Wellness Shots',
     description: 'B12, Biotin, Glutathione & NAD+ — fast-acting nutrients for energy and glow',
-    price: '$35',
+    price: '$73',
+    unit: 'vial',
     href: '/start?goal=vitamins',
     image: '/images/regen/marketing/cell-peptide.png',
   },
@@ -388,7 +389,7 @@ export default function RegenLandingPage() {
                   <p className="text-sm mb-4" style={{ color: BRAND.gray }}>{program.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-2xl font-black" style={{ color: BRAND.pink }}>
-                      {program.price}<span className="text-sm font-normal" style={{ color: BRAND.gray }}>/mo</span>
+                      {program.price}<span className="text-sm font-normal" style={{ color: BRAND.gray }}>{'unit' in program && program.unit === 'vial' ? ' / vial' : '/mo'}</span>
                     </span>
                     <span className="text-sm font-semibold flex items-center gap-1" style={{ color: BRAND.teal }}>
                       Start

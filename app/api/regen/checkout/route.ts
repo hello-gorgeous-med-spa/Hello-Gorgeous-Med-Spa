@@ -5,6 +5,7 @@ import {
   createRegenPaymentIntent,
   isRegenStripeConfigured,
 } from '@/lib/regen-stripe';
+import { isVitaminVialProgram, REGEN_VIAL_SHIPPING_USD } from '@/lib/regen/vitamin-vial-pricing';
 
 // POST /api/regen/checkout
 // Create a Stripe checkout session or payment intent for Re Gen
@@ -59,15 +60,26 @@ export async function POST(request: NextRequest) {
     }
 
     if (useHostedCheckout) {
+      const goal = String(body.metadata?.goal || patientInfo?.goal || '');
+      const program = String(body.metadata?.program || patientInfo?.program || '');
+      const lineItems = items.map((item: { name: string; amount: number; quantity?: number }) => ({
+        name: item.name,
+        amount: item.amount,
+        quantity: item.quantity || 1,
+      }));
+      if (isVitaminVialProgram(program, goal) && !lineItems.some((i) => /shipping/i.test(i.name))) {
+        lineItems.push({
+          name: 'Pharmacy shipping',
+          amount: REGEN_VIAL_SHIPPING_USD,
+          quantity: 1,
+        });
+      }
+
       // Stripe Checkout (hosted page)
       const checkoutUrl = await createRegenCheckoutSession({
         customerId,
         customerEmail: patientInfo?.email,
-        lineItems: items.map((item: { name: string; amount: number; quantity?: number }) => ({
-          name: item.name,
-          amount: item.amount,
-          quantity: item.quantity || 1,
-        })),
+        lineItems,
         mode: mode as 'payment' | 'subscription',
         successUrl: finalSuccessUrl,
         cancelUrl: finalCancelUrl,

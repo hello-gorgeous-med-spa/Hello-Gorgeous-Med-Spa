@@ -19,7 +19,7 @@ const VITAMIN_INJECTABLES = [
     name: 'Vitamin B12',
     subtitle: 'Energy & Metabolism',
     description: 'Boost energy, improve focus, and fight fatigue with direct-to-bloodstream delivery.',
-    price: '$35',
+    price: '$72.75',
     href: '/products/b12',
     benefits: ['Energy boost', 'Mental clarity', 'Mood support'],
   },
@@ -28,7 +28,7 @@ const VITAMIN_INJECTABLES = [
     name: 'Biotin',
     subtitle: 'Hair, Skin & Nails',
     description: 'Strengthen hair, nails, and skin from within. Great with GLP-1s.',
-    price: '$45',
+    price: '$82.65',
     href: '/products/biotin',
     benefits: ['Hair growth', 'Nail strength', 'Skin health'],
   },
@@ -37,7 +37,7 @@ const VITAMIN_INJECTABLES = [
     name: 'Glutathione',
     subtitle: 'Antioxidant Support',
     description: 'Master antioxidant for radiant skin, cellular health, and immune support.',
-    price: '$75',
+    price: '$100',
     href: '/products/glutathione',
     benefits: ['Skin brightening', 'Antioxidant support', 'Immune boost'],
   },
@@ -46,7 +46,7 @@ const VITAMIN_INJECTABLES = [
     name: 'NAD+',
     subtitle: 'Longevity & Brain',
     description: 'Cellular energy, brain clarity, and healthy aging support.',
-    price: '$125',
+    price: '$150',
     href: '/products/nad',
     benefits: ['Cellular energy', 'Mental clarity', 'Anti-aging'],
   },
@@ -128,7 +128,7 @@ export default function ProductsPage() {
                   ))}
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-black" style={{ color: BRAND.pink }}>{product.price}<span className="text-sm font-normal" style={{ color: BRAND.gray }}>/mo</span></span>
+                  <span className="text-2xl font-black" style={{ color: BRAND.pink }}>{product.price}<span className="text-sm font-normal" style={{ color: BRAND.gray }}> per vial</span></span>
                   <span className="text-sm font-semibold group-hover:translate-x-1 transition-transform" style={{ color: BRAND.teal }}>
                     Learn more →
                   </span>
