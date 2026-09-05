@@ -5,9 +5,11 @@
  * Docs: https://fullscript.dev
  */
 
-const FULLSCRIPT_API_BASE = process.env.NODE_ENV === 'production' 
+// Use sandbox by default until production is approved
+// Set FULLSCRIPT_USE_PRODUCTION=true when ready for live
+const FULLSCRIPT_API_BASE = process.env.FULLSCRIPT_USE_PRODUCTION === 'true'
   ? 'https://api.fullscript.io'
-  : 'https://api-us-snd.fullscript.io'; // Sandbox for development
+  : 'https://api-us-snd.fullscript.io';
 
 interface FullscriptConfig {
   publicKey: string;

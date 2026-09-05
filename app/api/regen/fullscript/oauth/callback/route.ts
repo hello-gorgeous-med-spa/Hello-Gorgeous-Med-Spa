@@ -8,7 +8,9 @@ import { getSupabase } from '@/lib/supabase-server';
  * Receives authorization code and exchanges it for access/refresh tokens.
  */
 
-const FULLSCRIPT_TOKEN_URL = process.env.NODE_ENV === 'production'
+// Use sandbox by default until production is approved
+// Set FULLSCRIPT_USE_PRODUCTION=true when ready for live
+const FULLSCRIPT_TOKEN_URL = process.env.FULLSCRIPT_USE_PRODUCTION === 'true'
   ? 'https://us.fullscript.io/oauth/token'
   : 'https://us-snd.fullscript.io/oauth/token';
 
@@ -45,10 +47,18 @@ export async function GET(request: NextRequest) {
       `${process.env.NEXT_PUBLIC_SITE_URL || 'https://tryregenrx.com'}/api/regen/fullscript/oauth/callback`;
 
     // Exchange authorization code for tokens
+    console.log('[fullscript-oauth] Exchanging code for tokens...', {
+      tokenUrl: FULLSCRIPT_TOKEN_URL,
+      clientId: clientId?.substring(0, 10) + '...',
+      hasSecret: !!clientSecret,
+      redirectUri,
+    });
+
     const tokenResponse = await fetch(FULLSCRIPT_TOKEN_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json',
       },
       body: new URLSearchParams({
         grant_type: 'authorization_code',
