@@ -5,6 +5,9 @@ import { sendRegenNotification } from '@/lib/regen/notifications';
 export async function GET(request: NextRequest) {
   try {
     const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    }
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status') || 'pending';
     const limit = parseInt(searchParams.get('limit') || '50');
@@ -36,6 +39,9 @@ export async function GET(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    }
     const body = await request.json();
     const { id, status, review_notes, reviewed_by } = body;
 

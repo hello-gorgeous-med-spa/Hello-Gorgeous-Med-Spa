@@ -2,54 +2,50 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase-server';
 import { sendRegenNotification } from '@/lib/regen/notifications';
 
+function splitName(name: string): { first_name: string; last_name: string } {
+  const parts = String(name || '').trim().split(/\s+/);
+  return {
+    first_name: parts[0] || name,
+    last_name: parts.slice(1).join(' ') || '',
+  };
+}
+
 /**
  * POST /api/regen/intake
- * 
- * Creates a patient record and intake submission in Supabase.
- * Called before Stripe checkout to ensure we have the medical data.
+ * Creates patient + intake in Supabase before Stripe checkout.
  */
 export async function POST(request: NextRequest) {
   try {
     const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    }
+
     const body = await request.json();
 
     const {
-      // Patient info
       name,
       email,
       phone,
       dateOfBirth,
-      
-      // Address
       address,
       city,
       state,
       zip,
-      
-      // Program/goal
       goal,
-      
-      // Medical screening
       medicalHistory,
       currentMedications,
       allergies,
-      
-      // Physical info
       age,
       weight,
       height,
-      
-      // Consents
       hipaaConsent,
       telehealthConsent,
       treatmentConsent,
-      
-      // Payment intent (if already created)
       stripePaymentIntentId,
       amountPaid,
     } = body;
 
-    // Validate required fields
     if (!email || !name || !goal) {
       return NextResponse.json(
         { error: 'Name, email, and goal are required' },
@@ -57,7 +53,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate Illinois
     if (state && state !== 'IL') {
       return NextResponse.json(
         { error: 'REGEN RX currently only serves Illinois residents' },
@@ -65,53 +60,55 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check for existing patient by email
-    let { data: existingPatient } = await supabase
+    const { first_name, last_name } = splitName(name);
+    let patientId: string | null = null;
+
+    const { data: existingPatient } = await supabase
       .from('regen_patients')
       .select('id')
       .eq('email', email.toLowerCase())
-      .single();
+      .maybeSingle();
 
-    let patientId: string;
-
-    if (existingPatient) {
+    if (existingPatient?.id) {
       patientId = existingPatient.id;
-      
-      // Update patient info
       await supabase
         .from('regen_patients')
         .update({
-          name,
+          first_name,
+          last_name,
           phone,
-          date_of_birth: dateOfBirth,
-          address: address ? { street: address, city, state: state || 'IL', zip } : undefined,
+          date_of_birth: dateOfBirth || null,
+          address_line1: address || undefined,
+          city: city || undefined,
+          state: state || 'IL',
+          zip: zip || undefined,
           updated_at: new Date().toISOString(),
         })
         .eq('id', patientId);
     } else {
-      // Create new patient
       const { data: newPatient, error: patientError } = await supabase
         .from('regen_patients')
         .insert({
           email: email.toLowerCase(),
-          name,
+          first_name,
+          last_name,
           phone,
-          date_of_birth: dateOfBirth,
+          date_of_birth: dateOfBirth || null,
+          address_line1: address || null,
+          city: city || null,
           state: state || 'IL',
-          address: address ? { street: address, city, state: state || 'IL', zip } : undefined,
+          zip: zip || null,
         })
-        .select()
+        .select('id')
         .single();
 
       if (patientError) {
         console.error('Failed to create patient:', patientError);
-        throw patientError;
+      } else {
+        patientId = newPatient.id;
       }
-
-      patientId = newPatient.id;
     }
 
-    // Create intake record
     const { data: intake, error: intakeError } = await supabase
       .from('regen_intakes')
       .insert({
@@ -140,10 +137,12 @@ export async function POST(request: NextRequest) {
 
     if (intakeError) {
       console.error('Failed to create intake:', intakeError);
-      throw intakeError;
+      return NextResponse.json(
+        { error: intakeError.message || 'Failed to save intake' },
+        { status: 500 }
+      );
     }
 
-    // Email patient immediately + alert staff
     try {
       await sendRegenNotification({
         type: 'welcome',
@@ -159,7 +158,6 @@ export async function POST(request: NextRequest) {
       console.error('Failed to send notification:', notifyError);
     }
 
-    // Log the action
     await supabase.from('regen_audit_log').insert({
       action: 'intake_created',
       resource_type: 'intake',
@@ -178,20 +176,19 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Intake submission error:', error);
     return NextResponse.json(
-      { error: 'Failed to submit intake' },
+      { error: error instanceof Error ? error.message : 'Failed to submit intake' },
       { status: 500 }
     );
   }
 }
 
-/**
- * GET /api/regen/intake?id=xxx
- * 
- * Get intake status (for patient to check their submission)
- */
 export async function GET(request: NextRequest) {
   try {
     const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    }
+
     const { searchParams } = new URL(request.url);
     const intakeId = searchParams.get('id');
 

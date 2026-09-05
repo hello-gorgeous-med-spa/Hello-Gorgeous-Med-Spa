@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createBrowserClient } from '@supabase/ssr';
 
 interface IntakeSubmission {
   id: string;
@@ -60,32 +59,28 @@ function timeAgo(dateString: string): string {
 export default function IntakeQueuePage() {
   const [submissions, setSubmissions] = useState<IntakeSubmission[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<string>('pending');
+  const [filter, setFilter] = useState<string>('all');
   const [selectedIntake, setSelectedIntake] = useState<IntakeSubmission | null>(null);
   const [noteText, setNoteText] = useState('');
   const [updating, setUpdating] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
-
-  // Fetch intakes from database
   useEffect(() => {
     fetchIntakes();
   }, []);
 
   async function fetchIntakes() {
     setLoading(true);
-    const { data, error } = await supabase
-      .from('regen_intakes')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Error fetching intakes:', error);
-    } else {
-      setSubmissions(data || []);
+    setLoadError(null);
+    try {
+      const res = await fetch('/api/regen/ops/intakes?status=all');
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || 'Failed to load intakes');
+      setSubmissions(json.intakes || []);
+    } catch (err) {
+      console.error('Error fetching intakes:', err);
+      setLoadError(err instanceof Error ? err.message : 'Failed to load intakes');
+      setSubmissions([]);
     }
     setLoading(false);
   }
@@ -96,26 +91,21 @@ export default function IntakeQueuePage() {
 
   async function updateStatus(id: string, status: string, note?: string) {
     setUpdating(true);
-    
-    const updateData: Record<string, unknown> = {
-      status,
-      updated_at: new Date().toISOString(),
-    };
-    
-    if (note) {
-      updateData.review_notes = note;
-    }
 
-    const { error } = await supabase
-      .from('regen_intakes')
-      .update(updateData)
-      .eq('id', id);
+    const res = await fetch('/api/regen/ops/intakes', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id,
+        status,
+        review_notes: note || undefined,
+      }),
+    });
 
-    if (error) {
-      console.error('Error updating intake:', error);
+    if (!res.ok) {
+      console.error('Error updating intake');
       alert('Failed to update status');
     } else {
-      // Refresh the list
       await fetchIntakes();
       setSelectedIntake(null);
       setNoteText('');
@@ -299,6 +289,7 @@ export default function IntakeQueuePage() {
 
       {filteredSubmissions.length === 0 && (
         <div className="text-center py-12 bg-white/5 rounded-2xl">
+          {loadError && <p className="text-red-400 text-sm mb-2">{loadError}</p>}
           <p className="text-white/50 text-lg">No intakes in this queue</p>
           <p className="text-white/30 text-sm mt-1">
             {filter === 'pending' ? 'No pending reviews - you\'re all caught up!' : 'No matching intakes found'}
