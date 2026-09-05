@@ -115,14 +115,18 @@ export async function fulfillApprovedIntake(intake: {
   }
 
   if (pharmacyOrderId || pharmacyError) {
-    await supabase
+    const orderPatch: Record<string, unknown> = {
+      pharmacy_order_id: pharmacyOrderId,
+      status: pharmacyOrderId ? 'processing' : 'pending',
+      updated_at: new Date().toISOString(),
+    };
+    const { error: patchError } = await supabase
       .from('regen_orders')
-      .update({
-        pharmacy_order_id: pharmacyOrderId,
-        status: pharmacyOrderId ? 'processing' : 'pending',
-        updated_at: new Date().toISOString(),
-      })
+      .update({ ...orderPatch, pharmacy_error: pharmacyError })
       .eq('id', order.id);
+    if (patchError) {
+      await supabase.from('regen_orders').update(orderPatch).eq('id', order.id);
+    }
 
     await supabase.from('regen_order_status_history').insert({
       order_id: order.id,

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase-server';
+import { getOpsSessionFromRequest } from '@/lib/regen/ops-session';
 
 /**
  * Ops Lab Review API
@@ -15,6 +16,7 @@ export async function GET(req: NextRequest) {
     const patientEmail = searchParams.get('patient_email');
     
     const supabase = getSupabase();
+    if (!supabase) return NextResponse.json({ labs: [] });
     
     let query = supabase
       .from('regen_lab_requirements')
@@ -52,6 +54,7 @@ export async function PATCH(req: NextRequest) {
     }
     
     const supabase = getSupabase();
+    if (!supabase) return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
     
     const updateData: Record<string, unknown> = {
       status,
@@ -68,7 +71,8 @@ export async function PATCH(req: NextRequest) {
     
     if (status === 'approved' || status === 'reviewed') {
       updateData.reviewed_at = new Date().toISOString();
-      // TODO: Set reviewed_by from authenticated user
+      const reviewer = await getOpsSessionFromRequest(req);
+      if (reviewer) updateData.reviewed_by = reviewer.name;
     }
     
     const { data, error } = await supabase

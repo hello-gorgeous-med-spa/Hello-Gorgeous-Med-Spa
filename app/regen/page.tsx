@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
 
 const BRAND = {
   teal: '#0D9488',      // Bright teal (molecules)
@@ -259,52 +260,7 @@ export default function RegenLandingPage() {
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="fixed top-8 left-0 right-0 z-50 backdrop-blur-xl border-b" style={{ backgroundColor: 'rgba(10,10,10,0.9)', borderColor: `${BRAND.teal}30` }}>
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center">
-            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={220} height={70} className="h-16 md:h-20 w-auto brightness-110" />
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link href="/products" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden lg:block">
-              Products
-            </Link>
-            <Link href="/pricing" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden lg:block">
-              Pricing
-            </Link>
-            <Link href="/learn" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden lg:block">
-              Learn
-            </Link>
-            <Link href="/about" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden lg:block">
-              Our Story
-            </Link>
-            <Link href="/providers" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden lg:block">
-              Our Team
-            </Link>
-            <Link href="/contact" className="text-sm font-medium text-gray-400 hover:text-white transition-colors hidden lg:block">
-              Contact
-            </Link>
-            {/* Patient Login */}
-            <Link
-              href="/login"
-              className="px-4 py-2 text-sm font-medium rounded-full transition-all hover:scale-105 hidden md:inline-flex items-center gap-2"
-              style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal, border: `1px solid ${BRAND.teal}50` }}
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              Patient Login
-            </Link>
-            <Link
-              href="/start"
-              className="px-6 py-3 text-white text-sm font-bold rounded-full transition-all hover:scale-105"
-              style={{ backgroundColor: BRAND.pink }}
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <RegenPublicNav fixed />
 
       {/* Hero Section - Video Centered */}
       <section className="pt-32 pb-8 md:pt-40 md:pb-12 px-6 relative overflow-hidden">

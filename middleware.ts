@@ -30,6 +30,7 @@ import {
   partnerCookieSetOptions,
 } from '@/lib/partner-network';
 import { parseHgosSessionCookie, resolveSessionRole } from '@/lib/hgos-session';
+import { OPS_SESSION_COOKIE, verifyOpsSessionToken } from '@/lib/regen/ops-session';
 
 // Routes that require authentication (admin guard applies only to these)
 const PROTECTED_ROUTES = ['/desk', '/admin', '/provider', '/portal', '/pos', '/rx-portal'];
@@ -112,6 +113,13 @@ export async function middleware(request: NextRequest) {
   // .well-known (Apple Pay, etc.) — never redirect, never auth
   if (pathname.startsWith('/.well-known/')) {
     return NextResponse.next();
+  }
+
+  if (pathname.startsWith('/api/regen/ops') && pathname !== '/api/regen/ops/session') {
+    const staff = await verifyOpsSessionToken(request.cookies.get(OPS_SESSION_COOKIE)?.value);
+    if (!staff) {
+      return NextResponse.json({ error: 'Staff sign-in required' }, { status: 401 });
+    }
   }
 
   // ============================================================

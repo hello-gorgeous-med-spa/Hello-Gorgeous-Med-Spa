@@ -13,6 +13,9 @@ function generateOrderNumber(): string {
 export async function GET(request: NextRequest) {
   try {
     const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    }
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status') || 'all';
     const search = searchParams.get('search') || '';
@@ -20,10 +23,7 @@ export async function GET(request: NextRequest) {
 
     let query = supabase
       .from('regen_orders')
-      .select(`
-        *,
-        patient:regen_patients(id, name, email, phone)
-      `)
+      .select('*')
       .order('created_at', { ascending: false })
       .limit(limit);
 
@@ -39,7 +39,28 @@ export async function GET(request: NextRequest) {
 
     if (error) throw error;
 
-    return NextResponse.json({ orders: data || [] });
+    const orders = data || [];
+    const ids = orders.map((o) => o.id).filter(Boolean);
+    let latestNote: Record<string, string> = {};
+    if (ids.length) {
+      const { data: history } = await supabase
+        .from('regen_order_status_history')
+        .select('order_id, notes, metadata, created_at')
+        .in('order_id', ids)
+        .order('created_at', { ascending: false });
+      for (const row of history || []) {
+        if (latestNote[row.order_id]) continue;
+        const metaError = (row.metadata as { pharmacyError?: string } | null)?.pharmacyError;
+        if (metaError || row.notes) latestNote[row.order_id] = metaError || row.notes;
+      }
+    }
+
+    return NextResponse.json({
+      orders: orders.map((o) => ({
+        ...o,
+        pharmacyError: (o as { pharmacy_error?: string }).pharmacy_error || latestNote[o.id] || null,
+      })),
+    });
   } catch (error) {
     console.error('Orders API error:', error);
     return NextResponse.json(
@@ -98,6 +119,9 @@ export async function POST(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    }
     const body = await request.json();
     const { id, status, tracking_number, tracking_carrier, pharmacy_order_id, actor_id, notes } = body;
 

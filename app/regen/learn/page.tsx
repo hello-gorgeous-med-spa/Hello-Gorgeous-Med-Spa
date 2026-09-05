@@ -103,6 +103,7 @@ export default function LearnHubPage() {
             <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={160} height={50} className="h-12 w-auto brightness-110" />
           </Link>
           <div className="flex items-center gap-6">
+            <Link href="/tools" className="text-sm font-medium text-gray-400 hover:text-white">Free Tools</Link>
             <Link href="/learn" className="text-sm font-medium" style={{ color: BRAND.teal }}>Learn</Link>
             <Link href="/start" className="px-5 py-2 text-white text-sm font-bold rounded-full" style={{ backgroundColor: BRAND.pink }}>
               Get Started

@@ -12,7 +12,17 @@ function getStripe() {
 export async function GET() {
   try {
     const supabase = getSupabase();
-    
+    if (!supabase) {
+      return NextResponse.json({
+        revenue: { today: 0, week: 0, month: 0 },
+        orders: { pending: 0, shipped: 0, total: 0 },
+        patients: { total: 0, new: 0, active: 0 },
+        intakeQueue: 0,
+        prescriptionQueue: 0,
+        messages: 0,
+      });
+    }
+
     // Get date ranges
     const now = new Date();
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());

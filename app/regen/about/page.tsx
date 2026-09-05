@@ -22,6 +22,7 @@ export default function AboutPage() {
             <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={120} height={40} style={{ height: 32, width: 'auto' }} />
           </Link>
           <nav style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
+            <Link href="/tools" style={{ color: '#888', fontSize: 14, textDecoration: 'none' }}>Free Tools</Link>
             <Link href="/providers" style={{ color: '#888', fontSize: 14, textDecoration: 'none' }}>Our Team</Link>
             <Link href="/pricing" style={{ color: '#888', fontSize: 14, textDecoration: 'none' }}>Pricing</Link>
             <Link

@@ -70,13 +70,16 @@ export default function ProductsPage() {
           <Link href="/" className="flex items-center gap-2">
             <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={160} height={50} className="h-12 w-auto brightness-110" />
           </Link>
-          <Link
-            href="/start"
-            className="px-6 py-2 text-sm font-bold rounded-full"
-            style={{ backgroundColor: BRAND.pink, color: 'white' }}
-          >
-            Get Started
-          </Link>
+          <div className="flex items-center gap-5">
+            <Link href="/tools" className="text-sm font-medium text-gray-400 hover:text-white">Free Tools</Link>
+            <Link
+              href="/start"
+              className="px-6 py-2 text-sm font-bold rounded-full"
+              style={{ backgroundColor: BRAND.pink, color: 'white' }}
+            >
+              Get Started
+            </Link>
+          </div>
         </div>
       </nav>
 

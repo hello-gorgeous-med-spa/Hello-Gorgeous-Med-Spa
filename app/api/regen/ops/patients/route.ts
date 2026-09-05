@@ -4,6 +4,9 @@ import { getSupabase } from '@/lib/supabase-server';
 export async function GET(request: NextRequest) {
   try {
     const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({ patients: [], total: 0 });
+    }
     const { searchParams } = new URL(request.url);
     const search = searchParams.get('search') || '';
     const status = searchParams.get('status') || 'all';
@@ -17,7 +20,7 @@ export async function GET(request: NextRequest) {
       .range(offset, offset + limit - 1);
 
     if (search) {
-      query = query.or(`name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%`);
+      query = query.or(`first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%`);
     }
 
     const { data, error, count } = await query;
