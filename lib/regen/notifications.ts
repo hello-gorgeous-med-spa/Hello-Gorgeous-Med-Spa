@@ -23,7 +23,7 @@ function getResend() {
 
 const STAFF_EMAIL = 'provider@hellogorgeousmedspa.com';
 const STAFF_PHONE = '+16308813398';
-const FROM_EMAIL = 'REGEN RX <hello@tryregenrx.com>';
+const FROM_EMAIL = 'REGEN RX <provider@hellogorgeousmedspa.com>';
 
 // Brand colors for emails
 const BRAND = {
@@ -100,7 +100,7 @@ export async function sendRegenNotification(payload: NotificationPayload): Promi
         break;
 
       case 'welcome':
-        await sendPatientWelcomeEmail(patient);
+        await sendPatientWelcomeEmail(patient, intake);
         break;
 
       case 'refill_reminder':
@@ -172,38 +172,55 @@ async function sendStaffNewIntakeSMS(
 // PATIENT NOTIFICATIONS
 // ============================================================
 
-async function sendPatientWelcomeEmail(patient: { name: string; email: string }) {
-  const resend = getResend(); if (!resend) return; await resend.emails.send({
+async function sendPatientWelcomeEmail(patient: { name: string; email: string }, intake?: { id: string; goal: string }) {
+  const resend = getResend();
+  if (!resend) {
+    console.error('[regen/notifications] Cannot send welcome email — RESEND_API_KEY missing');
+    return;
+  }
+
+  const firstName = patient.name.split(' ')[0] || 'there';
+  const goalLabel = intake?.goal ? intake.goal.replace(/-/g, ' ') : 'your visit';
+
+  const { error } = await resend.emails.send({
     from: FROM_EMAIL,
     to: patient.email,
-    subject: `Welcome to REGEN RX, ${patient.name.split(' ')[0]}! 🎉`,
+    replyTo: STAFF_EMAIL,
+    subject: `REGEN RX — we received your ${goalLabel} visit`,
     html: `
       <div style="font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: ${BRAND.dark}; padding: 32px; border-radius: 12px;">
-          <img src="https://tryregenrx.com/images/regen/regen-rx-logo.png" alt="REGEN RX" style="height: 40px; margin-bottom: 24px;" />
-          <h1 style="color: #fff; margin: 0 0 16px;">Welcome to REGEN RX!</h1>
+          <p style="color: ${BRAND.pink}; font-weight: 800; letter-spacing: 0.08em; margin: 0 0 16px;">REGEN RX</p>
+          <h1 style="color: #fff; margin: 0 0 16px;">You're in, ${firstName}.</h1>
           <p style="color: #9CA3AF; line-height: 1.6;">
-            Hi ${patient.name.split(' ')[0]},<br><br>
-            Thank you for choosing REGEN RX for your health journey. We're excited to have you!
+            We received your intake and payment. A licensed provider will review your information within 24–48 hours.
           </p>
           <div style="background: ${BRAND.teal}20; padding: 16px; border-radius: 8px; margin: 24px 0; border-left: 4px solid ${BRAND.teal};">
-            <p style="color: ${BRAND.teal}; margin: 0; font-weight: bold;">What happens next?</p>
-            <p style="color: #9CA3AF; margin: 8px 0 0;">
-              Our provider, Ryan Kent FNP-BC, will review your intake within 24-48 hours. 
-              You'll receive an email once your visit has been reviewed.
+            <p style="color: ${BRAND.teal}; margin: 0; font-weight: bold;">What happens next</p>
+            <p style="color: #9CA3AF; margin: 8px 0 0; line-height: 1.6;">
+              1. Your visit is in our clinical queue now<br>
+              2. Provider review within 24–48 hours<br>
+              3. You'll get an email if we need labs, a video visit, or can approve treatment<br>
+              4. If approved, your prescription ships to your door
             </p>
           </div>
-          <a href="https://tryregenrx.com/account" 
+          <a href="https://tryregenrx.com/login"
              style="display: inline-block; background: ${BRAND.pink}; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold;">
-            View Your Portal →
+            Patient login →
           </a>
           <p style="color: #6B7280; font-size: 14px; margin-top: 24px;">
-            Questions? Reply to this email or call us at (630) 636-6193.
+            Questions? Email <a href="mailto:${STAFF_EMAIL}" style="color: ${BRAND.teal};">${STAFF_EMAIL}</a>
+            or call (630) 636-6193.
           </p>
         </div>
       </div>
     `,
   });
+
+  if (error) {
+    console.error('[regen/notifications] Welcome email failed:', error);
+    throw error;
+  }
 }
 
 async function sendPatientRxApprovedEmail(

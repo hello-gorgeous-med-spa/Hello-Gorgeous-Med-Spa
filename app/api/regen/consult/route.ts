@@ -145,7 +145,7 @@ async function sendStaffNotification(data: {
 }) {
   try {
     await getResend().emails.send({
-      from: 'REGEN RX <noreply@tryregenrx.com>',
+      from: 'REGEN RX <provider@hellogorgeousmedspa.com>',
       to: ['info@hellogorgeousmedspa.com'],
       subject: `📅 New Consultation Booking: ${data.firstName} ${data.lastName}`,
       html: `
@@ -174,7 +174,7 @@ async function sendPatientConfirmation(data: {
 }) {
   try {
     await getResend().emails.send({
-      from: 'REGEN RX <noreply@tryregenrx.com>',
+      from: 'REGEN RX <provider@hellogorgeousmedspa.com>',
       to: [data.email],
       subject: `Your REGEN RX Consultation is Confirmed ✓`,
       html: `

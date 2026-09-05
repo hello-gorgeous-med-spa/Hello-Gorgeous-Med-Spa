@@ -212,7 +212,7 @@ async function sendStatusEmail(params: {
     }
 
     await resend.emails.send({
-      from: 'REGEN RX <orders@tryregenrx.com>',
+      from: 'REGEN RX <provider@hellogorgeousmedspa.com>',
       to: email,
       subject: `📦 Your REGEN RX Order Has Shipped! (${orderNumber})`,
       html: `
@@ -259,7 +259,7 @@ async function sendStatusEmail(params: {
 
   if (event === 'order.delivered') {
     await resend.emails.send({
-      from: 'REGEN RX <orders@tryregenrx.com>',
+      from: 'REGEN RX <provider@hellogorgeousmedspa.com>',
       to: email,
       subject: `✅ Your REGEN RX Order Was Delivered! (${orderNumber})`,
       html: `

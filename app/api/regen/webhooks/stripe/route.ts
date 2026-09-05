@@ -74,33 +74,50 @@ async function handleCheckoutComplete(supabase: ReturnType<typeof getSupabase>, 
   const email = session.customer_email || session.customer_details?.email;
   if (!email) return;
 
-  // Update intake status to pending (paid)
-  const { data: intake } = await supabase
+  const customerName =
+    session.customer_details?.name ||
+    session.metadata?.patientName ||
+    email.split('@')[0];
+
+  // Mark the latest unpaid intake as paid (do not require exact status match)
+  const { data: existing } = await supabase
     .from('regen_intakes')
-    .update({
-      status: 'pending',
-      stripe_payment_intent_id: session.payment_intent as string,
-      amount_paid: (session.amount_total || 0) / 100,
-      updated_at: new Date().toISOString(),
-    })
+    .select('id, name, email, goal, status')
     .eq('email', email.toLowerCase())
-    .eq('status', 'awaiting_payment')
     .order('created_at', { ascending: false })
     .limit(1)
-    .select()
-    .single();
+    .maybeSingle();
 
-  if (intake) {
-    // Send welcome email
+  let intake = existing;
+
+  if (existing) {
+    const { data: updated } = await supabase
+      .from('regen_intakes')
+      .update({
+        status: existing.status === 'awaiting_payment' ? 'pending' : existing.status,
+        stripe_payment_intent_id: typeof session.payment_intent === 'string' ? session.payment_intent : session.id,
+        amount_paid: (session.amount_total || 0) / 100,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', existing.id)
+      .select('id, name, email, goal')
+      .single();
+    if (updated) intake = updated;
+  }
+
+  // Always send confirmation — do not wait for an intake row
+  try {
     await sendRegenNotification({
       type: 'welcome',
-      patient: { name: intake.name, email: intake.email },
+      patient: { name: intake?.name || customerName, email },
+      intake: intake ? { id: intake.id, goal: intake.goal } : undefined,
     });
+  } catch (emailErr) {
+    console.error('[stripe-webhook] welcome email failed:', emailErr);
+  }
 
-    // Check for referral
-    if (session.metadata?.referral_code) {
-      await processReferral(supabase, session.metadata.referral_code, email);
-    }
+  if (session.metadata?.referral_code) {
+    await processReferral(supabase, session.metadata.referral_code, email);
   }
 }
 
@@ -135,7 +152,7 @@ async function handleSubscriptionUpdate(supabase: ReturnType<typeof getSupabase>
   const customerId = subscription.customer as string;
   
   // Get customer email
-  const customer = await stripe.customers.retrieve(customerId);
+  const customer = await getStripe().customers.retrieve(customerId);
   if (!customer || customer.deleted) return;
 
   const email = (customer as Stripe.Customer).email;

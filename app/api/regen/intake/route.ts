@@ -143,8 +143,13 @@ export async function POST(request: NextRequest) {
       throw intakeError;
     }
 
-    // Send notifications
+    // Email patient immediately + alert staff
     try {
+      await sendRegenNotification({
+        type: 'welcome',
+        patient: { name, email, phone },
+        intake: { id: intake.id, goal },
+      });
       await sendRegenNotification({
         type: 'new_intake',
         patient: { name, email, phone },
@@ -152,7 +157,6 @@ export async function POST(request: NextRequest) {
       });
     } catch (notifyError) {
       console.error('Failed to send notification:', notifyError);
-      // Don't fail the request if notification fails
     }
 
     // Log the action

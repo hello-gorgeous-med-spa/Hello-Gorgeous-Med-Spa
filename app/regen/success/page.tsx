@@ -39,11 +39,11 @@ export default function RegenSuccessPage() {
             <ol className="space-y-3" style={{ color: BRAND.gray }}>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.teal }}>1</span>
-                <span><strong style={{ color: BRAND.cream }}>Check your email</strong> — You&apos;ll receive a confirmation and intake form link within minutes.</span>
+                <span><strong style={{ color: BRAND.cream }}>Check your email</strong> — Confirmation is sent immediately from REGEN RX.</span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.teal }}>2</span>
-                <span><strong style={{ color: BRAND.cream }}>Complete your health history</strong> — Our secure form takes about 5 minutes.</span>
+                <span><strong style={{ color: BRAND.cream }}>Your intake is already in our queue</strong> — No extra form to fill unless we request labs.</span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.pink }}>3</span>
@@ -75,7 +75,7 @@ export default function RegenSuccessPage() {
         </div>
 
         <p className="mt-8 text-sm" style={{ color: BRAND.gray }}>
-          Questions? Email <a href="mailto:hello@tryregenrx.com" className="hover:underline" style={{ color: BRAND.teal }}>hello@tryregenrx.com</a> or call <a href="tel:+16306366193" className="hover:underline" style={{ color: BRAND.teal }}>(630) 636-6193</a>
+          Questions? Email <a href="mailto:provider@hellogorgeousmedspa.com" className="hover:underline" style={{ color: BRAND.teal }}>provider@hellogorgeousmedspa.com</a> or call <a href="tel:+16306366193" className="hover:underline" style={{ color: BRAND.teal }}>(630) 636-6193</a>
         </p>
       </main>
     </div>
