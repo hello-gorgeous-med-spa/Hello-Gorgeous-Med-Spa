@@ -5,6 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
+import { enqueueReviewRequest } from '@/lib/reviews/enqueue';
 
 // GET /api/appointments/[id] - Get single appointment
 export async function GET(
@@ -201,17 +202,15 @@ export async function PUT(
         }).catch(err => {
           console.error('Aftercare send error (non-blocking):', err);
         });
-        // Queue review request for 24h delay (processed by cron)
-        supabase.from('review_requests_pending').upsert(
-          {
-            appointment_id: id,
-            client_id: currentAppointment.client_id,
-            scheduled_for: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
-          },
-          { onConflict: 'appointment_id', ignoreDuplicates: false }
-        ).then(({ error }) => {
-          if (error) console.error('Review pending insert error:', error);
-        }).catch(err => console.error('Review pending insert error:', err));
+        enqueueReviewRequest(supabase, {
+          clientId: currentAppointment.client_id,
+          appointmentId: id,
+          source: 'appointment_completed',
+        }).then((reviewQueue) => {
+          if (!reviewQueue.ok && reviewQueue.reason !== 'cooldown_60d' && reviewQueue.reason !== 'already_pending' && reviewQueue.reason !== 'duplicate_appointment') {
+            console.warn('[appointments] Review enqueue skipped:', reviewQueue.reason, reviewQueue.detail);
+          }
+        }).catch((err) => console.error('[appointments] Review enqueue error:', err));
 
         // AUTO-CREATE DRAFT INVOICE for completed appointments (if no invoice exists)
         const { data: existingInvoice } = await supabase

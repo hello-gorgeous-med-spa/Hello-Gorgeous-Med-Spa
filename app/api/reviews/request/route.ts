@@ -14,8 +14,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { sendSms } from "@/lib/notifications/sms-outbound";
-import { GOOGLE_REVIEW_URL, REVIEW_UTM } from "@/lib/local-seo";
 import { getCityNudge } from "@/lib/hgos/review-boost";
+import { newReviewTrackingToken, trackedGoogleReviewUrl } from "@/lib/reviews/tracked-link";
 
 export const dynamic = "force-dynamic";
 
@@ -28,6 +28,11 @@ interface RequestBody {
 }
 
 export async function POST(request: NextRequest) {
+  const cronSecret = process.env.CRON_SECRET;
+  if (cronSecret && request.headers.get("authorization") !== `Bearer ${cronSecret}`) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const enabled = process.env.REVIEW_REQUESTS_ENABLED !== "false";
   if (!enabled) {
     return NextResponse.json({ skipped: true, reason: "Review requests disabled" });
@@ -137,9 +142,8 @@ export async function POST(request: NextRequest) {
     }
 
     const firstName = profile.first_name || "there";
-    const reviewUrl = GOOGLE_REVIEW_URL.includes("utm_source")
-      ? GOOGLE_REVIEW_URL
-      : `${GOOGLE_REVIEW_URL}&${REVIEW_UTM}`;
+    const trackingToken = newReviewTrackingToken();
+    const reviewUrl = trackedGoogleReviewUrl(trackingToken, request.nextUrl?.origin);
 
     // Local SEO: if we know the client's town, ask them to mention it in their
     // review. Reviews that name a city strengthen Map Pack ranking for that
@@ -147,16 +151,19 @@ export async function POST(request: NextRequest) {
     const cityNudge = getCityNudge(profile.city ?? undefined);
     const cityClause = cityNudge ? ` ${cityNudge}` : "";
 
-    const results: { sms?: boolean; email?: boolean; error?: string } = {};
+    const results: { sms?: boolean; email?: boolean; error?: string; smsError?: string; emailError?: string } = {};
 
     if (profile.phone) {
       // Conversion-tuned: lead with relationship, frame the ask as small,
       // make the star count explicit, end with the link (no trailing words
       // so iMessage previews the URL cleanly). Reply STOP per TCPA.
-      const smsText = `Hi ${firstName}! 💕 So good seeing you at Hello Gorgeous. If we earned a 5⭐ today, would you take 30 sec to share?${cityClause} It really helps us — thank you! ${reviewUrl}\n\nReply STOP to opt out.`;
+      const smsText = `Hi ${firstName}! 💕 Thank you for visiting Hello Gorgeous. A quick Google review (good or honest) helps other locals find us.${cityClause} 30 seconds: ${reviewUrl}\n\nReply STOP to opt out.`;
       const smsResult = await sendSms(profile.phone, smsText);
       results.sms = smsResult.success;
-      if (!smsResult.success) results.error = smsResult.error;
+      if (!smsResult.success) {
+        results.error = smsResult.error;
+        results.smsError = smsResult.error;
+      }
     }
 
     const apiKey = process.env.RESEND_API_KEY;
@@ -171,7 +178,7 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify({
           from: fromEmail,
           to: profile.email,
-          subject: `${firstName}, did we earn a 5⭐ today?`,
+          subject: `${firstName}, how was your visit?`,
           html: `
             <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 520px; margin: 0 auto; padding: 24px; color: #1f2937;">
               <p style="font-size: 17px; margin: 0 0 16px;">Hi ${firstName},</p>
@@ -179,15 +186,14 @@ export async function POST(request: NextRequest) {
                 So good seeing you at Hello Gorgeous yesterday 💕
               </p>
               <p style="font-size: 16px; line-height: 1.55; margin: 0 0 24px;">
-                If we earned a <strong>5⭐</strong> today, would you take 30 seconds to share it on Google?
-                Reviews are the single biggest thing that helps us reach more women in Oswego who are looking for what we do.
+                If you have 30 seconds, a Google review — good, mixed, or honest — helps other women in Oswego find us.
               </p>
               ${cityNudge ? `<p style="font-size: 15px; line-height: 1.55; margin: 0 0 24px; color: #be185d;">${cityNudge}</p>` : ""}
               <p style="margin: 0 0 28px; text-align: center;">
-                <a href="${reviewUrl}" style="display: inline-block; padding: 14px 32px; background: linear-gradient(to right, #ec4899, #f43f5e); color: white; text-decoration: none; font-weight: 600; border-radius: 9999px; font-size: 15px;">Leave a 5⭐ Google review</a>
+                <a href="${reviewUrl}" style="display: inline-block; padding: 14px 32px; background: linear-gradient(to right, #ec4899, #f43f5e); color: white; text-decoration: none; font-weight: 600; border-radius: 9999px; font-size: 15px;">Leave a Google review</a>
               </p>
               <p style="font-size: 14px; line-height: 1.5; color: #6b7280; margin: 0 0 8px;">
-                <em>If anything was less than perfect — please reply to this email instead. We want to know.</em>
+                <em>If something felt off, reply to this email too. We want to make it right.</em>
               </p>
               <p style="font-size: 14px; color: #6b7280; margin: 0;">— Danielle &amp; the Hello Gorgeous team</p>
             </div>
@@ -195,6 +201,27 @@ export async function POST(request: NextRequest) {
         }),
       });
       results.email = res.ok;
+      if (!res.ok) {
+        const errText = await res.text().catch(() => "");
+        results.emailError = errText.slice(0, 240) || `Resend ${res.status}`;
+        results.error = results.error || results.emailError;
+      }
+    } else if (!apiKey && profile.email) {
+      results.emailError = "RESEND_API_KEY missing";
+      results.error = results.error || results.emailError;
+    }
+
+    const delivered = Boolean(results.sms || results.email);
+    if (!delivered) {
+      return NextResponse.json(
+        {
+          success: false,
+          reason: results.error || "sms_and_email_failed",
+          sms: results.sms ?? false,
+          email: results.email ?? false,
+        },
+        { status: 502 },
+      );
     }
 
     try {
@@ -204,6 +231,9 @@ export async function POST(request: NextRequest) {
         sms_sent: results.sms ?? false,
         email_sent: results.email ?? false,
         source,
+        tracking_token: trackingToken,
+        sms_error: results.smsError ?? null,
+        email_error: results.emailError ?? null,
       });
     } catch (err) {
       console.warn("[reviews/request] failed to record sent row:", err);
@@ -214,6 +244,7 @@ export async function POST(request: NextRequest) {
       sms: results.sms,
       email: results.email,
       source,
+      trackingToken,
     });
   } catch (e) {
     console.error("[reviews/request]", e);

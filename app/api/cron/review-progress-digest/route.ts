@@ -77,12 +77,17 @@ export async function GET(request: NextRequest) {
   }
 
   // Review asks in the last 7 days
-  let weekAsks = 0, totalAsks = 0, eligibleRemaining = 0;
+  let weekAsks = 0, totalAsks = 0, eligibleRemaining = 0, weekClicks = 0;
   const supabase = createAdminSupabaseClient();
   if (supabase) {
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
     const { count: wk } = await supabase.from("review_requests_sent").select("*", { count: "exact", head: true }).gte("created_at", weekAgo);
     weekAsks = wk ?? 0;
+    const { count: clickWk } = await supabase.from("review_request_clicks").select("id", { count: "exact", head: true }).gte("clicked_at", weekAgo);
+    weekClicks = clickWk ?? 0;
+    if (hgRating != null && hgCount != null) {
+      await supabase.from("review_google_snapshots").insert({ rating: hgRating, review_count: hgCount });
+    }
     const { count: tot } = await supabase.from("review_requests_sent").select("*", { count: "exact", head: true });
     totalAsks = tot ?? 0;
     const { count: elig } = await supabase
@@ -117,6 +122,7 @@ export async function GET(request: NextRequest) {
     <div style="margin-top:18px;padding:14px 16px;background:#f7f7f7;border-radius:10px;">
       <p style="margin:0 0 6px;font-size:14px;color:#111;"><strong>This week's review engine:</strong></p>
       <p style="margin:0;font-size:14px;color:#444;">📨 Review asks sent (last 7 days): <strong>${weekAsks}</strong></p>
+      <p style="margin:4px 0 0;font-size:14px;color:#444;">🔗 Review-link clicks (last 7 days): <strong>${weekClicks}</strong></p>
       <p style="margin:4px 0 0;font-size:14px;color:#444;">📊 Total asks sent all-time: <strong>${totalAsks}</strong></p>
       <p style="margin:4px 0 0;font-size:14px;color:#444;">⏳ Clients still queued to ask: <strong>${eligibleRemaining}</strong></p>
     </div>
@@ -131,7 +137,7 @@ export async function GET(request: NextRequest) {
     ok: true,
     hg: { rating: hgRating, count: hgCount },
     her: { rating: herRating, count: herCount },
-    weekAsks, totalAsks, eligibleRemaining,
+    weekAsks, weekClicks, totalAsks, eligibleRemaining,
     emailed, texted,
   });
 }

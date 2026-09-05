@@ -29,7 +29,18 @@ export async function GET() {
   const enabled = process.env.REVIEW_REQUESTS_ENABLED !== "false";
   const bulkEmailEnabled = isReviewBulkEmailEnabled();
 
-  const [{ count: pendingTotal }, { count: pendingDue }, { count: sent30 }, { count: sent60 }, recentSent, recentPending] =
+  const [
+    { count: pendingTotal },
+    { count: pendingDue },
+    { count: sent30 },
+    { count: sent60 },
+    { count: sms30 },
+    { count: email30 },
+    { count: clicks30 },
+    { count: retrying },
+    recentSent,
+    recentPending,
+  ] =
     await Promise.all([
       supabase.from("review_requests_pending").select("id", { count: "exact", head: true }),
       supabase
@@ -46,12 +57,30 @@ export async function GET() {
         .gte("created_at", since60),
       supabase
         .from("review_requests_sent")
-        .select("id, client_id, sms_sent, email_sent, source, created_at")
+        .select("id", { count: "exact", head: true })
+        .eq("sms_sent", true)
+        .gte("created_at", since30),
+      supabase
+        .from("review_requests_sent")
+        .select("id", { count: "exact", head: true })
+        .eq("email_sent", true)
+        .gte("created_at", since30),
+      supabase
+        .from("review_request_clicks")
+        .select("id", { count: "exact", head: true })
+        .gte("clicked_at", since30),
+      supabase
+        .from("review_requests_pending")
+        .select("id", { count: "exact", head: true })
+        .gt("attempts", 0),
+      supabase
+        .from("review_requests_sent")
+        .select("id, client_id, sms_sent, email_sent, source, created_at, click_count, first_clicked_at")
         .order("created_at", { ascending: false })
         .limit(10),
       supabase
         .from("review_requests_pending")
-        .select("id, client_id, appointment_id, scheduled_for, source, created_at")
+        .select("id, client_id, appointment_id, scheduled_for, source, created_at, attempts, last_error")
         .order("scheduled_for", { ascending: true })
         .limit(10),
     ]);
@@ -66,12 +95,16 @@ export async function GET() {
     ok: true,
     enabled,
     bulkEmailEnabled,
-    primaryReviewChannel: bulkEmailEnabled ? "bulk_email_and_fresha" : "fresha",
+    primaryReviewChannel: "square_24h",
     counts: {
       pendingTotal: pendingTotal ?? 0,
       pendingDue: pendingDue ?? 0,
       sentLast30Days: sent30 ?? 0,
       sentLast60Days: sent60 ?? 0,
+      smsLast30Days: sms30 ?? 0,
+      emailLast30Days: email30 ?? 0,
+      clicksLast30Days: clicks30 ?? 0,
+      retrying: retrying ?? 0,
       clientsInCooldown: inCooldownUnique,
     },
     recent: {
