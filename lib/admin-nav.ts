@@ -110,6 +110,7 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
     section: "RE GEN",
     collapsed: true,
     items: [
+      { href: "https://tryregenrx.com/ops", label: "REGEN RX Ops", icon: "🖥️", external: true },
       { href: "/admin/rx/portal", label: "RE GEN Shop", icon: "💗" },
       { href: "/rx-portal", label: "RE GEN Orders", icon: "📦" },
       { href: "/admin/rx", label: "RX Command", icon: "🎯" },

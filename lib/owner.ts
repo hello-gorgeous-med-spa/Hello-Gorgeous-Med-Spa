@@ -13,6 +13,7 @@ export const OWNER_HOME_PATH = "/admin/owner";
 
 export type OwnerTileId =
   | "overview"
+  | "regen-ops"
   | "live-state"
   | "manual"
   | "website"
@@ -103,6 +104,15 @@ export const OWNER_TILES: OwnerTile[] = [
   },
 
   // Business tiles
+  {
+    id: "regen-ops",
+    title: "REGEN RX Ops",
+    description: "Today queue, charts, orders, labs, and pharmacy fulfill.",
+    href: "https://tryregenrx.com/ops",
+    icon: "💊",
+    primary: true,
+    category: "business",
+  },
   {
     id: "services",
     title: "Services & Pricing",

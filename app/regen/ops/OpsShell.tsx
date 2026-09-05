@@ -3,11 +3,16 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { OPS_NAV, OPS_STAFF, getOpsStaff, type OpsStaffId } from '@/lib/regen/ops-staff';
+import { OPS_NAV_GROUPS, OPS_STAFF, getOpsStaff, type OpsStaffId } from '@/lib/regen/ops-staff';
 
 const OpsStaffContext = createContext<ReturnType<typeof getOpsStaff>>(null);
 export function useOpsStaff() {
   return useContext(OpsStaffContext);
+}
+
+function pathMatches(normalizedPath: string, href: string) {
+  if (href === '/ops') return normalizedPath === '/ops' || normalizedPath === '';
+  return normalizedPath === href || normalizedPath.startsWith(`${href}/`);
 }
 
 export default function OpsShell({
@@ -24,11 +29,16 @@ export default function OpsShell({
   const [passInput, setPassInput] = useState('');
   const [authError, setAuthError] = useState('');
   const [signingIn, setSigningIn] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     setStaffId(initialStaffId);
     if (initialStaffId) sessionStorage.setItem('regen-ops-staff', initialStaffId);
   }, [initialStaffId]);
+
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
 
   const current = getOpsStaff(staffId);
 
@@ -50,6 +60,13 @@ export default function OpsShell({
     sessionStorage.setItem('regen-ops-staff', json.staff.id);
     setStaffId(json.staff.id);
     setPassInput('');
+    router.refresh();
+  };
+
+  const signOut = () => {
+    fetch('/api/regen/ops/session', { method: 'DELETE' });
+    sessionStorage.removeItem('regen-ops-staff');
+    setStaffId(null);
     router.refresh();
   };
 
@@ -119,59 +136,97 @@ export default function OpsShell({
 
   const normalizedPath = pathname.replace('/regen/ops', '/ops').replace('/regen', '');
 
-  return (
-    <div className="min-h-screen bg-slate-950">
-      <header className="fixed top-0 left-0 right-0 h-16 bg-slate-900/95 border-b border-white/10 z-50 flex items-center justify-between px-4">
-        <Link href="/ops" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold">R</div>
-          <div>
-            <h1 className="text-white font-bold leading-tight">REGEN RX</h1>
-            <p className="text-teal-400/70 text-xs">Staff OS</p>
-          </div>
-        </Link>
-        <nav className="hidden md:flex items-center gap-1">
-          {OPS_NAV.map((item) => {
-            const active = normalizedPath === item.href || (item.href !== '/ops' && normalizedPath.startsWith(item.href));
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`px-3 py-2 rounded-lg text-sm font-medium ${
-                  active ? 'bg-teal-500/20 text-white' : 'text-white/60 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-        <div className="flex items-center gap-3">
-          <div className="text-right hidden sm:block">
-            <p className="text-white text-sm font-medium">{current.short}</p>
-            <p className="text-white/40 text-xs">{current.role}</p>
-          </div>
-          <button
-            onClick={() => {
-              fetch('/api/regen/ops/session', { method: 'DELETE' });
-              sessionStorage.removeItem('regen-ops-staff');
-              setStaffId(null);
-              router.refresh();
-            }}
-            className="text-red-400 text-sm px-3 py-2 rounded-lg hover:bg-white/5"
-          >
-            Sign out
-          </button>
+  const sidebar = (
+    <aside className="flex h-full w-64 flex-col bg-black border-r border-white/10">
+      <Link href="/ops" className="flex items-center gap-3 px-4 py-5 border-b border-white/10">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold">R</div>
+        <div>
+          <h1 className="text-white font-bold leading-tight">REGEN RX</h1>
+          <p className="text-teal-400/80 text-xs">Staff OS · Backend</p>
         </div>
-      </header>
-      <nav className="md:hidden fixed top-16 left-0 right-0 z-40 bg-slate-900 border-b border-white/10 flex overflow-x-auto">
-        {OPS_NAV.map((item) => (
-          <Link key={item.href} href={item.href} className="px-4 py-3 text-sm text-white/70 whitespace-nowrap">
-            {item.label}
-          </Link>
+      </Link>
+
+      <nav className="flex-1 overflow-y-auto px-3 py-4">
+        {OPS_NAV_GROUPS.map((group) => (
+          <div key={group.section} className="mb-5">
+            <p className="px-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-teal-400/80">{group.section}</p>
+            <div className="space-y-1">
+              {group.items.map((item) => {
+                const active = pathMatches(normalizedPath, item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium ${
+                      active ? 'bg-teal-500 text-white' : 'text-white/70 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    <span className="w-4 text-center text-xs opacity-80">{item.icon}</span>
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
         ))}
       </nav>
-      <main className="pt-16 md:pt-16 min-h-screen">
-        <div className="p-4 md:p-6 pt-16 md:pt-6 max-w-6xl mx-auto">
+
+      <div className="border-t border-white/10 p-3 space-y-2">
+        {current.id === 'danielle' && (
+          <a
+            href="https://hellogorgeousmedspa.com/admin/owner"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-amber-300 hover:bg-white/5"
+          >
+            HG Owner Control
+          </a>
+        )}
+        <div className="flex items-center gap-3 px-3 py-2">
+          <div className={`w-8 h-8 rounded-full ${current.color} flex items-center justify-center text-white text-sm font-semibold`}>
+            {current.short[0]}
+          </div>
+          <div className="min-w-0">
+            <p className="text-white text-sm font-medium truncate">{current.short}</p>
+            <p className="text-white/40 text-xs">{current.role}</p>
+          </div>
+        </div>
+        <button onClick={signOut} className="w-full text-left px-3 py-2 rounded-lg text-sm text-red-400 hover:bg-white/5">
+          Sign out
+        </button>
+      </div>
+    </aside>
+  );
+
+  return (
+    <div className="min-h-screen bg-slate-950">
+      <div className="hidden md:fixed md:inset-y-0 md:left-0 md:z-40 md:block">{sidebar}</div>
+
+      {sidebarOpen && (
+        <div className="md:hidden fixed inset-0 z-50 flex">
+          <button className="absolute inset-0 bg-black/60" aria-label="Close menu" onClick={() => setSidebarOpen(false)} />
+          <div className="relative z-10 h-full">{sidebar}</div>
+        </div>
+      )}
+
+      <header className="fixed top-0 right-0 left-0 md:left-64 h-14 bg-slate-900/95 border-b border-white/10 z-30 flex items-center justify-between px-4">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            className="md:hidden rounded-lg px-3 py-2 text-white/80 bg-white/5"
+            onClick={() => setSidebarOpen(true)}
+          >
+            Menu
+          </button>
+          <p className="text-white/50 text-sm">
+            {current.role} view · {current.name}
+          </p>
+        </div>
+        <Link href="/ops/analytics" className="text-teal-400 text-sm font-medium hover:text-teal-300">
+          Dashboard
+        </Link>
+      </header>
+
+      <main className="pt-14 md:pl-64 min-h-screen">
+        <div className="p-4 md:p-6 max-w-6xl">
           <OpsStaffContext.Provider value={current}>{children}</OpsStaffContext.Provider>
         </div>
       </main>

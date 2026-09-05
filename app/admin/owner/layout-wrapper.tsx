@@ -8,6 +8,7 @@ import ModeSwitcher from '@/components/ModeSwitcher';
 // Operating System Navigation
 const OS_NAV = [
   { href: '/admin/owner', label: 'Overview', icon: '🏠' },
+  { href: 'https://tryregenrx.com/ops', label: 'REGEN RX Ops', icon: '💊' },
   { href: '/admin/owner/live-state', label: 'Live System State', icon: '📡' },
   { href: '/admin/owner/rules', label: 'Rules & Precedence', icon: '⚖️' },
   { href: '/admin/owner/features', label: 'Modules & Features', icon: '🎚️' },
