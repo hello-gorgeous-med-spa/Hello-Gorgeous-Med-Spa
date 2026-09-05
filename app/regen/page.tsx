@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
+import { RegenExplainerHero } from '@/components/regen/RegenExplainerHero';
 
 const BRAND = {
   teal: '#0D9488',      // Bright teal (molecules)
@@ -262,32 +263,16 @@ export default function RegenLandingPage() {
 
       <RegenPublicNav fixed />
 
-      {/* Hero Section - Video Centered */}
-      <section className="pt-32 pb-8 md:pt-40 md:pb-12 px-6 relative overflow-hidden">
-        {/* Background molecular pattern */}
-        <div className="absolute inset-0 opacity-20" style={{
-          backgroundImage: `radial-gradient(circle at 20% 50%, ${BRAND.teal}40 0%, transparent 50%), radial-gradient(circle at 80% 50%, ${BRAND.pink}30 0%, transparent 50%)`,
-        }} />
-        
-        <div className="max-w-5xl mx-auto relative text-center">
-          {/* Video - Front and Center */}
-          <div className="mb-8 animate-scale-in">
-            <div 
-              className="relative rounded-2xl overflow-hidden mx-auto max-w-2xl"
-              style={{ boxShadow: `0 0 80px ${BRAND.teal}40, 0 0 40px ${BRAND.pink}30` }}
-            >
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-                className="w-full h-auto"
-              >
-                <source src="/images/regen/logo-reveal.mp4" type="video/mp4" />
-              </video>
-            </div>
-          </div>
+      {/* Hero Section - 60s explainer */}
+      <section className="pt-[6.75rem] md:pt-[7.25rem] relative overflow-hidden">
+        <div
+          className="relative mx-auto max-w-[1400px] overflow-hidden md:rounded-b-3xl"
+          style={{ boxShadow: `0 0 80px ${BRAND.teal}40, 0 0 40px ${BRAND.pink}30` }}
+        >
+          <RegenExplainerHero />
+        </div>
 
+        <div className="max-w-5xl mx-auto relative text-center px-6 pt-10 pb-8 md:pt-12 md:pb-12">
           {/* Tagline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-6 animate-fade-in-up delay-100" style={{ color: BRAND.cream }}>
             <span style={{ color: BRAND.teal }}>Renew.</span>{' '}
