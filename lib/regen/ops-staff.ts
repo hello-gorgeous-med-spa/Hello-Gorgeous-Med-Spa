@@ -48,6 +48,7 @@ export const OPS_NAV_GROUPS = [
     items: [
       { href: '/ops/calculator', label: 'Calculator', icon: '∑' },
       { href: '/ops/reconstitution', label: 'Reconstitution', icon: '💧' },
+      { href: '/ops/tirzepatide', label: 'Tirzepatide', icon: '↓' },
     ],
   },
 ] as const;

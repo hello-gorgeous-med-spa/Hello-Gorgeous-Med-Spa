@@ -53,8 +53,9 @@ export const REGEN_WEIGHT_LOSS_PRICING: RegenProductPrice[] = [
   { id: "semaglutide-4mg", name: "Compounded Semaglutide 4mg", category: "weight-loss", wholesale: 50, ...calcRetailPricing(50), priceLabel: "$125/mo", isFromPrice: false, rx: true },
   { id: "semaglutide-8mg", name: "Compounded Semaglutide 8mg", category: "weight-loss", wholesale: 70, ...calcRetailPricing(70), priceLabel: "$175/mo", isFromPrice: false, rx: true },
   { id: "semaglutide-16mg", name: "Compounded Semaglutide 16mg", category: "weight-loss", wholesale: 110, ...calcRetailPricing(110), priceLabel: "$275/mo", isFromPrice: false, rx: true },
-  // Tirzepatide
-  { id: "tirzepatide-10mg", name: "Compounded Tirzepatide 10mg", category: "weight-loss", wholesale: 50, ...calcRetailPricing(50), priceLabel: "$125/mo", isFromPrice: true, rx: true },
+  // Tirzepatide — Formulation 1 mL @ 12.5 mg/mL is $40. Client quotes live in tirzepatide-vial-pricing.ts
+  { id: "tirzepatide-12.5-1ml", name: "Compounded Tirzepatide 12.5mg/mL (1mL)", category: "weight-loss", wholesale: 40, ...calcRetailPricing(40), priceLabel: "$100/vial", isFromPrice: true, rx: true, coldShip: true },
+  { id: "tirzepatide-10mg", name: "Compounded Tirzepatide 10mg", category: "weight-loss", wholesale: 50, ...calcRetailPricing(50), priceLabel: "$125/mo", isFromPrice: false, rx: true },
   { id: "tirzepatide-20mg", name: "Compounded Tirzepatide 20mg", category: "weight-loss", wholesale: 90, ...calcRetailPricing(90), priceLabel: "$225/mo", isFromPrice: false, rx: true },
   { id: "tirzepatide-40mg", name: "Compounded Tirzepatide 40mg", category: "weight-loss", wholesale: 130, ...calcRetailPricing(130), priceLabel: "$325/mo", isFromPrice: false, rx: true },
   { id: "tirzepatide-60mg", name: "Compounded Tirzepatide 60mg", category: "weight-loss", wholesale: 150, ...calcRetailPricing(150), priceLabel: "$375/mo", isFromPrice: false, rx: true },

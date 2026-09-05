@@ -75,11 +75,11 @@ export const SEMA_STEPS = [
 ] as const;
 
 export const TIRZ_STEPS = [
-  { weeks: '1–4', dose: '2.5 mg/week', price: 235 },
-  { weeks: '5–8', dose: '5 mg/week', price: 275 },
-  { weeks: '9–12', dose: '7.5 mg/week', price: 315 },
-  { weeks: '13–16', dose: '10 mg/week', price: 350 },
-  { weeks: '17+', dose: '12.5 mg/week', price: 395 },
+  { weeks: '1–4', dose: '2.5 mg/week', price: 100 },
+  { weeks: '5–8', dose: '5 mg/week', price: 200 },
+  { weeks: '9–12', dose: '7.5 mg/week', price: 300 },
+  { weeks: '13–16', dose: '10 mg/week', price: 400 },
+  { weeks: '17+', dose: '12.5 mg/week', price: 400 },
 ] as const;
 
 export function typicalGlp1Step(med: 'sema' | 'tirz', week: number) {

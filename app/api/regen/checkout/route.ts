@@ -6,6 +6,7 @@ import {
   isRegenStripeConfigured,
 } from '@/lib/regen-stripe';
 import { isVitaminVialProgram, REGEN_VIAL_SHIPPING_USD } from '@/lib/regen/vitamin-vial-pricing';
+import { isTirzepatideProgram, quoteTirzepatideFromRequest } from '@/lib/regen/tirzepatide-vial-pricing';
 
 // POST /api/regen/checkout
 // Create a Stripe checkout session or payment intent for Re Gen
@@ -62,12 +63,29 @@ export async function POST(request: NextRequest) {
     if (useHostedCheckout) {
       const goal = String(body.metadata?.goal || patientInfo?.goal || '');
       const program = String(body.metadata?.program || patientInfo?.program || '');
-      const lineItems = items.map((item: { name: string; amount: number; quantity?: number }) => ({
-        name: item.name,
-        amount: item.amount,
-        quantity: item.quantity || 1,
-      }));
-      if (isVitaminVialProgram(program, goal) && !lineItems.some((i) => /shipping/i.test(i.name))) {
+      const tirzQuote = isTirzepatideProgram(program)
+        ? quoteTirzepatideFromRequest({
+            weeklyMg: body.metadata?.tirzWeeklyMg,
+            termDays: body.metadata?.tirzTermDays,
+          })
+        : null;
+      if (isTirzepatideProgram(program) && !tirzQuote) {
+        return NextResponse.json(
+          { error: 'Choose a tirzepatide weekly request and 30, 60, or 90 day supply' },
+          { status: 400 }
+        );
+      }
+      const lineItems = tirzQuote
+        ? [{ name: tirzQuote.lineName, amount: tirzQuote.retail, quantity: 1 }]
+        : items.map((item: { name: string; amount: number; quantity?: number }) => ({
+            name: item.name,
+            amount: item.amount,
+            quantity: item.quantity || 1,
+          }));
+      if (
+        (isVitaminVialProgram(program, goal) || tirzQuote) &&
+        !lineItems.some((i) => /shipping/i.test(i.name))
+      ) {
         lineItems.push({
           name: 'Pharmacy shipping',
           amount: REGEN_VIAL_SHIPPING_USD,

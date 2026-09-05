@@ -28,6 +28,14 @@ const MEDICATION_PRESETS = [
     unit: 'mg',
   },
   { 
+    name: 'Tirzepatide 12.5mg/mL (Formulation 1mL)', 
+    concentration: 12.5, 
+    vialVolume: 1, 
+    costPerVial: 40,
+    typicalDoses: [2.5, 5.0, 7.5, 10.0, 12.5, 15.0],
+    unit: 'mg',
+  },
+  { 
     name: 'Tirzepatide 30mg/mL', 
     concentration: 30, 
     vialVolume: 2, 

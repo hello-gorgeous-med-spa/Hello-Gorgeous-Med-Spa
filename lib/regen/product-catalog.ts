@@ -115,7 +115,8 @@ export const WEIGHT_LOSS_PRODUCTS: RegenProduct[] = [
   product("sema-8mg", "Compounded Semaglutide 8mg", "Semaglutide 8mg", "weight-loss", "injectable", "8 mg/2 mL", "2 mL vial", 70),
   product("sema-16mg", "Compounded Semaglutide 16mg", "Semaglutide 16mg", "weight-loss", "injectable", "16 mg/4 mL", "4 mL vial", 110, undefined, "High dose"),
   
-  // Tirzepatide Injectable
+  // Tirzepatide Injectable — Formulation 1 mL @ 12.5 mg/mL is $40
+  product("tirz-12.5-1ml", "Compounded Tirzepatide 12.5mg/mL", "Tirzepatide 12.5mg/mL", "weight-loss", "injectable", "12.5 mg/1 mL", "1 mL vial", 40, undefined, "Formulation vial"),
   product("tirz-10mg", "Compounded Tirzepatide 10mg", "Tirzepatide 10mg", "weight-loss", "injectable", "10 mg/1 mL", "1 mL vial", 50, undefined, "Starter dose"),
   product("tirz-20mg", "Compounded Tirzepatide 20mg", "Tirzepatide 20mg", "weight-loss", "injectable", "20 mg/1 mL", "1 mL vial", 90),
   product("tirz-40mg", "Compounded Tirzepatide 40mg", "Tirzepatide 40mg", "weight-loss", "injectable", "40 mg/2 mL", "2 mL vial", 130),

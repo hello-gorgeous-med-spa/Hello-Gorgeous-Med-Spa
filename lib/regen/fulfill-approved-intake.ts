@@ -32,13 +32,26 @@ export async function fulfillApprovedIntake(intake: {
   const supabase = getSupabase();
   if (!supabase) throw new Error('Database not configured');
 
-  const product = GOAL_PRODUCT[intake.goal] || {
+  const history = (intake.medical_history || {}) as Record<string, unknown>;
+  const tirz = history.tirzepatide && typeof history.tirzepatide === 'object'
+    ? (history.tirzepatide as Record<string, unknown>)
+    : null;
+  const program = String(history.program || '');
+
+  let product = GOAL_PRODUCT[intake.goal] || {
     productId: intake.goal || 'regen-rx',
     productName: intake.goal || 'REGEN RX Prescription',
     sig: 'Use as directed by your REGEN RX provider',
   };
+  if (program === 'tirzepatide' || tirz) {
+    const weekly = tirz?.weeklyMg != null ? `${tirz.weeklyMg} mg/week` : '';
+    product = {
+      productId: 'glp1-tirz',
+      productName: weekly ? `Tirzepatide ${weekly}` : 'Tirzepatide',
+      sig: 'Use as directed by your REGEN RX provider',
+    };
+  }
 
-  const history = (intake.medical_history || {}) as Record<string, unknown>;
   const shipping = (history.shipping || {}) as Record<string, string>;
   const { firstName, lastName } = splitName(intake.name);
   const orderNumber = `RX-${Date.now().toString(36).toUpperCase()}`;
@@ -51,7 +64,14 @@ export async function fulfillApprovedIntake(intake: {
       patient_id: intake.patient_id || null,
       intake_id: intake.id,
       pharmacy_name: 'Formulation Rx',
-      items: [{ name: product.productName, qty: 1, goal: intake.goal }],
+      items: [{
+        name: product.productName,
+        qty: Number(tirz?.vials || 1),
+        goal: intake.goal,
+        weeklyMg: tirz?.weeklyMg ?? null,
+        termDays: tirz?.termDays ?? null,
+        vials: tirz?.vials ?? null,
+      }],
       subtotal: total,
       shipping: 0,
       discount: 0,
@@ -93,11 +113,16 @@ export async function fulfillApprovedIntake(intake: {
         prescriptions: [{
           productId: product.productId,
           productName: product.productName,
-          quantity: 1,
+          quantity: Number(tirz?.vials || 1),
           sig: product.sig,
-          daysSupply: 30,
+          daysSupply: Number(tirz?.termDays || 30),
         }],
-        notes: intake.review_notes || undefined,
+        notes: [
+          intake.review_notes,
+          tirz
+            ? `Requested: Tirzepatide ${tirz.weeklyMg} mg/week × ${tirz.termDays} days · ${tirz.vials} × 1 mL @ 12.5 mg/mL`
+            : null,
+        ].filter(Boolean).join(' · ') || undefined,
         metadata: {
           regenOrderId: order.id,
           orderNumber,

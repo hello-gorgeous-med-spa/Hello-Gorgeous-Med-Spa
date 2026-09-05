@@ -223,7 +223,7 @@ function SitesTool() {
 function SavingsTool() {
   const [med, setMed] = useState<'sema' | 'tirz'>('sema');
   const [months, setMonths] = useState(6);
-  const regen = med === 'sema' ? 195 : 235;
+  const regen = med === 'sema' ? 195 : 100;
   const national = med === 'sema' ? 349 : 449;
   const save = (national - regen) * months;
   return (

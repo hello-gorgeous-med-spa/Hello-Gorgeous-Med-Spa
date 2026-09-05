@@ -28,7 +28,7 @@ const MEDICATIONS = [
     howItWorks: 'Dual-action GLP-1 + GIP receptor agonist for enhanced appetite control and metabolic benefits.',
     typicalResults: '15-22% body weight loss over 12-16 weeks',
     dosing: 'Weekly injection, starting low and titrating up',
-    price: '$399/month',
+    price: 'from $100/month',
     sideEffects: ['Nausea (usually temporary)', 'Diarrhea', 'Decreased appetite', 'Injection site reactions'],
   },
 ];

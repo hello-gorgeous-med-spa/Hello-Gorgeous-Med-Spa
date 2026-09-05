@@ -55,6 +55,9 @@ export default function PatientChartClient({
   const patient = (data.patient || {}) as Record<string, unknown>;
   const primary = intakes[0] || {};
   const history = (primary.medical_history || {}) as Record<string, unknown>;
+  const tirz = history.tirzepatide && typeof history.tirzepatide === 'object'
+    ? (history.tirzepatide as Record<string, unknown>)
+    : null;
   const shippingFromHistory = (history.shipping || {}) as Record<string, string>;
   const shipping = {
     street1: shippingFromHistory.street1 || String(patient.address_line1 || ''),
@@ -94,18 +97,26 @@ export default function PatientChartClient({
         <section className="bg-white/5 rounded-2xl p-5 border border-white/10">
           <h2 className="text-white font-semibold mb-3">Visit</h2>
           <p className="text-white/70 text-sm">Goal: {String(primary.goal || '—')}</p>
+          <p className="text-white/70 text-sm">Program: {String(history.program || '—')}</p>
           <p className="text-white/70 text-sm">Status: {String(primary.status || '—').replace(/_/g, ' ')}</p>
+          {tirz && (
+            <p className="text-pink-300 text-sm mt-2">
+              Requested tirz: {String(tirz.requestLabel || `${tirz.weeklyMg} mg/week · ${tirz.termDays} days`)}
+              {tirz.vials != null ? ` · ${String(tirz.vials)} vial(s)` : ''}
+              {tirz.retail != null ? ` · $${String(tirz.retail)}` : ''}
+            </p>
+          )}
           <Link href="/ops" className="inline-block mt-3 text-teal-400 text-sm">Act on Today queue →</Link>
         </section>
       </div>
 
       <section className="bg-white/5 rounded-2xl p-5 border border-white/10">
         <h2 className="text-white font-semibold mb-3">Screening</h2>
-        {Object.keys(history).filter((k) => k !== 'shipping').length === 0 && (
+        {Object.keys(history).filter((k) => k !== 'shipping' && k !== 'tirzepatide' && k !== 'program').length === 0 && (
           <p className="text-white/40 text-sm">No screening answers stored.</p>
         )}
         <dl className="space-y-2 text-sm">
-          {Object.entries(history).filter(([k]) => k !== 'shipping').map(([k, v]) => (
+          {Object.entries(history).filter(([k]) => k !== 'shipping' && k !== 'tirzepatide').map(([k, v]) => (
             <div key={k}>
               <dt className="text-white/40">{k}</dt>
               <dd className="text-white">{typeof v === 'object' ? JSON.stringify(v) : String(v)}</dd>

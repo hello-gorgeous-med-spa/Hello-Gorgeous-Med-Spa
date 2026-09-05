@@ -197,6 +197,12 @@ export default function TodayQueue({
                 <p className="text-white font-semibold text-lg">{i.name}</p>
                 <p className="text-white/50 text-sm">{i.email} {i.phone ? `· ${i.phone}` : ''}</p>
                 <p className="text-white/40 text-xs mt-1">{i.goal} · {i.status.replace(/_/g, ' ')} · {timeAgo(i.created_at)}{i.amount_paid != null ? ` · $${i.amount_paid}` : ''}</p>
+                {i.medical_history?.tirzepatide && typeof i.medical_history.tirzepatide === 'object' && (
+                  <p className="text-pink-300/80 text-xs mt-1">
+                    {String((i.medical_history.tirzepatide as Record<string, unknown>).requestLabel
+                      || `${(i.medical_history.tirzepatide as Record<string, unknown>).weeklyMg} mg/week`)}
+                  </p>
+                )}
               </div>
               <div className="flex gap-2">
                 <Link href={`/ops/patients/${encodeURIComponent(i.email)}`} className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm">Chart</Link>
@@ -212,6 +218,12 @@ export default function TodayQueue({
           <div className="bg-slate-800 rounded-2xl p-6 max-w-lg w-full border border-white/20" onClick={(e) => e.stopPropagation()}>
             <h2 className="text-white text-xl font-bold mb-1">{selected.name}</h2>
             <p className="text-white/50 text-sm mb-4">{selected.email} · {selected.goal}</p>
+            {selected.medical_history?.tirzepatide && typeof selected.medical_history.tirzepatide === 'object' && (
+              <p className="text-pink-300 text-sm mb-4">
+                Requested: {String((selected.medical_history.tirzepatide as Record<string, unknown>).requestLabel
+                  || `${(selected.medical_history.tirzepatide as Record<string, unknown>).weeklyMg} mg/week × ${(selected.medical_history.tirzepatide as Record<string, unknown>).termDays} days`)}
+              </p>
+            )}
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}

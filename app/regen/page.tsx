@@ -23,7 +23,7 @@ const PROGRAMS = [
     title: 'Weight Loss',
     subtitle: 'GLP-1 Medications',
     description: 'Semaglutide & Tirzepatide — same active ingredients as Ozempic® and Mounjaro®',
-    price: '$299',
+    price: 'from $100',
     href: '/start?goal=weight-loss',
     image: '/images/regen/marketing/woman-wellness.png',
   },

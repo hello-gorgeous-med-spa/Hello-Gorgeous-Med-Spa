@@ -5,6 +5,14 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { TREATMENT_CONSENTS, getTreatmentCategory, CONSENT_VERSION, type TreatmentCategory } from '@/lib/regen/informed-consent';
 import { formatUsd, isVitaminVialProgram, REGEN_VIAL_SHIPPING_USD, vitaminVialRetailUsd } from '@/lib/regen/vitamin-vial-pricing';
+import { TirzepatidePlanPicker } from '@/components/regen/TirzepatidePlanPicker';
+import {
+  isTirzepatideProgram,
+  quoteTirzepatide,
+  tirzepatideFromPrice,
+  type TirzTermDays,
+  type TirzWeeklyDose,
+} from '@/lib/regen/tirzepatide-vial-pricing';
 
 // Brand colors - REGEN RX
 const BRAND = {
@@ -25,7 +33,7 @@ const GOALS = [
     icon: '📉',
     programs: [
       { id: 'semaglutide', name: 'Semaglutide Program', price: 299, description: 'Same active ingredient as Ozempic® & Wegovy®' },
-      { id: 'tirzepatide', name: 'Tirzepatide Program', price: 399, description: 'Same active ingredient as Mounjaro® & Zepbound®' },
+      { id: 'tirzepatide', name: 'Tirzepatide Program', price: tirzepatideFromPrice(), fromPrice: true, description: 'Same active ingredient as Mounjaro® & Zepbound® — pick your monthly request' },
     ],
   },
   {
@@ -101,7 +109,7 @@ const GOALS = [
   },
 ];
 
-type Step = 'goal' | 'program' | 'info' | 'screening' | 'consent' | 'checkout';
+type Step = 'goal' | 'program' | 'tirz-plan' | 'info' | 'screening' | 'consent' | 'checkout';
 
 // Medical screening questions by goal
 const SCREENING_QUESTIONS: Record<string, Array<{id: string; question: string; type: 'yesno' | 'text'; disqualifyIf?: 'yes' | 'no'}>> = {
@@ -132,10 +140,17 @@ const SCREENING_QUESTIONS: Record<string, Array<{id: string; question: string; t
 function RegenStartContent() {
   const searchParams = useSearchParams();
   const initialGoal = searchParams.get('goal') || '';
+  const initialProgram = searchParams.get('program') || '';
   
-  const [step, setStep] = useState<Step>(initialGoal ? 'program' : 'goal');
-  const [selectedGoal, setSelectedGoal] = useState(initialGoal);
-  const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
+  const [step, setStep] = useState<Step>(
+    initialProgram === 'tirzepatide' ? 'tirz-plan' : initialGoal ? 'program' : 'goal'
+  );
+  const [selectedGoal, setSelectedGoal] = useState(initialGoal || (initialProgram === 'tirzepatide' ? 'weight-loss' : ''));
+  const [selectedProgram, setSelectedProgram] = useState<string | null>(
+    initialProgram === 'tirzepatide' ? 'tirzepatide' : null
+  );
+  const [tirzWeeklyMg, setTirzWeeklyMg] = useState<TirzWeeklyDose>(2.5);
+  const [tirzTermDays, setTirzTermDays] = useState<TirzTermDays>(30);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -168,14 +183,23 @@ function RegenStartContent() {
 
   const currentGoal = GOALS.find(g => g.id === selectedGoal);
   const currentProgram = currentGoal?.programs.find(p => p.id === selectedProgram);
+  const tirzQuote = isTirzepatideProgram(selectedProgram) ? quoteTirzepatide(tirzWeeklyMg, tirzTermDays) : null;
+  const checkoutAmount = tirzQuote?.retail ?? currentProgram?.price ?? 299;
+  const checkoutName = tirzQuote?.lineName ?? currentProgram?.name ?? 'RE GEN Program';
+  const addsVialShipping = Boolean(tirzQuote) || isVitaminVialProgram(currentProgram?.id, selectedGoal);
 
   const handleGoalSelect = (goalId: string) => {
     setSelectedGoal(goalId);
+    setSelectedProgram(null);
     setStep('program');
   };
 
   const handleProgramSelect = (programId: string) => {
     setSelectedProgram(programId);
+    if (isTirzepatideProgram(programId)) {
+      setStep('tirz-plan');
+      return;
+    }
     setStep('info');
   };
 
@@ -269,12 +293,26 @@ function RegenStartContent() {
           medicalHistory: {
             ...screeningAnswers,
             dob: formData.dob,
+            program: selectedProgram,
             shipping: {
               street1: formData.address,
               city: formData.city,
               state: 'IL',
               zip: formData.zip,
             },
+            ...(tirzQuote
+              ? {
+                  tirzepatide: {
+                    weeklyMg: tirzQuote.weeklyMg,
+                    termDays: tirzQuote.termDays,
+                    vials: tirzQuote.vials,
+                    retail: tirzQuote.retail,
+                    wholesale: tirzQuote.wholesale,
+                    strength: '12.5 mg/mL',
+                    requestLabel: tirzQuote.requestLabel,
+                  },
+                }
+              : {}),
           },
           age: formData.dob ? Math.floor((Date.now() - new Date(formData.dob).getTime()) / 31557600000) : undefined,
           hipaaConsent: true,
@@ -297,8 +335,8 @@ function RegenStartContent() {
           name: `${formData.firstName} ${formData.lastName}`,
           phone: formData.phone,
           items: [{
-            name: currentProgram?.name || 'RE GEN Program',
-            amount: currentProgram?.price || 299,
+            name: checkoutName,
+            amount: checkoutAmount,
             quantity: 1,
           }],
           mode: 'payment',
@@ -311,6 +349,12 @@ function RegenStartContent() {
             dob: formData.dob,
             screening: JSON.stringify(screeningAnswers),
             consent: JSON.stringify(consentData),
+            ...(tirzQuote
+              ? {
+                  tirzWeeklyMg: String(tirzQuote.weeklyMg),
+                  tirzTermDays: String(tirzQuote.termDays),
+                }
+              : {}),
           },
         }),
       });
@@ -350,9 +394,10 @@ function RegenStartContent() {
           <div className="flex items-center justify-between">
             {['Goal', 'Program', 'Info', 'Medical', 'Consent', 'Pay'].map((label, idx) => {
               const stepMap: Step[] = ['goal', 'program', 'info', 'screening', 'consent', 'checkout'];
-              const currentStepIdx = stepMap.indexOf(step);
+              const progressStep = step === 'tirz-plan' ? 'program' : step;
+              const currentStepIdx = stepMap.indexOf(progressStep);
               const isActive = currentStepIdx >= idx;
-              const isCurrent = stepMap[idx] === step;
+              const isCurrent = stepMap[idx] === progressStep;
               return (
                 <div key={label} className="flex items-center">
                   <div 
@@ -430,7 +475,10 @@ function RegenStartContent() {
                   key={program.id}
                   onClick={() => handleProgramSelect(program.id)}
                   className="w-full p-6 rounded-xl text-left transition-all hover:scale-[1.02] group"
-                  style={{ backgroundColor: BRAND.darkAlt, border: `1px solid ${BRAND.teal}30` }}
+                  style={{
+                    backgroundColor: BRAND.darkAlt,
+                    border: `1px solid ${selectedProgram === program.id ? BRAND.pink : `${BRAND.teal}30`}`,
+                  }}
                 >
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="text-xl font-bold transition-colors" style={{ color: BRAND.cream }}>
@@ -438,6 +486,7 @@ function RegenStartContent() {
                     </h3>
                     <span className="text-right">
                       <span className="text-2xl font-bold" style={{ color: BRAND.pink }}>
+                        {'fromPrice' in program && program.fromPrice ? 'from ' : ''}
                         {formatUsd(program.price)}
                         <span className="text-sm font-normal" style={{ color: BRAND.gray }}>
                           {'unit' in program && program.unit === 'vial' ? ' per vial' : '/mo'}
@@ -452,6 +501,35 @@ function RegenStartContent() {
                 </button>
               ))}
             </div>
+          </div>
+        )}
+
+        {step === 'tirz-plan' && (
+          <div>
+            <button onClick={() => setStep('program')} className="flex items-center gap-2 mb-6 hover:opacity-80" style={{ color: BRAND.gray }}>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+            <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.cream }}>Request tirzepatide</h1>
+            <p className="mb-8" style={{ color: BRAND.gray }}>
+              Choose what you want to pay for this month, then 30, 60, or 90 days. Your provider confirms the prescribed dose after review. Compounded tirzepatide is not FDA-approved.
+            </p>
+            <TirzepatidePlanPicker
+              weeklyMg={tirzWeeklyMg}
+              termDays={tirzTermDays}
+              onWeeklyChange={setTirzWeeklyMg}
+              onTermChange={setTirzTermDays}
+            />
+            <button
+              type="button"
+              onClick={() => setStep('info')}
+              className="w-full mt-6 py-4 text-white font-bold rounded-lg"
+              style={{ backgroundColor: BRAND.pink }}
+            >
+              Request this plan — {formatUsd(tirzQuote?.total ?? 0)} including shipping
+            </button>
           </div>
         )}
 
@@ -471,12 +549,17 @@ function RegenStartContent() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-semibold" style={{ color: BRAND.cream }}>{currentProgram.name}</p>
-                  <p className="text-sm" style={{ color: BRAND.teal }}>{currentProgram.description}</p>
+                  <p className="text-sm" style={{ color: BRAND.teal }}>
+                    {tirzQuote ? tirzQuote.requestLabel : currentProgram.description}
+                  </p>
                 </div>
                 <span className="text-right">
-                  <span className="text-2xl font-bold" style={{ color: BRAND.pink }}>{formatUsd(currentProgram.price)}</span>
-                  {isVitaminVialProgram(currentProgram.id, selectedGoal) && (
-                    <span className="block text-xs" style={{ color: BRAND.gray }}>per vial · + {formatUsd(REGEN_VIAL_SHIPPING_USD)} shipping</span>
+                  <span className="text-2xl font-bold" style={{ color: BRAND.pink }}>{formatUsd(checkoutAmount)}</span>
+                  {addsVialShipping && (
+                    <span className="block text-xs" style={{ color: BRAND.gray }}>
+                      {tirzQuote ? `${tirzQuote.termDays} days · ${tirzQuote.vials} vial${tirzQuote.vials === 1 ? '' : 's'}` : 'per vial'}
+                      {' · + '}{formatUsd(REGEN_VIAL_SHIPPING_USD)} shipping
+                    </span>
                   )}
                 </span>
               </div>
@@ -923,9 +1006,9 @@ function RegenStartContent() {
                   >
                     {loading
                       ? 'Processing...'
-                      : isVitaminVialProgram(currentProgram.id, selectedGoal)
-                        ? `Sign Consent & Proceed to Payment — ${formatUsd(currentProgram.price)} + ${formatUsd(REGEN_VIAL_SHIPPING_USD)} shipping`
-                        : `Sign Consent & Proceed to Payment — ${formatUsd(currentProgram.price)}`}
+                      : addsVialShipping
+                        ? `Sign Consent & Proceed to Payment — ${formatUsd(checkoutAmount)} + ${formatUsd(REGEN_VIAL_SHIPPING_USD)} shipping`
+                        : `Sign Consent & Proceed to Payment — ${formatUsd(checkoutAmount)}`}
                   </button>
 
                   <p className="text-xs text-center" style={{ color: BRAND.gray }}>
