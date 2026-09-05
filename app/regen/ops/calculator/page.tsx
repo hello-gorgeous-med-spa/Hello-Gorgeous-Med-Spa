@@ -165,13 +165,21 @@ export default function DosingCalculatorPage() {
           <h1 className="text-2xl font-bold text-white">Dosing Calculator</h1>
           <p className="text-white/60">Calculate vials needed, costs, and profit margins</p>
         </div>
-        <Link
-          href="/ops"
-          className="px-4 py-2 rounded-xl text-sm font-medium transition-colors"
-          style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal }}
-        >
-          ← Back to Dashboard
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            href="/ops/reconstitution"
+            className="px-4 py-2 rounded-xl text-sm font-medium transition-colors"
+            style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal }}
+          >
+            Reconstitution →
+          </Link>
+          <Link
+            href="/ops/analytics"
+            className="px-4 py-2 rounded-xl text-sm font-medium text-white/70 hover:text-white"
+          >
+            Dashboard
+          </Link>
+        </div>
       </div>
 
       {/* Medication Presets */}
