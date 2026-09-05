@@ -248,6 +248,31 @@ function RegenStartContent() {
         emergencyContactPhone: emergencyContact.phone || undefined,
       };
       
+      // Step 1: Save intake to database FIRST
+      const intakeRes = await fetch('/api/regen/intake', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          phone: formData.phone,
+          dateOfBirth: formData.dob,
+          goal: selectedGoal,
+          state: 'IL', // REGEN RX is Illinois only
+          medicalHistory: screeningAnswers,
+          age: formData.dob ? Math.floor((Date.now() - new Date(formData.dob).getTime()) / 31557600000) : undefined,
+          hipaaConsent: true,
+          telehealthConsent: true,
+          treatmentConsent: consentChecks.consentToTreatment,
+        }),
+      });
+
+      const intakeData = await intakeRes.json();
+      if (!intakeRes.ok) {
+        throw new Error(intakeData.error || 'Failed to save intake');
+      }
+
+      // Step 2: Now create checkout session
       const res = await fetch('/api/regen/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -261,11 +286,12 @@ function RegenStartContent() {
             quantity: 1,
           }],
           mode: 'payment',
-          successUrl: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+          successUrl: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}&intake=${intakeData.intakeId}`,
           cancelUrl: `${baseUrl}/start?goal=${selectedGoal}`,
           metadata: {
             program: selectedProgram,
             goal: selectedGoal,
+            intakeId: intakeData.intakeId,
             dob: formData.dob,
             screening: JSON.stringify(screeningAnswers),
             consent: JSON.stringify(consentData),
