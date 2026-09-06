@@ -5,7 +5,6 @@
 import {
   BOOKING_URL,
   GLP1_REFILL_PATH,
-  HELLO_GORGEOUS_RX_START_PATH,
   RX_PATIENT_CARE_PATH,
 } from "@/lib/flows";
 import { GLP1_PROGRAM } from "@/lib/glp1-program-pricing";
@@ -26,16 +25,16 @@ export type RxLandingProgram = {
 };
 
 export const RX_LANDING_HERO = {
-  eyebrow: "Medical Division · Oswego, IL",
-  title: "Hello Gorgeous",
-  titleAccent: "RX™",
-  subtitle: "Provider-led medical consultations",
+  eyebrow: "A Hello Gorgeous partnership · Oswego, IL",
+  title: "REGEN",
+  titleAccent: "RX",
+  subtitle: "The medical programs we offer our clients",
   body:
-    "NP-supervised weight-management, hormone, sexual-wellness, hair, skin, and wellness consultations for qualified Illinois patients. Prescription therapy is offered only when clinically appropriate. Compounded medications are not FDA-approved.",
-  primaryCta: { label: "Begin evaluation", href: BOOKING_URL },
+    "Hello Gorgeous is your downtown studio. REGEN RX is the prescription door we opened — weight-management, hormones, peptides, and wellness with Ryan Kent, FNP-BC. Telehealth and ship-to-home for qualified Illinois patients. Prescription therapy only when clinically appropriate. Compounded medications are not FDA-approved.",
+  primaryCta: { label: "Start REGEN RX", href: "https://tryregenrx.com/start" },
   secondaryCta: { label: "Explore programs", href: "#programs" },
   heroImage: "/images/shop-rx/rx-hero-team.png",
-  heroImageAlt: "Ryan Kent, FNP-BC and Danielle Alcala-Glazier — Hello Gorgeous RX medical team, Oswego IL",
+  heroImageAlt: "Ryan Kent, FNP-BC and Danielle Alcala-Glazier — REGEN RX medical team, Oswego IL",
   accentImages: [] as const,
 } as const;
 
@@ -155,8 +154,8 @@ export const RX_LANDING_JOURNEY = [
     step: 3,
     title: "Personalized protocol",
     detail: "If qualified, your Rx plan is written and fulfilled through licensed U.S. partners.",
-    href: HELLO_GORGEOUS_RX_START_PATH,
-    cta: "Start Here wizard",
+    href: "https://tryregenrx.com/start",
+    cta: "Start REGEN RX",
   },
   {
     id: "refill",

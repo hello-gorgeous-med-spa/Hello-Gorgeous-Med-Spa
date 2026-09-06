@@ -700,16 +700,18 @@ export function Header() {
               </Link>
             </div>
 
-            {/* Peptide Therapy — direct link to /rx (no hover mega menu) */}
+            {/* REGEN RX — partnership hub at /rx */}
             <div
               className="relative flex items-center"
               onMouseEnter={closeDropdown}
             >
               <Link
                 href={SHOP_RX_NAV.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={NAV_LINK_BASE}
                 style={navPillStyle(1, isMedicalNavActiveState)}
-                aria-label="Peptide Therapy — medically supervised protocols"
+                aria-label="REGEN RX — medical partnership we offer Hello Gorgeous clients"
               >
                 {SHOP_RX_NAV.label}
               </Link>
@@ -916,13 +918,15 @@ export function Header() {
                 {key === "medical" ? (
                   <Link
                     href={SHOP_RX_NAV.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => setMobileOpen(false)}
                     className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
-                    aria-label="Peptide Therapy — medically supervised protocols"
+                    aria-label="REGEN RX — medical partnership we offer Hello Gorgeous clients"
                   >
                     <span className="flex flex-col items-start gap-0.5">
                       <span>{SHOP_RX_NAV.label}</span>
-                      <span className="text-xs font-semibold text-[#FFB8DC]">Hello Gorgeous RX</span>
+                      <span className="text-xs font-semibold text-[#FFB8DC]">Our medical partnership</span>
                     </span>
                   </Link>
                 ) : (

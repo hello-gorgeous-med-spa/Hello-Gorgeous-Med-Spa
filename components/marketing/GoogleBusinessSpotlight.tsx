@@ -30,7 +30,7 @@ export function GoogleBusinessSpotlight() {
           >
             Google Business Profile
           </a>
-          — book in-clinic or start Hello Gorgeous RX™ online.
+          — book in-clinic or start REGEN RX, the medical partnership we offer our clients.
         </p>
       </FadeUp>
 

@@ -415,8 +415,8 @@ export const MEDICAL_MEGA_MENU_DEFAULT_FEATURED_ID =
   SHOP_RX_CATEGORIES[0]?.defaultFeaturedId ?? "tirzepatide-glp1";
 
 export const SHOP_RX_NAV = {
-  label: "Peptide Therapy",
-  href: "/rx",
+  label: "REGEN RX",
+  href: "https://tryregenrx.com",
 } as const;
 
 export const SHOP_RX_HOMEPAGE_INTERESTS = SHOP_RX_CATEGORIES.map((cat) => ({

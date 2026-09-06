@@ -1,12 +1,15 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
+import { RegenHomeBand } from "@/components/homepage-v3/RegenHomeBand";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import { REGEN_PARTNERSHIP } from "@/lib/regen-partnership";
 import { REVIEW_TRUST_HEADLINE, reviewTrustBody } from "@/lib/review-trust-copy";
 import {
   SERVICES_HUB_MORE,
@@ -47,7 +50,15 @@ function LookbookTile({ item, priority }: { item: ServicesLookbookItem; priority
   );
 }
 
-export function HomepageLookbookPageContent() {
+export function HomepageLookbookPageContent({
+  googleRating,
+  googleCount,
+  liveReviews,
+}: {
+  googleRating?: string;
+  googleCount?: string;
+  liveReviews?: ReactNode;
+} = {}) {
   return (
     <div className="relative bg-[#FAF7F4] text-black">
       <div
@@ -152,7 +163,9 @@ export function HomepageLookbookPageContent() {
         </div>
       </Section>
 
-      {/* Reviews — cream surface, same trust copy */}
+      <RegenHomeBand />
+
+      {/* Reviews — live Google count when Places is available */}
       <section id="reviews" className="border-y border-black/10 bg-white py-14 md:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8">
           <FadeUp>
@@ -162,7 +175,10 @@ export function HomepageLookbookPageContent() {
             <h2 className="mt-2 font-serif text-3xl font-medium tracking-tight sm:text-4xl">
               What our clients are saying
             </h2>
-            <p className="mt-3 max-w-2xl text-base text-black/65">{reviewTrustBody()}</p>
+            {liveReviews ? <div className="mt-6">{liveReviews}</div> : null}
+            <p className="mt-3 max-w-2xl text-base text-black/65">
+              {reviewTrustBody({ googleRating, googleCount })}
+            </p>
             <p className="mt-2 text-sm font-bold uppercase tracking-[0.14em] text-[#E6007E]">
               {REVIEW_TRUST_HEADLINE}
             </p>
@@ -226,6 +242,13 @@ export function HomepageLookbookPageContent() {
             className="!border-white !text-white hover:!bg-white/10"
           >
             Browse services
+          </CTA>
+          <CTA
+            href={REGEN_PARTNERSHIP.primaryCta.href}
+            variant="outline"
+            className="!border-white !text-white hover:!bg-white/10"
+          >
+            {REGEN_PARTNERSHIP.primaryCta.label}
           </CTA>
         </div>
       </section>

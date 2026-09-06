@@ -3,12 +3,15 @@ import { ClinicServicesBand } from "@/components/marketing/ClinicServicesBand";
 import { NewStudioRevealBand } from "@/components/marketing/NewStudioRevealBand";
 import { HOME_THIS_IS_US_PHOTOS } from "@/lib/campaigns/fall-makeover-2026";
 import { MdOversightWelcomeBand } from "@/components/MdOversightWelcomeBand";
+import { LiveGooglePlaceCard } from "@/components/LiveGooglePlaceCard";
 import {
   BuildYourProposalHomeInvite,
   BuildYourProposalScrollCue,
   HeroV3,
   HomepageLookbookPageContent,
 } from "@/components/homepage-v3";
+import { resolveReviewTrust } from "@/lib/review-trust";
+import { getGooglePlace } from "@/lib/seo/google-places";
 import { aroraPersonJsonLd } from "@/lib/medical-trust";
 import {
   SITE,
@@ -52,7 +55,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const livePlace = await getGooglePlace();
+  const trust = resolveReviewTrust(livePlace);
   const homeBreadcrumbs = [{ name: "Home", url: SITE.url }];
   const injectablesImages = getImagesByCategory("injectables");
   const aestheticsImages = getImagesByCategory("aesthetics");
@@ -172,7 +177,11 @@ export default function HomePage() {
         <ClinicServicesBand />
         <MdOversightWelcomeBand />
         <BuildYourProposalHomeInvite />
-        <HomepageLookbookPageContent />
+        <HomepageLookbookPageContent
+          googleRating={trust.google.rating}
+          googleCount={trust.google.count}
+          liveReviews={<LiveGooglePlaceCard />}
+        />
         <BuildYourProposalScrollCue />
       </main>
     </>

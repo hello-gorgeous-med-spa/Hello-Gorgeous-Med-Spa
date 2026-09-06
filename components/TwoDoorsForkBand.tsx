@@ -67,6 +67,9 @@ function DoorCard({
       {!active ? (
         <Link
           href={door.hubHref}
+          {...(door.hubHref.startsWith("http")
+            ? { target: "_blank", rel: "noopener noreferrer" }
+            : {})}
           className={`mt-5 inline-flex w-fit items-center gap-2 rounded-xl border-2 border-black px-4 py-2.5 text-sm font-bold text-white shadow-[3px_3px_0_0_rgba(0,0,0,0.9)] transition ${accent.button}`}
         >
           {door.hubCta}

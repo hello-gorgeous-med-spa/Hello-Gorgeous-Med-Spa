@@ -6,7 +6,7 @@ import { SITE } from "@/lib/seo";
 /**
  * Server component — fetches live Google Place data (rating, review count,
  * "open now" status, today's hours) and renders a card. Caches at the fetch
- * layer for 24h, so this is effectively free in API-call terms.
+ * layer hourly, so this stays current without extra client JavaScript.
  *
  * Renders nothing if Places API is unreachable / unconfigured, so it's safe
  * to drop on any page without worrying about fallback layouts.

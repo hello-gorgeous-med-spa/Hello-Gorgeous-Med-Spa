@@ -1,12 +1,18 @@
 /**
  * Phase 3 — sitewide "two doors" split.
- * Med Spa (in-office aesthetics) vs Hello Gorgeous RX (programs & prescriptions).
+ * Med Spa (in-office aesthetics) vs REGEN RX (the medical partnership we offer clients).
  * Shared brand, team, and booking layer.
  */
 
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { RX_PATIENT_CARE_PATH } from "@/lib/flows";
+import {
+  REGEN_PARTNERSHIP,
+  REGEN_RX_HG_HUB,
+  REGEN_RX_HG_START,
+  REGEN_RX_PUBLIC_URL,
+} from "@/lib/regen-partnership";
 
 export type HomepageTrack = "aesthetics" | "medical";
 
@@ -35,7 +41,7 @@ export type SiteDoor = {
 
 export const SITE_TWO_DOORS_HEADLINE = "Two doors. One team.";
 export const SITE_TWO_DOORS_SUBLINE =
-  "In-office aesthetics downtown — or NP-supervised medical programs with telehealth and ship-to-home. Same Hello Gorgeous care either way.";
+  "In-office aesthetics downtown — or REGEN RX, the medical partnership Hello Gorgeous offers our clients. Telehealth, ship-to-home, same Ryan and Danielle.";
 
 export const SITE_TWO_DOORS: SiteDoor[] = [
   {
@@ -64,23 +70,24 @@ export const SITE_TWO_DOORS: SiteDoor[] = [
   {
     id: "hello-gorgeous-rx",
     track: "medical",
-    shortLabel: "Programs & RX",
-    footerColumnTitle: "Hello Gorgeous RX™",
-    title: "Medical programs",
-    hubHref: "/rx",
-    hubCta: "Shop RX programs",
+    shortLabel: REGEN_PARTNERSHIP.name,
+    footerColumnTitle: "REGEN RX",
+    title: "Our medical partnership",
+    hubHref: REGEN_RX_HG_HUB,
+    hubCta: "Meet REGEN RX",
     description:
-      "GLP-1 weight loss, hormones, peptides, and prescription refills — supervised by Ryan Kent, FNP-BC with telehealth built in.",
-    microLabel: "Telehealth · Ship to home",
-    microDetail: "Illinois patients · existing patients use My RX portal.",
+      "Weight loss, hormones, peptides, and vitamins — the prescription programs Hello Gorgeous offers through REGEN RX. Supervised by Ryan Kent, FNP-BC.",
+    microLabel: "Partnership · Telehealth · Ship home",
+    microDetail: "Illinois patients · start at tryregenrx.com · existing patients use My RX portal.",
     accent: "pink",
     footerLinks: [
-      { label: "Hello Gorgeous RX hub", href: "/rx" },
+      { label: "REGEN RX — tryregenrx.com", href: REGEN_RX_PUBLIC_URL, external: true },
+      { label: "Start REGEN RX", href: REGEN_RX_HG_START },
+      { label: "REGEN programs", href: REGEN_RX_HG_HUB },
       { label: "RX Request Portal", href: "/rx/request" },
       { label: "Hormone therapy", href: "/rx/hormones" },
       { label: "GLP-1 / metabolic", href: "/rx/metabolic" },
       { label: "Peptide programs", href: "/peptides" },
-      { label: "Online refill guide", href: "/rx/guide" },
       { label: "RX refills & care", href: RX_PATIENT_CARE_PATH },
       { label: "My RX portal", href: "/portal/rx" },
       { label: "Ladies' Club", href: LADIES_CLUB_PATH },

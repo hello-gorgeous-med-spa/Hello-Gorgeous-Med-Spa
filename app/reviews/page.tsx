@@ -5,9 +5,12 @@ import { ReviewsList } from "@/components/ReviewsList";
 import { StaticFeaturedReviews } from "@/components/reviews/StaticFeaturedReviews";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
+import { LiveGooglePlaceCard } from "@/components/LiveGooglePlaceCard";
 import { GoogleBusinessSpotlight } from "@/components/marketing/GoogleBusinessSpotlight";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { REVIEW_TRUST_HEADLINE, reviewTrustBody } from "@/lib/review-trust-copy";
+import { resolveReviewTrust } from "@/lib/review-trust";
+import { getGooglePlace } from "@/lib/seo/google-places";
 import { SITE, pageMetadata } from "@/lib/seo";
 
 const GOOGLE_REVIEW_URL = SITE.googleReviewUrl;
@@ -18,7 +21,9 @@ export const metadata: Metadata = pageMetadata({
   path: "/reviews",
 });
 
-export default function ReviewsPage() {
+export default async function ReviewsPage() {
+  const livePlace = await getGooglePlace();
+  const trust = resolveReviewTrust(livePlace);
 
   return (
     <>
@@ -33,8 +38,14 @@ export default function ReviewsPage() {
               {REVIEW_TRUST_HEADLINE}
             </h1>
             <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">
-              {reviewTrustBody()}
+              {reviewTrustBody({
+                googleRating: trust.google.rating,
+                googleCount: trust.google.count,
+              })}
             </p>
+            <div className="mt-8 max-w-xl">
+              <LiveGooglePlaceCard />
+            </div>
           </FadeUp>
         </div>
       </Section>

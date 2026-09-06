@@ -1,6 +1,6 @@
 /**
  * Phase 2 — primary site navigation.
- * Services · Peptide Therapy · Specials · About · Book
+ * Services · REGEN RX · Specials · About · Book
  */
 
 import { RX_PATIENT_CARE_PATH } from "@/lib/flows";
@@ -118,9 +118,9 @@ export const SPECIALS_NAV_EXTRA_LINKS = [
 /** In-office Services — prescription programs live under Shop RX only. */
 export const SERVICES_RX_BRIDGE_LINKS = [
   {
-    label: "Peptide Therapy",
+    label: "REGEN RX",
     href: SHOP_RX_NAV.href,
-    sub: "GLP-1 · peptides · hormones · ship to home",
+    sub: "Our medical partnership · GLP-1 · hormones · ship to home",
     badge: "Rx" as const,
   },
   {

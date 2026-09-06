@@ -120,7 +120,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   // Live Google rating for AggregateRating schema. Falls back to SITE static
   // values silently if the Places API is unreachable so we never break a render.
-  // The Places API call is cached for 24h (one fetch per region per day).
+  // The Places API call is cached hourly so the Google count stays current.
   const [liveRating, livePlace] = await Promise.all([
     getLiveAggregateRating(),
     getGooglePlace(),

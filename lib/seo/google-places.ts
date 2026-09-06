@@ -3,7 +3,7 @@
  *
  * Pulls rating, review count, "open now", current hours, and photos for the
  * canonical Hello Gorgeous Place ID, with Next.js fetch-level caching so we
- * make ~1 API call per day per Vercel region — well inside Google's free tier.
+ * make ~1 API call per hour per Vercel region — well inside Google's free tier.
  *
  * Usage:
  *   const place = await getGooglePlace();
@@ -15,8 +15,8 @@
 
 import { SITE } from "@/lib/seo";
 
-/** How often to refresh live data. Daily is plenty for a med spa. */
-const REVALIDATE_SECONDS = 60 * 60 * 24;
+/** How often to refresh live rating + review count. Hourly keeps the site honest. */
+const REVALIDATE_SECONDS = 60 * 60;
 
 /** Field mask for Place Details (New). Tier-1 (basic+atmosphere) only.
  *  Photos are referenced by name and require a separate Photo API call. */

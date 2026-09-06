@@ -138,6 +138,8 @@ export function MedicalMegaMenu({
           <RegenLogo width={150} onClick={onClose} />
           <Link
             href={SHOP_RX_NAV.href}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={onClose}
             className="text-sm font-medium text-neutral-600 transition hover:text-neutral-900"
           >
@@ -227,7 +229,7 @@ export function MedicalMegaMenu({
           </div>
           <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="max-w-lg text-xs text-neutral-500">
-              NP-supervised · telehealth when required · ship to home · Illinois patients
+              A Hello Gorgeous partnership · NP-supervised · telehealth · ship to home · Illinois patients
             </p>
             <Link
               href={BOOKING_URL}

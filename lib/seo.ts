@@ -65,10 +65,10 @@ export const SITE = {
     { dayOfWeek: ["Sunday"], opens: "10:00", closes: "17:00" },
   ] as const,
   priceRange: "$$$" as const,
-  /** Static fallback for AggregateRating — synced from live Google Places
-   *  on 2026-07-13 (4.6 / 145+). Layout prefers live Places when available. */
+  /** Static fallback for AggregateRating — synced from live Google
+   *  on 2026-09-05 (4.6 / 165). Layout prefers live Places when available. */
   reviewRating: "4.6",
-  reviewCount: "145",
+  reviewCount: "165",
   /** Lifetime post-appointment social proof — a perfect 5.0★ across 1,931
    *  verified visits, collected on our former booking platform. Cited unbranded
    *  since we no longer use that platform. NOT emitted as Google review-snippet
@@ -1217,7 +1217,7 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
     "@type": ["MedicalBusiness", "MedicalClinic"],
     "@id": `${SITE.url}/#organization`,
     name: SITE.name,
-    alternateName: ["Hello Gorgeous Medspa", "Hello Gorgeous RX", "Hello Gorgeous RX™"],
+    alternateName: ["Hello Gorgeous Medspa", "Hello Gorgeous RX", "Hello Gorgeous RX™", "REGEN RX"],
     url: SITE.url,
     description: SITE.description,
     telephone: SITE.phone,
