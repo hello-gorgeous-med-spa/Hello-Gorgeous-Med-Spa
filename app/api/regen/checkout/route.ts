@@ -111,6 +111,8 @@ export async function POST(request: NextRequest) {
           intakeId: body.metadata?.intakeId || '',
           goal: body.metadata?.goal || '',
           promo: body.metadata?.promo || '',
+          affiliateCode: body.metadata?.affiliateCode || '',
+          medAmount: body.metadata?.medAmount || '',
         },
       });
 

@@ -119,6 +119,23 @@ async function handleCheckoutComplete(supabase: ReturnType<typeof getSupabase>, 
   if (session.metadata?.referral_code) {
     await processReferral(supabase, session.metadata.referral_code, email);
   }
+
+  const affiliateCode = session.metadata?.affiliateCode || session.metadata?.affiliate_code;
+  if (affiliateCode) {
+    try {
+      const { recordPaidOrderCommission } = await import('@/lib/regen/affiliate-ledger');
+      const medAmount = Number(session.metadata?.medAmount || 0) || (session.amount_total || 0) / 100;
+      await recordPaidOrderCommission(
+        supabase,
+        affiliateCode,
+        email,
+        typeof session.payment_intent === 'string' ? session.payment_intent : session.id,
+        medAmount,
+      );
+    } catch (affErr) {
+      console.error('[stripe-webhook] affiliate commission failed', affErr);
+    }
+  }
 }
 
 async function handlePaymentSuccess(supabase: ReturnType<typeof getSupabase>, paymentIntent: Stripe.PaymentIntent) {

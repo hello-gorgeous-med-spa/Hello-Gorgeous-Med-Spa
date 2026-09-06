@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { RegenAffiliateTracker } from '@/components/regen/RegenAffiliateTracker';
 import { RegenAuthProvider } from '@/components/regen/RegenAuthProvider';
 
 export const metadata: Metadata = {
@@ -36,6 +37,7 @@ export default function RegenLayout({
 }) {
   return (
     <RegenAuthProvider>
+      <RegenAffiliateTracker />
       {children}
     </RegenAuthProvider>
   );

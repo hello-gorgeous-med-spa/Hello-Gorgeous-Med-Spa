@@ -49,6 +49,7 @@ export async function POST(request: NextRequest) {
       treatmentConsent,
       stripePaymentIntentId,
       amountPaid,
+      affiliateCode,
     } = body;
 
     if (!email || !name || !goal) {
@@ -135,6 +136,7 @@ export async function POST(request: NextRequest) {
         treatment_consent_at: treatmentConsent ? new Date().toISOString() : null,
         stripe_payment_intent_id: stripePaymentIntentId,
         amount_paid: amountPaid,
+        affiliate_code: affiliateCode ? String(affiliateCode).toUpperCase() : null,
         status: amountPaid ? 'pending' : 'awaiting_payment',
       })
       .select()
@@ -181,6 +183,13 @@ export async function POST(request: NextRequest) {
       });
     } catch (consentError) {
       console.error('Failed to store signed consent:', consentError);
+    }
+
+    try {
+      const { recordIntakeBonus } = await import('@/lib/regen/affiliate-ledger');
+      await recordIntakeBonus(supabase, affiliateCode, email, intake.id);
+    } catch (affErr) {
+      console.error('[intake] affiliate bonus failed', affErr);
     }
 
     try {

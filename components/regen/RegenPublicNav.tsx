@@ -17,6 +17,7 @@ const LINKS = [
   { href: '/learn', label: 'Learn' },
   { href: '/about', label: 'Our Story' },
   { href: '/providers', label: 'Our Team' },
+  { href: '/affiliates', label: 'Partners' },
   { href: '/contact', label: 'Contact' },
 ] as const;
 

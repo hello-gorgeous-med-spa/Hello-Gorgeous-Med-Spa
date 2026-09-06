@@ -14,6 +14,7 @@ import {
   tryregenBundleShippingUsd,
 } from '@/lib/regen/tryregen-bundles';
 import { GORGEOUS20_CODE, GORGEOUS20_PERCENT } from '@/lib/regen-gorgeous20';
+import { readAffiliateCodeClient } from '@/components/regen/RegenAffiliateTracker';
 import { TirzepatidePlanPicker } from '@/components/regen/TirzepatidePlanPicker';
 import {
   isTirzepatideProgram,
@@ -178,6 +179,7 @@ function RegenStartContent() {
   const initialGoal = searchParams.get('goal') || '';
   const initialProgram = searchParams.get('program') || '';
   const promoCode = (searchParams.get('promo') || GORGEOUS20_CODE).toUpperCase();
+  const affiliateCode = (searchParams.get('ref') || searchParams.get('aff') || readAffiliateCodeClient()).toUpperCase();
   const inferredGoal =
     initialGoal ||
     (initialProgram === 'tirzepatide' ? 'weight-loss' : '') ||
@@ -370,6 +372,7 @@ function RegenStartContent() {
           hipaaConsent: true,
           telehealthConsent: true,
           treatmentConsent: consentChecks.consentToTreatment,
+          affiliateCode,
         }),
       });
 
@@ -398,6 +401,8 @@ function RegenStartContent() {
             program: selectedProgram,
             goal: selectedGoal,
             promo: promoCode,
+            affiliateCode,
+            medAmount: String(checkoutAmount),
             intakeId: intakeData.intakeId,
             dob: formData.dob,
             screening: JSON.stringify(screeningAnswers),

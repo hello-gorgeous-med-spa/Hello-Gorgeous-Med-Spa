@@ -884,6 +884,7 @@ export default function RegenLandingPage() {
               <Link href="/learn" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Learn</Link>
               <Link href="/about" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Our Story</Link>
               <Link href="/providers" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Team</Link>
+              <Link href="/affiliates" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Partners</Link>
               <Link href="/contact" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Contact</Link>
               <Link href="/safety" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Safety</Link>
               <Link href="/hipaa" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>HIPAA</Link>

@@ -40,6 +40,7 @@ export const OPS_NAV_GROUPS = [
     section: 'Money',
     items: [
       { href: '/ops/payments', label: 'Payments', icon: '$' },
+      { href: '/ops/affiliates', label: 'Partners', icon: '♡' },
       { href: '/ops/reports', label: 'Reports', icon: '▦' },
     ],
   },
