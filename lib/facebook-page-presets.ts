@@ -11,6 +11,7 @@ import {
 } from "@/lib/campaigns/botox-bash-aug-2026";
 import { FALL_FACIALS_CAMPAIGN, FALL_FACIALS_FACEBOOK } from "@/lib/campaigns/fall-into-facials-2026";
 import { FALL_MAKEOVER_CAMPAIGN, FALL_MAKEOVER_FACEBOOK } from "@/lib/campaigns/fall-makeover-2026";
+import { GORGEOUS20_COPY, GORGEOUS20_HERO } from "@/lib/regen-gorgeous20";
 
 export type FacebookPagePreset = {
   id: string;
@@ -33,6 +34,16 @@ function withUtm(path: string): string {
   const withQs = `${beforeHash}${sep}${UTM_FB}`;
   return hash ? `${withQs}#${hash}` : withQs;
 }
+
+export const FACEBOOK_PAGE_PRESET_GORGEOUS20: FacebookPagePreset = {
+  id: "regen-gorgeous20",
+  label: "REGEN RX — GORGEOUS20 first order",
+  blurb: "Danielle + Ryan syringes. 20% off first order.",
+  message: GORGEOUS20_COPY.facebook,
+  linkPath: withUtm("/regen/gorgeous20"),
+  imagePath: GORGEOUS20_HERO,
+  defaultChannels: ["facebook", "instagram", "google"],
+};
 
 export const FACEBOOK_PAGE_PRESET_BOOK: FacebookPagePreset = {
   id: "book-consult",
@@ -852,6 +863,7 @@ Read the full guide (free consult link inside) 👇`,
 };
 
 export const FACEBOOK_PAGE_PRESETS: FacebookPagePreset[] = [
+  FACEBOOK_PAGE_PRESET_GORGEOUS20,
   FACEBOOK_PAGE_PRESET_BOTOX_BASH,
   FACEBOOK_PAGE_PRESET_NEW_STUDIO,
   FACEBOOK_PAGE_PRESET_FALL_MAKEOVER,

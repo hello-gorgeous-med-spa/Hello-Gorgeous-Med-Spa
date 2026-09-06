@@ -18,6 +18,7 @@ import {
   REGEN_PEPTIDES_GBP,
   REGEN_SKINCARE_GBP,
 } from "@/lib/campaigns/regen-rx-launch-2026";
+import { GORGEOUS20_COPY, GORGEOUS20_HERO } from "@/lib/regen-gorgeous20";
 
 export type GbpPostPreset = {
   id: string;
@@ -29,6 +30,13 @@ export type GbpPostPreset = {
 };
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
+  {
+    id: "regen-gorgeous20",
+    label: "REGEN RX — GORGEOUS20 first order 20% off",
+    message: GORGEOUS20_COPY.gbp,
+    linkPath: "/regen/gorgeous20?utm_source=google&utm_medium=gbp_post&utm_campaign=gorgeous20",
+    imagePath: GORGEOUS20_HERO,
+  },
   // REGEN RX Telehealth Launch
   {
     id: "regen-rx-launch",

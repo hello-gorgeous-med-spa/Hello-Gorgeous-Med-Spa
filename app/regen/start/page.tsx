@@ -13,6 +13,7 @@ import {
   tryregenBundleSheetNames,
   tryregenBundleShippingUsd,
 } from '@/lib/regen/tryregen-bundles';
+import { GORGEOUS20_CODE, GORGEOUS20_PERCENT } from '@/lib/regen-gorgeous20';
 import { TirzepatidePlanPicker } from '@/components/regen/TirzepatidePlanPicker';
 import {
   isTirzepatideProgram,
@@ -176,6 +177,7 @@ function RegenStartContent() {
   const searchParams = useSearchParams();
   const initialGoal = searchParams.get('goal') || '';
   const initialProgram = searchParams.get('program') || '';
+  const promoCode = (searchParams.get('promo') || GORGEOUS20_CODE).toUpperCase();
   const inferredGoal =
     initialGoal ||
     (initialProgram === 'tirzepatide' ? 'weight-loss' : '') ||
@@ -395,6 +397,7 @@ function RegenStartContent() {
           metadata: {
             program: selectedProgram,
             goal: selectedGoal,
+            promo: promoCode,
             intakeId: intakeData.intakeId,
             dob: formData.dob,
             screening: JSON.stringify(screeningAnswers),
@@ -474,6 +477,10 @@ function RegenStartContent() {
             })}
           </div>
         </div>
+      </div>
+
+      <div className="px-6 py-3 text-center text-sm font-semibold" style={{ backgroundColor: `${BRAND.pink}18`, color: BRAND.cream, borderBottom: `1px solid ${BRAND.pink}40` }}>
+        First order {GORGEOUS20_PERCENT}% off — enter <span style={{ color: BRAND.pink }}>{promoCode}</span> on the payment screen
       </div>
 
       <main className="max-w-3xl mx-auto px-6 py-12">

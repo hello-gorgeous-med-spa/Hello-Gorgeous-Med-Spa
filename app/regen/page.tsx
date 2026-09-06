@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
 import { RegenExplainerHero } from '@/components/regen/RegenExplainerHero';
 import { RegenBundlesBand } from '@/components/regen/RegenBundlesBand';
+import { GORGEOUS20_CODE, GORGEOUS20_HERO, GORGEOUS20_PERCENT, GORGEOUS20_START_HREF } from '@/lib/regen-gorgeous20';
 
 const BRAND = {
   teal: '#0D9488',      // Bright teal (molecules)
@@ -411,6 +412,30 @@ export default function RegenLandingPage() {
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 py-16">
+        <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[28px] border-4 border-black md:grid-cols-2" style={{ boxShadow: '8px 8px 0 0 rgba(233,30,140,0.35)' }}>
+          <img src={GORGEOUS20_HERO} alt="Danielle and Ryan Kent, FNP-BC" className="h-full min-h-[280px] w-full object-cover" />
+          <div className="flex flex-col justify-center bg-black p-8 md:p-10">
+            <p className="text-xs font-extrabold uppercase tracking-[0.22em]" style={{ color: BRAND.teal }}>Launch offer</p>
+            <h2 className="mt-2 font-serif text-3xl font-black md:text-4xl" style={{ color: BRAND.cream }}>
+              {GORGEOUS20_PERCENT}% off your first order
+            </h2>
+            <p className="mt-3 text-lg font-extrabold" style={{ color: BRAND.pink }}>{GORGEOUS20_CODE}</p>
+            <p className="mt-3 text-sm" style={{ color: BRAND.gray }}>
+              Same Danielle. Same Ryan. Enter the code on the payment screen. Illinois patients. Ryan prescribes only when it is clinically appropriate.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href={GORGEOUS20_START_HREF} className="rounded-full px-6 py-3 text-sm font-extrabold text-white" style={{ backgroundColor: BRAND.pink }}>
+                Claim {GORGEOUS20_CODE}
+              </Link>
+              <Link href="/gorgeous20" className="rounded-full border-2 px-6 py-3 text-sm font-extrabold" style={{ borderColor: BRAND.teal, color: BRAND.teal }}>
+                See the launch kit
+              </Link>
+            </div>
           </div>
         </div>
       </section>

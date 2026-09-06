@@ -110,6 +110,7 @@ export async function POST(request: NextRequest) {
           program: patientInfo?.program || body.metadata?.program || '',
           intakeId: body.metadata?.intakeId || '',
           goal: body.metadata?.goal || '',
+          promo: body.metadata?.promo || '',
         },
       });
 
