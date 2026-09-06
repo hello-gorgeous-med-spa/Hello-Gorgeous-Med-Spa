@@ -8,10 +8,35 @@ export const AFFILIATE_COOKIE = "regen_aff" as const;
 export const AFFILIATE_COOKIE_DAYS = 30;
 export const AFFILIATE_HOLDING_DAYS = 14;
 export const AFFILIATE_PAYOUT_MINIMUM_USD = 100;
+/** @deprecated Use affiliateTierForActivePatients — old flat 15% / 3-month offer. */
 export const AFFILIATE_RECURRING_PERCENT = 15;
-export const AFFILIATE_RECURRING_MONTHS = 3;
-export const AFFILIATE_INTAKE_BONUS_USD = 50;
-export const AFFILIATE_AGREEMENT_VERSION = "v1-2026-09-06" as const;
+/** @deprecated Commission now follows the patient for as long as they stay active. */
+export const AFFILIATE_RECURRING_MONTHS = 0;
+/** @deprecated Design: no flat bonus before collected medication revenue. */
+export const AFFILIATE_INTAKE_BONUS_USD = 0;
+export const AFFILIATE_ACTIVE_WINDOW_DAYS = 45;
+export const AFFILIATE_AGREEMENT_VERSION = "v2-2026-09-06" as const;
+
+export const AFFILIATE_TIERS = [
+  { id: "starter", label: "Starter", minActive: 1, maxActive: 4, percent: 10 },
+  { id: "growth", label: "Growth", minActive: 5, maxActive: 9, percent: 15 },
+  { id: "pro", label: "Pro", minActive: 10, maxActive: 19, percent: 20 },
+  { id: "elite", label: "Elite", minActive: 20, maxActive: null, percent: 25 },
+] as const;
+
+export type AffiliateTier = (typeof AFFILIATE_TIERS)[number];
+
+export function affiliateTierForActivePatients(activePatients: number): AffiliateTier {
+  if (activePatients >= 20) return AFFILIATE_TIERS[3];
+  if (activePatients >= 10) return AFFILIATE_TIERS[2];
+  if (activePatients >= 5) return AFFILIATE_TIERS[1];
+  return AFFILIATE_TIERS[0];
+}
+
+export function affiliateTierRangeLabel(tier: AffiliateTier): string {
+  if (tier.maxActive == null) return `${tier.minActive}+ active patients`;
+  return `${tier.minActive}–${tier.maxActive} active patients`;
+}
 
 export const AFFILIATE_START_HREF = "/start" as const;
 export const AFFILIATE_PUBLIC_PATH = "/affiliates" as const;
@@ -23,17 +48,20 @@ export const AFFILIATE_TYPES: { id: AffiliatePartnerType; label: string; blurb: 
   {
     id: "med_spa",
     label: "Med spas & aesthetic clinics",
-    blurb: "Send clients who need prescription care outside your scope. Earn on every patient who starts.",
+    blurb:
+      "Send clients who need prescription weight loss, hormone therapy, or peptides — services outside your scope — to a licensed NP team, and earn on every patient who starts care.",
   },
   {
     id: "day_spa",
     label: "Day spas & wellness studios",
-    blurb: "A trusted next step for medical-grade care. Your code. No inventory. No clinical liability.",
+    blurb:
+      "Give your clients a trusted next step for medical-grade care with your own referral code — no clinical liability, no inventory, just a warm handoff.",
   },
   {
     id: "creator",
     label: "Content creators & influencers",
-    blurb: "Share a trackable link. Recurring commission while your referral stays on a protocol.",
+    blurb:
+      "Share your story with a trackable link and discount code. Recurring commission on every month your referral stays active in a protocol.",
   },
 ];
 
@@ -60,7 +88,7 @@ export const AFFILIATE_AGREEMENT_SECTIONS = [
   },
   {
     title: "6. Commission, Payouts, and Taxes",
-    body: "My commission is a marketing/referral fee only, and is never tied to a specific prescription or clinical decision. Commissions go through a short holding period before becoming payable, and payouts are issued on the 15th of each month with a $100 minimum — balances under $100 roll forward. I am responsible for keeping a payout method on file. Earning over $600 in a calendar year means I will receive a Form 1099-NEC and I am responsible for reporting that income.",
+    body: "My commission is a marketing/referral fee only, and is never tied to a specific prescription or clinical decision. My rate is based on how many referred patients are actively in treatment at once, and applies to medication REGEN RX actually collects — shipping is not commissioned. No flat bonus is paid before that revenue exists. Commissions go through a short holding period before becoming payable, and payouts are issued on the 15th of each month with a $100 minimum — balances under $100 roll forward. I am responsible for keeping a payout method on file. Earning over $600 in a calendar year means I will receive a Form 1099-NEC and I am responsible for reporting that income.",
   },
   {
     title: "7. Suspension and Termination",
@@ -92,8 +120,8 @@ export function affiliateReferralUrl(code: string): string {
   return `https://tryregenrx.com/start?ref=${encodeURIComponent(code)}`;
 }
 
-export function qualifiesForIntakeBonus(type: AffiliatePartnerType): boolean {
-  return type === "med_spa" || type === "day_spa";
+export function qualifiesForIntakeBonus(_type: AffiliatePartnerType): boolean {
+  return false;
 }
 
 export function suggestAffiliateCode(businessOrName: string): string {

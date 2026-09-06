@@ -1,10 +1,9 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import {
+  AFFILIATE_ACTIVE_WINDOW_DAYS,
   AFFILIATE_HOLDING_DAYS,
-  AFFILIATE_INTAKE_BONUS_USD,
-  AFFILIATE_RECURRING_MONTHS,
-  AFFILIATE_RECURRING_PERCENT,
+  affiliateTierForActivePatients,
   hashAffiliateEmail,
   qualifiesForIntakeBonus,
   type AffiliatePartnerType,
@@ -87,20 +86,7 @@ export async function recordIntakeBonus(
 ) {
   const affiliate = await findActiveAffiliate(supabase, code);
   if (!affiliate || !qualifiesForIntakeBonus(affiliate.partner_type)) return;
-  const patient_email_hash = await hashAffiliateEmail(email);
   await touchAffiliateAttribution(supabase, affiliate, email, { signup: true, intakeId });
-  const payableAt = new Date(Date.now() + AFFILIATE_HOLDING_DAYS * 24 * 60 * 60 * 1000);
-  await supabase.from("regen_affiliate_commissions").insert({
-    affiliate_id: affiliate.id,
-    kind: "intake_bonus",
-    status: "holding",
-    amount_usd: AFFILIATE_INTAKE_BONUS_USD,
-    basis_usd: 0,
-    intake_id: intakeId,
-    patient_email_hash,
-    payable_at: payableAt.toISOString(),
-    notes: "Clinic partner completed-intake bonus",
-  });
 }
 
 export async function recordPaidOrderCommission(
@@ -115,6 +101,21 @@ export async function recordPaidOrderCommission(
   const patient_email_hash = await hashAffiliateEmail(email);
   await touchAffiliateAttribution(supabase, affiliate, email, { signup: true });
 
+  const since = new Date(Date.now() - AFFILIATE_ACTIVE_WINDOW_DAYS * 24 * 60 * 60 * 1000).toISOString();
+  const { data: recent } = await supabase
+    .from("regen_affiliate_commissions")
+    .select("patient_email_hash")
+    .eq("affiliate_id", affiliate.id)
+    .eq("kind", "recurring_percent")
+    .neq("status", "void")
+    .gte("created_at", since);
+
+  const hashes = new Set(
+    (recent || []).map((row) => row.patient_email_hash).filter((hash): hash is string => Boolean(hash)),
+  );
+  hashes.add(patient_email_hash);
+  const tier = affiliateTierForActivePatients(hashes.size);
+
   const { count } = await supabase
     .from("regen_affiliate_commissions")
     .select("id", { count: "exact", head: true })
@@ -124,10 +125,8 @@ export async function recordPaidOrderCommission(
     .neq("status", "void");
 
   const monthIndex = (count || 0) + 1;
-  if (monthIndex > AFFILIATE_RECURRING_MONTHS) return;
-
   const basis = Math.max(0, Number(medicationUsd) || 0);
-  const amount = Math.round(basis * (AFFILIATE_RECURRING_PERCENT / 100) * 100) / 100;
+  const amount = Math.round(basis * (tier.percent / 100) * 100) / 100;
   if (amount <= 0) return;
 
   const payableAt = new Date(Date.now() + AFFILIATE_HOLDING_DAYS * 24 * 60 * 60 * 1000);
@@ -141,6 +140,6 @@ export async function recordPaidOrderCommission(
     order_reference: orderReference,
     patient_email_hash,
     payable_at: payableAt.toISOString(),
-    notes: `${AFFILIATE_RECURRING_PERCENT}% of medication (month ${monthIndex} of ${AFFILIATE_RECURRING_MONTHS})`,
+    notes: `${tier.percent}% ${tier.label} · ${hashes.size} active · month ${monthIndex}`,
   });
 }
