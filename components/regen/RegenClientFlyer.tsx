@@ -11,8 +11,8 @@ import {
 import {
   REGEN_CLIENT_FLYER_PORTRAIT,
   REGEN_CLIENT_FLYER_SITE_URL,
-  REGEN_CLIENT_FLYER_START_URL,
 } from "@/lib/regen-client-flyer";
+import { GORGEOUS20_CODE, GORGEOUS20_PERCENT } from "@/lib/regen-gorgeous20";
 import { SITE } from "@/lib/seo";
 
 const PROGRAMS = [
@@ -109,6 +109,9 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
               className="flyer-logo"
             />
             <p className="flyer-renew">Renew. Rebalance. Regenerate.</p>
+            <p className="flyer-coupon">
+              First order {GORGEOUS20_PERCENT}% off · <b>{GORGEOUS20_CODE}</b>
+            </p>
             <h1>The prescription door we opened for you.</h1>
             <p className="flyer-lede">
               Hello Gorgeous is still your studio on Washington Street. REGEN RX is
@@ -149,7 +152,7 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
             <div className="flyer-qr-card">
               <img src={qrDataUrl} alt="Scan to start REGEN RX" />
               <p>
-                Scan to start
+                Scan to start · {GORGEOUS20_CODE}
                 <strong>tryregenrx.com/start</strong>
               </p>
             </div>
@@ -200,17 +203,18 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
 
         <div className="flyer-bundles-cta">
           <div>
-            <p className="flyer-kicker">Start today</p>
+            <p className="flyer-kicker">Start today · {GORGEOUS20_CODE}</p>
             <h3>Same Danielle. Same Ryan. New door.</h3>
             <p>
-              Ask us before you leave, or start on your phone tonight.{" "}
-              <strong>{REGEN_CLIENT_FLYER_START_URL.replace("https://", "")}</strong>
+              First order {GORGEOUS20_PERCENT}% off. Enter {GORGEOUS20_CODE} on the
+              payment screen.{" "}
+              <strong>tryregenrx.com/start</strong>
             </p>
           </div>
           <div className="flyer-qr-card flyer-qr-card-light">
             <img src={qrDataUrl} alt="Scan to start REGEN RX" />
             <p>
-              Scan to start
+              Scan to start · {GORGEOUS20_CODE}
               <strong>tryregenrx.com/start</strong>
             </p>
           </div>
@@ -302,8 +306,20 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
           letter-spacing: 0.18em;
           text-transform: uppercase;
           font-weight: 800;
-          margin: 0 0 14px;
+          margin: 0 0 8px;
         }
+        .flyer-coupon {
+          display: inline-block;
+          margin: 0 0 12px;
+          padding: 5px 10px;
+          border-radius: 999px;
+          background: #E91E8C;
+          color: #fff;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.04em;
+        }
+        .flyer-coupon b { font-weight: 900; }
         .flyer-cover h1 {
           font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
           font-size: 34px;
