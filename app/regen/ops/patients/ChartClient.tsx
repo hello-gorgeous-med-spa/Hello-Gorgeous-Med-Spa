@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getOpsStaff } from '@/lib/regen/ops-staff';
-import { useOpsStaff } from '../../OpsShell';
+import { useOpsStaff } from '../OpsShell';
 
 export default function PatientChartClient({
   email,
@@ -13,7 +13,6 @@ export default function PatientChartClient({
   initialData: Record<string, unknown>;
 }) {
   const [data, setData] = useState<Record<string, unknown> | null>(initialData);
-  const [error, setError] = useState<string | null>(null);
   const [msg, setMsg] = useState('');
   const [sending, setSending] = useState(false);
   const staffFromShell = useOpsStaff();
@@ -48,7 +47,6 @@ export default function PatientChartClient({
     }
   }
 
-  if (error) return <p className="text-red-400">{error}</p>;
   if (!data) return <p className="text-white/40">Loading chart…</p>;
 
   const intakes = (data.intakes || []) as Array<Record<string, unknown>>;
@@ -106,7 +104,7 @@ export default function PatientChartClient({
               {tirz.retail != null ? ` · $${String(tirz.retail)}` : ''}
             </p>
           )}
-          <Link href="/ops" className="inline-block mt-3 text-teal-400 text-sm">Act on Today queue →</Link>
+          <Link href="/ops" className="inline-block mt-3 text-teal-400 text-sm">Review on Today queue →</Link>
         </section>
       </div>
 

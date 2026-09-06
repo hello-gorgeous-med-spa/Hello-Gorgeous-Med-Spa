@@ -98,6 +98,14 @@ const WEEK_1_STAFF_ASSETS: Record<string, { image: string; caption: string }> = 
 
 export const REGEN_CORE_PROTOCOL_GUIDES: RegenProtocolGuide[] = [
   {
+    id: "staff-bible",
+    title: "REGEN RX Owner & Staff Bible",
+    description: "How we run telehealth: ops, portal, orders, refunds, affiliates, and the policies staff must follow.",
+    href: "/staff/protocols/guides/REGEN-RX-Staff-Bible.html",
+    category: "getting-started",
+    format: "html",
+  },
+  {
     id: "online-guide",
     title: "Hello Gorgeous RX — Online Guide",
     description: "Patient journey, portals, and how to talk about RE GEN on the phone.",

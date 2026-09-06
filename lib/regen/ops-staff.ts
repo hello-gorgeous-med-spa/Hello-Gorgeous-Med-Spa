@@ -10,6 +10,11 @@ export function getOpsStaff(id?: string | null) {
   return OPS_STAFF.find((s) => s.id === id) || null;
 }
 
+/** Chart URL — query string so emails with dots never 404. */
+export function opsChartHref(email: string) {
+  return `/ops/patients/chart?email=${encodeURIComponent(email.trim())}`;
+}
+
 export const OPS_NAV = [
   { href: '/ops', label: 'Today' },
   { href: '/ops/patients', label: 'Patients' },
@@ -47,6 +52,7 @@ export const OPS_NAV_GROUPS = [
   {
     section: 'Tools',
     items: [
+      { href: '/ops/playbook', label: 'Staff Bible', icon: '▣' },
       { href: '/ops/calculator', label: 'Calculator', icon: '∑' },
       { href: '/ops/reconstitution', label: 'Reconstitution', icon: '💧' },
       { href: '/ops/tirzepatide', label: 'Tirzepatide', icon: '↓' },

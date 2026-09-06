@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
-import { getOpsStaff } from '@/lib/regen/ops-staff';
+import { getOpsStaff, opsChartHref } from '@/lib/regen/ops-staff';
 import { useOpsStaff } from './OpsShell';
 
 interface Intake {
@@ -52,6 +52,8 @@ export default function TodayQueue({
   const [loading, setLoading] = useState(false);
   const [busy, setBusy] = useState(false);
   const [attest, setAttest] = useState({ history: false, contra: false, tele: false, sign: false });
+  const [actError, setActError] = useState('');
+  const [notice, setNotice] = useState('');
   const staffFromShell = useOpsStaff();
   const [staff, setStaff] = useState<ReturnType<typeof getOpsStaff>>(staffFromShell);
   const [shipped, setShipped] = useState(initialShipped);
@@ -91,14 +93,15 @@ export default function TodayQueue({
 
   async function act(intake: Intake, status: string) {
     if (!staff) {
-      alert('Sign in as Danielle, Ryan, or Damara first.');
+      setActError('Sign in as Danielle, Ryan, or Damara first.');
       return;
     }
     if (status === 'approved' && !Object.values(attest).every(Boolean)) {
-      alert('Complete attestation checkboxes before approving.');
+      setActError('Check all four boxes, then press Approve. The teal Review button only opens this panel.');
       return;
     }
     setBusy(true);
+    setActError('');
     const res = await fetch('/api/regen/ops/intakes', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -116,15 +119,20 @@ export default function TodayQueue({
     const json = await res.json();
     setBusy(false);
     if (!res.ok) {
-      alert(json.error || 'Update failed');
+      setActError(json.error || 'Update failed — the visit did not change.');
       return;
     }
+    const label = status.replace(/_/g, ' ');
+    let nextNotice =
+      status === 'approved'
+        ? `Approved ${intake.name}. This visit left Needs action. Open Orders to place the pharmacy ticket.`
+        : status === 'declined'
+          ? `Declined ${intake.name}. Refund the charge in Stripe the same day.`
+          : `${intake.name} is now “${label}” and will stay in Needs action until Ryan approves.`;
     if (json.fulfillment?.pharmacyError) {
-      const sku = json.fulfillment.formulationTicket?.sku;
-      alert(
-        `Approved. ${json.fulfillment.pharmacyError}${sku ? `\nSKU ${sku}` : ''}\n\nCopy the FormuConnect ticket from Admin → RE GEN orders.`,
-      );
+      nextNotice += ` ${json.fulfillment.pharmacyError}`;
     }
+    setNotice(nextNotice);
     setSelected(null);
     setNote('');
     setAttest({ history: false, contra: false, tele: false, sign: false });
@@ -168,6 +176,12 @@ export default function TodayQueue({
         <button onClick={load} className="px-3 py-2 rounded-lg text-sm bg-white/5 text-white/60">Refresh</button>
       </div>
 
+      {notice && (
+        <div className="rounded-2xl border border-teal-400/40 bg-teal-500/15 px-4 py-3 text-sm text-teal-100">
+          {notice}
+        </div>
+      )}
+
       <p className="text-white/35 text-xs">
         Stripe leftovers (Dashboard only): support email provider@hellogorgeousmedspa.com · support URL https://tryregenrx.com · statement name REGEN RX.
         Resend: From is provider@hellogorgeousmedspa.com until tryregenrx.com is verified.
@@ -208,8 +222,16 @@ export default function TodayQueue({
                 )}
               </div>
               <div className="flex gap-2">
-                <Link href={`/ops/patients/${encodeURIComponent(i.email)}`} className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm">Chart</Link>
-                <button onClick={() => setSelected(i)} className="px-3 py-2 rounded-lg bg-teal-500 text-white text-sm">Act</button>
+                <Link href={opsChartHref(i.email)} className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm">Chart</Link>
+                <button
+                  onClick={() => {
+                    setSelected(i);
+                    setActError('');
+                  }}
+                  className="px-3 py-2 rounded-lg bg-teal-500 text-white text-sm"
+                >
+                  Review
+                </button>
               </div>
             </div>
           </div>
@@ -220,7 +242,15 @@ export default function TodayQueue({
         <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" onClick={() => setSelected(null)}>
           <div className="bg-slate-800 rounded-2xl p-6 max-w-lg w-full border border-white/20" onClick={(e) => e.stopPropagation()}>
             <h2 className="text-white text-xl font-bold mb-1">{selected.name}</h2>
-            <p className="text-white/50 text-sm mb-4">{selected.email} · {selected.goal}</p>
+            <p className="text-white/50 text-sm">{selected.email} · {selected.goal}</p>
+            <p className="text-amber-200 text-sm mt-2 mb-4">
+              Current status: <strong>{selected.status.replace(/_/g, ' ')}</strong>
+              {selected.status === 'needs_video'
+                ? ' — still waiting for video. Review does not approve. After the visit, check the four boxes and press the green Approve.'
+                : selected.status === 'needs_labs'
+                  ? ' — still waiting for labs. Approve only after Ryan has what he needs.'
+                  : ' — Review opens this panel. Green Approve is the decision that leaves the queue.'}
+            </p>
             {selected.medical_history?.tirzepatide && typeof selected.medical_history.tirzepatide === 'object' && (
               <p className="text-pink-300 text-sm mb-4">
                 Requested: {String((selected.medical_history.tirzepatide as Record<string, unknown>).requestLabel
@@ -246,10 +276,13 @@ export default function TodayQueue({
                 </label>
               ))}
             </div>
+            {actError && <p className="text-red-300 text-sm mb-3">{actError}</p>}
             <div className="flex flex-wrap gap-2">
-              <button disabled={busy} onClick={() => act(selected, 'approved')} className="px-3 py-2 rounded-lg bg-green-600 text-white text-sm">Approve</button>
+              <button disabled={busy} onClick={() => act(selected, 'approved')} className="px-4 py-2 rounded-lg bg-green-600 text-white text-sm font-semibold">
+                {busy ? 'Saving…' : 'Approve'}
+              </button>
               <button disabled={busy} onClick={() => act(selected, 'needs_labs')} className="px-3 py-2 rounded-lg bg-purple-600/40 text-purple-100 text-sm">Need labs</button>
-              <button disabled={busy} onClick={() => act(selected, 'needs_video')} className="px-3 py-2 rounded-lg bg-cyan-600/40 text-cyan-100 text-sm">Video</button>
+              <button disabled={busy} onClick={() => act(selected, 'needs_video')} className="px-3 py-2 rounded-lg bg-cyan-600/40 text-cyan-100 text-sm">Need video</button>
               <button disabled={busy} onClick={() => act(selected, 'declined')} className="px-3 py-2 rounded-lg bg-red-600/40 text-red-100 text-sm">Decline</button>
               <button onClick={() => setSelected(null)} className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm">Close</button>
             </div>

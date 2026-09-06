@@ -126,12 +126,13 @@ export async function middleware(request: NextRequest) {
   // RE GEN (tryregenrx.com) — dedicated telehealth portal
   // ============================================================
   if (isRegenHost) {
-    // Allow static assets, API routes, and _next
-    if (
-      pathname.startsWith('/_next') ||
-      pathname.startsWith('/api/') ||
-      pathname.includes('.')
-    ) {
+    // Static files only — do not treat /ops/patients/name@clinic.com as a file
+    // just because the email contains a dot (that was the Chart 404).
+    const isStaticFile =
+      /\.(?:avif|css|gif|html?|ico|jpe?g|js|json|map|mjs|mp4|pdf|png|svg|txt|webm|webp|woff2?|xml)$/i.test(
+        pathname,
+      );
+    if (pathname.startsWith('/_next') || pathname.startsWith('/api/') || isStaticFile) {
       const res = NextResponse.next();
       res.headers.set('x-regen-host', '1');
       return res;

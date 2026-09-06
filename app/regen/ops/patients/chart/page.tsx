@@ -3,10 +3,13 @@ import { loadOpsChart } from '@/lib/regen/ops-chart-data';
 
 export const dynamic = 'force-dynamic';
 
-/** Legacy email-in-path chart. Prefer /ops/patients/chart?email= */
-export default async function PatientChartPage({ params }: { params: Promise<{ email: string }> }) {
-  const { email: raw } = await params;
-  const email = decodeURIComponent(raw || '');
+export default async function PatientChartByQueryPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ email?: string }>;
+}) {
+  const { email: raw } = await searchParams;
+  const email = decodeURIComponent(raw || '').trim();
   const data = await loadOpsChart(email);
   return <PatientChartClient email={email} initialData={data} />;
 }

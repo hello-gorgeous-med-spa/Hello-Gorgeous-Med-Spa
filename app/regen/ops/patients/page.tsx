@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { loadOpsToday } from '@/lib/regen/ops-live-data';
+import { opsChartHref } from '@/lib/regen/ops-staff';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,7 +29,7 @@ export default async function PatientsPage() {
         {rows.map((r) => (
           <Link
             key={r.email}
-            href={`/ops/patients/${encodeURIComponent(r.email || '')}`}
+            href={opsChartHref(r.email || '')}
             className="block bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/10"
           >
             <p className="text-white font-medium">{r.name}</p>

@@ -197,17 +197,17 @@ export default function OpsShell({
   );
 
   return (
-    <div className="min-h-screen bg-slate-950">
-      <div className="hidden md:fixed md:inset-y-0 md:left-0 md:z-40 md:block">{sidebar}</div>
+    <div className="min-h-screen bg-slate-950 print:bg-white">
+      <div className="hidden print:hidden md:fixed md:inset-y-0 md:left-0 md:z-40 md:block">{sidebar}</div>
 
       {sidebarOpen && (
-        <div className="md:hidden fixed inset-0 z-50 flex">
+        <div className="md:hidden print:hidden fixed inset-0 z-50 flex">
           <button className="absolute inset-0 bg-black/60" aria-label="Close menu" onClick={() => setSidebarOpen(false)} />
           <div className="relative z-10 h-full">{sidebar}</div>
         </div>
       )}
 
-      <header className="fixed top-0 right-0 left-0 md:left-64 h-14 bg-slate-900/95 border-b border-white/10 z-30 flex items-center justify-between px-4">
+      <header className="fixed top-0 right-0 left-0 md:left-64 h-14 bg-slate-900/95 border-b border-white/10 z-30 flex items-center justify-between px-4 print:hidden">
         <div className="flex items-center gap-3">
           <button
             type="button"
@@ -225,8 +225,8 @@ export default function OpsShell({
         </Link>
       </header>
 
-      <main className="pt-14 md:pl-64 min-h-screen">
-        <div className="p-4 md:p-6 max-w-6xl">
+      <main className="pt-14 md:pl-64 min-h-screen print:pt-0 print:pl-0">
+        <div className="p-4 md:p-6 max-w-6xl print:p-0 print:max-w-none">
           <OpsStaffContext.Provider value={current}>{children}</OpsStaffContext.Provider>
         </div>
       </main>
