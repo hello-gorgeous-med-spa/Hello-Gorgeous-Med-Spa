@@ -1,8 +1,6 @@
 /**
- * FormuConnect API Client — Formulation Rx Integration for REGEN RX
- * 
- * Handles order submission, status tracking, and product catalog sync
- * with Formulation Rx's compounding pharmacy platform.
+ * FormuConnect client — guessed `/v1/orders` endpoint, not a vendor-documented API.
+ * Do not enable live submit. Monday ops = paste a numeric Formulation SKU in the portal.
  */
 
 const FORMUCONNECT_API_KEY = process.env.FORMUCONNECT_API_KEY;
@@ -121,6 +119,18 @@ export async function testFormuConnectConnection(): Promise<{ success: boolean; 
 export async function submitFormuConnectOrder(
   order: FormuConnectOrder
 ): Promise<FormuConnectOrderResponse> {
+  if (process.env.RX_PHARMACY_API_ENABLED !== 'true') {
+    throw new Error(
+      'FormuConnect live submit is off. Copy the Formulation ticket into portal.formuconnect.com.',
+    );
+  }
+  const badIds = order.prescriptions.filter((rx) => !/^\d{3,6}$/.test(String(rx.productId || '').trim()));
+  if (badIds.length) {
+    throw new Error(
+      `Refusing FormuConnect submit — productId must be a numeric Formulation SKU (got ${badIds.map((rx) => rx.productId).join(', ')})`,
+    );
+  }
+
   return formuConnectRequest<FormuConnectOrderResponse>('/v1/orders', {
     method: 'POST',
     body: JSON.stringify({

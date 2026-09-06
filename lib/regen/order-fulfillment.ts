@@ -14,12 +14,36 @@ import {
   smsRegenOrderApproved,
   smsRegenOrderShipped,
 } from "@/lib/regen/order-notify";
+import {
+  enrichOrderItemsWithFormulationSku,
+  mergeIntakeWithFormulationTicket,
+  resolveFormulationTicket,
+  type FormulationTicket,
+} from "@/lib/regen/formulation-dispatch";
 import { regenOrderTitle, regenOrderTotalUsd } from "@/lib/regen/order-patient-status";
+import {
+  REGEN_DEFAULT_PHARMACY_SOURCE,
+  REGEN_PHARMACY_STAFF_PLACED_ONLY,
+} from "@/lib/regen/pharmacy-placement";
 import type { SquareShippingAddress } from "@/lib/square/order-shipping-format";
 import { formatSquareShippingAddress } from "@/lib/square/order-shipping-format";
 
 export type { RegenFulfillmentOrder };
 export { regenOrderNeedsReview, regenOrderReadyToShip };
+
+export function formulationTicketFromOrder(order: RegenFulfillmentOrder): FormulationTicket {
+  return resolveFormulationTicket({
+    orderRef: order.reference,
+    goal: order.goal,
+    customerName: order.customer_name,
+    customerEmail: order.customer_email,
+    customerPhone: order.customer_phone,
+    items: order.items,
+    intakeData: order.intake_data,
+    shippingAddress: order.shipping_address,
+    allergies: order.allergies,
+  });
+}
 
 const FULFILLMENT_SELECT =
   "reference, created_at, status, customer_name, customer_email, customer_phone, goal, allergies, items, subtotal_usd, shipping_usd, supply_cycle, paid_at, intake_completed_at, intake_data, telehealth_required, telehealth_scheduled_at, telehealth_completed_at, np_approved_at, np_notes, pharmacy_ordered_at, pharmacy_source, tracking_number, shipped_at, delivered_at, payment_id, square_order_id, shipping_address, sold_by_user_id, sold_by_email, sales_channel";
@@ -165,6 +189,12 @@ export async function applyRegenFulfillmentAction(
       if (action.npNotes?.trim()) {
         updates.np_notes = action.npNotes.trim();
       }
+      if (!order.pharmacy_source) {
+        updates.pharmacy_source = REGEN_DEFAULT_PHARMACY_SOURCE;
+      }
+      const ticket = formulationTicketFromOrder(order);
+      updates.intake_data = mergeIntakeWithFormulationTicket(order.intake_data, ticket);
+      updates.items = enrichOrderItemsWithFormulationSku(order.items, ticket);
       break;
     }
     case "pharmacy_ordered": {
@@ -284,5 +314,6 @@ export function regenFulfillmentSummary(order: RegenFulfillmentOrder) {
     hasShippingAddress: Boolean(shippingAddress),
     soldByLabel,
     salesChannel: order.sales_channel ?? "online",
+    formulationTicket: formulationTicketFromOrder(order),
   };
 }

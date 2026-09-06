@@ -5,6 +5,7 @@ import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import {
   applyRegenFulfillmentAction,
   fetchRegenFulfillmentOrder,
+  formulationTicketFromOrder,
   regenFulfillmentSummary,
 } from "@/lib/regen/order-fulfillment";
 import { syncRegenOrderShippingFromSquare } from "@/lib/regen/order-square-sync";
@@ -34,6 +35,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
 
   return NextResponse.json({
     summary: regenFulfillmentSummary(order),
+    formulationTicket: formulationTicketFromOrder(order),
     order: {
       ...order,
       items,

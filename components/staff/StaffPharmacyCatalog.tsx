@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 
 import {
   BOOMRX_STAFF_PORTAL_URL,
+  FORMUCONNECT_STAFF_PORTAL_URL,
   REGEN_PHARMACY_PLACEMENT_COPY,
 } from "@/lib/regen/pharmacy-placement";
 
@@ -77,21 +78,32 @@ export default function StaffPharmacyCatalog({ catalog }: { catalog: StaffCatalo
             Pharmacy <span className="text-[#FF2D8E]">Selector</span>
           </h1>
           <p className="mt-2 max-w-2xl text-sm text-white/80">
-            BoomRx Illinois formulary (Jul 2026) + Hello Gorgeous tailored peptide pricing.
+            Formulation / FormuConnect is the default shipper. This catalog still lists BoomRx
+            peptide pricing for SKUs Formulation does not carry.
             Updated {new Date(catalog.generatedAt).toLocaleDateString("en-US")} ·{" "}
             {catalog.totalProducts} SKUs
           </p>
           <div className="mt-4 rounded-2xl border-2 border-[#E6007E] bg-white/5 p-4 text-sm">
             <p className="font-bold text-[#FFB8DC]">{REGEN_PHARMACY_PLACEMENT_COPY.staffTitle}</p>
             <p className="mt-1 text-white/85">{REGEN_PHARMACY_PLACEMENT_COPY.staffDetail}</p>
-            <a
-              href={BOOMRX_STAFF_PORTAL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-block rounded-full border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-4 py-2 text-xs font-bold text-white"
-            >
-              Open BoomRx portal →
-            </a>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <a
+                href={FORMUCONNECT_STAFF_PORTAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-full border-2 border-black bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-4 py-2 text-xs font-bold text-white"
+              >
+                Open FormuConnect →
+              </a>
+              <a
+                href={BOOMRX_STAFF_PORTAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-full border-2 border-white/30 px-4 py-2 text-xs font-bold text-[#FFB8DC]"
+              >
+                BoomRx backup →
+              </a>
+            </div>
           </div>
         </div>
       </div>

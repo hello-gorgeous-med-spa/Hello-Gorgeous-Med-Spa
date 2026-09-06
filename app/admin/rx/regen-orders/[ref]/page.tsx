@@ -3,10 +3,32 @@
 import Link from "next/link";
 import {
   BOOMRX_STAFF_PORTAL_URL,
+  FORMUCONNECT_STAFF_PORTAL_URL,
+  REGEN_DEFAULT_PHARMACY_SOURCE,
   REGEN_PHARMACY_PLACEMENT_COPY,
 } from "@/lib/regen/pharmacy-placement";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+
+type FormulationTicket = {
+  status: "ready" | "needs_np_sku" | "no_formulation_sku";
+  pharmacy: string;
+  portalUrl: string;
+  program: string;
+  lines: Array<{
+    sku: string | null;
+    productName: string;
+    packDescription: string;
+    quantity: number;
+    sig: string;
+    coldShip: boolean;
+    shipNote: string;
+  }>;
+  notes: string[];
+  pasteText: string;
+  needsNpSku: boolean;
+  patient: { name: string; dob: string; email: string; phone: string; shipTo: string };
+};
 
 type OrderItem = {
   name?: string;
@@ -47,6 +69,7 @@ type Summary = {
   title: string;
   shippingAddress?: string;
   hasShippingAddress?: boolean;
+  formulationTicket?: FormulationTicket;
 };
 
 export default function RegenOrderFulfillmentDetailPage() {
@@ -60,7 +83,9 @@ export default function RegenOrderFulfillmentDetailPage() {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [npNotes, setNpNotes] = useState("");
-  const [pharmacySource, setPharmacySource] = useState("BoomRx");
+  const [pharmacySource, setPharmacySource] = useState(REGEN_DEFAULT_PHARMACY_SOURCE);
+  const [ticket, setTicket] = useState<FormulationTicket | null>(null);
+  const [copied, setCopied] = useState(false);
   const [trackingNumber, setTrackingNumber] = useState("");
   const [carrier, setCarrier] = useState("USPS");
 
@@ -72,8 +97,9 @@ export default function RegenOrderFulfillmentDetailPage() {
       if (res.ok) {
         setOrder(data.order);
         setSummary(data.summary);
+        setTicket(data.formulationTicket || data.summary?.formulationTicket || null);
         setNpNotes(data.order?.np_notes || "");
-        setPharmacySource(data.order?.pharmacy_source || "BoomRx");
+        setPharmacySource(data.order?.pharmacy_source || REGEN_DEFAULT_PHARMACY_SOURCE);
         setTrackingNumber(data.order?.tracking_number || "");
       }
     } finally {
@@ -231,6 +257,82 @@ export default function RegenOrderFulfillmentDetailPage() {
           <p className="mt-3 text-right font-bold">Total ${summary.totalUsd.toFixed(2)}</p>
         </section>
 
+        {ticket ? (
+          <section className="rounded-xl border-2 border-[#E6007E]/50 bg-[#E6007E]/10 p-5 mb-6">
+            <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+              <div>
+                <h2 className="text-sm font-bold uppercase tracking-wider text-[#FFB8DC]">
+                  Formulation ticket
+                </h2>
+                <p className="text-xs text-gray-400 mt-1">
+                  {ticket.status === "ready"
+                    ? "Copy this into FormuConnect — do not invent an API submit."
+                    : ticket.status === "no_formulation_sku"
+                      ? "No Formulation SKU. Ryan picks BoomRx or an alternate."
+                      : "Ryan must pick the SKU before Damara places this."}
+                </p>
+              </div>
+              <span
+                className={`rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider ${
+                  ticket.status === "ready"
+                    ? "bg-green-500/20 text-green-200"
+                    : "bg-amber-500/20 text-amber-100"
+                }`}
+              >
+                {ticket.status === "ready" ? "SKU ready" : ticket.status.replace(/_/g, " ")}
+              </span>
+            </div>
+
+            <ul className="space-y-2 text-sm mb-4">
+              {ticket.lines.map((line, i) => (
+                <li key={`${line.sku || "none"}-${i}`} className="rounded-lg border border-white/10 bg-black/30 px-3 py-2">
+                  <p className="font-mono text-[#FFB8DC]">{line.sku ? `SKU ${line.sku}` : "SKU — Ryan picks"}</p>
+                  <p className="text-white">{line.productName}</p>
+                  {line.packDescription ? <p className="text-xs text-gray-400">{line.packDescription}</p> : null}
+                  <p className="text-xs text-gray-400">
+                    Qty {line.quantity}
+                    {line.coldShip ? ` · ${line.shipNote}` : ""}
+                  </p>
+                </li>
+              ))}
+            </ul>
+
+            {ticket.notes.length ? (
+              <ul className="mb-4 list-disc pl-5 text-xs text-amber-100/90 space-y-1">
+                {ticket.notes.map((note) => (
+                  <li key={note}>{note}</li>
+                ))}
+              </ul>
+            ) : null}
+
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(ticket.pasteText);
+                    setCopied(true);
+                    window.setTimeout(() => setCopied(false), 2000);
+                  } catch {
+                    setCopied(false);
+                  }
+                }}
+                className="rounded-lg bg-[#E6007E] px-4 py-2 text-xs font-bold hover:bg-[#FF2D8E]"
+              >
+                {copied ? "Copied" : "Copy FormuConnect ticket"}
+              </button>
+              <a
+                href={ticket.portalUrl || FORMUCONNECT_STAFF_PORTAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-lg border border-[#FFB8DC] px-4 py-2 text-xs font-bold text-[#FFB8DC] hover:bg-white/10"
+              >
+                Open {ticket.pharmacy === "BoomRx" ? "BoomRx" : "FormuConnect"} →
+              </a>
+            </div>
+          </section>
+        ) : null}
+
         {order.intake_data && Object.keys(order.intake_data).length > 0 ? (
           <section className="rounded-xl border border-white/10 bg-white/5 p-5 mb-6">
             <h2 className="text-sm font-bold uppercase tracking-wider text-[#FFB8DC] mb-3">Intake flags</h2>
@@ -299,14 +401,24 @@ export default function RegenOrderFulfillmentDetailPage() {
                 <p className="mt-1 text-xs text-amber-100/90">
                   {REGEN_PHARMACY_PLACEMENT_COPY.staffDetail}
                 </p>
-                <a
-                  href={BOOMRX_STAFF_PORTAL_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-block text-xs font-bold text-[#FFB8DC] underline"
-                >
-                  Open BoomRx portal →
-                </a>
+                <div className="mt-2 flex flex-wrap gap-3">
+                  <a
+                    href={FORMUCONNECT_STAFF_PORTAL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-[#FFB8DC] underline"
+                  >
+                    Open FormuConnect →
+                  </a>
+                  <a
+                    href={BOOMRX_STAFF_PORTAL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold text-gray-400 underline"
+                  >
+                    BoomRx backup →
+                  </a>
+                </div>
               </div>
               <div>
                 <label className="block text-xs text-gray-400 mb-1">Pharmacy / vendor</label>
@@ -314,7 +426,7 @@ export default function RegenOrderFulfillmentDetailPage() {
                   value={pharmacySource}
                   onChange={(e) => setPharmacySource(e.target.value)}
                   className="w-full rounded-lg border border-white/20 bg-black/40 px-3 py-2 text-sm"
-                  placeholder="e.g. BoomRx, Olympia, Formulation"
+                  placeholder="Formulation Rx"
                 />
               </div>
               <button

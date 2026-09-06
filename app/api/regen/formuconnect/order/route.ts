@@ -8,9 +8,17 @@ import {
 
 /**
  * POST /api/regen/formuconnect/order
- * Submit a new prescription order to FormuConnect
+ * Blocked unless RX_PHARMACY_API_ENABLED=true and every productId is a numeric SKU.
+ * Monday path: paste the ticket in FormuConnect — do not call this.
  */
 export async function POST(request: NextRequest) {
+  if (process.env.RX_PHARMACY_API_ENABLED !== 'true') {
+    return NextResponse.json({
+      success: false,
+      error: 'FormuConnect live submit is off. Copy the Formulation ticket into the portal.',
+    }, { status: 503 });
+  }
+
   if (!isFormuConnectConfigured()) {
     return NextResponse.json({
       success: false,
@@ -35,6 +43,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         success: false,
         error: 'At least one prescription required',
+      }, { status: 400 });
+    }
+
+    const badIds = prescriptions.filter(
+      (rx: { productId?: string }) => !/^\d{3,6}$/.test(String(rx.productId || '').trim()),
+    );
+    if (badIds.length) {
+      return NextResponse.json({
+        success: false,
+        error: 'Every productId must be a numeric Formulation SKU',
       }, { status: 400 });
     }
 

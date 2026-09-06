@@ -120,7 +120,10 @@ export default function TodayQueue({
       return;
     }
     if (json.fulfillment?.pharmacyError) {
-      alert(`Approved. Pharmacy note: ${json.fulfillment.pharmacyError}`);
+      const sku = json.fulfillment.formulationTicket?.sku;
+      alert(
+        `Approved. ${json.fulfillment.pharmacyError}${sku ? `\nSKU ${sku}` : ''}\n\nCopy the FormuConnect ticket from Admin → RE GEN orders.`,
+      );
     }
     setSelected(null);
     setNote('');

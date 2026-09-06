@@ -42,8 +42,9 @@ export function RxPortalPlaceOrder() {
           </p>
           <h3 className="mt-1 text-lg font-black text-[#0B1F33]">Order from Pharmacy</h3>
           <p className="mt-2 text-sm text-sky-950/80 leading-relaxed">
-            Choose FormuConnect or BoomRx, then open the vendor portal to place the compounded order
-            (manual until live API is enabled).
+            Formulation / FormuConnect is the default shipper. Copy the SKU ticket from the
+            order, paste it in the portal, then mark pharmacy ordered. BoomRx is backup for
+            SKUs Formulation does not carry.
           </p>
 
           <label className="mt-4 block text-[11px] font-bold uppercase tracking-wider text-sky-800">
@@ -70,7 +71,7 @@ export function RxPortalPlaceOrder() {
             Open {selected.label} ↗
           </a>
           <p className="mt-2 text-[11px] text-slate-500">
-            Chrome recommended · Manual until Phase 6 API sync
+            Chrome recommended · Staff paste in portal — live API stays off until Formulation ships a client
           </p>
         </div>
       </div>

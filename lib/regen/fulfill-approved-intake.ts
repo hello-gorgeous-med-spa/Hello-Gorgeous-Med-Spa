@@ -1,21 +1,19 @@
 import { getSupabase } from '@/lib/supabase-server';
-import { isFormuConnectConfigured, submitFormuConnectOrder } from '@/lib/formuconnect';
+import {
+  enrichOrderItemsWithFormulationSku,
+  resolveFormulationTicket,
+} from '@/lib/regen/formulation-dispatch';
+import { REGEN_DEFAULT_PHARMACY_SOURCE } from '@/lib/regen/pharmacy-placement';
 
-const GOAL_PRODUCT: Record<string, { productId: string; productName: string; sig: string }> = {
-  'weight-loss': { productId: 'glp1-sema', productName: 'Semaglutide', sig: 'Use as directed by your REGEN RX provider' },
-  glp1: { productId: 'glp1-sema', productName: 'Semaglutide', sig: 'Use as directed by your REGEN RX provider' },
-  hormones: { productId: 'hrt', productName: 'Hormone Therapy', sig: 'Use as directed by your REGEN RX provider' },
-  hrt: { productId: 'hrt', productName: 'Hormone Therapy', sig: 'Use as directed by your REGEN RX provider' },
-  peptides: { productId: 'peptide', productName: 'Peptide Therapy', sig: 'Use as directed by your REGEN RX provider' },
-  'sexual-health': { productId: 'sexual-health', productName: 'Sexual Health Therapy', sig: 'Use as directed by your REGEN RX provider' },
-  hair: { productId: 'hair', productName: 'Hair Restoration', sig: 'Use as directed by your REGEN RX provider' },
-  skincare: { productId: 'skincare', productName: 'Prescription Skincare', sig: 'Use as directed by your REGEN RX provider' },
-  vitamins: { productId: 'vitamins', productName: 'Vitamin Injectable', sig: 'Use as directed by your REGEN RX provider' },
-};
-
-function splitName(name: string) {
-  const parts = String(name || '').trim().split(/\s+/);
-  return { firstName: parts[0] || name || 'Patient', lastName: parts.slice(1).join(' ') || 'Unknown' };
+function pharmacyErrorForTicket(ticket: ReturnType<typeof resolveFormulationTicket>): string {
+  if (ticket.status === 'ready') {
+    const skus = ticket.lines.map((line) => line.sku).filter(Boolean).join(', ');
+    return `FormuConnect portal ticket ready — paste SKU ${skus}. Live API is off (RX_PHARMACY_API_ENABLED=false).`;
+  }
+  if (ticket.status === 'no_formulation_sku') {
+    return ticket.notes[0] || 'No Formulation SKU — Ryan picks BoomRx or an alternate.';
+  }
+  return ticket.notes[0] || 'Ryan must pick the Formulation SKU before this is placed in FormuConnect.';
 }
 
 export async function fulfillApprovedIntake(intake: {
@@ -33,29 +31,35 @@ export async function fulfillApprovedIntake(intake: {
   if (!supabase) throw new Error('Database not configured');
 
   const history = (intake.medical_history || {}) as Record<string, unknown>;
+  const ticket = resolveFormulationTicket({
+    goal: intake.goal,
+    customerName: intake.name,
+    customerEmail: intake.email,
+    customerPhone: intake.phone,
+    medicalHistory: history,
+  });
+
   const tirz = history.tirzepatide && typeof history.tirzepatide === 'object'
     ? (history.tirzepatide as Record<string, unknown>)
     : null;
-  const program = String(history.program || '');
+  const primary = ticket.lines[0];
+  const items = enrichOrderItemsWithFormulationSku(
+    [{
+      name: primary?.productName || ticket.program || intake.goal || 'REGEN RX Prescription',
+      qty: Number(tirz?.vials || primary?.quantity || 1),
+      goal: intake.goal,
+      program: ticket.program,
+      weeklyMg: tirz?.weeklyMg ?? null,
+      termDays: tirz?.termDays ?? null,
+      vials: tirz?.vials ?? null,
+      formulationSku: primary?.sku ?? null,
+    }],
+    ticket,
+  );
 
-  let product = GOAL_PRODUCT[intake.goal] || {
-    productId: intake.goal || 'regen-rx',
-    productName: intake.goal || 'REGEN RX Prescription',
-    sig: 'Use as directed by your REGEN RX provider',
-  };
-  if (program === 'tirzepatide' || tirz) {
-    const weekly = tirz?.weeklyMg != null ? `${tirz.weeklyMg} mg/week` : '';
-    product = {
-      productId: 'glp1-tirz',
-      productName: weekly ? `Tirzepatide ${weekly}` : 'Tirzepatide',
-      sig: 'Use as directed by your REGEN RX provider',
-    };
-  }
-
-  const shipping = (history.shipping || {}) as Record<string, string>;
-  const { firstName, lastName } = splitName(intake.name);
   const orderNumber = `RX-${Date.now().toString(36).toUpperCase()}`;
   const total = Number(intake.amount_paid || 0);
+  const pharmacyError = pharmacyErrorForTicket(ticket);
 
   const { data: order, error: orderError } = await supabase
     .from('regen_orders')
@@ -63,20 +67,14 @@ export async function fulfillApprovedIntake(intake: {
       order_number: orderNumber,
       patient_id: intake.patient_id || null,
       intake_id: intake.id,
-      pharmacy_name: 'Formulation Rx',
-      items: [{
-        name: product.productName,
-        qty: Number(tirz?.vials || 1),
-        goal: intake.goal,
-        weeklyMg: tirz?.weeklyMg ?? null,
-        termDays: tirz?.termDays ?? null,
-        vials: tirz?.vials ?? null,
-      }],
+      pharmacy_name: ticket.pharmacy || REGEN_DEFAULT_PHARMACY_SOURCE,
+      items,
       subtotal: total,
       shipping: 0,
       discount: 0,
       total,
       status: 'pending',
+      pharmacy_error: pharmacyError,
     })
     .select()
     .single();
@@ -86,86 +84,28 @@ export async function fulfillApprovedIntake(intake: {
     throw orderError;
   }
 
-  let pharmacyOrderId: string | null = null;
-  let pharmacyError: string | null = null;
-
-  if (!isFormuConnectConfigured()) {
-    pharmacyError = 'FORMUCONNECT_API_KEY missing in production';
-  } else if (!shipping.street1 || !shipping.city || !shipping.zip) {
-    pharmacyError = 'Patient shipping address missing — order saved locally; send in Formulation by hand';
-  } else {
-    try {
-      const result = await submitFormuConnectOrder({
-        patient: {
-          firstName,
-          lastName,
-          dateOfBirth: String(history.dob || history.dateOfBirth || ''),
-          email: intake.email,
-          phone: intake.phone || undefined,
-          address: {
-            street1: shipping.street1,
-            street2: shipping.street2,
-            city: shipping.city,
-            state: shipping.state || 'IL',
-            zip: shipping.zip,
-          },
-        },
-        prescriptions: [{
-          productId: product.productId,
-          productName: product.productName,
-          quantity: Number(tirz?.vials || 1),
-          sig: product.sig,
-          daysSupply: Number(tirz?.termDays || 30),
-        }],
-        notes: [
-          intake.review_notes,
-          tirz
-            ? `Requested: Tirzepatide ${tirz.weeklyMg} mg/week × ${tirz.termDays} days · ${tirz.vials} × 1 mL @ 12.5 mg/mL`
-            : null,
-        ].filter(Boolean).join(' · ') || undefined,
-        metadata: {
-          regenOrderId: order.id,
-          orderNumber,
-          intakeId: intake.id,
-        },
-      });
-      pharmacyOrderId = result.orderId || null;
-      if (!result.success && !pharmacyOrderId) {
-        pharmacyError = result.message || 'FormuConnect did not return an order id';
-      }
-    } catch (err) {
-      pharmacyError = err instanceof Error ? err.message : 'FormuConnect submit failed';
-      console.error('[fulfill] FormuConnect error:', err);
-    }
-  }
-
-  if (pharmacyOrderId || pharmacyError) {
-    const orderPatch: Record<string, unknown> = {
-      pharmacy_order_id: pharmacyOrderId,
-      status: pharmacyOrderId ? 'processing' : 'pending',
-      updated_at: new Date().toISOString(),
-    };
-    const { error: patchError } = await supabase
-      .from('regen_orders')
-      .update({ ...orderPatch, pharmacy_error: pharmacyError })
-      .eq('id', order.id);
-    if (patchError) {
-      await supabase.from('regen_orders').update(orderPatch).eq('id', order.id);
-    }
-
-    await supabase.from('regen_order_status_history').insert({
-      order_id: order.id,
-      status: pharmacyOrderId ? 'processing' : 'pending',
-      actor_type: 'system',
-      notes: pharmacyError || 'Submitted to Formulation Rx',
-      metadata: { pharmacyOrderId, pharmacyError },
-    });
-  }
+  await supabase.from('regen_order_status_history').insert({
+    order_id: order.id,
+    status: 'pending',
+    actor_type: 'system',
+    notes: pharmacyError,
+    metadata: {
+      formulationSku: primary?.sku ?? null,
+      formulationStatus: ticket.status,
+      pharmacy: ticket.pharmacy,
+    },
+  });
 
   return {
     orderId: order.id,
     orderNumber,
-    pharmacyOrderId,
+    pharmacyOrderId: null as string | null,
     pharmacyError,
+    formulationTicket: {
+      status: ticket.status,
+      sku: primary?.sku ?? null,
+      pharmacy: ticket.pharmacy,
+      pasteText: ticket.pasteText,
+    },
   };
 }

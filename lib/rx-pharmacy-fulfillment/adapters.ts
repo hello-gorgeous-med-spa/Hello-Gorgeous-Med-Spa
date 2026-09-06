@@ -1,10 +1,9 @@
 /**
  * Pharmacy fulfillment adapters (HGRX-040 Formulation, HGRX-041 BoomRx, HGRX-042 Olympia).
  *
- * Phase 6 (live API): when `RX_PHARMACY_API_ENABLED=true` and vendor credentials are present,
- * `submitFormulation` / BoomRx / Olympia call real APIs and `syncPharmacyShipmentStatus`
- * writes tracking into `hg_rx_pharmacy_shipments`. Until then, adapters return manual portal
- * URLs for staff to submit in FormuConnect / vendor portals.
+ * Monday path: keep `RX_PHARMACY_API_ENABLED=false`. Staff copy the Formulation ticket
+ * from `/admin/rx/regen-orders/[ref]` and paste it in FormuConnect. Do not POST guessed
+ * product IDs. Live submit stays stubbed until Formulation ships a real OpenAPI client.
  */
 
 import type { PharmacyShipmentRow } from "@/lib/rx-pharmacy-fulfillment/types";
@@ -37,7 +36,7 @@ async function submitFormulation(order: PharmacyShipmentRow): Promise<PharmacySu
     };
   }
 
-  // Phase 6 live path — wire FormuConnect / Formulation submit when credentials exist.
+  // Live path — only after Formulation documents a real order endpoint.
   if (!formulationCredentialsPresent()) {
     return {
       ok: false,
