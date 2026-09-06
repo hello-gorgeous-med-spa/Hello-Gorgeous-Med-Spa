@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import { REGEN_VIAL_ART } from "@/lib/regen-gorgeous20";
 import {
   TRYREGEN_BUNDLES,
   TRYREGEN_BUNDLES_LEGAL,
@@ -9,6 +10,12 @@ import {
   tryregenBundleShippingUsd,
   tryregenBundleStartHref,
 } from "@/lib/regen/tryregen-bundles";
+
+const BUNDLE_ART: Record<string, string> = {
+  recovery: REGEN_VIAL_ART.recovery,
+  "full-recovery": REGEN_VIAL_ART.fullRecovery,
+  peak: REGEN_VIAL_ART.peak,
+};
 
 const BRAND = {
   teal: "#0D9488",
@@ -39,6 +46,12 @@ export function RegenBundlesBand({ id = "bundles" }: { id?: string }) {
             One card, one price, one cold ship. Your Illinois NP reviews the request and
             prescribes only if it is clinically appropriate.
           </p>
+          <img
+            src={REGEN_VIAL_ART.lineup}
+            alt="REGEN RX vial lineup"
+            className="mt-8 w-full max-h-[320px] rounded-3xl object-cover border"
+            style={{ borderColor: `${BRAND.teal}40` }}
+          />
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -51,6 +64,13 @@ export function RegenBundlesBand({ id = "bundles" }: { id?: string }) {
                 className="group rounded-2xl p-6 transition-all hover:-translate-y-1"
                 style={{ backgroundColor: BRAND.dark, border: `1px solid ${BRAND.teal}30` }}
               >
+                {BUNDLE_ART[bundle.id] ? (
+                  <img
+                    src={BUNDLE_ART[bundle.id]}
+                    alt=""
+                    className="mb-4 h-36 w-full rounded-xl object-cover"
+                  />
+                ) : null}
                 <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BRAND.teal }}>
                   {bundle.tagline}
                 </p>

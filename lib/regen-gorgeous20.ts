@@ -15,6 +15,16 @@ export const GORGEOUS20_HERO =
 export const GORGEOUS20_PORTRAIT =
   "/images/regen/marketing/dani-ryan-syringes-portrait.png" as const;
 
+export const REGEN_VIAL_LINEUP =
+  "/images/regen/marketing/vial-lineup.png" as const;
+export const REGEN_VIAL_ART = {
+  lineup: REGEN_VIAL_LINEUP,
+  recovery: "/images/regen/marketing/vial-recovery.png",
+  fullRecovery: "/images/regen/marketing/vial-full-recovery.png",
+  peak: "/images/regen/marketing/vial-cjc-ipa.png",
+  tesamorelinIpa: "/images/regen/marketing/vial-tesamorelin-ipa.png",
+} as const;
+
 export const GORGEOUS20_LEGAL =
   "Illinois patients only. One use on your first REGEN RX medication order. Enter the code on the payment screen. Shipping is not discounted. Ryan Kent, FNP-BC prescribes only when clinically appropriate, including off-label use when indicated. Compounded medications are not FDA-approved. Requesting a visit is a consult — not a guaranteed prescription.";
 

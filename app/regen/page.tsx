@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
 import { RegenExplainerHero } from '@/components/regen/RegenExplainerHero';
 import { RegenBundlesBand } from '@/components/regen/RegenBundlesBand';
-import { GORGEOUS20_CODE, GORGEOUS20_HERO, GORGEOUS20_PERCENT, GORGEOUS20_START_HREF } from '@/lib/regen-gorgeous20';
+import { GORGEOUS20_CODE, GORGEOUS20_HERO, GORGEOUS20_PERCENT, GORGEOUS20_START_HREF, REGEN_VIAL_ART } from '@/lib/regen-gorgeous20';
 
 const BRAND = {
   teal: '#0D9488',      // Bright teal (molecules)
@@ -45,7 +45,7 @@ const PROGRAMS = [
     description: 'BPC-157, Sermorelin, and more for healing, energy, and longevity',
     price: '$199',
     href: '/start?goal=peptides',
-    image: '/images/regen/marketing/man-fitness.png',
+    image: REGEN_VIAL_ART.recovery,
   },
   {
     id: 'bundles',
@@ -54,7 +54,7 @@ const PROGRAMS = [
     description: 'Curated vials Ryan can prescribe when clinically appropriate — one price, one cold ship',
     price: 'from $200',
     href: '/start?goal=bundles',
-    image: '/images/regen/marketing/cell-peptide.png',
+    image: REGEN_VIAL_ART.lineup,
   },
   {
     id: 'vitamins',

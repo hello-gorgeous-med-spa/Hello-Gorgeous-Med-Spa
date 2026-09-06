@@ -12,6 +12,7 @@ import {
   GORGEOUS20_PERCENT,
   GORGEOUS20_PORTRAIT,
   GORGEOUS20_START_HREF,
+  REGEN_VIAL_LINEUP,
 } from "@/lib/regen-gorgeous20";
 import { SITE } from "@/lib/seo";
 
@@ -46,7 +47,7 @@ export function RegenGorgeous20Kit() {
         <img
           src={GORGEOUS20_HERO}
           alt="Danielle and Ryan Kent, FNP-BC in REGEN RX scrubs"
-          className="h-[72vh] min-h-[420px] w-full object-cover object-[50%_22%]"
+          className="h-[56vh] min-h-[340px] w-full object-cover object-[50%_28%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-6xl px-6 pb-12">
@@ -94,6 +95,11 @@ export function RegenGorgeous20Kit() {
           You are asking for a consult. If it is appropriate, it ships to your Illinois
           door. Compounded medications are not FDA-approved.
         </p>
+        <img
+          src={REGEN_VIAL_LINEUP}
+          alt="REGEN RX vials"
+          className="mt-8 w-full rounded-3xl object-cover"
+        />
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {GORGEOUS20_EXAMPLES.map((ex) => (
             <Link

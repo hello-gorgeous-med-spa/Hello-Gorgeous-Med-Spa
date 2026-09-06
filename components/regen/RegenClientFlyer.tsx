@@ -12,7 +12,7 @@ import {
   REGEN_CLIENT_FLYER_PORTRAIT,
   REGEN_CLIENT_FLYER_SITE_URL,
 } from "@/lib/regen-client-flyer";
-import { GORGEOUS20_CODE, GORGEOUS20_PERCENT } from "@/lib/regen-gorgeous20";
+import { GORGEOUS20_CODE, GORGEOUS20_PERCENT, REGEN_VIAL_LINEUP } from "@/lib/regen-gorgeous20";
 import { SITE } from "@/lib/seo";
 
 const PROGRAMS = [
@@ -100,63 +100,60 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
       {/* PAGE 1 — cover */}
       <article className="flyer-page flyer-cover" ref={setPageRef(0)}>
         <div className="flyer-colorbar" aria-hidden />
-        <div className="flyer-cover-grid">
-          <div className="flyer-cover-copy">
-            <p className="flyer-kicker">A Hello Gorgeous partnership</p>
-            <img
-              src="/images/regen/logo-full.png"
-              alt="REGEN RX"
-              className="flyer-logo"
-            />
-            <p className="flyer-renew">Renew. Rebalance. Regenerate.</p>
-            <p className="flyer-coupon">
-              First order {GORGEOUS20_PERCENT}% off · <b>{GORGEOUS20_CODE}</b>
+        <aside className="flyer-cover-photo">
+          <img
+            src={`${REGEN_CLIENT_FLYER_PORTRAIT}?v=wide`}
+            alt="Danielle in REGEN RX scrubs"
+          />
+          <div className="flyer-photo-shade" />
+          <div className="flyer-qr-card">
+            <img src={qrDataUrl} alt="Scan to start REGEN RX" />
+            <p>
+              Scan to start · {GORGEOUS20_CODE}
+              <strong>tryregenrx.com/start</strong>
             </p>
-            <h1>The prescription door we opened for you.</h1>
-            <p className="flyer-lede">
-              Hello Gorgeous is still your studio on Washington Street. REGEN RX is
-              how you keep working with <strong>Ryan Kent, FNP-BC</strong> without
-              living in the waiting room — weight loss, hormones, vitamins, and
-              stacks he can prescribe when it is clinically appropriate.
-            </p>
+          </div>
+        </aside>
+        <div className="flyer-cover-copy">
+          <p className="flyer-kicker">A Hello Gorgeous partnership</p>
+          <img
+            src="/images/regen/logo-full.png"
+            alt="REGEN RX"
+            className="flyer-logo"
+          />
+          <p className="flyer-renew">Renew. Rebalance. Regenerate.</p>
+          <p className="flyer-coupon">
+            First order {GORGEOUS20_PERCENT}% off · <b>{GORGEOUS20_CODE}</b>
+          </p>
+          <h1>The prescription door we opened for you.</h1>
+          <p className="flyer-lede">
+            Hello Gorgeous is still your studio on Washington Street. REGEN RX is
+            how you keep working with <strong>Ryan Kent, FNP-BC</strong> without
+            living in the waiting room — weight loss, hormones, vitamins, and
+            stacks he can prescribe when it is clinically appropriate.
+          </p>
 
-            <div className="flyer-steps">
-              {STEPS.map((s) => (
-                <div key={s.n} className="flyer-step">
-                  <span>{s.n}</span>
-                  <div>
-                    <strong>{s.t}</strong>
-                    <em>{s.d}</em>
-                  </div>
+          <div className="flyer-steps">
+            {STEPS.map((s) => (
+              <div key={s.n} className="flyer-step">
+                <span>{s.n}</span>
+                <div>
+                  <strong>{s.t}</strong>
+                  <em>{s.d}</em>
                 </div>
-              ))}
-            </div>
-
-            <div className="flyer-programs">
-              {PROGRAMS.map((p) => (
-                <div key={p.name} className="flyer-program">
-                  <b>{p.name}</b>
-                  <small>{p.detail}</small>
-                  <em>{p.from}</em>
-                </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
 
-          <aside className="flyer-cover-photo">
-            <img
-              src={`${REGEN_CLIENT_FLYER_PORTRAIT}?v=danielle-scrubs`}
-              alt="Danielle in REGEN RX scrubs"
-            />
-            <div className="flyer-photo-shade" />
-            <div className="flyer-qr-card">
-              <img src={qrDataUrl} alt="Scan to start REGEN RX" />
-              <p>
-                Scan to start · {GORGEOUS20_CODE}
-                <strong>tryregenrx.com/start</strong>
-              </p>
-            </div>
-          </aside>
+          <div className="flyer-programs">
+            {PROGRAMS.map((p) => (
+              <div key={p.name} className="flyer-program">
+                <b>{p.name}</b>
+                <small>{p.detail}</small>
+                <em>{p.from}</em>
+              </div>
+            ))}
+          </div>
         </div>
 
         <footer className="flyer-footer">
@@ -181,6 +178,12 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
             not buying a vial off a shelf. Compounded medications are not FDA-approved.
           </p>
         </header>
+
+        <img
+          src={REGEN_VIAL_LINEUP}
+          alt="REGEN RX vials — recovery, performance, and repair stacks"
+          className="flyer-vial-lineup"
+        />
 
         <div className="flyer-bundle-grid">
           {bundles.map((b) => (
@@ -284,13 +287,7 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
           background: linear-gradient(90deg, #0D9488 0%, #0D9488 48%, #E91E8C 52%, #E91E8C 100%);
           flex: 0 0 5px;
         }
-        .flyer-cover-grid {
-          flex: 1;
-          display: grid;
-          grid-template-columns: 1.05fr 0.95fr;
-          min-height: 0;
-        }
-        .flyer-cover-copy { padding: 0.42in 0.38in 0.2in 0.42in; }
+        .flyer-cover-copy { padding: 0.22in 0.38in 0.12in 0.42in; flex: 1; }
         .flyer-kicker {
           font-size: 10px;
           letter-spacing: 0.22em;
@@ -299,7 +296,7 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
           color: #0D9488;
           margin: 0 0 10px;
         }
-        .flyer-logo { height: 52px; width: auto; display: block; margin-bottom: 8px; }
+        .flyer-logo { height: 40px; width: auto; display: block; margin-bottom: 4px; }
         .flyer-renew {
           color: #E91E8C;
           font-size: 11px;
@@ -322,20 +319,20 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
         .flyer-coupon b { font-weight: 900; }
         .flyer-cover h1 {
           font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
-          font-size: 34px;
+          font-size: 28px;
           line-height: 1.08;
           font-weight: 800;
-          margin: 0 0 12px;
+          margin: 0 0 8px;
           color: #FAF9F6;
         }
         .flyer-lede {
-          font-size: 13px;
-          line-height: 1.45;
+          font-size: 12.5px;
+          line-height: 1.4;
           color: #C4C4C4;
-          margin: 0 0 16px;
+          margin: 0 0 10px;
         }
         .flyer-lede strong { color: #fff; }
-        .flyer-steps { display: grid; gap: 8px; margin-bottom: 16px; }
+        .flyer-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 10px; }
         .flyer-step { display: flex; gap: 10px; align-items: flex-start; }
         .flyer-step span {
           flex: 0 0 28px;
@@ -365,12 +362,17 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
         .flyer-program b { display: block; font-size: 12px; color: #fff; }
         .flyer-program small { display: block; font-size: 10px; color: #9CA3AF; }
         .flyer-program em { display: block; font-style: normal; font-size: 11px; font-weight: 800; color: #E91E8C; margin-top: 2px; }
-        .flyer-cover-photo { position: relative; min-height: 0; overflow: hidden; }
+        .flyer-cover-photo {
+          position: relative;
+          height: 4.05in;
+          flex: 0 0 4.05in;
+          overflow: hidden;
+        }
         .flyer-cover-photo > img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: 58% 12%;
+          object-position: 50% 34%;
           display: block;
         }
         .flyer-photo-shade {
@@ -380,9 +382,10 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
         }
         .flyer-qr-card {
           position: absolute;
-          left: 16px;
           right: 16px;
-          bottom: 18px;
+          left: auto;
+          width: 2.35in;
+          bottom: 14px;
           background: rgba(250,249,246,0.96);
           color: #0A0A0A;
           border-radius: 14px;
@@ -417,10 +420,19 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
           margin: 0 0 8px;
         }
         .flyer-bundles-head p {
-          margin: 0 0 16px;
+          margin: 0 0 10px;
           color: #C4C4C4;
-          font-size: 13px;
+          font-size: 12.5px;
           max-width: 6.6in;
+        }
+        .flyer-vial-lineup {
+          width: 100%;
+          height: 1.7in;
+          object-fit: cover;
+          object-position: 50% 55%;
+          border-radius: 14px;
+          margin: 0 0 10px;
+          border: 1px solid rgba(13,148,136,0.28);
         }
         .flyer-bundle-grid {
           display: grid;
