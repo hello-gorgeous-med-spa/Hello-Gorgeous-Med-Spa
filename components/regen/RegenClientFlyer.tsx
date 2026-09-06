@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef, useState } from "react";
+
 import {
   TRYREGEN_BUNDLES,
   TRYREGEN_BUNDLES_LEGAL,
@@ -49,6 +51,9 @@ const BUNDLE_BLURB: Record<string, string> = {
 type Props = { qrDataUrl: string };
 
 export function RegenClientFlyer({ qrDataUrl }: Props) {
+  const pagesRef = useRef<HTMLElement[]>([]);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const ship = tryregenBundleShippingUsd();
   const bundles = TRYREGEN_BUNDLES.map((b) => ({
     ...b,
@@ -56,20 +61,44 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
     blurb: BUNDLE_BLURB[b.id] ?? b.description,
   }));
 
+  const setPageRef = (index: number) => (node: HTMLElement | null) => {
+    if (node) pagesRef.current[index] = node;
+  };
+
+  async function savePdf() {
+    setSaving(true);
+    setSaveError(null);
+    try {
+      const { downloadRegenClientFlyerPdf } = await import("@/lib/regen-client-flyer-pdf");
+      await downloadRegenClientFlyerPdf(pagesRef.current.filter(Boolean));
+    } catch {
+      setSaveError("Could not save the PDF. Try again, or use Print → Save as PDF.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
     <div className="flyer-root">
       <div className="flyer-screen print:hidden">
         <p>
-          Print in <strong>color, letter, actual size</strong> — or{" "}
-          <strong>Print → Save as PDF</strong> to text or email clients.
+          <strong>Save PDF</strong> downloads the two letter pages only — no website
+          bar. Email the file to Office Depot or open it on your phone: color, 8.5×11,
+          actual size, do not scale.
         </p>
-        <button type="button" onClick={() => window.print()}>
-          Print / save PDF
-        </button>
+        <div className="flyer-screen-actions">
+          <button type="button" onClick={savePdf} disabled={saving}>
+            {saving ? "Saving PDF…" : "Save PDF"}
+          </button>
+          <button type="button" className="flyer-screen-secondary" onClick={() => window.print()}>
+            Print
+          </button>
+        </div>
+        {saveError ? <p className="flyer-screen-error">{saveError}</p> : null}
       </div>
 
       {/* PAGE 1 — cover */}
-      <article className="flyer-page flyer-cover">
+      <article className="flyer-page flyer-cover" ref={setPageRef(0)}>
         <div className="flyer-colorbar" aria-hidden />
         <div className="flyer-cover-grid">
           <div className="flyer-cover-copy">
@@ -112,7 +141,10 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
           </div>
 
           <aside className="flyer-cover-photo">
-            <img src={REGEN_CLIENT_FLYER_PORTRAIT} alt="" />
+            <img
+              src={`${REGEN_CLIENT_FLYER_PORTRAIT}?v=danielle-scrubs`}
+              alt="Danielle in REGEN RX scrubs"
+            />
             <div className="flyer-photo-shade" />
             <div className="flyer-qr-card">
               <img src={qrDataUrl} alt="Scan to start REGEN RX" />
@@ -136,7 +168,7 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
       </article>
 
       {/* PAGE 2 — bundles */}
-      <article className="flyer-page flyer-bundles">
+      <article className="flyer-page flyer-bundles" ref={setPageRef(1)}>
         <div className="flyer-colorbar" aria-hidden />
         <header className="flyer-bundles-head">
           <p className="flyer-kicker">REGEN RX · Bundles</p>
@@ -203,13 +235,15 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
         .flyer-screen {
           max-width: 8.5in;
           margin: 0 auto;
-          padding: 20px 16px 8px;
+          padding: 20px 16px 12px;
           display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 16px;
+          flex-wrap: wrap;
         }
-        .flyer-screen p { font-size: 13px; color: #9CA3AF; }
+        .flyer-screen p { font-size: 13px; color: #9CA3AF; margin: 0; flex: 1 1 280px; }
+        .flyer-screen-actions { display: flex; gap: 8px; flex-shrink: 0; }
         .flyer-screen button {
           background: linear-gradient(135deg, #FF2D8E, #E91E8C);
           color: #fff;
@@ -219,6 +253,12 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
           font-weight: 800;
           cursor: pointer;
         }
+        .flyer-screen button:disabled { opacity: 0.65; cursor: wait; }
+        .flyer-screen-secondary {
+          background: transparent !important;
+          border: 1px solid rgba(255,255,255,0.28) !important;
+        }
+        .flyer-screen-error { flex: 1 0 100%; color: #FCA5A5 !important; }
         .flyer-page {
           width: 8.5in;
           height: 11in;
@@ -243,7 +283,7 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
         .flyer-cover-grid {
           flex: 1;
           display: grid;
-          grid-template-columns: 1.15fr 0.85fr;
+          grid-template-columns: 1.05fr 0.95fr;
           min-height: 0;
         }
         .flyer-cover-copy { padding: 0.42in 0.38in 0.2in 0.42in; }
@@ -309,12 +349,12 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
         .flyer-program b { display: block; font-size: 12px; color: #fff; }
         .flyer-program small { display: block; font-size: 10px; color: #9CA3AF; }
         .flyer-program em { display: block; font-style: normal; font-size: 11px; font-weight: 800; color: #E91E8C; margin-top: 2px; }
-        .flyer-cover-photo { position: relative; }
+        .flyer-cover-photo { position: relative; min-height: 0; overflow: hidden; }
         .flyer-cover-photo > img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: 50% 18%;
+          object-position: 58% 12%;
           display: block;
         }
         .flyer-photo-shade {
@@ -430,6 +470,7 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
           @page { size: letter portrait; margin: 0; }
           html, body { margin: 0 !important; padding: 0 !important; background: #0A0A0A !important; }
           .flyer-root { background: #000; }
+          .flyer-screen { display: none !important; }
           .flyer-page { margin: 0; box-shadow: none; page-break-after: always; break-after: page; }
           .flyer-page:last-of-type { page-break-after: auto; break-after: auto; }
         }
