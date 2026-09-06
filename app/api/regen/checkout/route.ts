@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
         !lineItems.some((i) => /shipping/i.test(i.name))
       ) {
         lineItems.push({
-          name: isTryregenBundleProgram(program) ? 'BoomRx cold shipping' : 'Pharmacy shipping',
+          name: isTryregenBundleProgram(program) ? 'Cold shipping' : 'Pharmacy shipping',
           amount: isTryregenBundleProgram(program) ? tryregenBundleShippingUsd() : REGEN_VIAL_SHIPPING_USD,
           quantity: 1,
         });

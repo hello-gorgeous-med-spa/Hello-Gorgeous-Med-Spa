@@ -51,7 +51,7 @@ const PROGRAMS = [
   {
     id: 'bundles',
     title: 'Bundles',
-    subtitle: 'BoomRx Stacks',
+    subtitle: 'Curated Stacks',
     description: 'Curated vials Ryan can prescribe when clinically appropriate — one price, one cold ship',
     price: 'from $200',
     href: '/start?goal=bundles',

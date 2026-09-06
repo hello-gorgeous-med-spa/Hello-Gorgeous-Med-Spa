@@ -76,7 +76,7 @@ const GOALS = [
   {
     id: 'bundles',
     title: 'Bundles',
-    description: 'BoomRx stacks — one price, one cold ship, NP review first',
+    description: 'Curated stacks — one price, one cold ship, NP review first',
     icon: '📦',
     programs: TRYREGEN_BUNDLES.map((bundle) => ({
       id: bundle.id,
