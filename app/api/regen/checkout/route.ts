@@ -6,6 +6,10 @@ import {
   isRegenStripeConfigured,
 } from '@/lib/regen-stripe';
 import { isVitaminVialProgram, REGEN_VIAL_SHIPPING_USD } from '@/lib/regen/vitamin-vial-pricing';
+import {
+  isTryregenBundleProgram,
+  tryregenBundleShippingUsd,
+} from '@/lib/regen/tryregen-bundles';
 import { isTirzepatideProgram, quoteTirzepatideFromRequest } from '@/lib/regen/tirzepatide-vial-pricing';
 
 // POST /api/regen/checkout
@@ -83,12 +87,12 @@ export async function POST(request: NextRequest) {
             quantity: item.quantity || 1,
           }));
       if (
-        (isVitaminVialProgram(program, goal) || tirzQuote) &&
+        (isVitaminVialProgram(program, goal) || tirzQuote || isTryregenBundleProgram(program)) &&
         !lineItems.some((i) => /shipping/i.test(i.name))
       ) {
         lineItems.push({
-          name: 'Pharmacy shipping',
-          amount: REGEN_VIAL_SHIPPING_USD,
+          name: isTryregenBundleProgram(program) ? 'BoomRx cold shipping' : 'Pharmacy shipping',
+          amount: isTryregenBundleProgram(program) ? tryregenBundleShippingUsd() : REGEN_VIAL_SHIPPING_USD,
           quantity: 1,
         });
       }

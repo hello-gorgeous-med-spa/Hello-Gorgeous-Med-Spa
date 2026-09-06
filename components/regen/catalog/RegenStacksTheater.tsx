@@ -23,6 +23,7 @@ export type RegenStackCard = {
   add: () => void;
   /** Client storefront: request the stack at consult instead of adding it to a cart. */
   consultHref?: string;
+  pharmacy?: "boomrx" | "formulation" | "mixed";
 };
 
 type Props = {

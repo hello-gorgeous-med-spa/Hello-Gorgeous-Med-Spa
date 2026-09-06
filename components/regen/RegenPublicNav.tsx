@@ -10,6 +10,7 @@ const BRAND = {
 };
 
 const LINKS = [
+  { href: '/start?goal=bundles', label: 'Bundles' },
   { href: '/products', label: 'Products' },
   { href: '/tools', label: 'Free Tools' },
   { href: '/pricing', label: 'Pricing' },

@@ -37,6 +37,7 @@ export const STORE_AISLE_LABEL: Record<string, string> = {
   Hormones: "Hormones",
   "Skin & Hair": "Skin & Hair",
   "Energy & Longevity": "Energy",
+  Bundles: "Bundles",
 };
 
 /** Department chips + Shop all. Built from the goals the public shop actually lists. */

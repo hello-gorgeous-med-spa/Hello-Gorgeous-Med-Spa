@@ -7,6 +7,7 @@ const GOAL_ACCENTS: Record<string, string> = {
   Hormones: "#C90A68",
   "Skin & Hair": "#FF5FB1",
   "Energy & Longevity": "#f59e0b",
+  Bundles: "#E6007E",
   Supplies: "#18181b",
 };
 
@@ -121,6 +122,7 @@ export const SHOP_GOALS: ShopGoalId[] = [
   "Hormones",
   "Skin & Hair",
   "Energy & Longevity",
+  "Bundles",
 ];
 
 /** The protocol each "Shop by goal" card fronts — its vial art, name, and "from $X". */
@@ -131,6 +133,7 @@ export const SHOP_GOAL_HERO_DRUG_KEYS: Record<string, string> = {
   Hormones: "testosterone",
   "Skin & Hair": "ghkcu",
   "Energy & Longevity": "nad",
+  Bundles: "nad",
 };
 
 export const HERO_DRUG_KEYS = [
@@ -186,6 +189,7 @@ export function goalFromSlug(slug: string): string | null {
     hormones: "Hormones",
     "skin-and-hair": "Skin & Hair",
     "energy-and-longevity": "Energy & Longevity",
+    bundles: "Bundles",
     supplies: "Supplies",
   };
   return map[slug] ?? null;

@@ -342,6 +342,15 @@ export function getTreatmentCategory(programId: string): TreatmentCategory {
     'bpc-tb': 'peptides',
     'growth': 'peptides',
     'nad': 'peptides',
+    'recovery': 'peptides',
+    'skin-repair': 'peptides',
+    'full-recovery': 'peptides',
+    'heal': 'peptides',
+    'peak': 'peptides',
+    'neuro': 'peptides',
+    'nad-sermorelin': 'peptides',
+    'radiance': 'peptides',
+    'bundles': 'peptides',
     
     // Sexual wellness
     'ed': 'sexual-wellness',

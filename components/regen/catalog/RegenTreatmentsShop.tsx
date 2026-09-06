@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { ProductCard } from "@/components/regen/catalog/CatalogProductCard";
+import type { RegenStackCard } from "@/components/regen/catalog/RegenStacksTheater";
 import { RxFindYourPeptideCta } from "@/components/rx/RxFindYourPeptideCta";
 import type { CatalogProduct, CatalogSort } from "@/lib/regen/catalog";
 import { CATALOG_GOALS } from "@/lib/regen/catalog";
 import { STORE_AISLE_LABEL } from "@/lib/regen-shop-nav";
+import { BOOMRX_CONSUMER_SHIPPING_USD } from "@/lib/boomrx-consumer-pricing";
 
 const HOW_IT_WORKS = [
   { n: "01", title: "Pick a protocol", body: "Choose what you want to start." },
@@ -29,6 +31,7 @@ type Props = {
   onSelectGoal: (goal: string) => void;
   onShopAll: () => void;
   onSortChange: (sort: CatalogSort) => void;
+  bundles?: RegenStackCard[];
 };
 
 export function RegenTreatmentsShop({
@@ -42,6 +45,7 @@ export function RegenTreatmentsShop({
   onSelectGoal,
   onShopAll,
   onSortChange,
+  bundles = [],
 }: Props) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const activeFilter: FilterId = activeGoal ?? "all";
@@ -57,16 +61,24 @@ export function RegenTreatmentsShop({
   const filterRows = [
     { id: "all" as const, label: "All treatments", count: catalog.length },
     {
+      id: "Bundles",
+      label: "Bundles",
+      count: bundles.length,
+    },
+    {
       id: "GLP-1s",
       label: "GLP-1s",
       count: catalog.filter((p) => p.drugKey === "semaglutide" || p.drugKey === "tirzepatide").length,
     },
-    ...goals.map((goal) => ({
-      id: goal,
-      label: STORE_AISLE_LABEL[goal] ?? goal,
-      count: counts.get(goal) ?? 0,
-    })),
+    ...goals
+      .filter((goal) => goal !== "Bundles")
+      .map((goal) => ({
+        id: goal,
+        label: STORE_AISLE_LABEL[goal] ?? goal,
+        count: counts.get(goal) ?? 0,
+      })),
   ];
+  const showBundles = activeFilter === "Bundles" || activeFilter === "all";
 
   const title =
     activeFilter === "all"
@@ -212,7 +224,63 @@ export function RegenTreatmentsShop({
             </aside>
 
             <div>
-              {products.length === 0 ? (
+              {showBundles && bundles.length > 0 ? (
+                <div className={activeFilter === "Bundles" ? "mb-0" : "mb-10"}>
+                  {activeFilter !== "Bundles" ? (
+                    <p className="mb-4 text-[11px] font-black uppercase tracking-[0.2em] text-[#E6007E]">
+                      Bundles
+                    </p>
+                  ) : null}
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    {bundles.map((b) => (
+                      <article
+                        key={b.id}
+                        className="rounded-3xl border-4 border-black bg-white p-5 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
+                      >
+                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#E6007E]">
+                          {b.tagline}
+                        </p>
+                        <h3 className="mt-1 font-serif text-2xl font-black text-black">{b.name}</h3>
+                        <p className="mt-2 text-sm font-medium text-black/70">{b.blurb}</p>
+                        <ul className="mt-3 space-y-1 text-sm font-medium text-black/80">
+                          {b.items.map((item) => (
+                            <li key={item.name} className="flex justify-between gap-3">
+                              <span>{item.name}</span>
+                              <span className="text-black/50">${item.price}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <p className="mt-3 font-serif text-xl font-black text-black">
+                          ${b.price}
+                          {b.pharmacy === "boomrx" || b.pharmacy === "mixed" ? (
+                            <span className="ml-2 text-sm font-bold text-black/50">
+                              + ${BOOMRX_CONSUMER_SHIPPING_USD} ship
+                            </span>
+                          ) : null}
+                        </p>
+                        {b.consultHref ? (
+                          <a
+                            href={b.consultHref}
+                            className="mt-4 inline-flex rounded-full border-2 border-black bg-[#FF2D8E] px-4 py-2 text-sm font-black text-black"
+                          >
+                            Start intake →
+                          </a>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={b.add}
+                            className="mt-4 inline-flex rounded-full border-2 border-black bg-[#FF2D8E] px-4 py-2 text-sm font-black text-black"
+                          >
+                            Add bundle
+                          </button>
+                        )}
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {activeFilter === "Bundles" ? null : products.length === 0 ? (
                 <div className="rounded-3xl border-4 border-black bg-white px-6 py-16 text-center shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
                   <p className="font-serif text-2xl font-black text-black">
                     No treatments match the current filters.

@@ -15,6 +15,10 @@ import {
 } from "@/lib/glp1-formulation-catalog";
 import { vendorPortalUrl } from "@/lib/rx-pharmacy-fulfillment/pharmacy-key";
 import {
+  isTryregenBundleProgram,
+  tryregenBundleSheetNames,
+} from "@/lib/regen/tryregen-bundles";
+import {
   formatSquareShippingAddress,
   type SquareShippingAddress,
 } from "@/lib/square/order-shipping-format";
@@ -127,6 +131,7 @@ const ITEM_PROGRAM_HINTS: Array<{ pattern: RegExp; program: string }> = [
   { pattern: /\bnad\+?\b/i, program: "nad-injection" },
   { pattern: /sermorelin|growth & energy|cjc/i, program: "growth" },
   { pattern: /pt-?141|bremelanotide|women.?s desire/i, program: "libido-women" },
+  { pattern: /bpc-157 \/ tb-500|bpc-157 \/ tb-500 \/ ghk|recovery blend|full recovery|heal blend|skin repair|focus blend|radiance pair|nad \+ sermorelin|peak performance/i, program: "boomrx-blend" },
   { pattern: /bpc|tb-?500|recovery stack/i, program: "bpc-tb" },
   { pattern: /women.?s hrt|estrogen|progesterone/i, program: "hrt-women" },
   { pattern: /\btrt\b|testosterone|men.?s (hrt|trt)/i, program: "hrt-men" },
@@ -153,6 +158,22 @@ function firstItemName(items: unknown): string {
   return "";
 }
 
+function allItemNames(items: unknown): string {
+  if (!Array.isArray(items)) return "";
+  return items
+    .map((raw) => str(asRecord(raw)?.name))
+    .filter((name) => name && !/shipping/i.test(name))
+    .join(" ");
+}
+
+function isBoomRxComposedBundle(input: FormulationTicketInput): boolean {
+  const names = allItemNames(input.items);
+  const hasNad = /\bnad\+?\b/i.test(names);
+  const hasSerm = /sermorelin/i.test(names);
+  const hasGlut = /glutathione/i.test(names);
+  return (hasNad && hasSerm) || (hasNad && hasGlut);
+}
+
 function inferProgram(input: FormulationTicketInput): string {
   const history = input.medicalHistory || {};
   const intake = input.intakeData || {};
@@ -165,7 +186,9 @@ function inferProgram(input: FormulationTicketInput): string {
 
   if (history.tirzepatide || intake.tirzepatide) return "tirzepatide";
 
-  const blob = [firstItemName(input.items), str(input.goal)].join(" ");
+  if (isBoomRxComposedBundle(input)) return "boomrx-blend";
+
+  const blob = [allItemNames(input.items) || firstItemName(input.items), str(input.goal)].join(" ");
   for (const hint of ITEM_PROGRAM_HINTS) {
     if (hint.pattern.test(blob)) return hint.program;
   }
@@ -173,6 +196,7 @@ function inferProgram(input: FormulationTicketInput): string {
   const goal = str(input.goal).toLowerCase();
   if (goal === "weight-loss" || goal === "glp1") return "semaglutide";
   if (goal === "vitamins") return "b12";
+  if (goal === "bundles") return "boomrx-blend";
   if (goal === "peptides") return "growth";
   if (goal === "hormones" || goal === "hrt") return "hrt-women";
   if (goal === "sexual-health") return "ed";
@@ -319,7 +343,7 @@ function buildPasteText(ticket: Omit<FormulationTicket, "pasteText">): string {
     : "RX LINE\nSKU: RYAN MUST PICK";
 
   return [
-    "FORMULATION / FORMUCONNECT",
+    ticket.pharmacy === BOOMRX_PHARMACY_LABEL ? "BOOMRX / WELLSYNC" : "FORMULATION / FORMUCONNECT",
     `Pharmacy: ${ticket.pharmacy}`,
     `Order: ${ticket.orderRef || "—"}`,
     `Program: ${ticket.program}`,
@@ -334,7 +358,9 @@ function buildPasteText(ticket: Omit<FormulationTicket, "pasteText">): string {
     lines,
     "",
     ticket.notes.length ? `Staff notes:\n- ${ticket.notes.join("\n- ")}` : null,
-    "After placing in FormuConnect: mark Pharmacy ordered on this order.",
+    ticket.pharmacy === BOOMRX_PHARMACY_LABEL
+      ? "After placing in BoomRx: mark Pharmacy ordered on this order."
+      : "After placing in FormuConnect: mark Pharmacy ordered on this order.",
   ]
     .filter((block) => block != null)
     .join("\n");
@@ -375,11 +401,33 @@ export function resolveFormulationTicket(input: FormulationTicketInput): Formula
       notes.push("Default starter pack unless Ryan writes a different vial count. Compounded semaglutide is not FDA-approved.");
       notes.push("Cold ship · next day only.");
     }
-  } else if (program === "bpc-tb") {
-    status = "no_formulation_sku";
+  } else if (program === "bpc-tb" || program === "boomrx-blend" || isTryregenBundleProgram(program)) {
     pharmacy = BOOMRX_PHARMACY_LABEL;
+    const mapped = tryregenBundleSheetNames(program);
+    const fromItems = Array.isArray(input.items)
+      ? input.items
+          .map((raw) => str(asRecord(raw)?.name))
+          .filter((name) => name && !/shipping/i.test(name))
+      : [];
+    const productNames = mapped.length
+      ? mapped
+      : fromItems.length
+        ? fromItems
+        : [firstItemName(input.items) || "BPC-157 / TB-500"];
+    for (const productName of productNames) {
+      lines.push({
+        sku: null,
+        productName,
+        packDescription: "BoomRx July 2026 sheet — paste this product name",
+        quantity: 1,
+        sig: DEFAULT_SIG,
+        daysSupply: 30,
+        coldShip: true,
+        shipNote: "Cold ship · one pharmacy ship",
+      });
+    }
     notes.push(
-      "BPC-157 / TB-500 is not on the Formulation sheet. Ryan picks BoomRx, or Formulation Pentadeca Arginate SKU 3511 if that is the clinically appropriate substitute — do not auto-swap.",
+      "Ryan prescribed if clinically appropriate. Place these exact BoomRx sheet products in the BoomRx portal. Not a Formulation / FormuConnect SKU.",
     );
   } else if (PROGRAM_SKU[program]) {
     const mapped = PROGRAM_SKU[program];

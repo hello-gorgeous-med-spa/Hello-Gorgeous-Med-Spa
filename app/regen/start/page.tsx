@@ -5,6 +5,14 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { TREATMENT_CONSENTS, getTreatmentCategory, CONSENT_VERSION, type TreatmentCategory } from '@/lib/regen/informed-consent';
 import { formatUsd, isVitaminVialProgram, REGEN_VIAL_SHIPPING_USD, vitaminVialRetailUsd } from '@/lib/regen/vitamin-vial-pricing';
+import {
+  TRYREGEN_BUNDLES,
+  TRYREGEN_BUNDLES_LEGAL,
+  isTryregenBundleProgram,
+  tryregenBundleRetailUsd,
+  tryregenBundleSheetNames,
+  tryregenBundleShippingUsd,
+} from '@/lib/regen/tryregen-bundles';
 import { TirzepatidePlanPicker } from '@/components/regen/TirzepatidePlanPicker';
 import {
   isTirzepatideProgram,
@@ -24,6 +32,12 @@ const BRAND = {
   cream: '#FAF9F6',
   gray: '#9CA3AF',
 };
+
+function programPriceSuffix(program: { id: string; unit?: string }) {
+  if (isTryregenBundleProgram(program.id)) return "";
+  if (program.unit === "vial") return " per vial";
+  return "/mo";
+}
 
 const GOALS = [
   {
@@ -56,6 +70,19 @@ const GOALS = [
       { id: 'growth', name: 'Growth & Energy', price: 299, description: 'Sermorelin or CJC/Ipamorelin' },
       { id: 'nad', name: 'NAD+ Therapy', price: 199, description: 'Cellular energy & longevity' },
     ],
+  },
+  {
+    id: 'bundles',
+    title: 'Bundles',
+    description: 'BoomRx stacks — one price, one cold ship, NP review first',
+    icon: '📦',
+    programs: TRYREGEN_BUNDLES.map((bundle) => ({
+      id: bundle.id,
+      name: bundle.name,
+      price: tryregenBundleRetailUsd(bundle),
+      unit: 'vial' as const,
+      description: bundle.description,
+    })),
   },
   {
     id: 'vitamins',
@@ -129,6 +156,14 @@ const SCREENING_QUESTIONS: Record<string, Array<{id: string; question: string; t
     { id: 'current-meds', question: 'Please list any medications you are currently taking:', type: 'text' },
     { id: 'symptoms', question: 'What symptoms are you hoping to address with hormone therapy?', type: 'text' },
   ],
+  'bundles': [
+    { id: 'pregnant', question: 'Are you currently pregnant, breastfeeding, or planning to become pregnant?', type: 'yesno', disqualifyIf: 'yes' },
+    { id: 'active-cancer', question: 'Do you have an active cancer diagnosis or are you in cancer treatment?', type: 'yesno' },
+    { id: 'current-meds', question: 'Please list any medications you are currently taking:', type: 'text' },
+    { id: 'allergies', question: 'Do you have any known drug allergies?', type: 'text' },
+    { id: 'medical-conditions', question: 'Please list any relevant medical conditions or recent injuries:', type: 'text' },
+    { id: 'goals', question: 'What do you want your provider to review this request for?', type: 'text' },
+  ],
   'default': [
     { id: 'pregnant', question: 'Are you currently pregnant or breastfeeding?', type: 'yesno' },
     { id: 'current-meds', question: 'Please list any medications you are currently taking:', type: 'text' },
@@ -141,14 +176,22 @@ function RegenStartContent() {
   const searchParams = useSearchParams();
   const initialGoal = searchParams.get('goal') || '';
   const initialProgram = searchParams.get('program') || '';
+  const inferredGoal =
+    initialGoal ||
+    (initialProgram === 'tirzepatide' ? 'weight-loss' : '') ||
+    (isTryregenBundleProgram(initialProgram) ? 'bundles' : '');
   
   const [step, setStep] = useState<Step>(
-    initialProgram === 'tirzepatide' ? 'tirz-plan' : initialGoal ? 'program' : 'goal'
+    initialProgram === 'tirzepatide'
+      ? 'tirz-plan'
+      : isTryregenBundleProgram(initialProgram)
+        ? 'info'
+        : inferredGoal
+          ? 'program'
+          : 'goal'
   );
-  const [selectedGoal, setSelectedGoal] = useState(initialGoal || (initialProgram === 'tirzepatide' ? 'weight-loss' : ''));
-  const [selectedProgram, setSelectedProgram] = useState<string | null>(
-    initialProgram === 'tirzepatide' ? 'tirzepatide' : null
-  );
+  const [selectedGoal, setSelectedGoal] = useState(inferredGoal);
+  const [selectedProgram, setSelectedProgram] = useState<string | null>(initialProgram || null);
   const [tirzWeeklyMg, setTirzWeeklyMg] = useState<TirzWeeklyDose>(2.5);
   const [tirzTermDays, setTirzTermDays] = useState<TirzTermDays>(30);
   const [formData, setFormData] = useState({
@@ -186,7 +229,10 @@ function RegenStartContent() {
   const tirzQuote = isTirzepatideProgram(selectedProgram) ? quoteTirzepatide(tirzWeeklyMg, tirzTermDays) : null;
   const checkoutAmount = tirzQuote?.retail ?? currentProgram?.price ?? 299;
   const checkoutName = tirzQuote?.lineName ?? currentProgram?.name ?? 'RE GEN Program';
-  const addsVialShipping = Boolean(tirzQuote) || isVitaminVialProgram(currentProgram?.id, selectedGoal);
+  const addsVialShipping = Boolean(tirzQuote) || isVitaminVialProgram(currentProgram?.id, selectedGoal) || isTryregenBundleProgram(selectedProgram);
+  const vialShipUsd = isTryregenBundleProgram(selectedProgram)
+    ? tryregenBundleShippingUsd()
+    : REGEN_VIAL_SHIPPING_USD;
 
   const handleGoalSelect = (goalId: string) => {
     setSelectedGoal(goalId);
@@ -294,6 +340,10 @@ function RegenStartContent() {
             ...screeningAnswers,
             dob: formData.dob,
             program: selectedProgram,
+            pharmacy: isTryregenBundleProgram(selectedProgram) ? 'boomrx' : undefined,
+            boomrxSheetNames: isTryregenBundleProgram(selectedProgram)
+              ? tryregenBundleSheetNames(selectedProgram)
+              : undefined,
             shipping: {
               street1: formData.address,
               city: formData.city,
@@ -469,6 +519,9 @@ function RegenStartContent() {
             </button>
             <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.cream }}>Choose your program</h1>
             <p className="mb-8" style={{ color: BRAND.gray }}>{currentGoal.title} programs available for you.</p>
+            {currentGoal.id === 'bundles' ? (
+              <p className="mb-6 text-sm" style={{ color: BRAND.gray }}>{TRYREGEN_BUNDLES_LEGAL}</p>
+            ) : null}
             <div className="grid gap-4">
               {currentGoal.programs.map((program) => (
                 <button
@@ -489,11 +542,13 @@ function RegenStartContent() {
                         {'fromPrice' in program && program.fromPrice ? 'from ' : ''}
                         {formatUsd(program.price)}
                         <span className="text-sm font-normal" style={{ color: BRAND.gray }}>
-                          {'unit' in program && program.unit === 'vial' ? ' per vial' : '/mo'}
+                          {programPriceSuffix(program)}
                         </span>
                       </span>
                       {'unit' in program && program.unit === 'vial' && (
-                        <span className="block text-xs mt-1" style={{ color: BRAND.gray }}>+ {formatUsd(REGEN_VIAL_SHIPPING_USD)} shipping</span>
+                        <span className="block text-xs mt-1" style={{ color: BRAND.gray }}>
+                          + {formatUsd(isTryregenBundleProgram(program.id) ? tryregenBundleShippingUsd() : REGEN_VIAL_SHIPPING_USD)} shipping
+                        </span>
                       )}
                     </span>
                   </div>
@@ -558,7 +613,7 @@ function RegenStartContent() {
                   {addsVialShipping && (
                     <span className="block text-xs" style={{ color: BRAND.gray }}>
                       {tirzQuote ? `${tirzQuote.termDays} days · ${tirzQuote.vials} vial${tirzQuote.vials === 1 ? '' : 's'}` : 'per vial'}
-                      {' · + '}{formatUsd(REGEN_VIAL_SHIPPING_USD)} shipping
+                      {' · + '}{formatUsd(vialShipUsd)} shipping
                     </span>
                   )}
                 </span>
@@ -1007,7 +1062,7 @@ function RegenStartContent() {
                     {loading
                       ? 'Processing...'
                       : addsVialShipping
-                        ? `Sign Consent & Proceed to Payment — ${formatUsd(checkoutAmount)} + ${formatUsd(REGEN_VIAL_SHIPPING_USD)} shipping`
+                        ? `Sign Consent & Proceed to Payment — ${formatUsd(checkoutAmount)} + ${formatUsd(vialShipUsd)} shipping`
                         : `Sign Consent & Proceed to Payment — ${formatUsd(checkoutAmount)}`}
                   </button>
 

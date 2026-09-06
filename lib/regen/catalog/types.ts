@@ -5,6 +5,7 @@ export type CatalogGoalId =
   | "Hormones"
   | "Skin & Hair"
   | "Energy & Longevity"
+  | "Bundles"
   | "Supplies";
 
 export type CatalogVariant = {
@@ -65,10 +66,17 @@ export type SupplyDays = 30 | 90;
 
 export type CatalogBundlePick = string[];
 
+export type CatalogBundlePharmacy = "boomrx" | "formulation" | "mixed";
+
 export type CatalogBundle = {
   id: string;
   name: string;
   tagline: string;
   blurb: string;
   pick: CatalogBundlePick[];
+  /** Exact catalog ids for BoomRx blend SKUs that share a drugKey with a single peptide. */
+  productIds?: string[];
+  pharmacy: CatalogBundlePharmacy;
+  /** Exact BoomRx July 2026 sheet names that Damara pastes. */
+  boomrxSheetNames: string[];
 };

@@ -15,7 +15,8 @@
  * full picture and always exits 0. This script asserts and stays quiet when healthy.
  */
 
-import { CATALOG_BUNDLES, CLIENT_STACK_IDS } from "../lib/regen/catalog/bundles";
+import { bundleSheetGaps, CATALOG_BUNDLES, CLIENT_STACK_IDS } from "../lib/regen/catalog/bundles";
+import { tryregenBundleSheetGaps } from "../lib/regen/tryregen-bundles";
 import { PRODUCTS } from "../lib/regen/catalog/catalog-data";
 import { catalogClientSupplyUsd } from "../lib/regen/catalog/client-price";
 import {
@@ -211,7 +212,19 @@ for (const entry of HUB_CARDS) {
  * Kickstart kit ships a month of syringes that nobody shops for on their own.
  * --------------------------------------------------------------------------- */
 
+for (const name of tryregenBundleSheetGaps()) {
+  fail("bundle-sheet", `tryregenrx bundle names BoomRx line that is not on the July 2026 sheet: ${name}`);
+}
+
 for (const bundle of CATALOG_BUNDLES) {
+  const gaps = bundleSheetGaps(bundle);
+  if (gaps.length) {
+    fail(
+      "bundle-sheet",
+      `bundle "${bundle.name}" (${bundle.id}) names BoomRx lines that are not on the July 2026 sheet: ${gaps.join(", ")}`,
+    );
+  }
+
   if (!(CLIENT_STACK_IDS as readonly string[]).includes(bundle.id)) continue;
 
   for (const pick of bundle.pick) {

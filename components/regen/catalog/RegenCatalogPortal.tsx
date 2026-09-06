@@ -9,6 +9,8 @@ import {
   CATALOG_BUNDLES,
   CATALOG_GOALS,
   CATALOG_PRODUCTS,
+  isClientStack,
+  resolveBundleProducts,
   HERO_DRUG_KEYS,
   bundlePrice,
   filterCatalogByPrice,
@@ -254,11 +256,11 @@ export function RegenCatalogPortal({
 
   const shopFilterGoals = useMemo(() => {
     const present = new Set(uniqueClientCatalog.map((p) => p.goal));
-    const ordered: string[] = [...CLIENT_SHOP_GOALS];
+    const ordered: string[] = ["Bundles", ...CLIENT_SHOP_GOALS];
     for (const goal of present) {
       if (goal !== "Supplies" && !ordered.includes(goal)) ordered.push(goal);
     }
-    return ordered.filter((goal) => present.has(goal));
+    return ordered.filter((goal) => goal === "Bundles" || present.has(goal));
   }, [uniqueClientCatalog]);
 
   const popularProducts = bestSellers;
@@ -270,20 +272,15 @@ export function RegenCatalogPortal({
         isPublicShop ? findClientProductByDrugKey(drugKey) : findProductByDrugKey(drugKey);
 
       return CATALOG_BUNDLES.map((b) => {
-        const resolved = b.pick
-          .map((pk) => {
-            const p = pickProduct(pk[0]);
-            if (!p) return null;
-            return {
-              id: p.id,
-              v: 0,
-              name: p.name,
-              retail: isPublicShop
-                ? (catalogClientMonthlyUsd(p) ?? price30(p, p.variants[0]))
-                : price30(p, p.variants[0]),
-            };
-          })
-          .filter(Boolean) as { id: string; v: number; name: string; retail: number }[];
+        const members = resolveBundleProducts(b, pickProduct);
+        const resolved = members.map((p) => ({
+          id: p.id,
+          v: 0,
+          name: p.name,
+          retail: isPublicShop
+            ? (catalogClientMonthlyUsd(p) ?? price30(p, p.variants[0]))
+            : price30(p, p.variants[0]),
+        }));
 
         const leadProduct = resolved[0] ? getCatalogProduct(resolved[0].id) : undefined;
         const consultHref =
@@ -293,18 +290,9 @@ export function RegenCatalogPortal({
 
         const { total, price, save } = bundlePrice(resolved.map((r) => r.retail));
 
-        /**
-         * A stack is only offered to clients when every product in it is still on the
-         * client shop — otherwise the card would quote a protocol the shopper cannot
-         * open. Kit consumables are exempt: they are part of the protocol rather than
-         * something the shopper browses to, so the GLP-1 Kickstart still offers its
-         * month of supplies. Staff keep all seven.
-         */
-        const clientVisible = b.pick.every((pk) => {
-          const p = pickProduct(pk[0]);
-          if (!p) return false;
-          return isKitComponentProduct(p) || isClientVisibleProduct(p);
-        });
+        const clientVisible =
+          isClientStack(b.id) &&
+          members.every((p) => isKitComponentProduct(p) || isClientVisibleProduct(p));
 
         return {
           ...b,
@@ -341,8 +329,8 @@ export function RegenCatalogPortal({
   );
 
   /**
-   * Staff home still shows every stack. The public shop no longer merchandises
-   * stacks on the storefront — shoppers pick a protocol, then start intake.
+   * Staff home still shows every stack. The public shop only merchandises
+   * client-visible stacks (hormones, GLP-1, NAD / glutathione / sermorelin).
    */
   const stackPool = useMemo(
     () => (isPublicShop ? bundles.filter((b) => b.clientVisible) : bundles),
@@ -412,6 +400,7 @@ export function RegenCatalogPortal({
                 navigate({});
               }}
               onSortChange={setSort}
+              bundles={stackPool}
             />
             <section id="faq" className={`${SECTION_SCROLL} bg-transparent px-6 py-16 lg:py-20`}>
               <div className="mx-auto max-w-[1200px]">

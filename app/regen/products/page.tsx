@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { RegenBundlesBand } from '@/components/regen/RegenBundlesBand';
 
 const BRAND = {
   teal: '#0D9488',
@@ -94,6 +95,8 @@ export default function ProductsPage() {
           </p>
         </div>
       </section>
+
+      <RegenBundlesBand />
 
       {/* Vitamin Injectables Section */}
       <section className="py-16 px-6" style={{ backgroundColor: BRAND.dark }}>

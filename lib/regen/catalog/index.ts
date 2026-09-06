@@ -10,7 +10,7 @@ import type {
 } from "./types";
 
 export { GOALS, MARKUP, PRODUCTS, MONOGRAPHS, PROTOCOLS };
-export { CATALOG_BUNDLES } from "./bundles";
+export { CATALOG_BUNDLES, CLIENT_STACK_IDS, isClientStack, resolveBundleProducts } from "./bundles";
 export * from "./client-visibility";
 export * from "./helpers";
 export * from "./pricing";

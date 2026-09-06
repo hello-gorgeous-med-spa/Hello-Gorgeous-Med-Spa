@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
 import { RegenExplainerHero } from '@/components/regen/RegenExplainerHero';
+import { RegenBundlesBand } from '@/components/regen/RegenBundlesBand';
 
 const BRAND = {
   teal: '#0D9488',      // Bright teal (molecules)
@@ -44,6 +45,15 @@ const PROGRAMS = [
     price: '$199',
     href: '/start?goal=peptides',
     image: '/images/regen/marketing/man-fitness.png',
+  },
+  {
+    id: 'bundles',
+    title: 'Bundles',
+    subtitle: 'BoomRx Stacks',
+    description: 'Curated vials Ryan can prescribe when clinically appropriate — one price, one cold ship',
+    price: 'from $200',
+    href: '/start?goal=bundles',
+    image: '/images/regen/marketing/cell-peptide.png',
   },
   {
     id: 'vitamins',
@@ -404,6 +414,8 @@ export default function RegenLandingPage() {
           </div>
         </div>
       </section>
+
+      <RegenBundlesBand />
 
       {/* How It Works */}
       <section id="how-it-works" className="py-24 px-6" style={{ backgroundColor: BRAND.darkAlt }}>
