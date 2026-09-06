@@ -6,7 +6,8 @@ import Image from 'next/image';
 import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
 import { RegenExplainerHero } from '@/components/regen/RegenExplainerHero';
 import { RegenBundlesBand } from '@/components/regen/RegenBundlesBand';
-import { GORGEOUS20_CODE, GORGEOUS20_HERO, GORGEOUS20_PERCENT, GORGEOUS20_START_HREF, REGEN_VIAL_ART } from '@/lib/regen-gorgeous20';
+import { RegenGorgeous20Popup } from '@/components/regen/RegenGorgeous20Popup';
+import { GORGEOUS20_MARQUEE, GORGEOUS20_START_HREF, REGEN_VIAL_ART } from '@/lib/regen-gorgeous20';
 
 const BRAND = {
   teal: '#0D9488',      // Bright teal (molecules)
@@ -249,29 +250,22 @@ export default function RegenLandingPage() {
         .delay-500 { animation-delay: 0.5s; opacity: 0; }
       `}</style>
 
-      {/* Scrolling Announcement Banner */}
-      <div className="fixed top-0 left-0 right-0 z-[60] overflow-hidden" style={{ backgroundColor: BRAND.teal }}>
+      {/* GORGEOUS20 savings ticker — no dedicated landing page */}
+      <Link
+        href={GORGEOUS20_START_HREF}
+        className="fixed top-0 left-0 right-0 z-[60] block overflow-hidden"
+        style={{ backgroundColor: BRAND.pink }}
+      >
         <div className="animate-marquee whitespace-nowrap py-2">
-          <span className="mx-8 text-sm font-medium text-white">
-            ✨ NEW: Patient Portal — Track orders, message your provider, manage prescriptions & refills
-          </span>
-          <span className="mx-8 text-sm font-medium text-white">
-            🔐 Create your FREE account today — View order status, access your Rx history & chat with care team
-          </span>
-          <span className="mx-8 text-sm font-medium text-white">
-            ✨ NEW: Patient Portal — Track orders, message your provider, manage prescriptions & refills
-          </span>
-          <span className="mx-8 text-sm font-medium text-white">
-            🔐 Create your FREE account today — View order status, access your Rx history & chat with care team
-          </span>
-          <span className="mx-8 text-sm font-medium text-white">
-            ✨ NEW: Patient Portal — Track orders, message your provider, manage prescriptions & refills
-          </span>
-          <span className="mx-8 text-sm font-medium text-white">
-            🔐 Create your FREE account today — View order status, access your Rx history & chat with care team
-          </span>
+          {[...Array(3)].flatMap((_, i) =>
+            GORGEOUS20_MARQUEE.map((line) => (
+              <span key={`${i}-${line}`} className="mx-8 text-sm font-extrabold uppercase tracking-wide text-white">
+                {line}
+              </span>
+            )),
+          )}
         </div>
-      </div>
+      </Link>
 
       <RegenPublicNav fixed />
 
@@ -412,30 +406,6 @@ export default function RegenLandingPage() {
                 </div>
               </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-6 py-16">
-        <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[28px] border-4 border-black md:grid-cols-2" style={{ boxShadow: '8px 8px 0 0 rgba(233,30,140,0.35)' }}>
-          <img src={GORGEOUS20_HERO} alt="Danielle and Ryan Kent, FNP-BC" className="h-full min-h-[280px] w-full object-cover" />
-          <div className="flex flex-col justify-center bg-black p-8 md:p-10">
-            <p className="text-xs font-extrabold uppercase tracking-[0.22em]" style={{ color: BRAND.teal }}>Launch offer</p>
-            <h2 className="mt-2 font-serif text-3xl font-black md:text-4xl" style={{ color: BRAND.cream }}>
-              {GORGEOUS20_PERCENT}% off your first order
-            </h2>
-            <p className="mt-3 text-lg font-extrabold" style={{ color: BRAND.pink }}>{GORGEOUS20_CODE}</p>
-            <p className="mt-3 text-sm" style={{ color: BRAND.gray }}>
-              Same Danielle. Same Ryan. Enter the code on the payment screen. Illinois patients. Ryan prescribes only when it is clinically appropriate.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href={GORGEOUS20_START_HREF} className="rounded-full px-6 py-3 text-sm font-extrabold text-white" style={{ backgroundColor: BRAND.pink }}>
-                Claim {GORGEOUS20_CODE}
-              </Link>
-              <Link href="/gorgeous20" className="rounded-full border-2 px-6 py-3 text-sm font-extrabold" style={{ borderColor: BRAND.teal, color: BRAND.teal }}>
-                See the launch kit
-              </Link>
-            </div>
           </div>
         </div>
       </section>
@@ -944,6 +914,7 @@ export default function RegenLandingPage() {
           </div>
         </div>
       </footer>
+      <RegenGorgeous20Popup />
     </div>
   );
 }

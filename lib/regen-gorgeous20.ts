@@ -6,9 +6,14 @@
 
 export const GORGEOUS20_CODE = "GORGEOUS20" as const;
 export const GORGEOUS20_PERCENT = 20;
-export const GORGEOUS20_PATH = "/regen/gorgeous20" as const;
-export const GORGEOUS20_PUBLIC_PATH = "/gorgeous20" as const;
 export const GORGEOUS20_START_HREF = `/start?promo=${GORGEOUS20_CODE}` as const;
+
+/** Repeating ticker copy — no dedicated landing page. */
+export const GORGEOUS20_MARQUEE = [
+  `GORGEOUS20 · ${GORGEOUS20_PERCENT}% off your first order`,
+  "Enter the code on the payment screen",
+  "Illinois patients · Ryan decides",
+] as const;
 
 export const GORGEOUS20_HERO =
   "/images/regen/marketing/dani-ryan-syringes-hero.png" as const;

@@ -40,7 +40,7 @@ export const FACEBOOK_PAGE_PRESET_GORGEOUS20: FacebookPagePreset = {
   label: "REGEN RX — GORGEOUS20 first order",
   blurb: "Danielle + Ryan syringes. 20% off first order.",
   message: GORGEOUS20_COPY.facebook,
-  linkPath: withUtm("/regen/gorgeous20"),
+  linkPath: withUtm("/regen"),
   imagePath: GORGEOUS20_HERO,
   defaultChannels: ["facebook", "instagram", "google"],
 };

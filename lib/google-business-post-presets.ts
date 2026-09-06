@@ -34,7 +34,7 @@ export const GBP_POST_PRESETS: GbpPostPreset[] = [
     id: "regen-gorgeous20",
     label: "REGEN RX — GORGEOUS20 first order 20% off",
     message: GORGEOUS20_COPY.gbp,
-    linkPath: "/regen/gorgeous20?utm_source=google&utm_medium=gbp_post&utm_campaign=gorgeous20",
+    linkPath: "/regen?utm_source=google&utm_medium=gbp_post&utm_campaign=gorgeous20",
     imagePath: GORGEOUS20_HERO,
   },
   // REGEN RX Telehealth Launch
