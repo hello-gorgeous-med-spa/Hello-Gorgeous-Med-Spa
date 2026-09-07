@@ -139,16 +139,24 @@ export default function AboutPage() {
 
             {/* The Shift */}
             <p style={{ fontSize: 17, color: '#bbb', lineHeight: 1.9, marginBottom: 28 }}>
-              That&apos;s when clinical care became my obsession. Weight management. Hormone optimization. 
-              Metabolic health. The things that actually move the needle on longevity — the things that 
-              might have saved my father if he&apos;d had access to them earlier.
+              That&apos;s when clinical care became my obsession. Weight management. Hormone optimization.
+              Metabolic health. The kind of care I wish had been easier to reach when my dad still had time.
             </p>
 
             <p style={{ fontSize: 17, color: '#bbb', lineHeight: 1.9, marginBottom: 28 }}>
-              I dove into the research. I trained with the best. I partnered with board-certified physicians 
-              and FDA-registered compounding pharmacies. And I built <strong style={{ color: BRAND.pink }}>REGEN RX</strong> — 
-              a telehealth platform that brings real, clinical-grade wellness care directly to patients 
-              across Illinois, without the barriers that keep so many people from getting help.
+              I enrolled in nursing school in 2024 so I could educate myself and give the best care I can
+              to my clients, my staff, my family, and my friends. I am working toward my RN license. That
+              is why I built <strong style={{ color: BRAND.pink }}>REGEN RX</strong>. I am a student — not the
+              prescriber. <strong style={{ color: '#fff' }}>Ryan Kent, FNP-BC</strong> reviews every request
+              and writes every prescription. I built the door so Illinois adults can reach him without the
+              runaround.
+            </p>
+
+            <p style={{ fontSize: 17, color: '#bbb', lineHeight: 1.9, marginBottom: 28 }}>
+              I also taught myself to build. Everything you see on hellogorgeousmedspa.com and tryregenrx.com,
+              I built with my own hands. The website. The start visit. The portal. The ops my team uses to
+              take care of you. I did not buy a template and drop a logo on it. I sat down and made the thing
+              I wished existed.
             </p>
 
             {/* The Mission */}
@@ -174,10 +182,9 @@ export default function AboutPage() {
 
             {/* The Promise */}
             <p style={{ fontSize: 17, color: '#bbb', lineHeight: 1.9, marginBottom: 28 }}>
-              We&apos;re not a faceless online pharmacy. We&apos;re a real medical practice, with real providers 
-              who actually care about your outcomes. When you message us at 2 AM because you&apos;re worried 
-              about a side effect, someone answers. When you need your dosing adjusted, we make it happen — fast. 
-              Because that&apos;s what my dad deserved, and it&apos;s what you deserve too.
+              We are not a faceless online pharmacy. We are a real Illinois practice. Ryan decides. When you
+              are worried about a side effect, you message the same Hello Gorgeous team — not a stranger with
+              a tracking number. That is what my dad deserved, and it is what you deserve too.
             </p>
 
             {/* Closing */}
@@ -206,7 +213,7 @@ export default function AboutPage() {
                 <strong style={{ color: BRAND.cream }}>Danielle Alcala</strong>
               </p>
               <p style={{ fontSize: 13, color: BRAND.gray }}>
-                Founder, REGEN RX & Hello Gorgeous Med Spa
+                Founder &amp; builder · Nursing student · REGEN RX &amp; Hello Gorgeous Med Spa
               </p>
             </div>
           </div>
