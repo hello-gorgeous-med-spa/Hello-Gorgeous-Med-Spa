@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { RegenAffiliateSubnav } from "@/components/regen/RegenAffiliateSubnav";
+
 const BRAND = { teal: "#0D9488", pink: "#E91E8C", dark: "#0f1414" };
 
 type Me = {
@@ -67,6 +69,7 @@ export function RegenAffiliateDashboard() {
         </div>
         <Link href="/affiliates" className="text-xs text-white/60">Program</Link>
       </nav>
+      <RegenAffiliateSubnav />
 
       <main className="mx-auto max-w-5xl px-6 py-10">
         <h1 className="font-serif text-3xl font-black">Welcome back, {me.affiliate.legal_name.split(" ")[0]}</h1>

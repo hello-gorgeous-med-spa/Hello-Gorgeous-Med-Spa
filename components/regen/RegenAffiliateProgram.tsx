@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { RegenPublicNav } from "@/components/regen/RegenPublicNav";
+import { RegenAffiliateSubnav } from "@/components/regen/RegenAffiliateSubnav";
 import {
   AFFILIATE_TYPES,
   AFFILIATE_TIERS,
   affiliateTierForActivePatients,
   affiliateTierRangeLabel,
 } from "@/lib/regen-affiliates";
+import { AFFILIATE_MARKETING_PATH, AFFILIATE_PLAYBOOK_PATH } from "@/lib/regen/affiliate-marketing";
 
 const BRAND = {
   teal: "#1FB8A6",
@@ -171,9 +173,10 @@ export function RegenAffiliateProgram() {
   return (
     <div className="min-h-screen bg-white" style={{ color: BRAND.ink }}>
       <RegenPublicNav />
+      <RegenAffiliateSubnav />
 
       <section
-        className="px-6 pb-14 pt-28 text-center"
+        className="px-6 pb-14 pt-16 text-center"
         style={{ background: "linear-gradient(155deg,#0c3d3a,#0f1414 65%)" }}
       >
         <p className="text-[13px] font-bold uppercase tracking-[0.14em]" style={{ color: BRAND.teal }}>
@@ -203,6 +206,20 @@ export function RegenAffiliateProgram() {
             style={{ borderColor: BRAND.teal, color: BRAND.teal }}
           >
             Partner login
+          </Link>
+          <Link
+            href={AFFILIATE_MARKETING_PATH}
+            className="inline-block rounded-full border-2 px-9 py-4 text-base font-bold text-white"
+            style={{ borderColor: "rgba(244,234,217,0.35)" }}
+          >
+            Marketing kit
+          </Link>
+          <Link
+            href={AFFILIATE_PLAYBOOK_PATH}
+            className="inline-block rounded-full border-2 px-9 py-4 text-base font-bold text-white"
+            style={{ borderColor: "rgba(244,234,217,0.35)" }}
+          >
+            Playbook
           </Link>
         </div>
       </section>

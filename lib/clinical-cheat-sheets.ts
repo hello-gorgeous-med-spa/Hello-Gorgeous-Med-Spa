@@ -1,6 +1,6 @@
 /**
- * Clinical cheat sheets — No Prior Authorization / Hello Gorgeous staff reference PDFs.
- * Hosted under /staff/protocols/cheat-sheets/
+ * Clinical cheat sheets — No Prior Authorization / Hello Gorgeous staff reference.
+ * Hosted under /staff/protocols/cheat-sheets/ (PDF + HTML).
  */
 
 export type ClinicalCheatSheetCategory =
@@ -21,7 +21,10 @@ export type ClinicalCheatSheet = {
   filename: string;
   category: ClinicalCheatSheetCategory;
   href: string;
+  format: "pdf" | "html";
   thumbnail?: string;
+  /** Shown on REGEN ops → Clinical (Ryan / Damara desk reference). */
+  opsFeatured?: boolean;
 };
 
 export const CLINICAL_CHEAT_SHEET_CATEGORIES: {
@@ -47,9 +50,14 @@ function sheet(
   title: string,
   description: string,
   category: ClinicalCheatSheetCategory,
-  thumbnail?: string,
+  thumbnailOrOpts?: string | { thumbnail?: string; opsFeatured?: boolean },
 ): ClinicalCheatSheet {
-  const id = filename.replace(/\.pdf$/i, "");
+  const opts =
+    typeof thumbnailOrOpts === "string"
+      ? { thumbnail: thumbnailOrOpts }
+      : thumbnailOrOpts ?? {};
+  const format = filename.toLowerCase().endsWith(".html") ? "html" : "pdf";
+  const id = filename.replace(/\.(pdf|html)$/i, "");
   return {
     id,
     title,
@@ -57,7 +65,9 @@ function sheet(
     filename,
     category,
     href: `${CHEAT_SHEET_BASE}/${encodeURIComponent(filename)}`,
-    thumbnail,
+    format,
+    thumbnail: opts.thumbnail,
+    opsFeatured: opts.opsFeatured,
   };
 }
 
@@ -111,6 +121,20 @@ export const CLINICAL_CHEAT_SHEETS: ClinicalCheatSheet[] = [
     "injectables",
   ),
   sheet(
+    "NPA-GLP1-Clinical-Cheat-Sheet.html",
+    "GLP-1 — Clinical (NPA)",
+    "Semaglutide vs tirzepatide, titration, labs, interactions, and consult notes.",
+    "weight-loss",
+    { opsFeatured: true },
+  ),
+  sheet(
+    "NPA-GLP1-Side-Effect-Support-Guide.html",
+    "GLP-1 — Side Effect Support",
+    "Nausea, constipation, holds, and patient talking points during titration.",
+    "weight-loss",
+    { opsFeatured: true },
+  ),
+  sheet(
     "glp1-clinical-cheat-sheet.pdf",
     "GLP-1 — Clinical",
     "Program overview, screening, and monitoring.",
@@ -129,6 +153,13 @@ export const CLINICAL_CHEAT_SHEETS: ClinicalCheatSheet[] = [
     "Tirzepatide vs Semaglutide",
     "Side-by-side comparison for patient conversations.",
     "weight-loss",
+  ),
+  sheet(
+    "NPA-Hormone-Therapy-Clinical-Cheat-Sheet.html",
+    "Hormone Therapy — Clinical (NPA)",
+    "HRT/TRT screening, labs, contraindications, and follow-up cadence.",
+    "hormones",
+    { opsFeatured: true },
   ),
   sheet(
     "hormone-therapy-clinical-cheat-sheet.pdf",
@@ -167,10 +198,24 @@ export const CLINICAL_CHEAT_SHEETS: ClinicalCheatSheet[] = [
     "iv-peptides",
   ),
   sheet(
+    "NPA-Peptide-Therapy-Clinical-Cheat-Sheet.html",
+    "Peptide Therapy — Clinical (NPA)",
+    "Common peptides, goals, reconstitution notes, and supervision.",
+    "iv-peptides",
+    { opsFeatured: true },
+  ),
+  sheet(
     "peptide-therapy-clinical-cheat-sheet.pdf",
     "Peptide Therapy — Clinical",
     "Common peptides, goals, and supervision.",
     "iv-peptides",
+  ),
+  sheet(
+    "NPA-IV-Therapy-Clinical-Cheat-Sheet.html",
+    "IV Therapy — Clinical (NPA)",
+    "Drip screening, contraindications, room workflow, and aftercare.",
+    "iv-peptides",
+    { opsFeatured: true },
   ),
   sheet(
     "iv-therapy-clinical-cheat-sheet.pdf",
@@ -293,6 +338,11 @@ export function cheatSheetsByCategory(
 ): ClinicalCheatSheet[] {
   if (category === "all") return CLINICAL_CHEAT_SHEETS;
   return CLINICAL_CHEAT_SHEETS.filter((s) => s.category === category);
+}
+
+/** NPA HTML desk sheets featured in REGEN ops → Clinical. */
+export function opsClinicalCheatSheets(): ClinicalCheatSheet[] {
+  return CLINICAL_CHEAT_SHEETS.filter((s) => s.opsFeatured);
 }
 
 export const CLINICAL_CHEAT_SHEETS_PATH = "/staff/protocols?tab=cheat-sheets";

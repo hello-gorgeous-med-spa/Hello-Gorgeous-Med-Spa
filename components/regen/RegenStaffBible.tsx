@@ -389,6 +389,11 @@ export function RegenStaffBible() {
         <Sop n="03" title="Clinical review">
           Only Ryan (or a covering Illinois-licensed prescriber Danielle has named in writing) clicks Approve. Four
           attestations must be true. Thin history = labs or video. Off-label is allowed when Ryan documents why.
+          Desk reference (GLP-1, hormones, peptides, IV) lives under Tools →{" "}
+          <a href="/ops/clinical" className="underline decoration-white/30 hover:decoration-white">
+            Clinical
+          </a>
+          . Sheets are not standing orders — Ryan still decides every dose.
         </Sop>
         <Sop n="04" title="Decline &amp; refund">
           Decline is a clinical act. Refund the medication charge the same business day. Give one next step. Do not

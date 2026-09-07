@@ -53,6 +53,8 @@ export const OPS_NAV_GROUPS = [
     section: 'Tools',
     items: [
       { href: '/ops/playbook', label: 'Staff Bible', icon: '▣' },
+      { href: '/ops/clinical', label: 'Clinical', icon: '✚' },
+      { href: '/affiliates/marketing', label: 'Marketing', icon: '◈' },
       { href: '/ops/calculator', label: 'Calculator', icon: '∑' },
       { href: '/ops/reconstitution', label: 'Reconstitution', icon: '💧' },
       { href: '/ops/tirzepatide', label: 'Tirzepatide', icon: '↓' },

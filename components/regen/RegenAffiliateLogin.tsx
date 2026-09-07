@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
 import { RegenPublicNav } from "@/components/regen/RegenPublicNav";
+import { RegenAffiliateSubnav } from "@/components/regen/RegenAffiliateSubnav";
 
 const BRAND = { teal: "#0D9488", pink: "#E91E8C", dark: "#0A0A0A" };
 
@@ -51,6 +52,7 @@ function LoginInner() {
   return (
     <div className="min-h-screen" style={{ background: BRAND.dark, color: "#FAF9F6" }}>
       <RegenPublicNav />
+      <RegenAffiliateSubnav />
       <div className="mx-auto max-w-md px-6 py-20">
         <p className="text-xs font-extrabold uppercase tracking-[0.2em]" style={{ color: BRAND.teal }}>Partners</p>
         <h1 className="mt-2 font-serif text-4xl font-black">Partner login</h1>

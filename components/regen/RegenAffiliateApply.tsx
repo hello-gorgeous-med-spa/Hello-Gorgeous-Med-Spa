@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { RegenPublicNav } from "@/components/regen/RegenPublicNav";
+import { RegenAffiliateSubnav } from "@/components/regen/RegenAffiliateSubnav";
 import {
   AFFILIATE_AGREEMENT_SECTIONS,
   AFFILIATE_AGREEMENT_VERSION,
@@ -55,6 +56,7 @@ export function RegenAffiliateApply() {
   return (
     <div className="min-h-screen" style={{ background: BRAND.dark, color: BRAND.cream }}>
       <RegenPublicNav />
+      <RegenAffiliateSubnav />
       <div className="mx-auto max-w-2xl px-6 py-16">
         <Link href="/affiliates" className="text-sm" style={{ color: BRAND.teal }}>
           ← Back to partner program

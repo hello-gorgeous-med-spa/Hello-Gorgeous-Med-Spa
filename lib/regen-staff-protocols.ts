@@ -130,6 +130,14 @@ export const REGEN_CORE_PROTOCOL_GUIDES: RegenProtocolGuide[] = [
     format: "html",
   },
   {
+    id: "boomrx-formulary",
+    title: "BoomRx Master Formulary Spec",
+    description: "Staff-only backup pharmacy spec. Never name BoomRx to patients or partners.",
+    href: "/staff/protocols/guides/BoomRx-Master-Formulary-Spec.pdf",
+    category: "getting-started",
+    format: "pdf",
+  },
+  {
     id: "fcc-peptide-menu",
     title: "FCC Peptide Options 2026",
     description: "Formulation Rx peptide menu reference.",

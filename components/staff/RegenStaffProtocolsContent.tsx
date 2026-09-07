@@ -95,7 +95,9 @@ function CheatSheetCard({ sheet }: { sheet: ClinicalCheatSheet }) {
             <p className="mt-1.5 text-[10px] uppercase tracking-wider text-neutral-400">{cat.label}</p>
           ) : null}
         </div>
-        <span className="shrink-0 text-xs font-bold text-[#E6007E]">PDF</span>
+        <span className="shrink-0 text-xs font-bold text-[#E6007E]">
+          {sheet.format === "html" ? "HTML" : "PDF"}
+        </span>
       </div>
     </a>
   );
@@ -324,7 +326,7 @@ export default function RegenStaffProtocolsContent({
         {tab === "cheat-sheets" && (
           <div className="space-y-4">
             <p className="text-center text-xs text-neutral-600">
-              {cheatSheets.length} printable clinical reference PDFs — tap to open or save
+              {cheatSheets.length} printable clinical references — tap to open or save
             </p>
             <input
               type="search"

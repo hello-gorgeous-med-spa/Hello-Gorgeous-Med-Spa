@@ -78,17 +78,33 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
     }
   }
 
+  async function saveImages() {
+    setSaving(true);
+    setSaveError(null);
+    try {
+      const { downloadRegenClientFlyerImages } = await import("@/lib/regen-client-flyer-pdf");
+      await downloadRegenClientFlyerImages(pagesRef.current.filter(Boolean));
+    } catch {
+      setSaveError("Could not save the photos. Try again.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
     <div className="flyer-root">
       <div className="flyer-screen print:hidden">
         <p>
-          <strong>Save PDF</strong> downloads the two letter pages only — no website
-          bar. Email the file to Office Depot or open it on your phone: color, 8.5×11,
-          actual size, do not scale.
+          <strong>Save PDF</strong> is for the print shop. Facebook and Instagram
+          will not take a PDF — use <strong>Save photos for Facebook</strong> and
+          attach the two JPGs.
         </p>
         <div className="flyer-screen-actions">
           <button type="button" onClick={savePdf} disabled={saving}>
             {saving ? "Saving PDF…" : "Save PDF"}
+          </button>
+          <button type="button" className="flyer-screen-secondary" onClick={saveImages} disabled={saving}>
+            {saving ? "Saving photos…" : "Save photos for Facebook"}
           </button>
           <button type="button" className="flyer-screen-secondary" onClick={() => window.print()}>
             Print
@@ -372,7 +388,9 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: 50% 34%;
+          object-position: 54% 26%;
+          transform: scale(1.14);
+          transform-origin: 54% 24%;
           display: block;
         }
         .flyer-photo-shade {
