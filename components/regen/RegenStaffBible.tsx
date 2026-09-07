@@ -209,6 +209,10 @@ export function RegenStaffBible() {
             <strong>Partners</strong> /ops/affiliates — approve, pause, terminate.
           </li>
           <li>
+            <strong>Peppy</strong> /ops/peppy — clinic copilot. Ask him the same questions you would ask Danielle
+            about Today, FormuConnect paste, refunds, and scripts. He does not replace Ryan.
+          </li>
+          <li>
             <strong>Catalog / Calculator / Reconstitution / Tirzepatide</strong> — clinical math, never a patient-facing
             dose card.
           </li>

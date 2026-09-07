@@ -261,7 +261,7 @@ export const MASCOT_KNOWLEDGE: Record<RegenMascotId, KnowledgeEntry[]> = {
       topics: ["peptides"],
       mascots: ["peppy"],
       priority: 5,
-      answer: `BPC-157 is our go-to for tissue repair and gut support — injectable protocol, NP-reviewed. Part of recovery stacks like the Wolverine (BPC + TB-500). Explore ${SITE.url}/rx/peptides`,
+      answer: `BPC-157 is used for tissue repair and gut support — injectable, NP-reviewed. Often discussed with TB-500 as a recovery request. Ryan decides if it is appropriate. Start at tryregenrx.com/start`,
     },
     {
       id: "nad",
@@ -280,12 +280,12 @@ export const MASCOT_KNOWLEDGE: Record<RegenMascotId, KnowledgeEntry[]> = {
       answer: `Sermorelin stimulates your natural GH axis — popular for sleep, recovery, and body composition. GH-axis peptides often need labs (IGF-1). See ${SITE.url}/rx/peptides`,
     },
     {
-      id: "wolverine",
-      keywords: ["wolverine", "tb-500", "tb500", "stack", "combo"],
+      id: "recovery-blend",
+      keywords: ["tb-500", "tb500", "stack", "combo", "recovery blend"],
       topics: ["peptides"],
       mascots: ["peppy"],
       priority: 5,
-      answer: `Wolverine Stack = BPC-157 + TB-500 — our fan-favorite recovery combo. KLOW adds GHK-Cu + KPV for premium repair. All compounded Rx, not research-grade. ${SITE.url}/rx/peptides`,
+      answer: `Recovery Blend is BPC-157 / TB-500 — a common repair request. Ryan Kent, FNP-BC decides if it is appropriate. Compounded medication is not FDA-approved. Start at tryregenrx.com/start`,
     },
     {
       id: "peptide-start",

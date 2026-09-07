@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { PeppyChat } from '@/components/regen/PeppyChat';
 import { OPS_NAV_GROUPS, OPS_STAFF, getOpsStaff, type OpsStaffId } from '@/lib/regen/ops-staff';
 
 const OpsStaffContext = createContext<ReturnType<typeof getOpsStaff>>(null);
@@ -230,6 +231,7 @@ export default function OpsShell({
           <OpsStaffContext.Provider value={current}>{children}</OpsStaffContext.Provider>
         </div>
       </main>
+      {pathname.includes('/peppy') ? null : <PeppyChat surface="ops" />}
     </div>
   );
 }
