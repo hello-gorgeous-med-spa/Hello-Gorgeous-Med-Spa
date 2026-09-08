@@ -1,193 +1,224 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getSupabase } from '@/lib/supabase-server';
-import { sendRegenNotification } from '@/lib/regen/notifications';
-import Stripe from 'stripe';
+import { after, NextRequest, NextResponse } from "next/server";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import Stripe from "stripe";
 
-// Lazy init to avoid build-time errors
+import { sendRegenNotification } from "@/lib/regen/notifications";
+import { getSupabase } from "@/lib/supabase-server";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
+
 function getStripe() {
   const key = process.env.REGEN_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
-  if (!key) throw new Error('Stripe API key not configured');
-  return new Stripe(key, { apiVersion: '2024-06-20' });
+  if (!key) throw new Error("Stripe API key not configured");
+  return new Stripe(key, { apiVersion: "2024-06-20" });
 }
 
+function webhookSecret(): string {
+  return (
+    process.env.REGEN_STRIPE_WEBHOOK_SECRET?.trim() ||
+    process.env.STRIPE_WEBHOOK_SECRET?.trim() ||
+    ""
+  );
+}
+
+/**
+ * POST /api/regen/webhooks/stripe
+ * Stripe live endpoint for the Hello Gorgeous Med Spa RX account.
+ * Always 2xx after a valid signature so Stripe does not disable the endpoint.
+ */
 export async function POST(request: NextRequest) {
+  const body = await request.text();
+  const signature = request.headers.get("stripe-signature");
+  const secret = webhookSecret();
+
+  if (!signature) {
+    return NextResponse.json({ error: "No signature" }, { status: 400 });
+  }
+  if (!secret) {
+    console.error("[regen-stripe-webhook] REGEN_STRIPE_WEBHOOK_SECRET is not set");
+    return NextResponse.json({ error: "Webhook secret not configured" }, { status: 500 });
+  }
+
+  let event: Stripe.Event;
   try {
-    const body = await request.text();
-    const signature = request.headers.get('stripe-signature');
-    const webhookSecret = process.env.REGEN_STRIPE_WEBHOOK_SECRET || process.env.STRIPE_WEBHOOK_SECRET || '';
+    event = getStripe().webhooks.constructEvent(body, signature, secret);
+  } catch (err) {
+    console.error("[regen-stripe-webhook] signature failed:", err);
+    return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
+  }
 
-    if (!signature) {
-      return NextResponse.json({ error: 'No signature' }, { status: 400 });
-    }
-
-    let event: Stripe.Event;
-    try {
-      event = getStripe().webhooks.constructEvent(body, signature, webhookSecret);
-    } catch (err) {
-      console.error('Webhook signature verification failed:', err);
-      return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
-    }
-
-    const supabase = getSupabase();
-
-    switch (event.type) {
-      case 'checkout.session.completed': {
-        const session = event.data.object as Stripe.Checkout.Session;
-        await handleCheckoutComplete(supabase, session);
-        break;
-      }
-
-      case 'payment_intent.succeeded': {
-        const paymentIntent = event.data.object as Stripe.PaymentIntent;
-        await handlePaymentSuccess(supabase, paymentIntent);
-        break;
-      }
-
-      case 'invoice.paid': {
-        const invoice = event.data.object as Stripe.Invoice;
-        await handleInvoicePaid(supabase, invoice);
-        break;
-      }
-
-      case 'customer.subscription.created':
-      case 'customer.subscription.updated': {
-        const subscription = event.data.object as Stripe.Subscription;
-        await handleSubscriptionUpdate(supabase, subscription);
-        break;
-      }
-
-      case 'customer.subscription.deleted': {
-        const subscription = event.data.object as Stripe.Subscription;
-        await handleSubscriptionCanceled(supabase, subscription);
-        break;
-      }
-    }
-
-    return NextResponse.json({ received: true });
+  try {
+    await dispatch(event);
   } catch (error) {
-    console.error('Webhook error:', error);
-    return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
+    console.error("[regen-stripe-webhook] handler failed", event.type, event.id, error);
+  }
+
+  return NextResponse.json({ received: true, id: event.id, type: event.type });
+}
+
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    endpoint: "regen-stripe",
+    secretConfigured: Boolean(webhookSecret()),
+  });
+}
+
+async function dispatch(event: Stripe.Event) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    console.error("[regen-stripe-webhook] database not configured — event logged only", event.type, event.id);
+    return;
+  }
+
+  switch (event.type) {
+    case "checkout.session.completed":
+      await handleCheckoutComplete(supabase, event.data.object as Stripe.Checkout.Session);
+      break;
+    case "payment_intent.succeeded":
+      await handlePaymentSuccess(supabase, event.data.object as Stripe.PaymentIntent);
+      break;
+    case "invoice.paid":
+      await handleInvoicePaid(supabase, event.data.object as Stripe.Invoice);
+      break;
+    case "customer.subscription.created":
+    case "customer.subscription.updated":
+      await handleSubscriptionUpdate(supabase, event.data.object as Stripe.Subscription);
+      break;
+    case "customer.subscription.deleted":
+      await handleSubscriptionCanceled(supabase, event.data.object as Stripe.Subscription);
+      break;
+    default:
+      break;
   }
 }
 
-async function handleCheckoutComplete(supabase: ReturnType<typeof getSupabase>, session: Stripe.Checkout.Session) {
+async function handleCheckoutComplete(supabase: SupabaseClient, session: Stripe.Checkout.Session) {
   const email = session.customer_email || session.customer_details?.email;
-  if (!email) return;
-
+  const intakeId = session.metadata?.intakeId || session.metadata?.intake_id;
   const customerName =
-    session.customer_details?.name ||
-    session.metadata?.patientName ||
-    email.split('@')[0];
+    session.customer_details?.name || session.metadata?.patientName || email?.split("@")[0] || "Patient";
 
-  // Mark the latest unpaid intake as paid (do not require exact status match)
-  const { data: existing } = await supabase
-    .from('regen_intakes')
-    .select('id, name, email, goal, status')
-    .eq('email', email.toLowerCase())
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  let intake: { id: string; name: string | null; email: string | null; goal: string | null } | null = null;
 
-  let intake = existing;
+  if (intakeId) {
+    const { data } = await supabase
+      .from("regen_intakes")
+      .select("id, name, email, goal, status")
+      .eq("id", intakeId)
+      .maybeSingle();
+    intake = data;
+  } else if (email) {
+    const { data } = await supabase
+      .from("regen_intakes")
+      .select("id, name, email, goal, status")
+      .eq("email", email.toLowerCase())
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    intake = data;
+  }
 
-  if (existing) {
-    const { data: updated } = await supabase
-      .from('regen_intakes')
+  if (intake) {
+    const { data: updated, error } = await supabase
+      .from("regen_intakes")
       .update({
-        status: existing.status === 'awaiting_payment' ? 'pending' : existing.status,
-        stripe_payment_intent_id: typeof session.payment_intent === 'string' ? session.payment_intent : session.id,
+        status: intake.status === "awaiting_payment" ? "pending" : intake.status,
+        stripe_payment_intent_id:
+          typeof session.payment_intent === "string" ? session.payment_intent : session.id,
         amount_paid: (session.amount_total || 0) / 100,
         updated_at: new Date().toISOString(),
       })
-      .eq('id', existing.id)
-      .select('id, name, email, goal')
-      .single();
+      .eq("id", intake.id)
+      .select("id, name, email, goal")
+      .maybeSingle();
+    if (error) console.error("[regen-stripe-webhook] intake update failed", error);
     if (updated) intake = updated;
   }
 
-  // Always send confirmation — do not wait for an intake row
-  try {
-    await sendRegenNotification({
-      type: 'welcome',
-      patient: { name: intake?.name || customerName, email },
-      intake: intake ? { id: intake.id, goal: intake.goal } : undefined,
-    });
-  } catch (emailErr) {
-    console.error('[stripe-webhook] welcome email failed:', emailErr);
+  const notifyEmail = email || intake?.email;
+  if (notifyEmail) {
+    after(() =>
+      sendRegenNotification({
+        type: "welcome",
+        patient: { name: intake?.name || customerName, email: notifyEmail },
+        intake: intake ? { id: intake.id, goal: intake.goal || "consult" } : undefined,
+      }).catch((emailErr) => console.error("[regen-stripe-webhook] welcome email failed:", emailErr)),
+    );
   }
 
-  if (session.metadata?.referral_code) {
-    await processReferral(supabase, session.metadata.referral_code, email);
+  if (session.metadata?.referral_code && notifyEmail) {
+    after(() =>
+      processReferral(supabase, session.metadata!.referral_code!, notifyEmail).catch((err) =>
+        console.error("[regen-stripe-webhook] referral failed", err),
+      ),
+    );
   }
 
   const affiliateCode = session.metadata?.affiliateCode || session.metadata?.affiliate_code;
-  if (affiliateCode) {
-    try {
-      const { recordPaidOrderCommission } = await import('@/lib/regen/affiliate-ledger');
-      const medAmount = Number(session.metadata?.medAmount || 0) || (session.amount_total || 0) / 100;
-      await recordPaidOrderCommission(
-        supabase,
-        affiliateCode,
-        email,
-        typeof session.payment_intent === 'string' ? session.payment_intent : session.id,
-        medAmount,
-      );
-    } catch (affErr) {
-      console.error('[stripe-webhook] affiliate commission failed', affErr);
-    }
+  if (affiliateCode && notifyEmail) {
+    after(async () => {
+      try {
+        const { recordPaidOrderCommission } = await import("@/lib/regen/affiliate-ledger");
+        const medAmount = Number(session.metadata?.medAmount || 0) || (session.amount_total || 0) / 100;
+        await recordPaidOrderCommission(
+          supabase,
+          affiliateCode,
+          notifyEmail,
+          typeof session.payment_intent === "string" ? session.payment_intent : session.id,
+          medAmount,
+        );
+      } catch (affErr) {
+        console.error("[regen-stripe-webhook] affiliate commission failed", affErr);
+      }
+    });
   }
 }
 
-async function handlePaymentSuccess(supabase: ReturnType<typeof getSupabase>, paymentIntent: Stripe.PaymentIntent) {
-  // Update any orders with this payment intent
-  await supabase
-    .from('regen_orders')
+async function handlePaymentSuccess(supabase: SupabaseClient, paymentIntent: Stripe.PaymentIntent) {
+  const { error } = await supabase
+    .from("regen_orders")
     .update({
-      status: 'processing',
+      status: "processing",
       updated_at: new Date().toISOString(),
     })
-    .eq('stripe_payment_intent_id', paymentIntent.id)
-    .eq('status', 'pending');
+    .eq("stripe_payment_intent_id", paymentIntent.id)
+    .eq("status", "pending");
+  if (error) console.error("[regen-stripe-webhook] payment_intent order update failed", error);
 }
 
-async function handleInvoicePaid(supabase: ReturnType<typeof getSupabase>, invoice: Stripe.Invoice) {
-  const email = invoice.customer_email;
-  if (!email) return;
-
-  // Update any orders with this invoice
-  await supabase
-    .from('regen_orders')
+async function handleInvoicePaid(supabase: SupabaseClient, invoice: Stripe.Invoice) {
+  const { error } = await supabase
+    .from("regen_orders")
     .update({
-      status: 'processing',
+      status: "processing",
       updated_at: new Date().toISOString(),
     })
-    .eq('stripe_invoice_id', invoice.id)
-    .eq('status', 'pending');
+    .eq("stripe_invoice_id", invoice.id)
+    .eq("status", "pending");
+  if (error) console.error("[regen-stripe-webhook] invoice order update failed", error);
 }
 
-async function handleSubscriptionUpdate(supabase: ReturnType<typeof getSupabase>, subscription: Stripe.Subscription) {
+async function handleSubscriptionUpdate(supabase: SupabaseClient, subscription: Stripe.Subscription) {
   const customerId = subscription.customer as string;
-  
-  // Get customer email
   const customer = await getStripe().customers.retrieve(customerId);
   if (!customer || customer.deleted) return;
 
-  const email = (customer as Stripe.Customer).email;
+  const email = customer.email;
   if (!email) return;
 
-  // Get patient
   const { data: patient } = await supabase
-    .from('regen_patients')
-    .select('id')
-    .eq('email', email.toLowerCase())
-    .single();
+    .from("regen_patients")
+    .select("id")
+    .eq("email", email.toLowerCase())
+    .maybeSingle();
 
   if (!patient) return;
 
-  // Update subscription record
-  await supabase
-    .from('regen_subscriptions')
-    .upsert({
+  const { error } = await supabase.from("regen_subscriptions").upsert(
+    {
       patient_id: patient.id,
       stripe_subscription_id: subscription.id,
       stripe_customer_id: customerId,
@@ -195,45 +226,44 @@ async function handleSubscriptionUpdate(supabase: ReturnType<typeof getSupabase>
       current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
       current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
       updated_at: new Date().toISOString(),
-    }, {
-      onConflict: 'stripe_subscription_id',
-    });
+    },
+    { onConflict: "stripe_subscription_id" },
+  );
+  if (error) console.error("[regen-stripe-webhook] subscription upsert failed", error);
 }
 
-async function handleSubscriptionCanceled(supabase: ReturnType<typeof getSupabase>, subscription: Stripe.Subscription) {
-  await supabase
-    .from('regen_subscriptions')
+async function handleSubscriptionCanceled(supabase: SupabaseClient, subscription: Stripe.Subscription) {
+  const { error } = await supabase
+    .from("regen_subscriptions")
     .update({
-      status: 'canceled',
+      status: "canceled",
       canceled_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     })
-    .eq('stripe_subscription_id', subscription.id);
+    .eq("stripe_subscription_id", subscription.id);
+  if (error) console.error("[regen-stripe-webhook] subscription cancel failed", error);
 }
 
-async function processReferral(supabase: ReturnType<typeof getSupabase>, referralCode: string, referredEmail: string) {
-  // Find the referrer
+async function processReferral(supabase: SupabaseClient, referralCode: string, referredEmail: string) {
   const { data: referrer } = await supabase
-    .from('regen_patients')
-    .select('id, name, email')
-    .eq('referral_code', referralCode)
-    .single();
+    .from("regen_patients")
+    .select("id, name, email")
+    .eq("referral_code", referralCode)
+    .maybeSingle();
 
   if (!referrer) return;
 
-  // Record the referral
-  await supabase.from('regen_referrals').insert({
+  await supabase.from("regen_referrals").insert({
     referrer_id: referrer.id,
     referred_email: referredEmail,
-    status: 'completed',
+    status: "completed",
     reward_amount: 25,
     completed_at: new Date().toISOString(),
   });
 
-  // Send notification to referrer
   await sendRegenNotification({
-    type: 'referral_earned',
+    type: "referral_earned",
     patient: { name: referrer.name, email: referrer.email },
-    notes: '$25 off your next order',
+    notes: "$25 off your next order",
   });
 }
