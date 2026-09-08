@@ -92,8 +92,8 @@ export function typicalGlp1Step(med: 'sema' | 'tirz', week: number) {
 }
 
 export const PEPTIDE_MATCHES = {
-  recovery: { name: 'Recovery & repair conversation', note: 'Your NP reviews recovery goals and decides whether NAD+ or another public option is appropriate. This is a consult, not a catalog of restricted peptides.', href: '/start?goal=peptides' },
-  sleep: { name: 'Sleep & recovery conversation', note: 'Sleep, recovery, and evening routines are reviewed before any peptide is considered.', href: '/start?goal=peptides' },
+  recovery: { name: 'Energy & recovery conversation', note: 'Your NP reviews goals and decides whether NAD+ or another listed option is appropriate.', href: '/start?goal=energy' },
+  sleep: { name: 'Sleep & energy conversation', note: 'Sleep, energy, and evening routines are reviewed before anything is prescribed.', href: '/start?goal=energy' },
   skin: { name: 'Skin & collagen conversation', note: 'Prescription skincare and select peptides may be discussed after screening.', href: '/start?goal=skincare' },
   libido: { name: 'Sexual health conversation', note: 'Hormone and sexual-health options are reviewed together — no one-size protocol.', href: '/start?goal=sexual-health' },
   energy: { name: 'Energy & longevity conversation', note: 'NAD+, B12, and hormone labs are common next steps — not automatic prescriptions.', href: '/start?goal=vitamins' },

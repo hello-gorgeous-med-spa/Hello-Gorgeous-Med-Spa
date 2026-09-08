@@ -14,6 +14,7 @@ import {
   tryregenBundleShippingUsd,
 } from '@/lib/regen/tryregen-bundles';
 import { isStripeWadaBlockedProgram, isStripeWadaBlockedPublicText } from '@/lib/regen/wada-public-block';
+import { resolveRegenStartGoal } from '@/lib/regen/public-goals';
 import { GORGEOUS20_CODE, GORGEOUS20_PERCENT } from '@/lib/regen-gorgeous20';
 import {
   REGEN_TELEHEALTH_CREDIT_SHORT,
@@ -50,78 +51,46 @@ function programPriceSuffix(program: { id: string; unit?: string }) {
 const GOALS = [
   {
     id: 'weight-loss',
-    title: 'Lose Weight',
-    description: 'GLP-1 medications like Semaglutide & Tirzepatide',
+    title: 'Weight loss',
+    description: 'A weekly plan Ryan reviews — if it is appropriate for you.',
     icon: '📉',
     programs: [
-      { id: 'semaglutide', name: 'Semaglutide Program', price: 299, description: 'Same active ingredient as Ozempic® & Wegovy®' },
-      { id: 'tirzepatide', name: 'Tirzepatide Program', price: tirzepatideFromPrice(), fromPrice: true, description: 'Same active ingredient as Mounjaro® & Zepbound® — pick your monthly request' },
-    ],
-  },
-  {
-    id: 'hormones',
-    title: 'Optimize Hormones',
-    description: 'Bioidentical HRT for energy, mood & vitality',
-    icon: '⚡',
-    programs: [
-      { id: 'hrt-women', name: 'Women\'s HRT', price: 149, description: 'Estrogen, progesterone & testosterone optimization' },
-      { id: 'hrt-men', name: 'Men\'s TRT', price: 179, description: 'Testosterone replacement & optimization' },
-    ],
-  },
-  {
-    id: 'peptides',
-    title: 'Cellular Energy',
-    description: 'NAD+ support for cellular energy and healthy aging',
-    icon: '🧬',
-    programs: [
-      { id: 'nad', name: 'NAD+ Therapy', price: 199, description: 'Cellular energy & longevity support' },
-    ],
-  },
-  {
-    id: 'bundles',
-    title: 'Bundles',
-    description: 'Curated stacks — one price, one cold ship, NP review first',
-    icon: '📦',
-    programs: TRYREGEN_BUNDLES.map((bundle) => ({
-      id: bundle.id,
-      name: bundle.name,
-      price: tryregenBundleRetailUsd(bundle),
-      unit: 'vial' as const,
-      description: bundle.description,
-    })),
-  },
-  {
-    id: 'vitamins',
-    title: 'Vitamin Injectables',
-    description: 'Energy, immunity & wellness shots',
-    icon: '💉',
-    programs: [
-      { id: 'b12', name: 'Vitamin B12 Injection', price: vitaminVialRetailUsd('b12')!, unit: 'vial' as const, description: 'Energy boost, metabolism support & nerve health' },
-      { id: 'biotin', name: 'Biotin Injection', price: vitaminVialRetailUsd('biotin')!, unit: 'vial' as const, description: 'Hair, skin & nail strengthening' },
-      { id: 'glutathione', name: 'Glutathione Injection', price: vitaminVialRetailUsd('glutathione')!, unit: 'vial' as const, description: 'Master antioxidant for skin brightening, cellular health & immunity' },
-      { id: 'nad-injection', name: 'NAD+ Injection', price: vitaminVialRetailUsd('nad-injection')!, unit: 'vial' as const, description: 'Cellular energy, anti-aging & brain clarity' },
+      { id: 'semaglutide', name: 'Semaglutide', price: 299, description: 'Weekly GLP-1. Ryan decides if it is appropriate.' },
+      { id: 'tirzepatide', name: 'Tirzepatide', price: tirzepatideFromPrice(), fromPrice: true, description: 'Weekly dual-agonist GLP-1. Pick your monthly request.' },
     ],
   },
   {
     id: 'sexual-health',
-    title: 'Sexual Wellness',
-    description: 'Discreet solutions for intimacy',
+    title: 'Sexual health',
+    description: 'Discreet care for desire and performance.',
     icon: '💗',
     programs: [
       { id: 'ed', name: 'Men\'s Performance', price: 49, description: 'Sildenafil, Tadalafil & more' },
-      { id: 'libido-women', name: 'Women\'s Desire', price: 79, description: 'PT-141, Oxytocin & arousal support' },
+      { id: 'libido-women', name: 'Women\'s Desire', price: 79, description: 'PT-141, oxytocin & arousal support' },
+    ],
+  },
+  {
+    id: 'hair',
+    title: 'Hair',
+    description: 'Prescription care for thinning and loss.',
+    icon: '💇',
+    programs: [
+      { id: 'fin-minox-foam', name: 'Finasteride + Minoxidil Foam', price: 175, description: 'Topical DHT blocker + growth stimulator' },
+      { id: 'fin-minox-solution', name: 'Finasteride + Minoxidil Solution', price: 175, description: 'Liquid formula for scalp application' },
+      { id: 'advanced-hair', name: 'Advanced Hair Formula', price: 325, description: 'Finasteride + minoxidil + latanoprost + tretinoin' },
+      { id: 'oral-minox', name: 'Oral Minoxidil', price: 40, description: 'Low-dose pill for systemic hair growth' },
     ],
   },
   {
     id: 'skincare',
-    title: 'Prescription Skincare',
-    description: 'Medical-grade anti-aging treatments',
+    title: 'Skin',
+    description: 'Prescription-strength anti-aging and tone.',
     icon: '✨',
     programs: [
       { id: 'tretinoin', name: 'Tretinoin Cream', price: 125, description: 'Prescription retinoid for wrinkles, collagen & acne' },
       { id: 'tretinoin-ha', name: 'Tretinoin + HA Blend', price: 175, description: 'Tretinoin with hyaluronic acid for hydration' },
       { id: 'hydroquinone', name: 'Hydroquinone Brightening', price: 175, description: 'Prescription strength for dark spots & melasma' },
-      { id: 'ghk-cu', name: 'GHK-Cu Peptide Cream', price: 275, description: 'Firming, repair & collagen support' },
+      { id: 'ghk-cu', name: 'GHK-Cu Cream', price: 275, description: 'Firming, repair & collagen support' },
       { id: 'cleartone', name: 'ClearTone Brightening', price: 275, description: 'Multi-acid blend for hyperpigmentation & tone' },
       { id: 'clarity', name: 'Clarity Acne Cream', price: 275, description: 'Azelaic acid + tretinoin for breakouts & redness' },
       { id: 'refine-pm', name: 'Refine PM Anti-Aging', price: 275, description: 'GHK-Cu + tretinoin for nighttime repair' },
@@ -129,15 +98,33 @@ const GOALS = [
     ],
   },
   {
-    id: 'hair',
-    title: 'Hair Restoration',
-    description: 'Prescription treatments for hair loss',
-    icon: '💇',
+    id: 'hormones',
+    title: 'Hormones',
+    description: 'Energy, mood, and vitality — women\'s HRT and men\'s TRT.',
+    icon: '⚡',
     programs: [
-      { id: 'fin-minox-foam', name: 'Finasteride + Minoxidil Foam', price: 175, description: 'Topical DHT blocker + growth stimulator' },
-      { id: 'fin-minox-solution', name: 'Finasteride + Minoxidil Solution', price: 175, description: 'Liquid formula for scalp application' },
-      { id: 'advanced-hair', name: 'Advanced Hair Formula', price: 325, description: 'Finasteride + minoxidil + latanoprost + tretinoin' },
-      { id: 'oral-minox', name: 'Oral Minoxidil', price: 40, description: 'Low-dose pill for systemic hair growth' },
+      { id: 'hrt-women', name: 'Women\'s HRT', price: 149, description: 'Estrogen, progesterone & testosterone optimization' },
+      { id: 'hrt-men', name: 'Men\'s TRT', price: 179, description: 'Testosterone replacement & optimization' },
+    ],
+  },
+  {
+    id: 'energy',
+    title: 'Energy & longevity',
+    description: 'NAD+, antioxidant support, and vitamin shots.',
+    icon: '🧬',
+    programs: [
+      { id: 'nad', name: 'NAD+ Therapy', price: 199, description: 'Cellular energy and healthy-aging support' },
+      { id: 'nad-injection', name: 'NAD+ Injection', price: vitaminVialRetailUsd('nad-injection')!, unit: 'vial' as const, description: 'Cellular energy and mental clarity' },
+      { id: 'glutathione', name: 'Glutathione Injection', price: vitaminVialRetailUsd('glutathione')!, unit: 'vial' as const, description: 'Antioxidant support for skin and cellular health' },
+      { id: 'b12', name: 'Vitamin B12 Injection', price: vitaminVialRetailUsd('b12')!, unit: 'vial' as const, description: 'Energy, metabolism, and nerve health' },
+      { id: 'biotin', name: 'Biotin Injection', price: vitaminVialRetailUsd('biotin')!, unit: 'vial' as const, description: 'Hair, skin, and nail support' },
+      ...TRYREGEN_BUNDLES.map((bundle) => ({
+        id: bundle.id,
+        name: bundle.name,
+        price: tryregenBundleRetailUsd(bundle),
+        unit: 'vial' as const,
+        description: bundle.description,
+      })),
     ],
   },
 ];
@@ -162,13 +149,11 @@ const SCREENING_QUESTIONS: Record<string, Array<{id: string; question: string; t
     { id: 'current-meds', question: 'Please list any medications you are currently taking:', type: 'text' },
     { id: 'symptoms', question: 'What symptoms are you hoping to address with hormone therapy?', type: 'text' },
   ],
-  'bundles': [
+  'energy': [
     { id: 'pregnant', question: 'Are you currently pregnant, breastfeeding, or planning to become pregnant?', type: 'yesno', disqualifyIf: 'yes' },
-    { id: 'active-cancer', question: 'Do you have an active cancer diagnosis or are you in cancer treatment?', type: 'yesno' },
     { id: 'current-meds', question: 'Please list any medications you are currently taking:', type: 'text' },
     { id: 'allergies', question: 'Do you have any known drug allergies?', type: 'text' },
-    { id: 'medical-conditions', question: 'Please list any relevant medical conditions or recent injuries:', type: 'text' },
-    { id: 'goals', question: 'What do you want your provider to review this request for?', type: 'text' },
+    { id: 'medical-conditions', question: 'Please list any relevant medical conditions:', type: 'text' },
   ],
   'default': [
     { id: 'pregnant', question: 'Are you currently pregnant or breastfeeding?', type: 'yesno' },
@@ -180,15 +165,14 @@ const SCREENING_QUESTIONS: Record<string, Array<{id: string; question: string; t
 
 function RegenStartContent() {
   const searchParams = useSearchParams();
-  const initialGoal = searchParams.get('goal') || '';
   const requestedProgram = searchParams.get('program') || '';
   const initialProgram = isStripeWadaBlockedProgram(requestedProgram) ? '' : requestedProgram;
   const promoCode = (searchParams.get('promo') || GORGEOUS20_CODE).toUpperCase();
   const affiliateCode = (searchParams.get('ref') || searchParams.get('aff') || readAffiliateCodeClient()).toUpperCase();
-  const inferredGoal =
-    initialGoal ||
-    (initialProgram === 'tirzepatide' ? 'weight-loss' : '') ||
-    (isTryregenBundleProgram(initialProgram) ? 'bundles' : '');
+  const inferredGoal = resolveRegenStartGoal({
+    goal: searchParams.get('goal'),
+    program: initialProgram,
+  });
   
   const [step, setStep] = useState<Step>(
     initialProgram === 'tirzepatide'
@@ -323,7 +307,7 @@ function RegenStartContent() {
         : 'https://tryregenrx.com';
       
       const consentData = {
-        treatmentCategory: selectedProgram ? getTreatmentCategory(selectedProgram) : 'peptides',
+        treatmentCategory: selectedProgram ? getTreatmentCategory(selectedProgram) : 'vitamin-injectables',
         patientName: `${formData.firstName} ${formData.lastName}`,
         patientEmail: formData.email,
         patientDob: formData.dob,
@@ -509,8 +493,24 @@ function RegenStartContent() {
         {/* Step 1: Goal Selection */}
         {step === 'goal' && (
           <div>
-            <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.cream }}>What&apos;s your health goal?</h1>
-            <p className="mb-8" style={{ color: BRAND.gray }}>Select the area you&apos;d like to focus on.</p>
+            <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.cream }}>Choose your program</h1>
+            <p className="mb-8" style={{ color: BRAND.gray }}>Pick a goal. Ryan Kent, FNP-BC reviews every request — a visit is not a guaranteed prescription.</p>
+            <Link
+              href={REGEN_TELEHEALTH_PATH}
+              className="mb-6 flex w-full items-center gap-4 rounded-xl p-6 text-left transition-all hover:scale-[1.02]"
+              style={{ backgroundColor: BRAND.darkAlt, border: `2px solid ${BRAND.pink}` }}
+            >
+              <span className="text-4xl">💬</span>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold" style={{ color: BRAND.cream }}>Not sure yet? Talk to Ryan first</h3>
+                <p style={{ color: BRAND.gray }}>
+                  {regenTelehealthPriceLabel()} video visit · {REGEN_TELEHEALTH_CREDIT_SHORT}
+                </p>
+              </div>
+              <svg className="h-6 w-6" style={{ color: BRAND.pink }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
             <div className="grid gap-4">
               {GOALS.map((goal) => (
                 <button
@@ -548,7 +548,7 @@ function RegenStartContent() {
             </button>
             <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.cream }}>Choose your program</h1>
             <p className="mb-8" style={{ color: BRAND.gray }}>{currentGoal.title} programs available for you.</p>
-            {currentGoal.id === 'bundles' ? (
+            {currentGoal.id === 'energy' ? (
               <p className="mb-6 text-sm" style={{ color: BRAND.gray }}>{TRYREGEN_BUNDLES_LEGAL}</p>
             ) : null}
             <div className="grid gap-4">

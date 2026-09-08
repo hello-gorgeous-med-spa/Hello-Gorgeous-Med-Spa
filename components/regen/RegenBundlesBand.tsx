@@ -20,7 +20,7 @@ const BRAND = {
   gray: "#9CA3AF",
 };
 
-export function RegenBundlesBand({ id = "bundles" }: { id?: string }) {
+export function RegenBundlesBand({ id = "energy" }: { id?: string }) {
   const ship = tryregenBundleShippingUsd();
 
   return (
@@ -31,10 +31,10 @@ export function RegenBundlesBand({ id = "bundles" }: { id?: string }) {
             className="mb-3 inline-block rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest"
             style={{ backgroundColor: `${BRAND.pink}20`, color: BRAND.pink, border: `1px solid ${BRAND.pink}40` }}
           >
-            Bundles
+            Energy & longevity
           </span>
           <h2 className="mb-2 font-serif text-2xl font-black md:text-3xl" style={{ color: BRAND.cream }}>
-            Request a curated stack.
+            NAD+, vitamins, and the glow pair.
           </h2>
           <p className="mx-auto max-w-xl text-sm" style={{ color: BRAND.gray }}>
             One card, one price, one cold ship. Your Illinois NP reviews the request and

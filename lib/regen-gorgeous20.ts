@@ -63,7 +63,7 @@ export const GORGEOUS20_EXAMPLES: Gorgeous20Example[] = [
     name: "The Radiance Pair",
     detail: "Glutathione + NAD+",
     from: "$250 + $35 ship",
-    href: "/start?goal=bundles&program=radiance&promo=GORGEOUS20",
+    href: "/start?goal=energy&program=radiance&promo=GORGEOUS20",
   },
   {
     name: "Hair",

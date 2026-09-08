@@ -341,7 +341,7 @@ export function getTreatmentCategory(programId: string): TreatmentCategory {
     // Peptides
     'bpc-tb': 'peptides',
     'growth': 'peptides',
-    'nad': 'peptides',
+    'nad': 'vitamin-injectables',
     'recovery': 'peptides',
     'skin-repair': 'peptides',
     'full-recovery': 'peptides',
@@ -349,8 +349,8 @@ export function getTreatmentCategory(programId: string): TreatmentCategory {
     'peak': 'peptides',
     'neuro': 'peptides',
     'nad-sermorelin': 'peptides',
-    'radiance': 'peptides',
-    'bundles': 'peptides',
+    'radiance': 'vitamin-injectables',
+    'bundles': 'vitamin-injectables',
     
     // Sexual wellness
     'ed': 'sexual-wellness',
@@ -383,7 +383,8 @@ export function getTreatmentCategory(programId: string): TreatmentCategory {
     'glp1': 'glp1-weight-loss',
     'hormones': 'hormone-therapy',
     'hrt': 'hormone-therapy',
-    'peptides': 'peptides',
+    'peptides': 'vitamin-injectables',
+    'energy': 'vitamin-injectables',
     'sexual-health': 'sexual-wellness',
     'vitamins': 'vitamin-injectables',
     'skincare': 'prescription-skincare',

@@ -17,9 +17,11 @@ import { SITE } from "@/lib/seo";
 
 const PROGRAMS = [
   { name: "Weight loss", detail: "Tirzepatide & semaglutide — NP-guided", from: "from $100" },
+  { name: "Sexual health", detail: "Discreet care for desire and performance", from: "from $49" },
+  { name: "Hair", detail: "Prescription support when appropriate", from: "from $40" },
+  { name: "Skin", detail: "Tretinoin, GHK-Cu, custom compounds", from: "from $125" },
   { name: "Hormones", detail: "Women’s HRT & men’s TRT", from: "from $149" },
-  { name: "Vitamins", detail: "B12, biotin, glutathione, NAD+", from: "from $73" },
-  { name: "Bundles", detail: "Peptide stacks · one price · one ship", from: "from $200" },
+  { name: "Energy & longevity", detail: "NAD+, glutathione, B12, biotin", from: "from $73" },
 ] as const;
 
 const TAG_COLOR: Record<string, string> = {

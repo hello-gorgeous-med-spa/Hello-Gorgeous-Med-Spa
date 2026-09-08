@@ -49,7 +49,7 @@ function fallbackReply(surface: PeppySurface, question: string): string {
     return "Hello Gorgeous and REGEN RX are cash-pay — we don't bill insurance. Programs are personalized and often elective, so you get a clear price without a prior-auth wait. First step is a $49 visit with Ryan Kent, FNP-BC. That fee is his evaluation, not a guaranteed prescription, and it credits toward therapy if he prescribes. HSA/FSA may work with your plan. Book: tryregenrx.com/consult.";
   }
   if (/price|cost|how much/.test(q)) {
-    return "Ryan's video visit is $49 on Square (tryregenrx.com/consult) and credits toward the first therapy order if he prescribes. Menus start around $100 weight loss, $149 hormones, $73 vitamins, $200 bundles, plus cold shipping ($25 most vials / $35 stacks). GORGEOUS20 is 20% off the first medication order — shipping excluded.";
+    return "Ryan's video visit is $49 on Square (tryregenrx.com/consult) and credits toward the first therapy order if he prescribes. Menus start around $100 weight loss, $49 sexual health, $40 hair, $125 skin, $149 hormones, $73 energy & longevity, plus cold shipping ($25 most vials / $35 stacks). GORGEOUS20 is 20% off the first medication order — shipping excluded.";
   }
   return "I'm Peppy — REGEN RX's guide. Ryan Kent, FNP-BC reviews every Illinois request. I can explain the programs; I cannot prescribe or pick your dose. Start at tryregenrx.com/start or call (630) 636-6193.";
 }

@@ -46,11 +46,11 @@ export default function PricingPage() {
       'weight-loss': 'weight-loss',
       'trt': 'hormones',
       'hrt': 'hormones',
-      'peptides': 'peptides',
+      'peptides': 'energy',
       'sexual-health': 'sexual-health',
       'hair': 'hair',
       'skincare': 'skincare',
-      'vitamins': 'vitamins',
+      'vitamins': 'energy',
     };
     const goal = categoryToGoal[tier.category] || 'weight-loss';
     // Pass tier info so intake can pre-select the right program

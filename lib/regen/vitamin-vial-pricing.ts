@@ -17,7 +17,7 @@ export function vitaminVialRetailUsd(programId: string): number | null {
 }
 
 export function isVitaminVialProgram(programId?: string | null, goal?: string | null): boolean {
-  if (goal === 'vitamins') return true;
+  if (goal === 'vitamins' || goal === 'energy') return true;
   return programId != null && programId in WHOLESALE;
 }
 

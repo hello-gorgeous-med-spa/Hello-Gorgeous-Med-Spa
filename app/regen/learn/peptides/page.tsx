@@ -58,7 +58,7 @@ export default function PeptidesLearnPage() {
           </Link>
           <div className="flex items-center gap-6">
             <Link href="/learn" className="text-sm font-medium" style={{ color: BRAND.gray }}>← Back to Learn</Link>
-            <Link href="/start?goal=peptides" className="px-5 py-2 text-white text-sm font-bold rounded-full" style={{ backgroundColor: BRAND.pink }}>
+            <Link href="/start?goal=energy" className="px-5 py-2 text-white text-sm font-bold rounded-full" style={{ backgroundColor: BRAND.pink }}>
               Get Started
             </Link>
           </div>
@@ -78,7 +78,7 @@ export default function PeptidesLearnPage() {
             <span className="text-5xl">🧬</span>
             <div>
               <p className="text-sm font-semibold uppercase tracking-wider" style={{ color: BRAND.pink }}>Cellular Energy</p>
-              <h1 className="text-4xl font-black" style={{ color: BRAND.cream }}>Peptide Therapy</h1>
+              <h1 className="text-4xl font-black" style={{ color: BRAND.cream }}>Energy & longevity</h1>
             </div>
           </div>
           <p className="text-xl max-w-2xl" style={{ color: BRAND.gray }}>
@@ -161,7 +161,7 @@ export default function PeptidesLearnPage() {
                 <div className="flex items-center justify-between pt-4 border-t" style={{ borderColor: `${BRAND.teal}20` }}>
                   <span className="text-lg font-bold" style={{ color: BRAND.pink }}>{pep.price}</span>
                   <Link 
-                    href="/start?goal=peptides"
+                    href="/start?goal=energy"
                     className="text-xs font-bold px-3 py-2 rounded-full"
                     style={{ backgroundColor: BRAND.teal, color: 'white' }}
                   >
@@ -192,12 +192,12 @@ export default function PeptidesLearnPage() {
       {/* CTA */}
       <section className="py-16 px-6" style={{ backgroundColor: BRAND.pink }}>
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Interested in peptide therapy?</h2>
+          <h2 className="text-3xl font-bold text-white mb-4">Want more energy?</h2>
           <p className="text-white/80 mb-8">
             Our providers will help you understand whether NAD+ or another public option is right for your goals.
           </p>
           <Link
-            href="/start?goal=peptides"
+            href="/start?goal=energy"
             className="inline-block px-8 py-4 text-lg font-bold rounded-full transition-all hover:scale-105"
             style={{ backgroundColor: BRAND.teal, color: 'white' }}
           >

@@ -55,7 +55,7 @@ const VITAMIN_INJECTABLES = [
 
 const CATEGORIES = [
   { name: 'Weight Loss', href: '/learn/weight-loss', icon: '📉' },
-  { name: 'Peptides', href: '/learn/peptides', icon: '🧬' },
+  { name: 'Energy & longevity', href: '/learn/peptides', icon: '🧬' },
   { name: 'Hormones', href: '/learn/hormones', icon: '⚡' },
   { name: 'Skincare', href: '/learn/skincare', icon: '✨' },
   { name: 'Hair', href: '/learn/hair', icon: '💇' },

@@ -12,7 +12,7 @@ import {
   boomrxConsumerMonthlyUsd,
 } from "@/lib/boomrx-consumer-pricing";
 
-export const TRYREGEN_BUNDLES_GOAL = "bundles" as const;
+export const TRYREGEN_BUNDLES_GOAL = "energy" as const;
 
 export type TryregenBundle = {
   id: string;

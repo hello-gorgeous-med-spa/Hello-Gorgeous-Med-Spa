@@ -4,7 +4,8 @@ import { alertStaffOnFormSubmission } from '@/lib/notifications/form-alert';
 const TOPICS: Record<string, string> = {
   general: 'General Question',
   'weight-loss': 'Weight Loss / GLP-1',
-  peptides: 'Peptide Therapy',
+  peptides: 'Energy & longevity',
+  energy: 'Energy & longevity',
   hormones: 'Hormone Therapy',
   skincare: 'Prescription Skincare',
   hair: 'Hair Restoration',

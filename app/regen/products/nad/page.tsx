@@ -103,7 +103,7 @@ export default function NADProductPage() {
             </div>
             
             <Link
-              href="/start?goal=vitamins&program=nad-injection"
+              href="/start?goal=energy&program=nad-injection"
               className="inline-block px-10 py-4 text-lg font-bold rounded-full transition-all hover:scale-105"
               style={{ backgroundColor: BRAND.pink, color: 'white' }}
             >
@@ -238,7 +238,7 @@ export default function NADProductPage() {
           <h2 className="text-3xl font-bold text-white mb-4">Ready to optimize your cells?</h2>
           <p className="text-white/80 mb-8">Start with a free online visit. If approved, your NAD+ injections ship directly to you.</p>
           <Link
-            href="/start?goal=vitamins&program=nad-injection"
+            href="/start?goal=energy&program=nad-injection"
             className="inline-block px-10 py-4 font-bold rounded-full transition-all hover:scale-105"
             style={{ backgroundColor: BRAND.pink, color: 'white' }}
           >

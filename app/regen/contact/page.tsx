@@ -16,7 +16,7 @@ const BRAND = {
 const TOPICS = [
   { id: 'general', label: 'General Question' },
   { id: 'weight-loss', label: 'Weight Loss / GLP-1' },
-  { id: 'peptides', label: 'Peptide Therapy' },
+  { id: 'energy', label: 'Energy & longevity' },
   { id: 'hormones', label: 'Hormone Therapy' },
   { id: 'skincare', label: 'Prescription Skincare' },
   { id: 'hair', label: 'Hair Restoration' },

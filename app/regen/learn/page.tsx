@@ -26,9 +26,9 @@ const CATEGORIES = [
   },
   {
     id: 'peptides',
-    title: 'Peptide Therapy',
-    subtitle: 'Cellular Energy',
-    description: 'Learn how NAD+ supports cellular energy and healthy aging — prescribed only when Ryan decides it is appropriate.',
+    title: 'Energy & longevity',
+    subtitle: 'NAD+ & wellness',
+    description: 'Learn how NAD+ and vitamin injectables support cellular energy — prescribed only when Ryan decides it is appropriate.',
     icon: '🧬',
     href: '/learn/peptides',
     topics: ['What are peptides?', 'NAD+ & cellular energy', 'How online visits work', 'Safety & research'],

@@ -5,9 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
 import { RegenExplainerHero } from '@/components/regen/RegenExplainerHero';
-import { RegenBundlesBand } from '@/components/regen/RegenBundlesBand';
 import { RegenGorgeous20Popup } from '@/components/regen/RegenGorgeous20Popup';
-import { GORGEOUS20_MARQUEE, GORGEOUS20_START_HREF, REGEN_VIAL_ART } from '@/lib/regen-gorgeous20';
+import { GORGEOUS20_MARQUEE, GORGEOUS20_START_HREF } from '@/lib/regen-gorgeous20';
 import {
   REGEN_TELEHEALTH_CREDIT_SHORT,
   REGEN_TELEHEALTH_PATH,
@@ -28,76 +27,57 @@ const BRAND = {
 const PROGRAMS = [
   {
     id: 'weight-loss',
-    title: 'Weight Loss',
-    subtitle: 'GLP-1 Medications',
-    description: 'Semaglutide & Tirzepatide — same active ingredients as Ozempic® and Mounjaro®',
+    title: 'Weight loss',
+    subtitle: 'Weekly GLP-1 care',
+    description: 'Tirzepatide or semaglutide — Ryan reviews and prescribes only if it is appropriate.',
     price: 'from $100',
     href: '/start?goal=weight-loss',
     image: '/images/regen/marketing/woman-wellness.png',
   },
   {
-    id: 'hormones',
-    title: 'Hormone Therapy',
-    subtitle: 'HRT for Women & Men',
-    description: 'Restore energy, mood, and vitality with bioidentical hormone optimization',
-    price: '$149',
-    href: '/start?goal=hormones',
-    image: '/images/regen/marketing/man-morning-energy.png',
-  },
-  {
-    id: 'peptides',
-    title: 'Peptide Therapy',
-    subtitle: 'Cellular Energy',
-    description: 'NAD+ for cellular energy and healthy aging',
-    price: '$199',
-    href: '/start?goal=peptides',
-    image: '/images/regen/marketing/cell-peptide.png',
-  },
-  {
-    id: 'bundles',
-    title: 'Bundles',
-    subtitle: 'Curated Stacks',
-    description: 'Curated vials Ryan can prescribe when clinically appropriate — one price, one cold ship',
-    price: 'from $200',
-    href: '/start?goal=bundles',
-    image: REGEN_VIAL_ART.lineup,
-  },
-  {
-    id: 'vitamins',
-    title: 'Vitamin Injectables',
-    subtitle: 'Energy & Wellness Shots',
-    description: 'B12, Biotin, Glutathione & NAD+ — fast-acting nutrients for energy and glow',
-    price: '$73',
-    unit: 'vial',
-    href: '/start?goal=vitamins',
-    image: '/images/regen/marketing/cell-peptide.png',
-  },
-  {
-    id: 'skincare',
-    title: 'Rx Skincare',
-    subtitle: 'Prescription Anti-Aging',
-    description: 'Tretinoin, GHK-Cu peptides, and custom compounds for medical-grade results',
-    price: '$125',
-    href: '/start?goal=skincare',
-    image: '/images/regen/marketing/woman-skincare.png',
+    id: 'sexual-health',
+    title: 'Sexual health',
+    subtitle: 'Desire & performance',
+    description: 'Discreet care for men and women. Ryan decides what, if anything, to prescribe.',
+    price: 'from $49',
+    href: '/start?goal=sexual-health',
+    image: '/images/regen/couple-couch.png',
   },
   {
     id: 'hair',
-    title: 'Hair Restoration',
-    subtitle: 'Prescription Hair Growth',
-    description: 'Finasteride, minoxidil & advanced compounds to stop loss and regrow hair',
-    price: '$40',
+    title: 'Hair',
+    subtitle: 'Stop loss · regrow',
+    description: 'Finasteride, minoxidil, and advanced compounds when clinically appropriate.',
+    price: 'from $40',
     href: '/start?goal=hair',
     image: '/images/regen/man-stretching.png',
   },
   {
-    id: 'sexual-health',
-    title: 'Sexual Wellness',
-    subtitle: 'Intimacy & Performance',
-    description: 'Discreet, effective solutions for desire, performance, and confidence',
-    price: '$49',
-    href: '/start?goal=sexual-health',
-    image: '/images/regen/couple-couch.png',
+    id: 'skincare',
+    title: 'Skin',
+    subtitle: 'Prescription anti-aging',
+    description: 'Tretinoin, GHK-Cu cream, and custom compounds for tone and texture.',
+    price: 'from $125',
+    href: '/start?goal=skincare',
+    image: '/images/regen/marketing/woman-skincare.png',
+  },
+  {
+    id: 'hormones',
+    title: 'Hormones',
+    subtitle: 'Women\'s HRT & men\'s TRT',
+    description: 'Restore energy, mood, and vitality with bioidentical hormone optimization.',
+    price: 'from $149',
+    href: '/start?goal=hormones',
+    image: '/images/regen/marketing/man-morning-energy.png',
+  },
+  {
+    id: 'energy',
+    title: 'Energy & longevity',
+    subtitle: 'NAD+ · vitamins · glow',
+    description: 'NAD+, glutathione, B12, biotin, and the Radiance Pair — one goal, Ryan reviews first.',
+    price: 'from $73',
+    href: '/start?goal=energy',
+    image: '/images/regen/marketing/cell-peptide.png',
   },
 ];
 
@@ -292,7 +272,8 @@ export default function RegenLandingPage() {
           </h1>
           
           <p className="text-xl max-w-2xl mx-auto mb-8 animate-fade-in-up delay-200" style={{ color: BRAND.gray }}>
-            Doctor-guided weight loss, hormone optimization, and peptide therapy —
+            Doctor-guided weight loss, hormones, and wellness —
+
             talk to Ryan on video first, or start a request online.
           </p>
           
@@ -370,11 +351,11 @@ export default function RegenLandingPage() {
               Programs
             </span>
             <h2 className="text-4xl md:text-5xl font-black" style={{ color: BRAND.cream }}>
-              Choose your path.
+              Choose your program.
             </h2>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {PROGRAMS.map((program, idx) => (
               <Link
                 key={program.id}
@@ -415,10 +396,26 @@ export default function RegenLandingPage() {
               </Link>
             ))}
           </div>
+
+          <Link
+            href={REGEN_TELEHEALTH_PATH}
+            className="mt-8 flex flex-col items-center justify-between gap-4 rounded-2xl p-6 text-center md:flex-row md:text-left"
+            style={{ backgroundColor: BRAND.darkAlt, border: `2px solid ${BRAND.pink}` }}
+          >
+            <div>
+              <p className="text-sm font-bold uppercase tracking-widest" style={{ color: BRAND.pink }}>Not sure yet?</p>
+              <h3 className="text-2xl font-black" style={{ color: BRAND.cream }}>Talk to Ryan first — {regenTelehealthPriceLabel()}</h3>
+              <p className="mt-1 text-sm" style={{ color: BRAND.gray }}>{REGEN_TELEHEALTH_CREDIT_SHORT}. Illinois adults 21+.</p>
+            </div>
+            <span
+              className="inline-flex rounded-full px-6 py-3 text-sm font-bold text-white"
+              style={{ backgroundColor: BRAND.pink }}
+            >
+              Book the visit
+            </span>
+          </Link>
         </div>
       </section>
-
-      <RegenBundlesBand />
 
       {/* How It Works */}
       <section id="how-it-works" className="py-24 px-6" style={{ backgroundColor: BRAND.darkAlt }}>
@@ -563,7 +560,7 @@ export default function RegenLandingPage() {
                 popular: true,
               },
               { 
-                name: 'Peptide Therapy', 
+                name: 'Energy & longevity', 
                 subtitle: 'NAD+',
                 price: 199, 
                 icon: '🧬',
@@ -922,7 +919,7 @@ export default function RegenLandingPage() {
             </p>
             <p style={{ color: '#666' }}>
               Compounded medications are patient-specific preparations made by 503A-licensed pharmacies. They are not FDA-approved drugs. 
-              Peptides, GLP-1 medications, hormone therapies, and other treatments may be prescribed off-label based on clinical evidence and provider judgment. 
+              GLP-1 medications, hormone therapies, and other treatments may be prescribed off-label based on clinical evidence and provider judgment. 
               Individual results may vary. Not all patients will qualify for treatment. 
               Completing an intake form does not guarantee a prescription will be issued.
             </p>

@@ -104,7 +104,7 @@ export default function VitaminsLearnPage() {
             Fast-acting nutrients for energy, immunity, and glow — delivered straight to your cells.
           </p>
           <Link
-            href="/start?goal=vitamins"
+            href="/start?goal=energy"
             className="inline-block px-8 py-4 font-bold rounded-full transition-all hover:scale-105"
             style={{ backgroundColor: BRAND.pink, color: 'white' }}
           >
@@ -181,7 +181,7 @@ export default function VitaminsLearnPage() {
                   <div className="text-center md:text-right">
                     <div className="text-3xl font-black mb-2" style={{ color: BRAND.pink }}>{item.price}<span className="text-base font-normal" style={{ color: BRAND.gray }}> per vial</span></div>
                     <Link
-                      href={`/start?goal=vitamins&program=${item.id}`}
+                      href={`/start?goal=energy&program=${item.id}`}
                       className="inline-block px-6 py-3 text-sm font-bold rounded-full transition-all hover:scale-105"
                       style={{ backgroundColor: BRAND.teal, color: 'white' }}
                     >
@@ -218,7 +218,7 @@ export default function VitaminsLearnPage() {
           <h2 className="text-3xl font-bold text-white mb-4">Ready to boost your wellness?</h2>
           <p className="text-white/80 mb-8">Start with a free online visit. We'll help you choose the right injectables for your goals.</p>
           <Link
-            href="/start?goal=vitamins"
+            href="/start?goal=energy"
             className="inline-block px-10 py-4 font-bold rounded-full transition-all hover:scale-105"
             style={{ backgroundColor: BRAND.pink, color: 'white' }}
           >

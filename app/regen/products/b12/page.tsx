@@ -97,7 +97,7 @@ export default function B12ProductPage() {
             </div>
             
             <Link
-              href="/start?goal=vitamins&program=b12"
+              href="/start?goal=energy&program=b12"
               className="inline-block px-10 py-4 text-lg font-bold rounded-full transition-all hover:scale-105"
               style={{ backgroundColor: BRAND.pink, color: 'white' }}
             >
@@ -264,7 +264,7 @@ export default function B12ProductPage() {
           <h2 className="text-3xl font-bold text-white mb-4">Ready to boost your energy?</h2>
           <p className="text-white/80 mb-8">Start with a free online visit. If approved, your B12 injections ship directly to you.</p>
           <Link
-            href="/start?goal=vitamins&program=b12"
+            href="/start?goal=energy&program=b12"
             className="inline-block px-10 py-4 font-bold rounded-full transition-all hover:scale-105"
             style={{ backgroundColor: BRAND.pink, color: 'white' }}
           >
