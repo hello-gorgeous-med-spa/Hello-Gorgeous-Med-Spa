@@ -61,7 +61,7 @@ function HeroSection() {
         <div className="relative w-full">
           <Image
             src="/images/regen/brand/regen-hero-banner.png"
-            alt="REGEN by Hello Gorgeous Med Spa — Done surviving. I'm ready to thrive. NAD+, MIC-B12, Sermorelin."
+            alt="REGEN by Hello Gorgeous Med Spa — Done surviving. I'm ready to thrive. NAD+, MIC-B12, prescription wellness."
             width={1024}
             height={438}
             className="h-auto w-full object-cover"

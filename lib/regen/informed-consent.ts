@@ -143,7 +143,7 @@ export const TREATMENT_CONSENTS: Record<TreatmentCategory, {
 
   'peptides': {
     title: 'Peptide Therapy Consent',
-    description: 'Peptide therapy including BPC-157, TB-500, Sermorelin, and related compounds for recovery, performance, and wellness.',
+    description: 'NAD+ and other provider-selected peptide or cellular-energy support when clinically appropriate. Your NP decides what, if anything, to prescribe.',
     risks: [
       'Injection site reactions (redness, swelling, pain)',
       'Nausea, headache, or fatigue',

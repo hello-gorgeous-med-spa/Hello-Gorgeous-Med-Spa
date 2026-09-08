@@ -21,13 +21,13 @@ export const GORGEOUS20_PORTRAIT =
   "/images/regen/marketing/dani-ryan-syringes-portrait.png" as const;
 
 export const REGEN_VIAL_LINEUP =
-  "/images/regen/marketing/vial-lineup.png" as const;
+  "/images/regen/marketing/cell-peptide.png" as const;
 export const REGEN_VIAL_ART = {
   lineup: REGEN_VIAL_LINEUP,
-  recovery: "/images/regen/marketing/vial-recovery.png",
-  fullRecovery: "/images/regen/marketing/vial-full-recovery.png",
-  peak: "/images/regen/marketing/vial-cjc-ipa.png",
-  tesamorelinIpa: "/images/regen/marketing/vial-tesamorelin-ipa.png",
+  recovery: "/images/regen/marketing/cell-peptide.png",
+  fullRecovery: "/images/regen/marketing/cell-peptide.png",
+  peak: "/images/regen/marketing/cell-peptide.png",
+  tesamorelinIpa: "/images/regen/marketing/cell-peptide.png",
 } as const;
 
 export const GORGEOUS20_LEGAL =
@@ -60,30 +60,6 @@ export const GORGEOUS20_EXAMPLES: Gorgeous20Example[] = [
     href: "/start?goal=vitamins&promo=GORGEOUS20",
   },
   {
-    name: "Recovery Blend",
-    detail: "BPC-157 / TB-500",
-    from: "$200 + $35 ship",
-    href: "/start?goal=bundles&program=recovery&promo=GORGEOUS20",
-  },
-  {
-    name: "Skin Repair",
-    detail: "GLOW — BPC / TB / GHK-Cu",
-    from: "$200 + $35 ship",
-    href: "/start?goal=bundles&program=skin-repair&promo=GORGEOUS20",
-  },
-  {
-    name: "Peak Performance",
-    detail: "CJC-1295 / Ipamorelin + NAD+",
-    from: "$350 + $35 ship",
-    href: "/start?goal=bundles&program=peak&promo=GORGEOUS20",
-  },
-  {
-    name: "Focus Blend",
-    detail: "Semax / Selank",
-    from: "$200 + $35 ship",
-    href: "/start?goal=bundles&program=neuro&promo=GORGEOUS20",
-  },
-  {
     name: "The Radiance Pair",
     detail: "Glutathione + NAD+",
     from: "$250 + $35 ship",
@@ -112,7 +88,7 @@ Danielle + Ryan Kent, FNP-BC. Black scrubs. REGEN RX.
 
 First order 20% off with code GORGEOUS20.
 
-Weight loss · hormones · vitamins · recovery stacks · hair · Rx skincare.
+Weight loss · hormones · vitamins · NAD+ · hair · Rx skincare.
 
 Ryan prescribes only when it is clinically right for you. Illinois patients. Compounded medications are not FDA-approved.
 
@@ -121,7 +97,7 @@ tryregenrx.com/start
 #REGENRX #HelloGorgeous #OswegoIL`,
   facebook: `We opened a prescription door for Hello Gorgeous clients.
 
-Danielle and Ryan Kent, FNP-BC — REGEN RX. Weight loss, hormones, vitamins, and stacks Ryan can prescribe when it is appropriate.
+Danielle and Ryan Kent, FNP-BC — REGEN RX. Weight loss, hormones, vitamins, and NAD+ support Ryan can prescribe when it is appropriate.
 
 First order 20% off. Code GORGEOUS20 on the payment screen.
 
@@ -132,7 +108,7 @@ Start free: tryregenrx.com/start`,
 
 Danielle + Ryan Kent, FNP-BC. First order 20% off with GORGEOUS20.
 
-Weight loss, hormones, vitamins, recovery stacks — prescribed only when clinically appropriate. Illinois patients.
+Weight loss, hormones, vitamins, NAD+ — prescribed only when clinically appropriate. Illinois patients.
 
 tryregenrx.com/start`,
 } as const;

@@ -47,11 +47,11 @@ const PROGRAMS = [
   {
     id: 'peptides',
     title: 'Peptide Therapy',
-    subtitle: 'Recovery & Performance',
-    description: 'BPC-157, Sermorelin, and more for healing, energy, and longevity',
+    subtitle: 'Cellular Energy',
+    description: 'NAD+ for cellular energy and healthy aging',
     price: '$199',
     href: '/start?goal=peptides',
-    image: REGEN_VIAL_ART.recovery,
+    image: '/images/regen/marketing/cell-peptide.png',
   },
   {
     id: 'bundles',
@@ -564,10 +564,10 @@ export default function RegenLandingPage() {
               },
               { 
                 name: 'Peptide Therapy', 
-                subtitle: 'BPC-157 + TB-500',
-                price: 249, 
+                subtitle: 'NAD+',
+                price: 199, 
                 icon: '🧬',
-                features: ['Research-backed peptides', 'Recovery support', 'Provider-guided dosing'],
+                features: ['Cellular energy support', 'Provider oversight', 'Shipped to your door'],
               },
               { 
                 name: 'Hormone Balance', 

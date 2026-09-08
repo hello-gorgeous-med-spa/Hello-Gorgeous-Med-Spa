@@ -3,12 +3,17 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { 
-  SUBSCRIPTION_TIERS, 
+  PUBLIC_SUBSCRIPTION_TIERS, 
   SUBSCRIPTION_CATEGORIES,
   calculateMargin,
   calculatePrepayPrice,
   type SubscriptionTier,
 } from '@/lib/regen/subscriptions/subscription-tiers';
+import {
+  CASH_PAY_FAQ_IF_PRESCRIBED,
+  CASH_PAY_FAQ_WHY_CONSULT,
+  CASH_PAY_FAQ_WHY_NO_INSURANCE,
+} from '@/lib/regen/cash-pay-scripts';
 import {
   REGEN_TELEHEALTH_CREDIT_LINE,
   REGEN_TELEHEALTH_CREDIT_SHORT,
@@ -27,11 +32,13 @@ export default function PricingPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [billingCycle, setBillingCycle] = useState<'monthly' | 3 | 6 | 12>('monthly');
 
-  const categories = Object.entries(SUBSCRIPTION_CATEGORIES);
+  const categories = Object.entries(SUBSCRIPTION_CATEGORIES).filter(([key]) =>
+    PUBLIC_SUBSCRIPTION_TIERS.some((t) => t.category === key),
+  );
   
   const filteredTiers = selectedCategory 
-    ? SUBSCRIPTION_TIERS.filter(t => t.category === selectedCategory)
-    : SUBSCRIPTION_TIERS;
+    ? PUBLIC_SUBSCRIPTION_TIERS.filter(t => t.category === selectedCategory)
+    : PUBLIC_SUBSCRIPTION_TIERS;
 
   // Map tier category to intake goal
   const getStartUrl = (tier: SubscriptionTier): string => {
@@ -465,7 +472,7 @@ export default function PricingPage() {
           },
           {
             q: 'Is there a consultation fee?',
-            a: `Book Ryan for $${REGEN_TELEHEALTH_FEE_USD} on his Square calendar before you buy therapy. ${REGEN_TELEHEALTH_CREDIT_LINE} You can also start a request online and pay for therapy first — if he does not prescribe, we refund that charge.`,
+            a: CASH_PAY_FAQ_WHY_CONSULT,
           },
           {
             q: 'How does shipping work?',
@@ -477,7 +484,11 @@ export default function PricingPage() {
           },
           {
             q: 'Do you accept insurance?',
-            a: 'We\'re a cash-pay telehealth service, which allows us to offer lower prices than traditional pharmacy costs. HSA/FSA cards are accepted.',
+            a: CASH_PAY_FAQ_WHY_NO_INSURANCE,
+          },
+          {
+            q: 'What happens if medication is recommended?',
+            a: CASH_PAY_FAQ_IF_PRESCRIBED,
           },
         ].map((faq, i) => (
           <div key={i} style={{ marginBottom: 24 }}>

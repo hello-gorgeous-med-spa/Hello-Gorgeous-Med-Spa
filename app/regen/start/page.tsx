@@ -13,6 +13,7 @@ import {
   tryregenBundleSheetNames,
   tryregenBundleShippingUsd,
 } from '@/lib/regen/tryregen-bundles';
+import { isStripeWadaBlockedProgram, isStripeWadaBlockedPublicText } from '@/lib/regen/wada-public-block';
 import { GORGEOUS20_CODE, GORGEOUS20_PERCENT } from '@/lib/regen-gorgeous20';
 import {
   REGEN_TELEHEALTH_CREDIT_SHORT,
@@ -69,13 +70,11 @@ const GOALS = [
   },
   {
     id: 'peptides',
-    title: 'Recovery & Performance',
-    description: 'Peptides for healing, energy & longevity',
+    title: 'Cellular Energy',
+    description: 'NAD+ support for cellular energy and healthy aging',
     icon: '🧬',
     programs: [
-      { id: 'bpc-tb', name: 'Recovery Stack', price: 249, description: 'BPC-157 + TB-500 for healing & repair' },
-      { id: 'growth', name: 'Growth & Energy', price: 299, description: 'Sermorelin or CJC/Ipamorelin' },
-      { id: 'nad', name: 'NAD+ Therapy', price: 199, description: 'Cellular energy & longevity' },
+      { id: 'nad', name: 'NAD+ Therapy', price: 199, description: 'Cellular energy & longevity support' },
     ],
   },
   {
@@ -182,7 +181,8 @@ const SCREENING_QUESTIONS: Record<string, Array<{id: string; question: string; t
 function RegenStartContent() {
   const searchParams = useSearchParams();
   const initialGoal = searchParams.get('goal') || '';
-  const initialProgram = searchParams.get('program') || '';
+  const requestedProgram = searchParams.get('program') || '';
+  const initialProgram = isStripeWadaBlockedProgram(requestedProgram) ? '' : requestedProgram;
   const promoCode = (searchParams.get('promo') || GORGEOUS20_CODE).toUpperCase();
   const affiliateCode = (searchParams.get('ref') || searchParams.get('aff') || readAffiliateCodeClient()).toUpperCase();
   const inferredGoal =
@@ -306,6 +306,11 @@ function RegenStartContent() {
     
     if (!allConsentChecked) {
       alert('Please acknowledge all consent items to continue');
+      return;
+    }
+
+    if (isStripeWadaBlockedProgram(selectedProgram) || isStripeWadaBlockedPublicText(checkoutName)) {
+      alert('This program is not available for online checkout. Book a visit with Ryan instead.');
       return;
     }
     

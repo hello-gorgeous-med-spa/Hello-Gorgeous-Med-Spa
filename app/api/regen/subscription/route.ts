@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { getSubscriptionTierById, SUBSCRIPTION_TIERS } from '@/lib/regen/subscriptions/subscription-tiers';
+import { isStripeWadaBlockedTier, isStripeWadaBlockedPublicText } from '@/lib/regen/wada-public-block';
+import { getSubscriptionTierById, PUBLIC_SUBSCRIPTION_TIERS } from '@/lib/regen/subscriptions/subscription-tiers';
 
 // Lazy init to avoid build-time errors
 function getStripe() {
@@ -25,6 +26,15 @@ export async function POST(request: NextRequest) {
     const tier = getSubscriptionTierById(tierId);
     if (!tier) {
       return NextResponse.json({ error: 'Invalid subscription tier' }, { status: 400 });
+    }
+    if (
+      isStripeWadaBlockedTier(tierId) ||
+      isStripeWadaBlockedPublicText(tier.name, tier.description, ...tier.includes)
+    ) {
+      return NextResponse.json(
+        { error: 'This plan is no longer available. Choose NAD+ or another listed option.' },
+        { status: 400 },
+      );
     }
 
     // Find or create customer
@@ -154,7 +164,10 @@ export async function GET(request: NextRequest) {
           items: sub.items.data.map(item => ({
             priceId: item.price.id,
             productId: typeof item.price.product === 'string' ? item.price.product : item.price.product?.id,
-            productName: typeof item.price.product === 'object' ? item.price.product?.name : null,
+            productName: (() => {
+              const name = typeof item.price.product === 'object' ? item.price.product?.name : null;
+              return name && isStripeWadaBlockedPublicText(name) ? 'Wellness plan' : name;
+            })(),
           })),
         })),
       });
@@ -165,7 +178,7 @@ export async function GET(request: NextRequest) {
   }
 
   // Otherwise return available tiers
-  let tiers = SUBSCRIPTION_TIERS;
+  let tiers = PUBLIC_SUBSCRIPTION_TIERS;
   
   if (category) {
     tiers = tiers.filter(t => t.category === category);

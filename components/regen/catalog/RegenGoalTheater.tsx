@@ -41,8 +41,8 @@ const GOAL_STAGE: Record<
   "Recovery & Performance": {
     wash: "rgba(40,80,180,0.4)",
     glow: "rgba(96,165,250,0.45)",
-    heroName: "BPC-157",
-    badge: "Repair",
+    heroName: "NAD+",
+    badge: "Cellular",
   },
   Intimacy: {
     wash: "rgba(180,20,90,0.5)",

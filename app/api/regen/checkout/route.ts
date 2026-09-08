@@ -11,6 +11,7 @@ import {
   tryregenBundleShippingUsd,
 } from '@/lib/regen/tryregen-bundles';
 import { isTirzepatideProgram, quoteTirzepatideFromRequest } from '@/lib/regen/tirzepatide-vial-pricing';
+import { isStripeWadaBlockedProgram, isStripeWadaBlockedPublicText } from '@/lib/regen/wada-public-block';
 
 // POST /api/regen/checkout
 // Create a Stripe checkout session or payment intent for Re Gen
@@ -43,6 +44,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'At least one item is required' },
         { status: 400 }
+      );
+    }
+
+    const programId = String(patientInfo?.program || body.metadata?.program || '');
+    const lineNames = items
+      .map((item: { id?: string; key?: string; name?: string; product?: string }) =>
+        [item?.id, item?.key, item?.name, item?.product].filter(Boolean).join(' '),
+      )
+      .join(' ');
+    if (isStripeWadaBlockedProgram(programId) || isStripeWadaBlockedPublicText(programId, lineNames)) {
+      return NextResponse.json(
+        { error: 'This program is not available for online checkout.' },
+        { status: 400 },
       );
     }
 

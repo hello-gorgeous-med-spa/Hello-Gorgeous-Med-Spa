@@ -89,15 +89,10 @@ export const WEIGHT_LOSS_PRICING = {
 // ============================================================
 
 export const PEPTIDE_PRICING = {
-  sermorelin: {
-    name: 'Sermorelin',
-    monthlyPrice: 189,
-    description: 'Growth hormone support',
-  },
-  bpc157: {
-    name: 'BPC-157',
+  nad: {
+    name: 'NAD+',
     monthlyPrice: 199,
-    description: 'Recovery & healing',
+    description: 'Cellular energy support',
   },
   pt141: {
     name: 'PT-141 (Bremelanotide)',
@@ -108,11 +103,6 @@ export const PEPTIDE_PRICING = {
     name: 'GHK-Cu',
     monthlyPrice: 179,
     description: 'Skin & tissue repair',
-  },
-  fountainOfYouth: {
-    name: 'Fountain of Youth (Epitalon + GHK-Cu)',
-    monthlyPrice: 349,
-    description: 'Anti-aging protocol',
   },
 } as const;
 

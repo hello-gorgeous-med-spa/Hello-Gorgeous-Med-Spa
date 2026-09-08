@@ -38,13 +38,6 @@ const STEPS = [
 ] as const;
 
 const BUNDLE_BLURB: Record<string, string> = {
-  recovery: "BPC-157 / TB-500 — the repair conversation people ask for most.",
-  "skin-repair": "BPC-157 / TB-500 / GHK-Cu — skin and tissue in one vial.",
-  "full-recovery": "BPC-157 / GHK-Cu / KPV / TB-500 — the four-way vial.",
-  heal: "BPC-157 / KPV / TB-500 — a quieter repair stack.",
-  peak: "CJC-1295 / Ipamorelin + NAD+ — two vials, one cold ship.",
-  neuro: "Semax / Selank — the focus vial.",
-  "nad-sermorelin": "NAD+ + sermorelin — energy and GH support together.",
   radiance: "Glutathione + NAD+ — the glow-and-energy pair.",
 };
 

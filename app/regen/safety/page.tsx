@@ -202,8 +202,8 @@ export default function SafetyPage() {
                 effects: 'Nausea, vomiting, diarrhea, constipation, injection site reactions, fatigue. Rare: pancreatitis, gallbladder issues.',
               },
               {
-                category: 'Peptide Therapy (BPC-157, Sermorelin, etc.)',
-                effects: 'Injection site irritation, fatigue, nausea, appetite changes, mild hormonal fluctuations.',
+                category: 'NAD+ and vitamin injectables',
+                effects: 'Injection site irritation, flushing, fatigue, nausea. Rare allergic reactions.',
               },
               {
                 category: 'HRT/TRT (Hormone Replacement Therapy)',

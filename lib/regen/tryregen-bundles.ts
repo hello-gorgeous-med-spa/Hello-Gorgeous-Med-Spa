@@ -31,7 +31,8 @@ function sheetWholesaleUsd(productName: string): number {
   return row.wholesaleUsd;
 }
 
-export const TRYREGEN_BUNDLES: TryregenBundle[] = [
+/** Staff/ops still know every BoomRx stack. Public storefront is filtered below. */
+export const TRYREGEN_BUNDLES_ALL: TryregenBundle[] = [
   {
     id: "recovery",
     name: "Recovery Blend",
@@ -90,7 +91,18 @@ export const TRYREGEN_BUNDLES: TryregenBundle[] = [
   },
 ];
 
-const BY_ID = new Map(TRYREGEN_BUNDLES.map((b) => [b.id, b]));
+/** Public Bundles aisle — no WADA-prohibited peptide names (Stripe RX account review). */
+const PUBLIC_BUNDLE_IDS = new Set(["radiance"]);
+
+export const TRYREGEN_BUNDLES: TryregenBundle[] = TRYREGEN_BUNDLES_ALL.filter((b) =>
+  PUBLIC_BUNDLE_IDS.has(b.id),
+);
+
+const BY_ID = new Map(TRYREGEN_BUNDLES_ALL.map((b) => [b.id, b]));
+
+export function isTryregenPublicBundle(programId?: string | null): boolean {
+  return Boolean(programId && PUBLIC_BUNDLE_IDS.has(programId));
+}
 
 export function getTryregenBundle(id: string): TryregenBundle | undefined {
   return BY_ID.get(id);
@@ -123,7 +135,7 @@ export const TRYREGEN_BUNDLES_LEGAL =
   "Compounded medications are not FDA-approved. Ryan Kent, FNP-BC prescribes only when clinically appropriate, including off-label use when indicated. Requesting a bundle is a consult — not a guaranteed prescription.";
 
 export function tryregenBundleSheetGaps(): string[] {
-  return TRYREGEN_BUNDLES.flatMap((bundle) =>
+  return TRYREGEN_BUNDLES_ALL.flatMap((bundle) =>
     bundle.boomrxSheetNames.filter((name) => !isOnBoomRxSheet(name)),
   );
 }

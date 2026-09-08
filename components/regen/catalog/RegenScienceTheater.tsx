@@ -6,10 +6,10 @@ import Link from "next/link";
 import { REGEN_SHOP_SECTION_WASH } from "@/lib/regen/shop-surface";
 
 const PILLARS = [
-  { label: "Tissue repair", detail: "BPC-157 · TB-500" },
-  { label: "GH axis", detail: "Sermorelin · CJC / Ipamorelin" },
-  { label: "Metabolic", detail: "GLP-1 · peptide support" },
-  { label: "Cellular energy", detail: "NAD+ · MOTS-c" },
+  { label: "Metabolic", detail: "GLP-1 · NP-guided" },
+  { label: "Hormones", detail: "HRT · TRT" },
+  { label: "Cellular energy", detail: "NAD+ · vitamins" },
+  { label: "Antioxidant", detail: "Glutathione" },
 ] as const;
 
 type Props = {

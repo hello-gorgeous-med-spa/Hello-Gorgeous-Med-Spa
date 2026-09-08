@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 import { NextResponse } from "next/server";
 
+import { isStripeWadaBlockedPublicText } from "@/lib/regen/wada-public-block";
 import {
   ALL_REGEN_PRICING,
   REGEN_SHIPPING_USD,
@@ -14,6 +15,10 @@ import {
 } from "@/lib/regen/pricing-sync";
 
 export const runtime = "nodejs";
+
+function publicPriceList<T extends { name: string; id?: string }>(rows: T[]): T[] {
+  return rows.filter((row) => !isStripeWadaBlockedPublicText(row.id, row.name));
+}
 
 /**
  * GET /api/regen/pricing
@@ -36,14 +41,14 @@ export async function GET() {
     success: true,
     shipping: REGEN_SHIPPING_USD,
     categories: {
-      "weight-loss": REGEN_WEIGHT_LOSS_PRICING,
-      "sexual-health": REGEN_SEXUAL_HEALTH_PRICING,
-      "daily-wellness": REGEN_PEPTIDE_PRICING,
-      hormones: REGEN_HORMONE_PRICING,
-      "hair-skin": REGEN_HAIR_SKIN_PRICING,
-      vitamins: REGEN_VITAMIN_PRICING,
+      "weight-loss": publicPriceList(REGEN_WEIGHT_LOSS_PRICING),
+      "sexual-health": publicPriceList(REGEN_SEXUAL_HEALTH_PRICING),
+      "daily-wellness": publicPriceList(REGEN_PEPTIDE_PRICING),
+      hormones: publicPriceList(REGEN_HORMONE_PRICING),
+      "hair-skin": publicPriceList(REGEN_HAIR_SKIN_PRICING),
+      vitamins: publicPriceList(REGEN_VITAMIN_PRICING),
     },
-    all: ALL_REGEN_PRICING,
+    all: publicPriceList(ALL_REGEN_PRICING),
     updatedAt: catalogUpdatedAt || new Date().toISOString(),
   });
 }

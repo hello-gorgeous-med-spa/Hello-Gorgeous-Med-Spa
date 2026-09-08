@@ -51,7 +51,7 @@ export function isKitComponentProduct(product: CatalogProduct): boolean {
  *   Staff portals still see the full catalog. Public shop + intake picker do not.
  */
 export const NEVER_CLIENT_VISIBLE =
-  /retatrutide|ss-?31|elamipretide|elamipiretide|bpc-?157|pentadeca|aod-?9604|cjc-?1295|epithalon|epitalon|ghk-?cu|ipamorelin|kpv|ll-?37|mots-?c|selank|semax|thymosin|tb-?500|ibutamoren|mk-?677|ghrp-?[26]|melanotan|dsip|emideltide|wolverine|klow/i;
+  /retatrutide|ss-?31|elamipretide|elamipiretide|bpc-?157|pentadeca|aod-?9604|cjc-?1295|epithalon|epitalon|ghk-?cu|ipamorelin|kpv|ll-?37|mots-?c|selank|semax|thymosin|tb-?500|ibutamoren|mk-?677|ghrp-?[26]|melanotan|dsip|emideltide|wolverine|klow|sermorelin|tesamorelin/i;
 
 export function isNeverClientVisibleText(...parts: Array<string | undefined>): boolean {
   return NEVER_CLIENT_VISIBLE.test(parts.filter(Boolean).join(" "));
@@ -80,7 +80,6 @@ const CLIENT_VISIBLE_WELLNESS_DRUG_KEYS = new Set([
   "b12",
   "vitamind",
   "nad",
-  "sermorelin",
   "glutathione",
 ]);
 

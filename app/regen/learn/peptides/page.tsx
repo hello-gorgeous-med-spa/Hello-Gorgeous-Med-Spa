@@ -14,58 +14,13 @@ const BRAND = {
 
 const PEPTIDES = [
   {
-    name: 'BPC-157',
-    category: 'Healing & Recovery',
-    description: 'Body Protection Compound-157 is a synthetic peptide derived from a protein found in gastric juice. Research suggests it promotes healing of tendons, ligaments, muscles, and gut tissue.',
-    benefits: ['Accelerate injury recovery', 'Support gut health', 'Reduce inflammation', 'Promote tissue repair'],
-    dosing: 'Subcutaneous injection, typically 250-500mcg daily',
-    research: 'Extensive animal studies; human trials ongoing',
-    price: '$300/vial',
-  },
-  {
-    name: 'TB-500 (Thymosin Beta-4)',
-    category: 'Healing & Recovery',
-    description: 'A naturally occurring peptide that plays a role in tissue repair and regeneration. Used for injury recovery and reducing inflammation.',
-    benefits: ['Speed wound healing', 'Reduce scar tissue', 'Improve flexibility', 'Support cardiac function'],
-    dosing: 'Subcutaneous injection, loading phase then maintenance',
-    research: 'Animal studies and clinical observations',
-    price: '$300/vial',
-  },
-  {
-    name: 'Sermorelin',
-    category: 'Growth Hormone Support',
-    description: 'A growth hormone-releasing hormone (GHRH) analog that stimulates your pituitary gland to produce more natural growth hormone.',
-    benefits: ['Improved sleep quality', 'Increased energy', 'Better body composition', 'Enhanced recovery'],
-    dosing: 'Subcutaneous injection before bed',
-    research: 'Used clinically for GH assessment; compounded for optimization protocols',
-    price: '$225/vial',
-  },
-  {
-    name: 'CJC-1295 / Ipamorelin',
-    category: 'Growth Hormone Support',
-    description: 'A combination peptide stack that works synergistically to boost growth hormone levels. CJC-1295 extends GH release while Ipamorelin triggers it.',
-    benefits: ['Lean muscle gain', 'Fat loss', 'Improved recovery', 'Better sleep'],
-    dosing: 'Subcutaneous injection, typically before bed',
-    research: 'Clinical studies on individual peptides',
-    price: '$375/vial',
-  },
-  {
     name: 'NAD+',
     category: 'Cellular Energy & Longevity',
-    description: 'Nicotinamide adenine dinucleotide — a coenzyme essential for cellular energy production. Levels decline with age, and supplementation may support longevity.',
-    benefits: ['Increased energy', 'Mental clarity', 'DNA repair support', 'Anti-aging effects'],
-    dosing: 'Subcutaneous injection or IV infusion',
+    description: 'Nicotinamide adenine dinucleotide — a coenzyme essential for cellular energy production. Levels decline with age. Your provider decides if NAD+ support is appropriate for you.',
+    benefits: ['Cellular energy support', 'Mental clarity', 'Healthy-aging protocols', 'Provider-guided dosing'],
+    dosing: 'Subcutaneous injection or IV infusion when prescribed',
     research: 'Growing body of longevity research',
-    price: '$225/vial',
-  },
-  {
-    name: 'GHK-Cu',
-    category: 'Skin & Tissue Repair',
-    description: 'A copper peptide that naturally occurs in plasma, saliva, and urine. Promotes collagen synthesis, wound healing, and has anti-inflammatory properties.',
-    benefits: ['Skin rejuvenation', 'Wound healing', 'Hair growth support', 'Anti-inflammatory'],
-    dosing: 'Topical cream or subcutaneous injection',
-    research: 'Extensive research on skin and tissue repair',
-    price: '$300/vial (injection) or $275/tube (cream)',
+    price: 'from $199',
   },
 ];
 
@@ -84,7 +39,7 @@ const FAQS = [
   },
   {
     q: 'How long until I see results?',
-    a: 'It varies by peptide. BPC-157 users often notice faster recovery within 1-2 weeks. Growth hormone peptides like Sermorelin may take 4-8 weeks for full effects (better sleep is often noticed sooner). NAD+ can provide energy benefits within days.',
+    a: 'It varies. NAD+ energy support is often noticed sooner than longer wellness protocols. Your provider will set expectations at your visit. Results are not guaranteed.',
   },
   {
     q: 'Do I need to inject peptides?',
@@ -122,13 +77,12 @@ export default function PeptidesLearnPage() {
           <div className="flex items-center gap-4 mb-4">
             <span className="text-5xl">🧬</span>
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wider" style={{ color: BRAND.pink }}>Recovery & Performance</p>
+              <p className="text-sm font-semibold uppercase tracking-wider" style={{ color: BRAND.pink }}>Cellular Energy</p>
               <h1 className="text-4xl font-black" style={{ color: BRAND.cream }}>Peptide Therapy</h1>
             </div>
           </div>
           <p className="text-xl max-w-2xl" style={{ color: BRAND.gray }}>
-            Peptides are signaling molecules that can support healing, boost growth hormone, 
-            enhance energy, and promote longevity — working with your body&apos;s natural systems.
+            Peptides are signaling molecules. On REGEN RX, the public peptide conversation is NAD+ for cellular energy — prescribed only when Ryan decides it is appropriate.
           </p>
         </div>
       </section>
@@ -156,10 +110,10 @@ export default function PeptidesLearnPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
-                { label: 'Healing', desc: 'BPC-157, TB-500' },
-                { label: 'Growth Hormone', desc: 'Sermorelin, CJC/Ipamorelin' },
-                { label: 'Longevity', desc: 'NAD+, Epithalon' },
-                { label: 'Skin & Hair', desc: 'GHK-Cu, Melanotan' },
+                { label: 'Cellular energy', desc: 'NAD+' },
+                { label: 'Antioxidant support', desc: 'Glutathione' },
+                { label: 'Vitamins', desc: 'B12, biotin' },
+                { label: 'Provider review', desc: 'Ryan decides' },
               ].map((cat) => (
                 <div key={cat.label} className="p-4 rounded-xl text-center" style={{ backgroundColor: BRAND.darkAlt, border: `1px solid ${BRAND.teal}20` }}>
                   <p className="font-bold" style={{ color: BRAND.cream }}>{cat.label}</p>
@@ -240,8 +194,7 @@ export default function PeptidesLearnPage() {
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Interested in peptide therapy?</h2>
           <p className="text-white/80 mb-8">
-            Our providers will help you understand which peptides are right for your goals — 
-            whether it&apos;s recovery, energy, longevity, or body composition.
+            Our providers will help you understand whether NAD+ or another public option is right for your goals.
           </p>
           <Link
             href="/start?goal=peptides"

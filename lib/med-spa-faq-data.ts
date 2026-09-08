@@ -2,6 +2,11 @@
  * Dedicated FAQ page copy — aligns with ai_concierge_knowledge bulk inserts.
  * @see `/faq`
  */
+import {
+  CASH_PAY_FAQ_IF_PRESCRIBED,
+  CASH_PAY_FAQ_WHY_CONSULT,
+  CASH_PAY_FAQ_WHY_NO_INSURANCE,
+} from "@/lib/regen/cash-pay-scripts";
 import type { FAQ } from "@/lib/seo";
 
 export type FAQPageSection = {
@@ -307,7 +312,19 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Are consultations free?",
         answer:
-          "Yes! Your initial consultation with Ryan or Dani is complimentary. We want to make sure the treatment is right for you before you invest.",
+          "Spa consults for Botox, laser, and facials are complimentary. REGEN RX medical programs start with a paid video visit with Ryan Kent, FNP-BC — that evaluation is required before any prescription can be considered, and it does not guarantee a prescription.",
+      },
+      {
+        question: "Do you accept insurance?",
+        answer: CASH_PAY_FAQ_WHY_NO_INSURANCE,
+      },
+      {
+        question: "Why does REGEN RX require a consultation?",
+        answer: CASH_PAY_FAQ_WHY_CONSULT,
+      },
+      {
+        question: "What happens if medication is recommended?",
+        answer: CASH_PAY_FAQ_IF_PRESCRIBED,
       },
       {
         question: "What's CareCredit?",

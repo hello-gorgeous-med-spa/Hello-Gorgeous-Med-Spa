@@ -27,11 +27,11 @@ const CATEGORIES = [
   {
     id: 'peptides',
     title: 'Peptide Therapy',
-    subtitle: 'Recovery & Performance',
-    description: 'Discover how research peptides like BPC-157, Sermorelin, and NAD+ support healing, energy, and longevity.',
+    subtitle: 'Cellular Energy',
+    description: 'Learn how NAD+ supports cellular energy and healthy aging — prescribed only when Ryan decides it is appropriate.',
     icon: '🧬',
     href: '/learn/peptides',
-    topics: ['What are peptides?', 'BPC-157 for healing', 'Growth hormone support', 'NAD+ & cellular energy', 'Safety & research'],
+    topics: ['What are peptides?', 'NAD+ & cellular energy', 'How online visits work', 'Safety & research'],
     color: BRAND.pink,
   },
   {

@@ -128,7 +128,7 @@ export const SHOP_GOALS: ShopGoalId[] = [
 /** The protocol each "Shop by goal" card fronts — its vial art, name, and "from $X". */
 export const SHOP_GOAL_HERO_DRUG_KEYS: Record<string, string> = {
   "Lose Weight": "tirzepatide",
-  "Recovery & Performance": "bpc157",
+  "Recovery & Performance": "nad",
   Intimacy: "pt141",
   Hormones: "testosterone",
   "Skin & Hair": "ghkcu",
@@ -139,9 +139,7 @@ export const SHOP_GOAL_HERO_DRUG_KEYS: Record<string, string> = {
 export const HERO_DRUG_KEYS = [
   "tirzepatide",
   "semaglutide",
-  "bpc157",
   "pt141",
-  "tesamorelin",
   "nad",
 ] as const;
 

@@ -12,7 +12,6 @@ export const CLIENT_STACK_IDS = [
   "womens",
   "mens",
   "radiance",
-  "nad-sermorelin",
   "glp1",
 ] as const;
 

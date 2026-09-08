@@ -387,6 +387,12 @@ export function getSubscriptionTierById(id: string): SubscriptionTier | undefine
   return SUBSCRIPTION_TIERS.find(t => t.id === id);
 }
 
+/** Tiers allowed on tryregenrx.com /pricing and Stripe Checkout. */
+export const PUBLIC_SUBSCRIPTION_TIERS: SubscriptionTier[] = SUBSCRIPTION_TIERS.filter(
+  (t) =>
+    !['peptide-recovery', 'peptide-performance', 'growth-optimization'].includes(t.id),
+);
+
 export function getSubscriptionTiersByCategory(category: SubscriptionTier['category']): SubscriptionTier[] {
   return SUBSCRIPTION_TIERS.filter(t => t.category === category);
 }
@@ -417,7 +423,7 @@ export const SUBSCRIPTION_CATEGORIES = {
   },
   'peptides': {
     name: 'Peptide Therapy',
-    description: 'Recovery, performance & longevity',
+    description: 'NAD+ cellular energy when prescribed',
     icon: '🧬',
     color: '#8B5CF6',
   },

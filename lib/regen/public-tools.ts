@@ -92,7 +92,7 @@ export function typicalGlp1Step(med: 'sema' | 'tirz', week: number) {
 }
 
 export const PEPTIDE_MATCHES = {
-  recovery: { name: 'Recovery & repair conversation', note: 'Often discussed: BPC-157 and recovery support. Your NP decides if a peptide is appropriate.', href: '/start?goal=peptides' },
+  recovery: { name: 'Recovery & repair conversation', note: 'Your NP reviews recovery goals and decides whether NAD+ or another public option is appropriate. This is a consult, not a catalog of restricted peptides.', href: '/start?goal=peptides' },
   sleep: { name: 'Sleep & recovery conversation', note: 'Sleep, recovery, and evening routines are reviewed before any peptide is considered.', href: '/start?goal=peptides' },
   skin: { name: 'Skin & collagen conversation', note: 'Prescription skincare and select peptides may be discussed after screening.', href: '/start?goal=skincare' },
   libido: { name: 'Sexual health conversation', note: 'Hormone and sexual-health options are reviewed together — no one-size protocol.', href: '/start?goal=sexual-health' },

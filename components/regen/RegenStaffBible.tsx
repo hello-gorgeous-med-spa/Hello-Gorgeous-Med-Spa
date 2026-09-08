@@ -2,6 +2,14 @@
 
 import type { ReactNode } from "react";
 
+import {
+  CASH_PAY_DESK_SAY,
+  CASH_PAY_NEVER_SAY,
+  CASH_PAY_PHONE_SCRIPT,
+  CASH_PAY_PROFIT_NOTES,
+  CASH_PAY_SMS_SCRIPT,
+} from "@/lib/regen/cash-pay-scripts";
+
 const PINK = "#E91E8C";
 const TEAL = "#0D9488";
 const BIBLE_HTML = "/staff/protocols/guides/REGEN-RX-Staff-Bible.html";
@@ -454,7 +462,23 @@ export function RegenStaffBible() {
       </Section>
 
       <Section id="scripts" kicker="11" title="Scripts — say this">
-        <p>
+        <p className="font-bold" style={{ color: TEAL }}>
+          Insurance / cash-pay (use this, never “because we compound”):
+        </p>
+        <p className="mt-2 whitespace-pre-wrap text-sm">{CASH_PAY_PHONE_SCRIPT}</p>
+        <p className="mt-3 text-sm">
+          <strong>Text / DM:</strong> {CASH_PAY_SMS_SCRIPT}
+        </p>
+        <p className="mt-3 text-sm">
+          <strong>One line:</strong> “{CASH_PAY_DESK_SAY}”
+        </p>
+        <p className="mt-3 text-sm">
+          <strong>Never say:</strong> {CASH_PAY_NEVER_SAY.join(" · ")}
+        </p>
+        <pre className="mt-4 whitespace-pre-wrap rounded-xl border border-white/20 bg-black/40 p-4 text-xs text-white/80">
+          {CASH_PAY_PROFIT_NOTES}
+        </pre>
+        <p className="mt-6">
           <strong>Spa guest asks about peptides:</strong> “That’s REGEN RX. Easiest is book Ryan for $49 on Square —
           tryregenrx.com/consult. That visit credits toward therapy if he prescribes. Or I can start you at
           tryregenrx.com/start. Illinois-only, not a guaranteed prescription.”

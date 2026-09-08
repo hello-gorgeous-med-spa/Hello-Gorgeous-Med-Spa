@@ -330,7 +330,7 @@ export function RegenCatalogPortal({
 
   /**
    * Staff home still shows every stack. The public shop only merchandises
-   * client-visible stacks (hormones, GLP-1, NAD / glutathione / sermorelin).
+   * client-visible stacks (hormones, GLP-1, NAD / glutathione).
    */
   const stackPool = useMemo(
     () => (isPublicShop ? bundles.filter((b) => b.clientVisible) : bundles),

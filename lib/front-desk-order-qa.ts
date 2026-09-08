@@ -103,9 +103,9 @@ export const FRONT_DESK_ORDER_QA_SECTIONS: FrontDeskQaSection[] = [
         say: "“Meds + medical oversight — shipping and labs can be separate lines.”",
       },
       {
-        q: "Do you take insurance for compounded meds?",
-        a: "Compounded GLP-1 / peptide programs are typically cash-pay. If insurance covers brand GLP-1 at a retail pharmacy, we offer a separate medical-oversight path — that does not include the pharmacy medication cost.",
-        say: "“Most compounded programs are cash-pay — ask Ryan about insurance-oversight options if you have a pharmacy Rx.”",
+        q: "Do you take insurance?",
+        a: "Hello Gorgeous and REGEN RX are cash-pay. We do not bill insurance. Say that because these are personalized / often elective programs with transparent pricing — never because we use a compounding pharmacy. Ryan still has to see them first. Do not name Formulation or BoomRx.",
+        say: "“We're cash-pay — we don't bill insurance. Ryan has to see you first. The consult covers his evaluation, not a guaranteed Rx, and it credits toward therapy if he prescribes. I can book you at tryregenrx.com/consult.”",
       },
     ],
   },

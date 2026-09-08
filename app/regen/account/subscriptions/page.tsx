@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRegenAuth } from '@/components/regen/RegenAuthProvider';
-import { SUBSCRIPTION_TIERS, SUBSCRIPTION_CATEGORIES } from '@/lib/regen/subscriptions/subscription-tiers';
+import { getSubscriptionTierById, SUBSCRIPTION_CATEGORIES } from '@/lib/regen/subscriptions/subscription-tiers';
+import { isStripeWadaBlockedTier, isStripeWadaBlockedPublicText } from '@/lib/regen/wada-public-block';
 
 const BRAND = {
   teal: '#0D9488',
@@ -133,7 +134,12 @@ export default function SubscriptionsPage() {
         /* Active Subscriptions */
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           {subscriptions.map(sub => {
-            const tier = SUBSCRIPTION_TIERS.find(t => t.id === sub.tier);
+            const rawTier = getSubscriptionTierById(sub.tier);
+            const blocked =
+              Boolean(rawTier) &&
+              (isStripeWadaBlockedTier(rawTier!.id) ||
+                isStripeWadaBlockedPublicText(rawTier!.name, rawTier!.description, ...rawTier!.includes));
+            const tier = blocked ? null : rawTier;
             const category = tier ? SUBSCRIPTION_CATEGORIES[tier.category] : null;
             const status = getStatusBadge(sub.status, sub.cancelAtPeriodEnd);
             const renewDate = new Date(sub.currentPeriodEnd * 1000);
@@ -165,7 +171,7 @@ export default function SubscriptionsPage() {
                       </div>
                     )}
                     <h3 style={{ fontSize: 18, fontWeight: 700 }}>
-                      {tier?.name || sub.items[0]?.productName || 'Subscription'}
+                      {tier?.name || (blocked ? 'Active wellness plan' : sub.items[0]?.productName || 'Subscription')}
                     </h3>
                   </div>
                   <div style={{

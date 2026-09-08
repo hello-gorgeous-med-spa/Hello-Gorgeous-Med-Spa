@@ -17,52 +17,12 @@ export type MascotExplanation = {
 // ============================================
 export const PEPPY_EXPLAINS: MascotExplanation[] = [
   {
-    product: "BPC-157",
-    mascot: "peppy",
-    headline: "The Body's Repair Signal",
-    explanation: "BPC-157 is a peptide naturally found in gastric juice. It's like your body's own repair crew, supporting tissue healing and gut health. Athletes and biohackers love it for recovery!",
-    benefits: ["Supports tissue repair", "Gut health support", "Recovery from training"],
-    funFact: "BPC stands for 'Body Protection Compound' — how cool is that?",
-  },
-  {
-    product: "TB-500",
-    mascot: "peppy",
-    headline: "The Mobility Molecule",
-    explanation: "TB-500 (Thymosin Beta-4) is naturally produced in your thymus. It's all about flexibility and tissue repair — think of it as WD-40 for your joints and muscles!",
-    benefits: ["Mobility support", "Tissue flexibility", "Recovery enhancement"],
-    funFact: "Thymosin Beta-4 was first discovered in horse racing for injury recovery!",
-  },
-  {
-    product: "Recovery Blend",
-    mascot: "peppy",
-    headline: "The recovery request people ask for most",
-    explanation: "BPC-157 + TB-500 is our Recovery Blend. Ryan Kent, FNP-BC decides if it is appropriate. A request is a consult — not a guaranteed prescription.",
-    benefits: ["Tissue repair conversation", "Often requested together", "Compounded, not FDA-approved"],
-    funFact: "We use the public name Recovery Blend — not a comic-book nickname.",
-  },
-  {
-    product: "Full Recovery Blend",
-    mascot: "peppy",
-    headline: "Four-way repair vial",
-    explanation: "BPC-157 / GHK-Cu / KPV / TB-500 is the Full Recovery Blend. Visual and consult only until Ryan says yes. We do not invent product nicknames.",
-    benefits: ["Four peptides in one request", "Repair + skin conversation", "Ryan decides"],
-    funFact: "KPV is discussed for inflammatory support — your NP still has to review you.",
-  },
-  {
     product: "NAD+",
     mascot: "peppy",
     headline: "The Cellular Energy Currency",
     explanation: "NAD+ is a coenzyme in every cell of your body. It's essential for energy production and cellular repair. As we age, NAD+ levels drop — supplementing can help restore that cellular vitality!",
     benefits: ["Cellular energy", "Healthy aging support", "Mental clarity"],
     funFact: "Your NAD+ levels drop by about 50% between ages 40 and 60!",
-  },
-  {
-    product: "Sermorelin",
-    mascot: "peppy",
-    headline: "The Sleep & Recovery Peptide",
-    explanation: "Sermorelin tells your pituitary gland to produce more growth hormone naturally. Better sleep, improved recovery, and that 'I feel younger' effect — all without synthetic GH!",
-    benefits: ["Better sleep quality", "Natural GH support", "Recovery enhancement"],
-    funFact: "Growth hormone is released in pulses during deep sleep — Sermorelin enhances this!",
   },
   {
     product: "Methylene Blue",
