@@ -317,7 +317,7 @@ export default function AboutPage() {
                 textDecoration: 'none',
               }}
             >
-              Start Your Free Visit
+              Start a request
             </Link>
             <Link
               href="/consult"

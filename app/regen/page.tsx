@@ -8,6 +8,11 @@ import { RegenExplainerHero } from '@/components/regen/RegenExplainerHero';
 import { RegenBundlesBand } from '@/components/regen/RegenBundlesBand';
 import { RegenGorgeous20Popup } from '@/components/regen/RegenGorgeous20Popup';
 import { GORGEOUS20_MARQUEE, GORGEOUS20_START_HREF, REGEN_VIAL_ART } from '@/lib/regen-gorgeous20';
+import {
+  REGEN_TELEHEALTH_CREDIT_SHORT,
+  REGEN_TELEHEALTH_PATH,
+  regenTelehealthPriceLabel,
+} from '@/lib/regen/telehealth-consult';
 
 const BRAND = {
   teal: '#0D9488',      // Bright teal (molecules)
@@ -97,7 +102,7 @@ const PROGRAMS = [
 ];
 
 const STEPS = [
-  { num: '01', title: 'Start your online visit', desc: 'Answer questions about your health and goals — all online, no appointments needed.', icon: '📋', time: '5 min' },
+  { num: '01', title: 'Talk to Ryan — or start online', desc: `Book a ${regenTelehealthPriceLabel()} video visit on his calendar (${REGEN_TELEHEALTH_CREDIT_SHORT.toLowerCase()}), or start a request if you already know what you want.`, icon: '📋', time: '15 min' },
   { num: '02', title: 'Provider reviews your info', desc: 'A licensed Illinois provider evaluates your history and determines if treatment is right for you.', icon: '👨‍⚕️', time: '24-48 hrs' },
   { num: '03', title: 'Clinical decision', desc: 'If appropriate, your provider may request labs, a video visit, or additional info before prescribing.', icon: '💊', time: 'Varies' },
   { num: '04', title: 'Medication ships to you', desc: 'Once approved, your treatment ships directly to your door — discreet packaging included.', icon: '📦', time: '3-5 days' },
@@ -287,26 +292,29 @@ export default function RegenLandingPage() {
           </h1>
           
           <p className="text-xl max-w-2xl mx-auto mb-8 animate-fade-in-up delay-200" style={{ color: BRAND.gray }}>
-            Doctor-guided weight loss, hormone optimization, and peptide therapy — 
-            delivered to your door. No appointments. No waiting rooms.
+            Doctor-guided weight loss, hormone optimization, and peptide therapy —
+            talk to Ryan on video first, or start a request online.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-300">
             <Link
-              href="/start"
+              href={REGEN_TELEHEALTH_PATH}
               className="px-10 py-4 text-lg font-bold rounded-full transition-all hover:scale-105 shadow-xl text-center text-white"
               style={{ backgroundColor: BRAND.pink }}
             >
-              Start Your Visit — Free
+              Book Ryan — {regenTelehealthPriceLabel()}
             </Link>
             <Link
-              href="#programs"
+              href="/start"
               className="px-10 py-4 text-lg font-bold rounded-full border-2 transition-all hover:scale-105 text-center"
               style={{ borderColor: BRAND.teal, color: BRAND.teal }}
             >
-              View Programs
+              Start a request
             </Link>
           </div>
+          <p className="mt-4 text-sm animate-fade-in-up delay-300" style={{ color: BRAND.gray }}>
+            {REGEN_TELEHEALTH_CREDIT_SHORT}. Illinois adults 21+.
+          </p>
           
           <div className="flex flex-wrap items-center justify-center gap-6 pt-8 animate-fade-in-up delay-400">
             <div className="flex items-center gap-2">
@@ -429,7 +437,7 @@ export default function RegenLandingPage() {
                 <span style={{ color: BRAND.pink }}>Big results.</span>
               </h2>
               <p className="text-xl mb-12" style={{ color: BRAND.gray }}>
-                Most visits begin online. Your provider may request labs, additional information, or a video visit when clinically necessary.
+                Book Ryan on video first if you want to talk before you buy — or start a request online. He may still ask for labs when clinically necessary.
               </p>
               
               <div className="space-y-6">
@@ -858,15 +866,23 @@ export default function RegenLandingPage() {
             Ready to feel your best?
           </h2>
           <p className="text-xl mb-10 text-white/80">
-            Start your free online visit today. No commitment.
+            Book Ryan on video first — {REGEN_TELEHEALTH_CREDIT_SHORT.toLowerCase()}.
           </p>
-          <Link
-            href="/start"
-            className="inline-block px-12 py-5 text-xl font-black rounded-full transition-all hover:scale-105 shadow-2xl"
-            style={{ backgroundColor: BRAND.pink, color: 'white' }}
-          >
-            Get Started Now
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href={REGEN_TELEHEALTH_PATH}
+              className="inline-block px-12 py-5 text-xl font-black rounded-full transition-all hover:scale-105 shadow-2xl"
+              style={{ backgroundColor: BRAND.pink, color: 'white' }}
+            >
+              Book Ryan — {regenTelehealthPriceLabel()}
+            </Link>
+            <Link
+              href="/start"
+              className="inline-block px-12 py-5 text-xl font-black rounded-full border-2 border-white text-white transition-all hover:scale-105"
+            >
+              Start a request
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -879,6 +895,7 @@ export default function RegenLandingPage() {
               <p style={{ color: BRAND.gray }}>Renew. Rebalance. Regenerate.</p>
             </div>
             <div className="flex flex-wrap items-center gap-8 text-sm">
+              <Link href="/consult" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Book Ryan</Link>
               <Link href="/products" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Products</Link>
               <Link href="/pricing" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Pricing</Link>
               <Link href="/learn" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Learn</Link>

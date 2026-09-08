@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
+import { REGEN_TELEHEALTH_PATH, regenTelehealthPriceLabel } from '@/lib/regen/telehealth-consult';
+
 const BRAND = {
   teal: '#0D9488',
   pink: '#E91E8C',
@@ -54,6 +56,16 @@ export function RegenPublicNav({ fixed = false }: { fixed?: boolean }) {
             style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.teal, border: `1px solid ${BRAND.teal}50` }}
           >
             Patient Login
+          </Link>
+          <Link
+            href={REGEN_TELEHEALTH_PATH}
+            className="px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold rounded-full"
+            style={{
+              border: `2px solid ${pathname.startsWith(REGEN_TELEHEALTH_PATH) ? BRAND.pink : BRAND.teal}`,
+              color: pathname.startsWith(REGEN_TELEHEALTH_PATH) ? BRAND.pink : BRAND.teal,
+            }}
+          >
+            Book Ryan {regenTelehealthPriceLabel()}
           </Link>
           <Link
             href="/start"

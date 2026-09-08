@@ -124,7 +124,7 @@ export function RegenStaffBible() {
             </tr>
             <tr>
               <td>Front desk / spa staff</td>
-              <td>Hand the flyer, QR to tryregenrx.com/start, book in-clinic consults, escalate</td>
+              <td>Hand the flyer, book Ryan $49 on Square (tryregenrx.com/consult), or QR to /start, escalate</td>
               <td>Quote a custom price, collect PHI on paper “to be faster”</td>
             </tr>
           </tbody>
@@ -152,14 +152,26 @@ export function RegenStaffBible() {
       </Section>
 
       <Section id="journey" kicker="04" title="Patient journey — teach this until it is muscle memory">
+        <p className="mb-3 font-bold" style={{ color: TEAL }}>
+          Preferred door: book Ryan first. tryregenrx.com/consult → Square $49 Medical Visit. They talk before they buy
+          therapy. That is how we stop the decline-refund dance.
+        </p>
         <ol>
           <li>
-            <strong>Start</strong> — tryregenrx.com/start (goal + program). Promo GORGEOUS20 is entered on the Stripe
-            payment screen, not as a fake “already 20% off” price.
+            <strong>Video first (preferred)</strong> — they pick a time on Ryan&apos;s Square calendar. $49 visit. If he
+            does not prescribe, they paid for the visit — no therapy refund. If he does prescribe, send them{' '}
+            <code>/start</code> and apply a <strong>$49 credit</strong> on the first medication charge (shipping stays).
+            Use Stripe coupon <strong>CONSULT49</strong> if it exists; otherwise Damara deducts $49 and pastes the Square
+            receipt id in the chart.
           </li>
           <li>
-            <strong>Screening + consent</strong> — they answer medical questions and sign. We tell them: if they do not
-            qualify, they get a <strong>full refund</strong>.
+            <strong>Request first (still live)</strong> — tryregenrx.com/start (goal + program). Promo GORGEOUS20 is entered on the Stripe
+            payment screen, not as a fake “already 20% off” price. This path pays for therapy first; decline = full refund.
+          </li>
+          <li>
+            <strong>Screening + consent</strong> — on the /start path they answer medical questions and sign. If Ryan
+            declines a paid therapy request, they get a <strong>full refund</strong> of that charge. A Square visit they
+            already sat is not refunded.
           </li>
           <li>
             <strong>Pay</strong> — Stripe checkout. Payment is a consult deposit toward medication if prescribed. It is
@@ -275,6 +287,11 @@ export function RegenStaffBible() {
           still decides. Stripe coupon must exist as code GORGEOUS20.
         </p>
         <p className="mt-3">
+          <strong>CONSULT49</strong> = $49 off the first medication order after a paid Square Medical Visit with Ryan.
+          Shipping excluded. Create this Stripe coupon if it is missing. Always paste the Square receipt id in the
+          chart so we do not double-credit.
+        </p>
+        <p className="mt-3">
           There is no refund button inside /ops/payments yet. Danielle or Damara refund in the{" "}
           <strong>REGEN Stripe Dashboard</strong>: Payments → search the patient email → the charge → Refund.
           Paste the Stripe refund id in the chart the same day.
@@ -290,9 +307,14 @@ export function RegenStaffBible() {
           </thead>
           <tbody>
             <tr>
-              <td>Ryan declines before a prescription</td>
-              <td>Full refund of the consult/medication charge. Keep a one-line note: reason + next step (PCP, in-clinic, wait).</td>
+              <td>Ryan declines a paid /start therapy request</td>
+              <td>Full refund of the medication charge. Keep a one-line note: reason + next step (PCP, in-clinic, wait).</td>
               <td>Danielle or Damara in Stripe. Same day.</td>
+            </tr>
+            <tr>
+              <td>Ryan declines after a Square $49 visit (no therapy purchased)</td>
+              <td>No refund — they paid for the visit. Do not invent a therapy credit.</td>
+              <td>Note in chart. Offer PCP / in-clinic next step.</td>
             </tr>
             <tr>
               <td>Duplicate charge / obvious Stripe error</td>
@@ -433,13 +455,15 @@ export function RegenStaffBible() {
 
       <Section id="scripts" kicker="11" title="Scripts — say this">
         <p>
-          <strong>Spa guest asks about peptides:</strong> “That’s REGEN RX — Ryan reviews every request. I can start
-          you at tryregenrx.com/start or text you the link. It’s Illinois-only and not a guaranteed prescription.”
+          <strong>Spa guest asks about peptides:</strong> “That’s REGEN RX. Easiest is book Ryan for $49 on Square —
+          tryregenrx.com/consult. That visit credits toward therapy if he prescribes. Or I can start you at
+          tryregenrx.com/start. Illinois-only, not a guaranteed prescription.”
         </p>
         <p className="mt-3">
-          <strong>They want a price on the phone:</strong> “Published menus are on the site. Product plus cold
-          shipping — $25 on most vials, $35 on curated stacks. If Ryan does not prescribe, we refund. I won’t quote
-          a custom stack off the top of my head.”
+          <strong>They want a price on the phone:</strong> “Ryan’s video visit is $49 and credits toward the first
+          order if he prescribes. Published menus are on the site. Product plus cold shipping — $25 on most vials,
+          $35 on curated stacks. If they paid for therapy first and Ryan does not prescribe, we refund that charge. I
+          won’t quote a custom stack off the top of my head.”
         </p>
         <p className="mt-3">
           <strong>They want it faster:</strong> “Ryan still has to review. I can see you in Today’s queue and make

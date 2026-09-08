@@ -11,8 +11,8 @@
 // CONSULTATION PRICING
 // ============================================================
 
-export const CONSULTATION_PRICE = 99;
-export const CONSULTATION_LABEL = '$99 Expert Consultation';
+export const CONSULTATION_PRICE = 49;
+export const CONSULTATION_LABEL = '$49 Video Consult with Ryan';
 
 // ============================================================
 // VITAMIN INJECTABLES

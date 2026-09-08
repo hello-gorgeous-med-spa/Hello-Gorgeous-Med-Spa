@@ -14,6 +14,11 @@ import {
   tryregenBundleShippingUsd,
 } from '@/lib/regen/tryregen-bundles';
 import { GORGEOUS20_CODE, GORGEOUS20_PERCENT } from '@/lib/regen-gorgeous20';
+import {
+  REGEN_TELEHEALTH_CREDIT_SHORT,
+  REGEN_TELEHEALTH_PATH,
+  regenTelehealthPriceLabel,
+} from '@/lib/regen/telehealth-consult';
 import { readAffiliateCodeClient } from '@/components/regen/RegenAffiliateTracker';
 import { TirzepatidePlanPicker } from '@/components/regen/TirzepatidePlanPicker';
 import {
@@ -484,6 +489,13 @@ function RegenStartContent() {
         </div>
       </div>
 
+      <div className="px-6 py-3 text-center text-sm font-semibold" style={{ backgroundColor: `${BRAND.teal}18`, color: BRAND.cream, borderBottom: `1px solid ${BRAND.teal}40` }}>
+        Prefer to talk first?{' '}
+        <Link href={REGEN_TELEHEALTH_PATH} style={{ color: BRAND.teal, textDecoration: 'underline' }}>
+          Book Ryan {regenTelehealthPriceLabel()}
+        </Link>
+        {' '}— {REGEN_TELEHEALTH_CREDIT_SHORT}
+      </div>
       <div className="px-6 py-3 text-center text-sm font-semibold" style={{ backgroundColor: `${BRAND.pink}18`, color: BRAND.cream, borderBottom: `1px solid ${BRAND.pink}40` }}>
         First order {GORGEOUS20_PERCENT}% off — enter <span style={{ color: BRAND.pink }}>{promoCode}</span> on the payment screen
       </div>

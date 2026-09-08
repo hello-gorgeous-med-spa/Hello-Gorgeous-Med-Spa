@@ -17,7 +17,7 @@ const REMINDER_AFTER_HOURS = 2;
 /** Don't chase carts older than this (covers recent unpaid carts with pay links). */
 const MAX_AGE_DAYS = 30;
 const MAX_PER_RUN = 25;
-/** Staff SMS/email threshold (subtotal + shipping) — includes $99 consult carts. */
+/** Staff SMS/email threshold (subtotal + shipping). */
 const STAFF_ALERT_MIN_USD = 99;
 
 type OrderRow = {

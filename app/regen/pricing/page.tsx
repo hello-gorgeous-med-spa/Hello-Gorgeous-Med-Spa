@@ -9,6 +9,13 @@ import {
   calculatePrepayPrice,
   type SubscriptionTier,
 } from '@/lib/regen/subscriptions/subscription-tiers';
+import {
+  REGEN_TELEHEALTH_CREDIT_LINE,
+  REGEN_TELEHEALTH_CREDIT_SHORT,
+  REGEN_TELEHEALTH_DURATION,
+  REGEN_TELEHEALTH_FEE_USD,
+  REGEN_TELEHEALTH_PATH,
+} from '@/lib/regen/telehealth-consult';
 
 const BRAND = {
   teal: '#0D9488',
@@ -132,8 +139,8 @@ export default function PricingPage() {
               Book a 1-on-1 Expert Consultation
             </h3>
             <p style={{ fontSize: 15, color: '#aaa', marginBottom: 16, lineHeight: 1.6 }}>
-              Speak directly with <strong style={{ color: '#fff' }}>Ryan Kent, FNP-BC</strong> — our lead provider with 10+ years experience. 
-              Get personalized recommendations, ask questions, and find the perfect treatment plan for your goals.
+              Speak directly with <strong style={{ color: '#fff' }}>Ryan Kent, FNP-BC</strong> on his live Square calendar —
+              before you buy therapy. Ask questions. He decides if a request is appropriate.
             </p>
             <ul style={{ 
               listStyle: 'none', 
@@ -145,10 +152,10 @@ export default function PricingPage() {
               fontSize: 13,
               color: '#ccc',
             }}>
-              <li>✓ 30-minute video call</li>
-              <li>✓ Review your health history</li>
-              <li>✓ Personalized treatment plan</li>
-              <li>✓ All questions answered</li>
+              <li>✓ {REGEN_TELEHEALTH_DURATION}</li>
+              <li>✓ Book online on Ryan&apos;s schedule</li>
+              <li>✓ No therapy purchase required</li>
+              <li>✓ {REGEN_TELEHEALTH_CREDIT_SHORT}</li>
             </ul>
           </div>
           <div style={{ 
@@ -162,13 +169,13 @@ export default function PricingPage() {
               color: BRAND.pink,
               lineHeight: 1,
             }}>
-              $99
+              ${REGEN_TELEHEALTH_FEE_USD}
             </div>
             <div style={{ fontSize: 13, color: '#888', marginBottom: 16 }}>
-              one-time consultation
+              video consult · before you buy
             </div>
             <Link
-              href="/consult"
+              href={REGEN_TELEHEALTH_PATH}
               style={{
                 display: 'inline-block',
                 padding: '14px 32px',
@@ -185,7 +192,7 @@ export default function PricingPage() {
               Book with Ryan
             </Link>
             <p style={{ fontSize: 11, color: '#666', marginTop: 12 }}>
-              $99 credited toward your first order
+              {REGEN_TELEHEALTH_CREDIT_LINE}
             </p>
           </div>
         </div>
@@ -458,7 +465,7 @@ export default function PricingPage() {
           },
           {
             q: 'Is there a consultation fee?',
-            a: 'Your first month includes a provider consultation at no extra charge. We review your health history and create a personalized treatment plan.',
+            a: `Book Ryan for $${REGEN_TELEHEALTH_FEE_USD} on his Square calendar before you buy therapy. ${REGEN_TELEHEALTH_CREDIT_LINE} You can also start a request online and pay for therapy first — if he does not prescribe, we refund that charge.`,
           },
           {
             q: 'How does shipping work?',
