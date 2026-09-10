@@ -185,7 +185,7 @@ export const SERVICE_PAGES_BASE: ServicePageData[] = [
     valueProp: "Medically supervised GLP-1 weight loss with labs, coaching, and NP oversight — not a telehealth-only program.",
     tier: "contested",
     procedureType: "Wellness",
-    metaDescriptionExtra: "GLP-1 weight loss in Oswego. Ryan Kent FNP-BC. Book a consult.",
+    metaDescriptionExtra: "GLP-1 weight loss in Oswego. a licensed Illinois clinician. Book a consult.",
     howItWorksParagraphs: educationBlock("Semaglutide", "semaglutide oswego", [
       "Semaglutide is a GLP-1 receptor agonist used under medical supervision to support weight loss alongside nutrition and activity changes. Candidates receive screening labs and ongoing monitoring.",
       "Hello Gorgeous is not a 'sign up online and never see a provider' clinic — you have access to an on-site NP for questions, dose adjustments, and side-effect management.",

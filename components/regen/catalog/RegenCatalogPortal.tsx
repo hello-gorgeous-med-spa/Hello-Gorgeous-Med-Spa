@@ -657,7 +657,7 @@ export function RegenCatalogPortal({
           <p className="font-serif text-xl font-extrabold tracking-[0.14em] text-[#E6007E]">RE GEN</p>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-black/70">
             RE GEN is the telehealth prescription arm of Hello Gorgeous Med Spa, NP-directed
-            by Ryan Kent, FNP-BC. Nothing here is sold over the counter — every request starts
+            by a licensed Illinois clinician. Nothing here is sold over the counter — every request starts
             with an intake and a consult, and your NP sets the final protocol and price.
             Information on this site is educational, not medical advice. Prices shown are
             starting points. Research peptides are used under provider supervision and are not

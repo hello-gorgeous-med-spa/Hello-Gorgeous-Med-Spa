@@ -146,8 +146,8 @@ export default function PricingPage() {
               Book a 1-on-1 Expert Consultation
             </h3>
             <p style={{ fontSize: 15, color: '#aaa', marginBottom: 16, lineHeight: 1.6 }}>
-              Speak directly with <strong style={{ color: '#fff' }}>Ryan Kent, FNP-BC</strong> on his live Square calendar —
-              before you buy therapy. Ask questions. He decides if a request is appropriate.
+              Speak directly with <strong style={{ color: '#fff' }}>a licensed Illinois clinician</strong> before you buy therapy.
+              Ask questions. They decide if a request is appropriate.
             </p>
             <ul style={{ 
               listStyle: 'none', 
@@ -160,7 +160,7 @@ export default function PricingPage() {
               color: '#ccc',
             }}>
               <li>✓ {REGEN_TELEHEALTH_DURATION}</li>
-              <li>✓ Book online on Ryan&apos;s schedule</li>
+              <li>✓ Book a consult online</li>
               <li>✓ No therapy purchase required</li>
               <li>✓ {REGEN_TELEHEALTH_CREDIT_SHORT}</li>
             </ul>
@@ -196,7 +196,7 @@ export default function PricingPage() {
                 transition: 'transform 0.2s',
               }}
             >
-              Book with Ryan
+              Book a consult
             </Link>
             <p style={{ fontSize: 11, color: '#666', marginTop: 12 }}>
               {REGEN_TELEHEALTH_CREDIT_LINE}

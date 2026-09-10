@@ -53,7 +53,7 @@ export function OurPromiseSection() {
                   href="/providers"
                   className="inline-flex items-center justify-center px-6 py-3 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors"
                 >
-                  Meet Ryan & Danielle
+                  Meet the team & Danielle
                 </Link>
               </div>
             </div>

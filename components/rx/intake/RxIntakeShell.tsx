@@ -133,7 +133,7 @@ export function RxIntakeTrustStrip() {
   return (
     <div className="rounded-2xl border-2 border-black/10 bg-white/80 px-4 py-3 text-center text-xs text-black/60 backdrop-blur-sm">
       <p>
-        <strong className="text-black">Ryan Kent, FNP-BC</strong> · Hello Gorgeous Med Spa · Oswego, IL
+        <strong className="text-black">a licensed Illinois clinician</strong> · Hello Gorgeous Med Spa · Oswego, IL
       </p>
       <p className="mt-1">
         Secure intake · HIPAA-aware · Questions?{" "}

@@ -321,7 +321,7 @@ export default function BotoxOswegoPage() {
                   <span className="text-3xl">👩‍⚕️</span>
                 </div>
                 <h3 className="font-semibold text-lg mb-2">Licensed NP</h3>
-                <p className="text-gray-600 text-sm">Ryan Kent, FNP-BC performs injections, with physician oversight from Dr. Mukesh Arora, MD.</p>
+                <p className="text-gray-600 text-sm">a licensed Illinois clinician performs injections, with physician oversight from Dr. Mukesh Arora, MD.</p>
               </div>
               <div className="text-center p-6">
                 <div className="w-16 h-16 bg-[#FF2D8E]/10 rounded-full flex items-center justify-center mx-auto mb-4">

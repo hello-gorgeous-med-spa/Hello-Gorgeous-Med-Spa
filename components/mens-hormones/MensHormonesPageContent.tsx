@@ -185,7 +185,7 @@ export async function MensHormonesPageContent() {
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-lg">
               <Image
                 src={MENS_HORMONES_HERO_IMAGE}
-                alt="TRT consultation with Ryan Kent FNP-BC at Hello Gorgeous Oswego"
+                alt="TRT consultation with a licensed Illinois clinician at Hello Gorgeous Oswego"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 480px"

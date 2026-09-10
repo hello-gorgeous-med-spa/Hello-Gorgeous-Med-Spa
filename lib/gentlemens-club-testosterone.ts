@@ -24,7 +24,7 @@ export const GC_TRT_HERO = {
   headlineMid: "Your.",
   headlineAccent: "Testosterone.",
   subhead:
-    "Lab-guided TRT in Oswego — injections or cream. Ryan Kent, FNP-BC on site 6 days a week. Not telehealth-only — real relationship, real monitoring. We no longer offer pellet insertion.",
+    "Lab-guided TRT in Oswego — injections or cream. a licensed Illinois clinician on site 6 days a week. Not telehealth-only — real relationship, real monitoring. We no longer offer pellet insertion.",
 } as const;
 
 export type SymptomTransform = {
@@ -95,7 +95,7 @@ export const GC_TRT_TREATMENT_OPTIONS: GcTrtTreatmentOption[] = [
 ];
 
 export const GC_TRT_BIOTE_NOTE =
-  "We no longer offer pellet insertion. TRT at Hello Gorgeous is injections or topical cream, lab-guided by Ryan Kent, FNP-BC.";
+  "We no longer offer pellet insertion. TRT at Hello Gorgeous is injections or topical cream, lab-guided by a licensed Illinois clinician.";
 
 export const GC_TRT_TRUST_PILLS = [
   "Transparent pricing at consult",
@@ -123,7 +123,7 @@ export const GC_TRT_JOURNEY_STEPS: GcTrtJourneyStep[] = [
   },
   {
     when: "Visit",
-    title: "Consult with Ryan Kent, FNP-BC",
+    title: "Consult with a licensed Illinois clinician",
     body: "Review symptoms, labs, fertility goals, and delivery options — injections, cream, or enclomiphene when appropriate.",
   },
   {
@@ -173,7 +173,7 @@ export const GC_TRT_EDGE_BENEFITS = [
 ] as const;
 
 export const GC_TRT_EXPERT_CARE = [
-  "Licensed NP oversight — Ryan Kent, FNP-BC",
+  "Licensed NP oversight — a licensed Illinois clinician",
   "Evidence-based protocols & lab monitoring",
   "Ongoing dose adjustments",
   "In-person Oswego — not algorithm-only telehealth",

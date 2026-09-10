@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     "clinical model med spa",
     "non-surgical body contouring Illinois",
     "Hello Gorgeous Med Spa",
-    "Ryan Kent FNP-BC",
+    "a licensed Illinois clinician",
   ],
 };
 

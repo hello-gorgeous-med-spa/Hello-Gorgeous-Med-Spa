@@ -55,7 +55,7 @@ No hype. Just clear, provider-reviewed education.
 
 Read the guide 👇
 
-Ryan Kent, FNP-BC · Hello Gorgeous Med Spa · Oswego, IL
+a licensed Illinois clinician · Hello Gorgeous Med Spa · Oswego, IL
 
 #ReGen #GLP1 #WeightLoss #MedicalWeightLoss #Illinois #PatientEducation`,
     link: `${SITE}/rx/learn/what-is-glp-1`,
@@ -130,7 +130,7 @@ Learn more 👇
     channels: ["google", "facebook", "instagram"],
     message: `RE GEN isn't a faceless online pharmacy — it's the prescription arm of Hello Gorgeous Med Spa in Oswego, IL. 🩺
 
-✓ Ryan Kent, FNP-BC on site
+✓ a licensed Illinois clinician on site
 ✓ US-licensed compounding pharmacies
 ✓ Transparent pricing — no hidden fees
 ✓ Call us: (630) 636-6193
@@ -173,7 +173,7 @@ Oswego, IL · Serving the Fox Valley 👇
 RE GEN GLP-1 programs — compounded semaglutide & tirzepatide with transparent pricing from $125/mo.
 
 ✓ 5-minute online intake
-✓ NP review by Ryan Kent, FNP-BC
+✓ NP review by a licensed Illinois clinician
 ✓ Shipped across Illinois
 ✓ Flat $30 shipping
 

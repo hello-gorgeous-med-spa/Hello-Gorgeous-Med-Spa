@@ -19,7 +19,7 @@ import {
 } from "@/lib/seo";
 
 const PAGE_URL = `${SITE.url}${MEDICAL_OPTIMIZATION_PATH}`;
-const PAGE_DESCRIPTION = `Medical optimization in Oswego, IL — hormone therapy, GLP-1 weight loss from $${GLP1_RETAIL_PROGRAM.semaglutideFromUsd}/mo, peptides from $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo, IV & NAD+. NP-supervised by Ryan Kent, FNP-BC. Naperville, Aurora, Plainfield.`;
+const PAGE_DESCRIPTION = `Medical optimization in Oswego, IL — hormone therapy, GLP-1 weight loss from $${GLP1_RETAIL_PROGRAM.semaglutideFromUsd}/mo, peptides from $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/mo, IV & NAD+. NP-supervised by a licensed Illinois clinician. Naperville, Aurora, Plainfield.`;
 
 export const metadata: Metadata = pageMetadata({
   title: "Medical Optimization Oswego IL | Hormones, GLP-1, Peptides & IV | Hello Gorgeous",

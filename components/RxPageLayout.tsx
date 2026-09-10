@@ -56,7 +56,7 @@ export function RxPageLayout({ title, subtitle, description, icon, heroImage, ch
 
       {/* Compliance Banner */}
       <div className="bg-[#E6007E] text-white py-3 px-4 text-center text-sm">
-        <p>All prescriptions require medical evaluation by <strong>Ryan Kent, FNP-C</strong>. Illinois residents only.</p>
+        <p>All prescriptions require medical evaluation by <strong>a licensed Illinois clinician, FNP-C</strong>. Illinois residents only.</p>
       </div>
 
       {/* Content */}

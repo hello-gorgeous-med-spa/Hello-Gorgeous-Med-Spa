@@ -191,7 +191,7 @@ export function BotoxBashPageContent() {
 
                 <p className="mt-6 text-sm font-medium leading-relaxed text-black/75">
                   ▸ Authentic Botox Cosmetic. Units are mapped at your visit — not sold off a flyer
-                  count. Ryan Kent, FNP-BC on site. Medical Director Dr. Mukesh Arora, MD. Champagne
+                  count. a licensed Illinois clinician on site. Medical Director Dr. Mukesh Arora, MD. Champagne
                   and appetizers Friday evening are 21+.
                 </p>
 

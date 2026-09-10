@@ -270,7 +270,7 @@ export function RegenSiteLanding() {
             <div>
               <p className="hg-eyebrow">Why RE GEN</p>
               <h2 style={{color:'#fff',margin:'12px 0 18px',fontFamily:'var(--font-display)',fontWeight:700,fontSize:'32px'}}>Real providers. <span style={{color:'var(--hg-pink)'}}>Real medicine.</span></h2>
-              <p style={{color:'rgba(255,255,255,.8)',fontSize:'18px',margin:'0 0 24px',lineHeight:1.6}}>RE GEN is the medical-prescription arm of Hello Gorgeous Med Spa — the #1 best med spa in Oswego. Founders Dani & Ryan, a female + male provider team, are on site weekly. Every plan is directed by a full-authority nurse practitioner.</p>
+              <p style={{color:'rgba(255,255,255,.8)',fontSize:'18px',margin:'0 0 24px',lineHeight:1.6}}>RE GEN is the medical-prescription arm of Hello Gorgeous Med Spa — the #1 best med spa in Oswego. Founders Danielle, a female + male provider team, are on site weekly. Every plan is directed by a full-authority nurse practitioner.</p>
               <div style={{display:'flex',flexDirection:'column',gap:'14px'}}>
                 <div style={{display:'flex',gap:'12px'}}><span style={{color:'var(--hg-pink)'}}>✦</span><span><b>NP-directed care</b><br/><span style={{color:'rgba(255,255,255,.65)',fontSize:'15px'}}>Licensed clinicians review every order</span></span></div>
                 <div style={{display:'flex',gap:'12px'}}><span style={{color:'var(--hg-pink)'}}>✦</span><span><b>US-based compounding pharmacies</b><br/><span style={{color:'rgba(255,255,255,.65)',fontSize:'15px'}}>503A/503B partners, shipped nationwide</span></span></div>

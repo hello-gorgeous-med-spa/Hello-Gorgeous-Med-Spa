@@ -47,7 +47,7 @@ export const nanoPowderHandStrokeBrowsPost: BlogPost = {
     {
       question: "Is brow PMU at Hello Gorgeous medically supervised?",
       answer:
-        "Yes. Hello Gorgeous is a medically supervised med spa. Board-certified Nurse Practitioner Ryan Kent, FNP-BC, is on site with full practice authority. Brow services include health screening, clinical numbing oversight, and sanitation standards beyond typical tattoo studios.",
+        "Yes. Hello Gorgeous is a medically supervised med spa. Board-certified Nurse Practitioner a licensed Illinois clinician, is on site with full practice authority. Brow services include health screening, clinical numbing oversight, and sanitation standards beyond typical tattoo studios.",
     },
     {
       question: "How do I book a brow consultation in Oswego?",
@@ -165,7 +165,7 @@ If you have seen our **[Your Brow Journey](/education/your-brow-journey)** guide
 
 Brow PMU at a tattoo shop can feel like: sit down, stencil, go. **That is not how we operate.**
 
-**We screen you like a medical practice, because we are one.** Our nurse practitioner, **Ryan Kent, FNP-BC** — board-certified with **full practice authority in Illinois** — is on site **six days a week**, with physician oversight from Medical Director **Dr. Mukesh Arora, MD**. Brow services happen under **medical oversight**: health history review, contraindication screening, clinical-grade sanitation, and numbing managed to standards a non-medical studio cannot match.
+**We screen you like a medical practice, because we are one.** Our nurse practitioner, **a licensed Illinois clinician** — board-certified with **full practice authority in Illinois** — is on site **six days a week**, with physician oversight from Medical Director **Dr. Mukesh Arora, MD**. Brow services happen under **medical oversight**: health history review, contraindication screening, clinical-grade sanitation, and numbing managed to standards a non-medical studio cannot match.
 
 Here is what **your brow consult with me** typically includes:
 
@@ -215,7 +215,7 @@ Still unsure? That is what consult is for. Bring inspiration photos — and trus
 
 Hello Gorgeous is **not** a revolving-door beauty bar. We are a **med spa** with clinical accountability:
 
-- **NP on site six days a week** — Ryan Kent, FNP-BC, on-site nurse practitioner  
+- **NP on site six days a week** — a licensed Illinois clinician, on-site nurse practitioner  
 - **Health screening before brow PMU** — your wellbeing comes first  
 - **Hospital-grade sanitation** and **single-use, sealed needles** every client  
 - **Professional numbing** managed under medical practice standards  
@@ -258,7 +258,7 @@ We use **Tina Davies I ❤️ INK** professional pigments, swatched and approved
 
 ### Is brow PMU medically supervised at Hello Gorgeous?
 
-**Yes.** **Ryan Kent, FNP-BC**, is on site with full prescriptive authority. Brow services include clinical screening and medical-grade standards — see our **[brow PMU page](/microblading-brow-pmu-oswego-il)** for details.
+**Yes.** **a licensed Illinois clinician**, is on site with full prescriptive authority. Brow services include clinical screening and medical-grade standards — see our **[brow PMU page](/microblading-brow-pmu-oswego-il)** for details.
 
 ### How do I book a consult?
 
@@ -270,6 +270,6 @@ Many clients refresh every **12–18 months**. A **touch-up 6–8 weeks** after 
 
 ---
 
-*Last reviewed: May 26, 2026 · Hello Gorgeous Med Spa, Oswego, IL · Brow PMU by Danielle Alcala-Glazier under medical supervision of Ryan Kent, FNP-BC.*
+*Last reviewed: May 26, 2026 · Hello Gorgeous Med Spa, Oswego, IL · Brow PMU by Danielle Alcala-Glazier under medical supervision of a licensed Illinois clinician.*
 `,
 };

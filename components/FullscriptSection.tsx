@@ -61,7 +61,7 @@ export function FullscriptSection() {
             </h2>
             <p className="mt-4 text-[#FF2D8E] max-w-2xl mx-auto text-lg">
               Professional-grade supplements delivered to your door. 
-              Curated by Ryan & Danielle for your wellness journey.
+              Curated by Danielle and our clinical team for your wellness journey.
             </p>
           </div>
         </FadeUp>

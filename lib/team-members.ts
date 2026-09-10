@@ -5,15 +5,8 @@
 import {
   DANI_FULL_NAME,
   DANI_IMAGE,
-  RYAN_FULL_NAME,
-  RYAN_IMAGE,
   TEAM_FOUNDERS_IMAGE,
 } from "@/lib/founder-credentials";
-import {
-  MEDICAL_DIRECTOR,
-  NP_ON_SITE_PHRASE,
-  NP_ON_SITE_SHORT,
-} from "@/lib/medical-authority";
 import { SITE } from "@/lib/seo";
 
 export type TeamMember = {
@@ -41,7 +34,7 @@ export type TeamMember = {
 };
 
 export const MEET_THE_TEAM_SEO_DESCRIPTION =
-  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Michelle Colby (office manager, laser hair & IPL tech & certified InMode instructor), Laura Witt (client relations & wellness sales), Jen Vokoun (permanent makeup & brow artist), plus founders Danielle Alcala-Glazier and Ryan Kent, FNP-BC.";
+  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Michelle Colby (office manager, laser hair & IPL tech & certified InMode instructor), Laura Witt (client relations & wellness sales), Jen Vokoun (permanent makeup & brow artist), plus founder Danielle Alcala-Glazier.";
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
@@ -148,24 +141,6 @@ export const LEADERSHIP_TEAM: TeamMember[] = [
       "Danielle built Hello Gorgeous from the ground up — family-owned, hands-on every day, and invested in technology most local practices don't offer.",
     ],
     specialties: ["Morpheus8 · Quantum RF · Solaria", "Brows & skin", "InMode Trifecta"],
-  },
-  {
-    id: "ryan",
-    slug: "ryan",
-    fullName: RYAN_FULL_NAME,
-    badge: "On-Site NP · FNP-BC",
-    title: "Board-Certified Family Nurse Practitioner",
-    profileHref: "/about#ryan",
-    profileLabel: "Full profile →",
-    image: {
-      src: RYAN_IMAGE,
-      alt: `${RYAN_FULL_NAME}, Board-Certified Family Nurse Practitioner at Hello Gorgeous Med Spa`,
-    },
-    quote: `${NP_ON_SITE_SHORT} a week — real NP care under our Medical Director, not a remote signature.`,
-    bioParagraphs: [
-      `Ryan holds full Illinois prescriptive authority and is ${NP_ON_SITE_PHRASE} — GLP-1, hormones, peptides, injectables, and advanced device care — under Medical Director ${MEDICAL_DIRECTOR.displayName}.`,
-    ],
-    specialties: ["GLP-1 weight loss", "Hormone therapy", "Peptides", "Medical aesthetics"],
   },
 ];
 

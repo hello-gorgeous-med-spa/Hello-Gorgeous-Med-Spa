@@ -239,7 +239,7 @@ export function ServiceOswegoLanding({
               <h2 className="text-2xl font-black text-[#E6007E]">Explore our full peptide program</h2>
               <p className="mt-3 max-w-2xl text-black/80 font-medium">
                 We are Oswego&apos;s most complete peptide clinic — education hub, injection menu, patient handouts, and
-                Ryan Kent, FNP-BC on every protocol.
+                a licensed Illinois clinician on every protocol.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link

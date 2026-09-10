@@ -262,7 +262,7 @@ export default function HubPageClient() {
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-3xl font-bold">Hello Gorgeous Command Center</h1>
-          <p className="text-black/60 text-sm">Shared in Supabase · Live between Dani and Ryan</p>
+          <p className="text-black/60 text-sm">Shared in Supabase · Live between Danielle</p>
           <p className="text-sm mt-1">
             <a href="/hub/classic" className="text-pink-600 underline">Classic UI</a>
             {" · "}

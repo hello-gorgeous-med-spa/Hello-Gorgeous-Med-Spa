@@ -40,7 +40,7 @@ const CHECKOUT_STEPS = [
   { title: "Add to cart", body: "Pick your strength and 30- or 90-day supply." },
   { title: "Pay at the spa", body: "Tap, dip, or swipe on the Terminal in Oswego — Square cannot take RX by a link." },
   { title: "Health intake", body: "History, meds and consent after you pay in person." },
-  { title: "NP review", body: "Ryan Kent, FNP-BC approves, with telehealth when required." },
+  { title: "NP review", body: "a licensed Illinois clinician approves, with telehealth when required." },
   { title: "Ships to you", body: `Licensed pharmacy · flat ${SHIPPING_LABEL} shipping, tracked.` },
 ] as const;
 
@@ -52,11 +52,11 @@ const CONSULT_STEPS = [
   },
   {
     title: `Reserve your consult · $${PROGRAM_CONSULT_FEE_USD}`,
-    body: "Holds your visit with Ryan Kent, FNP-BC. Medication cost is separate.",
+    body: "Holds your visit with a licensed Illinois clinician. Medication cost is separate.",
   },
   {
     title: "Meet your provider",
-    body: "Ryan reviews your intake and decides your protocol and dose — telehealth or in Oswego.",
+    body: "A licensed Illinois clinician reviews your intake and decides your protocol and dose — telehealth or in Oswego.",
   },
   {
     title: "Approved, then filled",
@@ -248,7 +248,7 @@ export function ProductDetailPanel({
                   from {formatCatalogMoney(p30)}
                 </p>
                 <p className={`mt-1.5 text-xs font-semibold leading-relaxed ${pageMode ? "text-black/60" : "text-white/60"}`}>
-                  Ryan Kent, FNP-BC chooses your strength and dose at your consult. You are
+                  a licensed Illinois clinician chooses your strength and dose at your consult. You are
                   invoiced for the vial only after he approves it.
                 </p>
               </div>

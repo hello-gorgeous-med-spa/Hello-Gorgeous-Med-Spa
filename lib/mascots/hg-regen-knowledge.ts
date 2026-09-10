@@ -42,7 +42,7 @@ export const HG_REGEN_CORE = {
   regenName: REGEN_SITE.fullName,
   location: `${REGEN_SITE.address.street}, ${REGEN_SITE.address.city}, ${REGEN_SITE.address.state} ${REGEN_SITE.address.zip}`,
   phone: REGEN_SITE.phone,
-  np: "Ryan Kent, FNP-BC",
+  np: "a licensed Illinois clinician",
   founders: REGEN_SITE.founders,
   shipping: REGEN_SITE.shipping,
   serviceAreas:
@@ -261,7 +261,7 @@ export const MASCOT_KNOWLEDGE: Record<RegenMascotId, KnowledgeEntry[]> = {
       topics: ["peptides"],
       mascots: ["peppy"],
       priority: 5,
-      answer: `BPC-157 is used for tissue repair and gut support — injectable, NP-reviewed. Often discussed with TB-500 as a recovery request. Ryan decides if it is appropriate. Start at tryregenrx.com/start`,
+      answer: `BPC-157 is used for tissue repair and gut support — injectable, NP-reviewed. Often discussed with TB-500 as a recovery request. A licensed Illinois clinician decides if it is appropriate. Start at tryregenrx.com/start`,
     },
     {
       id: "nad",
@@ -285,7 +285,7 @@ export const MASCOT_KNOWLEDGE: Record<RegenMascotId, KnowledgeEntry[]> = {
       topics: ["peptides"],
       mascots: ["peppy"],
       priority: 5,
-      answer: `Recovery Blend is BPC-157 / TB-500 — a common repair request. Ryan Kent, FNP-BC decides if it is appropriate. Compounded medication is not FDA-approved. Start at tryregenrx.com/start`,
+      answer: `Recovery Blend is BPC-157 / TB-500 — a common repair request. a licensed Illinois clinician decides if it is appropriate. Compounded medication is not FDA-approved. Start at tryregenrx.com/start`,
     },
     {
       id: "peptide-start",

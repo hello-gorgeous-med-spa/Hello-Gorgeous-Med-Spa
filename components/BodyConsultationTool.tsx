@@ -125,7 +125,7 @@ export function BodyConsultationTool({
                     href={rec.providerSlug ? getProviderPublicBookingHref(rec.providerSlug) : "/book"}
                     className="flex-shrink-0 w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-[#E6007E] hover:bg-[#E6007E]/90 text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
                   >
-                    Book with {rec.providerSlug === "danielle" ? "Danielle" : rec.providerSlug === "ryan" ? "Ryan" : "us"}
+                    Book with {rec.providerSlug === "danielle" ? "Danielle" : "us"}
                   </Link>
                 </div>
               ))}

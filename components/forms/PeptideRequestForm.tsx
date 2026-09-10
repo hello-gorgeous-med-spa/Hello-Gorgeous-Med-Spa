@@ -574,13 +574,13 @@ export function PeptideRequestForm({
         ? [
             { label: "Refill request submitted", status: "complete" },
             { label: "Payment received", status: "complete" },
-            { label: "Clinical review by Ryan Kent, FNP-BC", status: "current" },
+            { label: "Clinical review by a licensed Illinois clinician", status: "current" },
             { label: "Home delivery", status: "upcoming" },
           ]
         : [
             { label: "Refill request submitted", status: "complete" },
             { label: "Pay at the spa Terminal", status: "current" },
-            { label: "Clinical review by Ryan Kent, FNP-BC", status: "upcoming" },
+            { label: "Clinical review by a licensed Illinois clinician", status: "upcoming" },
             { label: "Home delivery", status: "upcoming" },
           ];
 
@@ -591,7 +591,7 @@ export function PeptideRequestForm({
           reference={result.reference}
           intro={
             !refillPaid
-              ? "Pay at Hello Gorgeous in Oswego on the Terminal. Ryan reviews after payment. Medication ships only after clinical approval."
+              ? "Pay at Hello Gorgeous in Oswego on the Terminal. A licensed Illinois clinician reviews after payment. Medication ships only after clinical approval."
               : "Our team will review and ship after approval."
           }
           steps={postSubmitSteps}
@@ -653,12 +653,12 @@ export function PeptideRequestForm({
       ? [
           { label: "Protocol request submitted", status: "complete" },
           { label: `Pay $${PEPTIDE_CONSULT_FEE_USD} consult at the spa Terminal`, status: "current" },
-          { label: "Book telehealth with Ryan Kent, FNP-BC", status: "upcoming" },
+          { label: "Book telehealth with a licensed Illinois clinician", status: "upcoming" },
           { label: "Protocol approval & medication pricing", status: "upcoming" },
         ]
       : [
           { label: "Protocol request submitted", status: "complete" },
-          { label: "Book telehealth with Ryan Kent, FNP-BC", status: "current" },
+          { label: "Book telehealth with a licensed Illinois clinician", status: "current" },
           { label: "Protocol approval & medication pricing", status: "upcoming" },
         ];
 
@@ -671,7 +671,7 @@ export function PeptideRequestForm({
             : "Consult paid — book your telehealth visit"
         }
         reference={result.reference}
-        intro={`Ryan Kent, FNP-BC will review your protocol request at a required telehealth visit before any approval.`}
+        intro={`a licensed Illinois clinician will review your protocol request at a required telehealth visit before any approval.`}
         steps={newSteps}
       >
         {needsPrepay ? (
@@ -734,7 +734,7 @@ export function PeptideRequestForm({
         <h2 className="font-serif text-2xl font-black text-black">Let&apos;s talk before you pay</h2>
         <p className="mt-4 text-sm leading-relaxed text-black/75">
           Based on your answers, we can&apos;t take this request online. <strong>You have not been
-          charged and nothing was submitted.</strong> Ryan may still be able to help you — it just
+          charged and nothing was submitted.</strong> A clinician may still be able to help you — it just
           needs a conversation first.
         </p>
         {blockReasons.length > 0 && (
@@ -782,12 +782,12 @@ export function PeptideRequestForm({
             ✓ Screening complete — no red flags
           </p>
           <h3 className="mt-4 text-2xl font-black text-black">
-            Reserve your consult with Ryan Kent, FNP-BC
+            Reserve your consult with a licensed Illinois clinician
           </h3>
           <p className="mt-2 text-sm text-black/70 leading-relaxed">
             Your ${PEPTIDE_CONSULT_FEE_USD} consult fee is collected in person on the Terminal at the
             spa. Continue your intake now, then pay tap / dip / swipe in Oswego and book telehealth.
-            Medication is quoted and invoiced separately, only after Ryan approves your protocol.
+            Medication is quoted and invoiced separately, only after a clinician approves your protocol.
           </p>
 
           <div className="mt-5 rounded-2xl border-2 border-[#E6007E]/30 bg-[#FFF0F7] px-5 py-4">

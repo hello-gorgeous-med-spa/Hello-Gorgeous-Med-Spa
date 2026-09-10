@@ -75,7 +75,7 @@ export function PeptideShopShelf() {
           Compounded vials, <span className="text-[#FF2D8E]">provider-reviewed</span>
         </h2>
         <p className="mx-auto mt-4 max-w-[600px] text-[15.5px] leading-relaxed text-white/70">
-          Every order is screened by Ryan Kent, FNP-BC under the medical oversight of Dr. Arora, MD —
+          Every order is screened by a licensed Illinois clinician under the medical oversight of Dr. Arora, MD —
           nothing ships without approval.
         </p>
       </div>

@@ -43,7 +43,7 @@ What to book:
 • Signature facials from $89
   Calm Restore, Clarity, Gorgeous Glow, Collagen Reset — matched to your skin, not a menu script.
 
-Ryan Kent, FNP-BC is on site. We customize the protocol — we don't guess.
+a licensed Illinois clinician is on site. We customize the protocol — we don't guess.
 
 Book online: https://www.hellogorgeousmedspa.com/services/facials-and-peels?ref=fall_facials_2026
 Or call (630) 636-6193 · 74 W Washington St, Oswego
@@ -76,7 +76,7 @@ Reset summer-tired skin with a medical-grade facial:
 • The Trifecta $199
 • Signature facials from $89
 
-Same-day glow · downtown Oswego · Ryan Kent, FNP-BC on site
+Same-day glow · downtown Oswego · a licensed Illinois clinician on site
 
 Book online — tap Learn more`;
 

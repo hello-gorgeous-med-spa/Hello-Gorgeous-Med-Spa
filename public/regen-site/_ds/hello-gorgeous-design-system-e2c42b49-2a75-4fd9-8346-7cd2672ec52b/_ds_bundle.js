@@ -2293,7 +2293,7 @@ function Hero({
     }
   }, /*#__PURE__*/React.createElement("img", {
     src: "../../assets/hero-brand.png",
-    alt: "Hello Gorgeous founders Dani & Ryan",
+    alt: "Hello Gorgeous founders Danielle",
     style: {
       width: "100%",
       height: "100%",

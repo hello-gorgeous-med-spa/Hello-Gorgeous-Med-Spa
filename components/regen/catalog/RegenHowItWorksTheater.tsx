@@ -61,7 +61,7 @@ export function RegenHowItWorksTheater({
     {
       n: "03",
       title: "NP reviews & approves",
-      sell: "15-minute telehealth with Ryan Kent, FNP-BC. He sets your protocol and price — then you're invoiced.",
+      sell: "15-minute telehealth with a licensed Illinois clinician. He sets your protocol and price — then you're invoiced.",
       trust: "~15 min video · Licensed Illinois NP",
       image: "/images/regen/brand/steps/03-np.jpg",
       imageAlt: "RE GEN provider ready for NP telehealth review",

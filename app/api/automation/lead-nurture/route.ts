@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
             step,
             channel: "sms",
             to: clientPhone,
-            body: `Hi ${firstName}! You're booked for your ${deviceName} consultation at Hello Gorgeous. Here's a quick guide on what to expect: ${blogLink}\n\nSee you soon! — Danielle & Ryan`,
+            body: `Hi ${firstName}! You're booked for your ${deviceName} consultation at Hello Gorgeous. Here's a quick guide on what to expect: ${blogLink}\n\nSee you soon! — Danielle & Hello Gorgeous`,
           });
         }
         break;
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
               <p>Our launch special is available for a limited time — and we'd love to help you get started.</p>
               <p><a href="${SITE_URL}/book" style="display:inline-block;background:#E91E8C;color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold">Book Your Treatment</a></p>
               <p>Questions? Reply to this email or chat with us anytime.</p>
-              <p>— Danielle & Ryan<br>Hello Gorgeous Med Spa<br>630-636-6193</p>
+              <p>— Danielle & Hello Gorgeous<br>Hello Gorgeous Med Spa<br>630-636-6193</p>
             </div>`,
           });
         }
@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
             step,
             channel: "sms",
             to: clientPhone,
-            body: `Hi ${firstName}! We hope you're loving your results so far! If you had a great experience, a quick Google review means the world to us: ${REVIEW_LINK}\n\n— Danielle & Ryan`,
+            body: `Hi ${firstName}! We hope you're loving your results so far! If you had a great experience, a quick Google review means the world to us: ${REVIEW_LINK}\n\n— Danielle & Hello Gorgeous`,
           });
         }
         break;
@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
               <p>We've invested in advanced body contouring technology — QuantumRF and Morpheus8 Burst — specifically designed to sculpt and tighten these areas without surgery.</p>
               <p><a href="${SITE_URL}/blog/loose-skin-after-weight-loss-treatment" style="display:inline-block;background:#E91E8C;color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold">Learn About Body Contouring</a></p>
               <p>As one of our wellness patients, you'll get priority pricing when you're ready.</p>
-              <p>— Danielle & Ryan<br>Hello Gorgeous Med Spa</p>
+              <p>— Danielle & Hello Gorgeous<br>Hello Gorgeous Med Spa</p>
             </div>`,
           });
         }
@@ -186,7 +186,7 @@ export async function POST(request: NextRequest) {
               <p>Your dedication to your weight loss journey has been incredible. Now let's talk about the next chapter — addressing any loose skin and sculpting your new body.</p>
               <p>Our InMode Trifecta (Morpheus8 Burst + QuantumRF + Solaria CO₂) is specifically designed for post-weight loss body transformation. No surgery. No extended downtime.</p>
               <p><a href="${SITE_URL}/book" style="display:inline-block;background:#E91E8C;color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold">Book Your Trifecta Consultation</a></p>
-              <p>— Danielle & Ryan<br>Hello Gorgeous Med Spa<br>630-636-6193</p>
+              <p>— Danielle & Hello Gorgeous<br>Hello Gorgeous Med Spa<br>630-636-6193</p>
             </div>`,
           });
         }
@@ -204,7 +204,7 @@ export async function POST(request: NextRequest) {
               <p>You've been an amazing part of the Hello Gorgeous family. We'd love to keep supporting your wellness journey with our VIP membership program.</p>
               <p>Members get priority booking, exclusive pricing on treatments, and ongoing wellness support from our NP — 6 days a week.</p>
               <p><a href="${SITE_URL}/memberships" style="display:inline-block;background:#E91E8C;color:white;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold">Explore Membership Options</a></p>
-              <p>— Danielle & Ryan<br>Hello Gorgeous Med Spa</p>
+              <p>— Danielle & Hello Gorgeous<br>Hello Gorgeous Med Spa</p>
             </div>`,
           });
         }

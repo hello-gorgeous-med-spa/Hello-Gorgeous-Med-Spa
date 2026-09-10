@@ -122,7 +122,7 @@ export default async function RegenCheckoutCompletePage({ searchParams }: PagePr
               <div>
                 <p className="font-semibold text-white">Health intake submitted</p>
                 <p className="text-sm text-white/50">
-                  Ryan Kent, FNP-BC will review your history before approving your protocol.
+                  a licensed Illinois clinician will review your history before approving your protocol.
                 </p>
               </div>
             </div>

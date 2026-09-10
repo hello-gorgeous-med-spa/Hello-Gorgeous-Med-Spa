@@ -142,7 +142,7 @@ export function BuyerPathsSection() {
                 New peptide protocols: submit your request, pre-pay the{" "}
                 <strong className="text-white">${PEPTIDE_CONSULT_FEE_USD} NP consult</strong> via Square,
                 then book a secured{" "}
-                <strong className="text-white">NP video visit on Fresha</strong> with Ryan Kent, FNP-BC.
+                <strong className="text-white">NP video visit on Fresha</strong> with a licensed Illinois clinician.
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 <Link

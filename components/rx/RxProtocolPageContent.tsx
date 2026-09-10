@@ -127,7 +127,7 @@ export function RxProtocolPageContent({ protocol, related }: Props) {
             </h1>
             <p className="mx-auto mb-4 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl">
               {protocol.tagline}. Educational summary from Hello Gorgeous Med Spa — your dose is set
-              at consult with Ryan Kent, FNP-BC.
+              at consult with a licensed Illinois clinician.
             </p>
             <p className="mb-8 text-2xl font-black text-[#FFB8DC]">{protocol.priceText}</p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
@@ -221,7 +221,7 @@ export function RxProtocolPageContent({ protocol, related }: Props) {
               <StampCard index={3} title="How it's used">
                 <p className="font-medium leading-relaxed text-black/85">{protocol.howUsed}</p>
                 <p className="mt-4 text-sm font-medium text-black/55">
-                  Strength, dose, and schedule are set by Ryan Kent, FNP-BC at your consult — this
+                  Strength, dose, and schedule are set by a licensed Illinois clinician at your consult — this
                   page does not prescribe.
                 </p>
               </StampCard>
@@ -308,7 +308,7 @@ export function RxProtocolPageContent({ protocol, related }: Props) {
               Start with a consult, not a cart
             </h2>
             <p className="mx-auto mb-4 max-w-xl text-lg text-white/95">
-              {protocol.priceText} starting point. Ryan Kent, FNP-BC sets your protocol after intake
+              {protocol.priceText} starting point. a licensed Illinois clinician sets your protocol after intake
               — you&apos;re invoiced for medication only after he approves it.
             </p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">

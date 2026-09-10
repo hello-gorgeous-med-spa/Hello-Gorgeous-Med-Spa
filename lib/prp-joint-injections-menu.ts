@@ -85,7 +85,7 @@ export const PRP_JOINT_INJECTIONS_MENU: ServiceMenuConfig = {
         "Avoid blood thinners pre-draw when possible",
         "Improvement is gradual — not an overnight fix",
         "We'll tell you honestly if PRP isn't the right tool",
-        "Ryan Kent, FNP-BC oversees every protocol",
+        "a licensed Illinois clinician oversees every protocol",
       ],
       pricing: [
         { label: "Medical oversight", price: "Included", note: "FNP-BC on site 6 days a week" },

@@ -20,7 +20,7 @@ const PAGE_URL = `${SITE.url}${LADIES_CLUB_BHRT_COST_PATH}`;
 const baseMeta = pageMetadata({
   title: "BHRT Cost for Women — Hormone Therapy Pricing | Hello Gorgeous Oswego",
   description:
-    "What women pay for lab-guided hormone therapy at Hello Gorgeous Med Spa — baseline labs, compounded options, membership perks, insurance, HSA/FSA, and cost comparison. We no longer offer pellet insertion. Ryan Kent, FNP-BC. Oswego, IL.",
+    "What women pay for lab-guided hormone therapy at Hello Gorgeous Med Spa — baseline labs, compounded options, membership perks, insurance, HSA/FSA, and cost comparison. We no longer offer pellet insertion. a licensed Illinois clinician. Oswego, IL.",
   path: LADIES_CLUB_BHRT_COST_PATH,
   keywords: [
     "BHRT cost Oswego IL",

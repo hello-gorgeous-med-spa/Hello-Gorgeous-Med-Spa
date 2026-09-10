@@ -40,11 +40,11 @@ export function NpScopePanel({ className = "" }: { className?: string }) {
   return (
     <div className={`grid gap-6 lg:grid-cols-2 ${className}`}>
       <section className={CARD}>
-        <Eyebrow>What Ryan treats</Eyebrow>
+        <Eyebrow>What we treat</Eyebrow>
         <h2 className="mt-2 text-2xl font-black text-black">Scope of practice</h2>
         <p className="mt-3 text-sm font-medium leading-relaxed text-black/70">
-          Ryan directs the medical side of the practice — the treatments below are planned,
-          prescribed, and monitored by him.
+          A licensed Illinois clinician plans, prescribes, and monitors the medical side of the
+          practice — the treatments below.
         </p>
         <BulletList items={NP_SCOPE_OF_PRACTICE} />
       </section>
@@ -102,7 +102,7 @@ export function OversightModelPanel({
       </ol>
 
       <p className="mt-6 border-t-4 border-black pt-5 text-sm font-semibold text-black/70">
-        {activeProfile === "np" ? "Medical Director: " : "On-site nurse practitioner: "}
+        {activeProfile === "np" ? "Medical Director: " : "Clinical review: "}
         <Link
           href={other.profilePath}
           className="font-bold text-[#E6007E] underline decoration-[#E6007E] decoration-2 underline-offset-2 hover:text-black"

@@ -295,24 +295,24 @@ export function PeptideTherapyPageContent() {
             </div>
           </div>
           <FadeUp>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E6007E]">Your NP</p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E6007E]">Clinical review</p>
             <h2 className="mt-2 font-black text-3xl text-black md:text-5xl">
-              Ryan <span className="text-[#E6007E]">Kent, FNP-BC</span>
+              Licensed Illinois <span className="text-[#E6007E]">clinician review</span>
             </h2>
             <p className="mt-2 text-sm font-bold uppercase tracking-[0.16em] text-black/50">
               {PRESCRIBING_NP.roleLine}
             </p>
             <p className="mt-5 max-w-xl text-lg font-medium leading-relaxed text-black/80">
-              Every RE GEN plan is prescribed and managed by {PRESCRIBING_NP.displayName} — on site
-              six days a week in Oswego. Medical oversight: {MEDICAL_DIRECTOR.displayName}.
+              Every RE GEN plan is prescribed and managed by {PRESCRIBING_NP.displayName}. Medical
+              oversight: {MEDICAL_DIRECTOR.displayName}.
             </p>
             <p className="mt-4 max-w-xl font-medium leading-relaxed text-black/70">
-              Nothing ships until he reviews your history and decides a prescription is clinically
-              appropriate. That is the visit — not a cart.
+              Nothing ships until a clinician reviews your history and decides a prescription is
+              clinically appropriate. That is the visit — not a cart.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <CTA href={BOOK} variant="gradient">
-                Book with Ryan
+                Book a consult
               </CTA>
               <a
                 href={RX_CARE_TEXT_SMS}
@@ -353,7 +353,7 @@ export function PeptideTherapyPageContent() {
               },
               {
                 title: "Follow-up",
-                body: "If a plan is approved, you pick up in Oswego or ship in Illinois. Check-ins stay with Ryan.",
+                body: "If a plan is approved, you pick up in Oswego or ship in Illinois. Check-ins stay with your clinician.",
               },
             ].map((card, i) => (
               <article
@@ -499,7 +499,7 @@ export function PeptideTherapyPageContent() {
           <div className="mt-8 rounded-3xl border-4 border-black bg-[#FFF0F7] p-6 md:p-8">
             <h3 className="font-black text-xl">Pay over time with Cherry</h3>
             <p className="mt-2 max-w-2xl font-medium text-black/70">
-              After Ryan writes a plan, eligible patients can preview 0% APR options. Apply in
+              After a clinician writes a plan, eligible patients can preview 0% APR options. Apply in
               seconds — no hard credit check to preview.
             </p>
             <CTA href={CHERRY_PAY_URL} variant="gradient" className="mt-5">

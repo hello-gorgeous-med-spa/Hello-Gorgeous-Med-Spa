@@ -52,10 +52,10 @@ const GOALS = [
   {
     id: 'weight-loss',
     title: 'Weight loss',
-    description: 'A weekly plan Ryan reviews — if it is appropriate for you.',
+    description: 'A weekly plan a licensed Illinois clinician reviews — if it is appropriate for you.',
     icon: '📉',
     programs: [
-      { id: 'semaglutide', name: 'Semaglutide', price: 299, description: 'Weekly GLP-1. Ryan decides if it is appropriate.' },
+      { id: 'semaglutide', name: 'Semaglutide', price: 299, description: 'Weekly GLP-1. A licensed Illinois clinician decides if it is appropriate.' },
       { id: 'tirzepatide', name: 'Tirzepatide', price: tirzepatideFromPrice(), fromPrice: true, description: 'Weekly dual-agonist GLP-1. Pick your monthly request.' },
     ],
   },
@@ -294,7 +294,7 @@ function RegenStartContent() {
     }
 
     if (isStripeWadaBlockedProgram(selectedProgram) || isStripeWadaBlockedPublicText(checkoutName)) {
-      alert('This program is not available for online checkout. Book a visit with Ryan instead.');
+      alert('This program is not available for online checkout. Contact us for a consult instead.');
       return;
     }
     
@@ -481,7 +481,7 @@ function RegenStartContent() {
       <div className="px-6 py-3 text-center text-sm font-semibold" style={{ backgroundColor: `${BRAND.teal}18`, color: BRAND.cream, borderBottom: `1px solid ${BRAND.teal}40` }}>
         Prefer to talk first?{' '}
         <Link href={REGEN_TELEHEALTH_PATH} style={{ color: BRAND.teal, textDecoration: 'underline' }}>
-          Book Ryan {regenTelehealthPriceLabel()}
+          Book a consult {regenTelehealthPriceLabel()}
         </Link>
         {' '}— {REGEN_TELEHEALTH_CREDIT_SHORT}
       </div>
@@ -494,7 +494,7 @@ function RegenStartContent() {
         {step === 'goal' && (
           <div>
             <h1 className="text-3xl font-bold mb-2" style={{ color: BRAND.cream }}>Choose your program</h1>
-            <p className="mb-8" style={{ color: BRAND.gray }}>Pick a goal. Ryan Kent, FNP-BC reviews every request — a visit is not a guaranteed prescription.</p>
+            <p className="mb-8" style={{ color: BRAND.gray }}>Pick a goal. A licensed Illinois clinician reviews every request — a visit is not a guaranteed prescription.</p>
             <Link
               href={REGEN_TELEHEALTH_PATH}
               className="mb-6 flex w-full items-center gap-4 rounded-xl p-6 text-left transition-all hover:scale-[1.02]"
@@ -502,7 +502,7 @@ function RegenStartContent() {
             >
               <span className="text-4xl">💬</span>
               <div className="flex-1">
-                <h3 className="text-xl font-bold" style={{ color: BRAND.cream }}>Not sure yet? Talk to Ryan first</h3>
+                <h3 className="text-xl font-bold" style={{ color: BRAND.cream }}>Not sure yet? Talk to a clinician first</h3>
                 <p style={{ color: BRAND.gray }}>
                   {regenTelehealthPriceLabel()} video visit · {REGEN_TELEHEALTH_CREDIT_SHORT}
                 </p>

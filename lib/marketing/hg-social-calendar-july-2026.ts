@@ -132,7 +132,7 @@ Book your filler consult 👇
     channels: ["google", "facebook", "instagram"],
     message: `Medical weight loss with real follow-up 💪
 
-Physician-supervised GLP-1 programs at Hello Gorgeous Med Spa — semaglutide & tirzepatide with Ryan Kent, FNP-BC in Oswego.
+Physician-supervised GLP-1 programs at Hello Gorgeous Med Spa — semaglutide & tirzepatide with a licensed Illinois clinician in Oswego.
 
 ✓ Same-day visits available
 ✓ Weekly check-ins & dosing adjustments
@@ -168,11 +168,11 @@ Explore Quantum RF 👇
     slug: "hg-medical-trust-np",
     week: 3,
     dayLabel: "Wed W3",
-    label: "NP-directed care — Ryan Kent, FNP-BC",
+    label: "NP-directed care — a licensed Illinois clinician",
     channels: ["google", "facebook", "instagram"],
     message: `Your med spa should feel like a real clinic 🩺
 
-At Hello Gorgeous Med Spa, Ryan Kent, FNP-BC screens patients, prescribes when appropriate, and is on site in Oswego 6 days a week.
+At Hello Gorgeous Med Spa, a licensed Illinois clinician screens patients, prescribes when appropriate, and is on site in Oswego 6 days a week.
 
 ✓ 74 W. Washington, Oswego IL
 ✓ (630) 636-6193
@@ -182,7 +182,7 @@ Meet the team & book 👇
 
 #HelloGorgeous #MedSpa #OswegoIL #NPDirected #FoxValley`,
     link: `${SITE}/about`,
-    imagePath: "/images/providers/ryan-kent-clinic.jpg",
+    imagePath: "/images/about-kent-clinic.jpg",
   },
   {
     slug: "hg-botox-naperville-local",

@@ -27,7 +27,7 @@ export function RegenCheckoutCompleteClient({ orderRef, telehealthRequired = tru
               need a Charm patient portal account for this visit.
             </p>
             <p className="mt-2 text-xs text-white/50">
-              Charm is our clinical chart behind the scenes — Ryan documents your visit there after your call.
+              Charm is our clinical chart behind the scenes — a clinician documents your visit there after your call.
             </p>
           </div>
         </>

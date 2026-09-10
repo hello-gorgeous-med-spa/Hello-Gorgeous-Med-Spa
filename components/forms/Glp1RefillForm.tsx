@@ -477,13 +477,13 @@ export function Glp1RefillForm() {
       ? [
           { label: "Refill request submitted", status: "complete" },
           { label: "Payment received", status: "complete" },
-          { label: "Clinical review by Ryan Kent, FNP-BC", status: "current" },
+          { label: "Clinical review by a licensed Illinois clinician", status: "current" },
           { label: "Cold-chain home delivery", status: "upcoming" },
         ]
       : [
           { label: "Refill request submitted", status: "complete" },
           { label: "Pay at the spa Terminal (tap / dip / swipe)", status: "current" },
-          { label: "Clinical review by Ryan Kent, FNP-BC", status: "upcoming" },
+          { label: "Clinical review by a licensed Illinois clinician", status: "upcoming" },
           { label: "Cold-chain home delivery", status: "upcoming" },
         ];
 
@@ -700,7 +700,7 @@ export function Glp1RefillForm() {
                     />
                   ) : medication === "Other / switching — discuss with NP" ? (
                     <p className="rounded-xl border-2 border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-                      Pricing will be confirmed by Ryan at your check-in — no charge calculated online yet.
+                      Pricing will be confirmed by a clinician at your check-in — no charge calculated online yet.
                     </p>
                   ) : null}
                 </div>
@@ -753,7 +753,7 @@ export function Glp1RefillForm() {
                       Optional monthly add-on <span className="text-red-500">*</span>
                     </p>
                     <p className="mt-1 text-xs text-black/55 leading-relaxed">
-                      Stack with your GLP-1 refill after Ryan approves. Choose individual protocols or
+                      Stack with your GLP-1 refill after a clinician approves. Choose individual protocols or
                       pick a NAD+ &amp; Sermorelin bundle format below.
                     </p>
                   </div>

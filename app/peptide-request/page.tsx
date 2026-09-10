@@ -21,7 +21,7 @@ const HERO_IMAGE = "/images/rx-care/bpc-157.png";
 export const metadata: Metadata = pageMetadata({
   title: "Peptide Request & Refill | Hello Gorgeous RX™ | Oswego, IL",
   description:
-    "Request a new Hello Gorgeous RX™ peptide protocol or submit a refill request. NP telehealth with Ryan Kent, FNP-BC is required before approval. Oswego, IL — serving Naperville, Aurora & Plainfield.",
+    "Request a new Hello Gorgeous RX™ peptide protocol or submit a refill request. NP telehealth with a licensed Illinois clinician is required before approval. Oswego, IL — serving Naperville, Aurora & Plainfield.",
   path: PEPTIDE_REQUEST_PATH,
 });
 
@@ -49,7 +49,7 @@ export default async function PeptideRequestPage({ searchParams }: PageProps) {
         imageAlt: "Hello Gorgeous peptide therapy — BPC-157 and recovery protocols",
         body: (
           <>
-            Submit a new protocol or refill in a guided flow. Ryan Kent, FNP-BC reviews every request —
+            Submit a new protocol or refill in a guided flow. a licensed Illinois clinician reviews every request —
             telehealth is required before approval. This form is not a prescription.
           </>
         ),
@@ -59,7 +59,7 @@ export default async function PeptideRequestPage({ searchParams }: PageProps) {
         <div className="rounded-2xl border-2 border-green-600 bg-green-50 px-5 py-4 text-center text-sm text-green-900">
           <p className="font-bold">Consult payment received — thank you!</p>
           <p className="mt-1 text-green-800">
-            Finish the last few questions below, then you&apos;ll book your Video Consult with Ryan
+            Finish the last few questions below, then you&apos;ll book your video consult
             Kent, FNP-BC.
           </p>
         </div>
@@ -73,7 +73,7 @@ export default async function PeptideRequestPage({ searchParams }: PageProps) {
           priced separately after your plan)
         </p>
         <p>{PEPTIDE_TELEHEALTH_NOTE}</p>
-        <p>Refills: pay on the Terminal in Oswego after Ryan approves your protocol · 90-day supply options available</p>
+        <p>Refills: pay on the Terminal in Oswego after a clinician approves your protocol · 90-day supply options available</p>
         <p className="text-black/55">{PEPTIDE_REQUEST_DISCLAIMER}</p>
         <p>
           Not sure which peptide?{" "}

@@ -51,7 +51,7 @@ export const MEDICAL_SERVICES: MedicalServiceCard[] = [
     bullets: [
       "TRT — injections or cream",
       "Energy, libido, body composition & mood",
-      "Ryan Kent, FNP-BC on site 6 days",
+      "a licensed Illinois clinician on site 6 days",
       "Ongoing lab monitoring",
     ],
     href: "/gentlemens-club#hormones",
@@ -133,7 +133,7 @@ export const MEDICAL_HOW_IT_WORKS = [
   {
     step: "3",
     title: "Optimize",
-    body: "A personalized plan — hormones, GLP-1, peptides, IV, or a stack — built by Ryan Kent, FNP-BC.",
+    body: "A personalized plan — hormones, GLP-1, peptides, IV, or a stack — built by a licensed Illinois clinician.",
   },
   {
     step: "4",
@@ -236,7 +236,7 @@ export const MEDICAL_OPTIMIZATION_FAQS: FAQ[] = [
   {
     question: "Do I need a referral?",
     answer:
-      "No referral needed. Book directly for hormone consults, GLP-1 candidacy visits, peptide consults, IV therapy, or Vitamin Bar shots. Ryan Kent, FNP-BC provides medical oversight on site.",
+      "No referral needed. Book directly for hormone consults, GLP-1 candidacy visits, peptide consults, IV therapy, or Vitamin Bar shots. a licensed Illinois clinician provides medical oversight on site.",
   },
   {
     question: "What's included in GLP-1 weight loss programs?",
@@ -246,7 +246,7 @@ export const MEDICAL_OPTIMIZATION_FAQS: FAQ[] = [
   {
     question: "How is Hello Gorgeous different from telehealth-only clinics?",
     answer:
-      "We're an NP-directed med spa in Oswego with in-person access 6 days a week — aesthetics, hormones, GLP-1, peptides, and IV under one roof. You get hands-on oversight from Ryan Kent, FNP-BC, not remote prescription mills.",
+      "We're an NP-directed med spa in Oswego with in-person access 6 days a week — aesthetics, hormones, GLP-1, peptides, and IV under one roof. You get hands-on oversight from a licensed Illinois clinician, not remote prescription mills.",
   },
   {
     question: "Where are you located and what areas do you serve?",

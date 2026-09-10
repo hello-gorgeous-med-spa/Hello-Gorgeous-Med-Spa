@@ -118,7 +118,7 @@ const REFILL_FIELDS: IntakeFormField[] = [
     label: "Are you an existing Hello Gorgeous GLP-1 weight loss patient?",
     required: true,
     options: ["Yes", "No"],
-    helpText: "Refills are for patients already established with Ryan Kent, FNP-BC.",
+    helpText: "Refills are for patients already established with a licensed Illinois clinician.",
   },
   {
     id: "last_visit_within_12mo",

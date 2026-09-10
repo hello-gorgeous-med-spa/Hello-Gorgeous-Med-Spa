@@ -34,7 +34,7 @@ export const aestheticInjectablesAnteagePearlPost: BlogPost = {
     {
       question: "Can I get Botox and fillers on the same day?",
       answer:
-        "In many cases, yes — when different areas are treated and your provider approves the plan. Our clinical team sequences treatments for safety and natural balance, with medical oversight from Ryan Kent, FNP-BC.",
+        "In many cases, yes — when different areas are treated and your provider approves the plan. Our clinical team sequences treatments for safety and natural balance, with medical oversight from a licensed Illinois clinician.",
     },
     {
       question: "What makes AnteAGE different for skin regeneration?",
@@ -144,7 +144,7 @@ Skin boosters are **not volumizers**. They improve **glow, hydration, and fine t
 
 **Hello Gorgeous “Regen Stack” (example plan):** PRF under-eye + AnteAGE face protocol + microneedling staged two weeks later — quality-first rejuvenation.
 
-Your provider documents sequencing; **Ryan Kent, FNP-BC** oversees medical protocols.
+Your provider documents sequencing; **a licensed Illinois clinician** oversees medical protocols.
 
 ## AnteAGE® at Hello Gorgeous — why we built around it
 
@@ -210,7 +210,7 @@ Clients who want **radiance, texture, and recovery support** — especially when
 
 Injectable and regenerative medicine should never be “just a menu.” At Hello Gorgeous:
 
-- **Ryan Kent, FNP-BC** — on-site nurse practitioner, full prescriptive authority  
+- **a licensed Illinois clinician** — on-site nurse practitioner, full prescriptive authority  
 - **Danielle Alcala-Glazier** — Owner & Licensed Esthetician; treatment planning and client education  
 - **Authentic products** — Allergan, Galderma, Revance, AnteAGE, and device partners documented on our **[Our Promise](/our-promise)** page  
 

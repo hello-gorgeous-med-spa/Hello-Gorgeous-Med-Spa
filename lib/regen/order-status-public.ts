@@ -81,7 +81,7 @@ async function loadLinkedTelehealthVisit(
     return {
       startsAt: order.telehealth_scheduled_at,
       serviceName: "NP telehealth visit",
-      providerName: "Ryan Kent, FNP-BC",
+      providerName: "a licensed Illinois clinician",
       status: "scheduled",
       source: "order",
     };

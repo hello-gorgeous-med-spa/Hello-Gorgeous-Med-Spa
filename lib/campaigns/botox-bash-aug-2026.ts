@@ -75,7 +75,7 @@ Fri Aug 28 & Sat Aug 29
 • Friday 5–9 PM Girls Night Out
 
 74 W Washington St · (630) 636-6193
-Medical Director Dr. Mukesh Arora, MD · Ryan Kent, FNP-BC on site
+Medical Director Dr. Mukesh Arora, MD · a licensed Illinois clinician on site
 
 Book below — units mapped at your visit.`;
 
@@ -89,7 +89,7 @@ Botox $9/unit + tax
 Double vitamin shot $50
 Friday 5–9 PM — Girls Night Out
 
-This is our home on Washington Street: injectables, InMode, facials, lashes, RX — all under Medical Director Dr. Mukesh Arora, MD, with Ryan Kent, FNP-BC on site.
+This is our home on Washington Street: injectables, InMode, facials, lashes, RX — all under Medical Director Dr. Mukesh Arora, MD, with a licensed Illinois clinician on site.
 
 Book your spot: hellogorgeousmedspa.com/botox-bash
 (630) 636-6193

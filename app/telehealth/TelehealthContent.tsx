@@ -101,11 +101,11 @@ const faqs = [
   },
   {
     q: "Is telehealth as effective as in-person visits?",
-    a: "For many services like medication management, follow-ups, and consultations, telehealth is equally effective. Some treatments require in-person visits, and Ryan will let you know if that's needed.",
+    a: "For many services like medication management, follow-ups, and consultations, telehealth is equally effective. Some treatments require in-person visits, and a licensed Illinois clinician will let you know if that's needed.",
   },
   {
     q: "Can I get prescriptions through telehealth?",
-    a: "Yes! Ryan can prescribe medications during telehealth visits when clinically appropriate. Prescriptions are sent directly to your preferred pharmacy or our compounding pharmacy.",
+    a: "Yes. A licensed Illinois clinician can prescribe medications during telehealth visits when clinically appropriate. Prescriptions are sent directly to your preferred pharmacy or our compounding pharmacy.",
   },
   {
     q: "Is my telehealth visit private and secure?",
@@ -135,7 +135,7 @@ export function TelehealthContent() {
                 <span className="text-[#E6007E]">Virtual Visits</span>
               </h1>
               <p className="mt-6 text-lg md:text-xl text-white/80 max-w-xl leading-relaxed">
-                Get expert medical care from the comfort of your home. Connect with Ryan Kent, FNP-BC for consultations, follow-ups, and prescription management.
+                Get expert medical care from the comfort of your home. Connect with a licensed Illinois clinician for consultations, follow-ups, and prescription management.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <CTA href={HG_RX_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
@@ -156,7 +156,7 @@ export function TelehealthContent() {
               <div className="relative">
                 <Image
                   src="/images/rx/hg-ryan-kent-rx-authority.png"
-                  alt="Ryan Kent FNP-BC - Telehealth and full prescriptive authority at Hello Gorgeous Med Spa"
+                  alt="a licensed Illinois clinician - Telehealth and full prescriptive authority at Hello Gorgeous Med Spa"
                   width={600}
                   height={400}
                   className="rounded-2xl shadow-2xl object-cover"
@@ -200,7 +200,7 @@ export function TelehealthContent() {
                   </span>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-black mb-1">Ryan Kent</h2>
+                  <h2 className="text-2xl font-bold text-black mb-1">a licensed Illinois clinician</h2>
                   <p className="text-[#E6007E] font-semibold mb-6">FNP-BC | Full Practice Authority NP</p>
                   <ul className="space-y-3 mb-6">
                     <li className="flex items-start gap-3">
@@ -270,7 +270,7 @@ export function TelehealthContent() {
               Telehealth <span className="text-[#E6007E]">Services</span>
             </h2>
             <p className="text-black/70 text-center max-w-2xl mx-auto mb-12">
-              Services available via secure video visit with Ryan Kent, FNP-BC
+              Services available via secure video visit with a licensed Illinois clinician
             </p>
           </FadeUp>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -308,10 +308,10 @@ export function TelehealthContent() {
           </FadeUp>
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { step: "1", title: "Book on Square", desc: "Schedule NP telehealth with Ryan Kent, FNP-BC on Square", icon: "📅" },
+              { step: "1", title: "Book on Square", desc: "Schedule NP telehealth with a licensed Illinois clinician on Square", icon: "📅" },
               { step: "2", title: "Get Confirmation", desc: "Square confirms your visit and sends your appointment details", icon: "📧" },
               { step: "3", title: "Join Visit", desc: "Open your Square appointment link at your scheduled time", icon: "🖥️" },
-              { step: "4", title: "Get Care", desc: "Meet with Ryan, get your treatment plan & prescriptions", icon: "✅" },
+              { step: "4", title: "Get Care", desc: "Meet with a clinician, get your treatment plan & prescriptions", icon: "✅" },
             ].map((item, i) => (
               <FadeUp key={item.step} delayMs={i * 60}>
                 <div className="text-center">
@@ -358,7 +358,7 @@ export function TelehealthContent() {
                   <h3 className="text-[#E6007E] font-semibold mb-3">Have Ready:</h3>
                   <ul className="space-y-2">
                     {[
-                      "Questions for Ryan",
+                      "Questions for your clinician",
                       "Recent lab results (if applicable)",
                       "Pharmacy information",
                       "Insurance card (if using)",
@@ -445,7 +445,7 @@ export function TelehealthContent() {
               Ready for Your Virtual Visit?
             </h2>
             <p className="text-white/80 mb-8">
-              Book your telehealth appointment with Ryan Kent, FNP-BC today. Same-day appointments often available.
+              Book your telehealth appointment with a licensed Illinois clinician today. Same-day appointments often available.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CTA href={HG_RX_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">

@@ -27,7 +27,7 @@ export default function PackagePolicyPage() {
           </Link>
           <h1 className="text-4xl font-bold">Package &amp; Pre-Paid Services Policy</h1>
           <p className="text-pink-100 mt-2">
-            Effective {effectiveDate} · Owner: Dani Alcala-Glazier · On-site Nurse Practitioner: Ryan Kent, FNP-BC · Medical Director: Dr. Mukesh Arora, MD
+            Effective {effectiveDate} · Owner: Dani Alcala-Glazier · On-site Nurse Practitioner: a licensed Illinois clinician · Medical Director: Dr. Mukesh Arora, MD
           </p>
           <p className="text-pink-100/90 text-sm mt-4">
             {SITE.name} · {SITE.address.streetAddress}, {SITE.address.addressLocality},{" "}
@@ -140,7 +140,7 @@ export default function PackagePolicyPage() {
         </p>
         <p className="text-sm text-neutral-600 italic">
           Goodwill transfers are a gift, not a right. They are documented in the client file and authorized
-          by Dani or Ryan only.
+          by Danielle or a licensed clinician only.
         </p>
 
         <h2>Expired packages</h2>

@@ -135,7 +135,7 @@ export const HORMONE_MEMBERSHIP_PLANS: WellnessMembershipPlan[] = [
     perks: [
       "Member pricing on hormone visits",
       "Priority booking for hormone consults",
-      "Quarterly lab review with Ryan Kent, FNP-BC",
+      "Quarterly lab review with a licensed Illinois clinician",
       "10% off IV therapy & vitamin shots",
       "FullScript supplement integration",
     ],
@@ -238,7 +238,7 @@ export const PEPTIDE_MEMBERSHIP_PLANS: WellnessMembershipPlan[] = [
     perks: [
       "Everything in Peptide Member",
       "Monthly protocol review & dose optimization",
-      "One active peptide stack managed by Ryan Kent, FNP-BC",
+      "One active peptide stack managed by a licensed Illinois clinician",
       "Priority cold-chain refill coordination",
       "Lab monitoring when clinically indicated",
     ],

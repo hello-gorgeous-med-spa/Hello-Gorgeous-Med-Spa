@@ -65,6 +65,6 @@ export const GLP1_WEIGHT_LOSS_FAQS: readonly FAQ[] = [
   {
     question: "Who supervises GLP-1 weight loss at Hello Gorgeous?",
     answer:
-      "GLP-1 medical weight loss is nurse practitioner–directed at our Oswego, IL clinic, with Ryan Kent, FNP-BC on the clinical team. Every patient is screened before medication is prescribed.",
+      "GLP-1 medical weight loss is nurse practitioner–directed at our Oswego, IL clinic, with a licensed Illinois clinician on the clinical team. Every patient is screened before medication is prescribed.",
   },
 ];

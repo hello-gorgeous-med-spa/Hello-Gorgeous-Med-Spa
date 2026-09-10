@@ -2,7 +2,7 @@
 
 **Internal · Staff only · v1 · September 6, 2026**
 
-How Danielle Alcala, Ryan Kent, FNP-BC, Damara Lindabald, and the desk run a licensed Illinois telehealth program — portal, ops, pharmacy, money, partners, and the rules we do not bend.
+How Danielle Alcala, a licensed Illinois clinician, Damara Lindabald, and the desk run a licensed Illinois telehealth program — portal, ops, pharmacy, money, partners, and the rules we do not bend.
 
 **Teach from this. Print it. New hires sign SOP-00 before they touch a queue.**
 
@@ -17,7 +17,7 @@ The June 2026 `rx-owners-manual.md` is **stale** (Fresha, consumer-facing BoomRx
 ## 1. Non-negotiables
 
 - Illinois adults only. If they are not an Illinois resident, stop.
-- Ryan Kent, FNP-BC is the prescriber. Danielle and Damara move the queue. They do not write the Rx.
+- a licensed Illinois clinician is the prescriber. Danielle and Damara move the queue. They do not write the Rx.
 - A request is a consult — never a guaranteed prescription, dose, or result.
 - Compounded medication is not FDA-approved. Say that. Never imply it is the same as a brand name.
 - Patients never place an order at a pharmacy. Staff places after Ryan approves.
@@ -34,7 +34,7 @@ The June 2026 `rx-owners-manual.md` is **stale** (Fresha, consumer-facing BoomRx
 | Person | Owns | Does not do |
 |---|---|---|
 | Danielle Alcala — Owner | Policy, partners, money, refund exceptions, staff training, brand voice | Prescribe, invent a dose, approve a partner who skipped the Code |
-| Ryan Kent, FNP-BC — Prescriber | Clinical yes/no, labs, video, dose, decline, off-label when indicated | Paste pharmacy orders, run payouts, write affiliate ads |
+| a licensed Illinois clinician — Prescriber | Clinical yes/no, labs, video, dose, decline, off-label when indicated | Paste pharmacy orders, run payouts, write affiliate ads |
 | Damara Lindabald — Operations | Today queue, pharmacy paste, tracking, messages, refill follow-up | Override a decline, promise a ship date Ryan has not approved |
 | Front desk / spa staff | Hand the flyer, QR to tryregenrx.com/start, book in-clinic consults, escalate | Quote a custom price, collect PHI on paper “to be faster” |
 
@@ -67,7 +67,7 @@ We are not a research-chem shop, not a nationwide Hims clone, and not insurance.
 1. **Start** — tryregenrx.com/start. Promo GORGEOUS20 is entered on the Stripe payment screen.
 2. **Screening + consent** — they answer medical questions and sign. If they do not qualify, they get a **full refund**.
 3. **Pay** — Stripe. Payment is a consult deposit toward medication if prescribed — not a purchase of a specific vial yet.
-4. **Ryan reviews** — Today queue. Four boxes must be true before Approve: medical history, contraindications, telehealth is appropriate, and “I am Ryan and this is my decision.” Or: Need labs / Video / Decline.
+4. **A licensed Illinois clinician reviews** — Today queue. Four boxes must be true before Approve: medical history, contraindications, telehealth is appropriate, and “I am Ryan and this is my decision.” Or: Need labs / Video / Decline.
 5. **Damara places pharmacy** — Formulation / FormuConnect first. BoomRx only when Formulation does not carry the line.
 6. **Ship + portal** — tracking in the patient account. Messages stay in-app.
 7. **Refill** — same clinical bar every month. Auto-pay does not mean auto-prescribe.
@@ -138,7 +138,7 @@ There is no refund button inside /ops/payments yet. Danielle or Damara refund in
 |---|---|---|
 | Ryan declines before a prescription | Full refund of the consult/medication charge. Note: reason + next step. | Danielle or Damara. Same day. |
 | Duplicate charge / Stripe error | Full refund. Screenshot the Stripe id in the chart. | Damara |
-| Cancel after pay, before Ryan reviews | Full refund if no clinical work has started. If Ryan already reviewed, Danielle decides. | Danielle |
+| Cancel after pay, before A licensed Illinois clinician reviews | Full refund if no clinical work has started. If Ryan already reviewed, Danielle decides. | Danielle |
 | Pharmacy already compounded / shipped | No product refund. Shipping not refunded. Offer a clinical follow-up. | Danielle + Ryan |
 | Side effect / they “don’t like it” | Clinical visit first. Refund is not the first tool. | Ryan, then Danielle if money |
 | Chargeback | Pull consent, screening, Stripe, tracking. Pause refills until resolved. | Danielle |
@@ -189,17 +189,17 @@ Rate follows concurrent actives and can move up or down. Shipping is not commiss
 
 **SOP-07 Refills.** A paid refill is another consult. Auto-pay is not a standing order to ship if Ryan would not prescribe today.
 
-**SOP-08 Safety events.** Document in the chart the same day. Ryan decides hold / stop / ER. Danielle is told if it could become a complaint or pharmacy recall.
+**SOP-08 Safety events.** Document in the chart the same day. A licensed Illinois clinician decides hold / stop / ER. Danielle is told if it could become a complaint or pharmacy recall.
 
 **SOP-09 Partners.** Danielle only. Code of Conduct v2. No PHI. No paying a partner for a specific Rx. Pause first, terminate for medical claims, minors, or brand bidding.
 
-**SOP-10 Talking points.** Allowed: Illinois NP-directed, cash-pay, compounded not FDA-approved, Ryan decides, shipping as shown at checkout, stacks are a request. Forbidden: “same as Ozempic guaranteed,” “you’ll lose X pounds,” “we always approve,” pharmacy brand names to patients, BoomRx in public copy.
+**SOP-10 Talking points.** Allowed: Illinois NP-directed, cash-pay, compounded not FDA-approved, A licensed Illinois clinician decides, shipping as shown at checkout, stacks are a request. Forbidden: “same as Ozempic guaranteed,” “you’ll lose X pounds,” “we always approve,” pharmacy brand names to patients, BoomRx in public copy.
 
 ---
 
 ## 11. Scripts
 
-**Spa guest asks about peptides:** “That’s REGEN RX — Ryan reviews every request. I can start you at tryregenrx.com/start or text you the link. It’s Illinois-only and not a guaranteed prescription.”
+**Spa guest asks about peptides:** “That’s REGEN RX — A licensed Illinois clinician reviews every request. I can start you at tryregenrx.com/start or text you the link. It’s Illinois-only and not a guaranteed prescription.”
 
 **They want a price on the phone:** “Published menus are on the site. Product plus cold shipping — $25 on most vials, $35 on curated stacks. If Ryan does not prescribe, we refund. I won’t quote a custom stack off the top of my head.”
 

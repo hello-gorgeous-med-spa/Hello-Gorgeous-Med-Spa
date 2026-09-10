@@ -1681,7 +1681,7 @@ export const PEPTIDE_TOPICS: PeptideTopic[] = [
         },
         {
           value: "℞ only",
-          label: "Ryan Kent, FNP-BC · Hello Gorgeous RX™ · Oswego, IL",
+          label: "a licensed Illinois clinician · Hello Gorgeous RX™ · Oswego, IL",
         },
       ],
     },
@@ -1760,7 +1760,7 @@ export const PEPTIDE_TOPICS: PeptideTopic[] = [
       {
         title: "How we think about it at Hello Gorgeous",
         body:
-          "Our Oswego team — including Ryan Kent, FNP-BC — starts with goals, history, and labs when indicated. If a GH peptide belongs in the picture, we match the right stack (sermorelin, tesamorelin / ipamorelin, or CJC / ipamorelin) to your situation. Browse the full RE GEN catalog or book a consult to begin.",
+          "Our Oswego team — including a licensed Illinois clinician — starts with goals, history, and labs when indicated. If a GH peptide belongs in the picture, we match the right stack (sermorelin, tesamorelin / ipamorelin, or CJC / ipamorelin) to your situation. Browse the full RE GEN catalog or book a consult to begin.",
       },
     ],
     expectationsTable: [

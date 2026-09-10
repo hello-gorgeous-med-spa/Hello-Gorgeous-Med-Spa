@@ -19,7 +19,7 @@ export const RX_GUIDE_STEPS = [
   },
   {
     title: "Video visit",
-    description: `Book Ryan on Square ($${PROGRAM_CONSULT_FEE_USD} consult for new protocols)`,
+    description: `Book a consult on Square ($${PROGRAM_CONSULT_FEE_USD} consult for new protocols)`,
   },
   {
     title: "Pay at the spa",

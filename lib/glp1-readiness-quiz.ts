@@ -95,7 +95,7 @@ export function scoreGlp1Readiness(answers: Glp1QuizAnswers): Glp1QuizResult {
     return {
       tier: "not_eligible",
       title: "Speak with our NP first",
-      body: "GLP-1 medications are not used during pregnancy or breastfeeding. If weight or metabolic support is still a goal, Ryan Kent, FNP-BC can discuss safe options at a consult.",
+      body: "GLP-1 medications are not used during pregnancy or breastfeeding. If weight or metabolic support is still a goal, a licensed Illinois clinician can discuss safe options at a consult.",
       ctaLabel: "Call our office",
       ctaHref: "tel:630-636-6193",
       secondaryHref: "/glp-1-weight-loss-oswego",

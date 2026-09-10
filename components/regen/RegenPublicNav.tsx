@@ -65,7 +65,7 @@ export function RegenPublicNav({ fixed = false }: { fixed?: boolean }) {
               color: pathname.startsWith(REGEN_TELEHEALTH_PATH) ? BRAND.pink : BRAND.teal,
             }}
           >
-            Book Ryan {regenTelehealthPriceLabel()}
+            Book a consult {regenTelehealthPriceLabel()}
           </Link>
           <Link
             href="/start"

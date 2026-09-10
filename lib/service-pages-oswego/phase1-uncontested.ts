@@ -35,7 +35,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     whyBullets: [
       "Gold-standard Solaria CO₂ — $799 face/neck/chin this September",
       "The only Solaria CO₂ in Oswego, Naperville, Aurora, or Plainfield",
-      "Performed in-office by our medical team with Ryan Kent, FNP-BC overseeing every protocol",
+      "Performed in-office by our medical team with a licensed Illinois clinician overseeing every protocol",
       "Customizable from gentle glow settings to deep resurfacing",
       "5.0★ from 1,900+ verified visits · Google 4.6★ (145+ reviews)",
       "Verified InMode Provider — free consultation",
@@ -153,7 +153,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       "Only Quantum RF in Oswego, Naperville, Aurora, or Plainfield — meaningful body contouring without driving into Chicago",
       "Two technologies in one treatment: fat reduction AND skin tightening (most competitors only do one)",
       "Comfortable, in-office, no surgery, no anesthesia, no significant downtime",
-      "Performed under the medical authority of Ryan Kent, FNP-BC — not a chain franchise, not a spa technician",
+      "Performed under the medical authority of a licensed Illinois clinician — not a chain franchise, not a spa technician",
       "Verified InMode Provider — backed by manufacturer training and protocols",
     ],
     howItWorksParagraphs: [
@@ -221,7 +221,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       },
       {
         src: QUANTUM_RF_RYAN_ACTION_IMAGE,
-        alt: "Ryan Kent, FNP-BC performing Quantum RF body contouring at Hello Gorgeous Med Spa Oswego, IL",
+        alt: "a licensed Illinois clinician performing Quantum RF body contouring at Hello Gorgeous Med Spa Oswego, IL",
         frame: "portrait",
         objectPosition: "top",
       },
@@ -234,7 +234,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     targetKeyword: "peptide therapy oswego",
     metaTitle: "Peptide Therapy in Oswego, IL",
     metaDescription:
-      "Medical peptide therapy in Oswego, IL — BPC-157, Sermorelin, GHK-Cu, NAD+, PT-141 & more. $49 NP consult. Ryan Kent, FNP-BC on site. Naperville, Aurora, Plainfield.",
+      "Medical peptide therapy in Oswego, IL — BPC-157, Sermorelin, GHK-Cu, NAD+, PT-141 & more. $49 NP consult. a licensed Illinois clinician on site. Naperville, Aurora, Plainfield.",
     h1: "Peptide Therapy in Oswego, IL",
     valueProp:
       "Targeted peptide protocols supervised by a full-authority nurse practitioner — for recovery, performance, skin, sleep, and longevity.",
@@ -243,9 +243,9 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     bodyLocation: "Subcutaneous",
     tier: "uncontested",
     heroContent:
-      "Peptide therapy is one of the most promising frontiers in modern wellness medicine. Specific peptides can support recovery, immune function, skin quality, sleep, libido, lean muscle, and metabolic health — but only when prescribed correctly, sourced from reputable compounding pharmacies, and supervised by a qualified medical provider. At Hello Gorgeous, every peptide protocol is overseen by Ryan Kent, FNP-BC, with full medical authority. No internet-bought vials. No guesswork. Just real peptide therapy, done right.",
+      "Peptide therapy is one of the most promising frontiers in modern wellness medicine. Specific peptides can support recovery, immune function, skin quality, sleep, libido, lean muscle, and metabolic health — but only when prescribed correctly, sourced from reputable compounding pharmacies, and supervised by a qualified medical provider. At Hello Gorgeous, every peptide protocol is overseen by a licensed Illinois clinician, with full medical authority. No internet-bought vials. No guesswork. Just real peptide therapy, done right.",
     whyBullets: [
-      "Every protocol prescribed and supervised by Ryan Kent, FNP-BC — not sold over the counter",
+      "Every protocol prescribed and supervised by a licensed Illinois clinician — not sold over the counter",
       "Peptides sourced exclusively from licensed US compounding pharmacies — never gray-market or research-grade",
       "Customized protocols based on your goals, blood work, and medical history",
       "Ongoing follow-up and dose adjustment included — peptide therapy is a relationship, not a one-time sale",
@@ -257,7 +257,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     whatToExpectSteps: [
       "$49 peptide consultation with our medical team. We discuss your goals, medical history, current medications, and whether peptide therapy is appropriate for you.",
       "Labs and screening if indicated — we may recommend baseline blood work to inform protocol design and monitor safety.",
-      "Protocol design: Ryan reviews your case and prescribes a specific peptide or combination, with dose, frequency, and cycle clearly outlined.",
+      "Protocol design: A licensed Illinois clinician reviews your case and prescribes a specific peptide or combination, with dose, frequency, and cycle clearly outlined.",
       "Education: we teach you exactly how to self-administer, store your peptides correctly, and recognize anything that needs to be flagged.",
       "Ongoing support: follow-up appointments to assess response, adjust dosing, and refresh your protocol as needed. Peptide therapy is iterative — we stay involved.",
     ],
@@ -311,7 +311,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     heroContent:
       "NAD+ (nicotinamide adenine dinucleotide) is a coenzyme found in every cell of your body — essential for converting nutrients into the energy that powers everything from muscle function to brain clarity to DNA repair. NAD+ levels decline with age, stress, illness, and lifestyle factors, and IV infusion is the most direct way to restore them. Clients report mental clarity, sustained energy, improved sleep, faster recovery, and a general sense of feeling 'tuned up.' Done correctly, NAD+ therapy is one of the most powerful wellness tools available — but it should always be administered by qualified medical staff.",
     whyBullets: [
-      "Administered in-office by licensed medical staff with Ryan Kent, FNP-BC overseeing every infusion",
+      "Administered in-office by licensed medical staff with a licensed Illinois clinician overseeing every infusion",
       "Pharmaceutical-grade NAD+ from licensed US compounding pharmacies — no gray-market product",
       "Customized dosing based on your goals, medical history, and how you've tolerated previous infusions",
       "Calm, comfortable infusion suite — not an assembly line",

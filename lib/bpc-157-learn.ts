@@ -61,7 +61,7 @@ export const BPC157_LEARN_PAGE: PeptideLearnPageModel = {
   whatTitle: "A repair peptide",
   whatAccent: "under NP care",
   whatDescription:
-    "BPC-157 is a research peptide used here to support recovery after injury or training, and sometimes for gut comfort. It is not FDA-approved for treatment. Ryan decides if it belongs in your plan after reviewing your history.",
+    "BPC-157 is a research peptide used here to support recovery after injury or training, and sometimes for gut comfort. It is not FDA-approved for treatment. A licensed Illinois clinician decides if it belongs in your plan after reviewing your history.",
   facts: [
     { label: "Name", value: "BPC-157" },
     { label: "Class", value: "Research peptide — tissue & gut support protocols" },

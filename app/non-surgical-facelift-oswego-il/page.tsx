@@ -239,7 +239,7 @@ export default function NonSurgicalFaceliftOswegoPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-black mb-4">Lift. Sculpt. Rejuvenate — without surgery.</h2>
             <p className="text-white/90 font-medium mb-8">
-              Free consultation · Ryan Kent, FNP-BC on site · 74 W Washington St, Oswego, IL
+              Free consultation · a licensed Illinois clinician on site · 74 W Washington St, Oswego, IL
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CTA href={BOOKING_URL} variant="white">

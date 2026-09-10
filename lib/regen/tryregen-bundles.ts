@@ -1,7 +1,7 @@
 /**
  * tryregenrx.com Bundles aisle — BoomRx July 2026 sheet stacks only.
  *
- * Visitors request a bundle. Ryan Kent, FNP-BC prescribes only if clinically
+ * Visitors request a bundle. a licensed Illinois clinician prescribes only if clinically
  * appropriate (including off-label when indicated). Damara then pastes the
  * exact sheet name into the BoomRx portal. Not a research-chem cart.
  */
@@ -37,7 +37,7 @@ export const TRYREGEN_BUNDLES_ALL: TryregenBundle[] = [
     id: "recovery",
     name: "Recovery Blend",
     tagline: "Repair",
-    description: "BPC-157 / TB-500. Ryan decides if it is appropriate.",
+    description: "BPC-157 / TB-500. A licensed Illinois clinician decides if it is appropriate.",
     boomrxSheetNames: ["BPC-157 / TB-500"],
   },
   {
@@ -132,7 +132,7 @@ export function tryregenBundleStartHref(bundle?: TryregenBundle): string {
 }
 
 export const TRYREGEN_BUNDLES_LEGAL =
-  "Compounded medications are not FDA-approved. Ryan Kent, FNP-BC prescribes only when clinically appropriate, including off-label use when indicated. Requesting a bundle is a consult — not a guaranteed prescription.";
+  "Compounded medications are not FDA-approved. a licensed Illinois clinician prescribes only when clinically appropriate, including off-label use when indicated. Requesting a bundle is a consult — not a guaranteed prescription.";
 
 export function tryregenBundleSheetGaps(): string[] {
   return TRYREGEN_BUNDLES_ALL.flatMap((bundle) =>

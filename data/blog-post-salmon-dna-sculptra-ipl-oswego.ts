@@ -33,7 +33,7 @@ export const salmonDnaSculptraIplPost: BlogPost = {
     {
       question: "Does Hello Gorgeous offer Sculptra or biostimulators?",
       answer:
-        "Yes. We provide Sculptra and biostimulator treatment planning for gradual collagen support, performed under medical oversight by Ryan Kent, FNP-BC.",
+        "Yes. We provide Sculptra and biostimulator treatment planning for gradual collagen support, performed under medical oversight by a licensed Illinois clinician.",
     },
     {
       question: "Does Hello Gorgeous offer IPL photofacial?",
@@ -74,7 +74,7 @@ At Hello Gorgeous we use biostimulators when the goal is:
 - Jawline structure over time  
 - Skin quality and firmness — not same-day plump  
 
-Medical oversight: **Ryan Kent, FNP-BC**, on site **six days a week**.
+Medical oversight: **a licensed Illinois clinician**, on site **six days a week**.
 
 **Learn more:** [Sculptra & Biostimulator](/services/sculptra-biostimulator) · [Sculptra Oswego IL](/sculptra-oswego-il) · [Dermal fillers](/services/dermal-fillers)
 

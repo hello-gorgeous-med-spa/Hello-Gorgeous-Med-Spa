@@ -163,7 +163,7 @@ export default function ProvidersPage() {
         </div>
       </section>
 
-      {/* Meet Your Provider - Ryan Kent */}
+      {/* Meet Your Provider - a licensed Illinois clinician */}
       <section className="py-16 px-6" style={{ backgroundColor: BRAND.darkAlt }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
@@ -197,21 +197,21 @@ export default function ProvidersPage() {
                 >
                   <span className="text-7xl">👨‍⚕️</span>
                 </div>
-                <h3 className="text-2xl font-black" style={{ color: BRAND.cream }}>Ryan Kent</h3>
-                <p className="font-medium" style={{ color: BRAND.teal }}>FNP-BC, MSN</p>
-                <p className="text-sm mt-1" style={{ color: BRAND.gray }}>Lead Provider</p>
+                <h3 className="text-2xl font-black" style={{ color: BRAND.cream }}>Dr. Mukesh Arora, MD</h3>
+                <p className="font-medium" style={{ color: BRAND.teal }}>Medical Director · Internal Medicine</p>
+                <p className="text-sm mt-1" style={{ color: BRAND.gray }}>Physician oversight</p>
               </div>
 
               {/* Credentials */}
               <div className="md:col-span-2">
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   {[
-                    { label: 'Board Certification', value: 'Family Nurse Practitioner (ANCC)' },
-                    { label: 'Education', value: 'MSN, Family Practice' },
-                    { label: 'License', value: 'Full Practice Authority — Illinois' },
-                    { label: 'Experience', value: '10+ Years Clinical Practice' },
-                    { label: 'Specializations', value: 'Weight Loss, HRT, Peptides' },
-                    { label: 'DEA Licensed', value: 'Schedule II-V Prescribing' },
+                    { label: 'Role', value: 'Medical Director' },
+                    { label: 'Specialty', value: 'Internal Medicine' },
+                    { label: 'Experience', value: '30+ years in medicine' },
+                    { label: 'Practice', value: 'Hello Gorgeous Med Spa · Oswego' },
+                    { label: 'Prescriptions', value: 'Licensed Illinois clinician review' },
+                    { label: 'Patients', value: 'Illinois adults 21+' },
                   ].map((cred) => (
                     <div key={cred.label} className="p-4 rounded-xl" style={{ backgroundColor: `${BRAND.teal}10` }}>
                       <p className="text-xs uppercase tracking-wider mb-1" style={{ color: BRAND.teal }}>{cred.label}</p>
@@ -221,17 +221,14 @@ export default function ProvidersPage() {
                 </div>
 
                 <div className="mb-6">
-                  <h4 className="font-bold mb-3" style={{ color: BRAND.cream }}>About Ryan</h4>
+                  <h4 className="font-bold mb-3" style={{ color: BRAND.cream }}>How prescriptions work</h4>
                   <p className="text-sm mb-3" style={{ color: BRAND.gray }}>
-                    Ryan Kent is a board-certified Family Nurse Practitioner with Full Practice Authority in Illinois, 
-                    meaning he can independently diagnose, treat, and prescribe without physician supervision. With over 
-                    a decade of clinical experience, Ryan specializes in metabolic health, hormone optimization, and 
-                    regenerative medicine.
+                    REGEN RX is consult-first. A licensed Illinois clinician reviews every request and writes
+                    every prescription. Danielle Alcala-Glazier owns the practice — she is not the prescriber.
                   </p>
                   <p className="text-sm" style={{ color: BRAND.gray }}>
-                    Prior to founding REGEN RX, Ryan worked in primary care, urgent care, and medical aesthetics, 
-                    developing expertise in weight management and hormone therapy. He stays current on the latest 
-                    clinical evidence for GLP-1 medications, peptide therapy, and bioidentical HRT.
+                    Dr. Mukesh Arora, MD serves as Medical Director. A visit is not a guaranteed prescription,
+                    dose, or result. Compounded medication is not FDA-approved.
                   </p>
                 </div>
 

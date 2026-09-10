@@ -197,7 +197,7 @@ export function WellnessPriceListContent() {
                     <p className="text-xs font-semibold uppercase tracking-widest text-[#C9917A]">Before you start</p>
                     <p className="mt-1 font-serif text-3xl text-[#2d1020]">${PEPTIDE_CONSULT_FEE_USD} NP consult</p>
                     <p className="mt-1 text-sm text-[#2d1020]/65">
-                      Required for new peptide protocols · telehealth with Ryan Kent, FNP-BC
+                      Required for new peptide protocols · telehealth with a licensed Illinois clinician
                     </p>
                   </div>
                   <p className="text-sm font-medium text-[#2d1020]/70 md:text-right">
@@ -246,7 +246,7 @@ export function WellnessPriceListContent() {
                 <div className="rounded-xl border border-[#C9917A]/35 bg-gradient-to-br from-[#FFF8F5] to-[#FAF7F4] p-8">
                   <h3 className="font-serif text-2xl font-semibold text-[#2d1020]">Schedule your consultation</h3>
                   <p className="mt-3 text-sm leading-relaxed text-[#2d1020]/70">
-                    Ryan Kent, FNP-BC · full prescriptive authority · on site six days a week. Your personalized quote
+                    a licensed Illinois clinician · full prescriptive authority · on site six days a week. Your personalized quote
                     is confirmed before you commit.
                   </p>
                   <p className="mt-4 font-semibold text-[#E6007E] text-lg">{SITE.phone}</p>

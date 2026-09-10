@@ -45,7 +45,7 @@ const FAQS = [
   },
   {
     question: 'Who performs Botox at Hello Gorgeous?',
-    answer: 'Injections are performed by Ryan Kent, FNP-BC — a board-certified family nurse practitioner with full Illinois prescriptive authority — with physician oversight from our Medical Director, Dr. Mukesh Arora, MD.',
+    answer: 'Injections are performed by a licensed Illinois clinician — a board-certified family nurse practitioner with full Illinois prescriptive authority — with physician oversight from our Medical Director, Dr. Mukesh Arora, MD.',
   },
   {
     question: 'How long does Botox last?',

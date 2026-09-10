@@ -106,7 +106,7 @@ export const FACEBOOK_PAGE_PRESET_QUANTUM: FacebookPagePreset = {
 
 Model Days May 4 & May 12 · limited spots · Quantum RF + Morpheus8 Body Deep bundled. Save up to $1,000 vs package pricing.
 
-Text or call Ryan Kent to claim your spot: 217-741-8359
+Text or call a licensed Illinois clinician to claim your spot: 217-741-8359
 Main office: (630) 636-6193`,
   linkPath: withUtm("/services/quantum-rf#contour-lift-model-days"),
   imagePath: "/images/quantum-rf/hello-gorgeous-contour-lift-model-days-flyer-2026.jpg",
@@ -168,12 +168,12 @@ NP on site 6 days a week. Book online 👇`,
 export const FACEBOOK_PAGE_PRESET_PEPTIDE_49: FacebookPagePreset = {
   id: "peptide-49-consult",
   label: "Peptide therapy — $49 consult",
-  blurb: "Oswego's full peptide menu · Ryan Kent FNP-BC.",
+  blurb: "Oswego's full peptide menu · a licensed Illinois clinician.",
   message: `🧬 Peptide therapy is BOOMING — and Hello Gorgeous has it ALL.
 
 BPC-157 · Sermorelin · GHK-Cu · Tesamorelin · PT-141 · NAD+ · glutathione · GLP-1 when appropriate.
 
-Not internet vials. Prescribed & supervised by Ryan Kent, FNP-BC — pharmacy-sourced, medical-grade.
+Not internet vials. Prescribed & supervised by a licensed Illinois clinician — pharmacy-sourced, medical-grade.
 
 $49 peptide consultation (medication priced separately). Oswego · Naperville · Aurora · Plainfield.
 
@@ -191,7 +191,7 @@ export const FACEBOOK_PAGE_PRESET_INJECTION_MENU: FacebookPagePreset = {
 
 Signature peptide therapies + vitamin wellness shots — PT-141, BPC-157, Sermorelin, NAD+, B12, biotin, MIC & more.
 
-Choose what feels right — your provider guides you. Ryan Kent, FNP-BC on every Rx protocol.
+Choose what feels right — your provider guides you. a licensed Illinois clinician on every Rx protocol.
 
 See the full menu & book your $49 consult 👇`,
   linkPath: withUtm("/injection-menu"),
@@ -205,7 +205,7 @@ export const FACEBOOK_PAGE_PRESET_PEPTIDE_BPC157: FacebookPagePreset = {
   blurb: "Most-requested healing peptide.",
   message: `🩹 BPC-157 at Hello Gorgeous — for recovery, gut health & tissue repair.
 
-Clients ask for it after workouts, injuries, or when they want support healing from the inside out. Prescribed by Ryan Kent, FNP-BC — not sold over the counter.
+Clients ask for it after workouts, injuries, or when they want support healing from the inside out. Prescribed by a licensed Illinois clinician — not sold over the counter.
 
 Learn how it works + book your $49 peptide consult (Oswego, IL).`,
   linkPath: withUtm("/peptides/bpc-157"),
@@ -227,7 +227,7 @@ Tendons and ligaments don't have much blood flow — that's why a stubborn Achil
 
 That's preclinical science (cells + animals) — not a guarantee for your tendon. BPC-157 is not an FDA-approved healing drug.
 
-At Hello Gorgeous Med Spa in Oswego, we still get this question every week from Naperville, Aurora & the Fox Valley. Hello Gorgeous RX™ means Ryan Kent, FNP-BC evaluates you — licensed compounding partners, not a gray-market vial.
+At Hello Gorgeous Med Spa in Oswego, we still get this question every week from Naperville, Aurora & the Fox Valley. Hello Gorgeous RX™ means a licensed Illinois clinician evaluates you — licensed compounding partners, not a gray-market vial.
 
 $49 peptide consult · medication priced separately if prescribed
 74 W. Washington St. · 630-636-6193
@@ -246,7 +246,7 @@ export const FACEBOOK_PAGE_PRESET_PEPTIDE_SERMORELIN: FacebookPagePreset = {
 
 One of our most popular wellness peptides. Medical evaluation + pharmacy-sourced Rx only at Hello Gorgeous.
 
-Ryan Kent, FNP-BC · downtown Oswego · serving the western suburbs.
+a licensed Illinois clinician · downtown Oswego · serving the western suburbs.
 
 $49 peptide consult — link below 👇`,
   linkPath: withUtm("/peptides/sermorelin"),
@@ -262,7 +262,7 @@ export const FACEBOOK_PAGE_PRESET_PEPTIDE_NAPERVILLE: FacebookPagePreset = {
 
 Hello Gorgeous in downtown Oswego (~15 min) offers one of the most complete peptide menus in the western suburbs: BPC-157, Sermorelin, GHK-Cu, PT-141, NAD+ & more.
 
-Ryan Kent, FNP-BC prescribes every protocol. $49 consult. Book below 👇`,
+a licensed Illinois clinician prescribes every protocol. $49 consult. Book below 👇`,
   linkPath: withUtm("/peptide-therapy-naperville-il"),
   imagePath: "/images/promo/injection-menu-poster.png",
   defaultChannels: ["facebook", "instagram", "google"],
@@ -466,7 +466,7 @@ export const FACEBOOK_PAGE_PRESET_BOTOX_49: FacebookPagePreset = {
 
 Honest, published pricing — the same for everyone, no membership required. Botox · Dysport · Jeuveau.
 
-Ryan Kent, FNP-BC on site 6 days a week · 10+ years injecting · same-day often available.
+a licensed Illinois clinician on site 6 days a week · 10+ years injecting · same-day often available.
 
 Free consultation, every time — we won't talk you into units you don't need. Serving Naperville, Aurora & Plainfield.
 
@@ -482,7 +482,7 @@ export const FACEBOOK_PAGE_PRESET_BOTOX_AUTHENTIC: FacebookPagePreset = {
   blurb: "Trust angle — real product, no shortcuts.",
   message: `🛡️ Real Botox. Real nurse practitioner. Real pricing.
 
-We use only authentic, FDA-approved product from licensed distributors — and Ryan Kent, FNP-BC oversees every protocol on site.
+We use only authentic, FDA-approved product from licensed distributors — and a licensed Illinois clinician oversees every protocol on site.
 
 No revolving door of providers. No mystery pricing. No upsell pressure. Just as low as $9/unit Botox done right in downtown Oswego.
 
@@ -500,7 +500,7 @@ export const FACEBOOK_PAGE_PRESET_BOTOX_COMPARE: FacebookPagePreset = {
 
 All three relax the muscles that cause expression lines. The difference is onset, spread & feel — and we carry all three so we can match you to the best one.
 
-Botox as low as $9/unit · Dysport $14/unit · Jeuveau $11/unit. Ryan Kent, FNP-BC, Oswego IL.
+Botox as low as $9/unit · Dysport $14/unit · Jeuveau $11/unit. a licensed Illinois clinician, Oswego IL.
 
 Free consult to figure out your plan 👇`,
   linkPath: withUtm("/botox-oswego"),
@@ -528,7 +528,7 @@ export const FACEBOOK_PAGE_PRESET_BOTOX_AI: FacebookPagePreset = {
   blurb: "Screenshot-style social proof — swap in your AI answer.",
   message: `🤖💕 We asked AI "where do I go for Botox in Oswego, IL?" — and it picked Hello Gorgeous.
 
-Why? Licensed nurse practitioner (Ryan Kent, FNP-BC) · authentic, FDA-approved product · honest as low as $9/unit pricing · natural, refreshed results — not frozen.
+Why? Licensed nurse practitioner (a licensed Illinois clinician) · authentic, FDA-approved product · honest as low as $9/unit pricing · natural, refreshed results — not frozen.
 
 When even the internet agrees, you know you're in good hands. 😉
 
@@ -548,7 +548,7 @@ export const FACEBOOK_PAGE_PRESET_BOTOX_NATURAL: FacebookPagePreset = {
 
 Looking for Botox in Oswego, IL? At Hello Gorgeous we focus on facial balance, conservative dosing & customized plans — softening fine lines while keeping your expressions beautiful and natural. Never frozen, never overdone.
 
-as low as $9/unit · Ryan Kent, FNP-BC · authentic FDA-approved product · free consult.
+as low as $9/unit · a licensed Illinois clinician · authentic FDA-approved product · free consult.
 
 Book below 👇`,
   linkPath: withUtm("/botox-oswego"),
@@ -581,7 +581,7 @@ Hello Gorgeous Memberships — real savings, every month:
 
 Vitamin Bar drive-thru memberships from $49/mo ⚡
 
-Credits roll over. Ryan Kent, FNP-BC on site. Downtown Oswego — 74 W Washington St.
+Credits roll over. a licensed Illinois clinician on site. Downtown Oswego — 74 W Washington St.
 
 Join online 👇
 hellogorgeousmedspa.com/memberships
@@ -610,7 +610,7 @@ Hello Gorgeous RX™ GLP-1 programs:
 ✅ 3-month prepay options
 ✅ Included monthly check-ins (in-person or telehealth)
 
-Ryan Kent, FNP-BC — on site in Oswego, not a random out-of-state telehealth mill.
+a licensed Illinois clinician — on site in Oswego, not a random out-of-state telehealth mill.
 
 Start here 👇
 hellogorgeousmedspa.com/glp-1-weight-loss-oswego
@@ -644,7 +644,7 @@ hellogorgeousmedspa.com/app
 Peptide request 👇
 hellogorgeousmedspa.com/peptide-request
 
-Ryan Kent, FNP-BC · 74 W Washington St, Oswego
+a licensed Illinois clinician · 74 W Washington St, Oswego
 630-636-6193 · Naperville · Aurora · Plainfield`,
   linkPath: "/hello-gorgeous-rx/start-here?utm_source=facebook&utm_medium=organic&utm_campaign=rx_blast",
   imagePath: "/images/memberships/energy-unlimited.png",
@@ -665,7 +665,7 @@ Our advanced technique combines Botox, dermal fillers, PDO threads & skin-tighte
 ✓ Stimulate collagen
 ✓ Minimal downtime
 
-Free consult · Ryan Kent, FNP-BC · downtown Oswego. Book below 👇`,
+Free consult · a licensed Illinois clinician · downtown Oswego. Book below 👇`,
   linkPath: withUtm("/non-surgical-facelift-oswego-il"),
   imagePath: "/images/morpheus8/morpheus8-burst-deep-jowls-jawline-before-after.png",
   defaultChannels: ["facebook", "instagram", "google"],
@@ -832,7 +832,7 @@ Why clients ask for it:
 ✨ Room to fine-tune at a follow-up
 
 Lips · cheeks · under-eyes · fine lines
-NP-directed · Ryan Kent, FNP-BC on site
+NP-directed · a licensed Illinois clinician on site
 Free consult · 74 W Washington St
 
 Individual results vary. Read the full article 👇`,

@@ -154,7 +154,7 @@ function approvalStep(dispatch: RxDispatchRecord | null): RxPatientStatusStep {
     id: "approval",
     label: "Clinical review",
     status: "pending",
-    detail: "Submitted — Ryan reviews after telehealth and payment when required.",
+    detail: "Submitted — A licensed Illinois clinician reviews after telehealth and payment when required.",
   };
 }
 

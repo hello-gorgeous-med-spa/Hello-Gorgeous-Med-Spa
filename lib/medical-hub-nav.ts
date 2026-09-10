@@ -53,7 +53,7 @@ export const MEDICAL_HUB_PRIMARY: MedicalHubNavItem[] = [
   {
     id: "telehealth",
     label: "Book telehealth",
-    description: "Video visit with Ryan Kent, FNP-BC.",
+    description: "Video visit with a licensed Illinois clinician.",
     href: HG_RX_TELEHEALTH_BOOKING_URL,
     external: true,
   },

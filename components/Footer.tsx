@@ -66,7 +66,7 @@ export function Footer({
               {tagline}
             </p>
             <p className="mt-2 text-xs text-white/70">
-              #1 Best Med Spa · Full-authority NP on site · Quantum RF · Burst · Solaria CO2
+              #1 Best Med Spa · MD oversight · Quantum RF · Burst · Solaria CO2
             </p>
             <div className="mt-3">
               <BestOfOswegoBadge variant="compact" className="!bg-[#FFD700]/10 !border-[#FFD700]/40" />

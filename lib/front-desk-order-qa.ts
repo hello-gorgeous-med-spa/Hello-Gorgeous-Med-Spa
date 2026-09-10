@@ -53,7 +53,7 @@ export const FRONT_DESK_ORDER_QA_SECTIONS: FrontDeskQaSection[] = [
     items: [
       {
         q: "How do I place an order / get started?",
-        a: `New patients: go to hellogorgeousmedspa.com/rx/request (or Start Here for peptides), complete intake, pay the $${CONSULT} NP consult when prompted, then book telehealth with Ryan Kent, FNP-BC. Returning RX patients: use Care Hub (/rx/care) or their refill link — they usually skip the $${CONSULT} new-patient gate.`,
+        a: `New patients: go to hellogorgeousmedspa.com/rx/request (or Start Here for peptides), complete intake, pay the $${CONSULT} NP consult when prompted, then book telehealth with a licensed Illinois clinician. Returning RX patients: use Care Hub (/rx/care) or their refill link — they usually skip the $${CONSULT} new-patient gate.`,
         say: `“Start online at /rx/request — or if you’re already an RX patient, use Care Hub or your refill link.”`,
       },
       {
@@ -74,7 +74,7 @@ export const FRONT_DESK_ORDER_QA_SECTIONS: FrontDeskQaSection[] = [
       {
         q: "Can I order without seeing a provider?",
         a: "No. This is a medical practice. Every prescription requires provider approval after screening. We never dispense without clinical review.",
-        say: "“Everything is NP-directed — Ryan reviews and approves before anything ships.”",
+        say: "“Everything is NP-directed — A licensed Illinois clinician reviews and approves before anything ships.”",
       },
     ],
   },

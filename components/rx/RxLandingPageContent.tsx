@@ -343,7 +343,7 @@ export function RxLandingPageContent() {
       <Section className="border-b-2 border-[#E6007E] bg-white !py-8">
         <div className="mx-auto grid max-w-5xl gap-4 px-4 md:grid-cols-2 lg:px-6">
           {[
-            "All prescription therapies are prescribed by Ryan Kent, FNP-BC following a comprehensive medical evaluation.",
+            "All prescription therapies are prescribed by a licensed Illinois clinician following a comprehensive medical evaluation.",
             "Services are available to Illinois residents only.",
             "Medications are fulfilled through licensed U.S. compounding and pharmaceutical partners.",
             "A valid medical consultation is required prior to approval.",
@@ -366,7 +366,7 @@ export function RxLandingPageContent() {
               How Hello Gorgeous <span className="text-[#E6007E]">RX™</span> works
             </h2>
             <p className="mt-2 max-w-xl text-black/60">
-              From first inquiry to monthly refills — supervised by Ryan Kent, FNP-BC.
+              From first inquiry to monthly refills — supervised by a licensed Illinois clinician.
             </p>
           </FadeUp>
 

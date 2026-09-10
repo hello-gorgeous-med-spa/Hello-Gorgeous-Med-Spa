@@ -55,7 +55,7 @@ export default function MedicalDirectorPage() {
 
   const breadcrumb = breadcrumbJsonLd([
     { name: "Home", url: SITE.url },
-    { name: "About Dani & Ryan", url: `${SITE.url}/about` },
+    { name: "About Danielle", url: `${SITE.url}/about` },
     { name: MEDICAL_DIRECTOR.displayName, url: PAGE_URL },
   ]);
 

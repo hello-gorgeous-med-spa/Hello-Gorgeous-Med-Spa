@@ -71,7 +71,7 @@ export const WHAT_IS_SHOCKWAVE_ARTICLE: FlowwaveLearnArticle = {
   ],
   updated: "2026-07-05",
   readTime: "7 min",
-  reviewedBy: "Ryan Kent, FNP-BC",
+  reviewedBy: "a licensed Illinois clinician",
   heroImage: "/images/flowwave/flowwave-recovery-banner.png",
   heroImageAlt: "FlowWave FOCUS shockwave therapy for pain and recovery — Hello Gorgeous Med Spa Oswego",
   intro: [
@@ -200,7 +200,7 @@ export const HOW_FLOWWAVE_WORKS_ARTICLE: FlowwaveLearnArticle = {
   ],
   updated: "2026-07-05",
   readTime: "5 min",
-  reviewedBy: "Ryan Kent, FNP-BC",
+  reviewedBy: "a licensed Illinois clinician",
   heroImage: "/images/flowwave/flowwave-device-banner.png",
   heroImageAlt: "FlowWave FOCUS device — shockwave therapy at Hello Gorgeous Med Spa",
   intro: [
@@ -291,7 +291,7 @@ export const SHOCKWAVE_PAIN_RECOVERY_ARTICLE: FlowwaveLearnArticle = {
   ],
   updated: "2026-07-05",
   readTime: "6 min",
-  reviewedBy: "Ryan Kent, FNP-BC",
+  reviewedBy: "a licensed Illinois clinician",
   heroImage: "/images/flowwave/flowwave-zones-banner.png",
   heroImageAlt: "Treatment zones for FlowWave shockwave therapy",
   intro: [
@@ -381,7 +381,7 @@ export const SHOCKWAVE_MENS_WELLNESS_ARTICLE: FlowwaveLearnArticle = {
   ],
   updated: "2026-07-05",
   readTime: "5 min",
-  reviewedBy: "Ryan Kent, FNP-BC",
+  reviewedBy: "a licensed Illinois clinician",
   heroImage: "/images/flowwave/flowwave-mens-banner.png",
   heroImageAlt: "Private men's wellness shockwave — Hello Gorgeous Med Spa",
   intro: [

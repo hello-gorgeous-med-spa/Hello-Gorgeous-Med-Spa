@@ -5,7 +5,7 @@ import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
 import { BOOKING_URL } from "@/lib/flows";
-import { DANI_FULL_NAME, RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import { DANI_FULL_NAME } from "@/lib/founder-credentials";
 import {
   MEDICAL_HOW_IT_WORKS,
   MEDICAL_OPTIMIZATION_FAQS,
@@ -125,14 +125,12 @@ export function MedicalOptimizationPageContent() {
               Meet your medical team
             </h2>
             <p className="mt-4 text-2xl font-black text-neutral-900 md:text-3xl">
-              {RYAN_FULL_NAME} leads every prescription
+              Licensed Illinois clinician review
             </p>
             <p className="mt-4 text-neutral-600 leading-relaxed">
-              Ryan is our on-site Board-Certified Family Nurse Practitioner with full
-              Illinois prescriptive authority — on site 6 days a week under Medical Director Dr. Mukesh
-              Arora, MD. {DANI_FULL_NAME} founded
-              Hello Gorgeous and leads aesthetics, IV, and client experience alongside Ryan&apos;s
-              medical programs.
+              Prescriptions are written only by a licensed Illinois clinician under Medical Director
+              Dr. Mukesh Arora, MD. {DANI_FULL_NAME} founded Hello Gorgeous and leads aesthetics, IV,
+              and client experience. She is not the prescriber.
             </p>
             <blockquote className="mt-6 border-l-4 border-[#E6007E] pl-4 text-lg font-medium italic text-neutral-800">
               &ldquo;{MEDICAL_TEAM_QUOTE}&rdquo;

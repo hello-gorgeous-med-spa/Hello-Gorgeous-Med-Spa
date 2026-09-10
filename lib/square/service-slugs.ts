@@ -38,7 +38,7 @@ export const SERVICE_SLUG_MAP: Record<string, string[]> = {
     "Morpheus8 Burst x3 Package",
   ],
   "biote-hormone-therapy": [
-    "Medical Visit with Ryan Kent, FNP-BC",
+    "Medical Visit with a licensed Illinois clinician",
     "Hormone Lab Panel — Women",
   ],
   "ipl-photofacial": ["Photofacials (IPL)", "IPL Photofacial"],
@@ -54,8 +54,8 @@ export const SERVICE_SLUG_MAP: Record<string, string[]> = {
   prp: ["PRP — Hair Restoration", "Microneedling with PRP"],
   "prp-facial": ["Microneedling with PRP"],
   "lash-spa": ["Hybrid Lash Extensions — Full Set", "Classic Lash Extensions — Full Set"],
-  "sermorelin-growth-peptide": ["RE GEN Peptide Consult", "Medical Visit with Ryan Kent, FNP-BC"],
-  consultation: ["Consultation", "Medical Visit with Ryan Kent, FNP-BC"],
+  "sermorelin-growth-peptide": ["RE GEN Peptide Consult", "Medical Visit with a licensed Illinois clinician"],
+  consultation: ["Consultation", "Medical Visit with a licensed Illinois clinician"],
   flowwave: ["FlowWave Shockwave — Intro First Session (Any Area)", "FlowWave Shockwave — 6-Session Package"],
 };
 

@@ -34,14 +34,14 @@ export const INMODE_TRAINING_CERTIFICATES: InModeTrainingCertificate[] = [
     file: "/images/certificates/danielle-solaria-inmode-cert.pdf",
   },
   {
-    providerName: "Ryan Kent, FNP-BC",
+    providerName: "a licensed Illinois clinician",
     credentialLabel: "Medical Director",
     trainingTitle: "Morpheus8 (Luxora)",
     completedDate: "March 20, 2026",
     file: "/images/certificates/ryan-morpheus8-inmode-cert.pdf",
   },
   {
-    providerName: "Ryan Kent, FNP-BC",
+    providerName: "a licensed Illinois clinician",
     credentialLabel: "Medical Director",
     trainingTitle: "Solaria CO₂",
     completedDate: "March 17, 2026",

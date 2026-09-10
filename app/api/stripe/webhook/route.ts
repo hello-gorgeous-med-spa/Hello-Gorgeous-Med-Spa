@@ -1,26 +1,10 @@
-// ============================================================
-// STRIPE WEBHOOK - DEPRECATED
-// ============================================================
-// 
-// ⚠️  STRIPE IS NO LONGER USED FOR HELLO GORGEOUS MED SPA
-// 
-// Decision: FINAL (Owner Decision)
-// Primary Processor: SQUARE
-// 
-// Configure Square webhooks instead.
-// ============================================================
+/**
+ * Compatibility endpoint for the Hello Gorgeous Med Spa RX Stripe account.
+ * Dashboard still posts to /api/stripe/webhook on hellogorgeousmedspa.com.
+ * Same handler as tryregenrx.com/api/regen/webhooks/stripe.
+ */
+export { GET, POST } from "@/app/api/regen/webhooks/stripe/route";
 
-import { NextResponse } from 'next/server';
-
-export async function POST() {
-  // Log for monitoring - helps detect if Stripe is still trying to call us
-  console.warn('⚠️  DEPRECATED: Stripe webhook called but Stripe is no longer used');
-  
-  return NextResponse.json(
-    { 
-      error: 'STRIPE_DEPRECATED',
-      message: 'Stripe webhooks are no longer processed. Square is the sole payment processor.',
-    },
-    { status: 410 }
-  );
-}
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;

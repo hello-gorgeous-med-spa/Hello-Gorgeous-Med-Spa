@@ -173,7 +173,7 @@ export async function POST(request: NextRequest) {
     const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(providerId);
     
     if (!isUUID) {
-      // Resolve slug to UUID by first name (Ryan Kent / Danielle Alcala or Glazier-Alcala)
+      // Resolve slug to UUID by first name (a licensed Illinois clinician / Danielle Alcala or Glazier-Alcala)
       const slugToFirst: Record<string, string> = {
         'ryan-kent': 'ryan',
         'danielle-alcala': 'danielle',

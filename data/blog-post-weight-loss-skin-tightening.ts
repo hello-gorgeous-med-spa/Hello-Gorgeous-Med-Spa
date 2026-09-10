@@ -74,7 +74,7 @@ Each plan is reviewed in consult first. We prioritize candidacy, safety, and rea
 
 ## Who oversees your care?
 
-Consults and medical screening are led by our clinical team, including **Ryan Kent, FNP-BC**, with founder-guided continuity from Danielle so the strategy stays human, not transactional.
+Consults and medical screening are led by our clinical team, including **a licensed Illinois clinician**, with founder-guided continuity from Danielle so the strategy stays human, not transactional.
 
 ## Real talk from Dani
 

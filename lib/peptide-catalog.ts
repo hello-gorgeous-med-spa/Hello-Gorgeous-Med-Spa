@@ -146,7 +146,7 @@ export const GLP1_CATALOG: PeptideCatalogEntry[] = [
     name: "Tirzepatide",
     categoryLabel: "Medical Weight Loss",
     description:
-      "Dual GIP/GLP-1 agonist — often more potent than semaglutide for appropriate candidates. Full medical weight loss program with Ryan Kent, FNP-BC.",
+      "Dual GIP/GLP-1 agonist — often more potent than semaglutide for appropriate candidates. Full medical weight loss program with a licensed Illinois clinician.",
     commonUses: ["Weight loss", "Blood sugar", "Body composition"],
     monthlyUsd: GLP1_RETAIL_PROGRAM.tirzepatideFromUsd,
     prepayEligible: false,

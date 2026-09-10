@@ -71,7 +71,7 @@ const mascotHeroData: MascotHeroData[] = [
   },
   {
     id: "ryan",
-    characterImage: "/images/providers/ryan-kent-clinic.jpg",
+    characterImage: "/images/about-kent-clinic.jpg",
     videoSrc: null,
     imageCover: true,
     features: [

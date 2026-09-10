@@ -243,7 +243,7 @@ export function FallMakeoverPageContent() {
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/80 lg:text-xl">
               Three packages. One season. Repair pigment, prevent aging, or lose with medical weight
-              loss and tightening — each one treats you from the inside and the outside. Ryan Kent,
+              loss and tightening — each one treats you from the inside and the outside. a licensed Illinois clinician,
               FNP-BC maps the plan. {HG_TAGLINE}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
@@ -348,7 +348,7 @@ export function FallMakeoverPageContent() {
             eyebrow="Pick your lane"
             title="Repair. Prevent."
             titleAccent="Lose."
-            description="Most clients pick one lane so the inside and outside work on the same goal. Launch savings apply at consult after Ryan maps candidacy — not a checkout coupon."
+            description="Most clients pick one lane so the inside and outside work on the same goal. Launch savings apply at consult after a clinician maps candidacy — not a checkout coupon."
           />
           <div className="mt-11 grid gap-6 lg:grid-cols-3">
             {FALL_MAKEOVER_PACKAGES.map((pkg) => (
@@ -396,7 +396,7 @@ export function FallMakeoverPageContent() {
               ))}
             </ul>
             <blockquote className="mt-7 max-w-xl border-l-[3px] border-[#FF2D8E] pl-5 font-serif text-xl italic leading-snug text-white">
-              Applied after Ryan maps candidacy — not a checkout coupon.
+              Applied after a clinician maps candidacy — not a checkout coupon.
             </blockquote>
             <div className="mt-7 flex flex-wrap gap-3.5">
               <PinkBtn href={FALL_MAKEOVER_PACKAGES[0].bookHref}>Book Repair + gift card</PinkBtn>
@@ -441,7 +441,7 @@ export function FallMakeoverPageContent() {
             eyebrow="How we price this"
             title="Menu anchors. Your package"
             titleAccent="locks at consult."
-            description="We do not post a fake bundle total. Creams, K-Glow, vitamin shots, and Morpheus8 area are quoted after Ryan clears you."
+            description="We do not post a fake bundle total. Creams, K-Glow, vitamin shots, and Morpheus8 area are quoted after a clinician clears you."
           />
           <div className="mt-11 rounded-[20px] border border-white/14 bg-gradient-to-b from-[#140109] to-[#0a0206] p-8 lg:p-11">
             <p className="text-lg leading-relaxed text-white/80">

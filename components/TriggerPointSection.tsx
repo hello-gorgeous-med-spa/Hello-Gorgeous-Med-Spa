@@ -221,7 +221,7 @@ export function TriggerPointSection() {
               </div>
               <div className="text-center md:text-right">
                 <p className="text-black mb-4">
-                  Performed by <span className="text-[#FF2D8E] font-bold">Ryan Kent, FNP-BC</span>
+                  Performed by <span className="text-[#FF2D8E] font-bold">a licensed Illinois clinician</span>
                   <br />
                   <span className="text-sm">Board-Certified Nurse Practitioner</span>
                 </p>

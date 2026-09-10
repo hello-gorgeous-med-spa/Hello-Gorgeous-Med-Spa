@@ -116,7 +116,7 @@ export function RegenerativeMedicineHub() {
               <p className="mt-4 text-sm text-gray-500">
                 Medical oversight from{" "}
                 <Link href="/providers" className="text-[#FF2D8E] font-bold hover:underline">
-                  Ryan Kent, FNP-BC
+                  a licensed Illinois clinician
                 </Link>
                 . NAD+ and IV wellness live on the{" "}
                 <Link href="/services/wellness" className="text-[#FF2D8E] font-bold hover:underline">

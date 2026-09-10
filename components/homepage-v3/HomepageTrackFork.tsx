@@ -181,7 +181,7 @@ export function HomepageTrackFork() {
             </span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/60 sm:text-base">
-            GLP-1, hormones, peptides, and telehealth — pay online, meet Ryan on video, ship to your door.
+            GLP-1, hormones, peptides, and telehealth — pay online, talk to a clinician, ship to your door.
             Med spa injectables and skin treatments are in{" "}
             <Link href={`#${HOMEPAGE_AESTHETICS_ANCHOR}`} className="font-semibold text-[#60a5fa] underline underline-offset-2">
               aesthetics below

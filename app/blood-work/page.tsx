@@ -16,7 +16,7 @@ const PAGE_URL = `${SITE.url}${BLOOD_WORK_PATH}`;
 const baseMeta = pageMetadata({
   title: "Comprehensive Blood Panels & Lab Testing | Hello Gorgeous Oswego",
   description:
-    "60+ biomarker blood panels for hormone optimization, GLP-1, and wellness — metabolic, cardiovascular, thyroid, and nutrient testing. $250–450 typical. FullScript, Quest, LabCorp. Ryan Kent, FNP-BC.",
+    "60+ biomarker blood panels for hormone optimization, GLP-1, and wellness — metabolic, cardiovascular, thyroid, and nutrient testing. $250–450 typical. FullScript, Quest, LabCorp. a licensed Illinois clinician.",
   path: BLOOD_WORK_PATH,
   keywords: [
     "comprehensive blood panel Oswego IL",

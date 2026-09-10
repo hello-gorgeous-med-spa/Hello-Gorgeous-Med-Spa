@@ -71,19 +71,19 @@ export const REGEN_SHOP_BOOK_HREF = BOOKING_URL;
 export const REGEN_SHOP_FAQS = [
   {
     q: "What is RE GEN by Hello Gorgeous Med Spa?",
-    a: "RE GEN is the telehealth and prescription arm of Hello Gorgeous Med Spa in Oswego, Illinois. We advertise medical consultations — not a public compounded-peptide catalog. Every plan is set by Ryan Kent, FNP-BC before anything is dispensed.",
+    a: "RE GEN is the telehealth and prescription arm of Hello Gorgeous Med Spa in Oswego, Illinois. We advertise medical consultations — not a public compounded-peptide catalog. Every plan is set by a licensed Illinois clinician before anything is dispensed.",
   },
   {
     q: "How do I know which treatment is right for me?",
-    a: "Start a medical intake. Ryan Kent, FNP-BC reviews your history and labs and decides whether a prescription is clinically appropriate. We do not publish a public peptide menu.",
+    a: "Start a medical intake. a licensed Illinois clinician reviews your history and labs and decides whether a prescription is clinically appropriate. We do not publish a public peptide menu.",
   },
   {
     q: "Who oversees RE GEN treatment plans?",
-    a: "Every RE GEN protocol is supervised in Illinois by Ryan Kent, FNP-BC, a board-certified family nurse practitioner, with medical-director oversight. Provider review is required before fulfillment.",
+    a: "Every RE GEN protocol is supervised in Illinois by a licensed Illinois clinician, a board-certified family nurse practitioner, with medical-director oversight. Provider review is required before fulfillment.",
   },
   {
     q: "How does RE GEN work?",
-    a: "Start intake — free to submit. A $49 consult fee reserves your visit with Ryan Kent, FNP-BC. Fees for routine professional services may be adjusted. He reviews your history and only then are you invoiced for medication, if prescribed — pickup in Oswego or Illinois shipping.",
+    a: "Start intake — free to submit. A $49 consult fee reserves your visit with a licensed Illinois clinician. Fees for routine professional services may be adjusted. He reviews your history and only then are you invoiced for medication, if prescribed — pickup in Oswego or Illinois shipping.",
   },
   {
     q: "Where is RE GEN available?",

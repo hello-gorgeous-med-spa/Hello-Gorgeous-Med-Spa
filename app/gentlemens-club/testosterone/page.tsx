@@ -15,7 +15,7 @@ const pageUrl = `${SITE.url}${GENTLEMENS_CLUB_TESTOSTERONE_PATH}`;
 export const metadata: Metadata = pageMetadata({
   title: "Testosterone & TRT Oswego IL | The Gentlemen's Club | Hello Gorgeous Med Spa",
   description:
-    "Men's TRT from $200/mo — injectable, topical & enclomiphene options. Baseline labs, NP oversight by Ryan Kent FNP-BC in Oswego. Gentlemen's Club pricing, in-person care.",
+    "Men's TRT from $200/mo — injectable, topical & enclomiphene options. Baseline labs, NP oversight by a licensed Illinois clinician in Oswego. Gentlemen's Club pricing, in-person care.",
   path: GENTLEMENS_CLUB_TESTOSTERONE_PATH,
 });
 

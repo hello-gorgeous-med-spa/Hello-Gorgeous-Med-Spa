@@ -5,8 +5,6 @@ import {
   CLINICAL_REVIEW_DATE,
   MEDICAL_DIRECTOR,
   MEDICAL_DIRECTOR_SPECIALTY,
-  NP_ON_SITE_PHRASE,
-  PRESCRIBING_NP,
   formatReviewMonth,
 } from "@/lib/medical-authority";
 
@@ -23,10 +21,8 @@ type Props = {
 /**
  * Clinical review byline — the credential line that closes clinical content.
  *
- * All names, roles, and links come from `lib/medical-authority`, so this reads as
- * a credential rather than a claim, and it can never drift from the provider pages
- * it links to. Render it once per page, and not on pages that already carry
- * `MedicalTrustBand` (which makes the same point at full width).
+ * Names and roles come from `lib/medical-authority`. Reviewer is the physician
+ * Medical Director. Prescriptions are written only by a licensed Illinois clinician.
  */
 export function ClinicalReview({
   reviewDate = CLINICAL_REVIEW_DATE,
@@ -36,17 +32,6 @@ export function ClinicalReview({
 }: Props) {
   const reviewedLabel = formatReviewMonth(reviewDate);
   const dark = surface === "dark";
-
-  const reviewerLink = (
-    <Link
-      href={PRESCRIBING_NP.profilePath}
-      className={`font-bold underline decoration-2 underline-offset-2 ${
-        dark ? "text-[#FFB8DC] decoration-[#FF2D8E] hover:text-white" : "text-[#E6007E] decoration-[#E6007E] hover:text-black"
-      }`}
-    >
-      {PRESCRIBING_NP.displayName}
-    </Link>
-  );
 
   const directorLink = (
     <Link
@@ -68,8 +53,8 @@ export function ClinicalReview({
         } px-4 py-3 text-xs leading-relaxed ${className}`}
       >
         <p>
-          {CLINICAL_REVIEW_COPY.reviewerLabel} {reviewerLink} — {CLINICAL_REVIEW_COPY.reviewerCredentialLine}.{" "}
-          {CLINICAL_REVIEW_COPY.oversightLabel}: {directorLink}, {MEDICAL_DIRECTOR_SPECIALTY}.
+          {CLINICAL_REVIEW_COPY.reviewerLabel} {directorLink} — {CLINICAL_REVIEW_COPY.reviewerCredentialLine}.{" "}
+          {CLINICAL_REVIEW_COPY.oversightLabel}: {MEDICAL_DIRECTOR_SPECIALTY}. Prescriptions require a licensed Illinois clinician.
           {reviewedLabel ? ` Last reviewed ${reviewedLabel}.` : ""}
         </p>
       </aside>
@@ -97,14 +82,13 @@ export function ClinicalReview({
           dark ? "text-white/80" : "text-black/80"
         }`}
       >
-        {CLINICAL_REVIEW_COPY.reviewerLabel} {reviewerLink} — {CLINICAL_REVIEW_COPY.reviewerCredentialLine},{" "}
-        {NP_ON_SITE_PHRASE} in Oswego. {CLINICAL_REVIEW_COPY.oversightLabel}: {directorLink},{" "}
-        {MEDICAL_DIRECTOR_SPECIALTY}.
+        {CLINICAL_REVIEW_COPY.reviewerLabel} {directorLink}, {MEDICAL_DIRECTOR_SPECIALTY}. Prescriptions are written
+        only by a licensed Illinois clinician after a consult — not by the owner.
       </p>
       <p
         className={`mt-3 text-xs font-medium ${dark ? "text-white/50" : "text-black/50"}`}
       >
-        {reviewedLabel ? <>Last reviewed {reviewedLabel}. </>: null}
+        {reviewedLabel ? <>Last reviewed {reviewedLabel}. </> : null}
         {CLINICAL_REVIEW_COPY.disclaimer}
       </p>
     </aside>

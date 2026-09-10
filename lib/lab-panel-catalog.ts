@@ -83,7 +83,7 @@ export const LAB_HUB_HERO = {
   title: "Lab testing,",
   titleAccent: "without the runaround.",
   subtitle:
-    "Cash-pay panels from $199 — drawn in-house at our Oswego med spa (processed by Access Medical Labs) or at Quest/LabCorp. Ryan Kent, FNP-BC reviews every result.",
+    "Cash-pay panels from $199 — drawn in-house at our Oswego med spa (processed by Access Medical Labs) or at Quest/LabCorp. a licensed Illinois clinician reviews every result.",
 } as const;
 
 export const LAB_HUB_STEPS = [
@@ -112,7 +112,7 @@ export const LAB_HUB_STEPS = [
 export const LAB_HUB_TRUST = [
   "In-house phlebotomy · Oswego",
   "Access Medical Labs · 24–48 hr",
-  "NP-supervised · Ryan Kent, FNP-BC",
+  "NP-supervised · a licensed Illinois clinician",
   "Cash-pay · no surprise bills",
 ] as const;
 
@@ -240,7 +240,7 @@ export const LAB_PANELS: LabPanel[] = [
 ];
 
 export const LAB_PAYMENT_FIRST_COPY =
-  "Pay for your panel online. Ryan Kent, FNP-BC reviews your order, then we draw in-house at Hello Gorgeous (shipped to Access Medical Labs) or send a Quest/LabCorp requisition. Results in 24–48 hours typical.";
+  "Pay for your panel online. a licensed Illinois clinician reviews your order, then we draw in-house at Hello Gorgeous (shipped to Access Medical Labs) or send a Quest/LabCorp requisition. Results in 24–48 hours typical.";
 
 export const LAB_PRICING_DISCLAIMER =
   "Cash-pay panels only — not billed to insurance. Hormone blood panels map to Access Medical Labs test codes (778, 779, 3778, 3779). Exact order confirmed after NP review.";

@@ -54,7 +54,7 @@ const galleryImages = [
   },
   {
     src: "/images/gallery/treatment-2.png",
-    alt: "Ryan Kent providing consultation",
+    alt: "a licensed Illinois clinician providing consultation",
     caption: "Personalized Consultations",
   },
   {

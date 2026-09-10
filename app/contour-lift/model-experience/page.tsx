@@ -27,7 +27,7 @@ const sans = Montserrat({
 const _meta = pageMetadata({
   title: "Hello Gorgeous Contour Lift™ — Clinical Model Experience · May 4 · Oswego, IL",
   description:
-    "A limited clinical model opportunity. May 4th. Three candidates selected. The Hello Gorgeous Contour Lift™ powered by Quantum RF, performed by Ryan Kent, FNP-BC in Oswego, IL.",
+    "A limited clinical model opportunity. May 4th. Three candidates selected. The Hello Gorgeous Contour Lift™ powered by Quantum RF, performed by a licensed Illinois clinician in Oswego, IL.",
   path,
 });
 
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     "Hello Gorgeous Med Spa",
     "Oswego IL",
     "clinical model med spa",
-    "Ryan Kent FNP-BC",
+    "a licensed Illinois clinician",
   ],
 };
 
@@ -126,7 +126,7 @@ export default function ContourModelExperiencePage() {
           <div className="cml-hero-grid">
             <p className="cml-lede">
               Three candidates will be personally selected for a single-session Contour Lift — our signature
-              contouring procedure powered by Quantum RF, performed by Ryan Kent, FNP-BC. This is a curated
+              contouring procedure powered by Quantum RF, performed by a licensed Illinois clinician. This is a curated
               clinical opportunity, not a giveaway.
             </p>
             <div>
@@ -137,7 +137,7 @@ export default function ContourModelExperiencePage() {
                 </div>
                 <div className="cml-fact">
                   <div className="cml-fk">Provider</div>
-                  <div className="cml-fv">Ryan Kent, FNP-BC</div>
+                  <div className="cml-fv">a licensed Illinois clinician</div>
                 </div>
                 <div className="cml-fact">
                   <div className="cml-fk">Sessions</div>
@@ -256,7 +256,7 @@ export default function ContourModelExperiencePage() {
                 <span className="cml-when">Day 0</span>
                 <div className="cml-what">
                   <h4>Your one session</h4>
-                  <p>Performed in-office by Ryan Kent, FNP-BC. Most areas complete in under 90 minutes.</p>
+                  <p>Performed in-office by a licensed Illinois clinician. Most areas complete in under 90 minutes.</p>
                 </div>
               </div>
               <div className="cml-timeline-row">
@@ -438,7 +438,7 @@ export default function ContourModelExperiencePage() {
               <div>
                 <h4>What you receive</h4>
                 <ul>
-                  <li>Treatment by Ryan Kent, FNP-BC with full practice authority</li>
+                  <li>Treatment by a licensed Illinois clinician with full practice authority</li>
                   <li>Custom treatment plan built for your goals</li>
                   <li>Optional Morpheus8 add-on at a reduced rate</li>
                   <li>Follow-up visit included</li>
@@ -510,7 +510,7 @@ export default function ContourModelExperiencePage() {
             <p style={{ marginTop: 6, color: "rgba(255,255,255,0.75)" }}>
               Contour Lift™ · Powered by Quantum RF
               <br />
-              Performed by Ryan Kent, FNP-BC
+              Performed by a licensed Illinois clinician
             </p>
           </div>
         </div>

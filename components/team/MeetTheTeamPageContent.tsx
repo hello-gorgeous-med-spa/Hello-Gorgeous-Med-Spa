@@ -22,7 +22,7 @@ const JUMP_LINKS = [
   { label: "Michelle Colby", href: "#michelle-colby" },
   { label: "Laura Witt", href: "#laura-witt" },
   { label: "Jen Vokoun", href: "#jen-vokoun" },
-  { label: "Dani & Ryan", href: "#leadership" },
+  { label: "Danielle", href: "#leadership" },
   { label: "Book a visit", href: BOOKING_URL, external: true },
 ] as const;
 
@@ -247,11 +247,11 @@ export function MeetTheTeamPageContent() {
             <div className="mx-auto mb-10 max-w-[720px] text-center">
               <Eyebrow>Founders &amp; Medical Leadership</Eyebrow>
               <h2 className="mt-3 font-serif text-[34px] font-bold leading-[1.05] text-white lg:text-[46px]">
-                Dani <span className="text-[#FF2D8E]">&amp;</span> Ryan
+                Danielle <span className="text-[#FF2D8E]">&amp;</span> the team
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-white/70">
-                Family-owned at 74 W. Washington St. — Danielle on aesthetics, Ryan on medical
-                oversight, on site every week.
+                Family-owned at 74 W. Washington St. — Danielle on aesthetics, with physician Medical
+                Director oversight and licensed Illinois clinician review.
               </p>
             </div>
           </FadeUp>
@@ -260,7 +260,7 @@ export function MeetTheTeamPageContent() {
             <div className="relative mx-auto mb-12 aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
               <Image
                 src={TEAM_FOUNDERS_GROUP_IMAGE}
-                alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC — founders of Hello Gorgeous Med Spa in Oswego, IL"
+                alt="Danielle Alcala-Glazier and a licensed Illinois clinician — founders of Hello Gorgeous Med Spa in Oswego, IL"
                 fill
                 className="object-cover object-center"
                 sizes="(max-width: 768px) 100vw, 448px"
@@ -333,7 +333,7 @@ export function MeetTheTeamPageContent() {
           <FadeUp delayMs={80}>
             <p className="mt-10 text-center">
               <Link href="/about" className="text-sm font-bold text-[#FF2D8E] hover:underline">
-                Read the full Dani &amp; Ryan story →
+                Read Danielle&apos;s story →
               </Link>
             </p>
           </FadeUp>

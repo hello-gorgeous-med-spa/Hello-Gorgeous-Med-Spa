@@ -227,7 +227,7 @@ export const TRT_OSWEGO_MENU = buildOswegoMenu("testosterone-replacement-oswego"
     "Fertility implications discussed BEFORE you start",
   ],
   howItWorksLinks: [
-    { label: "Hormone consult with Ryan Kent, FNP-BC", price: "Book →", href: "/book?service=biote-hormone-therapy" },
+    { label: "Hormone consult with a licensed Illinois clinician", price: "Book →", href: "/book?service=biote-hormone-therapy" },
     { label: "Peptide therapy — recovery & longevity", price: "Menu →", href: "/peptide-therapy-oswego" },
   ],
   howItWorksLearnMore: "/book?service=biote-hormone-therapy",
@@ -243,7 +243,7 @@ export const TRT_OSWEGO_MENU = buildOswegoMenu("testosterone-replacement-oswego"
   relatedDescription:
     "Low T rarely travels alone — sleep, weight, and recovery often need attention in the same plan. We map the full picture at consult.",
   relatedHighlights: [
-    "Hormone consult with Ryan Kent, FNP-BC",
+    "Hormone consult with a licensed Illinois clinician",
     "Peptides for recovery & sleep alongside TRT",
     "GLP-1 weight loss when weight is part of the picture",
     "IV therapy for energy & hydration support",
@@ -328,7 +328,7 @@ export const PEPTIDE_THERAPY_NAPERVILLE_MENU = buildOswegoMenu("peptide-therapy-
   howItWorksHighlights: [
     "Short amino-acid chains that signal recovery, sleep, skin & metabolism pathways",
     "Self-administered subcutaneous injections — we teach you in office",
-    "Ryan Kent, FNP-BC designs dose, frequency & cycle — not a telehealth script mill",
+    "a licensed Illinois clinician designs dose, frequency & cycle — not a telehealth script mill",
     "503A pharmacy sourcing · RE GEN staff places pharmacy orders after NP approval",
     "Sleep support often 1–2 weeks · skin & longevity typically 8–12 weeks",
   ],
@@ -366,14 +366,14 @@ export const BIOTE_HORMONE_OSWEGO_MENU = buildOswegoMenu("biote-hormone-therapy-
   secondaryCta: WELLNESS_SECONDARY,
   pricingTitle: "Hormone therapy pricing",
   pricingHighlights: [
-    "Free consult with Ryan Kent, FNP-BC — quote confirmed before you start",
+    "Free consult with a licensed Illinois clinician — quote confirmed before you start",
     "Baseline lab panel typically $200–$450 depending on what's ordered",
     "Compounded creams and injectables when clinically appropriate",
     "We no longer offer pellet insertion",
     "All costs disclosed before you commit — no surprises",
   ],
   pricingRows: [
-    { label: "Hormone consult", price: "Book", href: "/book?service=biote-hormone-therapy", note: "Ryan Kent, FNP-BC" },
+    { label: "Hormone consult", price: "Book", href: "/book?service=biote-hormone-therapy", note: "a licensed Illinois clinician" },
     { label: "Baseline lab panel", price: "$200–$450", note: "We never dose blind" },
     { label: "Compounded HRT", price: "Quoted", note: "Creams or injectables after labs" },
     { label: "Free consultation", price: "$0", note: "Symptoms & history review" },

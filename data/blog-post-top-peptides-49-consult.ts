@@ -101,7 +101,7 @@ Peptide therapy isn't one treatment — it's a **menu of signals** your body alr
 | **PT-141** | Libido & arousal support (men & women) |
 | **NAD+** | Energy, focus, mitochondrial / longevity support |
 
-At Hello Gorgeous, every protocol runs through **Hello Gorgeous RX™** — evaluated by **Ryan Kent, FNP-BC** and our clinical team, compounded through **vetted 503A partners**, and monitored like real medicine should be.
+At Hello Gorgeous, every protocol runs through **Hello Gorgeous RX™** — evaluated by **a licensed Illinois clinician** and our clinical team, compounded through **vetted 503A partners**, and monitored like real medicine should be.
 
 ---
 

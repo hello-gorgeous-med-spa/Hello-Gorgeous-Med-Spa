@@ -3,7 +3,7 @@
 import type { ScreenerAnswers, ScreenerQuizResult, ScreenerQuizStep } from "@/lib/quiz-screener";
 
 export const TRT_READINESS_DISCLAIMER =
-  "Educational screener only — not a diagnosis of low testosterone. Ryan Kent, FNP-BC reviews labs, symptoms, and safety before any TRT or hormone protocol.";
+  "Educational screener only — not a diagnosis of low testosterone. a licensed Illinois clinician reviews labs, symptoms, and safety before any TRT or hormone protocol.";
 
 export const TRT_QUIZ_STEPS: ScreenerQuizStep[] = [
   {
@@ -82,7 +82,7 @@ export function scoreTrtReadiness(answers: ScreenerAnswers): ScreenerQuizResult 
     return {
       tier: "not_eligible",
       title: "Specialized NP review required",
-      body: "TRT requires careful evaluation when there's prostate cancer history or significant PSA concerns. Ryan Kent, FNP-BC can review your records and map safe options — including whether TRT is appropriate at all.",
+      body: "TRT requires careful evaluation when there's prostate cancer history or significant PSA concerns. a licensed Illinois clinician can review your records and map safe options — including whether TRT is appropriate at all.",
       ctaLabel: "Book hormone consult",
       ctaHref: "/book",
       secondaryHref: "/gentlemens-club#hormones",
@@ -101,7 +101,7 @@ export function scoreTrtReadiness(answers: ScreenerAnswers): ScreenerQuizResult 
       title: "Labs + consult are the right next step",
       body:
         answers.symptomLoad === "none-few"
-          ? "You may still benefit from a baseline hormone panel — many men feel 'normal' until they see their numbers. We never dose blind; Ryan reviews total & free testosterone, SHBG, and more before any TRT discussion."
+          ? "You may still benefit from a baseline hormone panel — many men feel 'normal' until they see their numbers. We never dose blind; A licensed Illinois clinician reviews total & free testosterone, SHBG, and more before any TRT discussion."
           : "Your answers suggest hormone optimization could be worth exploring, but we need labs and a full history first. Injections and topical options start with a ~$250–450 baseline panel. We no longer offer pellet insertion.",
       ctaLabel: "Book free hormone consult",
       ctaHref: "/book",

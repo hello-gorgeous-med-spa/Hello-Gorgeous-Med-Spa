@@ -53,7 +53,7 @@ function baseFaqs(city: string, localAngle: string): RegenWeightLossCitySeoConte
     {
       question: `How do I start RE GEN weight loss from ${city}?`,
       answer:
-        "Visit hellogorgeousmedspa.com/rx/weight-loss, choose your program, and complete the online intake. Ryan Kent, FNP-BC reviews your information before any prescription ships.",
+        "Visit hellogorgeousmedspa.com/rx/weight-loss, choose your program, and complete the online intake. a licensed Illinois clinician reviews your information before any prescription ships.",
     },
   ];
 }

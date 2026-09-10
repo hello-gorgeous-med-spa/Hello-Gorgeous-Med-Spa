@@ -255,7 +255,7 @@ export function HormonePricingTiers() {
             </div>
             <h4 className="font-bold text-[#000000]">Expert Providers</h4>
             <p className="text-sm text-black/60 mt-1">
-              Biote-certified Danielle & Ryan guide your journey
+              Biote-certified Danielle and our clinical team guide your journey
             </p>
           </div>
           <div className="text-center">

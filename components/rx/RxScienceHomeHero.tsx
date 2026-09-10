@@ -45,7 +45,7 @@ export function RxScienceHomeHero({
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/80 lg:text-xl">
               Science-driven protocols for recovery, body composition, hormones, and longevity —
-              supervised by Ryan Kent, FNP-BC. Every plan starts with your goals, history, and an NP
+              supervised by a licensed Illinois clinician. Every plan starts with your goals, history, and an NP
               conversation — not a catalog you scroll alone. {SITE.tagline}
             </p>
             <p className="mt-4 max-w-lg text-base leading-relaxed text-white/65">

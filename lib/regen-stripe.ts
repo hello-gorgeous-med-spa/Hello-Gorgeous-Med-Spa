@@ -441,7 +441,7 @@ export const REGEN_QUICK_PRODUCTS = {
   telehealth_consult: {
     name: 'NP Telehealth Consultation',
     amount: 49,
-    description: 'Required consultation with Ryan Kent, FNP-BC',
+    description: 'Required consultation with a licensed Illinois clinician',
   },
 
   // GLP-1 Programs

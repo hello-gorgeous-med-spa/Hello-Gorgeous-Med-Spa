@@ -13,7 +13,7 @@ export function RxShowcaseSection() {
           <div className="relative">
             <Image
               src="/images/rx/hg-ryan-kent-rx-authority.png"
-              alt="Ryan Kent, FNP-BC - Full Practice Authority prescriptions at Hello Gorgeous Med Spa"
+              alt="a licensed Illinois clinician - Full Practice Authority prescriptions at Hello Gorgeous Med Spa"
               width={600}
               height={400}
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -34,7 +34,7 @@ export function RxShowcaseSection() {
               <span className="text-[#E6007E]">Trust</span>
             </h2>
             <p className="text-lg text-white/80 mb-6 leading-relaxed">
-              Ryan Kent, FNP-BC brings full practice authority to Hello Gorgeous Med Spa. 
+              a licensed Illinois clinician brings full practice authority to Hello Gorgeous Med Spa. 
               This means we can prescribe, evaluate, and manage your complete wellness journey 
               — from medical weight loss to hormone optimization.
             </p>

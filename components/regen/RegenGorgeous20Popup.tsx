@@ -66,7 +66,7 @@ export function RegenGorgeous20Popup() {
         </button>
         <img
           src={GORGEOUS20_HERO}
-          alt="Danielle and Ryan Kent, FNP-BC"
+          alt="Danielle and a licensed Illinois clinician"
           className="h-44 w-full object-cover object-top"
         />
         <div className="space-y-3 p-6">
@@ -78,7 +78,7 @@ export function RegenGorgeous20Popup() {
           </h2>
           <p className="text-xl font-black text-[#E91E8C]">{GORGEOUS20_CODE}</p>
           <p className="text-sm font-medium text-white/75">
-            Enter the code on the payment screen. Illinois patients. Ryan prescribes only when it is clinically appropriate.
+            Enter the code on the payment screen. Illinois patients. A licensed Illinois clinician prescribes only when it is clinically appropriate.
           </p>
           <Link
             href={GORGEOUS20_START_HREF}

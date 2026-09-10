@@ -4,7 +4,7 @@ export function providerPersonJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Ryan Kent, FNP-BC",
+    name: "a licensed Illinois clinician",
     jobTitle: "Nurse Practitioner",
     worksFor: {
       "@type": "MedicalBusiness",

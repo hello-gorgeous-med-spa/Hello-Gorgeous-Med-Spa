@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   ...pageMetadata({
     title: "GLP-1 Refill Request | Tirzepatide & Semaglutide | Hello Gorgeous RX™",
     description:
-      "Existing Hello Gorgeous GLP-1 patients: request your monthly tirzepatide or semaglutide refill with home delivery. Ryan Kent, FNP-BC — Oswego, IL.",
+      "Existing Hello Gorgeous GLP-1 patients: request your monthly tirzepatide or semaglutide refill with home delivery. a licensed Illinois clinician — Oswego, IL.",
     path: GLP1_REFILL_PATH,
   }),
   openGraph: {
@@ -62,7 +62,7 @@ export default function Glp1RefillPage() {
         imageAlt: "Hello Gorgeous GLP-1 weight loss — tirzepatide and semaglutide home delivery",
         body: (
           <>
-            A guided, step-by-step refill — medication ships to your home after Ryan approves your request
+            A guided, step-by-step refill — medication ships to your home after a licensed Illinois clinician approves your request
             and any required telehealth is complete. Most patients finish in under{" "}
             <strong className="text-white">5 minutes</strong>.
           </>

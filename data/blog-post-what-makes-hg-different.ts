@@ -6,7 +6,7 @@ export const whatMakesHgDifferentPost: BlogPost = {
   metaTitle:
     "What Makes Hello Gorgeous Different | InMode Trifecta & NP On Site | Oswego IL",
   metaDescription:
-    "Four things that set Hello Gorgeous apart in Oswego, IL: Morpheus8, Solaria CO₂ & Quantum RF under one roof, Ryan Kent FNP-BC on site 6 days a week, open daily, family-owned 10+ years.",
+    "Four things that set Hello Gorgeous apart in Oswego, IL: Morpheus8, Solaria CO₂ & Quantum RF under one roof, a licensed Illinois clinician on site 6 days a week, open daily, family-owned 10+ years.",
   excerpt:
     "You would have to leave Oswego to find this elsewhere — the InMode Trifecta, a nurse practitioner in the building six days a week, seven-day scheduling, and a founder still in the chair after ten years.",
   category: "Our Story",
@@ -18,7 +18,7 @@ export const whatMakesHgDifferentPost: BlogPost = {
     "best med spa Oswego IL",
     "InMode Trifecta Oswego",
     "med spa open 7 days Oswego",
-    "Ryan Kent FNP Oswego",
+    "a licensed Illinois clinician FNP Oswego",
     "family owned med spa Fox Valley",
     "Morpheus8 Solaria Quantum RF",
   ],
@@ -37,7 +37,7 @@ export const whatMakesHgDifferentPost: BlogPost = {
     {
       question: "Is there a nurse practitioner on site at Hello Gorgeous?",
       answer:
-        "Yes. Ryan Kent, FNP-BC, is our on-site nurse practitioner with full practice authority in Illinois and is on site six days a week — not a remote name on a wall. Dr. Mukesh Arora, MD is our Medical Director.",
+        "Yes. a licensed Illinois clinician, is our on-site nurse practitioner with full practice authority in Illinois and is on site six days a week — not a remote name on a wall. Dr. Mukesh Arora, MD is our Medical Director.",
     },
     {
       question: "Is Hello Gorgeous open on weekends?",
@@ -80,7 +80,7 @@ Most aesthetic clinics offer **one** of these devices — usually a basic Morphe
 
 Many med spas list a medical director who is rarely on-site. The director may live in another city, review charts in batches, and never meet a client face to face. That is a common industry arrangement. It is also one we never wanted to operate under.
 
-**Ryan Kent, FNP-BC**, holds full practice authority in Illinois and is on-site at Hello Gorgeous **six days a week**. He prescribes, evaluates, treats, and oversees every medical service the practice offers — directly. Not in absentia.
+**a licensed Illinois clinician**, holds full practice authority in Illinois and is on-site at Hello Gorgeous **six days a week**. He prescribes, evaluates, treats, and oversees every medical service the practice offers — directly. Not in absentia.
 
 What that enables at Hello Gorgeous in Oswego:
 
@@ -154,7 +154,7 @@ We are the only practice in the western Chicago suburbs operating Morpheus8 Burs
 
 ### Can I get hormones, TRT, or peptides at Hello Gorgeous?
 
-Yes — under direct oversight from Ryan Kent, FNP-BC, who is in the building daily.
+Yes — under direct oversight from a licensed Illinois clinician, who is in the building daily.
 
 ### Is Hello Gorgeous open on weekends?
 

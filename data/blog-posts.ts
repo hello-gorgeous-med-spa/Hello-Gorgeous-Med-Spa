@@ -542,7 +542,7 @@ We're at 74 W Washington Street in downtown Oswego, IL 60543. We're easy to find
 
 ### Who runs Hello Gorgeous?
 
-Hello Gorgeous is owned and operated by Danielle Alcala, with Ryan Kent, FNP-BC as our on-site nurse practitioner and Dr. Mukesh Arora, MD as our Medical Director. Danielle is a licensed esthetician, RN student, phlebotomist, CMAA, and CNA. Ryan brings full prescriptive authority for weight loss, hormones, and medical treatments. We're a family-owned practice — not a chain.
+Hello Gorgeous is owned and operated by Danielle Alcala, with a licensed Illinois clinician as our on-site nurse practitioner and Dr. Mukesh Arora, MD as our Medical Director. Danielle is a licensed esthetician, RN student, phlebotomist, CMAA, and CNA. Ryan brings full prescriptive authority for weight loss, hormones, and medical treatments. We're a family-owned practice — not a chain.
 
 ### What services do you offer?
 

@@ -29,7 +29,7 @@ const testimonials = [
     name: "Amanda T.", 
     location: "Plainfield, IL", 
     rating: 5, 
-    text: "The weight loss program has been life-changing. Down 30 lbs and feeling better than I have in years. Ryan and Danielle genuinely care about your health journey.", 
+    text: "The weight loss program has been life-changing. Down 30 lbs and feeling better than I have in years. Danielle and the Hello Gorgeous team genuinely care about your health journey.", 
     service: "Weight Loss" 
   },
   {
@@ -43,7 +43,7 @@ const testimonials = [
     name: "Rachel P.",
     location: "Montgomery, IL",
     rating: 5,
-    text: "Ryan is incredibly knowledgeable about hormone therapy. After just a few weeks I felt like myself again. Life changing!",
+    text: "The hormone therapy team is incredibly knowledgeable. After just a few weeks I felt like myself again. Life changing!",
     service: "Hormone Therapy"
   },
 ];

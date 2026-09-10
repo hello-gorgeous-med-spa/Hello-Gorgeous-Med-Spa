@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
-import { DANI_IMAGE, RYAN_IMAGE } from "@/lib/founder-credentials";
+import { DANI_IMAGE } from "@/lib/founder-credentials";
 import {
   SHOWCASE_ACCENTS,
   TrifectaShowcaseSection,
@@ -113,11 +113,11 @@ export function MeetDaniRyanSection() {
               backgroundImage: "linear-gradient(to right, #ec4899, #60a5fa, #f59e0b)",
             }}
           >
-            Dani &amp; Ryan
+            Danielle
           </span>
         </>
       }
-      description="Real founders. Real credentials. On site every week — not a rented medical director from another state."
+      description="A real founder with real credentials. On site every week — not a rented medical director from another state."
       footer={
         <>
           <div
@@ -150,16 +150,12 @@ export function MeetDaniRyanSection() {
             </Link>
           </div>
 
-          <p className="mx-auto mb-5 max-w-2xl text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-            Having both a male and female practitioner is not just convenient — it is a real advantage for
-            comfort, balance, and treatment planning.
-          </p>
           <Link
-            href="/blog/male-female-practitioners-med-spa-advantage-oswego-il"
+            href="/meet-the-team"
             className="inline-flex items-center justify-center gap-2 rounded-xl px-8 py-4 font-bold transition-all duration-300 hover:scale-105"
             style={{ backgroundColor: "#ffffff", color: "#000000" }}
           >
-            Read why our team works this way →
+            Meet the full team →
           </Link>
         </>
       }
@@ -178,14 +174,14 @@ export function MeetDaniRyanSection() {
           delayMs={200}
         />
         <FounderTrifectaCard
-          image={RYAN_IMAGE}
-          imageAlt="Ryan Kent, FNP-BC, On-Site Nurse Practitioner at Hello Gorgeous Med Spa"
-          heading="Meet Ryan"
-          role="On-Site Nurse Practitioner · FNP-BC"
-          credentials="Ryan Kent, FNP-BC — Family Nurse Practitioner, Board-Certified"
-          body="Full prescriptive authority in Illinois. On site 6 days a week. Every clinical protocol at Hello Gorgeous — from Botox dosing to GLP-1 weight loss to hormone therapy — goes through me."
-          ctaLabel="Meet Ryan"
-          ctaHref="/about#ryan"
+          image="/images/providers/dr-mukesh-arora.jpg"
+          imageAlt="Dr. Mukesh Arora, MD, Medical Director at Hello Gorgeous Med Spa"
+          heading="Medical Director"
+          role="Dr. Mukesh Arora, MD"
+          credentials="Internal Medicine · physician Medical Director"
+          body="Physician oversight for Hello Gorgeous. Prescriptions are written only by a licensed Illinois clinician after a consult — not by the owner."
+          ctaLabel="Read about Dr. Arora"
+          ctaHref="/providers/dr-arora"
           accent={SHOWCASE_ACCENTS[1]}
           delayMs={350}
         />

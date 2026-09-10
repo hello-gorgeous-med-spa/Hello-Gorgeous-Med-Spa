@@ -91,7 +91,7 @@ const WHY = [
     n: "3",
     title: "Medical oversight, not a rented machine",
     body:
-      "Every protocol is directed by Ryan Kent, FNP-BC, on site 6 days a week. Settings, candidacy, and safety are managed by a licensed medical provider \u2014 not a technician running a device on the highest preset.",
+      "Every protocol is directed by a licensed Illinois clinician, on site 6 days a week. Settings, candidacy, and safety are managed by a licensed medical provider \u2014 not a technician running a device on the highest preset.",
   },
   {
     n: "4",
@@ -105,7 +105,7 @@ const FAQS = [
   {
     question: "What is the best body contouring treatment in Oswego, IL?",
     answer:
-      "It depends on your goal. For skin texture and mild-to-moderate laxity over larger areas, Morpheus8 Body (deep RF microneedling, up to 8mm) is ideal. For more significant laxity where you want a surgical-level tightening effect without surgery, QuantumRF (subdermal RF through tiny entry points) is the stronger choice. At Hello Gorgeous Med Spa in Oswego, both are NP-directed by Ryan Kent, FNP-BC, and we match the technology to your tissue at a free consultation.",
+      "It depends on your goal. For skin texture and mild-to-moderate laxity over larger areas, Morpheus8 Body (deep RF microneedling, up to 8mm) is ideal. For more significant laxity where you want a surgical-level tightening effect without surgery, QuantumRF (subdermal RF through tiny entry points) is the stronger choice. At Hello Gorgeous Med Spa in Oswego, both are NP-directed by a licensed Illinois clinician, and we match the technology to your tissue at a free consultation.",
   },
   {
     question: "Morpheus8 Body vs QuantumRF — what's the difference?",
@@ -239,7 +239,7 @@ export default function BodyContouringOswegoPage() {
                   (deep RF microneedling, up to 8mm) for texture and tightening over larger areas, and{" "}
                   <Link href="/quantum-rf-oswego-il" className="text-[#E6007E] underline decoration-2 underline-offset-2">QuantumRF</Link>{" "}
                   (subdermal RF through tiny entry points) for a surgical-level tightening effect without
-                  surgery. Both are directed by Ryan Kent, FNP-BC, on site 6 days a week. Downtown Oswego
+                  surgery. Both are directed by a licensed Illinois clinician, on site 6 days a week. Downtown Oswego
                   at 74 W Washington St, serving Naperville, Aurora, Plainfield &amp; the Fox Valley.
                 </p>
               </div>

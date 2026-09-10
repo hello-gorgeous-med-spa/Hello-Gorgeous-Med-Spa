@@ -3,7 +3,7 @@
 import type { ScreenerAnswers, ScreenerQuizResult, ScreenerQuizStep } from "@/lib/quiz-screener";
 
 export const HAIR_READINESS_DISCLAIMER =
-  "Educational screener only — not a diagnosis of hair loss. Ryan Kent, FNP-BC reviews pattern, scalp health, meds, and TRT/DHT interactions before any AnteAGE MDX, Rx, or PRF protocol.";
+  "Educational screener only — not a diagnosis of hair loss. a licensed Illinois clinician reviews pattern, scalp health, meds, and TRT/DHT interactions before any AnteAGE MDX, Rx, or PRF protocol.";
 
 export const HAIR_QUIZ_STEPS: ScreenerQuizStep[] = [
   {
@@ -94,7 +94,7 @@ export function scoreHairReadiness(answers: ScreenerAnswers): ScreenerQuizResult
     return {
       tier: "not_eligible",
       title: "Patchy loss needs scalp evaluation first",
-      body: "Sudden or patchy bald spots can signal alopecia areata, scarring alopecia, or other conditions that need an in-person scalp exam before AnteAGE, Rx, or PRF. Ryan Kent, FNP-BC can assess pattern, rule out red flags, and map the right next step.",
+      body: "Sudden or patchy bald spots can signal alopecia areata, scarring alopecia, or other conditions that need an in-person scalp exam before AnteAGE, Rx, or PRF. a licensed Illinois clinician can assess pattern, rule out red flags, and map the right next step.",
       ctaLabel: "Book scalp consult",
       ctaHref: "/book",
       secondaryHref: "/gentlemens-club#hair",

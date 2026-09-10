@@ -307,7 +307,7 @@ export function RxRequestPortal() {
           <FadeUp className="mt-16 overflow-hidden rounded-3xl border-2 border-white/10 bg-gradient-to-r from-[#FF2D8E] via-[#E6007E] to-[#9b0a4d] p-10 text-center shadow-[0_20px_60px_rgba(255,45,142,0.3)]">
             <h3 className="text-2xl font-black md:text-3xl">Not sure which treatment fits?</h3>
             <p className="mx-auto mt-3 max-w-lg text-base text-white/85">
-              Book a NP consult — Ryan Kent, FNP-BC reviews your goals and recommends a protocol
+              Book a NP consult — a licensed Illinois clinician reviews your goals and recommends a protocol
               with published pricing before you pay.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">

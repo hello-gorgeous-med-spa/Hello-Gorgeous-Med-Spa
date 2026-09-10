@@ -33,7 +33,7 @@ export function ImmediateCareBanner() {
               Need Immediate Care With <span className="text-[#FF2D8E] font-semibold">No Waiting?</span>
             </p>
             <p className="text-[#FF2D8E] max-w-2xl mx-auto">
-              Skip the 6-week wait. Our nurse practitioner Ryan Kent, FNP-BC can see you 
+              Skip the 6-week wait. Our nurse practitioner a licensed Illinois clinician can see you 
               this week—often same-day or next-day appointments available.
             </p>
           </div>
@@ -115,7 +115,7 @@ export function ImmediateCareStrip() {
           <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
         </span>
         <span className="text-white font-semibold text-sm">
-          Need fast aesthetic or wellness care? Same-day consults may be available — book with our NP-led team.
+          Need fast aesthetic or wellness care? Same-day consults may be available — book with our team.
         </span>
         <span className="text-black text-sm hidden sm:inline">
           Book Now →

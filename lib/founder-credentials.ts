@@ -1,20 +1,23 @@
 /**
- * Canonical Dani & Ryan credential copy — source of truth for HG_DEV_014.
- * @see docs/HG_Dani_Ryan_Everywhere_Playbook.md (when added)
+ * Canonical Danielle credential copy — source of truth for founder surfaces.
  */
 
 import {
   CLINICAL_REVIEW_DATE,
+  LICENSED_CLINICIAN_PHRASE,
+  LICENSED_CLINICIAN_ROLE,
   MEDICAL_DIRECTOR,
-  NP_ON_SITE_PHRASE,
-  PRESCRIBING_NP,
-  prescribingNpPersonJsonLd,
+  medicalDirectorPersonJsonLd,
 } from "@/lib/medical-authority";
 import { SITE } from "@/lib/seo";
 
 export const DANI_FULL_NAME = "Danielle Alcala-Glazier";
-/** Canonical NP name — owned by `lib/medical-authority`, re-exported for existing imports. */
-export const RYAN_FULL_NAME = PRESCRIBING_NP.displayName;
+
+/**
+ * @deprecated No named NP is currently on staff. Kept so leftover interpolations
+ * read as a generic clinician instead of a departed provider.
+ */
+export const RYAN_FULL_NAME = LICENSED_CLINICIAN_PHRASE;
 
 /** Service page slugs that use the prescription-focused credentials strip. */
 export const PRESCRIPTION_SERVICE_SLUGS = new Set([
@@ -26,16 +29,16 @@ export const PRESCRIPTION_SERVICE_SLUGS = new Set([
   "peptide-therapy-oswego",
 ]);
 
-export const FOOTER_CREDENTIALS_HEADLINE = "Hello Gorgeous Med Spa — Family-owned. NP-directed.";
+export const FOOTER_CREDENTIALS_HEADLINE = "Hello Gorgeous Med Spa — Family-owned. Clinician-directed.";
 
 export const FOOTER_CREDENTIALS_LINE =
-  `Founder: Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) · Medical Director: ${MEDICAL_DIRECTOR.displayName} · On-site NP: ${RYAN_FULL_NAME} (full prescriptive authority, ${NP_ON_SITE_PHRASE})`;
+  `Founder: Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) · Medical Director: ${MEDICAL_DIRECTOR.displayName} · Prescriptions: ${LICENSED_CLINICIAN_ROLE}`;
 
-export const CREDENTIAL_STRIP_STANDARD = `Performed by our team. Medical Director: ${MEDICAL_DIRECTOR.displayName}. On-site nurse practitioner: ${RYAN_FULL_NAME} (Board-Certified Family Nurse Practitioner, full Illinois prescriptive authority, ${NP_ON_SITE_PHRASE}).
+export const CREDENTIAL_STRIP_STANDARD = `Performed by our team. Medical Director: ${MEDICAL_DIRECTOR.displayName}. Prescriptions are written only by ${LICENSED_CLINICIAN_PHRASE}.
 
 Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician. 10+ years at this practice.`;
 
-export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeous is written and supervised by ${RYAN_FULL_NAME} — a Board-Certified Family Nurse Practitioner with full prescriptive authority in Illinois, ${NP_ON_SITE_PHRASE} — under Medical Director ${MEDICAL_DIRECTOR.displayName}. Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician.`;
+export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeous is written by ${LICENSED_CLINICIAN_PHRASE} (${LICENSED_CLINICIAN_ROLE}) under Medical Director ${MEDICAL_DIRECTOR.displayName}. Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician.`;
 
 export const DANI_SHORT_BIO =
   "Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician. Owner & Founder, Hello Gorgeous Med Spa.";
@@ -46,7 +49,7 @@ Danielle's path into medical aesthetics began at age twelve, when severe acne le
 
 export const DANI_LONG_BIO = `After becoming a mother to two sons, Danielle completed esthetic school and opened Hello Gorgeous with support from the aunt who raised her — the woman who used to greet her with "Hello gorgeous" and told her, "Go for it, honey." That name became the foundation of a family-owned practice, not a corporate med spa chain.
 
-More than a decade later, Danielle still works in the office every day — performing brow permanent makeup (microblading, powder, combo, and nano brows), advanced skin treatments, and the hands-on care that built her reputation across Oswego, Naperville, Aurora, Plainfield, Yorkville, and the Fox Valley. She has invested heavily in technology most local practices do not offer, including the complete InMode Trifecta: Morpheus8 Burst, Quantum RF, and Solaria CO₂ laser — alongside injectables, IV therapy, peptides, and full medical aesthetics supervised on site by a board-certified nurse practitioner.
+More than a decade later, Danielle still works in the office every day — performing brow permanent makeup (microblading, powder, combo, and nano brows), advanced skin treatments, and the hands-on care that built her reputation across Oswego, Naperville, Aurora, Plainfield, Yorkville, and the Fox Valley. She has invested heavily in technology most local practices do not offer, including the complete InMode Trifecta: Morpheus8 Burst, Quantum RF, and Solaria CO₂ laser — alongside injectables, IV therapy, peptides, and full medical aesthetics under physician Medical Director oversight.
 
 Hello Gorgeous has been recognized in the community with Best of Oswego honors, including #1 Med Spa, Best Skincare, and Best Weight Loss. Danielle's philosophy is simple: your money should buy results you can see in the mirror — honest recommendations, personalized plans, and providers who remember your name, your skin history, and what actually worked for you last time.
 
@@ -57,30 +60,30 @@ Dani is still in the office every day. She still answers texts. She still orders
 /** Full bio for provider profiles and GBP paste blocks. */
 export const DANI_PROVIDER_BIO = `${DANI_MEDIUM_BIO}\n\n${DANI_LONG_BIO}`;
 
+/** @deprecated No named NP is currently published. */
 export const RYAN_SHORT_BIO =
-  `${RYAN_FULL_NAME} — Board-Certified Family Nurse Practitioner at Hello Gorgeous Med Spa. Full prescriptive authority. On site six days a week under Medical Director ${MEDICAL_DIRECTOR.displayName}.`;
+  `Prescriptions at Hello Gorgeous Med Spa are written only by ${LICENSED_CLINICIAN_PHRASE} under Medical Director ${MEDICAL_DIRECTOR.displayName}.`;
 
-export const RYAN_MEDIUM_BIO = `Ryan Kent, FNP-BC, is a board-certified Family Nurse Practitioner at Hello Gorgeous Med Spa in Oswego, Illinois. He provides on-site clinical care under Medical Director Dr. Mukesh Arora, MD.
+/** @deprecated No named NP is currently published. */
+export const RYAN_MEDIUM_BIO = `Hello Gorgeous Med Spa in Oswego, Illinois is a physician-directed medical spa. Prescriptions are written only by ${LICENSED_CLINICIAN_PHRASE} (${LICENSED_CLINICIAN_ROLE}) under Medical Director ${MEDICAL_DIRECTOR.displayName}.`;
 
-Ryan holds full prescriptive authority in Illinois, allowing him to independently prescribe medications, direct medical aesthetic protocols, and oversee clinical care across injectables, GLP-1 medical weight loss (Semaglutide and Tirzepatide), hormone optimization, peptides, IV therapy, and advanced energy-based treatments including Morpheus8 Burst, Quantum RF, and Solaria CO₂.`;
+/** @deprecated No named NP is currently published. */
+export const RYAN_LONG_BIO = `Clinical decisions — from medical weight-loss protocols to hormone and peptide plans — go through a licensed Illinois clinician. Danielle Alcala-Glazier owns and operates the practice daily. She is not the prescriber.`;
 
-export const RYAN_LONG_BIO = `Ryan is on site six days a week at Hello Gorgeous's downtown Oswego location — working under Medical Director Dr. Mukesh Arora, MD. Day-to-day clinical decisions — from Botox dosing to weight-loss protocols to laser settings — go through him personally. His approach is data-driven and safety-first: labs, medical history, informed consent, and follow-up built into every plan.
-
-Ryan partners with Danielle Alcala-Glazier to deliver continuity of care — the same providers, the same chart, the same honest conversation visit after visit. For patients across Oswego and the western Chicago suburbs, that means medical aesthetics with a real nurse practitioner in the building and a physician Medical Director behind the practice.`;
-
-/** Full bio for Ryan's provider profile page. */
+/** @deprecated No named NP profile is published. */
 export const RYAN_PROVIDER_BIO = `${RYAN_MEDIUM_BIO}\n\n${RYAN_LONG_BIO}`;
 
 export const ABOUT_PAGE_SEO_DESCRIPTION =
-  "Meet Danielle Alcala-Glazier — Owner & Founder (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) of Hello Gorgeous Med Spa in Oswego, IL. 10+ years serving Naperville, Aurora & Plainfield. Morpheus8, Solaria, Botox, brows & more. Ryan Kent, FNP-BC on site 6 days.";
+  "Meet Danielle Alcala-Glazier — Owner & Founder (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) of Hello Gorgeous Med Spa in Oswego, IL. 10+ years serving Naperville, Aurora & Plainfield. Morpheus8, Solaria, Botox, brows & more. Medical Director Dr. Mukesh Arora, MD.";
 
 export const DANI_IMAGE = "/images/team/danielle-alcala-glazier-portrait.png";
 /** Primary Dani portrait on /about — clinic setting with InMode equipment visible */
 export const ABOUT_DANI_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
-export const RYAN_IMAGE = "/images/providers/ryan-kent-clinic.jpg";
-/** Ryan with young patient — homepage trust band below hero */
-export const RYAN_PATIENT_CARE_IMAGE = "/images/team/ryan-kent.png";
-export const TEAM_FOUNDERS_IMAGE = "/images/team/dani-ryan-about-neon.png";
+/** @deprecated Former NP headshot — do not use on public people cards. */
+export const RYAN_IMAGE = "/images/providers/dr-mukesh-arora.jpg";
+/** @deprecated Former NP patient-care photo — do not use as a named-provider band. */
+export const RYAN_PATIENT_CARE_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
+export const TEAM_FOUNDERS_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
 export const SOLARIA_DANI_DEVICE_IMAGE = "/images/solaria/danielle-solaria-inmode-clinic.png";
 export const SOLARIA_TREATMENT_IMAGE = "/images/solaria/solaria-co2-treatment-oswego.png";
 export const SOLARIA_DECOLLETE_TREATMENT_IMAGE = "/images/solaria/solaria-co2-decollete-laser-oswego.png";
@@ -95,7 +98,7 @@ export const MORPHEUS8_FAQ_VIDEO = "/videos/morpheus8/morpheus8-burst-deep-faq-s
 export const QUANTUM_RF_CLINIC_VIDEO = "/videos/quantum/quantum-rf-clinic-reedit-oswego.mp4";
 export const QUANTUM_RF_PROCEDURE_IMAGE = "/images/quantum-rf/quantum-rf-procedure-may-4.jpg";
 export const QUANTUM_RF_TREATMENT_ROOM_IMAGE = "/images/quantum-rf/quantum-rf-treatment-room-may-4.jpg";
-export const QUANTUM_RF_RYAN_ACTION_IMAGE = "/images/quantum-rf/ryan-quantum-rf-action-poster.png";
+export const QUANTUM_RF_RYAN_ACTION_IMAGE = "/images/quantum-rf/quantum-rf-procedure-may-4.jpg";
 export const MORPHEUS8_TREATMENT_VIDEO = "/videos/morpheus8/morpheus8-burst-deep-treatment-oswego.mp4";
 
 export function credentialStripForSlug(slug: string): string {
@@ -148,15 +151,11 @@ export function daniPersonJsonLd() {
 }
 
 /**
- * Ryan's `Person` node. Identity, credentials, and affiliation come from
- * `lib/medical-authority`; this wrapper only chooses which page is cited as his
- * profile and swaps in the longer bio used on marketing surfaces.
+ * @deprecated No named NP is published. Returns the Medical Director node so
+ * leftover schema callers do not emit a departed clinician.
  */
-export function ryanPersonJsonLd(opts?: { profileUrl?: string }) {
-  return {
-    ...prescribingNpPersonJsonLd(SITE.url, { profileUrl: opts?.profileUrl }),
-    description: RYAN_MEDIUM_BIO.replace(/\n\n/g, " "),
-  };
+export function ryanPersonJsonLd(_opts?: { profileUrl?: string }) {
+  return medicalDirectorPersonJsonLd(SITE.url);
 }
 
 export function aboutPageJsonLd() {
@@ -164,11 +163,11 @@ export function aboutPageJsonLd() {
     "@type": "AboutPage",
     "@id": `${SITE.url}/about`,
     url: `${SITE.url}/about`,
-    name: "About Dani & Ryan | Hello Gorgeous Med Spa Oswego IL",
+    name: "About Danielle Alcala-Glazier | Hello Gorgeous Med Spa Oswego IL",
     description: ABOUT_PAGE_SEO_DESCRIPTION,
     mainEntity: [
       { "@id": `${SITE.url}/about#dani` },
-      { "@id": `${SITE.url}/${PRESCRIBING_NP.schemaId}` },
+      { "@id": `${SITE.url}/${MEDICAL_DIRECTOR.schemaId}` },
     ],
     isPartOf: { "@id": `${SITE.url}/#website` },
     about: [{ "@id": `${SITE.url}/#organization` }],
@@ -181,7 +180,7 @@ export function aboutPageGraphJsonLd() {
     "@graph": [
       aboutPageJsonLd(),
       daniPersonJsonLd(),
-      ryanPersonJsonLd({ profileUrl: `${SITE.url}/about#ryan` }),
+      medicalDirectorPersonJsonLd(SITE.url),
     ],
   };
 }
@@ -203,10 +202,11 @@ export function medicalWebPageJsonLd(opts: {
     },
     reviewedBy: {
       "@type": "Person",
-      name: RYAN_FULL_NAME,
-      honorificSuffix: PRESCRIBING_NP.honorificSuffix,
-      jobTitle: PRESCRIBING_NP.jobTitle,
-      url: `${SITE.url}${PRESCRIBING_NP.profilePath}`,
+      name: MEDICAL_DIRECTOR.schemaName,
+      honorificPrefix: MEDICAL_DIRECTOR.honorificPrefix,
+      honorificSuffix: MEDICAL_DIRECTOR.honorificSuffix,
+      jobTitle: MEDICAL_DIRECTOR.jobTitle,
+      url: `${SITE.url}${MEDICAL_DIRECTOR.profilePath}`,
     },
     lastReviewed: opts.lastReviewed ?? CLINICAL_REVIEW_DATE,
   };

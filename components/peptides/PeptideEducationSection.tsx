@@ -181,7 +181,7 @@ function Attribution() {
   return (
     <p className="text-center text-xs text-black/50">
       Prepared by Danielle Alcala-Glazier · Educational content — not medical advice. Treatment decisions require
-      Hello Gorgeous RX™ evaluation with Ryan Kent, FNP-BC.
+      Hello Gorgeous RX™ evaluation with a licensed Illinois clinician.
       <span className="mt-1 block">
         © 2026 Hello Gorgeous Med Spa · All Rights Reserved · Proprietary — may not be reproduced without permission.
       </span>

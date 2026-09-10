@@ -398,7 +398,7 @@ export async function GET(request: NextRequest) {
       
       // Known provider IDs from our database - always check this
       const KNOWN_PROVIDERS: Record<string, string> = {
-        '47ab9361-4a68-4ab8-a860-c9c9fd64d26c': 'Ryan Kent',
+        '47ab9361-4a68-4ab8-a860-c9c9fd64d26c': 'a licensed Illinois clinician',
         'b7e6f872-3628-418a-aefb-aca2101f7cb2': 'Danielle Alcala',
       };
       

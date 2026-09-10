@@ -14,7 +14,7 @@ import { BOOMRX_CONSUMER_SHIPPING_USD } from "@/lib/boomrx-consumer-pricing";
 const HOW_IT_WORKS = [
   { n: "01", title: "Pick a protocol", body: "Choose what you want to start." },
   { n: "02", title: "Start intake", body: "Free to submit · about 4 minutes." },
-  { n: "03", title: "NP consult", body: "$49 · Ryan Kent, FNP-BC sets your dose." },
+  { n: "03", title: "NP consult", body: "$49 · a licensed Illinois clinician sets your dose." },
   { n: "04", title: "Pickup or ship", body: "Invoiced after approval · $30 IL ship." },
 ] as const;
 

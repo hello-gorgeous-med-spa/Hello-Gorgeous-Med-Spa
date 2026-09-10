@@ -189,7 +189,7 @@ export default function ShopPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#E6007E] to-[#FF2D8E] flex items-center justify-center text-white font-bold">RK</div>
                       <div>
-                        <p className="font-bold text-gray-900">Ryan Kent</p>
+                        <p className="font-bold text-gray-900">a licensed Illinois clinician</p>
                         <p className="text-sm text-gray-600">Licensed Nurse Practitioner, IL</p>
                       </div>
                     </div>

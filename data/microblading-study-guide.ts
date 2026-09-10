@@ -68,7 +68,7 @@ export const MICROBLADING_STUDY_SECTIONS: StudySection[] = [
         variant: "warning",
         title: "Scope & compliance",
         body:
-          "Illinois requires appropriate body-art licensing and facility compliance for permanent cosmetics. Work only within your training, supervision, and Hello Gorgeous protocols. When in doubt — consult Ryan Kent, FNP-BC or defer the service.",
+          "Illinois requires appropriate body-art licensing and facility compliance for permanent cosmetics. Work only within your training, supervision, and Hello Gorgeous protocols. When in doubt — consult a licensed Illinois clinician or defer the service.",
       },
     ],
   },

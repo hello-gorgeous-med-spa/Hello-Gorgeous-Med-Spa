@@ -22,7 +22,7 @@ import { PEPTIDES_HUB_FAQS } from "@/lib/peptide-seo-faqs";
 const RX_PATH = "/rx";
 const RX_TITLE = "Hello Gorgeous RX | RE GEN Consultations | Oswego, IL";
 const RX_DESCRIPTION =
-  "RE GEN by Hello Gorgeous RX — $49 NP consults for weight management, hormones, sexual wellness, hair, skin, and individualized wellness. Ryan Kent, FNP-BC prescribes only when clinically appropriate. Compounded medications are not FDA-approved.";
+  "RE GEN by Hello Gorgeous RX — $49 NP consults for weight management, hormones, sexual wellness, hair, skin, and individualized wellness. a licensed Illinois clinician prescribes only when clinically appropriate. Compounded medications are not FDA-approved.";
 
 const baseMetadata = pageMetadata({
   title: RX_TITLE,
@@ -35,7 +35,7 @@ const baseMetadata = pageMetadata({
     "NP peptide consultation Oswego",
     "hormone evaluation Naperville",
     "GLP-1 consult Oswego IL",
-    "Ryan Kent FNP-BC",
+    "a licensed Illinois clinician",
   ],
 });
 

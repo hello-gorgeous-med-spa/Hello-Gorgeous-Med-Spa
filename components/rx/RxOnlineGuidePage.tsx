@@ -62,7 +62,7 @@ export function RxOnlineGuidePage() {
               Your Online Refill Guide
             </h1>
             <p className="mt-2 font-sans text-sm text-white/95">
-              Peptides & medical weight loss · Ryan Kent, FNP-BC · Oswego, IL
+              Peptides & medical weight loss · a licensed Illinois clinician · Oswego, IL
             </p>
           </div>
         </header>

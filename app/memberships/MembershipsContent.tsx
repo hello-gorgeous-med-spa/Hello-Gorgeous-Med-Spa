@@ -471,7 +471,7 @@ export function MembershipsContent() {
                 <p className="text-sm text-black">Owner. Aesthetics, wellness, and patient experience.</p>
               </div>
               <div className="rounded-2xl border border-[#FF2D8E]/30 bg-white p-6 text-left">
-                <h3 className="font-bold text-white text-lg">Ryan Kent</h3>
+                <h3 className="font-bold text-white text-lg">a licensed Illinois clinician</h3>
                 <p className="text-[#FF2D8E] text-sm font-medium mb-2">FNP-BC</p>
                 <p className="text-sm text-black">Hormone optimization, weight loss, IV therapy, and medical oversight.</p>
               </div>

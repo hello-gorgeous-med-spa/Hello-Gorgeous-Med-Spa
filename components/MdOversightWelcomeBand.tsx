@@ -22,7 +22,7 @@ type Props = {
   className?: string;
 };
 
-/** Homepage band — door plaque + Dani, Ryan, and Dr. Arora as medical leadership. */
+/** Homepage band — door plaque + Dani and Dr. Arora as medical leadership. */
 export function MdOversightWelcomeBand({ className = "" }: Props) {
   const sign = STOREFRONT_TRUST_SIGN;
   const arora = DR_ARORA_PROFILE;
@@ -62,7 +62,7 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-white/70">
               Owner-operator with clinical credentials. Medical Director Dr. Mukesh Arora, MD.
-              Board-certified NP on site. Real people — not a letterhead.
+              Prescriptions by a licensed Illinois clinician. Real people — not a letterhead.
             </p>
           </div>
 
@@ -80,7 +80,7 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
           </div>
         </FadeUp>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 sm:max-w-3xl sm:mx-auto">
           {MD_OVERSIGHT_TEAM.map((provider, i) => {
             const isArora = provider.name === DR_ARORA_FULL_NAME;
             return (

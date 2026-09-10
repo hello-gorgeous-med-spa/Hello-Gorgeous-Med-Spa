@@ -211,7 +211,7 @@ export function HrtRequestForm({
     return (
       <RxPostSubmitCard
         headline="Payment received — book telehealth next"
-        intro="Thank you! Schedule your NP video visit on Square. Medication ships after Ryan Kent, FNP-BC approves your protocol."
+        intro="Thank you! Schedule your NP video visit on Square. Medication ships after a licensed Illinois clinician approves your protocol."
       >
         <RxTelehealthHandoff showBooking />
         <p className="mt-4 text-center text-xs text-black/50">{HRT_REQUEST_DISCLAIMER}</p>
@@ -393,7 +393,7 @@ export function HrtRequestForm({
             />
             <span>
               I understand I will pay in person on the Terminal at Hello Gorgeous in Oswego, telehealth
-              with Ryan Kent, FNP-BC is required before medication ships, and my order is not a
+              with a licensed Illinois clinician is required before medication ships, and my order is not a
               prescription until clinically approved.
             </span>
           </label>

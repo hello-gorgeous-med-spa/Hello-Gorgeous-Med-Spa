@@ -186,12 +186,12 @@ export const GALLERY_CASES: GalleryCase[] = [
   {
     type: "single-image",
     id: "gift-night-ryan-demo-1",
-    treatment: "Live Treatment Demo — Ryan Kent, FNP-BC",
+    treatment: "Live Treatment Demo — a licensed Illinois clinician",
     category: "Gift Night Winners",
     tagline: "On-site medical director performing a live aesthetic treatment at gift night.",
     image: "/gallery/event-winners/ryan-live-demo-1.png",
-    imageAlt: "Ryan Kent FNP performing live treatment demo Hello Gorgeous Med Spa",
-    note: "Live demo with Ryan Kent, FNP-BC, our on-site nurse practitioner. Hello Gorgeous Med Spa community event, Oswego, IL.",
+    imageAlt: "a licensed Illinois clinician FNP performing live treatment demo Hello Gorgeous Med Spa",
+    note: "Live demo with a licensed Illinois clinician, our on-site nurse practitioner. Hello Gorgeous Med Spa community event, Oswego, IL.",
     serviceHref: "/about",
   },
   {
@@ -202,7 +202,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     tagline: "Precision injectable technique — real event, real provider, real community.",
     image: "/gallery/event-winners/ryan-live-demo-2.png",
     imageAlt: "Live injectable treatment demonstration Hello Gorgeous Med Spa Oswego",
-    note: "Gift night live demonstration. Medical oversight by Ryan Kent, FNP-BC. Individual results vary.",
+    note: "Gift night live demonstration. Medical oversight by a licensed Illinois clinician. Individual results vary.",
     serviceHref: "/about",
   },
   {
@@ -246,7 +246,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     tagline: "Dani, Ryan & our community — celebrating InMode technology together outdoors.",
     image: "/gallery/event-winners/outdoor-event-team.png",
     imageAlt: "Hello Gorgeous Med Spa team and clients at outdoor gift night event Oswego IL",
-    note: "Outdoor community event with Danielle Alcala-Glazier and Ryan Kent, FNP-BC. Hello Gorgeous Med Spa, Oswego, IL.",
+    note: "Outdoor community event with Danielle Alcala-Glazier and a licensed Illinois clinician. Hello Gorgeous Med Spa, Oswego, IL.",
     serviceHref: "/about",
   },
   // ── Quantum RF client results (Hello Gorgeous, Oswego) ──
@@ -793,7 +793,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     id: "quantum-rf-clip-2",
     treatment: "Quantum RF — Live Technique",
     category: "RF Treatments",
-    tagline: "Subdermal RF contouring by Ryan Kent, FNP-BC.",
+    tagline: "Subdermal RF contouring by a licensed Illinois clinician.",
     video: "/videos/quantum-rf/ryan-quantum-rf-action-2.mp4",
     note: "Real Quantum RF treatment footage showing controlled subdermal pass. Hello Gorgeous Med Spa, Oswego, IL.",
     serviceHref: "/quantum-rf-oswego",
@@ -805,7 +805,7 @@ export const GALLERY_CASES: GalleryCase[] = [
     category: "RF Treatments",
     tagline: "Real-time provider handling during Quantum RF session.",
     video: "/videos/quantum-rf/ryan-quantum-rf-action-3.mp4",
-    note: "Procedure continuation clip with Ryan Kent, FNP-BC. Individual candidacy and results vary.",
+    note: "Procedure continuation clip with a licensed Illinois clinician. Individual candidacy and results vary.",
     serviceHref: "/quantum-rf-oswego",
   },
   {

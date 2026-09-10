@@ -9,7 +9,7 @@ export const maleFemalePractitionersPost: BlogPost = {
   metaDescription:
     "At Hello Gorgeous Med Spa in Oswego, IL, clients benefit from both male and female practitioner perspectives for aesthetics, wellness, injectables, hormones, weight loss, and personalized care.",
   excerpt:
-    "You do not get one perspective — you get a team. How Danielle and Ryan Kent, FNP-BC bring comfort, balance, and smarter treatment planning to Oswego, Naperville, Aurora & the Fox Valley.",
+    "You do not get one perspective — you get a team. How Danielle and a licensed Illinois clinician bring comfort, balance, and smarter treatment planning to Oswego, Naperville, Aurora & the Fox Valley.",
   category: "Our Story",
   date: "2026-05-21",
   readTime: "8 min",
@@ -17,13 +17,13 @@ export const maleFemalePractitionersPost: BlogPost = {
   keywords: [
     "male female practitioners med spa Oswego",
     "Hello Gorgeous Med Spa team",
-    "Ryan Kent FNP Oswego",
+    "a licensed Illinois clinician FNP Oswego",
     "Danielle Alcala-Glazier med spa",
     "med spa for men Oswego IL",
     "best med spa Oswego",
     "Fox Valley med spa providers",
   ],
-  featuredImage: "/images/providers/ryan-kent-clinic.jpg",
+  featuredImage: "/images/about-kent-clinic.jpg",
   structuredDataFaqs: [
     {
       question: "Can I choose my provider at Hello Gorgeous Med Spa?",
@@ -38,7 +38,7 @@ export const maleFemalePractitionersPost: BlogPost = {
     {
       question: "Who provides medical oversight at Hello Gorgeous?",
       answer:
-        "Ryan Kent, FNP-BC, is our on-site nurse practitioner with full prescriptive authority and is on site six days a week, with Dr. Mukesh Arora, MD as Medical Director. Danielle Alcala-Glazier is the founder and licensed esthetician leading aesthetics and client experience.",
+        "a licensed Illinois clinician, is our on-site nurse practitioner with full prescriptive authority and is on site six days a week, with Dr. Mukesh Arora, MD as Medical Director. Danielle Alcala-Glazier is the founder and licensed esthetician leading aesthetics and client experience.",
     },
     {
       question: "Can I get a second opinion within the same med spa?",
@@ -63,7 +63,7 @@ It gives you something most med spas cannot offer: **choice, balance, perspectiv
 
 ## Two perspectives. One shared standard.
 
-At Hello Gorgeous, clients benefit from the unique strengths that **Danielle Alcala-Glazier** and **Ryan Kent, FNP-BC** bring to the treatment room.
+At Hello Gorgeous, clients benefit from the unique strengths that **Danielle Alcala-Glazier** and **a licensed Illinois clinician** bring to the treatment room.
 
 A female practitioner often understands the emotional side of beauty from a deeply personal place: the aging changes women notice first, the insecurities we sometimes hide, the pressure to look rested, feminine, youthful, and still like ourselves. For many women, having another woman guide them through aesthetics feels comforting, relatable, and safe.
 
@@ -204,7 +204,7 @@ Yes. We serve both with injectables, wellness, weight management, hormones, lase
 
 ### Who oversees medical care?
 
-Ryan Kent, FNP-BC, is our on-site nurse practitioner with prescriptive authority six days a week, and Dr. Mukesh Arora, MD is our Medical Director. Danielle Alcala-Glazier leads aesthetics, education, and the client experience as founder.
+a licensed Illinois clinician, is our on-site nurse practitioner with prescriptive authority six days a week, and Dr. Mukesh Arora, MD is our Medical Director. Danielle Alcala-Glazier leads aesthetics, education, and the client experience as founder.
 
 ### Can I get a second opinion at the same med spa?
 

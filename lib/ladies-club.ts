@@ -85,7 +85,7 @@ export const LADIES_CLUB_SERVICES: LadiesClubService[] = [
     eyebrow: "Women's Health",
     title: "Hormone Optimization",
     description:
-      "Lab-guided bioidentical hormone therapy for perimenopause, menopause, and cycle-related symptoms with Ryan Kent, FNP-BC. We no longer offer pellet insertion.",
+      "Lab-guided bioidentical hormone therapy for perimenopause, menopause, and cycle-related symptoms with a licensed Illinois clinician. We no longer offer pellet insertion.",
     bullets: [
       "Creams and injectables when appropriate",
       "Quote confirmed before you start",
@@ -214,17 +214,17 @@ export const LADIES_CLUB_HORMONE_SYMPTOMS: LadiesClubSymptom[] = [
 ];
 
 export const LADIES_CLUB_BIOTE_QUICK_FACTS = [
-  { label: "Hormone consult", value: "Book", note: "Ryan Kent, FNP-BC — quote first" },
+  { label: "Hormone consult", value: "Book", note: "a licensed Illinois clinician — quote first" },
   { label: "Baseline labs", value: "$250–450", note: "Required before starting therapy" },
   { label: "Delivery", value: "Creams / Rx", note: "We no longer offer pellet insertion" },
-  { label: "Provider", value: "FNP-BC", note: "Ryan Kent on site 6 days" },
+  { label: "Provider", value: "FNP-BC", note: "a licensed Illinois clinician on site 6 days" },
 ] as const;
 
 export const LADIES_CLUB_BIOTE_INCLUDED = {
   oversight: {
     title: "Clinical oversight",
     bullets: [
-      "Ryan Kent, FNP-BC — lab-guided HRT",
+      "a licensed Illinois clinician — lab-guided HRT",
       "Comprehensive baseline hormone panel",
       "Follow-up labs as indicated",
       "Secure messaging between visits",
@@ -257,7 +257,7 @@ export const LADIES_CLUB_MEMBERSHIP_TIERS = [
     perks: [
       "Member pricing on hormone visits",
       "Priority booking for hormone consults",
-      "Quarterly lab review with Ryan Kent, FNP-BC",
+      "Quarterly lab review with a licensed Illinois clinician",
       "10% off IV therapy & vitamin shots",
       "FullScript supplement integration",
     ],
@@ -323,7 +323,7 @@ export const LADIES_CLUB_FAQS: FAQ[] = [
   {
     question: "What is The Ladies' Club?",
     answer:
-      "The Ladies' Club is Hello Gorgeous's women's wellness hub — BioTE hormone therapy, GLP-1 weight loss, peptides, IV therapy, and aesthetic memberships in one place. Ryan Kent, FNP-BC oversees every medical protocol on site.",
+      "The Ladies' Club is Hello Gorgeous's women's wellness hub — BioTE hormone therapy, GLP-1 weight loss, peptides, IV therapy, and aesthetic memberships in one place. a licensed Illinois clinician oversees every medical protocol on site.",
   },
   {
     question: "Am I a candidate for BioTE?",

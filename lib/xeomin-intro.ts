@@ -204,7 +204,7 @@ export const XEOMIN_INTRO_FAQS: FAQ[] = [
   {
     question: "What is Xeomin FDA-approved for?",
     answer:
-      "Xeomin is FDA-approved to temporarily improve the look of moderate to severe upper facial lines in adults: frown lines (glabella), forehead lines, and crow’s feet (lateral canthal lines) — treated simultaneously or individually. At Hello Gorgeous, Ryan Kent, FNP-BC may also map other expression lines when it is clinically appropriate.",
+      "Xeomin is FDA-approved to temporarily improve the look of moderate to severe upper facial lines in adults: frown lines (glabella), forehead lines, and crow’s feet (lateral canthal lines) — treated simultaneously or individually. At Hello Gorgeous, a licensed Illinois clinician may also map other expression lines when it is clinically appropriate.",
   },
   {
     question: "How is Xeomin different from Botox?",

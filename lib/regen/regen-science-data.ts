@@ -383,7 +383,7 @@ export const REGEN_SCIENCE_FAQS: RegenScienceFaq[] = [
   {
     question: "How fast can I start?",
     answer:
-      "Consults are usually available same or next day, and Dani and Ryan are on site weekly. If your labs are recent and clear, treatment can often begin at the follow-up visit.",
+      "Consults are usually available same or next day, and Danielle are on site weekly. If your labs are recent and clear, treatment can often begin at the follow-up visit.",
   },
   {
     question: "Do you take insurance for GLP-1s?",

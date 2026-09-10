@@ -94,7 +94,7 @@ export default function BestMedSpaOswegoPage() {
             </FadeUp>
             <div className="grid md:grid-cols-2 gap-6">
               {[
-                { title: "Full-Authority NP On Site", body: DIFFERENTIATORS.npOnSite + ". Ryan Kent, FNP-BC provides full prescriptive authority for weight loss, hormone therapy, and medical treatments." },
+                { title: "Full-Authority NP On Site", body: DIFFERENTIATORS.npOnSite + ". a licensed Illinois clinician provides full prescriptive authority for weight loss, hormone therapy, and medical treatments." },
                 { title: "Exclusive Technology", body: DIFFERENTIATORS.exclusiveTech },
                 { title: "Class 4 Medical Lasers", body: DIFFERENTIATORS.class4Lasers + " for advanced skin resurfacing and body contouring." },
                 { title: "Full-Service Care", body: "Injectables, weight loss, hormone therapy, Morpheus8, Quantum RF, Solaria CO2, laser hair removal, facials, IV therapy — all under one roof." },

@@ -30,13 +30,13 @@ const BRAND = {
 const STEPS = [
   {
     n: "01",
-    title: "Pick a time on Ryan's calendar",
+    title: "Pick a time on our consult calendar",
     body: `${REGEN_TELEHEALTH_DURATION} on Square. Illinois adults 21+ only.`,
   },
   {
     n: "02",
     title: "Talk before you buy therapy",
-    body: "Ask questions. He reviews whether a request is appropriate. A visit is not a guaranteed prescription.",
+    body: "Ask questions. A licensed Illinois clinician reviews whether a request is appropriate. A visit is not a guaranteed prescription.",
   },
   {
     n: "03",
@@ -156,7 +156,7 @@ export default function ConsultPage() {
         <h2 style={{ fontSize: 24, fontWeight: 800, marginBottom: 20 }}>Good to know</h2>
         <dl style={{ display: "grid", gap: 20, margin: 0 }}>
           <div>
-            <dt style={{ fontWeight: 700, color: BRAND.pink, marginBottom: 6 }}>What if Ryan does not prescribe?</dt>
+            <dt style={{ fontWeight: 700, color: BRAND.pink, marginBottom: 6 }}>What if a clinician does not prescribe?</dt>
             <dd style={{ margin: 0, color: "#aaa", lineHeight: 1.6 }}>
               You paid for the visit, not for a vial. There is no therapy charge to refund. The visit fee is not refunded.
             </dd>
@@ -164,7 +164,7 @@ export default function ConsultPage() {
           <div>
             <dt style={{ fontWeight: 700, color: BRAND.pink, marginBottom: 6 }}>How does the credit work?</dt>
             <dd style={{ margin: 0, color: "#aaa", lineHeight: 1.6 }}>
-              {REGEN_TELEHEALTH_CREDIT_LINE} Tell us you already saw Ryan when you start your order — we apply the{" "}
+              {REGEN_TELEHEALTH_CREDIT_LINE} Tell us you already completed a consult when you start your order — we apply the{" "}
               ${REGEN_TELEHEALTH_FEE_USD} against that first medication charge (shipping stays as shown at checkout).
             </dd>
           </div>

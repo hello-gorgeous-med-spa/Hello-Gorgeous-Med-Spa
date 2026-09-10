@@ -8,15 +8,13 @@ import {
 import { breadcrumbJsonLd, pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Danielle Alcala-Glazier & Ryan Kent, FNP-BC | Hello Gorgeous Med Spa Oswego IL",
+  title: "Danielle Alcala-Glazier | Hello Gorgeous Med Spa Oswego IL",
   description: ABOUT_PAGE_SEO_DESCRIPTION,
   path: "/about",
   keywords: [
     "Danielle Alcala-Glazier",
     "Hello Gorgeous Med Spa Oswego",
     "med spa owner Oswego IL",
-    "Ryan Kent FNP-BC",
-    "nurse practitioner med spa Oswego",
     "Best of Oswego med spa",
     "Morpheus8 Oswego",
     "med spa Naperville Aurora Plainfield",
@@ -26,7 +24,7 @@ export const metadata: Metadata = pageMetadata({
 export default function AboutPage() {
   const breadcrumb = breadcrumbJsonLd([
     { name: "Home", url: SITE.url },
-    { name: "About Dani & Ryan", url: `${SITE.url}/about` },
+    { name: "About Danielle", url: `${SITE.url}/about` },
   ]);
 
   return (

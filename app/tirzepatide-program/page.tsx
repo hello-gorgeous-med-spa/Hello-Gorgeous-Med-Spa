@@ -73,7 +73,7 @@ const BENEFITS = [
   {
     title: "Provider-guided the whole way",
     body:
-      "Your dose is determined and adjusted by Ryan Kent, FNP-BC — never guesswork — with check-ins across your ten weeks.",
+      "Your dose is determined and adjusted by a licensed Illinois clinician — never guesswork — with check-ins across your ten weeks.",
   },
   {
     title: "Care that knows your name",
@@ -130,7 +130,7 @@ const PROGRAM_FAQS = [
   {
     question: "What is the 10-week tirzepatide program?",
     answer:
-      "It's a medically guided weight-loss program at Hello Gorgeous Med Spa in Oswego, IL for a flat $600. You get a private consultation and eligibility review, a 10-week supply of tirzepatide, simple at-home injection training, and provider-guided dosing with check-ins throughout. One easy weekly dose, with Ryan Kent, FNP-BC on site 6 days a week.",
+      "It's a medically guided weight-loss program at Hello Gorgeous Med Spa in Oswego, IL for a flat $600. You get a private consultation and eligibility review, a 10-week supply of tirzepatide, simple at-home injection training, and provider-guided dosing with check-ins throughout. One easy weekly dose, with a licensed Illinois clinician on site 6 days a week.",
   },
   {
     question: "How much does it cost?",

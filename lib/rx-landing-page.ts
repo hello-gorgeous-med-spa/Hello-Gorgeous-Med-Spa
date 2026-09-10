@@ -30,11 +30,11 @@ export const RX_LANDING_HERO = {
   titleAccent: "RX",
   subtitle: "The medical programs we offer our clients",
   body:
-    "Hello Gorgeous is your downtown studio. REGEN RX is the prescription door we opened — weight-management, hormones, peptides, and wellness with Ryan Kent, FNP-BC. Telehealth and ship-to-home for qualified Illinois patients. Prescription therapy only when clinically appropriate. Compounded medications are not FDA-approved.",
+    "Hello Gorgeous is your downtown studio. REGEN RX is the prescription door we opened — weight-management, hormones, peptides, and wellness with a licensed Illinois clinician. Telehealth and ship-to-home for qualified Illinois patients. Prescription therapy only when clinically appropriate. Compounded medications are not FDA-approved.",
   primaryCta: { label: "Start REGEN RX", href: "https://tryregenrx.com/start" },
   secondaryCta: { label: "Explore programs", href: "#programs" },
   heroImage: "/images/shop-rx/rx-hero-team.png",
-  heroImageAlt: "Ryan Kent, FNP-BC and Danielle Alcala-Glazier — REGEN RX medical team, Oswego IL",
+  heroImageAlt: "a licensed Illinois clinician and Danielle Alcala-Glazier — REGEN RX medical team, Oswego IL",
   accentImages: [] as const,
 } as const;
 
@@ -47,7 +47,7 @@ export const RX_LANDING_NAV = [
 ] as const;
 
 export const RX_LANDING_TRUST = [
-  "Ryan Kent, FNP-BC",
+  "a licensed Illinois clinician",
   "Illinois residents",
   "Telehealth + in-office",
   "Licensed U.S. pharmacies",
@@ -64,7 +64,7 @@ export const RX_LANDING_PROGRAMS: RxLandingProgram[] = [
     priceHint: "Consult from $49",
     badge: "NP-directed",
     image: RX_CARE_IMAGES.telehealth,
-    imageAlt: "Ryan Kent, FNP-BC — hormone evaluation",
+    imageAlt: "a licensed Illinois clinician — hormone evaluation",
     iconTag: { emoji: "🧬", label: "Hormone evaluation" },
   },
   {
@@ -85,7 +85,7 @@ export const RX_LANDING_PROGRAMS: RxLandingProgram[] = [
     id: "peptides",
     title: "Wellness consultation",
     description:
-      "A medical visit to review history, labs, and goals. Peptide or other prescription therapy is offered only when Ryan Kent, FNP-BC determines it is clinically appropriate — not from an online cart.",
+      "A medical visit to review history, labs, and goals. Peptide or other prescription therapy is offered only when a licensed Illinois clinician determines it is clinically appropriate — not from an online cart.",
     href: "/peptides",
     cta: "Book a consult",
     priceHint: "Consult from $49",
@@ -144,7 +144,7 @@ export const RX_LANDING_JOURNEY = [
     id: "eval",
     step: 2,
     title: "Medical evaluation",
-    detail: "Ryan Kent, FNP-BC reviews your history. Telehealth or in-office in Oswego.",
+    detail: "a licensed Illinois clinician reviews your history. Telehealth or in-office in Oswego.",
     href: BOOKING_URL,
     cta: "Book evaluation",
     external: true,

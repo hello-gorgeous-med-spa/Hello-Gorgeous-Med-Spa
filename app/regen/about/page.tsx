@@ -147,8 +147,8 @@ export default function AboutPage() {
               I enrolled in nursing school in 2024 so I could educate myself and give the best care I can
               to my clients, my staff, my family, and my friends. I am working toward my RN license. That
               is why I built <strong style={{ color: BRAND.pink }}>REGEN RX</strong>. I am a student — not the
-              prescriber. <strong style={{ color: '#fff' }}>Ryan Kent, FNP-BC</strong> reviews every request
-              and writes every prescription. I built the door so Illinois adults can reach him without the
+              prescriber. <strong style={{ color: '#fff' }}>A licensed Illinois clinician</strong> reviews every request
+              and writes every prescription. I built the door so Illinois adults can reach real clinical care without the
               runaround.
             </p>
 
@@ -182,7 +182,7 @@ export default function AboutPage() {
 
             {/* The Promise */}
             <p style={{ fontSize: 17, color: '#bbb', lineHeight: 1.9, marginBottom: 28 }}>
-              We are not a faceless online pharmacy. We are a real Illinois practice. Ryan decides. When you
+              We are not a faceless online pharmacy. We are a real Illinois practice. A licensed Illinois clinician decides. When you
               are worried about a side effect, you message the same Hello Gorgeous team — not a stranger with
               a tracking number. That is what my dad deserved, and it is what you deserve too.
             </p>

@@ -60,7 +60,7 @@ export const MENS_WELLNESS_SERVICES: MensWellnessService[] = [
       "Baseline panels ~$250–450",
       "TRT from $200–350/mo (protocol-dependent)",
       "Energy, libido, mood & body comp",
-      "Ryan Kent, FNP-BC on site 6 days",
+      "a licensed Illinois clinician on site 6 days",
     ],
     href: "/mens-hormones",
     cta: "Men's hormone program →",
@@ -142,7 +142,7 @@ export const MENS_WELLNESS_PILLARS = [
   {
     title: "Licensed NP oversight",
     description:
-      "Ryan Kent, FNP-BC writes and supervises every prescription. Injectors know male anatomy, dosing, and natural-looking Brotox.",
+      "a licensed Illinois clinician writes and supervises every prescription. Injectors know male anatomy, dosing, and natural-looking Brotox.",
   },
   {
     title: "Lab-guided protocols",
@@ -176,7 +176,7 @@ export const MENS_WELLNESS_FAQS: FAQ[] = [
   {
     question: "How do I know if TRT is right for me?",
     answer:
-      "Start with our free TRT Readiness Screener at hellogorgeousmedspa.com/quiz/trt-readiness — then book a hormone consult. Ryan Kent, FNP-BC reviews symptoms, history, and labs before any prescription.",
+      "Start with our free TRT Readiness Screener at hellogorgeousmedspa.com/quiz/trt-readiness — then book a hormone consult. a licensed Illinois clinician reviews symptoms, history, and labs before any prescription.",
   },
   {
     question: "What are peptides and what can they do for men?",

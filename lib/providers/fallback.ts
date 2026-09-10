@@ -1,12 +1,10 @@
-import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentials";
-import { PROVIDER_BOOKING_URL_DANIELLE, PROVIDER_BOOKING_URL_RYAN } from "@/lib/flows";
-import { MEDICAL_DIRECTOR, NP_ON_SITE_PHRASE } from "@/lib/medical-authority";
+import { DANIELLE_CREDENTIALS } from "@/lib/provider-credentials";
+import { PROVIDER_BOOKING_URL_DANIELLE } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
 
 /** Code-controlled provider images. Override DB values so you never need to run migrations for headshot changes. */
 export const PROVIDER_HEADSHOT_OVERRIDES: Record<string, string> = {
   danielle: "/images/team/danielle-alcala-glazier-portrait.png",
-  ryan: "/images/providers/ryan-kent-clinic.jpg",
 };
 
 export function applyProviderImageOverrides<T extends { slug?: string | null; headshot_url?: string | null }>(
@@ -77,23 +75,6 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     intro_video_url: "/videos/providers/danielle/intro-clip.mp4",
     booking_url: PROVIDER_BOOKING_URL_DANIELLE,
   },
-  ryan: {
-    id: "47ab9361-4a68-4ab8-a860-c9c9fd64d26c",
-    slug: "ryan",
-    first_name: "Ryan",
-    last_name: "Kent",
-    display_name: "Ryan Kent, FNP-BC",
-    email: "ryan@hellogorgeousmedspa.com",
-    color_hex: "#3b82f6",
-    credentials: RYAN_CREDENTIALS,
-    tagline: "Full-practice authority NP | metabolic & regenerative care",
-    short_bio: `Board-certified Family Nurse Practitioner at Hello Gorgeous Med Spa — ${NP_ON_SITE_PHRASE} with full Illinois prescriptive authority under Medical Director ${MEDICAL_DIRECTOR.displayName}.`,
-    philosophy: `Medical weight loss and hormone therapy built around safety, labs, and data. Every clinical decision at Hello Gorgeous goes through me — ${NP_ON_SITE_PHRASE}.`,
-    headshot_url: "/images/providers/ryan-kent-clinic.jpg",
-    hero_image_url: `${SITE.url}/images/gallery/treatment-2.png`,
-    intro_video_url: "",
-    booking_url: PROVIDER_BOOKING_URL_RYAN,
-  },
 };
 
 export const PROVIDER_MEDIA_FALLBACK: Record<string, ProviderMediaFallback[]> = {
@@ -150,24 +131,6 @@ export const PROVIDER_MEDIA_FALLBACK: Record<string, ProviderMediaFallback[]> = 
       consent_confirmed: true,
       watermark_enabled: true,
       alt_text: "Before and after lip filler with Danielle Alcala in Oswego IL",
-    },
-  ],
-  ryan: [
-    // Before/After
-    {
-      id: "fallback-ryan-ba-1",
-      media_type: "before_after",
-      status: "published",
-      service_tag: "weight_loss",
-      title: "Medical weight loss milestone",
-      description: "GLP-1 guided weight loss with metabolic oversight and custom labs.",
-      before_image_url: `${SITE.url}/images/gallery/treatment-1.png`,
-      after_image_url: `${SITE.url}/images/gallery/treatment-2.png`,
-      thumbnail_url: `${SITE.url}/images/gallery/treatment-2.png`,
-      featured: true,
-      consent_confirmed: true,
-      watermark_enabled: true,
-      alt_text: "Before and after medical weight loss with Ryan Kent in Oswego IL",
     },
   ],
 };

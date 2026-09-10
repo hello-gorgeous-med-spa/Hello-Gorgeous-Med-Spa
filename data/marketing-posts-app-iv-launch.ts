@@ -41,7 +41,7 @@ No App Store download — scan our QR or open the link, then Add to Home Screen.
 • 🧬 Wellness hub — peptides, hormone optimization, Fullscript supplements
 • 👤 Me tab — portal, appointments, documents, referrals & your personal QR at checkout
 
-Ryan Kent, FNP-BC on site 6 days a week · Oswego, IL
+a licensed Illinois clinician on site 6 days a week · Oswego, IL
 
 👉 Scan QR / get the app: ${APP_LAUNCH_URLS.getApp}
 👉 Build your IV bag: ${APP_LAUNCH_URLS.ivBuilder}
@@ -63,7 +63,7 @@ What's inside:
 ✓ Client portal · appointments · documents · referrals
 
 Scan QR: hellogorgeousmedspa.com/get-app
-Ryan Kent, FNP-BC · serving Naperville, Aurora & Plainfield.`;
+a licensed Illinois clinician · serving Naperville, Aurora & Plainfield.`;
 
 /**
  * Google Business Profile — SEO-rich app launch (local + service keywords).
@@ -79,7 +79,7 @@ Your med spa in your pocket — built for Oswego, Naperville, Aurora, Plainfield
 ✓ App-only deals, gift cards & monthly memberships
 ✓ HG Rewards points · GLP-1 screening · peptides · hormones · client portal
 
-Ryan Kent, FNP-BC on site 6 days a week · downtown Oswego at 74 W Washington St.
+a licensed Illinois clinician on site 6 days a week · downtown Oswego at 74 W Washington St.
 
 Get the app (scan QR): ${APP_LAUNCH_URLS.getApp}
 Open the app: ${APP_LAUNCH_URLS.app}`;
@@ -106,7 +106,7 @@ Scan the QR · add to your home screen in seconds. No App Store download.
 ✓ Vitamin Bar · deals · gift cards · rewards
 ✓ Add to home screen — one tap forever
 
-Ryan Kent, FNP-BC on site 6 days a week · serving Naperville, Aurora & Plainfield.
+a licensed Illinois clinician on site 6 days a week · serving Naperville, Aurora & Plainfield.
 
 👉 Open the app: ${APP_LAUNCH_URLS.app}`;
 
@@ -119,6 +119,6 @@ Your med spa in your pocket — scan our QR and add to your home screen in secon
 ✓ Vitamin Bar · deals · gift cards · HG Rewards
 ✓ Add to home screen — one tap forever
 
-Ryan Kent, FNP-BC · downtown Oswego at 74 W Washington St · Naperville, Aurora & Plainfield.
+a licensed Illinois clinician · downtown Oswego at 74 W Washington St · Naperville, Aurora & Plainfield.
 
 Open the app: ${APP_LAUNCH_URLS.app}`;

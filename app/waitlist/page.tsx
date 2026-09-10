@@ -35,7 +35,7 @@ export default function WaitlistPage() {
 
   const providers = [
     { id: '', name: 'Any Provider' },
-    { id: 'p1', name: 'Ryan Kent, APRN' },
+    { id: 'p1', name: 'a licensed Illinois clinician, APRN' },
     { id: 'p2', name: 'Danielle Glazier-Alcala' },
   ];
 

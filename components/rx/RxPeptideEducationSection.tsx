@@ -42,7 +42,7 @@ export function RxPeptideEducationSection() {
             </p>
             <p>
               At Hello Gorgeous in Oswego, every RE GEN protocol starts with your goals and an NP
-              evaluation — Ryan Kent, FNP-BC reviews history, labs when indicated, and matches the
+              evaluation — a licensed Illinois clinician reviews history, labs when indicated, and matches the
               right peptide or program. Prescription-only through licensed compounding pharmacies.
             </p>
           </div>

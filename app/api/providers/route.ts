@@ -20,9 +20,20 @@ function withTimeout<T>(promise: Promise<T>, ms: number, errorMsg: string): Prom
 
 // Fallback providers when DB is unavailable
 const FALLBACK_PROVIDERS = [
-  { id: '47ab9361-4a68-4ab8-a860-c9c9fd64d26c', first_name: 'Ryan', last_name: 'Kent', display_name: 'Ryan Kent, FNP-BC', credentials: 'FNP-BC', color_hex: '#3b82f6', active: true },
   { id: 'b7e6f872-3628-418a-aefb-aca2101f7cb2', first_name: 'Danielle', last_name: 'Alcala', display_name: 'Danielle Alcala, RN-S', credentials: 'RN-S', color_hex: '#ec4899', active: true },
 ];
+
+function hideDepartedProviders<T extends { slug?: string | null; first_name?: string | null; last_name?: string | null; display_name?: string | null }>(
+  providers: T[],
+): T[] {
+  return providers.filter((p) => {
+    const slug = String(p.slug || "").toLowerCase();
+    const name = `${p.first_name || ""} ${p.last_name || ""} ${p.display_name || ""}`.toLowerCase();
+    if (slug === "ryan" || slug.includes("ryan-kent")) return false;
+    if (name.includes("ryan kent")) return false;
+    return true;
+  });
+}
 
 // Create supabase client inline (not from shared module to avoid issues)
 function getSupabase() {
@@ -63,7 +74,7 @@ export async function GET() {
       return NextResponse.json({ providers: FALLBACK_PROVIDERS, source: 'fallback' });
     }
 
-    return NextResponse.json({ providers: data });
+    return NextResponse.json({ providers: hideDepartedProviders(data) });
   } catch (error: unknown) {
     console.error("Error fetching providers:", error);
     // ALWAYS return fallback - never fail

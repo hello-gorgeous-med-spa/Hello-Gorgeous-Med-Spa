@@ -337,7 +337,7 @@ Includes medication, weekly check-ins, and support throughout your weight loss j
     categorySlug: 'weight-loss',
     name: 'Tirzepatide (Zepbound/Mounjaro)',
     slug: 'tirzepatide',
-    description: `During your consultation with Ryan Kent, APRN we will provide:
+    description: `During your consultation with a licensed Illinois clinician, APRN we will provide:
 
 Medical Evaluation
 • Review medical history
@@ -516,7 +516,7 @@ Duration: ~3–4 months.`,
     slug: 'botox-new-client-special',
     description: `$10/unit for NEW clients only!
 
-Ryan Kent, FPA, APRN, FNP-C is accepting patients. We will lock you in at this rate for 1 year if scheduled now.`,
+a licensed Illinois clinician, FPA, APRN, FNP-C is accepting patients. We will lock you in at this rate for 1 year if scheduled now.`,
     shortDescription: 'New client special - $10 per unit',
     priceCents: 1000,
     priceDisplay: '$10/unit',
@@ -1917,12 +1917,12 @@ We'll put together a treatment plan to target your needs.`,
   },
   {
     categorySlug: 'consultations',
-    name: 'Medical Visit with Ryan Kent, APRN',
+    name: 'Medical Visit with a licensed Illinois clinician, APRN',
     slug: 'medical-visit-ryan',
     description: `Experience personalized, professional care from a trusted medical provider.
 
-Meet with Ryan Kent, APRN, FNP, for a thorough medical visit tailored to your needs. This service offers a supportive environment where your wellness and beauty concerns are addressed with expertise and attention.`,
-    shortDescription: 'Medical evaluation with Ryan Kent, APRN',
+Meet with a licensed Illinois clinician, APRN, FNP, for a thorough medical visit tailored to your needs. This service offers a supportive environment where your wellness and beauty concerns are addressed with expertise and attention.`,
+    shortDescription: 'Medical evaluation with a licensed Illinois clinician, APRN',
     priceCents: 4900,
     priceDisplay: '$49',
     priceType: 'fixed',

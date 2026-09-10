@@ -41,7 +41,7 @@ export const REGEN_HERO_CARDS = [
     cta: "Start now",
     href: "/rx/weight-loss",
     image: "/images/team/ryan-kent.png",
-    imageAlt: "Ryan Kent, FNP-BC — REGEN medical director",
+    imageAlt: "a licensed Illinois clinician — REGEN medical director",
     accent: "#E3F2FD",
   },
 ] as const;
@@ -194,19 +194,19 @@ export const REGEN_GOALS = [
 export const REGEN_PROVIDERS = {
   headline: "Backed by licensed providers",
   intro:
-    "REGEN prescriptions are supervised by Ryan Kent, FNP-BC — a board-certified Family Nurse Practitioner with prescriptive authority. Every treatment plan is reviewed, personalized, and monitored.",
+    "REGEN prescriptions are supervised by a licensed Illinois clinician — a board-certified Family Nurse Practitioner with prescriptive authority. Every treatment plan is reviewed, personalized, and monitored.",
   bullets: [
     { id: "board", text: "Board-certified NP" },
     { id: "onsite", text: "On-site 6 days a week in Oswego" },
     { id: "telehealth", text: "Telehealth when required" },
   ],
   provider: {
-    name: "Ryan Kent, FNP-BC",
+    name: "a licensed Illinois clinician",
     title: "On-Site Nurse Practitioner · FNP-BC",
     credentials: "Board-certified Family Nurse Practitioner",
     affiliation: "Hello Gorgeous Med Spa",
     image: "/images/team/ryan-kent.png",
-    imageAlt: "Ryan Kent, FNP-BC — RE GEN On-Site Nurse Practitioner",
+    imageAlt: "a licensed Illinois clinician — RE GEN On-Site Nurse Practitioner",
   },
 } as const;
 

@@ -74,7 +74,7 @@ const process = [
   {
     step: "2",
     title: "Schedule Telehealth Consultation",
-    description: "Meet virtually with Ryan Kent, FNP-C for comprehensive medical evaluation and treatment planning.",
+    description: "Meet virtually with a licensed Illinois clinician, FNP-C for comprehensive medical evaluation and treatment planning.",
   },
   {
     step: "3",
@@ -118,7 +118,7 @@ export default function MembershipPage() {
 
       {/* Compliance Banner */}
       <div className="bg-[#E6007E] text-white py-3 px-4 text-center text-sm">
-        <p>All prescriptions require medical evaluation by <strong>Ryan Kent, FNP-C</strong>. Illinois residents only. No direct medication purchase.</p>
+        <p>All prescriptions require medical evaluation by <strong>a licensed Illinois clinician, FNP-C</strong>. Illinois residents only. No direct medication purchase.</p>
       </div>
 
       {/* Membership Tiers */}

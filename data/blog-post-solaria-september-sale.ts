@@ -163,7 +163,7 @@ Some people are stunned after **one** treatment. Deeper scarring or heavy sun hi
 
 ### 1. Free consult (required)
 
-We look at skin type, medications, cold-sore history, recent sun, and your calendar. If Solaria is the wrong tool — or the wrong week — we say so. **Ryan Kent, FNP-BC** is on site for medical oversight. Call **630-636-6193** or **[book online](/book)**.
+We look at skin type, medications, cold-sore history, recent sun, and your calendar. If Solaria is the wrong tool — or the wrong week — we say so. **a licensed Illinois clinician** is on site for medical oversight. Call **630-636-6193** or **[book online](/book)**.
 
 ### 2. Before your day
 

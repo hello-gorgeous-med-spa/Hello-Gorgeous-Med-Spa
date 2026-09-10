@@ -36,7 +36,7 @@ export function InjectionMenuContent() {
               guide you.
             </p>
             <p className="mt-3 text-sm text-white/60 max-w-xl mx-auto">
-              All injections, peptides &amp; weight-loss therapies require a medical evaluation and prescription by Ryan
+              All injections, peptides &amp; weight-loss therapies require a medical evaluation and prescription by a licensed Illinois clinician
               Kent, FNP-BC. Pricing reserves a consultation only.
             </p>
           </FadeUp>

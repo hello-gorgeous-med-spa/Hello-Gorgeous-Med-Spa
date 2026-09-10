@@ -50,7 +50,7 @@ export const CASH_PAY_DESK_SAY = `We're cash-pay — we don't bill insurance. Ry
 
 /** Staff-only money notes. Not client copy. */
 export const CASH_PAY_PROFIT_NOTES = `
-Today (live): ${regenTelehealthPriceLabel()} Square visit, credited toward the first therapy order if Ryan prescribes. Product + shipping are separate. That door stops the decline-refund dance.
+Today (live): ${regenTelehealthPriceLabel()} Square visit, credited toward the first therapy order if A licensed Illinois clinician prescribes. Product + shipping are separate. That door stops the decline-refund dance.
 
 Protect Ryan's time: no-show / late cancel fee on the Square visit. Do not give the visit away.
 
@@ -60,7 +60,7 @@ Next profitable layer (do not launch until Danielle says so + attorney review):
 - Keep a paid consult that is NOT fully credited (credit $25–$50 toward the first management month if they enroll the same day).
 - Charge a monthly clinical-management fee for oversight, messaging, and scheduled follow-up — separate from the vial.
 - Labs = lab cost + a small coordination fee.
-- Medication quoted after Ryan decides. Patient pays current before a refill. Ryan still approves every refill.
+- Medication quoted after A licensed Illinois clinician decides. Patient pays current before a refill. Ryan still approves every refill.
 
 Do not split fees with a pharmacy or pay a partner for a named Rx.
 `.trim();

@@ -37,7 +37,7 @@ export function QuantumRFLaunchPromoSection({ id = "quantum-rf-launch" }: { id?:
                 Lipo results. No surgery. No operating room.
               </p>
               <p className="mt-2 text-sm text-white/55">
-                Ryan Kent, FNP-BC · Danielle Alcala, RN-S · {SITE.address.addressLocality}, IL
+                a licensed Illinois clinician · Danielle Alcala, RN-S · {SITE.address.addressLocality}, IL
               </p>
             </div>
           </FadeUp>

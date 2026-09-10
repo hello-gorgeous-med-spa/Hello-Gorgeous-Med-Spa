@@ -108,7 +108,7 @@ export function RegenHomeBand() {
             <div className="flex justify-center overflow-hidden rounded-2xl bg-black shadow-2xl shadow-pink-900/40 ring-1 ring-pink-500/25">
               <Image
                 src={REGEN_MARKETING.providerHero}
-                alt="Ryan Kent, FNP-BC — REGEN RX provider care through Hello Gorgeous"
+                alt="a licensed Illinois clinician — REGEN RX provider care through Hello Gorgeous"
                 width={819}
                 height={1024}
                 className="h-[380px] w-auto max-w-full object-contain object-top sm:h-[440px] md:h-[520px]"
@@ -132,7 +132,7 @@ export function RegenHomeBand() {
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-6 border-t border-white/10 pt-8 text-sm text-gray-400">
           <span>US-licensed pharmacies</span>
-          <span>Ryan Kent, FNP-BC</span>
+          <span>a licensed Illinois clinician</span>
           <span>Shipped to Illinois</span>
           <span>Same Hello Gorgeous team</span>
         </div>

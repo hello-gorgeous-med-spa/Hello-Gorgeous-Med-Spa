@@ -28,7 +28,7 @@ export const CITY_HUB_PROFILES: Record<`${PrimaryCitySlug}-il`, CityHubProfile> 
     heroSubline:
       "Your hometown med spa on Washington Street — NP on site six days with Morpheus8 Burst, Solaria CO₂, and Hello Gorgeous RX under one roof.",
     localContext:
-      "Hello Gorgeous is rooted in downtown Oswego: steps from the Fox River, local shops, and the village center clients already know. Kendall County families, teachers, nurses, and remote workers book injectables between errands, grab Morpheus8 consults after school pickup, and start GLP-1 or hormone programs without driving to Naperville or Chicago. We are not a franchise — Dani and Ryan Kent built this clinic for Oswego first, then the Fox Valley.",
+      "Hello Gorgeous is rooted in downtown Oswego: steps from the Fox River, local shops, and the village center clients already know. Kendall County families, teachers, nurses, and remote workers book injectables between errands, grab Morpheus8 consults after school pickup, and start GLP-1 or hormone programs without driving to Naperville or Chicago. We are not a franchise — Dani and a licensed Illinois clinician built this clinic for Oswego first, then the Fox Valley.",
     landmarks: ["Fox River", "downtown Washington St.", "village center"],
     nearbyAreas: ["Montgomery", "Yorkville", "Plainfield"],
     faqDrive:
@@ -43,7 +43,7 @@ export const CITY_HUB_PROFILES: Record<`${PrimaryCitySlug}-il`, CityHubProfile> 
     heroSubline:
       "Naperville clients skip the Riverwalk traffic for NP-led Botox, fillers, Morpheus8 Burst, and medical weight loss — without the big-city med-spa markup.",
     localContext:
-      "Naperville residents often tell us they want clinical depth without the downtown Chicago price tag or assembly-line feel. Our Oswego clinic is a straight shot south on Route 59 or west on Route 34 — close enough for lunch-hour Botox, after-work HydraFacials, or a Saturday Morpheus8 consult. Many Naperville clients pair aesthetics with Ryan Kent's GLP-1 and hormone programs because the same NP team follows you from consult through refills.",
+      "Naperville residents often tell us they want clinical depth without the downtown Chicago price tag or assembly-line feel. Our Oswego clinic is a straight shot south on Route 59 or west on Route 34 — close enough for lunch-hour Botox, after-work HydraFacials, or a Saturday Morpheus8 consult. Many Naperville clients pair aesthetics with a licensed Illinois clinician's GLP-1 and hormone programs because the same NP team follows you from consult through refills.",
     landmarks: ["Route 59 corridor", "Naperville Riverwalk area", "south Naperville"],
     nearbyAreas: ["Plainfield", "Aurora", "Lisle"],
     faqDrive:
@@ -101,7 +101,7 @@ export const CITY_HUB_PROFILES: Record<`${PrimaryCitySlug}-il`, CityHubProfile> 
     driveTime: "Under 10 minutes",
     primaryRoute: "Route 30 south into downtown Oswego",
     heroSubline:
-      "Montgomery is right next door — same-day Botox, fillers, IV Vitamin Bar, and hormone consults with Ryan Kent, FNP-BC, without crossing into Aurora traffic.",
+      "Montgomery is right next door — same-day Botox, fillers, IV Vitamin Bar, and hormone consults with a licensed Illinois clinician, without crossing into Aurora traffic.",
     localContext:
       "Montgomery might be our closest neighbor after Oswego itself. Clients pop over on Route 30 for lunch-break toxin touch-ups, B12 shots, and couples' consults where one partner wants Botox and the other is exploring TRT. Because Montgomery sits on the Kane–Kendall line, we draw both suburban commuters and longtime Fox Valley families who want a med spa that feels personal — not a national chain at the mall.",
     landmarks: ["Route 30", "Montgomery–Oswego border"],

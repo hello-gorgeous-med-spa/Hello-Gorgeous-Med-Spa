@@ -72,7 +72,7 @@ export const FALL_MAKEOVER_EVENT_PHOTOS = [
   },
   {
     src: `${EVENT}/party-portrait-01.jpg`,
-    alt: "Ryan Kent, FNP-BC treating a guest at a Hello Gorgeous studio event",
+    alt: "a licensed Illinois clinician treating a guest at a Hello Gorgeous studio event",
     caption: "Ryan, FNP-BC",
     span: "tall" as const,
     focus: "center 22%",
@@ -100,7 +100,7 @@ export const FALL_MAKEOVER_EVENT_PHOTOS = [
   },
   {
     src: `${EVENT}/party-portrait-04.jpg`,
-    alt: "Ryan Kent reviewing a treatment with a guest in the studio chair",
+    alt: "a licensed Illinois clinician reviewing a treatment with a guest in the studio chair",
     caption: "Mapped in real time",
     span: "half" as const,
     focus: "center 28%",
@@ -361,7 +361,7 @@ We screen you like a medical practice, because we are one.
 
 Cherry financing available · 6 months 0% interest for qualifying clients.
 
-Ryan Kent, FNP-BC maps every plan. Rx items need clearance. Individual results vary.
+a licensed Illinois clinician maps every plan. Rx items need clearance. Individual results vary.
 
 Book your Fall Makeover consult 👇`;
 
@@ -405,7 +405,7 @@ PREVENT (anti-aging / Morpheus8) — $200 off
 LOSE (weight + skin) — $150 off
 90-day GLP-1 · monthly MIC + B12 · Morpheus8 ×2 · 1 HydraFacial Glow
 
-Ryan Kent, FNP-BC maps the plan. Prescription pieces need clearance. We do not quote a fake bundle total — menu prices are on the page, and your package locks at consult.
+a licensed Illinois clinician maps the plan. Prescription pieces need clearance. We do not quote a fake bundle total — menu prices are on the page, and your package locks at consult.
 
 See the packages: https://www.hellogorgeousmedspa.com${FALL_MAKEOVER_PATH}?ref=fall_makeover_2026
 Or call (630) 636-6193 · 74 W Washington St, Oswego

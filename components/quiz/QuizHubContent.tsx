@@ -23,7 +23,7 @@ export function QuizHubContent() {
             <h1 className="mt-4 text-4xl font-black text-white md:text-5xl">Quizzes &amp; screeners</h1>
             <p className="mt-5 text-lg text-white/80 leading-relaxed">
               Find your fit before you book — GLP-1 readiness, peptides, aesthetics, hormones, and more.
-              Educational only; a consult with Ryan Kent, FNP-BC confirms any treatment plan.
+              Educational only; a consult with a licensed Illinois clinician confirms any treatment plan.
             </p>
           </FadeUp>
         </div>

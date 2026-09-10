@@ -101,7 +101,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "$14 per unit — published openly, no hidden fees",
       "Faster onset than Botox — full effect typically in 5–7 days vs. 10–14",
       "Often the right call for larger areas like the forehead, where its spread pattern works in your favor",
-      "Ryan Kent, FNP-BC on site to assess fit at your free consultation",
+      "a licensed Illinois clinician on site to assess fit at your free consultation",
       "Same-day appointments available — call before noon",
       "We carry Botox, Dysport, AND Jeuveau — we help you choose what's right for you"
     ],
@@ -167,7 +167,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "$11 per unit — published openly, no membership required",
       "FDA-approved 2019 — the newest neuromodulator we offer",
       "Some clients prefer Jeuveau's onset and feel over Botox or Dysport",
-      "Ryan Kent, FNP-BC on site for every protocol",
+      "a licensed Illinois clinician on site for every protocol",
       "Free consultation to determine which neuromodulator is best for you",
       "Same-day appointments often available"
     ],
@@ -231,7 +231,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
     heroContent: "Dermal fillers replace lost volume in the face — in the cheeks, under the eyes, along the jawline, in the lips, or in the deep smile lines around the mouth. As we age, we don't just get wrinkles. We lose fat, bone, and structural support. Filler restores what's been lost, lifts what's settled, and can soften lines that Botox can't reach. At Hello Gorgeous, we believe in conservative filler — building you up over time, syringe by syringe, with a goal of you looking refreshed rather than overfilled. We carry the full Juvederm and Restylane families and select the right product for each area based on what's needed.",
     whyBullets: [
       "Conservative dosing philosophy — we build slowly, with the goal of natural results",
-      "Ryan Kent, FNP-BC on site overseeing every injection — never a chain franchise with rotating injectors",
+      "a licensed Illinois clinician on site overseeing every injection — never a chain franchise with rotating injectors",
       "Full Juvederm and Restylane portfolio carried — we pick the right product for each area, not what's on sale",
       "10+ years of injecting experience in this practice",
       "Honest consultations — if filler isn't the right answer for what bothers you, we'll tell you",
@@ -310,7 +310,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
     heroContent: "Lip filler is one of our most-requested services — and one of the most over-done in the industry. At Hello Gorgeous, we believe your lips should look like your lips. Bigger, better defined, more hydrated, more symmetrical — but still recognizably yours. We use conservative dosing, build slowly over multiple visits if needed, and respect natural anatomy. If you've been hesitant to try lip filler because you've seen too many 'duck lips' on social media, you're in the right place.",
     whyBullets: [
       "Conservative dosing philosophy — natural results, never overfilled",
-      "Ryan Kent, FNP-BC on site for every lip protocol",
+      "a licensed Illinois clinician on site for every lip protocol",
       "We build slowly — half-syringe or one full syringe per visit, never two at once",
       "10+ years of lip injection experience — we know how to shape, define, and avoid the 'sausage lip' look",
       "Honest consultations — if your lips don't need filler, we'll say so",
@@ -530,9 +530,9 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "Injection",
     bodyLocation: "Subcutaneous",
     tier: "contested",
-    heroContent: "Semaglutide is a GLP-1 medication used in medically supervised weight management. Brand-name Wegovy® and Ozempic® contain semaglutide. Compounded semaglutide, when prescribed, is prepared for an individual patient by a licensed US compounding pharmacy — it is not FDA-approved and is not the same as those brands. At Hello Gorgeous, it is prescribed by Ryan Kent, FNP-BC after a full medical intake and supported with monthly check-ins.",
+    heroContent: "Semaglutide is a GLP-1 medication used in medically supervised weight management. Brand-name Wegovy® and Ozempic® contain semaglutide. Compounded semaglutide, when prescribed, is prepared for an individual patient by a licensed US compounding pharmacy — it is not FDA-approved and is not the same as those brands. At Hello Gorgeous, it is prescribed by a licensed Illinois clinician after a full medical intake and supported with monthly check-ins.",
     whyBullets: [
-      "Prescribed and supervised by Ryan Kent, FNP-BC",
+      "Prescribed and supervised by a licensed Illinois clinician",
       "Pharmacy-sourced from licensed US compounding pharmacies — never gray-market",
       "Monthly check-ins included — dose adjustment, side-effect management, accountability",
       "Comprehensive medical intake before starting",
@@ -545,7 +545,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
     whatToExpectSteps: [
       "Free consultation — we discuss your history, goals, and whether semaglutide is the right fit. We're honest if it isn't.",
       "Medical intake — full medical history, current medications, and labs if indicated.",
-      "Prescription and education — Ryan prescribes your starting dose. We teach you how to self-inject weekly (the needle is very small, similar to an insulin pen).",
+      "Prescription and education — A licensed Illinois clinician prescribes your starting dose. We teach you how to self-inject weekly (the needle is very small, similar to an insulin pen).",
       "Monthly check-ins — every 4 weeks: weight, side effects, dose adjustment, questions.",
       "Long-term planning — most clients use semaglutide 6–12 months to reach goal weight, then transition to maintenance or off entirely. We design the plan with you."
     ],
@@ -573,7 +573,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       },
       {
         "q": "Do I need a referral or a primary care doctor?",
-        "a": "No referral needed. Ryan Kent, FNP-BC has full prescribing authority. We do recommend coordinating with your primary care if you have one, especially if you take medications for blood sugar, blood pressure, or other chronic conditions."
+        "a": "No referral needed. a licensed Illinois clinician has full prescribing authority. We do recommend coordinating with your primary care if you have one, especially if you take medications for blood sugar, blood pressure, or other chronic conditions."
       }
     ],
     relatedServices: [
@@ -596,10 +596,10 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "Injection",
     bodyLocation: "Subcutaneous",
     tier: "contested",
-    heroContent: "Tirzepatide is a dual-pathway GLP-1/GIP medication used in medically supervised weight management. Brand-name Zepbound® and Mounjaro® contain tirzepatide. Compounded tirzepatide, when prescribed, is not FDA-approved and is not the same as those brands. At Hello Gorgeous, it is prescribed by Ryan Kent, FNP-BC after a full medical intake, sourced from licensed US compounding pharmacies when appropriate, and supported with monthly check-ins.",
+    heroContent: "Tirzepatide is a dual-pathway GLP-1/GIP medication used in medically supervised weight management. Brand-name Zepbound® and Mounjaro® contain tirzepatide. Compounded tirzepatide, when prescribed, is not FDA-approved and is not the same as those brands. At Hello Gorgeous, it is prescribed by a licensed Illinois clinician after a full medical intake, sourced from licensed US compounding pharmacies when appropriate, and supported with monthly check-ins.",
     whyBullets: [
       "Dual-action (GLP-1 + GIP) — often more effective than single-action GLP-1 medications",
-      "Prescribed and supervised by Ryan Kent, FNP-BC",
+      "Prescribed and supervised by a licensed Illinois clinician",
       "Pharmacy-sourced — licensed US compounding pharmacies only",
       "Monthly check-ins included — dose adjustment, side-effect management",
       "Full medical intake before starting",
@@ -611,7 +611,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
     whatToExpectSteps: [
       "Free consultation — we discuss your medical history, goals, and whether tirzepatide vs. semaglutide is the right starting point.",
       "Medical intake — full history, current medications, labs if indicated.",
-      "Prescription and education — Ryan prescribes your starting dose. We teach self-injection.",
+      "Prescription and education — A licensed Illinois clinician prescribes your starting dose. We teach self-injection.",
       "Monthly check-ins — weight, side effects, dose titration, questions.",
       "Long-term plan — most clients use tirzepatide for 6–12 months to reach goal, then maintenance or transition off."
     ],
@@ -662,9 +662,9 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "Wellness",
     bodyLocation: "Systemic",
     tier: "contested",
-    heroContent: "Hormone optimization at Hello Gorgeous is bioidentical hormone replacement prescribed after full baseline labs — compounded creams or injectables when clinically appropriate. We no longer offer pellet insertion. For the right patient, restoring declining hormones can support energy, sleep, libido, mood, mental clarity, and body composition. But it's hormone therapy — not a supplement — and it requires real lab work, real medical oversight, and individualized dosing. Every patient goes through full baseline labs, ongoing monitoring, and Ryan Kent, FNP-BC's clinical oversight. This isn't a vending machine — it's medicine.",
+    heroContent: "Hormone optimization at Hello Gorgeous is bioidentical hormone replacement prescribed after full baseline labs — compounded creams or injectables when clinically appropriate. We no longer offer pellet insertion. For the right patient, restoring declining hormones can support energy, sleep, libido, mood, mental clarity, and body composition. But it's hormone therapy — not a supplement — and it requires real lab work, real medical oversight, and individualized dosing. Every patient goes through full baseline labs, ongoing monitoring, and a licensed Illinois clinician's clinical oversight. This isn't a vending machine — it's medicine.",
     whyBullets: [
-      "Ryan Kent, FNP-BC on site six days a week",
+      "a licensed Illinois clinician on site six days a week",
       "Full baseline lab work before starting — we don't dose blind",
       "Bioidentical hormones — molecularly identical to what your body produces",
       "Ongoing monitoring — repeat labs and follow-ups built into every program",
@@ -677,7 +677,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
     whatToExpectSteps: [
       "Free consultation — discuss symptoms, history, goals. We screen for whether hormone therapy is appropriate.",
       "Baseline lab work — comprehensive hormone panel and additional labs as needed (PSA for men, thyroid, vitamin D, etc.). We don't prescribe without baseline data.",
-      "Lab review and protocol — Ryan reviews your labs and recommends compounded creams or injectables when appropriate. We no longer offer pellet insertion.",
+      "Lab review and protocol — A licensed Illinois clinician reviews your labs and recommends compounded creams or injectables when appropriate. We no longer offer pellet insertion.",
       "Start therapy — quote confirmed before you commit. Medication from licensed US compounding pharmacies.",
       "Follow-up — first follow-up at 4–6 weeks to assess symptom response, then repeat labs as indicated."
     ],
@@ -685,7 +685,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
     faqs: [
       {
         "q": "Do you still offer BioTE pellets?",
-        "a": "No. Hello Gorgeous no longer offers pellet insertion. When hormone therapy is appropriate, Ryan Kent, FNP-BC recommends compounded creams or injectables from licensed US pharmacies after labs."
+        "a": "No. Hello Gorgeous no longer offers pellet insertion. When hormone therapy is appropriate, a licensed Illinois clinician recommends compounded creams or injectables from licensed US pharmacies after labs."
       },
       {
         "q": "Who is a good candidate for hormone therapy?",
@@ -732,11 +732,11 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "Wellness",
     bodyLocation: "Systemic",
     tier: "contested",
-    heroContent: "Low testosterone affects energy, mood, libido, body composition, sleep, and cognitive function — and for many men over 35, it's a real medical issue that's worth addressing. At Hello Gorgeous, testosterone replacement therapy (TRT) is prescribed and supervised by Ryan Kent, FNP-BC after full baseline lab work, with injections or topical cream tailored to your life. We no longer offer pellet insertion. This isn't a TRT clinic running on volume — it's medicine.",
+    heroContent: "Low testosterone affects energy, mood, libido, body composition, sleep, and cognitive function — and for many men over 35, it's a real medical issue that's worth addressing. At Hello Gorgeous, testosterone replacement therapy (TRT) is prescribed and supervised by a licensed Illinois clinician after full baseline lab work, with injections or topical cream tailored to your life. We no longer offer pellet insertion. This isn't a TRT clinic running on volume — it's medicine.",
     whyBullets: [
       "Full baseline lab work before any prescribing — we don't dose blind",
       "Delivery options: weekly injections or topical cream",
-      "Ryan Kent, FNP-BC supervising every program",
+      "a licensed Illinois clinician supervising every program",
       "Ongoing monitoring with regular labs and follow-ups",
       "Honest conversations about benefits vs. risks vs. long-term fertility implications",
       "Free consultation to determine if TRT is appropriate for you"
@@ -747,7 +747,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
     whatToExpectSteps: [
       "Free consultation — discuss symptoms (fatigue, low libido, mood changes, weight gain, sleep issues), history, and goals.",
       "Baseline labs — comprehensive panel including total and free testosterone, estradiol, PSA, hematocrit, lipids, and other relevant markers.",
-      "Lab review — Ryan reviews results, discusses findings, and recommends whether TRT is appropriate. If your testosterone is in normal range and other causes of your symptoms exist, we may recommend a different path.",
+      "Lab review — A licensed Illinois clinician reviews results, discusses findings, and recommends whether TRT is appropriate. If your testosterone is in normal range and other causes of your symptoms exist, we may recommend a different path.",
       "Delivery method selection — based on your lifestyle, schedule, and preferences. We explain tradeoffs of injections vs. cream. We no longer offer pellet insertion.",
       "Ongoing monitoring — repeat labs at 6–8 weeks after starting, then every 3–6 months to assess dosing, side effects, and downstream markers."
     ],
@@ -802,10 +802,10 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "Laser",
     bodyLocation: "Variable (face, underarms, legs, bikini, back)",
     tier: "uncontested",
-    heroContent: "Laser hair removal is one of the most-requested services in any med spa — but the quality of the technology and the experience of the operator make all the difference. At Hello Gorgeous, we use advanced diode laser technology with customizable settings safe for most skin tones, performed by trained staff under Ryan Kent, FNP-BC's medical oversight. No assembly-line treatments. No untrained operators. Just real medical aesthetics at fair pricing.",
+    heroContent: "Laser hair removal is one of the most-requested services in any med spa — but the quality of the technology and the experience of the operator make all the difference. At Hello Gorgeous, we use advanced diode laser technology with customizable settings safe for most skin tones, performed by trained staff under a licensed Illinois clinician's medical oversight. No assembly-line treatments. No untrained operators. Just real medical aesthetics at fair pricing.",
     whyBullets: [
       "Customizable settings safe for a wide range of skin tones",
-      "Trained staff with medical oversight from Ryan Kent, FNP-BC",
+      "Trained staff with medical oversight from a licensed Illinois clinician",
       "Package pricing that makes a full treatment series accessible",
       "Cooling system built into the device for comfortable treatment",
       "Free consultation with a patch test to confirm fit"
@@ -867,10 +867,10 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "RF",
     bodyLocation: "Face, neck, body",
     tier: "uncontested",
-    heroContent: "Microneedling is one of the most-requested and most-effective treatments in modern aesthetics — and one of the most variable in quality across practices. At Hello Gorgeous, microneedling is performed by trained staff using FDA-cleared medical-grade devices, under Ryan Kent, FNP-BC's oversight. For clients who want more dramatic results, we offer PRP (platelet-rich plasma) as an add-on. For clients with deeper laxity or texture concerns, we discuss whether Morpheus8 Burst (RF microneedling) might be a better fit. The right treatment is the one matched to your skin — not the one that maximizes our margins.",
+    heroContent: "Microneedling is one of the most-requested and most-effective treatments in modern aesthetics — and one of the most variable in quality across practices. At Hello Gorgeous, microneedling is performed by trained staff using FDA-cleared medical-grade devices, under a licensed Illinois clinician's oversight. For clients who want more dramatic results, we offer PRP (platelet-rich plasma) as an add-on. For clients with deeper laxity or texture concerns, we discuss whether Morpheus8 Burst (RF microneedling) might be a better fit. The right treatment is the one matched to your skin — not the one that maximizes our margins.",
     whyBullets: [
       "FDA-cleared medical-grade device — not aesthetician-grade rollers or DIY tools",
-      "Performed by trained staff with Ryan Kent, FNP-BC overseeing protocols",
+      "Performed by trained staff with a licensed Illinois clinician overseeing protocols",
       "PRP add-on available for enhanced results",
       "Customizable depth — different areas of the face need different settings",
       "Honest assessment — if Morpheus8 Burst would serve you better, we say so",
@@ -1061,11 +1061,11 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "Topical",
     bodyLocation: "Face, neck, body",
     tier: "uncontested",
-    heroContent: "Chemical peels are one of the oldest treatments in aesthetics — and one of the most misunderstood. Done right, peels can dramatically improve tone, texture, sun damage, melasma, and acne. Done wrong, they can cause hyperpigmentation, scarring, or under-treatment that wastes your time and money. At Hello Gorgeous, peels are performed by licensed estheticians under Ryan Kent, FNP-BC's medical oversight, using medical-grade peel solutions matched to your skin type and goals — not a one-size-fits-all menu.",
+    heroContent: "Chemical peels are one of the oldest treatments in aesthetics — and one of the most misunderstood. Done right, peels can dramatically improve tone, texture, sun damage, melasma, and acne. Done wrong, they can cause hyperpigmentation, scarring, or under-treatment that wastes your time and money. At Hello Gorgeous, peels are performed by licensed estheticians under a licensed Illinois clinician's medical oversight, using medical-grade peel solutions matched to your skin type and goals — not a one-size-fits-all menu.",
     whyBullets: [
       "Light, medium, and deep peel options — we match the peel to your skin",
       "Medical-grade peel solutions (Jessner, TCA, glycolic, salicylic, mandelic) — not OTC versions",
-      "Performed by licensed estheticians under Ryan Kent, FNP-BC's oversight",
+      "Performed by licensed estheticians under a licensed Illinois clinician's oversight",
       "Honest pre-screening — we won't peel skin that isn't ready or appropriate",
       "Often combined with at-home regimens and other treatments for compounding results",
       "Free consultation to design your peel plan"
@@ -1127,11 +1127,11 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "Injection",
     bodyLocation: "Face, scalp, body",
     tier: "uncontested",
-    heroContent: "PRP (platelet-rich plasma) therapy uses a small amount of your own blood, processed to concentrate the platelets and growth factors, then re-introduced to specific tissues to accelerate healing and stimulate regeneration. At Hello Gorgeous, we use PRP three ways: as an add-on to microneedling for enhanced collagen response, as injections for hair restoration, and topically for advanced skin rejuvenation. Every treatment is supervised by Ryan Kent, FNP-BC and performed using FDA-cleared centrifuge and collection systems.",
+    heroContent: "PRP (platelet-rich plasma) therapy uses a small amount of your own blood, processed to concentrate the platelets and growth factors, then re-introduced to specific tissues to accelerate healing and stimulate regeneration. At Hello Gorgeous, we use PRP three ways: as an add-on to microneedling for enhanced collagen response, as injections for hair restoration, and topically for advanced skin rejuvenation. Every treatment is supervised by a licensed Illinois clinician and performed using FDA-cleared centrifuge and collection systems.",
     whyBullets: [
       "Your own blood-derived growth factors — no foreign substances",
       "FDA-cleared collection and centrifuge systems",
-      "Performed by trained medical staff under Ryan Kent, FNP-BC's oversight",
+      "Performed by trained medical staff under a licensed Illinois clinician's oversight",
       "Multiple applications: microneedling, hair restoration, skin rejuvenation",
       "Free consultation to determine if PRP is right for your goals"
     ],
@@ -1188,9 +1188,9 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "Injection",
     bodyLocation: "Intramuscular",
     tier: "uncontested",
-    heroContent: "Vitamin injections deliver concentrated nutrients directly into the muscle, bypassing the digestive system for faster, more complete absorption. Our most popular options: B12 shots for energy and metabolism, B-complex for stress and adrenal support, MIC-B12 for weight loss support, and Vitamin D for immunity. Each injection is prescribed and supervised by Ryan Kent, FNP-BC, sourced from licensed US compounding pharmacies, and delivered in our calm in-office setting. Walk-ins welcome.",
+    heroContent: "Vitamin injections deliver concentrated nutrients directly into the muscle, bypassing the digestive system for faster, more complete absorption. Our most popular options: B12 shots for energy and metabolism, B-complex for stress and adrenal support, MIC-B12 for weight loss support, and Vitamin D for immunity. Each injection is prescribed and supervised by a licensed Illinois clinician, sourced from licensed US compounding pharmacies, and delivered in our calm in-office setting. Walk-ins welcome.",
     whyBullets: [
-      "All injections prescribed and supervised by Ryan Kent, FNP-BC",
+      "All injections prescribed and supervised by a licensed Illinois clinician",
       "Pharmacy-sourced from licensed US compounding pharmacies",
       "Multiple formulations: B12, B-complex, MIC-B12, Vitamin D, Glutathione",
       "Walk-ins welcome — quick in-and-out service",
@@ -1249,9 +1249,9 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "IV",
     bodyLocation: "Systemic",
     tier: "uncontested",
-    heroContent: "IV therapy delivers vitamins, minerals, hydration, and other nutrients directly into your bloodstream, bypassing the digestive system for 100% bioavailability. We offer multiple drip protocols — from simple hydration to immune-boosting Myers' Cocktails to recovery and athletic performance drips to NAD+ (see our dedicated NAD+ page). Every drip is prescribed by Ryan Kent, FNP-BC, sourced from licensed US compounding pharmacies, and administered by trained medical staff in our calm infusion suite. Plan for 30–60 minutes for most drips.",
+    heroContent: "IV therapy delivers vitamins, minerals, hydration, and other nutrients directly into your bloodstream, bypassing the digestive system for 100% bioavailability. We offer multiple drip protocols — from simple hydration to immune-boosting Myers' Cocktails to recovery and athletic performance drips to NAD+ (see our dedicated NAD+ page). Every drip is prescribed by a licensed Illinois clinician, sourced from licensed US compounding pharmacies, and administered by trained medical staff in our calm infusion suite. Plan for 30–60 minutes for most drips.",
     whyBullets: [
-      "All drips prescribed and supervised by Ryan Kent, FNP-BC",
+      "All drips prescribed and supervised by a licensed Illinois clinician",
       "Pharmacy-sourced ingredients — licensed US compounding pharmacies",
       "Multiple protocols: hydration, Myers' Cocktail, immune support, recovery, beauty, NAD+",
       "Calm in-office infusion suite — not assembly-line",

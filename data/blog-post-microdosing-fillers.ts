@@ -105,7 +105,7 @@ We screen you like a medical practice, because we are one. Choosing the right ap
 
 ### NP-directed care
 
-Every treatment plan is designed and overseen by our on-site nurse practitioners — not a technician following a script. Clinical care is led by **Ryan Kent, FNP-BC**, with medical-director oversight from **Dr. Mukesh Arora, MD**.
+Every treatment plan is designed and overseen by our on-site nurse practitioners — not a technician following a script. Clinical care is led by **a licensed Illinois clinician**, with medical-director oversight from **Dr. Mukesh Arora, MD**.
 
 ### Personalized from visit one
 
@@ -149,6 +149,6 @@ Related idea, different framing. A half syringe is a **volume**. Microdosing is 
 
 **A note on this article.** This is general information about a technique we use at Hello Gorgeous. It is not medical advice and it cannot replace being examined. If something is worrying you after filler, call **(630) 636-6193** rather than waiting it out alone.
 
-Last reviewed August 26, 2026 by **Dr. Mukesh Arora, MD**, Medical Director, Hello Gorgeous Med Spa. Clinical care on site is led by **Ryan Kent, FNP-BC**.
+Last reviewed August 26, 2026 by **Dr. Mukesh Arora, MD**, Medical Director, Hello Gorgeous Med Spa. Clinical care on site is led by **a licensed Illinois clinician**.
 `,
 };

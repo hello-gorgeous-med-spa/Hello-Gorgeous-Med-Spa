@@ -14,7 +14,7 @@ import { InjectablesPageContent } from "@/components/injectables/InjectablesPage
 import { ProofConversionSection } from "@/components/services/ProofConversionSection";
 import { IvTherapyServicePage } from "@/components/services/IvTherapyServicePage";
 import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
-import { BOOKING_URL, PROVIDER_BOOKING_URL_DANIELLE, PROVIDER_BOOKING_URL_RYAN } from "@/lib/flows";
+import { BOOKING_URL, PROVIDER_BOOKING_URL_DANIELLE } from "@/lib/flows";
 import {
   INJECTABLES_FAQS,
   INJECTABLES_MARKETING,
@@ -551,10 +551,10 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 Danielle
               </Link>
               <Link
-                href={PROVIDER_BOOKING_URL_RYAN}
+                href="/contact"
                 className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium underline underline-offset-2"
               >
-                Ryan
+                Book a consult
               </Link>
               <Link href="/providers" className="text-black hover:text-[#FF2D8E]">
                 Meet the experts →

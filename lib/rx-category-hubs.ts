@@ -367,7 +367,7 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
   {
     id: "glutathione-wellness",
     name: "Glutathione Injection",
-    description: "In-clinic Vitamin Bar shot, or a prescription supply after Ryan reviews your intake.",
+    description: "In-clinic Vitamin Bar shot, or a prescription supply after A licensed Illinois clinician reviews your intake.",
     price: { source: "catalog" },
     href: "/rx?goal=energy-and-longevity",
     image: "/regen-site/assets/prod-glutathione-regen.png",
@@ -393,11 +393,11 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
 const PEPTIDE_FAQ = [
   {
     q: "Are RE GEN peptides prescription?",
-    a: "Yes — every protocol is dispensed on a prescription after Ryan Kent, FNP-BC reviews your health history, and nothing is filled without that review. Most are compounded for you by licensed US pharmacies rather than sold as FDA-approved brand products, and some compounds clients ask about are still investigational and not FDA-approved. Ryan tells you which category yours falls into before you start.",
+    a: "Yes — every protocol is dispensed on a prescription after a licensed Illinois clinician reviews your health history, and nothing is filled without that review. Most are compounded for you by licensed US pharmacies rather than sold as FDA-approved brand products, and some compounds clients ask about are still investigational and not FDA-approved. Ryan tells you which category yours falls into before you start.",
   },
   {
     q: "What peptides do you list online?",
-    a: "We do not publish a public compounded-peptide menu. After a medical evaluation, Ryan Kent, FNP-BC decides whether a prescription is appropriate. Compounded medications are not FDA-approved brand products.",
+    a: "We do not publish a public compounded-peptide menu. After a medical evaluation, a licensed Illinois clinician decides whether a prescription is appropriate. Compounded medications are not FDA-approved brand products.",
   },
   {
     q: "Do I need labs before starting peptides?",
@@ -405,7 +405,7 @@ const PEPTIDE_FAQ = [
   },
   {
     q: "How does ordering work?",
-    a: "Start your intake at RE GEN, reserve your $49 consult, and meet Ryan Kent, FNP-BC. After he approves your protocol you're invoiced for the vials — pick them up in Oswego or ship flat $30.",
+    a: "Start your intake at RE GEN, reserve your $49 consult, and meet a licensed Illinois clinician. After he approves your protocol you're invoiced for the vials — pick them up in Oswego or ship flat $30.",
   },
   {
     q: "Can I read more before I buy?",
@@ -447,11 +447,11 @@ const CONSULT_FIRST_STEPS = [
   },
   {
     title: "Reserve your consult · $49",
-    body: "Holds your visit with Ryan Kent, FNP-BC. Medication cost is quoted separately.",
+    body: "Holds your visit with a licensed Illinois clinician. Medication cost is quoted separately.",
   },
   {
     title: "Meet your provider",
-    body: "Ryan reviews everything and sets your protocol and dose — by telehealth or in Oswego.",
+    body: "A licensed Illinois clinician reviews everything and sets your protocol and dose — by telehealth or in Oswego.",
   },
   {
     title: "Approved, then filled",
@@ -466,7 +466,7 @@ const WEIGHT_LOSS_FAQ = [
   },
   {
     q: "How does RE GEN weight loss work?",
-    a: "Start with a short intake, reserve your $49 consult, and your NP sets the protocol before anything is filled. You're billed for medication only after approval. Ryan Kent, FNP-BC supervises every Illinois plan.",
+    a: "Start with a short intake, reserve your $49 consult, and your NP sets the protocol before anything is filled. You're billed for medication only after approval. a licensed Illinois clinician supervises every Illinois plan.",
   },
   {
     q: "Semaglutide vs tirzepatide — which is right for me?",
@@ -485,7 +485,7 @@ const WEIGHT_LOSS_FAQ = [
 const HAIR_SKIN_FAQ = [
   {
     q: "How does a hair-loss evaluation work?",
-    a: "You complete an intake and meet Ryan Kent, FNP-BC. He decides whether a prescription topical is appropriate. We do not advertise compounded copper-peptide creams as collagen or repair drugs.",
+    a: "You complete an intake and meet a licensed Illinois clinician. He decides whether a prescription topical is appropriate. We do not advertise compounded copper-peptide creams as collagen or repair drugs.",
   },
   {
     q: "What does a biotin shot cost?",
@@ -517,7 +517,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       title: "Weight loss that fits",
       titleAccent: "your life.",
       subtitle:
-        "Physician-overseen medical weight-management consultations with Ryan Kent, FNP-BC. Compounded GLP-1, when prescribed, is not FDA-approved and is not the same as branded Wegovy®, Zepbound®, Ozempic®, or Mounjaro®.",
+        "Physician-overseen medical weight-management consultations with a licensed Illinois clinician. Compounded GLP-1, when prescribed, is not FDA-approved and is not the same as branded Wegovy®, Zepbound®, Ozempic®, or Mounjaro®.",
     },
     steps: CONSULT_FIRST_STEPS,
     products: WEIGHT_LOSS_PRODUCTS,
@@ -552,11 +552,11 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       title: "Hormone therapy,",
       titleAccent: "personalized.",
       subtitle:
-        "TRT, women's bioidentical HRT, and fertility-friendly options — compounded, lab-guided, and supervised by Ryan Kent, FNP-BC in Oswego.",
+        "TRT, women's bioidentical HRT, and fertility-friendly options — compounded, lab-guided, and supervised by a licensed Illinois clinician in Oswego.",
     },
     steps: CONSULT_FIRST_STEPS,
     products: HORMONE_PRODUCTS,
-    trustLine: "Lab-guided · Ryan Kent, FNP-BC · Illinois telehealth",
+    trustLine: "Lab-guided · a licensed Illinois clinician · Illinois telehealth",
     getStartedPath: "/rx",
     faq: [
       {
@@ -592,11 +592,11 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       title: "Peptide and wellness",
       titleAccent: "consultations.",
       subtitle:
-        "A medical visit with Ryan Kent, FNP-BC. Prescription therapy is offered only when clinically appropriate — not from an online peptide menu.",
+        "A medical visit with a licensed Illinois clinician. Prescription therapy is offered only when clinically appropriate — not from an online peptide menu.",
     },
     steps: CONSULT_FIRST_STEPS,
     products: PEPTIDE_PRODUCTS,
-    trustLine: "Licensed US pharmacies · Ryan Kent, FNP-BC · NP review before every fill",
+    trustLine: "Licensed US pharmacies · a licensed Illinois clinician · NP review before every fill",
     getStartedPath: "/rx",
     faq: [...PEPTIDE_FAQ],
   },
@@ -611,7 +611,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       title: "Sexual health",
       titleAccent: "in your control.",
       subtitle:
-        "Prescription options for men and women when clinically appropriate — discreet, hormone-aware care with Ryan Kent, FNP-BC.",
+        "Prescription options for men and women when clinically appropriate — discreet, hormone-aware care with a licensed Illinois clinician.",
     },
     steps: CONSULT_FIRST_STEPS,
     products: SEXUAL_HEALTH_PRODUCTS,
@@ -669,11 +669,11 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
       title: "Hair-loss and skin",
       titleAccent: "evaluation.",
       subtitle:
-        "A medical consult with Ryan Kent, FNP-BC. Prescription topicals are considered only after evaluation. Prefer a biotin shot? That is $25 in clinic, no intake needed.",
+        "A medical consult with a licensed Illinois clinician. Prescription topicals are considered only after evaluation. Prefer a biotin shot? That is $25 in clinic, no intake needed.",
     },
     steps: CONSULT_FIRST_STEPS,
     products: HAIR_SKIN_PRODUCTS,
-    trustLine: "Ryan Kent, FNP-BC · Shipped after approval",
+    trustLine: "a licensed Illinois clinician · Shipped after approval",
     getStartedPath: HAIR_SKIN_GOAL_HREF,
     faq: [...HAIR_SKIN_FAQ],
     inClinicOption: {
@@ -702,7 +702,7 @@ export const REGEN_CATEGORY_HUBS: RxCategoryHub[] = [
     },
     steps: CONSULT_FIRST_STEPS,
     products: WELLNESS_PRODUCTS,
-    trustLine: "Injectable wellness · Ryan Kent, FNP-BC · Illinois patients",
+    trustLine: "Injectable wellness · a licensed Illinois clinician · Illinois patients",
     getStartedPath: "/rx",
     faq: [...WELLNESS_FAQ],
     inClinicOption: {

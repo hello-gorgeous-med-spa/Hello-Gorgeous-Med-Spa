@@ -12,10 +12,6 @@ import {
   ABOUT_DANI_IMAGE,
   DANI_LONG_BIO,
   DANI_MEDIUM_BIO,
-  RYAN_IMAGE,
-  RYAN_LONG_BIO,
-  RYAN_MEDIUM_BIO,
-  TEAM_FOUNDERS_IMAGE,
 } from "@/lib/founder-credentials";
 import { DANIELLE_INMODE_CERTIFICATES } from "@/lib/inmode-training-certificates";
 import { SITE } from "@/lib/seo";
@@ -29,14 +25,14 @@ const PRACTICE_STATS = [
 
 const ABOUT_FAQS = [
   {
-    question: "Why does a male + female team matter at a med spa?",
+    question: "Who owns Hello Gorgeous?",
     answer:
-      "You get choice, balance, and treatment plans built from more than one perspective — aesthetic artistry from Dani and medical oversight from Ryan. Read how they work together for every client at Hello Gorgeous.",
+      "Danielle Alcala-Glazier — Licensed Esthetician and founder. She works in the Oswego studio every day. Prescriptions are written only by a licensed Illinois clinician under Medical Director Dr. Mukesh Arora, MD. Danielle is not the prescriber.",
   },
   {
     question: "Who performs treatments at Hello Gorgeous?",
     answer:
-      "Danielle Alcala-Glazier performs hands-on aesthetic treatments — brows, skin, and advanced device work she's trained on for 10+ years. Ryan Kent, FNP-BC, supervises all medical protocols, writes prescriptions, and is on site 6 days a week — not a remote physician from another state.",
+      "Danielle Alcala-Glazier performs hands-on aesthetic treatments — brows, skin, and advanced device work she's trained on for 10+ years. Medical protocols and prescriptions are reviewed by a licensed Illinois clinician under Medical Director Dr. Mukesh Arora, MD — not a remote letterhead from another state.",
   },
   {
     question: "Is Hello Gorgeous a chain or franchise?",
@@ -69,18 +65,18 @@ const SECTIONS: AboutSection[] = [
     id: "founders",
     number: "01",
     title: "On Site Every Week",
-    badge: "FOUNDERS",
+    badge: "FOUNDER",
     description:
-      "Dani & Ryan at 74 W. Washington St., downtown Oswego — real founders with a real story, not a franchise. A board-certified NP on site 6 days a week.",
+      "Danielle Alcala-Glazier at 74 W. Washington St., downtown Oswego — a real founder with a real story, not a franchise. Family-owned medical aesthetics under physician Medical Director oversight.",
     highlights: [
       "Family-owned · not a chain",
       "Downtown Oswego studio",
-      "NP-directed medical aesthetics",
+      "Physician-directed medical aesthetics",
       "Best of Oswego #1 Med Spa",
     ],
     image: {
-      src: TEAM_FOUNDERS_IMAGE,
-      alt: "Danielle Alcala-Glazier and Ryan Kent, FNP-BC at Hello Gorgeous Med Spa in Oswego, IL — founders with the hello gorgeous neon sign",
+      src: ABOUT_DANI_IMAGE,
+      alt: "Danielle Alcala-Glazier, founder of Hello Gorgeous Med Spa in Oswego, IL",
       priority: true,
     },
     learnMoreHref: "/best-med-spa-oswego-il",
@@ -112,31 +108,8 @@ const SECTIONS: AboutSection[] = [
     learnMoreLabel: "Read: My Jerry Maguire Moment →",
   },
   {
-    id: "ryan",
-    number: "04",
-    title: "Ryan Kent, FNP-BC",
-    badge: "ON-SITE NP",
-    description: RYAN_MEDIUM_BIO,
-    bodyExtra: RYAN_LONG_BIO,
-    highlights: [
-      "Full prescriptive authority in Illinois",
-      "On site 6 days a week — not remote",
-      "GLP-1 · hormones · peptides · injectables",
-      "Morpheus8 · Quantum RF · Solaria oversight",
-    ],
-    image: {
-      src: RYAN_IMAGE,
-      alt: "Ryan Kent, FNP-BC, On-Site Nurse Practitioner at Hello Gorgeous Med Spa",
-    },
-    extraLinks: [
-      { label: "Ryan's full provider profile →", href: "/providers/ryan" },
-      { label: "Medical Director Dr. Mukesh Arora, MD →", href: "/providers/dr-arora" },
-      { label: "Book a telehealth visit with Ryan →", href: "/telehealth" },
-    ],
-  },
-  {
     id: "recognition",
-    number: "05",
+    number: "04",
     title: "Awards & The Practice in Numbers",
     description:
       "More than a decade serving Oswego, Naperville, Aurora, Plainfield, and the western suburbs — with community recognition and serious investment in technology most local practices don't offer.",
@@ -291,7 +264,7 @@ export function AboutPageContent() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <FadeUp>
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#FFB8DC]">
-              Oswego, IL · NP on site 6 days
+              Oswego, IL · family-owned
             </p>
             <h1 className="mt-4 text-4xl md:text-6xl font-black leading-tight">
               Meet{" "}
@@ -299,7 +272,7 @@ export function AboutPageContent() {
                 className="bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-transparent"
                 style={{ WebkitBackgroundClip: "text" }}
               >
-                Dani &amp; Ryan
+                Danielle
               </span>
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/75 leading-relaxed">

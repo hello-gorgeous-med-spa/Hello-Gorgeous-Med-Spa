@@ -72,7 +72,7 @@ export const MENS_HORMONES_INCLUDED = {
   oversight: {
     title: "Medical oversight",
     bullets: [
-      "Ongoing NP supervision by Ryan Kent, FNP-BC",
+      "Ongoing NP supervision by a licensed Illinois clinician",
       "Personalized protocol design",
       "Dosing adjustments as needed",
       "Direct access for questions between visits",
@@ -157,7 +157,7 @@ export const MENS_HORMONES_FAQS: FAQ[] = [
   {
     question: "Am I a candidate for hormone optimization?",
     answer:
-      "Symptoms plus labs tell the story — not age alone. If several low-T symptoms apply, take our TRT Readiness Screener, then book a free consult. Ryan Kent, FNP-BC reviews your full picture before any prescription.",
+      "Symptoms plus labs tell the story — not age alone. If several low-T symptoms apply, take our TRT Readiness Screener, then book a free consult. a licensed Illinois clinician reviews your full picture before any prescription.",
   },
   {
     question: "How is this different from what my GP does?",

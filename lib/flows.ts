@@ -15,24 +15,23 @@ export const SQUARE_RX_LOCATION_ID = "L3QDRS4DX9ZE4";
 export const SQUARE_RX_BOOKING_SITE_ID = "pf2o75yphk7vw6";
 
 /**
- * Square Appointments — Medical Visit with Ryan Kent, FNP-BC ($49).
- * Canonical NP telehealth / program consult deep link (replaces Fresha $49 consult).
+ * Square Appointments — former named-NP telehealth variation ($49).
+ * Do not deep-link this on public CTAs. Public consults go to /contact.
  */
 export const SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID = "ZLCRRG4BM6W2DCLWDWIDVBPA";
 
 /**
- * Square Appointments — RE GEN Peptide Consult ($49, 15 min, Ryan only).
- * Peptide-specific sibling of the generic "Medical Visit" service so peptide
- * bookings land on the peptide calendar instead of the general telehealth one.
+ * Square Appointments — RE GEN Peptide Consult ($49, 15 min).
+ * Do not deep-link this on public CTAs while no named NP calendar is published.
  */
 export const SQUARE_RX_PEPTIDE_CONSULT_SERVICE_VARIATION_ID = "7QOZ5JWUYXB2622D5XZWJ6FR";
 
-/** Square Appointments — Xeomin $12/unit, 30 min, Ryan only. */
+/** Square Appointments — Xeomin $12/unit, 30 min. */
 export const SQUARE_XEOMIN_SERVICE_VARIATION_ID = "3MQB3NQLQW4RFFYVMOADH3SN";
 
 /**
  * Square Appointments — Fall Makeover consults (no published price).
- * Ryan Kent, FNP-BC maps the lane. Savings apply at the visit.
+ * Savings apply at the visit.
  */
 export const SQUARE_FALL_MAKEOVER_VARIATIONS = {
   consult: "NTKQLWTN5IYYQXV34OCOECDN",
@@ -42,7 +41,7 @@ export const SQUARE_FALL_MAKEOVER_VARIATIONS = {
 } as const;
 
 /**
- * Square Appointments — Wellness Physical ($149, 30 min, Ryan only, in-person).
+ * Square Appointments — Wellness Physical ($149, 30 min, in-person).
  * Hands-on exam; not the $49 / 15 min Medical Visit consult.
  */
 export const SQUARE_RX_PHYSICAL_SERVICE_VARIATION_ID = "DOLCYP22JIP2KKS2LDKCHXH4";
@@ -80,9 +79,8 @@ export const SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL =
   `https://square.site/appointments/buyer/widget/${SQUARE_RX_BOOKING_SITE_ID}/${SQUARE_RX_LOCATION_ID}.js`;
 
 /**
- * NP telehealth / $49 program consult — Square Appointments deep link
- * (Medical Visit with Ryan Kent, FNP-BC). Override with
- * `NEXT_PUBLIC_SQUARE_RX_TELEHEALTH_URL` if the service variation changes.
+ * Legacy Square telehealth variation URL. Public CTAs must not use this while
+ * no named NP calendar is published — see PROGRAM_CONSULT_BOOKING_URL.
  */
 export const SQUARE_RX_TELEHEALTH_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_RX_TELEHEALTH_URL?.trim() ||
@@ -124,8 +122,8 @@ export function squareAppointmentServiceUrl(variationId: string): string {
 
 export const PROGRAM_CONSULT_FEE_USD = 49;
 
-/** Club & program funnels — $49 NP consult on Square (Ryan). */
-export const PROGRAM_CONSULT_BOOKING_URL = SQUARE_RX_TELEHEALTH_BOOKING_URL;
+/** Club & program funnels — $49 consult door. No named-NP Square calendar is published. */
+export const PROGRAM_CONSULT_BOOKING_URL = "/contact";
 
 /** Branded entry on our domain — redirects to {@link BOOKING_URL} with optional UTM merge. */
 export const BOOK_PAGE_PATH = "/book";

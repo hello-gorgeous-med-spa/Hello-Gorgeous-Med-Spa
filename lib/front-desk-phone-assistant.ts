@@ -78,7 +78,7 @@ export const FRONT_DESK_SPA_PHONE_SECTIONS = [
       },
       {
         q: "Do I need a consultation first?",
-        a: "For most aesthetic and wellness services, yes — Ryan Kent, FNP-BC (medical director) or Dani meets you first to customize the plan. Consults are free and there's no pressure.",
+        a: "For most aesthetic and wellness services, yes — a licensed Illinois clinician (medical director) or Dani meets you first to customize the plan. Consults are free and there's no pressure.",
         say: `"Most services start with a free consult — Ryan or Dani will make sure it's right for you."`,
       },
     ],
@@ -113,7 +113,7 @@ export const FRONT_DESK_SPA_PHONE_SECTIONS = [
       },
       {
         q: "What is RE GEN / Hello Gorgeous RX?",
-        a: `RE GEN is our medical weight loss, hormone, and peptide program — online catalog at ${SITE.url}/rx, NP-directed care with Ryan Kent, FNP-BC. Shipping to home after approval.`,
+        a: `RE GEN is our medical weight loss, hormone, and peptide program — online catalog at ${SITE.url}/rx, NP-directed care with a licensed Illinois clinician. Shipping to home after approval.`,
         say: `"RE GEN is our medical RX program — peptides, GLP-1, hormones — all NP-directed. Start at hellogorgeousmedspa.com/rx."`,
         href: "/rx",
       },

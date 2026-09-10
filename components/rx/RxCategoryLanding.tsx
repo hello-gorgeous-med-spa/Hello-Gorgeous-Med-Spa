@@ -214,7 +214,7 @@ function ClosingCta({ shopHref, intakeHref }: { shopHref: string; intakeHref: st
       <div className="mx-auto max-w-3xl px-4 text-center">
         <h2 className="font-serif text-2xl font-black sm:text-3xl">Ready to get started?</h2>
         <p className="mt-4 text-white/80">
-          Answer a few questions, then meet your provider. Ryan Kent, FNP-BC decides your protocol
+          Answer a few questions, then meet your provider. a licensed Illinois clinician decides your protocol
           before anything is filled — and you&apos;re only billed for medication after he approves it.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -356,7 +356,7 @@ export function RxCategoryLanding({ hub }: { hub: RxCategoryHub }) {
               Start your <span className="text-[#FF2D8E]">protocol</span>
             </h2>
             <p className="mt-2 text-black/55">
-              Starting price · your dose is set at your consult with Ryan Kent, FNP-BC
+              Starting price · your dose is set at your consult with a licensed Illinois clinician
             </p>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -100,7 +100,7 @@ export const HRT_REQUEST_FIELDS: IntakeFormField[] = [
     id: "consent_payment_telehealth",
     type: "checkbox",
     label:
-      "I understand payment is collected now, telehealth with Ryan Kent, FNP-BC is required before medication ships, and my order is not a prescription until clinically approved.",
+      "I understand payment is collected now, telehealth with a licensed Illinois clinician is required before medication ships, and my order is not a prescription until clinically approved.",
     required: true,
   },
 ];

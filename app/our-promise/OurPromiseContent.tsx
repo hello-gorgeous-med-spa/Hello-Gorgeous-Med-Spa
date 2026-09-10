@@ -84,7 +84,7 @@ const MEDICAL_SUPPLIERS = [
     name: "Olympia Pharmacy",
     category: "503A/503B Compounding Pharmacy",
     description:
-      "Licensed compounding pharmacy for GLP-1 medications, peptides, and custom formulations. Ryan's NP prescriptive authority allows us to work directly with pharmaceutical-grade compounders — no middlemen, no mystery sources.",
+      "Licensed compounding pharmacy for GLP-1 medications, peptides, and custom formulations. Licensed Illinois clinician review lets us work directly with pharmaceutical-grade compounders — no middlemen, no mystery sources.",
   },
   {
     name: "AnteAGE",
@@ -99,7 +99,7 @@ const CREDENTIALS = [
     icon: "🏥",
     title: "Full Prescriptive Authority",
     description:
-      "Ryan Kent, FNP-BC holds full prescriptive authority as a Family Nurse Practitioner in Illinois. This means we can prescribe, compound, and administer medications that many med spas legally cannot.",
+      "a licensed Illinois clinician holds full prescriptive authority as a Family Nurse Practitioner in Illinois. This means we can prescribe, compound, and administer medications that many med spas legally cannot.",
   },
   {
     icon: "🔬",
@@ -253,8 +253,8 @@ export function OurPromiseContent() {
                   </p>
                   <p>
                     <strong>The opposite is true.</strong> We've invested over $1 million in authentic, FDA-cleared equipment 
-                    and maintain direct purchasing accounts with every major pharmaceutical manufacturer. Ryan's full prescriptive 
-                    authority as an NP means we can legally prescribe and compound medications that many med spas cannot.
+                    and maintain direct purchasing accounts with every major pharmaceutical manufacturer. Licensed Illinois
+                    clinician review means we can legally prescribe and compound medications that many med spas cannot.
                   </p>
                   <p className="text-lg font-semibold text-black">
                     This page exists so you never have to wonder. Every product. Every device. Every vendor. Verified.
@@ -519,7 +519,7 @@ export function OurPromiseContent() {
                   Book Your Consultation
                 </CTA>
                 <CTA href="/providers" variant="outline" className="border-white/50 text-white hover:bg-white/10">
-                  Meet Ryan & Danielle
+                  Meet the team & Danielle
                 </CTA>
               </div>
               <p className="mt-8 text-sm text-white/60">

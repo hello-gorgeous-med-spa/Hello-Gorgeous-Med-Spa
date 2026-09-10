@@ -38,7 +38,7 @@ export function ShopRxHero() {
           <span className="italic text-[#FFB8DC]">gorgeous</span>.
         </h2>
         <p className="mx-auto mt-5 max-w-lg text-base font-light leading-relaxed text-white/75 md:text-lg">
-          Medical weight loss, peptides, hormones &amp; more — supervised by Ryan Kent, FNP-BC.
+          Medical weight loss, peptides, hormones &amp; more — supervised by a licensed Illinois clinician.
           Ship to home across Illinois.
         </p>
         <Link

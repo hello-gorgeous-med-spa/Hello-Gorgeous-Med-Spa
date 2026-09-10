@@ -50,7 +50,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Do I need a consultation first?",
         answer:
-          "For most services, yes! Ryan Kent, our medical director, or Dani will meet with you first to make sure the treatment is right for you and create a customized plan. Consultations are free and there's no pressure.",
+          "For most services, yes! a licensed Illinois clinician, our medical director, or Dani will meet with you first to make sure the treatment is right for you and create a customized plan. Consultations are free and there's no pressure.",
       },
     ],
   },
@@ -199,7 +199,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Do you offer medical weight loss?",
         answer:
-          "Yes! We offer GLP-1 medications like semaglutide and tirzepatide — the same medications you've probably heard about. These are prescription medications that help with appetite control and weight loss, supervised by Ryan Kent, our medical director.",
+          "Yes! We offer GLP-1 medications like semaglutide and tirzepatide — the same medications you've probably heard about. These are prescription medications that help with appetite control and weight loss, supervised by a licensed Illinois clinician, our medical director.",
       },
       {
         question: "How does GLP-1 weight loss work?",
@@ -245,7 +245,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "What's Hello Gorgeous RX?",
         answer:
-          "Hello Gorgeous RX is our prescription and wellness division! It's where we offer hormone therapy, medical weight loss, peptide therapy, and prescription dermatology. Ryan Kent oversees all medical programs.",
+          "Hello Gorgeous RX is our prescription and wellness division! It's where we offer hormone therapy, medical weight loss, peptide therapy, and prescription dermatology. a licensed Illinois clinician oversees all medical programs.",
       },
       {
         question: "What symptoms does BHRT help with?",
@@ -312,7 +312,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Are consultations free?",
         answer:
-          "Spa consults for Botox, laser, and facials are complimentary. REGEN RX medical programs start with a paid video visit with Ryan Kent, FNP-BC — that evaluation is required before any prescription can be considered, and it does not guarantee a prescription.",
+          "Spa consults for Botox, laser, and facials are complimentary. REGEN RX medical programs start with a paid video visit with a licensed Illinois clinician — that evaluation is required before any prescription can be considered, and it does not guarantee a prescription.",
       },
       {
         question: "Do you accept insurance?",
@@ -369,9 +369,9 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
     title: "Staff & credentials",
     items: [
       {
-        question: "Who is Ryan Kent?",
+        question: "Who is a licensed Illinois clinician?",
         answer:
-          "Ryan Kent is our on-site nurse practitioner — a board-certified Family Nurse Practitioner (FNP-BC) with full prescriptive authority in Illinois. He directs our medical treatments and is on site 6 days a week, under Medical Director Dr. Mukesh Arora, MD.",
+          "a licensed Illinois clinician is our on-site nurse practitioner — a board-certified Family Nurse Practitioner (FNP-BC) with full prescriptive authority in Illinois. He directs our medical treatments and is on site 6 days a week, under Medical Director Dr. Mukesh Arora, MD.",
       },
       {
         question: 'What does "full prescriptive authority" mean?',
@@ -407,7 +407,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Is there a medical provider on-site?",
         answer:
-          "Yes! Ryan Kent, FNP-BC, our nurse practitioner, is on site 6 days a week — which is rare for med spas — with Dr. Mukesh Arora, MD as our Medical Director. You have medical oversight for every treatment.",
+          "Yes! a licensed Illinois clinician, our nurse practitioner, is on site 6 days a week — which is rare for med spas — with Dr. Mukesh Arora, MD as our Medical Director. You have medical oversight for every treatment.",
       },
       {
         question: "Have you won any awards?",
@@ -428,7 +428,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Is this safe?",
         answer:
-          "Absolutely! All of our treatments are performed or overseen by licensed medical professionals. Ryan Kent, FNP-BC, our on-site nurse practitioner, is here 6 days a week. We use FDA-approved devices and products.",
+          "Absolutely! All of our treatments are performed or overseen by licensed medical professionals. a licensed Illinois clinician, our on-site nurse practitioner, is here 6 days a week. We use FDA-approved devices and products.",
       },
       {
         question: "I've heard horror stories about Botox and fillers...",

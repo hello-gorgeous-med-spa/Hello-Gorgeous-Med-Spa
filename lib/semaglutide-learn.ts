@@ -196,7 +196,7 @@ export const SEMAGLUTIDE_LEARN_PAGE: PeptideLearnPageModel = {
   includes: [...GLP1_PROGRAM_INCLUDES],
   extraOffer: {
     title: "Considering dual-action?",
-    body: `Tirzepatide activates GIP and GLP-1. Published programs start at $${tirzFromUsd}/mo. Same NP, same consult-first process — Ryan decides which mechanism fits.`,
+    body: `Tirzepatide activates GIP and GLP-1. Published programs start at $${tirzFromUsd}/mo. Same NP, same consult-first process — A licensed Illinois clinician decides which mechanism fits.`,
     href: "/tirzepatide",
     cta: "See tirzepatide →",
   },

@@ -73,7 +73,7 @@ export const PEPTIDE_SHOP_NAV = [
 ] as const;
 
 export const PEPTIDE_SHOP_BEFORE = [
-  "Every order is reviewed by Ryan Kent, FNP-BC before it ships — nothing is approved automatically",
+  "Every order is reviewed by a licensed Illinois clinician before it ships — nothing is approved automatically",
   "Cycling matters: most peptides are dosed for a defined stretch (e.g. 8 weeks on / 8 weeks off), not continuously",
   "Store vials refrigerated and reconstitute/handle exactly as instructed at your consult",
   "Tell your provider about any current medications, conditions, or prior peptide use",
@@ -94,7 +94,7 @@ export const PEPTIDE_SHOP_FAQS = [
   },
   {
     q: "How do I know which vial is right for me?",
-    a: "Start with a consult. Ryan Kent, FNP-BC reviews your goals, history, and labs, then recommends a specific peptide or blend and dosing schedule before anything is approved for order.",
+    a: "Start with a consult. a licensed Illinois clinician reviews your goals, history, and labs, then recommends a specific peptide or blend and dosing schedule before anything is approved for order.",
   },
 ] as const;
 

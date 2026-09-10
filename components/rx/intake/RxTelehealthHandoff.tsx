@@ -35,7 +35,7 @@ export function RxTelehealthHandoff({
         </p>
       ) : null}
       <p className="mt-2 text-sm text-black/70 leading-relaxed">
-        Plan on about <strong className="text-black">15 minutes</strong> by secure video. Ryan reviews
+        Plan on about <strong className="text-black">15 minutes</strong> by secure video. A licensed Illinois clinician reviews
         your health history, goals, and whether your requested protocol is safe and appropriate.{" "}
         <strong className="text-black">Nothing ships without clinical approval.</strong>
       </p>

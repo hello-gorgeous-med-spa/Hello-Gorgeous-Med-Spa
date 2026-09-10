@@ -310,7 +310,7 @@ export function XeominIntroPageContent() {
                 </table>
               </StampCard>
               <p className="mx-auto mt-5 max-w-2xl text-center text-sm font-medium text-black/55">
-                Individual results and duration vary. Ryan will help you pick the brand that fits your face — we
+                Individual results and duration vary. A clinician will help you pick the brand that fits your face — we
                 carry all five. See the{" "}
                 <Link href="/blog/neurotoxin-comparison" className="font-bold text-[#E6007E] underline underline-offset-2">
                   six-way wrinkle-relaxer comparison
@@ -328,7 +328,7 @@ export function XeominIntroPageContent() {
               <h2 className="mt-2 text-3xl font-black text-black md:text-4xl">Areas we treat with Xeomin</h2>
               <p className="mx-auto mt-3 max-w-2xl font-medium text-black/70">
                 FDA-approved for frown lines, forehead lines, and crow’s feet — treated together or one at a time.
-                Ryan can also map other expression lines when it’s clinically appropriate. Nothing is injected until
+                A clinician can also map other expression lines when it’s clinically appropriate. Nothing is injected until
                 you approve the units.
               </p>
             </div>
@@ -423,7 +423,7 @@ export function XeominIntroPageContent() {
           <div className="mx-auto max-w-6xl px-4 md:px-6">
             <div className="mb-10 text-center">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E6007E]">Meet your providers</p>
-              <h2 className="mt-2 text-3xl font-black text-black md:text-4xl">Directed by Dr. Arora, Dani &amp; Ryan</h2>
+              <h2 className="mt-2 text-3xl font-black text-black md:text-4xl">Directed by Dr. Arora &amp; Danielle</h2>
               <p className="mt-3 font-medium text-black/70">{HG_TAGLINE}</p>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
@@ -476,7 +476,7 @@ export function XeominIntroPageContent() {
               <div className="relative min-h-[240px] bg-black md:min-h-full">
                 <Image
                   src={XEOMIN_INTRO.teamImage}
-                  alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC at Hello Gorgeous Med Spa"
+                  alt="Danielle Alcala-Glazier and a licensed Illinois clinician at Hello Gorgeous Med Spa"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -597,7 +597,7 @@ export function XeominIntroPageContent() {
               >
                 XeominAesthetic.com
               </a>
-              , or call 1-866-862-1211. Talk with Ryan Kent, FNP-BC before treatment.
+              , or call 1-866-862-1211. Talk with a licensed Illinois clinician before treatment.
             </p>
           </div>
         </section>

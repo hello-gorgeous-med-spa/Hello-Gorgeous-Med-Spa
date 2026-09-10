@@ -53,7 +53,7 @@ export default async function HrtRequestPage({ searchParams }: PageProps) {
         body: (
           <>
             Choose your ingredient and supply cycle, pay at checkout, then book your NP video visit.{" "}
-            <strong className="text-black">Nothing ships until Ryan Kent, FNP-BC approves your protocol.</strong>
+            <strong className="text-black">Nothing ships until a licensed Illinois clinician approves your protocol.</strong>
           </>
         ),
       }}

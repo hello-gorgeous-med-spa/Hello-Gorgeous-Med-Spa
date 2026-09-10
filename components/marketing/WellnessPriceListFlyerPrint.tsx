@@ -142,7 +142,7 @@ export function WellnessPriceListFlyerPrint() {
           <div className="brochure-cta-box brochure-cta-light">
             <p className="brochure-cta-title">Schedule your consultation</p>
             <p className="brochure-cta-body">
-              Ryan Kent, FNP-BC · full prescriptive authority
+              a licensed Illinois clinician · full prescriptive authority
               <br />
               {SITE.phone} · Fresha &amp; Hello Gorgeous app
             </p>

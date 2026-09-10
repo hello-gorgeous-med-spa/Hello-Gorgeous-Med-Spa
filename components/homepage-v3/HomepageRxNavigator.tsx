@@ -26,7 +26,7 @@ export function HomepageRxNavigator() {
             Prescription care, supervised by an FNP.
           </h2>
           <p className="mt-3 text-base leading-relaxed text-neutral-600">
-            GLP-1, hormones, peptides, and lab panels — pay online, telehealth with Ryan Kent, FNP-BC,
+            GLP-1, hormones, peptides, and lab panels — pay online, telehealth with a licensed Illinois clinician,
             ship to your door in Illinois.
           </p>
         </FadeUp>

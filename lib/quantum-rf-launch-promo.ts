@@ -66,7 +66,7 @@ Neck package — $2,499 · includes FREE Morpheus8 Burst ($1,200 value)
 Abdomen package — $3,999 · includes FREE Morpheus8 Burst ($1,500 value)
 
 ✓ Local anesthesia only · 1 session · 5–7 day recovery
-✓ Ryan Kent, FNP-BC · Danielle Alcala, RN-S
+✓ a licensed Illinois clinician · Danielle Alcala, RN-S
 ✓ Cherry financing — as low as 0% APR
 
 Free consultation — link below.`,
@@ -90,7 +90,7 @@ Abdomen Quantum RF Package — $3,999 ⭐ BEST VALUE
 
 1 session · local anesthesia · 5–7 day recovery · results build up to 6 months
 
-Ryan Kent, FNP-BC & Danielle Alcala, RN-S
+a licensed Illinois clinician & Danielle Alcala, RN-S
 Cherry financing: pay.withcherry.com/hellogorgeous
 
 Book your free consult 👇`,

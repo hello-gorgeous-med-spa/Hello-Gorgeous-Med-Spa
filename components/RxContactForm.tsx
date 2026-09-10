@@ -203,7 +203,7 @@ export function RxCTASection() {
         </div>
         <h3 className="text-lg font-bold mb-2">Telehealth Consultation</h3>
         <p className="text-white/80 text-sm mb-4">
-          Meet virtually with Ryan Kent, FNP-C for your medical evaluation.
+          Meet virtually with a licensed Illinois clinician, FNP-C for your medical evaluation.
         </p>
         <CTA href={BOOKING_URL} variant="outline" className="w-full border-white text-white hover:bg-white hover:text-[#E6007E]">
           Book Telehealth

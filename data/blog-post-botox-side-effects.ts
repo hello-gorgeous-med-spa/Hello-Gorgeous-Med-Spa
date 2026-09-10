@@ -226,6 +226,6 @@ Not necessarily. A side effect on one occasion doesn't mean it's your pattern. K
 
 **A note on this article.** This is general information to help you understand what you might experience after treatment. It isn't medical advice and it can't substitute for being examined. Every face and every treatment is different — if something is worrying you, please contact us at **(630) 636-6193** rather than relying on anything you read here. If you have symptoms affecting your breathing or swallowing, seek urgent medical care immediately.
 
-Last reviewed August 22, 2026 by **Dr. Mukesh Arora, MD**, Medical Director, Hello Gorgeous Med Spa. Clinical care on site is led by **Ryan Kent, FNP-BC**.
+Last reviewed August 22, 2026 by **Dr. Mukesh Arora, MD**, Medical Director, Hello Gorgeous Med Spa. Clinical care on site is led by **a licensed Illinois clinician**.
 `,
 };

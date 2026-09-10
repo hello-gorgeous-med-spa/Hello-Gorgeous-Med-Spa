@@ -20,7 +20,7 @@ export const REGEN_SITE = {
     state: "IL",
     zip: "60543",
   },
-  founders: "Dani & Ryan",
+  founders: "Danielle",
   shipping: "$30",
 } as const;
 
@@ -187,7 +187,7 @@ export const REGEN_HOW_IT_WORKS = {
 export const REGEN_WHY = {
   headline: "Real providers. Real medicine.",
   intro:
-    "RE GEN is the medical-prescription arm of Hello Gorgeous Med Spa — the #1 best med spa in Oswego. Founders Dani & Ryan, a female + male provider team, are on site weekly. Every plan is directed by a full-authority nurse practitioner.",
+    "RE GEN is the medical-prescription arm of Hello Gorgeous Med Spa — the #1 best med spa in Oswego. Founders Danielle, a female + male provider team, are on site weekly. Every plan is directed by a full-authority nurse practitioner.",
   bullets: [
     {
       id: "np",

@@ -10,7 +10,7 @@ const PATH = "/rx/learn";
 export const metadata: Metadata = pageMetadata({
   title: "RE GEN Learn — Patient Education | Hello Gorgeous Med Spa",
   description:
-    "Educational guides on GLP-1 weight loss, peptides, hormones, and prescription wellness — reviewed by Ryan Kent, FNP-BC at Hello Gorgeous Med Spa, Oswego IL.",
+    "Educational guides on GLP-1 weight loss, peptides, hormones, and prescription wellness — reviewed by a licensed Illinois clinician at Hello Gorgeous Med Spa, Oswego IL.",
   path: PATH,
   keywords: [
     "RE GEN education",

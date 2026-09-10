@@ -154,7 +154,7 @@ Book or read local guide 👇`,
     channels: ["google", "facebook", "instagram"],
     message: `Your body deserves a real medical team 🩺
 
-FlowWave shockwave at Hello Gorgeous Med Spa — 74 W. Washington, Oswego. Ryan Kent, FNP-BC screens every client.
+FlowWave shockwave at Hello Gorgeous Med Spa — 74 W. Washington, Oswego. a licensed Illinois clinician screens every client.
 
 Intro $49 · (630) 636-6193 👇`,
     link: FLOWWAVE,

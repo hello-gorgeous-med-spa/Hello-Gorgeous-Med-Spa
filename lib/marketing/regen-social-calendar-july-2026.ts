@@ -38,7 +38,7 @@ Real clinic in Oswego. Real NP. Not a sketchy online pharmacy.
 
 Start your intake 👇
 
-Ryan Kent, FNP-BC · Hello Gorgeous Med Spa
+a licensed Illinois clinician · Hello Gorgeous Med Spa
 
 #ReGen #HelloGorgeous #MedicalWeightLoss #Peptides #TRT #Illinois #Telehealth`,
     link: RX,
@@ -71,7 +71,7 @@ Read the guide 👇`,
 RE GEN GLP-1 — compounded semaglutide & tirzepatide with transparent pricing from $125/mo.
 
 ✓ 5-minute online intake
-✓ NP review by Ryan Kent, FNP-BC
+✓ NP review by a licensed Illinois clinician
 ✓ Shipped across Illinois
 ✓ Flat $30 shipping
 
@@ -133,7 +133,7 @@ Browse peptides 👇`,
 
 RE GEN is Hello Gorgeous Med Spa — a real clinic at 74 W. Washington, Oswego with providers you can call.
 
-✓ Ryan Kent, FNP-BC on site
+✓ a licensed Illinois clinician on site
 ✓ US-licensed pharmacies
 ✓ Transparent pricing
 ✓ (630) 636-6193

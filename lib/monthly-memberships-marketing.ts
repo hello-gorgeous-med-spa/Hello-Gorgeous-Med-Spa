@@ -19,7 +19,7 @@ export const MONTHLY_MEMBERSHIPS_FAQS: MembershipFaq[] = [
   {
     question: "How do I join a Hello Gorgeous membership?",
     answer:
-      "Vitamin Bar and Gentlemen's Club: join in the Hello Gorgeous app (Membership tab) or use the Square checkout link on each plan. Peptide, hormone, and wellness programs start with a free consult — book online or call 630-636-6193. Ryan Kent, FNP-BC sets up your protocol and billing at your visit.",
+      "Vitamin Bar and Gentlemen's Club: join in the Hello Gorgeous app (Membership tab) or use the Square checkout link on each plan. Peptide, hormone, and wellness programs start with a free consult — book online or call 630-636-6193. a licensed Illinois clinician sets up your protocol and billing at your visit.",
   },
   {
     question: "Are peptide medications included in the membership fee?",
@@ -116,7 +116,7 @@ Peptides · hormones · NP programs · Vitamin Bar — one monthly price.
 ⚡ Metabolic Reset — GLP-1 from $${GLP1_PROGRAM.injectable.tirzepatideStarterUsd}/mo
 
 Join in the Hello Gorgeous app or book a free consult.
-Ryan Kent, FNP-BC · Naperville · Aurora · Plainfield`;
+a licensed Illinois clinician · Naperville · Aurora · Plainfield`;
 
 /** Facebook Page post — wellness memberships focus. */
 export const MEMBERSHIPS_SHOWCASE_FACEBOOK_MESSAGE = `⭐ YOUR monthly wellness — now on membership at Hello Gorgeous Med Spa, Oswego IL
@@ -133,4 +133,4 @@ Peptides. Hormones. NP-supervised programs. Vitamin Bar drive-thru.
 
 Join in the Hello Gorgeous app or book a free consult 👇
 
-Ryan Kent, FNP-BC on site 6 days a week · Naperville · Aurora · Plainfield`;
+a licensed Illinois clinician on site 6 days a week · Naperville · Aurora · Plainfield`;

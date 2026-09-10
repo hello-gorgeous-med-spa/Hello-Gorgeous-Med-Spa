@@ -114,7 +114,7 @@ const NAV = {
     href: "/about",
     links: [
       { label: "About Hello Gorgeous", href: "/about", sub: "Our story, mission & values" },
-      { label: "Meet the Team", href: "/meet-the-team", sub: "Michelle, Laura, Jen, Dani & Ryan" },
+      { label: "Meet the Team", href: "/meet-the-team", sub: "Michelle, Laura, Jen, Danielle" },
       {
         label: "Male + Female Team Advantage",
         href: "/blog/male-female-practitioners-med-spa-advantage-oswego-il",

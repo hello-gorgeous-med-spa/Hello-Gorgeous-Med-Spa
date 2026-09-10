@@ -205,7 +205,7 @@ export function LabRequestForm({
             </p>
           )}
           <p>
-            <strong className="text-black">3.</strong> Results reviewed with Ryan — not released without NP
+            <strong className="text-black">3.</strong> Results reviewed with a licensed Illinois clinician — not released without clinical
             context.
           </p>
         </div>

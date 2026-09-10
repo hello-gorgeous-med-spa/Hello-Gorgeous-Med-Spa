@@ -28,7 +28,7 @@ const mascots: { id: PersonaId; name: string; color: string; specialty: string }
   { id: "filla-grace", name: "Filla Grace", color: "from-pink-400 to-rose-400", specialty: "Revanesse Fillers" },
   { id: "harmony", name: "Harmony", color: "from-rose-500 to-pink-500", specialty: "Biote Hormones" },
   { id: "founder", name: "Danielle", color: "from-pink-600 to-pink-500", specialty: "Hello Gorgeous" },
-  { id: "ryan", name: "Dr. Ryan", color: "bg-[#FF2D8E]", specialty: "Medical & Telehealth" },
+  { id: "ryan", name: "Clinician", color: "bg-[#FF2D8E]", specialty: "Medical & Telehealth" },
 ];
 
 function getSupplementsOpeningMessage(clickedSupplement?: string): string {

@@ -12,7 +12,7 @@ export const QUANTUM_RF_MODEL = {
   },
   spots: 3,
   provider: {
-    primary: "Ryan Kent, FNP-BC",
+    primary: "a licensed Illinois clinician",
     supervision: "MD supervision on site",
   },
   investmentNote: "Reduced model investment (details at consultation — not a giveaway)",

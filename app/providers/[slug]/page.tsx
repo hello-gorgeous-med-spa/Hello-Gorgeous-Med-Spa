@@ -6,16 +6,15 @@
 // ============================================================
 
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SITE } from '@/lib/seo';
-import { BOOKING_URL, PROVIDER_BOOKING_URL_DANIELLE, PROVIDER_BOOKING_URL_RYAN } from '@/lib/flows';
+import { BOOKING_URL, PROVIDER_BOOKING_URL_DANIELLE } from '@/lib/flows';
 import {
   DANI_PROVIDER_BIO,
-  RYAN_PROVIDER_BIO,
 } from '@/lib/founder-credentials';
-import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
+import { DANIELLE_CREDENTIALS } from '@/lib/provider-credentials';
 
 // Service tags for filtering
 const SERVICE_TAGS = [
@@ -56,21 +55,6 @@ const FALLBACK_PROVIDERS: Record<string, Provider> = {
     booking_url: PROVIDER_BOOKING_URL_DANIELLE,
     is_active: true,
     display_order: 1,
-  },
-  'ryan': {
-    id: '2',
-    first_name: 'Ryan',
-    last_name: 'Kent',
-    slug: 'ryan',
-    title: 'On-Site Nurse Practitioner · FNP-BC',
-    credentials: RYAN_CREDENTIALS,
-    bio: RYAN_PROVIDER_BIO,
-    philosophy:
-      "Medical weight loss and hormone therapy built around safety, labs, and data. I'm on site six days a week under Medical Director Dr. Mukesh Arora, MD — every clinical decision goes through our medical team.",
-    headshot_url: '/images/providers/ryan-kent-clinic.jpg',
-    booking_url: PROVIDER_BOOKING_URL_RYAN,
-    is_active: true,
-    display_order: 2,
   },
 };
 
@@ -245,6 +229,7 @@ function BeforeAfterSlider({ media }: { media: ProviderMedia }) {
 
 export default function ProviderProfilePage() {
   const params = useParams();
+  const router = useRouter();
   const slug = params.slug as string;
   
   const [provider, setProvider] = useState<Provider | null>(null);
@@ -254,6 +239,10 @@ export default function ProviderProfilePage() {
   const [selectedVideo, setSelectedVideo] = useState<ProviderMedia | null>(null);
 
   useEffect(() => {
+    if (slug === "ryan") {
+      router.replace("/about");
+      return;
+    }
     async function fetchProviderData() {
       try {
         // Try to fetch from API
@@ -375,15 +364,6 @@ export default function ProviderProfilePage() {
                   className="inline-block mb-8 text-[#FF2D8E] font-semibold hover:underline"
                 >
                   Read my full story on our About page →
-                </Link>
-              )}
-
-              {provider.slug === 'ryan' && (
-                <Link
-                  href="/about#ryan"
-                  className="inline-block mb-8 text-[#FF2D8E] font-semibold hover:underline"
-                >
-                  Meet Ryan on our About page →
                 </Link>
               )}
 

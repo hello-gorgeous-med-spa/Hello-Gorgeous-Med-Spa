@@ -292,18 +292,17 @@ export function TirzepatideLearnPageContent() {
           <div>
             <JourneyEyebrow>Meet Your Provider</JourneyEyebrow>
             <h2 className="mt-3 font-serif text-[38px] font-bold leading-tight text-white lg:text-[52px]">
-              Ryan <span className="text-[#FF2D8E]">Kent, FNP-BC</span>
+              Licensed Illinois <span className="text-[#FF2D8E]">clinician review</span>
             </h2>
             <p className="mt-2 text-[15px] font-bold uppercase tracking-[0.16em] text-white/60">
               {PRESCRIBING_NP.roleLine}
             </p>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/85">
-              Every tirzepatide protocol is prescribed and managed by {PRESCRIBING_NP.displayName} — a
-              board-certified family nurse practitioner with full Illinois prescriptive authority, on
-              site six days a week in Oswego.
+              Every tirzepatide protocol is prescribed and managed by {PRESCRIBING_NP.displayName} after a
+              consult — under Medical Director {MEDICAL_DIRECTOR.displayName}.
             </p>
             <p className="mt-4 max-w-xl text-[17px] leading-relaxed text-white/70">
-              Medical oversight: {MEDICAL_DIRECTOR.displayName}. Nothing ships until Ryan reviews your
+              Medical oversight: {MEDICAL_DIRECTOR.displayName}. Nothing ships until A licensed Illinois clinician reviews your
               history, sets your dose, and approves the plan.
             </p>
             <div className="mt-7 flex flex-wrap gap-3.5">

@@ -231,7 +231,7 @@ export function QuantumRFPageContent() {
             <JourneySoundVideo
               src={QUANTUM_RF_MARKETING.ryanVideo}
               poster={images.ryanPoster}
-              label="Ryan Kent performing Quantum RF at Hello Gorgeous Med Spa"
+              label="a licensed Illinois clinician performing Quantum RF at Hello Gorgeous Med Spa"
               objectClassName="object-cover"
             />
           </div>
@@ -282,7 +282,7 @@ export function QuantumRFPageContent() {
             <div className="relative aspect-[4/5] w-full">
               <Image
                 src={images.founder}
-                alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC — Founders, Hello Gorgeous Med Spa"
+                alt="Danielle Alcala-Glazier and a licensed Illinois clinician — Founders, Hello Gorgeous Med Spa"
                 fill
                 className="object-cover object-[center_22%]"
                 sizes="300px"

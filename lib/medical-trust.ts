@@ -1,12 +1,9 @@
-import { DANI_FULL_NAME, DANI_IMAGE, RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import { DANI_FULL_NAME, DANI_IMAGE } from "@/lib/founder-credentials";
 import {
   MEDICAL_DIRECTOR,
   MEDICAL_DIRECTOR_AFFILIATIONS,
   MEDICAL_DIRECTOR_GRADUATED,
   MEDICAL_DIRECTOR_SPECIALTY,
-  NP_ON_SITE_PHRASE,
-  NP_ON_SITE_SHORT,
-  PRESCRIBING_NP,
   medicalDirectorPersonJsonLd,
 } from "@/lib/medical-authority";
 import { MEDICAL_TEAM_QUOTE } from "@/lib/medical-optimization";
@@ -43,20 +40,12 @@ export const MEDICAL_TRUST_PROVIDERS = [
     imageAlt: `${DR_ARORA_FULL_NAME}, Medical Director at Hello Gorgeous Med Spa`,
     badge: "Medical Director",
   },
-  {
-    name: RYAN_FULL_NAME,
-    role: "On-Site Nurse Practitioner · FNP-BC",
-    detail: `Full prescriptive authority · ${NP_ON_SITE_PHRASE}`,
-    image: PRESCRIBING_NP.image,
-    imageAlt: `${RYAN_FULL_NAME}, Board-Certified Family Nurse Practitioner at Hello Gorgeous Med Spa`,
-    badge: NP_ON_SITE_SHORT,
-  },
 ] as const;
 
 /** Full medical leadership trio on the homepage MD-oversight band. */
 export const MD_OVERSIGHT_TEAM = MEDICAL_TRUST_PROVIDERS;
 
-/** @deprecated Prefer MD_OVERSIGHT_TEAM — includes Dani, Medical Director Arora, and Ryan FNP-BC. */
+/** @deprecated Prefer MD_OVERSIGHT_TEAM — Danielle and Medical Director Arora. */
 export const MD_OVERSIGHT_PAIR = MEDICAL_TRUST_PROVIDERS;
 
 export const DR_ARORA_PROFILE = {
@@ -88,16 +77,16 @@ export const DR_ARORA_PROFILE = {
 
 export const MEDICAL_TRUST_BADGES = [
   "MD Medical Director",
-  "FNP-BC on site",
+  "Illinois clinician review",
   "Owner · RN-S · CNA · CMAA",
   "Licensed phlebotomist & esthetician",
-  "NP reviews every RX order",
+  "Consult-first RX",
   "Illinois telehealth licensed",
 ] as const;
 
 /** Crawlable / AEO blurb — keep in HTML even when UI uses a Learn more modal. */
 export const DR_ARORA_SEO_BLURB =
-  "Dr. Mukesh Arora, MD is Medical Director of Hello Gorgeous Med Spa in Oswego, Illinois. Internal Medicine with 30+ years of experience. Graduated Ggs Medical College, 1991. Affiliated with Advocate Good Shepherd Hospital and Northwestern Medicine McHenry Hospital. Hello Gorgeous chose Dr. Arora as Medical Director for patient-first leadership: unhurried visits, clear communication, and long-term trust. On-site nurse practitioner care is provided by Ryan Kent, FNP-BC, with full Illinois prescriptive authority; the practice is owned by Danielle Alcala-Glazier.";
+  "Dr. Mukesh Arora, MD is Medical Director of Hello Gorgeous Med Spa in Oswego, Illinois. Internal Medicine with 30+ years of experience. Graduated Ggs Medical College, 1991. Affiliated with Advocate Good Shepherd Hospital and Northwestern Medicine McHenry Hospital. Hello Gorgeous chose Dr. Arora as Medical Director for patient-first leadership: unhurried visits, clear communication, and long-term trust. Prescriptions are written only by a licensed Illinois clinician; the practice is owned by Danielle Alcala-Glazier.";
 
 /**
  * Standalone `Person` schema for Google. Identity and credentials come from
@@ -116,9 +105,9 @@ export function aroraPersonJsonLd(siteUrl = "https://www.hellogorgeousmedspa.com
 export const STOREFRONT_TRUST_SIGN = {
   image: "/images/storefront/md-oversight-sign.png",
   line1: "MD OVERSIGHT",
-  line2: "Nurse Practitioner On Site (FNP-BC)",
+  line2: "Physician-directed medical spa",
   line3: "Come in — we're friendly",
-  alt: "Hello Gorgeous Med Spa: MD Oversight, Nurse Practitioner On Site (FNP-BC). Come in — we're friendly.",
+  alt: "Hello Gorgeous Med Spa: MD Oversight. Come in — we're friendly.",
 } as const;
 
 export { MEDICAL_TEAM_QUOTE };

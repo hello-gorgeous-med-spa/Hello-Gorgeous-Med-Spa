@@ -28,12 +28,12 @@ export const hgIdentityBlogPost: BlogPost = {
     {
       question: "Is Hello Gorgeous just a Botox clinic?",
       answer:
-        "No. Hello Gorgeous Med Spa in Oswego, IL is a full aesthetic and wellness practice with medical oversight. We offer injectables, Morpheus8 Burst, Solaria CO₂ laser, Quantum RF, weight loss, hormone therapy, and more — with consult-first care led by Danielle Alcala-Glazier and Ryan Kent, FNP-BC.",
+        "No. Hello Gorgeous Med Spa in Oswego, IL is a full aesthetic and wellness practice with medical oversight. We offer injectables, Morpheus8 Burst, Solaria CO₂ laser, Quantum RF, weight loss, hormone therapy, and more — with consult-first care led by Danielle Alcala-Glazier and a licensed Illinois clinician.",
     },
     {
       question: "Who is the medical director at Hello Gorgeous?",
       answer:
-        "Ryan Kent, FNP-BC, is our on-site nurse practitioner with full prescriptive authority and is on site six days a week — not a remote name on a wall. Dr. Mukesh Arora, MD is our Medical Director.",
+        "a licensed Illinois clinician, is our on-site nurse practitioner with full prescriptive authority and is on site six days a week — not a remote name on a wall. Dr. Mukesh Arora, MD is our Medical Director.",
     },
     {
       question: "Does Hello Gorgeous pressure clients to buy treatments?",
@@ -80,7 +80,7 @@ I've been doing this for over ten years. I've seen the industry from every angle
 
 It means I'm still here. Ten years in. Still learning, still investing — **over half a million dollars** into our technology so we can offer the most advanced, safest treatments available anywhere in the western Chicago suburbs.
 
-It means our medical director, **Ryan Kent, FNP-BC**, is on-site **six days a week**. Not a name on a wall. A real person, here, with full practice authority, overseeing every treatment we offer.
+It means our medical director, **a licensed Illinois clinician**, is on-site **six days a week**. Not a name on a wall. A real person, here, with full practice authority, overseeing every treatment we offer.
 
 It means when you book a consult with us, we ask first about **you**. Not which treatment you want. What you're hoping to feel when you look in the mirror. What you've tried before. What you've been afraid to ask. What hasn't worked. What you wish someone had told you.
 
@@ -130,7 +130,7 @@ That's the promise. That's the why. That's who Hello Gorgeous actually is.
 
 **[Book your consultation](/book)** · **(630) 636-6193** · **74 W Washington St, Oswego, IL 60543**
 
-**Related:** [Our story](/blog/the-story-behind-hello-gorgeous-oswego-il) · [Why our male + female team matters](/blog/male-female-practitioners-med-spa-advantage-oswego-il) · [About Dani & Ryan](/about) · [Gallery](/gallery)
+**Related:** [Our story](/blog/the-story-behind-hello-gorgeous-oswego-il) · [Why our male + female team matters](/blog/male-female-practitioners-med-spa-advantage-oswego-il) · [About Danielle](/about) · [Gallery](/gallery)
 
 > *"You can tell it's not just a business — Danielle genuinely cares. She remembers my skin, what works, what doesn't. I trust her completely."* — **Hello Gorgeous client, Oswego, IL**
 
@@ -144,7 +144,7 @@ No. We are a full med spa with injectables, lasers, RF microneedling, weight los
 
 ### Who founded Hello Gorgeous?
 
-Danielle Alcala-Glazier founded Hello Gorgeous Med Spa in Oswego after more than ten years building a patient-first practice. Ryan Kent, FNP-BC, is our on-site nurse practitioner, and Dr. Mukesh Arora, MD serves as Medical Director.
+Danielle Alcala-Glazier founded Hello Gorgeous Med Spa in Oswego after more than ten years building a patient-first practice. a licensed Illinois clinician, is our on-site nurse practitioner, and Dr. Mukesh Arora, MD serves as Medical Director.
 
 ### Do you offer free consultations?
 

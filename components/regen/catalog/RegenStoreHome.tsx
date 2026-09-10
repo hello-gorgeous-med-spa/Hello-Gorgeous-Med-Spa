@@ -9,7 +9,7 @@ import { STORE_AISLE_LABEL } from "@/lib/regen-shop-nav";
 const HOW_IT_WORKS = [
   { n: "01", title: "Pick a protocol", body: "Choose what you want to start." },
   { n: "02", title: "Start intake", body: "Free to submit · about 4 minutes." },
-  { n: "03", title: "NP consult", body: "$49 · Ryan Kent, FNP-BC sets your dose." },
+  { n: "03", title: "NP consult", body: "$49 · a licensed Illinois clinician sets your dose." },
   { n: "04", title: "Pickup or ship", body: "Invoiced after approval · $30 IL ship." },
 ] as const;
 
@@ -59,7 +59,7 @@ export function RegenStoreHome({ goals, products, onSelectGoal, onShopAll }: Pro
             </span>
           </h1>
           <p className="mt-3 max-w-xl text-base font-medium text-white/80">
-            Starting prices on the shelf. Ryan Kent, FNP-BC sets your dose at consult.
+            Starting prices on the shelf. a licensed Illinois clinician sets your dose at consult.
             Nothing ships until he approves it.
           </p>
         </div>

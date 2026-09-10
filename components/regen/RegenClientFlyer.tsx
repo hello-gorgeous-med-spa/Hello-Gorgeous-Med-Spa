@@ -34,7 +34,7 @@ const TAG_COLOR: Record<string, string> = {
 
 const STEPS = [
   { n: "01", t: "Start your visit", d: "2–5 minutes on your phone. Free to submit." },
-  { n: "02", t: "Ryan reviews", d: "Ryan Kent, FNP-BC reads your history and labs." },
+  { n: "02", t: "A licensed Illinois clinician reviews", d: "a licensed Illinois clinician reads your history and labs." },
   { n: "03", t: "If appropriate", d: "He prescribes only when it is clinically right for you." },
   { n: "04", t: "It ships", d: "Illinois doorstep. You stay with the same Hello Gorgeous team." },
 ] as const;
@@ -139,7 +139,7 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
           <h1>The prescription door we opened for you.</h1>
           <p className="flyer-lede">
             Hello Gorgeous is still your studio on Washington Street. REGEN RX is
-            how you keep working with <strong>Ryan Kent, FNP-BC</strong> without
+            how you keep working with <strong>a licensed Illinois clinician</strong> without
             living in the waiting room — weight loss, hormones, vitamins, and
             stacks he can prescribe when it is clinically appropriate.
           </p>
@@ -183,7 +183,7 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
         <div className="flyer-colorbar" aria-hidden />
         <header className="flyer-bundles-head">
           <p className="flyer-kicker">REGEN RX · Bundles</p>
-          <h2>Request a stack. Ryan decides.</h2>
+          <h2>Request a stack. A licensed Illinois clinician decides.</h2>
           <p>
             One card. One price. One ${ship} cold ship. You are asking for a consult —
             not buying a vial off a shelf. Compounded medications are not FDA-approved.
@@ -218,7 +218,7 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
         <div className="flyer-bundles-cta">
           <div>
             <p className="flyer-kicker">Start today · {GORGEOUS20_CODE}</p>
-            <h3>Same Danielle. Same Ryan. New door.</h3>
+            <h3>Same Danielle. New door.</h3>
             <p>
               First order {GORGEOUS20_PERCENT}% off. Enter {GORGEOUS20_CODE} on the
               payment screen.{" "}

@@ -90,7 +90,7 @@ export function TirzepatidePlanPicker({
         style={ops ? undefined : { backgroundColor: BRAND.darkAlt, border: `1px solid ${BRAND.teal}40` }}
       >
         <p className={`text-sm ${ops ? 'text-white/50' : ''}`} style={ops ? undefined : { color: BRAND.gray }}>
-          Requested plan — Ryan confirms the prescribed dose
+          Requested plan — a clinician confirms the prescribed dose
         </p>
         <p className={`text-xl font-bold mt-1 ${ops ? 'text-white' : ''}`} style={ops ? undefined : { color: BRAND.cream }}>
           {quote.requestLabel}

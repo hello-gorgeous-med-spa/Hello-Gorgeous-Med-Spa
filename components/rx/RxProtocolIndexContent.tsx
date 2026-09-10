@@ -72,7 +72,7 @@ export function RxProtocolIndexContent({ groups, count }: Props) {
             </h1>
             <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl">
               {count} educational pages — what each compound is, what it&apos;s studied for, and who
-              should pause. Starting prices come from the catalog. Ryan Kent, FNP-BC sets your
+              should pause. Starting prices come from the catalog. a licensed Illinois clinician sets your
               protocol after intake.
             </p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
@@ -183,7 +183,7 @@ export function RxProtocolIndexContent({ groups, count }: Props) {
               Ready when you are
             </h2>
             <p className="mx-auto mb-10 max-w-xl text-lg text-white/95">
-              Start intake, reserve your consult, and meet Ryan. Call{" "}
+              Start intake, reserve your consult, and talk to a clinician. Call{" "}
               <a href={`tel:${SITE.phone}`} className="font-bold underline decoration-white/50">
                 {SITE.phone}
               </a>{" "}

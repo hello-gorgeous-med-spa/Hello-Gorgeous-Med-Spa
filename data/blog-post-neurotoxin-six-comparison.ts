@@ -49,7 +49,7 @@ export const neurotoxinSixComparisonPost: BlogPost = {
     {
       question: "Which neurotoxins does Hello Gorgeous carry in Oswego?",
       answer:
-        "We currently carry Botox, Dysport, Xeomin, Jeuveau, and Daxxify. We do not currently carry Letybo. Ryan Kent, FNP-BC is on site six days a week at 74 W. Washington Street, Oswego, IL.",
+        "We currently carry Botox, Dysport, Xeomin, Jeuveau, and Daxxify. We do not currently carry Letybo. a licensed Illinois clinician is on site six days a week at 74 W. Washington Street, Oswego, IL.",
     },
   ],
   content: `The full six-way comparison lives on this page — interactive table, product cards, and how to choose.`,

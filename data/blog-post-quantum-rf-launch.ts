@@ -8,7 +8,7 @@ export const quantumRfLaunchBlogPost: BlogPost = {
   metaDescription:
     "Hello Gorgeous Med Spa introduces InMode Quantum RF in Oswego, IL — lipo-level body contouring without surgery. Neck package $2,499, abdomen $3,999, FREE Morpheus8 Burst included. Cherry financing.",
   excerpt:
-    "Lipo results without surgery — InMode Quantum RF is here in Oswego with neck and abdomen packages, FREE Morpheus8 Burst bonus, and Cherry financing from Ryan Kent, FNP-BC.",
+    "Lipo results without surgery — InMode Quantum RF is here in Oswego with neck and abdomen packages, FREE Morpheus8 Burst bonus, and Cherry financing from a licensed Illinois clinician.",
   category: "New Services",
   date: "2026-05-22",
   readTime: "4 min",
@@ -37,14 +37,14 @@ export const quantumRfLaunchBlogPost: BlogPost = {
     {
       question: "Is Quantum RF good for loose skin after weight loss?",
       answer:
-        "Many clients explore Quantum RF for post-GLP-1 or post-weight-loss skin laxity on the neck, abdomen, and body. Ryan Kent, FNP-BC evaluates candidacy during a free consultation at Hello Gorgeous Med Spa in Oswego, IL.",
+        "Many clients explore Quantum RF for post-GLP-1 or post-weight-loss skin laxity on the neck, abdomen, and body. a licensed Illinois clinician evaluates candidacy during a free consultation at Hello Gorgeous Med Spa in Oswego, IL.",
     },
   ],
   content: `# InMode Quantum RF Body Contouring — Now at Hello Gorgeous Oswego, IL
 
 **Hello Gorgeous Med Spa** in **Oswego, IL** — serving **Naperville, Aurora, Plainfield, Yorkville**, and the **Fox Valley** — is introducing **InMode Quantum RF**: minimally invasive body contouring that delivers **lipo-level sculpting without surgery** and **without an operating room**.
 
-Ryan Kent, FNP-BC and Danielle Alcala, RN-S lead every consultation with honest candidacy screening and a plan built around your anatomy — not hype.
+a licensed Illinois clinician and Danielle Alcala, RN-S lead every consultation with honest candidacy screening and a plan built around your anatomy — not hype.
 
 ![Quantum RF launch packages at Hello Gorgeous Med Spa Oswego IL](/images/promo/quantum-rf-launch-flyer.png)
 
@@ -71,7 +71,7 @@ Pair it with **FREE Morpheus8 Burst** (fractional RF microneedling) for full-dep
 ## Why clients in Oswego choose Hello Gorgeous
 
 - **Only western suburbs med spa** with the full **InMode Trifecta** — Morpheus8 Burst · Solaria CO₂ · Quantum RF
-- **Ryan Kent, FNP-BC on site 6 days a week** — medical director oversight, not a rotating inject-only model
+- **a licensed Illinois clinician on site 6 days a week** — medical director oversight, not a rotating inject-only model
 - **Family-owned for 10+ years** — Dani still in the chair; real follow-through after your treatment
 - **Cherry financing** — as low as 0% APR · [Apply at pay.withcherry.com/hellogorgeous](https://pay.withcherry.com/hellogorgeous)
 

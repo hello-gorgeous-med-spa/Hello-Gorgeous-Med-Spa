@@ -46,27 +46,27 @@ export const RX_PORTAL_COMPLIANCE_DOCS = [
     id: "formuconnect-msa",
     title: "FormuConnect Master Service Agreement",
     description:
-      "MSA with Formulation Compounding Center, LLC — electronic prescribing portal services, HIPAA/security, LegitScript, term & liability. Signed by Ryan Kent (May 7, 2026).",
+      "MSA with Formulation Compounding Center, LLC — electronic prescribing portal services, HIPAA/security, LegitScript, term & liability. Signed by a licensed Illinois clinician (May 7, 2026).",
     href: "/rx-portal/compliance/formuconnect-msa.pdf",
-    signedBy: "Ryan Kent",
+    signedBy: "a licensed Illinois clinician",
     signedAt: "May 7, 2026",
   },
   {
     id: "formuconnect-privacy",
     title: "FormuConnect Privacy Policy",
     description:
-      "Consumer privacy policy for FormuConnect / Formulation Compounding Center — data types, retention, security, CCPA notice. Signed by Ryan Kent (May 7, 2026).",
+      "Consumer privacy policy for FormuConnect / Formulation Compounding Center — data types, retention, security, CCPA notice. Signed by a licensed Illinois clinician (May 7, 2026).",
     href: "/rx-portal/compliance/formuconnect-privacy.pdf",
-    signedBy: "Ryan Kent",
+    signedBy: "a licensed Illinois clinician",
     signedAt: "May 7, 2026",
   },
   {
     id: "formuconnect-terms",
     title: "FormuConnect Terms & Conditions",
     description:
-      "Website / portal terms of use — license, disclaimers, liability limits, Texas governing law. Signed by Ryan Kent (May 7, 2026).",
+      "Website / portal terms of use — license, disclaimers, liability limits, Texas governing law. Signed by a licensed Illinois clinician (May 7, 2026).",
     href: "/rx-portal/compliance/formuconnect-terms.pdf",
-    signedBy: "Ryan Kent",
+    signedBy: "a licensed Illinois clinician",
     signedAt: "May 7, 2026",
   },
 ] as const;
@@ -78,7 +78,7 @@ export const RX_PORTAL_COMPLIANCE_DOCS = [
 export const RX_PORTAL_FORMUCONNECT_SAFETY = {
   vendor: "Formulation Compounding Center, LLC (FormuConnect)",
   vendorContact: "info@formulationrx.com · 1511 Justin Rd, STE 106A, Lewisville, TX 75077",
-  signedBy: "Ryan Kent",
+  signedBy: "a licensed Illinois clinician",
   signedAt: "May 7, 2026",
   bullets: [
     {

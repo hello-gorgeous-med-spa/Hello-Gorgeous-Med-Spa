@@ -124,7 +124,7 @@ export function BioteSection() {
                 <div className="space-y-4">
                   <div className="p-4 rounded-xl border-2 border-black">
                     <p className="text-[#FF2D8E] font-bold text-sm mb-1">HORMONE CONSULT</p>
-                    <p className="text-black text-xs mb-2">With Ryan Kent, FNP-BC — your quote is confirmed before you commit</p>
+                    <p className="text-black text-xs mb-2">With a licensed Illinois clinician — your quote is confirmed before you commit</p>
                     <div className="flex justify-between items-center">
                       <span className="text-black">Medical visit</span>
                       <span className="text-2xl font-bold text-black">Book</span>

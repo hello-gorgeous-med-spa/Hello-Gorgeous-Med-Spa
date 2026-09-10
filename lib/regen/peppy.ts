@@ -32,26 +32,26 @@ function fallbackReply(surface: PeppySurface, question: string): string {
       return "Formulation first. Copy the ticket SKU from the order, paste in portal.formuconnect.com, wait for confirm, then put the pharmacy id on the order. API stays off. BoomRx only if Formulation does not carry the blend — never say BoomRx to the patient.";
     }
     if (/refund|decline|stripe/.test(q)) {
-      return "Ryan declines → same-day refund in REGEN Stripe Dashboard (search their email → charge → Refund). Paste the Stripe refund id in the chart. No in-app refund button. After compounded/shipped, no vial refund — Ryan reviews whether they continue.";
+      return "Ryan declines → same-day refund in REGEN Stripe Dashboard (search their email → charge → Refund). Paste the Stripe refund id in the chart. No in-app refund button. After compounded/shipped, no vial refund — A licensed Illinois clinician reviews whether they continue.";
     }
     if (/faster|skip|video|square|consult/.test(q)) {
-      return "Preferred door: tryregenrx.com/consult → Square $49 Medical Visit. Talk first. If Ryan prescribes, credit $49 on the first /start order (CONSULT49 or deduct and note the Square receipt). If he says no, they paid for the visit — no therapy refund. /start still exists; that path refunds the therapy charge if he declines.";
+      return "Preferred door: tryregenrx.com/consult → Square $49 Medical Visit. Talk first. If A licensed Illinois clinician prescribes, credit $49 on the first /start order (CONSULT49 or deduct and note the Square receipt). If he says no, they paid for the visit — no therapy refund. /start still exists; that path refunds the therapy charge if he declines.";
     }
     return "Open /ops/playbook for the bible and /ops/clinical for NPA sheets. I run the clinic path: Today → Chart → Ryan yes/no → FormuConnect paste → tracking → portal message. Ask me a specific step.";
   }
   if (/illinois|state|ohio|indiana|wisconsin/.test(q)) {
-    return "REGEN RX is Illinois adults 21+ only. Ryan Kent, FNP-BC reviews every request. If you are not an Illinois resident we cannot treat you yet.";
+    return "REGEN RX is Illinois adults 21+ only. a licensed Illinois clinician reviews every request. If you are not an Illinois resident we cannot treat you yet.";
   }
   if (/start|begin|how do i|sign up|book|consult/.test(q)) {
     return "Talk first: book Ryan for $49 at tryregenrx.com/consult — that visit is credited toward therapy if he prescribes. Already know what you want? Start a request at tryregenrx.com/start. A visit is not a guaranteed prescription. Illinois 21+. (630) 636-6193.";
   }
   if (/insurance|cash.?pay|hsa|fsa/.test(q)) {
-    return "Hello Gorgeous and REGEN RX are cash-pay — we don't bill insurance. Programs are personalized and often elective, so you get a clear price without a prior-auth wait. First step is a $49 visit with Ryan Kent, FNP-BC. That fee is his evaluation, not a guaranteed prescription, and it credits toward therapy if he prescribes. HSA/FSA may work with your plan. Book: tryregenrx.com/consult.";
+    return "Hello Gorgeous and REGEN RX are cash-pay — we don't bill insurance. Programs are personalized and often elective, so you get a clear price without a prior-auth wait. First step is a $49 visit with a licensed Illinois clinician. That fee is his evaluation, not a guaranteed prescription, and it credits toward therapy if he prescribes. HSA/FSA may work with your plan. Book: tryregenrx.com/consult.";
   }
   if (/price|cost|how much/.test(q)) {
     return "Ryan's video visit is $49 on Square (tryregenrx.com/consult) and credits toward the first therapy order if he prescribes. Menus start around $100 weight loss, $49 sexual health, $40 hair, $125 skin, $149 hormones, $73 energy & longevity, plus cold shipping ($25 most vials / $35 stacks). GORGEOUS20 is 20% off the first medication order — shipping excluded.";
   }
-  return "I'm Peppy — REGEN RX's guide. Ryan Kent, FNP-BC reviews every Illinois request. I can explain the programs; I cannot prescribe or pick your dose. Start at tryregenrx.com/start or call (630) 636-6193.";
+  return "I'm Peppy — REGEN RX's guide. a licensed Illinois clinician reviews every Illinois request. I can explain the programs; I cannot prescribe or pick your dose. Start at tryregenrx.com/start or call (630) 636-6193.";
 }
 
 async function anthropicReply(system: string, messages: PeppyMessage[], maxTokens: number) {

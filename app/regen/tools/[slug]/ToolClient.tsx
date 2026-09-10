@@ -142,7 +142,7 @@ function TitrationTool() {
           REGEN RX published tier from ${step.price}/mo at this step, if prescribed.
         </p>
         <p className="mt-2 text-sm font-medium text-black/55">
-          Ryan sets the actual dose after intake. Many people stay at a lower step.
+          A licensed Illinois clinician sets the actual dose after intake. Many people stay at a lower step.
         </p>
       </Result>
     </>

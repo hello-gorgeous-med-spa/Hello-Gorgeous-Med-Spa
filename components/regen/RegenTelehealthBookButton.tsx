@@ -13,13 +13,11 @@ type Props = {
   style?: CSSProperties;
 };
 
-/** Opens Ryan's Square Medical Visit calendar in a new tab. */
+/** Opens the public consult / contact door. */
 export function RegenTelehealthBookButton({ className, label, style }: Props) {
   return (
     <a
       href={REGEN_TELEHEALTH_BOOKING_URL}
-      target="_blank"
-      rel="noopener noreferrer"
       className={className}
       style={style}
     >

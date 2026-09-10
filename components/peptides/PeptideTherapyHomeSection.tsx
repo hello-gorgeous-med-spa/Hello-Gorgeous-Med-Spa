@@ -27,7 +27,7 @@ export function PeptideTherapyHomeSection() {
           </h2>
           <p className="mt-4 text-lg text-white/80 max-w-3xl font-medium">
             BPC-157, Sermorelin, GHK-Cu, Tesamorelin, PT-141, NAD+, glutathione &amp; GLP-1 options — prescribed and
-            supervised by Ryan Kent, FNP-BC. Not internet peptides. Real medical protocols.
+            supervised by a licensed Illinois clinician. Not internet peptides. Real medical protocols.
           </p>
         </FadeUp>
 

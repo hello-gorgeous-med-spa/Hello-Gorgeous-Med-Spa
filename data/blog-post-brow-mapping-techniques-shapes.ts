@@ -230,7 +230,7 @@ Read more in **[Your Brow Journey](/education/your-brow-journey)** — our step-
 
 Hello Gorgeous is a **med spa**, not a walk-in tattoo shop. **We screen you like a medical practice, because we are one.**
 
-**Ryan Kent, FNP-BC** — our board-certified Nurse Practitioner — is on site **six days a week** with full practice authority in Illinois, with physician oversight from Medical Director **Dr. Mukesh Arora, MD**. Brow PMU includes:
+**a licensed Illinois clinician** — our board-certified Nurse Practitioner — is on site **six days a week** with full practice authority in Illinois, with physician oversight from Medical Director **Dr. Mukesh Arora, MD**. Brow PMU includes:
 
 - Health history and contraindication screening  
 - Clinical sanitation and single-use needles  
@@ -300,6 +300,6 @@ Soft arch, high arch, straight, rounded, lifted tail — **customized to your fa
 
 ---
 
-*Last reviewed: May 26, 2026 · Brow PMU by Danielle Alcala-Glazier · Medical supervision: Ryan Kent, FNP-BC · Hello Gorgeous Med Spa, Oswego, IL*
+*Last reviewed: May 26, 2026 · Brow PMU by Danielle Alcala-Glazier · Medical supervision: a licensed Illinois clinician · Hello Gorgeous Med Spa, Oswego, IL*
 `,
 };

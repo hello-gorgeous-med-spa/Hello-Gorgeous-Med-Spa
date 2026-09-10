@@ -193,7 +193,7 @@ export default function MessagesPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-semibold truncate" style={{ color: BRAND.cream }}>
-                      {msg.direction === 'inbound' ? 'Ryan Kent, FNP-BC' : 'You'}
+                      {msg.direction === 'inbound' ? 'a licensed Illinois clinician' : 'You'}
                     </span>
                     {msg.direction === 'inbound' && !msg.read && (
                       <span 
@@ -355,7 +355,7 @@ export default function MessagesPage() {
                 </div>
                 <div>
                   <p className="font-semibold" style={{ color: BRAND.cream }}>
-                    {selectedMessage.direction === 'inbound' ? 'Ryan Kent, FNP-BC' : 'You'}
+                    {selectedMessage.direction === 'inbound' ? 'a licensed Illinois clinician' : 'You'}
                   </p>
                   <p className="text-sm" style={{ color: BRAND.gray }}>{timeAgo(selectedMessage.created_at)}</p>
                 </div>

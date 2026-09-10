@@ -1,7 +1,7 @@
 {
   "name": "Hello Gorgeous Med Spa",
   "short_name": "Hello Gorgeous",
-  "description": "Your personal med spa portal - Book appointments, track treatments, earn rewards. Premier Med Spa by Ryan Kent & Danielle Alcala.",
+  "description": "Your personal med spa portal - Book appointments, track treatments, earn rewards. Premier Med Spa by a licensed Illinois clinician & Danielle Alcala.",
   "start_url": "/app",
   "scope": "/",
   "display": "standalone",
@@ -110,7 +110,7 @@
       "sizes": "1742x614",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Botox, Fillers & Weight Loss by Ryan Kent & Danielle Alcala"
+      "label": "Botox, Fillers & Weight Loss by a licensed Illinois clinician & Danielle Alcala"
     }
   ],
   "related_applications": [],

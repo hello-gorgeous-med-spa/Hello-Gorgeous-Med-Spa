@@ -149,7 +149,7 @@ export const GENTLEMENS_CLUB_SERVICES: GentlemensClubService[] = [
     eyebrow: "Men's Health",
     title: "Hormone Optimization & TRT",
     description: "Lab-guided testosterone — injections or topical protocols. We no longer offer pellet insertion.",
-    bullets: ["Baseline labs ~$250–450", "TRT from $200–350/mo", "Ryan Kent, FNP-BC on site 6 days"],
+    bullets: ["Baseline labs ~$250–450", "TRT from $200–350/mo", "a licensed Illinois clinician on site 6 days"],
     href: "/gentlemens-club/testosterone",
     cta: "TRT program →",
     badge: "RX",
@@ -248,7 +248,7 @@ export const GENTLEMENS_CLUB_TRT_INCLUDED = {
   oversight: {
     title: "Medical oversight",
     bullets: [
-      "Ongoing NP supervision by Ryan Kent, FNP-BC",
+      "Ongoing NP supervision by a licensed Illinois clinician",
       "Personalized protocol design",
       "Dosing adjustments as needed",
       "Direct access for questions between visits",
@@ -499,7 +499,7 @@ export const GENTLEMENS_CLUB_ANTEAGE_HAIR_RESULTS: GentlemensClubAnteageHairResu
 ];
 
 export const GENTLEMENS_CLUB_ANTEAGE_HAIR_RESULTS_DISCLAIMER =
-  "AnteAGE MDX partner before/after photography. Results vary by pattern, age, meds, and protocol adherence — not a guarantee of outcome. Ryan Kent, FNP-BC maps realistic timelines at consult.";
+  "AnteAGE MDX partner before/after photography. Results vary by pattern, age, meds, and protocol adherence — not a guarantee of outcome. a licensed Illinois clinician maps realistic timelines at consult.";
 
 export const GENTLEMENS_CLUB_FAQS: FAQ[] = [
   {

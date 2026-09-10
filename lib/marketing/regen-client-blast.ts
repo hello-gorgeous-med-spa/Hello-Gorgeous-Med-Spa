@@ -40,7 +40,7 @@ export function regenBlastEmailHtml(firstName: string): string {
       <p>Hi ${name},</p>
       <p><strong>RE GEN</strong> is now available from Hello Gorgeous Med Spa — prescription weight loss, peptides, and hormone programs with nurse-practitioner oversight, shipped across Illinois.</p>
       <p>✓ Real clinic in Oswego — not a sketchy online pharmacy<br/>
-      ✓ Ryan Kent, FNP-BC reviews every intake<br/>
+      ✓ a licensed Illinois clinician reviews every intake<br/>
       ✓ GLP-1 from $125/mo · transparent pricing</p>
       <p><a href="${SITE}/rx/weight-loss" style="color:#E6007E;font-weight:bold">Explore weight loss →</a><br/>
       <a href="${SITE}/rx" style="color:#E6007E;font-weight:bold">Browse all RE GEN →</a></p>

@@ -40,7 +40,7 @@ export const IV_SHOTS_FAQS = [
   {
     question: "Who supervises IV therapy and shots?",
     answer:
-      "Ryan Kent, FNP-BC is the on-site nurse practitioner with full Illinois prescriptive authority and is on site six days a week under Medical Director Dr. Mukesh Arora, MD. IV and wellness protocols are NP-supervised; Olympia Pharmacy–sourced products.",
+      "a licensed Illinois clinician is the on-site nurse practitioner with full Illinois prescriptive authority and is on site six days a week under Medical Director Dr. Mukesh Arora, MD. IV and wellness protocols are NP-supervised; Olympia Pharmacy–sourced products.",
   },
 ] as const;
 
@@ -54,7 +54,7 @@ export const IV_SHOTS_HERO = {
   eyebrow: "Drive-thru Vitamin Bar · Downtown Oswego",
   title: "IV Therapy & Vitamin Shots",
   subtitle:
-    "Nutrient-dense IV drips and quick wellness shots — build your bag in the app, pull up for a 10-minute shot, or relax in our infusion suite. Ryan Kent, FNP-BC on site.",
+    "Nutrient-dense IV drips and quick wellness shots — build your bag in the app, pull up for a 10-minute shot, or relax in our infusion suite. a licensed Illinois clinician on site.",
 } as const;
 
 export const IV_SHOTS_BUILD_BAG = {

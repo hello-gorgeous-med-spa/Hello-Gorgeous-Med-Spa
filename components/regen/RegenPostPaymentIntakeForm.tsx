@@ -382,7 +382,7 @@ export function RegenPostPaymentIntakeForm({ orderRef, category, prefill, items 
           Complete your health intake
         </h1>
         <p className="mt-3 text-sm text-white/60 max-w-lg mx-auto">
-          Payment received — now we need your medical history so Ryan Kent, FNP-BC can review your
+          Payment received — now we need your medical history so a licensed Illinois clinician can review your
           order before anything ships.
         </p>
         {items && items.length > 0 && (

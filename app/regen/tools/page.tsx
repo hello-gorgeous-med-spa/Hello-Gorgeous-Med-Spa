@@ -84,7 +84,7 @@ export default function ToolsHubPage() {
       >
         <h2 className="font-serif text-3xl font-black text-white">Ready for a real plan?</h2>
         <p className="mx-auto mt-2 max-w-xl text-sm font-medium text-white/90">
-          These tools are educational. Ryan Kent, FNP-BC reviews every request and prescribes
+          These tools are educational. a licensed Illinois clinician reviews every request and prescribes
           only if it is clinically appropriate.
         </p>
         <Link

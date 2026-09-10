@@ -58,7 +58,7 @@ function peptideCityPage(
       ? "Peptide Therapy Naperville IL | $49 Consult · From $149/mo | Hello Gorgeous"
       : `Peptide Therapy Near ${city}, IL | Hello Gorgeous Oswego`,
     metaDescription: isNaperville
-      ? "Peptide therapy for Naperville, IL — BPC-157, Sermorelin, GHK-Cu, NAD+, PT-141 & blends. $49 NP consult in Oswego (~15 min). Ryan Kent, FNP-BC. Published pricing from $149/mo."
+      ? "Peptide therapy for Naperville, IL — BPC-157, Sermorelin, GHK-Cu, NAD+, PT-141 & blends. $49 NP consult in Oswego (~15 min). a licensed Illinois clinician. Published pricing from $149/mo."
       : `Medical peptide therapy for ${city} & ${county} — BPC-157, Sermorelin, GHK-Cu, NAD+, PT-141 & more. $49 NP consult in downtown Oswego (${drive}).`,
     h1: isNaperville ? "Peptide Therapy Naperville, IL" : `Peptide Therapy Near ${city}, IL`,
     valueProp:
@@ -68,10 +68,10 @@ function peptideCityPage(
     bodyLocation: "Subcutaneous",
     tier: "uncontested",
     heroContent: isNaperville
-      ? "Naperville clients choose Hello Gorgeous in downtown Oswego when they want clinical depth without the Riverwalk traffic or assembly-line telehealth feel. Ryan Kent, FNP-BC prescribes and supervises every peptide protocol — pharmacy-sourced through licensed 503A compounders, never gray-market vials. We offer BPC-157, Sermorelin, GHK-Cu, Tesamorelin, CJC-1295/Ipamorelin, PT-141, NAD+, recovery blends, and GLP-1 options when appropriate. Our clinic is about 15 minutes from south Naperville via Route 59 or Route 34 through Plainfield — close enough for lunch-hour consults and Saturday follow-ups."
-      : `${city} clients choose Hello Gorgeous in downtown Oswego for peptide therapy because Ryan Kent, FNP-BC prescribes and supervises every protocol — pharmacy-sourced, never gray-market. We offer BPC-157, Sermorelin, GHK-Cu, Tesamorelin, PT-141, NAD+, glutathione, and GLP-1 options when appropriate. Our clinic is ${drive} from ${city} (${routeNote}).`,
+      ? "Naperville clients choose Hello Gorgeous in downtown Oswego when they want clinical depth without the Riverwalk traffic or assembly-line telehealth feel. a licensed Illinois clinician prescribes and supervises every peptide protocol — pharmacy-sourced through licensed 503A compounders, never gray-market vials. We offer BPC-157, Sermorelin, GHK-Cu, Tesamorelin, CJC-1295/Ipamorelin, PT-141, NAD+, recovery blends, and GLP-1 options when appropriate. Our clinic is about 15 minutes from south Naperville via Route 59 or Route 34 through Plainfield — close enough for lunch-hour consults and Saturday follow-ups."
+      : `${city} clients choose Hello Gorgeous in downtown Oswego for peptide therapy because a licensed Illinois clinician prescribes and supervises every protocol — pharmacy-sourced, never gray-market. We offer BPC-157, Sermorelin, GHK-Cu, Tesamorelin, PT-141, NAD+, glutathione, and GLP-1 options when appropriate. Our clinic is ${drive} from ${city} (${routeNote}).`,
     whyBullets: [
-      "Ryan Kent, FNP-BC — full prescribing authority on site, not a remote medical director",
+      "a licensed Illinois clinician — full prescribing authority on site, not a remote medical director",
       "Licensed US compounding pharmacies only — no research-grade or internet vials",
       "Deep peptide menu: BPC-157, Sermorelin, GHK-Cu, Tesamorelin, PT-141, NAD+ & recovery blends",
       "$49 peptide consultation — personalized plan; medication priced separately with published starting rates",
@@ -115,7 +115,7 @@ function peptideCityPage(
       },
       {
         q: "Is peptide therapy safe?",
-        a: "Peptide therapy is prescribed only after an NP evaluation, and we order through licensed US compounding pharmacies. Safety depends on your health history, the specific compound, and follow-up monitoring — some peptides are investigational and not FDA-approved, and Ryan reviews that with you before you start.",
+        a: "Peptide therapy is prescribed only after an NP evaluation, and we order through licensed US compounding pharmacies. Safety depends on your health history, the specific compound, and follow-up monitoring — some peptides are investigational and not FDA-approved, and A licensed Illinois clinician reviews that with you before you start.",
       },
       {
         q: "Do I need a consultation first?",

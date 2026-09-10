@@ -9,8 +9,8 @@ import { buildInModePageImageMap } from "@/lib/inmode-image-sitemap";
 
 const additionalImages = [
   // Hero & Brand Images
-  { src: "/images/hero-brand.webp", title: "Hello Gorgeous Med Spa — Dani & Ryan", caption: "Danielle Alcala-Glazier and Ryan Kent, FNP-BC — NP-directed injectables and medical aesthetics in Oswego, IL" },
-  { src: "/images/hero-banner.png", title: "Hello Gorgeous Med Spa Hero", caption: "Danielle and Ryan — Botox, Morpheus8, GLP-1 weight loss in Oswego IL" },
+  { src: "/images/hero-brand.webp", title: "Hello Gorgeous Med Spa — Danielle", caption: "Danielle Alcala-Glazier and a licensed Illinois clinician — NP-directed injectables and medical aesthetics in Oswego, IL" },
+  { src: "/images/hero-banner.png", title: "Hello Gorgeous Med Spa Hero", caption: "Hello Gorgeous Med Spa — Botox, Morpheus8, GLP-1 weight loss in Oswego IL" },
   { src: "/images/logo-full.png", title: "Hello Gorgeous Med Spa Logo", caption: "Hello Gorgeous Med Spa official logo" },
   
   // Before/After Results
@@ -33,9 +33,7 @@ const additionalImages = [
   { src: "/images/laser/zemits-duocratis-hero.png", title: "Zemits DuoCratis Laser", caption: "Advanced laser technology at Hello Gorgeous" },
   
   // Team
-  { src: "/images/team/ryan-kent.png", title: "Ryan Kent FNP-BC", caption: "Ryan Kent, Family Nurse Practitioner at Hello Gorgeous Med Spa" },
   { src: "/images/team/danielle.png", title: "Danielle Alcala", caption: "Danielle Alcala, Owner of Hello Gorgeous Med Spa" },
-  { src: "/images/team/ryan-danielle.png", title: "Hello Gorgeous Team", caption: "Ryan Kent and Danielle Alcala - Hello Gorgeous Med Spa founders" },
   
   // Partners
   { src: "/images/partners/alle-rewards.png", title: "Allē Rewards Partner", caption: "Hello Gorgeous is an Allē Rewards participating provider" },
@@ -48,8 +46,6 @@ const additionalImages = [
   { src: "/images/biote/info-flyer.png", title: "BioTE Hormone Therapy", caption: "BioTE bioidentical hormone replacement information" },
   
   // RX Authority
-  { src: "/images/rx/hg-ryan-kent-rx-authority.png", title: "Ryan Kent Prescriptive Authority", caption: "Full prescriptive authority for medical treatments" },
-  { src: "/images/rx/hg-ryan-kent-prescription-pad.png", title: "Prescription Pad", caption: "Ryan Kent FNP-BC prescription authority" },
   
   // Virtual & Consultation
   { src: "/images/hg-virtual-consult-phone.png", title: "Virtual Consultation", caption: "Book a virtual telehealth consultation" },

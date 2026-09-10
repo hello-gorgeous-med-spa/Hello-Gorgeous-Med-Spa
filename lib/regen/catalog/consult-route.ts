@@ -2,7 +2,7 @@
  * Catalog product → consult intake destination.
  *
  * Nothing on the RE GEN storefront can be bought outright: every product opens the
- * intake that Ryan reviews, with the item the client clicked prefilled so they never
+ * intake that A licensed Illinois clinician reviews, with the item the client clicked prefilled so they never
  * re-pick it inside the form.
  */
 

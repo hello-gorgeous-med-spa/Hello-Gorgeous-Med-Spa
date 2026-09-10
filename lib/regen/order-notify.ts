@@ -69,7 +69,7 @@ Shipping: $${REGEN_SHIPPING_USD.toFixed(2)}
 Total: $${opts.total.toFixed(2)}
 
 What happens next:
-1. Our NP, Ryan Kent, FNP-BC, will review your intake within 1 business day
+1. Our NP, a licensed Illinois clinician, will review your intake within 1 business day
 2. Once approved, your order ships (tracking sent via text)
 3. Questions? Call ${REGEN_SUPPORT_PHONE} or sign in to My RX: ${opts.statusUrl}
 
@@ -105,7 +105,7 @@ Oswego, IL | ${SITE.url}
         <div style="background: #FFF0F7; border-radius: 12px; padding: 20px; margin: 24px 0;">
           <h3 style="margin: 0 0 12px; color: #E6007E;">What happens next</h3>
           <ol style="margin: 0; padding-left: 20px;">
-            <li>Our NP, Ryan Kent, FNP-BC, reviews your intake within 1 business day</li>
+            <li>Our NP, a licensed Illinois clinician, reviews your intake within 1 business day</li>
             <li>Once approved, your order ships (tracking sent via text)</li>
             <li>Questions? We're here to help</li>
           </ol>

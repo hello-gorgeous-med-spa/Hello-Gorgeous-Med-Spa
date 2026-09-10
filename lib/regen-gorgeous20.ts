@@ -12,7 +12,7 @@ export const GORGEOUS20_START_HREF = `/start?promo=${GORGEOUS20_CODE}` as const;
 export const GORGEOUS20_MARQUEE = [
   `GORGEOUS20 · ${GORGEOUS20_PERCENT}% off your first order`,
   "Enter the code on the payment screen",
-  "Illinois patients · Ryan decides",
+  "Illinois patients · A licensed Illinois clinician decides",
 ] as const;
 
 export const GORGEOUS20_HERO =
@@ -31,7 +31,7 @@ export const REGEN_VIAL_ART = {
 } as const;
 
 export const GORGEOUS20_LEGAL =
-  "Illinois patients only. One use on your first REGEN RX medication order. Enter the code on the payment screen. Shipping is not discounted. Ryan Kent, FNP-BC prescribes only when clinically appropriate, including off-label use when indicated. Compounded medications are not FDA-approved. Requesting a visit is a consult — not a guaranteed prescription.";
+  "Illinois patients only. One use on your first REGEN RX medication order. Enter the code on the payment screen. Shipping is not discounted. a licensed Illinois clinician prescribes only when clinically appropriate, including off-label use when indicated. Compounded medications are not FDA-approved. Requesting a visit is a consult — not a guaranteed prescription.";
 
 export type Gorgeous20Example = {
   name: string;
@@ -80,24 +80,24 @@ export const GORGEOUS20_EXAMPLES: Gorgeous20Example[] = [
 ];
 
 export const GORGEOUS20_COPY = {
-  sms: `Same Danielle. Same Ryan. New door — REGEN RX. First order 20% off with GORGEOUS20. Illinois only, Ryan decides. Start free: tryregenrx.com/start?promo=GORGEOUS20`,
+  sms: `Same Danielle. Same Ryan. New door — REGEN RX. First order 20% off with GORGEOUS20. Illinois only, A licensed Illinois clinician decides. Start free: tryregenrx.com/start?promo=GORGEOUS20`,
   emailSubject: `GORGEOUS20 — 20% off your first REGEN RX order`,
   instagram: `Same team you already trust. New prescription door.
 
-Danielle + Ryan Kent, FNP-BC. Black scrubs. REGEN RX.
+Danielle + a licensed Illinois clinician. Black scrubs. REGEN RX.
 
 First order 20% off with code GORGEOUS20.
 
 Weight loss · hormones · vitamins · NAD+ · hair · Rx skincare.
 
-Ryan prescribes only when it is clinically right for you. Illinois patients. Compounded medications are not FDA-approved.
+A licensed Illinois clinician prescribes only when it is clinically right for you. Illinois patients. Compounded medications are not FDA-approved.
 
 tryregenrx.com/start
 
 #REGENRX #HelloGorgeous #OswegoIL`,
   facebook: `We opened a prescription door for Hello Gorgeous clients.
 
-Danielle and Ryan Kent, FNP-BC — REGEN RX. Weight loss, hormones, vitamins, and NAD+ support Ryan can prescribe when it is appropriate.
+Danielle and a licensed Illinois clinician — REGEN RX. Weight loss, hormones, vitamins, and NAD+ support Ryan can prescribe when it is appropriate.
 
 First order 20% off. Code GORGEOUS20 on the payment screen.
 
@@ -106,7 +106,7 @@ Illinois only. Compounded medications are not FDA-approved. A request is a consu
 Start free: tryregenrx.com/start`,
   gbp: `REGEN RX is live from Hello Gorgeous in Oswego.
 
-Danielle + Ryan Kent, FNP-BC. First order 20% off with GORGEOUS20.
+Danielle + a licensed Illinois clinician. First order 20% off with GORGEOUS20.
 
 Weight loss, hormones, vitamins, NAD+ — prescribed only when clinically appropriate. Illinois patients.
 

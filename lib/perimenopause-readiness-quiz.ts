@@ -3,7 +3,7 @@
 import type { ScreenerAnswers, ScreenerQuizResult, ScreenerQuizStep } from "@/lib/quiz-screener";
 
 export const PERIMENOPAUSE_READINESS_DISCLAIMER =
-  "Educational screener only — not a diagnosis of perimenopause or menopause. Ryan Kent, FNP-BC reviews symptoms, cycle history, and labs before any bioidentical hormone therapy.";
+  "Educational screener only — not a diagnosis of perimenopause or menopause. a licensed Illinois clinician reviews symptoms, cycle history, and labs before any bioidentical hormone therapy.";
 
 export const PERIMENOPAUSE_QUIZ_STEPS: ScreenerQuizStep[] = [
   {
@@ -83,7 +83,7 @@ export function scorePerimenopauseReadiness(answers: ScreenerAnswers): ScreenerQ
     return {
       tier: "not_eligible",
       title: "Individualized NP review required",
-      body: "Hormone therapy after estrogen-sensitive breast cancer requires specialized review. Ryan Kent, FNP-BC can discuss your history, current guidelines, and whether any hormone options are appropriate — or alternative symptom support.",
+      body: "Hormone therapy after estrogen-sensitive breast cancer requires specialized review. a licensed Illinois clinician can discuss your history, current guidelines, and whether any hormone options are appropriate — or alternative symptom support.",
       ctaLabel: "Book hormone consult",
       ctaHref: "/book",
       secondaryHref: "/biote-hormone-therapy-oswego",

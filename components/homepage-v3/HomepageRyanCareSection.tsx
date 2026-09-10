@@ -54,14 +54,23 @@ export function HomepageRyanCareSection() {
               >
                 {secondaryCta.label}
               </Link>
-              <a
-                href={tertiaryCta.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-lg border border-white/15 px-5 py-3 text-sm font-medium text-white/80 transition hover:border-white/30 hover:text-white"
-              >
-                {tertiaryCta.label}
-              </a>
+              {"external" in tertiaryCta && tertiaryCta.external ? (
+                <a
+                  href={tertiaryCta.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-lg border border-white/15 px-5 py-3 text-sm font-medium text-white/80 transition hover:border-white/30 hover:text-white"
+                >
+                  {tertiaryCta.label}
+                </a>
+              ) : (
+                <Link
+                  href={tertiaryCta.href}
+                  className="inline-flex items-center justify-center rounded-lg border border-white/15 px-5 py-3 text-sm font-medium text-white/80 transition hover:border-white/30 hover:text-white"
+                >
+                  {tertiaryCta.label}
+                </Link>
+              )}
             </div>
           </FadeUp>
         </div>

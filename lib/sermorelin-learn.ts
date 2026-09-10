@@ -61,7 +61,7 @@ export const SERMORELIN_LEARN_PAGE: PeptideLearnPageModel = {
   whatTitle: "A GHRH analog",
   whatAccent: "not HGH",
   whatDescription:
-    "Sermorelin prompts the pituitary to release growth hormone on its own. It is a signal — not a replacement hormone. Ryan decides if it belongs in your plan after reviewing your history.",
+    "Sermorelin prompts the pituitary to release growth hormone on its own. It is a signal — not a replacement hormone. A licensed Illinois clinician decides if it belongs in your plan after reviewing your history.",
   facts: [
     { label: "Name", value: "Sermorelin" },
     { label: "Class", value: "Growth-hormone-releasing hormone (GHRH) analog" },

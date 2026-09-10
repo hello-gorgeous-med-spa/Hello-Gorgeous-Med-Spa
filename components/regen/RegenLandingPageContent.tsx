@@ -293,7 +293,7 @@ export function RegenLandingPageContent() {
         <div className="mx-auto max-w-6xl px-4 text-center">
           <RegenLogo width={120} />
           <p className="mt-4 text-sm text-neutral-500">NP-supervised prescriptions · Oswego, IL · Ship to home</p>
-          <p className="mt-2 text-xs text-neutral-400">Hello Gorgeous Med Spa · Ryan Kent, FNP-BC · (630) 636-6193</p>
+          <p className="mt-2 text-xs text-neutral-400">Hello Gorgeous Med Spa · a licensed Illinois clinician · (630) 636-6193</p>
         </div>
       </footer>
     </div>

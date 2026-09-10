@@ -103,7 +103,7 @@ Botox $11/unit when you book through the Hello Gorgeous app. Show your Deals tab
 
 No App Store — scan our QR or open the link · Add to Home Screen.
 
-Ryan Kent, FNP-BC on site 6 days a week · authentic Allergan & Galderma only.
+a licensed Illinois clinician on site 6 days a week · authentic Allergan & Galderma only.
 
 👉 Get the app: ${APP_URL}`,
     linkPath: "/app?tab=deals",
@@ -134,7 +134,7 @@ The Glow Pass $49/mo · Energy Unlimited $89/mo · VIP Wellness $149/mo · Glow 
 
 Join in-app with Square checkout — one simple monthly price for your routine.
 
-Ryan Kent, FNP-BC · Oswego · Naperville · Aurora · Plainfield
+a licensed Illinois clinician · Oswego · Naperville · Aurora · Plainfield
 
 👉 Membership tab: ${MEMBERSHIP_URL}`,
     linkPath: "/app?tab=membership",
@@ -150,7 +150,7 @@ Brotox · hormone optimization · peptides · recovery — curated for men who w
 
 Book consults, browse the For Him tab, and stack with Vitamin Bar drive-thru shots.
 
-Ryan Kent, FNP-BC on site 6 days · downtown Oswego, IL
+a licensed Illinois clinician on site 6 days · downtown Oswego, IL
 
 👉 ${FOR_HIM_URL}`,
     linkPath: "/app?tab=forhim",

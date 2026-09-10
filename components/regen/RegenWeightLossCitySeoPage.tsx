@@ -72,7 +72,7 @@ export function RegenWeightLossCitySeoPage({ content }: { content: RegenWeightLo
         </h2>
         <p className="text-lg text-gray-700 mb-6">{content.localLead}</p>
         <p className="text-lg text-gray-700">
-          RE GEN is the prescription arm of Hello Gorgeous Med Spa — Ryan Kent, FNP-BC reviews every intake.
+          RE GEN is the prescription arm of Hello Gorgeous Med Spa — a licensed Illinois clinician reviews every intake.
           Real clinic at {SITE.address.streetAddress}, {SITE.address.addressLocality}. Not a faceless online
           pharmacy.
         </p>

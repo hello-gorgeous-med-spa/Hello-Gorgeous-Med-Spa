@@ -171,7 +171,7 @@ Until larger human studies exist, Hello Gorgeous treats BPC-157 as **investigati
 
 We are a **medical spa with an NP on site**, not a research-chemical shipper.
 
-**Ryan Kent, FNP-BC** is in clinic **six days a week**. Peptide protocols run through **Hello Gorgeous RX™** with **vetted 503A compounding partners** — the opposite of a vial labeled “not for human use.”
+**a licensed Illinois clinician** is in clinic **six days a week**. Peptide protocols run through **Hello Gorgeous RX™** with **vetted 503A compounding partners** — the opposite of a vial labeled “not for human use.”
 
 A typical conversation in Oswego sounds like this:
 

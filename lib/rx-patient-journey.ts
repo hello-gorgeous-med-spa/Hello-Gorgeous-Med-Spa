@@ -21,7 +21,7 @@ export const RX_PATIENT_JOURNEY_STEPS = [
     step: 2,
     title: "Medical evaluation",
     description:
-      "Ryan Kent, FNP-BC reviews your history and labs. Prescription therapy is offered only when clinically appropriate — not from a public peptide menu.",
+      "a licensed Illinois clinician reviews your history and labs. Prescription therapy is offered only when clinically appropriate — not from a public peptide menu.",
     href: "/rx",
     cta: "Hello Gorgeous RX",
   },
@@ -37,7 +37,7 @@ export const RX_PATIENT_JOURNEY_STEPS = [
     step: 4,
     title: "NP consult & approval",
     description:
-      "Ryan Kent, FNP-BC reviews your intake, sets your protocol and dose, and approves what can be filled.",
+      "a licensed Illinois clinician reviews your intake, sets your protocol and dose, and approves what can be filled.",
     href: "/book",
     cta: "Book NP consult",
   },

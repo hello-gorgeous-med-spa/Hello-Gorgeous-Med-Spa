@@ -9,7 +9,7 @@ export const regenLaunchOswegoPost: BlogPost = {
   metaDescription:
     "RE GEN is Hello Gorgeous Med Spa's NP-directed telehealth Rx arm in Oswego, IL — start a health intake, meet your provider, and pick up or get prescriptions shipped across Illinois after approval.",
   excerpt:
-    "RE GEN brings medical weight loss, peptides, hormones, sexual health, and prescription hair & skin care online — still supervised by Ryan Kent, FNP-BC, still Hello Gorgeous. Here's how the consult-first process works and where to start.",
+    "RE GEN brings medical weight loss, peptides, hormones, sexual health, and prescription hair & skin care online — still supervised by a licensed Illinois clinician, still Hello Gorgeous. Here's how the consult-first process works and where to start.",
   category: "Hello Gorgeous RX",
   date: "2026-07-02",
   readTime: "8 min",
@@ -22,7 +22,7 @@ export const regenLaunchOswegoPost: BlogPost = {
     "prescription hair loss Illinois",
     "NP supervised telehealth Naperville",
     "Hello Gorgeous RX",
-    "Ryan Kent FNP Oswego",
+    "a licensed Illinois clinician FNP Oswego",
   ],
   featuredImage: "/images/regen/regen-og-image.jpg",
   structuredDataFaqs: [
@@ -34,12 +34,12 @@ export const regenLaunchOswegoPost: BlogPost = {
     {
       question: "How does RE GEN ordering work?",
       answer:
-        "You browse protocols and complete a health intake — free to submit. A $49 fee reserves your consult with Ryan Kent, FNP-BC, who reviews your history and sets your protocol. You are invoiced for the medication only after he approves it, then you pick it up in Oswego or have it shipped. Nothing prescription is sold without a consult.",
+        "You browse protocols and complete a health intake — free to submit. A $49 fee reserves your consult with a licensed Illinois clinician, who reviews your history and sets your protocol. You are invoiced for the medication only after he approves it, then you pick it up in Oswego or have it shipped. Nothing prescription is sold without a consult.",
     },
     {
       question: "Who supervises RE GEN prescriptions?",
       answer:
-        "Ryan Kent, FNP-BC — a board-certified family nurse practitioner on site at Hello Gorgeous Med Spa in Oswego. RE GEN is not an anonymous national telehealth app; it is local, relationship-based medical care extended online across Illinois.",
+        "a licensed Illinois clinician — a board-certified family nurse practitioner on site at Hello Gorgeous Med Spa in Oswego. RE GEN is not an anonymous national telehealth app; it is local, relationship-based medical care extended online across Illinois.",
     },
     {
       question: "What RE GEN treatments are available online?",
@@ -51,7 +51,7 @@ export const regenLaunchOswegoPost: BlogPost = {
 
 **Hello Gorgeous Med Spa in Oswego, IL** — serving **Naperville, Aurora, Plainfield, Yorkville, Montgomery**, and the **Fox Valley** — has always been a place where real providers know your name. Today we're extending that same standard of care online with **RE GEN** — our prescription and telehealth arm for medical weight loss, peptides, hormones, sexual health, and prescription hair & skin protocols.
 
-**RE GEN** stands for *Renew. Rebalance. Regenerate.* It is not a separate company or a pop-up telehealth mill. It is **Hello Gorgeous RX™**, supervised by **Ryan Kent, FNP-BC**, with the same Oswego team, the same licensed compounding pharmacy partners, and the same refusal to ship anything without clinical approval.
+**RE GEN** stands for *Renew. Rebalance. Regenerate.* It is not a separate company or a pop-up telehealth mill. It is **Hello Gorgeous RX™**, supervised by **a licensed Illinois clinician**, with the same Oswego team, the same licensed compounding pharmacy partners, and the same refusal to ship anything without clinical approval.
 
 > Patients trust Hello Gorgeous with a **5.0★ rating** across nearly 2,000 post-appointment reviews and **4.4★ on Google** — because we combine medical credibility with relationship-based care, not anonymous apps.
 
@@ -67,7 +67,7 @@ We designed the flow to be clear and medical-grade:
 
 1. **Browse & start intake** — Read about each protocol at **[hellogorgeousmedspa.com/rx](/rx)** and complete a category-aware health history (allergies, medications, goals, consent). Free to submit.
 2. **Reserve your consult** — A **$49** fee holds your visit with the NP. Medication cost is quoted separately.
-3. **Meet your provider** — Ryan Kent, FNP-BC reviews your chart and meets you by secure video or in Oswego, then sets your protocol and dose.
+3. **Meet your provider** — a licensed Illinois clinician reviews your chart and meets you by secure video or in Oswego, then sets your protocol and dose.
 4. **Approved → filled** — You're invoiced for the medication only after sign-off. Pick it up in clinic or ship **flat $30** with tracking via email/SMS.
 
 This is intentional. You are never charged for a prescription you haven't been approved for — **clinical approval comes first**.
@@ -103,7 +103,7 @@ For a deeper dive on tirzepatide specifically, read our founder's letter: **[A L
 
 **RE GEN may be a fit if you:**
 - Live in **Illinois** and want NP-supervised Rx shipped home
-- Value knowing **who** reviews your chart (Ryan Kent, FNP-BC — not a rotating call center)
+- Value knowing **who** reviews your chart (a licensed Illinois clinician — not a rotating call center)
 - Want transparent category pricing before you pay
 
 **RE GEN is not:**
@@ -127,7 +127,7 @@ Individual results vary. Compounded medications are prepared by licensed US phar
 
 ### What is RE GEN?
 
-RE GEN is Hello Gorgeous Med Spa's online prescription brand — medical weight loss, peptides, hormones, sexual health, and hair/skin Rx — supervised by Ryan Kent, FNP-BC in Oswego, IL.
+RE GEN is Hello Gorgeous Med Spa's online prescription brand — medical weight loss, peptides, hormones, sexual health, and hair/skin Rx — supervised by a licensed Illinois clinician in Oswego, IL.
 
 ### Do I have to come to the spa?
 

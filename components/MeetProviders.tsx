@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentials";
 import { providerPublicBookingUrl } from "@/lib/flows";
 
 const providers = [
@@ -14,15 +13,6 @@ const providers = [
     image: "/images/team/danielle-alcala-glazier-portrait.png",
     bio: "Passionate about helping clients feel confident and beautiful. Patient-first care philosophy with a focus on personalized treatments.",
     telehealth: false,
-  },
-  {
-    slug: "ryan",
-    name: "Ryan Kent",
-    role: "On-Site Nurse Practitioner · FNP-BC",
-    credentials: `${RYAN_CREDENTIALS} • Full Practice Authority Nurse Practitioner`,
-    image: "/images/providers/ryan-kent-clinic.jpg",
-    bio: "Board-Certified Family Nurse Practitioner with full Illinois prescriptive authority — on site under Medical Director Dr. Mukesh Arora, MD. Specializing in weight management, hormone optimization, and regenerative medicine.",
-    telehealth: true,
   },
 ];
 

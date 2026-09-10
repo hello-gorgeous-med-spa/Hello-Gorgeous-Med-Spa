@@ -2,7 +2,7 @@
  * Olympia Pharmacy — doctor wholesale pricelist (HELLO45844 / Hello Gorgeous PC).
  *
  * Source of truth: `data/olympia-pricelist.json` (sync from PDF via `npm run sync:olympia`).
- * Wholesale USD = Olympia "Discounted Price" on Ryan Kent's portal export.
+ * Wholesale USD = Olympia "Discounted Price" on a licensed Illinois clinician's portal export.
  *
  * Use for COGS checks, menu expansion, and retail margin math — not client-facing prices.
  */

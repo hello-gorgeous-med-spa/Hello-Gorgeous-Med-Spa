@@ -21,7 +21,7 @@ const baseMeta = pageMetadata({
     "semaglutide Illinois",
     "tirzepatide prescription",
     "medical weight loss Naperville",
-    "Ryan Kent FNP",
+    "a licensed Illinois clinician FNP",
   ],
 });
 

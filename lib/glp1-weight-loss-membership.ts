@@ -49,7 +49,7 @@ export const GLP1_MEMBERSHIP_STEPS: Glp1MembershipStep[] = [
     step: "2",
     title: "Provider evaluation",
     body:
-      "Complete secure intake; Ryan Kent, FNP-BC reviews your history, labs when indicated, and determines if GLP-1 therapy is appropriate.",
+      "Complete secure intake; a licensed Illinois clinician reviews your history, labs when indicated, and determines if GLP-1 therapy is appropriate.",
   },
   {
     step: "3",

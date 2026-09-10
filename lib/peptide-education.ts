@@ -610,7 +610,7 @@ export const PEPTIDE_EDUCATION_GUIDES: PeptideEducationGuide[] = [
         title: "Rule of thumb",
         variant: "pink",
         body:
-          "If you cannot explain your goal in one sentence, book the consult first — Ryan Kent, FNP-BC will narrow the menu with you. Prescriptions are individual medical decisions after history, meds review, and labs when indicated.",
+          "If you cannot explain your goal in one sentence, book the consult first — a licensed Illinois clinician will narrow the menu with you. Prescriptions are individual medical decisions after history, meds review, and labs when indicated.",
       },
     ],
     closingCallouts: [
@@ -827,7 +827,7 @@ export const PEPTIDE_EDUCATION_GUIDES: PeptideEducationGuide[] = [
         title: "Before anything from this list goes near a patient",
         variant: "red",
         body:
-          "Most of these are research-use-only and several are FDA Category-2 flagged, meaning even a licensed 503A pharmacy may not be permitted to compound them for human use. Any decision about what is appropriate to offer must be made by Ryan Kent, FNP-BC as the prescribing clinician, with product sourced from a licensed pharmacy and your malpractice carrier informed. This sheet is a reference, not a green light.",
+          "Most of these are research-use-only and several are FDA Category-2 flagged, meaning even a licensed 503A pharmacy may not be permitted to compound them for human use. Any decision about what is appropriate to offer must be made by a licensed Illinois clinician as the prescribing clinician, with product sourced from a licensed pharmacy and your malpractice carrier informed. This sheet is a reference, not a green light.",
       },
       {
         title: "The Hello Gorgeous way",

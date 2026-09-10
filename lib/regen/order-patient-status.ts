@@ -162,7 +162,7 @@ export function buildRegenPatientStatus(order: RegenOrderRecord): RxPatientStatu
       label: "NP approval",
       status: approved ? "complete" : "pending",
       detail: approved
-        ? "Ryan Kent, FNP-BC approved your order."
+        ? "a licensed Illinois clinician approved your order."
         : "Clinical review in progress — nothing ships without NP sign-off.",
     },
     {

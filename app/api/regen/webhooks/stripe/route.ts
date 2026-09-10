@@ -15,12 +15,35 @@ function getStripe() {
   return new Stripe(key, { apiVersion: "2024-06-20" });
 }
 
+function webhookSecrets(): string[] {
+  return [
+    ...new Set(
+      [process.env.REGEN_STRIPE_WEBHOOK_SECRET, process.env.STRIPE_WEBHOOK_SECRET]
+        .map((value) => value?.trim())
+        .filter((value): value is string => Boolean(value)),
+    ),
+  ];
+}
+
 function webhookSecret(): string {
-  return (
-    process.env.REGEN_STRIPE_WEBHOOK_SECRET?.trim() ||
-    process.env.STRIPE_WEBHOOK_SECRET?.trim() ||
-    ""
-  );
+  return webhookSecrets()[0] || "";
+}
+
+function constructWebhookEvent(body: string, signature: string): Stripe.Event {
+  const stripe = getStripe();
+  const secrets = webhookSecrets();
+  if (secrets.length === 0) {
+    throw new Error("Webhook secret not configured");
+  }
+  let lastError: unknown;
+  for (const secret of secrets) {
+    try {
+      return stripe.webhooks.constructEvent(body, signature, secret);
+    } catch (err) {
+      lastError = err;
+    }
+  }
+  throw lastError instanceof Error ? lastError : new Error("Invalid signature");
 }
 
 /**
@@ -31,19 +54,18 @@ function webhookSecret(): string {
 export async function POST(request: NextRequest) {
   const body = await request.text();
   const signature = request.headers.get("stripe-signature");
-  const secret = webhookSecret();
 
   if (!signature) {
     return NextResponse.json({ error: "No signature" }, { status: 400 });
   }
-  if (!secret) {
+  if (webhookSecrets().length === 0) {
     console.error("[regen-stripe-webhook] REGEN_STRIPE_WEBHOOK_SECRET is not set");
     return NextResponse.json({ error: "Webhook secret not configured" }, { status: 500 });
   }
 
   let event: Stripe.Event;
   try {
-    event = getStripe().webhooks.constructEvent(body, signature, secret);
+    event = constructWebhookEvent(body, signature);
   } catch (err) {
     console.error("[regen-stripe-webhook] signature failed:", err);
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });

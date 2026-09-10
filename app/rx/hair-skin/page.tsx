@@ -13,7 +13,7 @@ const hub = getRegenCategoryHub("hair-skin")!;
 const baseMeta = pageMetadata({
   title: `${REGEN_SITE.name} Hair & Skin | Hair-Loss Evaluation | Oswego, IL`,
   description:
-    "Hair-loss and skin evaluation with Ryan Kent, FNP-BC. Prescription topicals are considered only after a medical visit. Biotin shots remain available at the Oswego Vitamin Bar.",
+    "Hair-loss and skin evaluation with a licensed Illinois clinician. Prescription topicals are considered only after a medical visit. Biotin shots remain available at the Oswego Vitamin Bar.",
   path: PAGE_PATH,
   keywords: [
     "hair-loss evaluation Oswego",

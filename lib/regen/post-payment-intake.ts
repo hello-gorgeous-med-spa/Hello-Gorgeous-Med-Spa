@@ -128,7 +128,7 @@ const DEMOGRAPHICS_STEP: RegenIntakeStep = {
 const MEDICAL_BASE_STEP: RegenIntakeStep = {
   id: "medical",
   title: "Medical history",
-  description: "Complete and accurate answers help Ryan Kent, FNP-BC review your order safely.",
+  description: "Complete and accurate answers help a licensed Illinois clinician review your order safely.",
   fields: [
     {
       id: "allergies",

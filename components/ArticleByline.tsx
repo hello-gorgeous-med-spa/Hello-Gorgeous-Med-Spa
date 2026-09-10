@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { DANI_FULL_NAME, RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import { DANI_FULL_NAME } from "@/lib/founder-credentials";
+import { MEDICAL_DIRECTOR } from "@/lib/medical-authority";
 
 export function ArticleByline({
   lastReviewed,
@@ -30,9 +31,9 @@ export function ArticleByline({
       </p>
       {showMedicalReviewer ? (
         <p className="mt-3 text-black/80">
-          Medically reviewed by{" "}
-          <Link href="/about#ryan" className="font-semibold text-[#E6007E] hover:underline">
-            {RYAN_FULL_NAME}
+          Medically reviewed under{" "}
+          <Link href={MEDICAL_DIRECTOR.profilePath} className="font-semibold text-[#E6007E] hover:underline">
+            {MEDICAL_DIRECTOR.displayName}
           </Link>
         </p>
       ) : null}

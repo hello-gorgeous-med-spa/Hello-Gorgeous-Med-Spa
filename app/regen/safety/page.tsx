@@ -159,7 +159,7 @@ export default function SafetyPage() {
               'All treatments at REGEN RX require a medical consultation and prescription to determine eligibility and appropriate dosing.',
               'Self-prescribing, sharing medications, or exceeding recommended dosages can be dangerous and is strongly discouraged.',
               'Not all patients qualify for every treatment. A provider will assess your medical history, lab results, and overall health before recommending any therapy.',
-              'Our lead provider, Ryan Kent, FNP-BC, has Full Practice Authority in Illinois and over 10 years of clinical experience.',
+              'Prescriptions are written only by a licensed Illinois clinician under Medical Director Dr. Mukesh Arora, MD.',
             ].map((item, i) => (
               <li key={i} style={{ 
                 display: 'flex', 

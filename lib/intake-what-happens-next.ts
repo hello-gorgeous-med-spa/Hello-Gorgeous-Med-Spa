@@ -6,7 +6,7 @@ export function glp1IntakeQualifiedSteps(): RxPostSubmitStep[] {
   return [
     { label: "Intake submitted — clinical team notified", status: "complete" },
     { label: `Book your $${PROGRAM_CONSULT_FEE_USD} NP consult on Fresha`, status: "current" },
-    { label: "Ryan Kent, FNP-BC reviews your chart", status: "upcoming" },
+    { label: "a licensed Illinois clinician reviews your chart", status: "upcoming" },
     { label: "Program pricing & ship-to-home (if approved)", status: "upcoming" },
     { label: "Track refills in your RX portal", status: "upcoming" },
   ];

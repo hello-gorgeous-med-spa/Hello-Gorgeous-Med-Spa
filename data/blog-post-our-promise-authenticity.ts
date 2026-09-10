@@ -49,7 +49,7 @@ export const ourPromiseAuthenticityPost: BlogPost = {
     {
       question: "Does Hello Gorgeous in Oswego use compounded medications?",
       answer:
-        "Yes — for GLP-1 weight loss and certain peptide protocols, we use 503A/503B licensed compounding pharmacies like Olympia Pharmacy. Ryan Kent FNP-BC has full prescriptive authority in Illinois, allowing us to work directly with pharmaceutical-grade compounders under medical supervision.",
+        "Yes — for GLP-1 weight loss and certain peptide protocols, we use 503A/503B licensed compounding pharmacies like Olympia Pharmacy. a licensed Illinois clinician has full prescriptive authority in Illinois, allowing us to work directly with pharmaceutical-grade compounders under medical supervision.",
     },
     {
       question: "How much has Hello Gorgeous invested in equipment?",
@@ -142,7 +142,7 @@ We're not here to trash competitors. But we are here to help you protect yoursel
 
 ## Why Ryan's NP Authority Matters
 
-**Ryan Kent, FNP-BC** holds **full prescriptive authority** as a Family Nurse Practitioner in Illinois. This is not cosmetic licensing — it's medical authority that allows us to:
+**a licensed Illinois clinician** holds **full prescriptive authority** as a Family Nurse Practitioner in Illinois. This is not cosmetic licensing — it's medical authority that allows us to:
 
 - **Prescribe controlled medications** — Including GLP-1 weight loss therapy
 - **Order and interpret labs** — Metabolic panels, hormone levels, health markers

@@ -4,7 +4,7 @@ import { CTA } from "@/components/CTA";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { FadeUp, Section } from "@/components/Section";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
-import { BOOKING_URL, PROVIDER_BOOKING_URL_DANIELLE, PROVIDER_BOOKING_URL_RYAN } from "@/lib/flows";
+import { BOOKING_URL, PROVIDER_BOOKING_URL_DANIELLE } from "@/lib/flows";
 import {
   IV_DRIP_MENU,
   IV_THERAPY_SERVICE_PATH,
@@ -92,10 +92,10 @@ export function IvTherapyServicePage() {
                   Danielle
                 </Link>{" "}
                 ·{" "}
-                <Link href={PROVIDER_BOOKING_URL_RYAN} className="text-[#FFB8DC] underline underline-offset-2 hover:text-white">
-                  Ryan
+                <Link href="/contact" className="text-[#FFB8DC] underline underline-offset-2 hover:text-white">
+                  book a consult
                 </Link>{" "}
-                · NP on site 6 days a week · Oswego, Naperville, Aurora &amp; Plainfield
+                · Oswego, Naperville, Aurora &amp; Plainfield
               </p>
             </FadeUp>
           </div>
@@ -206,7 +206,7 @@ export function IvTherapyServicePage() {
           <div className="max-w-3xl mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Ready to drip?</h2>
             <p className="text-white/90 text-lg mb-8">
-              Book your IV session or build a custom bag in the Hello Gorgeous app — Ryan Kent, FNP-BC on site 6 days a week.
+              Book your IV session or build a custom bag in the Hello Gorgeous app — a licensed Illinois clinician on site 6 days a week.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <CTA href={PRIMARY_BOOKING_CTA.href} variant="white">

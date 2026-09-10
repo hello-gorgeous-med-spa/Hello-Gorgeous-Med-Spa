@@ -22,7 +22,7 @@ const CATEGORY_MASCOTS: Partial<Record<RxCategoryHubId, CategoryMascot>> = {
     role: "Peptide therapy educator",
     avatar: "/images/mascots/peppy-avatar.png",
     blurb:
-      "Recovery, longevity, and GH-axis peptides are nuanced. Read the FAQs below, then shop when you're ready — Ryan Kent, FNP-BC approves every order.",
+      "Recovery, longevity, and GH-axis peptides are nuanced. Read the FAQs below, then shop when you're ready — a licensed Illinois clinician approves every order.",
   },
   hormones: {
     name: "Harmony",

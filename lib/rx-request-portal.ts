@@ -72,7 +72,7 @@ export const RX_REQUEST_HERO = {
   title: "Medical care, prescribed",
   titleAccent: "for you.",
   body:
-    "Choose what you're here for and start a quick health intake. Ryan Kent, FNP-BC reviews it at your consult and decides your protocol — you're only billed for medication after he approves it. No membership fee.",
+    "Choose what you're here for and start a quick health intake. a licensed Illinois clinician reviews it at your consult and decides your protocol — you're only billed for medication after he approves it. No membership fee.",
   trust: [
     "NP-supervised, every protocol",
     `Clinic pickup or flat $${REGEN_SHOP_SHIPPING_USD} Illinois shipping`,

@@ -41,7 +41,7 @@ export type SiteDoor = {
 
 export const SITE_TWO_DOORS_HEADLINE = "Two doors. One team.";
 export const SITE_TWO_DOORS_SUBLINE =
-  "In-office aesthetics downtown — or REGEN RX, the medical partnership Hello Gorgeous offers our clients. Telehealth, ship-to-home, same Ryan and Danielle.";
+  "In-office aesthetics downtown — or REGEN RX, the medical partnership Hello Gorgeous offers our clients. Telehealth, ship-to-home, same Danielle and the Hello Gorgeous team.";
 
 export const SITE_TWO_DOORS: SiteDoor[] = [
   {
@@ -53,7 +53,7 @@ export const SITE_TWO_DOORS: SiteDoor[] = [
     hubHref: "/services",
     hubCta: "Explore treatments",
     description:
-      "Botox, fillers, Morpheus8, Solaria CO₂, HydraFacial, and body contouring — NP-directed care in downtown Oswego.",
+      "Botox, fillers, Morpheus8, Solaria CO₂, HydraFacial, and body contouring — physician-directed care in downtown Oswego.",
     microLabel: "Free consult · Book online",
     microDetail: "Injectables, advanced skin tech, and facials under one roof.",
     accent: "blue",
@@ -76,7 +76,7 @@ export const SITE_TWO_DOORS: SiteDoor[] = [
     hubHref: REGEN_RX_HG_HUB,
     hubCta: "Meet REGEN RX",
     description:
-      "Weight loss, hormones, peptides, and vitamins — the prescription programs Hello Gorgeous offers through REGEN RX. Supervised by Ryan Kent, FNP-BC.",
+      "Weight loss, hormones, peptides, and vitamins — the prescription programs Hello Gorgeous offers through REGEN RX. Supervised by a licensed Illinois clinician.",
     microLabel: "Partnership · Telehealth · Ship home",
     microDetail: "Illinois patients · start at tryregenrx.com · existing patients use My RX portal.",
     accent: "pink",

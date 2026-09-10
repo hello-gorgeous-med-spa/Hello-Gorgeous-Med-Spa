@@ -30,9 +30,9 @@ function nextStepLine(slug: string): string {
   const isRefill = slug.includes("refill");
   if (isPeptideFormSlug(slug)) {
     if (isRefill) {
-      return "Next: complete payment if due — Ryan Kent, FNP-BC reviews before anything ships.";
+      return "Next: complete payment if due — a licensed Illinois clinician reviews before anything ships.";
     }
-    return `Next: pay your $${PEPTIDE_CONSULT_FEE_USD} consult, then book telehealth with Ryan Kent, FNP-BC.`;
+    return `Next: pay your $${PEPTIDE_CONSULT_FEE_USD} consult, then book telehealth with a licensed Illinois clinician.`;
   }
   if (isGlp1FormSlug(slug)) {
     if (isRefill) {

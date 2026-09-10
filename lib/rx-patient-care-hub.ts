@@ -150,7 +150,7 @@ export const RX_PATIENT_CARE_HERO = {
   title: "Your prescription care,",
   titleAccent: "simplified",
   subtitle:
-    "Refill GLP-1, renew peptides, stack monthly add-ons, pay your invoice, and download patient guides — one place, supervised by Ryan Kent, FNP-BC.",
+    "Refill GLP-1, renew peptides, stack monthly add-ons, pay your invoice, and download patient guides — one place, supervised by a licensed Illinois clinician.",
   primaryCta: { label: "Renew GLP-1", href: GLP1_REFILL_PATH },
   secondaryCta: { label: "Peptide refill", href: PEPTIDE_REQUEST_PATH },
   heroImage: RX_CARE_IMAGES.glp1Hero,
@@ -211,7 +211,7 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         icon: "📹",
         external: true,
         image: RX_CARE_IMAGES.telehealth,
-        imageAlt: "Ryan Kent, FNP-BC",
+        imageAlt: "a licensed Illinois clinician",
         iconTag: { emoji: "🩺", label: "NP-supervised" },
       },
       {
@@ -249,7 +249,7 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
       {
         id: "glp1-intake",
         title: "GLP-1 weight loss screening",
-        description: "Secure intake for semaglutide or tirzepatide. Ryan reviews and follows up if you qualify.",
+        description: "Secure intake for semaglutide or tirzepatide. A licensed Illinois clinician reviews and follows up if you qualify.",
         href: GLP1_INTAKE_PATH,
         cta: "Start GLP-1 intake",
         priceHint: `From $${GLP1_PROGRAM.injectable.monthlyFromUsd}/mo after consult`,

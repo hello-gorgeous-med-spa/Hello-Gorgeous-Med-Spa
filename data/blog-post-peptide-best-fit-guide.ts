@@ -30,7 +30,7 @@ export const peptideBestFitGuidePost: BlogPost = {
     {
       question: "How do I know which peptide is right for me?",
       answer:
-        "Start with your primary goal — recovery, skin, body composition, longevity, energy, sexual wellness, or stress and focus — then book a Hello Gorgeous RX™ consultation in Oswego. Ryan Kent, FNP-BC, reviews history, medications, and labs when needed; no peptide is appropriate for everyone.",
+        "Start with your primary goal — recovery, skin, body composition, longevity, energy, sexual wellness, or stress and focus — then book a Hello Gorgeous RX™ consultation in Oswego. a licensed Illinois clinician, reviews history, medications, and labs when needed; no peptide is appropriate for everyone.",
     },
     {
       question: "What is the HEAL peptide blend used for?",
@@ -66,7 +66,7 @@ export const peptideBestFitGuidePost: BlogPost = {
 
 ![Peptide therapy cheat sheet — Hello Gorgeous Med Spa Oswego IL](/images/peptides/peptide-cheat-sheet-full.png)
 
-**Hello Gorgeous Med Spa** in **Oswego, IL** offers **Hello Gorgeous RX™** peptide protocols prescribed and overseen by **Ryan Kent, FNP-BC** — on site **six days a week**. We serve **Naperville, Aurora, Plainfield, Yorkville, Montgomery**, and the **Fox Valley**.
+**Hello Gorgeous Med Spa** in **Oswego, IL** offers **Hello Gorgeous RX™** peptide protocols prescribed and overseen by **a licensed Illinois clinician** — on site **six days a week**. We serve **Naperville, Aurora, Plainfield, Yorkville, Montgomery**, and the **Fox Valley**.
 
 *Educational content only — not medical advice. Individual results vary. Peptides are prescribed only after in-person or telehealth evaluation when clinically appropriate.*
 
@@ -173,7 +173,7 @@ Peptides work best as part of a **whole plan**, not an isolated purchase:
 | Post-procedure downtime | Laser, RF microneedling, peels | HEAL, BPC-157, GHK-Cu |
 | Low energy + poor sleep | IV therapy | NAD+, Sermorelin, CJC/IPA stacks |
 
-**Ryan Kent, FNP-BC** can prescribe and supervise — including coordination with **503A/503B** pharmacy partners for medical-grade compounds. That is the difference between a med spa with a real NP on site and a spa selling wellness trends.
+**a licensed Illinois clinician** can prescribe and supervise — including coordination with **503A/503B** pharmacy partners for medical-grade compounds. That is the difference between a med spa with a real NP on site and a spa selling wellness trends.
 
 ---
 

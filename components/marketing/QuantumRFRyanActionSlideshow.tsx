@@ -29,7 +29,7 @@ export function QuantumRFRyanActionSlideshow() {
               Live procedure · Quantum RF
             </p>
             <h2 className="mt-1 text-lg font-semibold tracking-tight text-black">
-              Ryan Kent, FNP-BC — in clinic
+              a licensed Illinois clinician — in clinic
             </h2>
           </div>
           <Link
@@ -104,7 +104,7 @@ export function QuantumRFRyanActionSlideshow() {
 
         {/* Footnote */}
         <p className="mt-4 text-[11px] leading-relaxed text-black/40">
-          Clinical footage from Hello Gorgeous Med Spa, Oswego, IL. Performed by Ryan Kent, FNP-BC.{" "}
+          Clinical footage from Hello Gorgeous Med Spa, Oswego, IL. Performed by a licensed Illinois clinician.{" "}
           Individual candidacy and results vary.{" "}
           <Link href="/services/quantum-rf" className="underline underline-offset-2 hover:text-[#E6007E] transition-colors">
             Learn more about Quantum RF →

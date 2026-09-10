@@ -49,13 +49,13 @@ export const PEPTIDE_CONSULT_PAY_NOTE =
   "New peptide protocols: pay the $49 NP consult on the Terminal at Hello Gorgeous in Oswego (tap, dip, or swipe), then book telehealth. Medication is priced separately after approval.";
 
 export const PEPTIDE_INVESTIGATIONAL_NOTE =
-  "Investigational compound — not FDA-approved for any use and still in clinical trials. Ryan Kent, FNP-BC will review whether an approved alternative fits your goals before anything is dispensed.";
+  "Investigational compound — not FDA-approved for any use and still in clinical trials. a licensed Illinois clinician will review whether an approved alternative fits your goals before anything is dispensed.";
 
 export const PEPTIDE_REQUEST_DISCLAIMER =
   "Requesting a peptide does not create a prescription. All Hello Gorgeous RX™ protocols require NP telehealth review, medical evaluation, and pharmacy fulfillment after approval. Medication is priced separately.";
 
 export const PEPTIDE_TELEHEALTH_NOTE =
-  "A required Video Consult with Ryan Kent, FNP-BC is booked on Square after you submit your request. Ryan reviews safety and authorizes any new protocol or refill. Clinical charting stays in Charm EHR for your care team.";
+  "A required Video Consult with a licensed Illinois clinician is booked on Square after you submit your request. A licensed Illinois clinician reviews safety and authorizes any new protocol or refill. Clinical charting stays in Charm EHR for your care team.";
 
 /** Request catalog — mirrors branded education thumbnails. */
 export const PEPTIDE_REQUEST_ITEMS: PeptideRequestItem[] = [

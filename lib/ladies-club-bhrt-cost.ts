@@ -41,7 +41,7 @@ export const BHRT_COST_QUICK_ANSWER = {
   bullets: [
     {
       bold: "Hormone therapy is quoted after labs — not a one-price pellet visit",
-      rest: "We no longer offer pellet insertion. When HRT is appropriate, Ryan Kent, FNP-BC recommends compounded creams or injectables based on your labs, symptoms, and goals.",
+      rest: "We no longer offer pellet insertion. When HRT is appropriate, a licensed Illinois clinician recommends compounded creams or injectables based on your labs, symptoms, and goals.",
     },
     {
       bold: "Baseline labs run approximately $250–450 (one-time)",
@@ -70,7 +70,7 @@ export const BHRT_COST_INCLUDED: BhrtIncludedItem[] = [
   {
     title: "Lab-guided dosing",
     body:
-      "Dose is calculated from your baseline panel, symptoms, age, and weight — not a one-size-fits-all protocol. Ryan Kent, FNP-BC reviews every result before you start and at every follow-up.",
+      "Dose is calculated from your baseline panel, symptoms, age, and weight — not a one-size-fits-all protocol. a licensed Illinois clinician reviews every result before you start and at every follow-up.",
   },
   {
     title: "NP oversight & follow-ups",
@@ -202,7 +202,7 @@ export const BHRT_COST_FIRST_MONTH: BhrtFirstMonthStep[] = [
     step: "Step 3",
     title: "Lab review & protocol",
     body:
-      "Ryan Kent, FNP-BC reviews your results and recommends compounded creams or injectables when appropriate. We no longer offer pellet insertion.",
+      "a licensed Illinois clinician reviews your results and recommends compounded creams or injectables when appropriate. We no longer offer pellet insertion.",
     cost: "Quoted",
   },
   {
@@ -346,7 +346,7 @@ export const BHRT_COST_FAQS: FAQ[] = [
   {
     question: "Can I use HSA or FSA for hormone therapy?",
     answer:
-      "Yes. Hormone therapy prescribed and monitored by Ryan Kent, FNP-BC is typically an eligible medical expense for most HSA and FSA plans. Hello Gorgeous provides itemized receipts for reimbursement submission.",
+      "Yes. Hormone therapy prescribed and monitored by a licensed Illinois clinician is typically an eligible medical expense for most HSA and FSA plans. Hello Gorgeous provides itemized receipts for reimbursement submission.",
   },
 ];
 

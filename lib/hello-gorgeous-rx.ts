@@ -7,7 +7,7 @@ import { PEPTIDE_CONSULT_FEE_USD } from "@/lib/peptide-request-menu";
 export const HELLO_GORGEOUS_RX = {
   name: "Hello Gorgeous RX™",
   tagline: "NP-led peptide therapy · Oswego, IL",
-  providerName: "Ryan Kent, FNP-BC",
+  providerName: "a licensed Illinois clinician",
   consultFeeLabel: `$${PEPTIDE_CONSULT_FEE_USD}`,
 } as const;
 
@@ -35,7 +35,7 @@ export const RX_RECURRING_JOURNEY: RxJourneyStep[] = [
   {
     id: "telehealth",
     title: "Book required NP telehealth",
-    detail: "After the consult fee, book your NP telehealth visit on Square with Ryan Kent, FNP-BC.",
+    detail: "After the consult fee, book your NP telehealth visit on Square with a licensed Illinois clinician.",
     icon: "💻",
   },
   {

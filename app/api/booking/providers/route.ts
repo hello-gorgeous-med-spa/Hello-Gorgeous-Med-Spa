@@ -9,20 +9,13 @@ import { NextRequest, NextResponse } from 'next/server';
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
-import { DANIELLE_CREDENTIALS, MICHELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
+import { DANIELLE_CREDENTIALS, MICHELLE_CREDENTIALS } from '@/lib/provider-credentials';
 
 // ============================================================
-// Bookable providers — Ryan, Danielle, Michelle (laser / IPL)
+// Bookable providers — Danielle, Michelle (laser / IPL)
 // NO HARDCODED SCHEDULES - Always fetch from database
 // ============================================================
 const PROVIDER_METADATA = [
-  {
-    id: 'ryan-kent',
-    name: 'Ryan Kent',
-    title: RYAN_CREDENTIALS,
-    color: '#3b82f6',
-    serviceKeywords: ['botox', 'filler', 'jeuveau', 'dysport', 'lip', 'semaglutide', 'tirzepatide', 'retatrutide', 'weight', 'iv', 'vitamin', 'prp', 'pellet', 'hormone', 'bhrt', 'medical', 'trigger', 'kybella', 'consult', 'laser', 'ipl', 'photofacial', 'anteage', 'hydra', 'peel', 'facial', 'skin'],
-  },
   {
     id: 'danielle-alcala',
     name: 'Danielle Alcala',
@@ -43,13 +36,12 @@ const PROVIDER_METADATA = [
 function isAllowedProvider(name: string): boolean {
   const n = name.toLowerCase();
   return (
-    (n.includes('ryan') && n.includes('kent')) ||
     (n.includes('danielle') && (n.includes('alcala') || n.includes('glazier'))) ||
     (n.includes('michelle') && n.includes('colby'))
   );
 }
 
-/** Match DB user (first_name, last_name) to a known provider display name (e.g. "Danielle Alcala" or "Ryan Kent"). */
+/** Match DB user (first_name, last_name) to a known provider display name (e.g. "Danielle Alcala" or "a licensed Illinois clinician"). */
 function dbUserMatchesProvider(firstName: string, lastName: string, providerDisplayName: string): boolean {
   const first = String(firstName ?? '').trim().toLowerCase();
   const last = String(lastName ?? '').trim().toLowerCase();
@@ -58,7 +50,7 @@ function dbUserMatchesProvider(firstName: string, lastName: string, providerDisp
   const wantFirst = want.split(' ')[0] || '';
   const wantLast = want.split(' ').slice(1).join(' ') || '';
   if (wantFirst && first !== wantFirst) return false;
-  // "Danielle Alcala" matches "Danielle Glazier-Alcala" (last contains alcala); "Ryan Kent" matches last === "kent"
+  // "Danielle Alcala" matches "Danielle Glazier-Alcala" (last contains alcala); "a licensed Illinois clinician" matches last === "kent"
   if (wantLast && last !== wantLast && !last.includes(wantLast) && !last.includes('glazier')) return false;
   return true;
 }

@@ -9,10 +9,10 @@ export const ILLINOIS_EXCELLENCE = {
   eyebrow: "Fox Valley · Chicagoland",
   headline: "Built to be Illinois's most trusted med spa",
   subline:
-    "MD oversight · FNP-BC on site. Medical programs with real labs — not cookie-cutter aesthetics. Oswego roots, statewide telehealth RX.",
+    "MD oversight · licensed Illinois clinician review. Medical programs with real labs — not cookie-cutter aesthetics. Oswego roots, statewide telehealth RX.",
   proofChips: [
-    "MD oversight · FNP-BC on site",
-    "NP-supervised prescriptions",
+    "MD oversight · clinician review",
+    "Consult-first prescriptions",
     "4.4★ Google · 5.0★ from 1,931 visits",
     "Ship-to-home RX · In-clinic aesthetics",
   ] as const,

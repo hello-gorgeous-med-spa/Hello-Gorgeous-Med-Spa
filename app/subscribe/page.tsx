@@ -257,7 +257,7 @@ const subscribeJsonLd = {
           "name": "Who are the providers at Hello Gorgeous Med Spa?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Ryan Kent, FNP-BC is our on-site nurse practitioner, board-certified with full Illinois prescriptive authority, and Dr. Mukesh Arora, MD is our Medical Director. Founder Danielle Alcala-Glazier is a licensed esthetician and leads the practice and client experience.",
+            "text": "a licensed Illinois clinician is our on-site nurse practitioner, board-certified with full Illinois prescriptive authority, and Dr. Mukesh Arora, MD is our Medical Director. Founder Danielle Alcala-Glazier is a licensed esthetician and leads the practice and client experience.",
           },
         },
       ],

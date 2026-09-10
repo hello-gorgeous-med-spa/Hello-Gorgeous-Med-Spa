@@ -28,7 +28,7 @@ const CATEGORIES = [
     id: 'peptides',
     title: 'Energy & longevity',
     subtitle: 'NAD+ & wellness',
-    description: 'Learn how NAD+ and vitamin injectables support cellular energy — prescribed only when Ryan decides it is appropriate.',
+    description: 'Learn how NAD+ and vitamin injectables support cellular energy — prescribed only when A licensed Illinois clinician decides it is appropriate.',
     icon: '🧬',
     href: '/learn/peptides',
     topics: ['What are peptides?', 'NAD+ & cellular energy', 'How online visits work', 'Safety & research'],

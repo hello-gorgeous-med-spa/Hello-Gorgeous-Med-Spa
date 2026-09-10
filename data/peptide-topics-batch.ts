@@ -66,7 +66,7 @@ export const BATCH_PEPTIDE_TOPICS: PeptideTopic[] = [
       {
         title: "How Hello Gorgeous prescribes it",
         body:
-          "Ryan Kent, FNP-BC reviews your injury history, cancer screening, and goals before any peptide Rx. TB-500 is sourced through licensed compounding pharmacies — never gray-market research vials.",
+          "a licensed Illinois clinician reviews your injury history, cancer screening, and goals before any peptide Rx. TB-500 is sourced through licensed compounding pharmacies — never gray-market research vials.",
       },
     ],
     callouts: [

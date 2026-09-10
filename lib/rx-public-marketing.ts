@@ -76,7 +76,7 @@ export const RX_JOURNEY_STEPS = [
   {
     n: "03",
     title: "Medical evaluation",
-    body: "Ryan reviews labs and history. Prescription therapy is offered only when clinically appropriate.",
+    body: "A licensed Illinois clinician reviews labs and history. Prescription therapy is offered only when clinically appropriate.",
   },
   {
     n: "04",
@@ -105,7 +105,7 @@ export const RX_PUBLIC_SERVICES = [
   {
     n: "03",
     title: "Sexual-wellness consultation",
-    body: "Private evaluation for sexual-health concerns. Prescriptions, if any, follow a medical visit with Ryan Kent, FNP-BC.",
+    body: "Private evaluation for sexual-health concerns. Prescriptions, if any, follow a medical visit with a licensed Illinois clinician.",
     href: "/rx/sexual-health",
     image: "/images/regen/categories/cardiovascular.png",
     imageAlt: "Sexual-wellness consultation — Hello Gorgeous RX",

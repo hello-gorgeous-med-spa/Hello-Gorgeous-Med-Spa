@@ -14,7 +14,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "The Ladies' Club | Women's Hormones, GLP-1 & Wellness | Hello Gorgeous Med Spa Oswego IL",
   description:
-    "The Ladies' Club — Hello Gorgeous's women's wellness hub. BioTE hormone therapy, GLP-1 weight loss, peptides, IV therapy & memberships. Ryan Kent, FNP-BC. Oswego, IL.",
+    "The Ladies' Club — Hello Gorgeous's women's wellness hub. BioTE hormone therapy, GLP-1 weight loss, peptides, IV therapy & memberships. a licensed Illinois clinician. Oswego, IL.",
   keywords: [
     "womens hormone therapy oswego il",
     "biote pellets women naperville",

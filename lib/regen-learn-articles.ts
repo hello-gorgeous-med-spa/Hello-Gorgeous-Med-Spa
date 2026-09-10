@@ -109,7 +109,7 @@ export const WHAT_IS_GLP1_ARTICLE: RegenLearnArticle = {
   ],
   updated: "2026-07-04",
   readTime: "8 min",
-  reviewedBy: "Ryan Kent, FNP-BC",
+  reviewedBy: "a licensed Illinois clinician",
   heroImage: "/images/shop-rx/tirzepatide-glp1.png",
   heroImageAlt: "RE GEN medical weight loss — GLP-1 programs supervised in Oswego, IL",
   intro: [
@@ -221,7 +221,7 @@ export const WHAT_IS_GLP1_ARTICLE: RegenLearnArticle = {
         {
           title: "Illinois patients at Hello Gorgeous",
           paragraphs: [
-            "RE GEN serves Illinois residents with online intake, telehealth when required, and medication shipped after Ryan Kent, FNP-BC reviews your chart. In-person visits remain available at our Oswego med spa for patients who prefer face-to-face relationship-based care.",
+            "RE GEN serves Illinois residents with online intake, telehealth when required, and medication shipped after a licensed Illinois clinician reviews your chart. In-person visits remain available at our Oswego med spa for patients who prefer face-to-face relationship-based care.",
           ],
         },
       ],
@@ -259,7 +259,7 @@ export const WHAT_IS_GLP1_ARTICLE: RegenLearnArticle = {
       id: "regen",
       title: "How RE GEN delivers GLP-1 care",
       paragraphs: [
-        "RE GEN is the prescription arm of Hello Gorgeous Med Spa in Oswego, IL — not a anonymous telehealth app. Every GLP-1 protocol is reviewed by Ryan Kent, FNP-BC before medication ships.",
+        "RE GEN is the prescription arm of Hello Gorgeous Med Spa in Oswego, IL — not a anonymous telehealth app. Every GLP-1 protocol is reviewed by a licensed Illinois clinician before medication ships.",
       ],
       bullets: [
         "Browse programs at the RE GEN storefront",
@@ -363,7 +363,7 @@ export const WHAT_ARE_PEPTIDES_ARTICLE: RegenLearnArticle = {
   ],
   updated: "2026-07-04",
   readTime: "7 min",
-  reviewedBy: "Ryan Kent, FNP-BC",
+  reviewedBy: "a licensed Illinois clinician",
   heroImage: "/images/rx-care/peptide-molecule-hero.png",
   heroImageAlt: "RE GEN peptide therapy — molecular science illustration",
   intro: [
@@ -481,7 +481,7 @@ export const WHAT_ARE_PEPTIDES_ARTICLE: RegenLearnArticle = {
       id: "regen",
       title: "How RE GEN delivers peptide care",
       paragraphs: [
-        "Start at hellogorgeousmedspa.com/rx/peptides to browse protocols and pricing. Complete the online intake, and Ryan Kent, FNP-BC reviews your information. When approved, medication ships from a US compounding pharmacy with flat-rate Illinois shipping.",
+        "Start at hellogorgeousmedspa.com/rx/peptides to browse protocols and pricing. Complete the online intake, and a licensed Illinois clinician reviews your information. When approved, medication ships from a US compounding pharmacy with flat-rate Illinois shipping.",
         "You can also visit Hello Gorgeous Med Spa in Oswego for in-person consults, labs, and coordination with other services — including peptide injections administered on site when appropriate.",
       ],
     },
@@ -569,7 +569,7 @@ export const WHAT_IS_HORMONE_THERAPY_ARTICLE: RegenLearnArticle = {
   ],
   updated: "2026-07-04",
   readTime: "8 min",
-  reviewedBy: "Ryan Kent, FNP-BC",
+  reviewedBy: "a licensed Illinois clinician",
   heroImage: "/images/regen/banner-h1.jpg",
   heroImageAlt: "RE GEN hormone therapy — TRT and HRT supervised in Oswego, IL",
   intro: [
@@ -677,7 +677,7 @@ export const WHAT_IS_HORMONE_THERAPY_ARTICLE: RegenLearnArticle = {
       id: "regen",
       title: "How RE GEN delivers hormone care",
       paragraphs: [
-        "Start at hellogorgeousmedspa.com/rx/hormones to review TRT, women's HRT, and related options. Complete the online intake; Ryan Kent, FNP-BC reviews your history and labs plan before any prescription ships.",
+        "Start at hellogorgeousmedspa.com/rx/hormones to review TRT, women's HRT, and related options. Complete the online intake; a licensed Illinois clinician reviews your history and labs plan before any prescription ships.",
         "Medications come from US-licensed compounding pharmacies with flat-rate Illinois shipping. You can also visit Hello Gorgeous in Oswego for in-person consults and lab draws when needed.",
       ],
     },
@@ -763,7 +763,7 @@ export const HOW_REGEN_WORKS_ARTICLE: RegenLearnArticle = {
   ],
   updated: "2026-07-05",
   readTime: "6 min",
-  reviewedBy: "Ryan Kent, FNP-BC",
+  reviewedBy: "a licensed Illinois clinician",
   heroImage: "/images/regen/regen-flyer-services.jpg",
   heroImageAlt: "How RE GEN works — prescription care from Hello Gorgeous Med Spa",
   intro: [
@@ -786,7 +786,7 @@ export const HOW_REGEN_WORKS_ARTICLE: RegenLearnArticle = {
       title: "What is RE GEN?",
       paragraphs: [
         "RE GEN delivers NP-supervised prescription programs across Illinois — weight loss (GLP-1), peptides, hormone therapy, and more — with transparent pricing shown during intake. There is no separate membership fee to browse or start.",
-        "Unlike anonymous online pharmacies, RE GEN is backed by Hello Gorgeous Med Spa at 74 W. Washington Street, Oswego. Ryan Kent, FNP-BC reviews clinical intakes before prescriptions ship.",
+        "Unlike anonymous online pharmacies, RE GEN is backed by Hello Gorgeous Med Spa at 74 W. Washington Street, Oswego. a licensed Illinois clinician reviews clinical intakes before prescriptions ship.",
       ],
     },
     {
@@ -809,7 +809,7 @@ export const HOW_REGEN_WORKS_ARTICLE: RegenLearnArticle = {
       id: "step-3",
       title: "Step 3 — NP review & approval",
       paragraphs: [
-        "Ryan Kent, FNP-BC (or a covering Hello Gorgeous provider) reviews your intake. If labs are needed for your program — common for hormones and some weight-loss pathways — you receive instructions before prescribing.",
+        "a licensed Illinois clinician (or a covering Hello Gorgeous provider) reviews your intake. If labs are needed for your program — common for hormones and some weight-loss pathways — you receive instructions before prescribing.",
         "If you are not a candidate, you are notified. RE GEN does not ship prescriptions without provider approval.",
       ],
     },

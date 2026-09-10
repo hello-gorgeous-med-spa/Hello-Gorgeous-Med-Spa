@@ -294,7 +294,7 @@ export function SolariaCo2PageContent() {
             <div className="relative aspect-[4/5] w-full">
               <Image
                 src={images.founder}
-                alt="Danielle Alcala-Glazier and Ryan Kent, FNP-BC — Founders, Hello Gorgeous Med Spa"
+                alt="Danielle Alcala-Glazier and a licensed Illinois clinician — Founders, Hello Gorgeous Med Spa"
                 fill
                 className="object-cover object-[center_22%]"
                 sizes="300px"

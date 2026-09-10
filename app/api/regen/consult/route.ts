@@ -7,13 +7,13 @@ import {
 
 /**
  * Old $99 Stripe + fake time-slot consult. Retired.
- * Clients book Ryan on Square. `url` is kept so a cached form still leaves this site.
+ * Consults now go through /contact. `url` is kept so a cached form still leaves this site.
  */
 export async function POST() {
   return NextResponse.json(
     {
       retired: true,
-      error: "Consults now book on Ryan's Square calendar.",
+      error: "Consults now start at /contact.",
       url: REGEN_TELEHEALTH_BOOKING_URL,
       page: REGEN_TELEHEALTH_PATH,
     },

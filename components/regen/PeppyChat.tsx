@@ -12,7 +12,7 @@ type Message = { id: string; role: "user" | "assistant"; content: string };
 
 const WELCOME: Record<PeppySurface, string> = {
   client:
-    "Hey — I'm Peppy. I can walk you through REGEN RX: Illinois telehealth, Ryan reviews every request, compounded meds are not FDA-approved. What do you want to know?",
+    "Hey — I'm Peppy. I can walk you through REGEN RX: Illinois telehealth, A licensed Illinois clinician reviews every request, compounded meds are not FDA-approved. What do you want to know?",
   ops: "I'm Peppy for the clinic. Ask me how we approve, paste FormuConnect, refund, talk to a guest, or what to do when a chart is thin. I run REGEN the way we built it.",
 };
 

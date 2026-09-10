@@ -200,7 +200,7 @@ export default function RxGuidesPage() {
         <div className="mt-12 p-6 rounded-xl bg-[#FFF0F7] border-2 border-[#E6007E]/20">
           <p className="text-sm text-black/70">
             <strong className="text-black">Important:</strong> These guides are for educational purposes.
-            Your specific dosing and protocol will be determined by Ryan Kent, FNP-BC during your telehealth visit.
+            Your specific dosing and protocol will be determined by a licensed Illinois clinician during your telehealth visit.
             Always follow your provider's instructions over general guidelines.
           </p>
         </div>

@@ -52,12 +52,12 @@ function getSpecificIntentReply(message: string, bookingUrl: string, phone: stri
 
   // How to book / how does booking work — be specific about live booking in chat
   if (has("how do i book", "how to book", "how does booking work", "how can i book", "how do i schedule", "how to schedule") || (has("book") && (has("how") || has("work") || has("process")))) {
-    return `You can book a live appointment right here: tap "Book now" above, then choose your service, provider (Ryan or Danielle), date, and time. We'll confirm and send reminders. Or use our full booking page for more options — I can open that for you. Want to start with "Book now" here, or have our phone number to call?`;
+    return `You can book a live appointment right here: tap "Book now" above, then choose your service, provider (Danielle or our team), date, and time. We'll confirm and send reminders. Or use our full booking page for more options — I can open that for you. Want to start with "Book now" here, or have our phone number to call?`;
   }
 
   // Live booking / book in chat / book here
   if (has("book here", "book in chat", "book now", "book through", "book on this") || (has("can i book") && (has("here") || has("chat") || has("this")))) {
-    return `Yes — tap "Book now" at the top of this chat. You’ll pick your service, who you’d like to see (Ryan or Danielle), then pick a date and time from our live schedule. Enter your details and you’re set. We’ll send confirmation and reminders.`;
+    return `Yes — tap "Book now" at the top of this chat. You’ll pick your service, who you’d like to see (Danielle or our team), then pick a date and time from our live schedule. Enter your details and you’re set. We’ll send confirmation and reminders.`;
   }
 
   // How long / duration / how long does it take
@@ -77,7 +77,7 @@ function getSpecificIntentReply(message: string, bookingUrl: string, phone: stri
 
   // Who will I see / who does the treatment / provider
   if (has("who will", "who do i see", "who does", "which provider", "who is", "see ryan", "see danielle") || (has("provider") && (has("who") || has("choose")))) {
-    return `You’ll see either Ryan Kent (FNP-BC) or Danielle Alcala (Business Owner, Licensed Esthetician, RN Student, Phlebotomist, CMAA, CNA), depending on the service and who you choose when you book. Use "Book now" to pick your provider and see their availability.`;
+    return `You’ll see either a licensed Illinois clinician (FNP-BC) or Danielle Alcala (Business Owner, Licensed Esthetician, RN Student, Phlebotomist, CMAA, CNA), depending on the service and who you choose when you book. Use "Book now" to pick your provider and see their availability.`;
   }
 
   // Bring anything / forms / paperwork
@@ -173,7 +173,7 @@ function getStaticKnowledge(): KnowledgeEntry[] {
 
   // Booking FAQ — so she can answer varied booking questions from knowledge, not just intents
   const bookingFaq = [
-    "Book now in this chat: pick service, provider (Ryan or Danielle), date, and time from live availability. We confirm and send reminders.",
+    "Book now in this chat: pick service, provider (Danielle or our team), date, and time from live availability. We confirm and send reminders.",
     "Full booking page and phone are also available. Cancellations or rescheduling: call or reply to your confirmation.",
     "First visit: short intake, possibly forms before the visit; arrive a few minutes early. Consultations available if you're not sure which service.",
     "Pricing depends on service; we can give exact numbers when you book or call. Most aesthetics are self-pay; some medical may work with insurance — call to ask.",
@@ -269,7 +269,7 @@ export async function POST(request: NextRequest) {
       return await respondWithLog(
         message,
         {
-          reply: "I'll open our booking right here so you can pick your service, provider (Ryan or Danielle), date, and time. We'll confirm and send reminders.",
+          reply: "I'll open our booking right here so you can pick your service, provider (Danielle or our team), date, and time. We'll confirm and send reminders.",
           bookingUrl,
           phone,
           showInlineBooking: true,
@@ -282,8 +282,8 @@ export async function POST(request: NextRequest) {
       const openBookingFlow = wantsToBookNow(message);
       return await respondWithLog(message, {
         reply: openBookingFlow
-          ? "I'll open our booking for you — pick your service, provider (Ryan or Danielle), date, and time below. We'll confirm and send reminders."
-          : "You can book a live appointment right here — tap \"Book now\" above to pick your service, provider (Ryan or Danielle), date, and time. Or use the full booking page link below, or call us if you'd rather talk first.",
+          ? "I'll open our booking for you — pick your service, provider (Danielle or our team), date, and time below. We'll confirm and send reminders."
+          : "You can book a live appointment right here — tap \"Book now\" above to pick your service, provider (Danielle or our team), date, and time. Or use the full booking page link below, or call us if you'd rather talk first.",
         bookingUrl,
         phone,
         showInlineBooking: openBookingFlow,

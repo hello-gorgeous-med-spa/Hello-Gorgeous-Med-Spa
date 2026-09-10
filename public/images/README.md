@@ -5,7 +5,7 @@ Place image files in the folders below. The site references them by path (e.g. `
 | Folder | Used for |
 |--------|----------|
 | **gallery/** | Main “See the Difference” photo gallery on the homepage. Add files here, then add an entry in `components/PhotoGallery.tsx` with `src`, `alt`, and `caption`. |
-| **hero-brand.png** | Homepage hero — Dani & Ryan team photo (replace the file to change it). |
+| **hero-brand.png** | Homepage hero — Danielle team photo (replace the file to change it). |
 | **hero-banner.png** | OG/social share image (same art as hero-brand; keep in sync). |
 | **team/** | Team / provider headshots (e.g. `components/MeetProviders.tsx`). |
 | **providers/** | Provider pages and mascot sections. |

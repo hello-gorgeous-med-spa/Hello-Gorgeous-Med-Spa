@@ -29,7 +29,7 @@ const PROGRAMS = [
     id: 'weight-loss',
     title: 'Weight loss',
     subtitle: 'Weekly GLP-1 care',
-    description: 'Tirzepatide or semaglutide — Ryan reviews and prescribes only if it is appropriate.',
+    description: 'Tirzepatide or semaglutide — a licensed Illinois clinician reviews and prescribes only if it is appropriate.',
     price: 'from $100',
     href: '/start?goal=weight-loss',
     image: '/images/regen/marketing/woman-wellness.png',
@@ -38,7 +38,7 @@ const PROGRAMS = [
     id: 'sexual-health',
     title: 'Sexual health',
     subtitle: 'Desire & performance',
-    description: 'Discreet care for men and women. Ryan decides what, if anything, to prescribe.',
+    description: 'Discreet care for men and women. A licensed Illinois clinician decides what, if anything, to prescribe.',
     price: 'from $49',
     href: '/start?goal=sexual-health',
     image: '/images/regen/couple-couch.png',
@@ -74,7 +74,7 @@ const PROGRAMS = [
     id: 'energy',
     title: 'Energy & longevity',
     subtitle: 'NAD+ · vitamins · glow',
-    description: 'NAD+, glutathione, B12, biotin, and the Radiance Pair — one goal, Ryan reviews first.',
+    description: 'NAD+, glutathione, B12, biotin, and the Radiance Pair — one goal, a licensed Illinois clinician reviews first.',
     price: 'from $73',
     href: '/start?goal=energy',
     image: '/images/regen/marketing/cell-peptide.png',
@@ -82,7 +82,7 @@ const PROGRAMS = [
 ];
 
 const STEPS = [
-  { num: '01', title: 'Talk to Ryan — or start online', desc: `Book a ${regenTelehealthPriceLabel()} video visit on his calendar (${REGEN_TELEHEALTH_CREDIT_SHORT.toLowerCase()}), or start a request if you already know what you want.`, icon: '📋', time: '15 min' },
+  { num: '01', title: 'Talk to a clinician — or start online', desc: `Book a ${regenTelehealthPriceLabel()} video visit (${REGEN_TELEHEALTH_CREDIT_SHORT.toLowerCase()}), or start a request if you already know what you want.`, icon: '📋', time: '15 min' },
   { num: '02', title: 'Provider reviews your info', desc: 'A licensed Illinois provider evaluates your history and determines if treatment is right for you.', icon: '👨‍⚕️', time: '24-48 hrs' },
   { num: '03', title: 'Clinical decision', desc: 'If appropriate, your provider may request labs, a video visit, or additional info before prescribing.', icon: '💊', time: 'Varies' },
   { num: '04', title: 'Medication ships to you', desc: 'Once approved, your treatment ships directly to your door — discreet packaging included.', icon: '📦', time: '3-5 days' },
@@ -274,7 +274,7 @@ export default function RegenLandingPage() {
           <p className="text-xl max-w-2xl mx-auto mb-8 animate-fade-in-up delay-200" style={{ color: BRAND.gray }}>
             Doctor-guided weight loss, hormones, and wellness —
 
-            talk to Ryan on video first, or start a request online.
+            talk to a clinician first, or start a request online.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-300">
@@ -283,7 +283,7 @@ export default function RegenLandingPage() {
               className="px-10 py-4 text-lg font-bold rounded-full transition-all hover:scale-105 shadow-xl text-center text-white"
               style={{ backgroundColor: BRAND.pink }}
             >
-              Book Ryan — {regenTelehealthPriceLabel()}
+              Book a consult — {regenTelehealthPriceLabel()}
             </Link>
             <Link
               href="/start"
@@ -404,7 +404,7 @@ export default function RegenLandingPage() {
           >
             <div>
               <p className="text-sm font-bold uppercase tracking-widest" style={{ color: BRAND.pink }}>Not sure yet?</p>
-              <h3 className="text-2xl font-black" style={{ color: BRAND.cream }}>Talk to Ryan first — {regenTelehealthPriceLabel()}</h3>
+              <h3 className="text-2xl font-black" style={{ color: BRAND.cream }}>Talk to a clinician first — {regenTelehealthPriceLabel()}</h3>
               <p className="mt-1 text-sm" style={{ color: BRAND.gray }}>{REGEN_TELEHEALTH_CREDIT_SHORT}. Illinois adults 21+.</p>
             </div>
             <span
@@ -434,7 +434,7 @@ export default function RegenLandingPage() {
                 <span style={{ color: BRAND.pink }}>Big results.</span>
               </h2>
               <p className="text-xl mb-12" style={{ color: BRAND.gray }}>
-                Book Ryan on video first if you want to talk before you buy — or start a request online. He may still ask for labs when clinically necessary.
+                Book a consult on video first if you want to talk before you buy — or start a request online. A clinician may still ask for labs when clinically necessary.
               </p>
               
               <div className="space-y-6">
@@ -807,7 +807,7 @@ export default function RegenLandingPage() {
                 program: "Weight Loss",
               },
               {
-                quote: "Finally a provider who actually listens. Ryan adjusted my dosing when I had nausea and it made all the difference. Real support, not just a prescription.",
+                quote: "Finally a provider who actually listens. our clinician adjusted my dosing when I had nausea and it made all the difference. Real support, not just a prescription.",
                 name: "Jennifer M.",
                 location: "Oswego, IL",
                 result: "Lost 42 lbs",
@@ -863,7 +863,7 @@ export default function RegenLandingPage() {
             Ready to feel your best?
           </h2>
           <p className="text-xl mb-10 text-white/80">
-            Book Ryan on video first — {REGEN_TELEHEALTH_CREDIT_SHORT.toLowerCase()}.
+            Book a consult on video first — {REGEN_TELEHEALTH_CREDIT_SHORT.toLowerCase()}.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -871,7 +871,7 @@ export default function RegenLandingPage() {
               className="inline-block px-12 py-5 text-xl font-black rounded-full transition-all hover:scale-105 shadow-2xl"
               style={{ backgroundColor: BRAND.pink, color: 'white' }}
             >
-              Book Ryan — {regenTelehealthPriceLabel()}
+              Book a consult — {regenTelehealthPriceLabel()}
             </Link>
             <Link
               href="/start"
@@ -892,7 +892,7 @@ export default function RegenLandingPage() {
               <p style={{ color: BRAND.gray }}>Renew. Rebalance. Regenerate.</p>
             </div>
             <div className="flex flex-wrap items-center gap-8 text-sm">
-              <Link href="/consult" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Book Ryan</Link>
+              <Link href="/consult" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Book a consult</Link>
               <Link href="/products" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Products</Link>
               <Link href="/pricing" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Pricing</Link>
               <Link href="/learn" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Learn</Link>

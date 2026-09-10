@@ -73,7 +73,7 @@ export const BLOOD_WORK_HERO = {
   eyebrow: "Medical · Lab Testing",
   title: "Comprehensive Blood Panels",
   subtitle:
-    "Lab testing that goes beyond a standard annual physical — 60+ biomarkers across hormones, metabolism, heart health, thyroid, and nutrients. Ordered by Ryan Kent, FNP-BC and reviewed in context at your consult.",
+    "Lab testing that goes beyond a standard annual physical — 60+ biomarkers across hormones, metabolism, heart health, thyroid, and nutrients. Ordered by a licensed Illinois clinician and reviewed in context at your consult.",
   ctaLabel: "Shop lab panels",
 } as const;
 
@@ -422,7 +422,7 @@ export const BLOOD_WORK_FAQS: FAQ[] = [
   {
     question: "Do I need a referral from my primary care doctor?",
     answer:
-      "No referral is required. Ryan Kent, FNP-BC can order medically appropriate labs as part of your Hello Gorgeous care plan.",
+      "No referral is required. a licensed Illinois clinician can order medically appropriate labs as part of your Hello Gorgeous care plan.",
   },
   {
     question: "Is this page medical advice?",

@@ -261,7 +261,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
                   <li><strong>Clinical oversight on every treatment</strong> — not a remote medical director</li>
                   <li><strong>Continuity of care</strong> — same providers, every visit</li>
                 </ul>
-                <p>This isn&apos;t a chain med spa with rotating injectors. This is your medical team — Danielle and Ryan — who know your history, your goals, and your treatment plan.</p>
+                <p>This isn&apos;t a chain med spa with rotating injectors. This is your medical team — Danielle and licensed clinicians — who know your history, your goals, and your treatment plan.</p>
               </div>
             </div>
           </section>

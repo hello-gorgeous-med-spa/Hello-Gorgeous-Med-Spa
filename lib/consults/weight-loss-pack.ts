@@ -34,7 +34,7 @@ export const WEIGHT_LOSS_CONSULT_PACK: ConsultEducationPack = {
       eyebrow: "Credibility",
       title: "Why Hello Gorgeous for weight loss",
       body:
-        "This is NP-directed medical weight loss — not a telehealth mill or one-click cart. Ryan Kent, FNP-BC screens for safety, selects medication and dose when appropriate, and stays on titration and refill oversight.",
+        "This is NP-directed medical weight loss — not a telehealth mill or one-click cart. a licensed Illinois clinician screens for safety, selects medication and dose when appropriate, and stays on titration and refill oversight.",
       bullets: [
         "In-clinic or supervised pathway with a real care team in Oswego",
         `$${GLP1_MEMBERSHIP_PRICE_USD}/mo care platform when on the membership track — medication billed separately when prescribed`,

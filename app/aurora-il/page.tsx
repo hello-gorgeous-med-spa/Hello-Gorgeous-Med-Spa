@@ -194,7 +194,7 @@ export default function AuroraHubPage() {
                 </p>
                 <ul className="mt-4 space-y-3 text-black/85">
                   <li>▸ Full-authority NP on site (owner)</li>
-                  <li>▸ Board-certified medical director, Ryan Kent, FNP-BC</li>
+                  <li>▸ Board-certified medical director, a licensed Illinois clinician</li>
                   <li>▸ 100% authentic Allergan &amp; Galderma products</li>
                   <li>▸ Morpheus8 Burst, Quantum RF &amp; Solaria CO₂</li>
                   <li>▸ Free consult · same-day often available</li>

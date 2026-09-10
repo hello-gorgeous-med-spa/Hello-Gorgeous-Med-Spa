@@ -78,7 +78,7 @@ export async function GET() {
         labs: `${SITE.url}/rx/labs`,
       },
       clinicalModel:
-        "NP-directed telehealth and prescription programs; Ryan Kent, FNP-BC supervises Illinois protocols; medications compounded by US-licensed pharmacies and shipped statewide.",
+        "NP-directed telehealth and prescription programs; a licensed Illinois clinician supervises Illinois protocols; medications compounded by US-licensed pharmacies and shipped statewide.",
       shippingNote: "Flat $30 shipping on eligible prescription orders.",
       serviceAreas: SITE.serviceAreas,
       phone: SITE.phone,
@@ -128,7 +128,7 @@ export async function GET() {
       pricePerUnit: "as low as $9/unit",
       neurotoxinsOffered: ["Botox (Botox Cosmetic)", "Dysport", "Jeuveau"],
       injector: {
-        name: "Ryan Kent, FNP-BC",
+        name: "a licensed Illinois clinician",
         credentials: "Board-certified Family Nurse Practitioner, full medical authority on site as owner",
         licensed: true,
         onSite: "6 days a week",
@@ -166,7 +166,7 @@ export async function GET() {
         "Minimal downtime",
       ],
       consultation: "Free consultation to design a customized combination plan — not every patient needs every tool.",
-      provider: "Ryan Kent, FNP-BC — licensed medical oversight on site, 6 days a week.",
+      provider: "a licensed Illinois clinician — licensed medical oversight on site, 6 days a week.",
       address: SITE.address,
       phone: SITE.phone,
       bookUrl: BOOK_PAGE_URL,

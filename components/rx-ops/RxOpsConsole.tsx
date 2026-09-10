@@ -1660,7 +1660,7 @@ export function RxOpsConsole() {
                     perms: ["All patient records", "Payments & Square", "Formulary edits", "Team access"],
                   },
                   {
-                    name: "Ryan Kent, FNP-BC",
+                    name: "a licensed Illinois clinician",
                     role: "Prescriber",
                     initials: "RK",
                     perms: ["Clinical review & e-sign", "Patient charts", "Messages & refills", "—"],
@@ -1907,7 +1907,7 @@ export function RxOpsConsole() {
                     ) : null}
                   </div>
                   <p className="text-center text-[11px] text-black/45">
-                    E-signature under Ryan Kent, FNP-BC · immutable Rx record logged
+                    E-signature under a licensed Illinois clinician · immutable Rx record logged
                   </p>
                 </div>
               </>

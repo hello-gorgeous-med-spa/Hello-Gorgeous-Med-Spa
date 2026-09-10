@@ -44,7 +44,7 @@ export const GLP1_PROGRAM = {
   consultCredit:
     `The $${GLP1_PROGRAM_CONSULT_USD} consultation fee is applied to your first month of injectable medication if you decide to move forward with the plan.`,
   newPatientIntro:
-    "This in-person visit is your personalized introduction to our medical weight loss program. We'll review your health history, discuss your goals, and create a custom plan designed to help you achieve lasting results — with Ryan Kent, FNP-BC on site in Oswego.",
+    "This in-person visit is your personalized introduction to our medical weight loss program. We'll review your health history, discuss your goals, and create a custom plan designed to help you achieve lasting results — with a licensed Illinois clinician on site in Oswego.",
   telehealthIntro:
     "Book your NP video visit on our Fresha schedule when an in-person slot isn't convenient. Same medical team, same candidacy review — from home.",
   followUpIncluded:

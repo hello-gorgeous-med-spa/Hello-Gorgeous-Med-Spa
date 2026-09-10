@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { MEDSPA_OPS_EMAIL } from "@/lib/business-contact";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
-import { daniPersonJsonLd, ryanPersonJsonLd } from "@/lib/founder-credentials";
+import { daniPersonJsonLd } from "@/lib/founder-credentials";
 import { BOOK_PAGE_PATH } from "@/lib/flows";
 import { ALL_HOMEPAGE_SERVICES } from "@/lib/homepage-services";
 import { oswegoPathForServiceSlug } from "@/lib/service-pages-oswego/canonical-paths";
@@ -141,7 +141,7 @@ export const SITE_HERO_IMAGE = "/images/hero-brand.webp" as const;
 export const SITE_HERO_IMAGE_SM = "/images/hero-brand-sm.webp" as const;
 export const SITE_OG_IMAGE = `${SITE.url}/images/hero-banner.png?v=2026-06-us-hero` as const;
 export const SITE_OG_IMAGE_ALT =
-  "Danielle Alcala-Glazier and Ryan Kent, FNP-BC — Hello Gorgeous Med Spa, Oswego IL";
+  "Danielle Alcala-Glazier — Hello Gorgeous Med Spa, Oswego IL";
 
 /** Must match visible copy in `components/homepage-v3/HomepageFAQ.tsx` (single source for FAQ rich results). */
 export const HOME_FAQS: readonly FAQ[] = [
@@ -158,7 +158,7 @@ export const HOME_FAQS: readonly FAQ[] = [
   {
     question: "Who provides medical oversight at Hello Gorgeous?",
     answer:
-      "Dr. Mukesh Arora, MD (Internal Medicine, 30+ years) is Medical Director of Hello Gorgeous Med Spa. Ryan Kent, FNP-BC is the on-site board-certified nurse practitioner with full Illinois prescriptive authority. Owner & Founder Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) leads the practice daily in downtown Oswego.",
+      "Dr. Mukesh Arora, MD (Internal Medicine, 30+ years) is Medical Director of Hello Gorgeous Med Spa. Prescriptions are written only by a licensed Illinois clinician. Owner & Founder Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) leads the practice daily in downtown Oswego.",
   },
   {
     question: "Who performs treatments at your med spa?",
@@ -278,7 +278,7 @@ export const SERVICES: readonly Service[] = [
       {
         question: "Does Hello Gorgeous offer Sculptra in Oswego?",
         answer:
-          "Yes. We offer Sculptra and biostimulator planning at 74 W Washington St, Oswego, IL, with medical oversight by Ryan Kent, FNP-BC.",
+          "Yes. We offer Sculptra and biostimulator planning at 74 W Washington St, Oswego, IL, with medical oversight by Dr. Mukesh Arora, MD.",
       },
       {
         question: "How is Sculptra different from HA filler?",
@@ -288,7 +288,7 @@ export const SERVICES: readonly Service[] = [
       {
         question: "Who performs biostimulator treatments?",
         answer:
-          "Licensed injectors under Ryan Kent, FNP-BC, on-site nurse practitioner, six days a week — with Medical Director Dr. Mukesh Arora, MD.",
+          "Licensed injectors under physician Medical Director Dr. Mukesh Arora, MD. Prescriptions are written only by a licensed Illinois clinician.",
       },
     ],
   },
@@ -1322,7 +1322,6 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
           "Medical Director (Internal Medicine) of Hello Gorgeous Med Spa in Oswego, IL. 30+ years of experience; affiliated with Advocate Good Shepherd Hospital and Northwestern Medicine McHenry Hospital.",
         worksFor: { "@id": `${SITE.url}/#organization` },
       },
-      ryanPersonJsonLd(),
     ],
   };
 }
@@ -2062,7 +2061,7 @@ export const SERVICE_IMAGES: ServiceImage[] = [
   },
   { src: "/images/services/hg-sexual-wellness-rx.png", alt: "Sexual wellness prescriptions for men and women at Hello Gorgeous Med Spa", title: "Sexual Wellness RX", service: "Sexual Wellness", category: "rx" },
   { src: "/images/services/hg-prescription-skincare.png", alt: "Prescription-grade skincare tretinoin hydroquinone at Hello Gorgeous Med Spa", title: "Prescription Skincare", service: "RX Skincare", category: "rx" },
-  { src: "/images/services/hg-full-rx-authority.png", alt: "Full prescriptive authority Ryan Kent FNP-BC at Hello Gorgeous Med Spa", title: "Full RX Authority", service: "Telehealth", category: "rx" },
+  { src: "/images/services/hg-full-rx-authority.png", alt: "Prescription care at Hello Gorgeous Med Spa in Oswego, IL", title: "Full RX Authority", service: "Telehealth", category: "rx" },
   {
     src: "/images/homepage-services/rx-prescription-care-pad-bottle.png",
     alt: "Prescription pad with Rx symbol and medication bottle — Hello Gorgeous RX same-day prescription care Oswego Naperville IL",
@@ -2152,9 +2151,9 @@ export const SERVICE_IMAGES: ServiceImage[] = [
     category: "aesthetics",
   },
   {
-    src: "/images/quantum-rf/ryan-quantum-rf-action-poster.png",
-    alt: "Ryan Kent, FNP-BC performing Quantum RF body contouring at Hello Gorgeous Med Spa Oswego, IL",
-    title: "Quantum RF — Ryan Kent FNP-BC",
+    src: "/images/quantum-rf/quantum-rf-procedure-may-4.jpg",
+    alt: "Quantum RF body contouring at Hello Gorgeous Med Spa Oswego, IL",
+    title: "Quantum RF — Hello Gorgeous Med Spa",
     service: "Quantum RF",
     category: "aesthetics",
   },

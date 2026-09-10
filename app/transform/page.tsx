@@ -40,7 +40,7 @@ const PACKAGES = [
     items: [
       "3 months Semaglutide GLP-1 support (covered by program)",
       "3 Morpheus8 Burst treatments (1 area)",
-      "Monthly check-ins with Ryan Kent, FNP-BC",
+      "Monthly check-ins with a licensed Illinois clinician",
       "Treatments scheduled Month 1, 3, and 5",
     ],
   },

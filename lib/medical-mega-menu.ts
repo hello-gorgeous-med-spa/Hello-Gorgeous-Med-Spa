@@ -175,7 +175,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             id: "sexual-consult",
             label: "Sexual-wellness consultation",
             href: "/rx/sexual-health",
-            tagline: "Private visit with Ryan Kent, FNP-BC",
+            tagline: "Private visit with a licensed Illinois clinician",
           },
           {
             id: "hair-skin-consult",
@@ -298,7 +298,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             id: "sexual-health",
             label: "Sexual wellness hub",
             href: "/rx/sexual-health",
-            tagline: "Private visit with Ryan Kent, FNP-BC",
+            tagline: "Private visit with a licensed Illinois clinician",
           },
           {
             id: "start-peptide-intimacy",

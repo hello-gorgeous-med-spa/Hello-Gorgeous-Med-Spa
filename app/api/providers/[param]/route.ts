@@ -39,19 +39,6 @@ const FALLBACK_PROVIDERS: Record<string, {
     booking_url: `${SITE.url}/book`,
     active: true,
   },
-  'ryan': {
-    id: '47ab9361-4a68-4ab8-a860-c9c9fd64d26c',
-    first_name: 'Ryan',
-    last_name: 'Kent',
-    slug: 'ryan',
-    title: 'Medical Director & Nurse Practitioner',
-    credentials: 'FNP-BC',
-    bio: 'Ryan brings extensive medical experience to Hello Gorgeous Med Spa, specializing in weight loss management and hormone optimization.',
-    philosophy: 'Healthcare should be personalized and accessible.',
-    headshot_url: '/images/team/ryan-kent.jpg',
-    booking_url: 'https://hellogorgeousmedspa.janeapp.com/staff_members/2',
-    active: true,
-  },
 };
 
 export async function GET(
@@ -59,7 +46,14 @@ export async function GET(
   { params }: { params: Promise<{ param: string }> }
 ) {
   const { param } = await params;
-  
+  const departed =
+    param === "ryan" ||
+    param === "47ab9361-4a68-4ab8-a860-c9c9fd64d26c" ||
+    /ryan.?kent/i.test(param);
+  if (departed) {
+    return NextResponse.json({ error: "Provider not found" }, { status: 404 });
+  }
+
   try {
     const supabase = getSupabase();
     

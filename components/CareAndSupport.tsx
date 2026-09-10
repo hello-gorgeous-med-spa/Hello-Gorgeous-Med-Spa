@@ -195,7 +195,7 @@ export function CareAndSupport() {
             <div className="p-5 border-b border-black">
               <p className="text-sm text-black">Post‑treatment chat (educational)</p>
               <p className="mt-2 text-xs text-black">
-                If you mention red‑flag symptoms, Ryan’s safety tone will take over automatically.
+                If you mention red‑flag symptoms, a clinical safety tone will take over automatically.
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2">

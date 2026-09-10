@@ -82,7 +82,7 @@ export default function PeptidesLearnPage() {
             </div>
           </div>
           <p className="text-xl max-w-2xl" style={{ color: BRAND.gray }}>
-            Peptides are signaling molecules. On REGEN RX, the public peptide conversation is NAD+ for cellular energy — prescribed only when Ryan decides it is appropriate.
+            Peptides are signaling molecules. On REGEN RX, the public peptide conversation is NAD+ for cellular energy — prescribed only when A licensed Illinois clinician decides it is appropriate.
           </p>
         </div>
       </section>
@@ -113,7 +113,7 @@ export default function PeptidesLearnPage() {
                 { label: 'Cellular energy', desc: 'NAD+' },
                 { label: 'Antioxidant support', desc: 'Glutathione' },
                 { label: 'Vitamins', desc: 'B12, biotin' },
-                { label: 'Provider review', desc: 'Ryan decides' },
+                { label: 'Provider review', desc: 'A licensed Illinois clinician decides' },
               ].map((cat) => (
                 <div key={cat.label} className="p-4 rounded-xl text-center" style={{ backgroundColor: BRAND.darkAlt, border: `1px solid ${BRAND.teal}20` }}>
                   <p className="font-bold" style={{ color: BRAND.cream }}>{cat.label}</p>

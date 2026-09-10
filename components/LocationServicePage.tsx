@@ -94,7 +94,7 @@ export function LocationServicePage({
           <section className="bg-gradient-to-r from-[#FF2D8E] to-[#E91E8C] py-3 px-4">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left">
               <p className="text-white font-bold text-sm md:text-base">
-                Laser hair: chin or lip $69 · underarms, upper/lower legs, bikini $89 · Brazilian, back, full legs $129. Danielle, Ryan & Michelle.
+                Laser hair: chin or lip $69 · underarms, upper/lower legs, bikini $89 · Brazilian, back, full legs $129. Danielle & Michelle.
               </p>
               <Link
                 href="/services/laser-hair-removal"

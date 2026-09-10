@@ -13,7 +13,7 @@ const NP_MED_SPA_FAQS = [
   {
     question: "Does Hello Gorgeous have a nurse practitioner on site?",
     answer:
-      "Yes. Ryan Kent, FNP-BC, co-founder and our on-site nurse practitioner, has full Illinois prescriptive authority for weight loss, hormone therapy, and medical treatments, with physician oversight from our Medical Director, Dr. Mukesh Arora, MD. You receive care from licensed medical professionals.",
+      "Prescriptions and medical protocols are reviewed by a licensed Illinois clinician under Medical Director Dr. Mukesh Arora, MD. You receive care from licensed medical professionals — not a remote letterhead.",
   },
   {
     question: "What is a nurse practitioner med spa?",
@@ -23,14 +23,14 @@ const NP_MED_SPA_FAQS = [
   {
     question: "Why choose a med spa with a nurse practitioner on site?",
     answer:
-      "An NP on site means medical oversight, full prescriptive authority, and a focus on safety and outcomes. At Hello Gorgeous, Ryan Kent, FNP-BC is here six days a week, so you get direct access to medical expertise for weight loss, hormones, injectables, and advanced treatments — with physician oversight from our Medical Director, Dr. Mukesh Arora, MD.",
+      "Physician Medical Director oversight and licensed Illinois clinician review mean medical protocols, prescriptions, and follow-up stay in a real Illinois practice — weight loss, hormones, injectables, and advanced treatments — not a remote letterhead.",
   },
 ];
 
 export const metadata: Metadata = pageMetadata({
   title: "Nurse Practitioner Med Spa Oswego IL | NP On Site | Hello Gorgeous",
   description:
-    "Full-authority nurse practitioner on site six days a week in Oswego, IL. Weight loss, hormone therapy, injectables with medical oversight. Book free consultation!",
+    "Physician-directed medical spa in Oswego, IL. Weight loss, hormone therapy, and injectables with licensed Illinois clinician review. Book a consultation.",
   path: "/nurse-practitioner-med-spa-oswego",
 });
 
@@ -69,7 +69,7 @@ export default function NursePractitionerMedSpaPage() {
                 <span className="text-[#E6007E]">Med Spa</span> in Oswego, IL
               </h1>
               <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10">
-                {DIFFERENTIATORS.npOnSite}. Ryan Kent, FNP-BC provides full prescriptive authority for weight loss, hormone therapy, and medical treatments. Care from licensed medical professionals — not aestheticians or technicians.
+                {DIFFERENTIATORS.npOnSite}. Prescriptions are written only by a licensed Illinois clinician under Medical Director Dr. Mukesh Arora, MD. Care from licensed medical professionals — not a remote letterhead.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <CTA href={BOOKING_URL} variant="gradient">
