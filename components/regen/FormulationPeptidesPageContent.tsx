@@ -1,13 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { FormulationPartnerShell } from "@/components/regen/FormulationPartnerShell";
+import { FORMULATION_PARTNER_NAME } from "@/lib/regen/formulation-partner";
 import {
   COPY_RULE_POINTS,
-  FORMULATION_ADDRESS,
-  FORMULATION_PARTNER_NAME,
   FORMULATION_PEPTIDE_REVIEWED,
   FORMULATION_PEPTIDES_SOURCE,
-  FORMULATION_PHONE,
   FORMULARY_MAINSTAYS,
   PCAC_JULY_2026,
   PEPTIDE_LEGAL_ROWS,
@@ -21,39 +19,13 @@ const STATUS_STYLE = {
 
 export function FormulationPeptidesPageContent() {
   return (
-    <div className="min-h-screen bg-[#f3efe6] text-[#13241f]">
-      <header className="border-b border-white/10 bg-[#0c1613]">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
-          <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/images/regen/regen-logo-white.png"
-              alt="RE GEN RX"
-              width={150}
-              height={48}
-              className="h-10 w-auto"
-              priority
-            />
-          </Link>
-          <nav className="hidden items-center gap-6 text-sm font-semibold text-white/70 sm:flex">
-            <Link href="/learn" className="hover:text-white">
-              Learn
-            </Link>
-            <Link href="/safety" className="hover:text-white">
-              Pharmacy
-            </Link>
-            <Link href="/providers" className="hover:text-white">
-              About
-            </Link>
-            <Link
-              href="/start?goal=energy"
-              className="rounded-full bg-[#E91E8C] px-4 py-2 text-white hover:opacity-90"
-            >
-              Start a visit
-            </Link>
-          </nav>
-        </div>
-      </header>
-
+    <FormulationPartnerShell
+      active="peptides"
+      startHref="/start?goal=energy"
+      closingHeadline="Partnered with a compliance-first peptide pharmacy."
+      sourceLabel="formulationrx.com/peptides"
+      sourceHref="https://formulationrx.com/peptides/"
+    >
       <section className="relative overflow-hidden bg-[#0c1613] text-white">
         <div
           className="pointer-events-none absolute inset-0 opacity-70"
@@ -412,55 +384,6 @@ export function FormulationPeptidesPageContent() {
           </div>
         </div>
       </section>
-
-      <section className="bg-[#0c1613] py-16 text-center text-white">
-        <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#c4a36a]">
-          Illinois practice · Texas 503A pharmacy
-        </p>
-        <h2 className="mx-auto mt-3 max-w-3xl font-serif text-4xl leading-tight sm:text-5xl">
-          Partnered with a compliance-first peptide pharmacy.
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-white/70">
-          {FORMULATION_ADDRESS}
-          <br />
-          {FORMULATION_PHONE} · RE GEN desk 630-636-6193 · 74 W. Washington St, Oswego, IL
-        </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link
-            href="/start?goal=energy"
-            className="rounded-full bg-[#c4a36a] px-6 py-3 text-sm font-bold text-[#0c1613]"
-          >
-            Start a visit
-          </Link>
-          <a
-            href="https://formulationrx.com/providers"
-            className="rounded-full border border-white/25 px-6 py-3 text-sm font-bold"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Formulation for prescribers ↗
-          </a>
-        </div>
-      </section>
-
-      <footer className="border-t border-[#e7e0d4] bg-[#f3efe6] px-5 py-10 text-sm leading-relaxed text-[#6b7a75]">
-        <div className="mx-auto max-w-6xl">
-          <p>
-            Educational information for Illinois patients and licensed clinicians. Not a substitute
-            for independent clinical or legal judgment. Compounded medications are not FDA-approved.
-            A request is a consult — not a guaranteed prescription. {FORMULATION_PARTNER_NAME} is a
-            LegitScript-certified 503A pharmacy. RE GEN RX is the prescription door of Hello Gorgeous
-            Med Spa (Hello Gorgeous PC), Oswego, Illinois.
-          </p>
-          <p className="mt-3">
-            Legal-status grid summarized from Formulation’s public peptide reference (
-            <a className="font-semibold text-[#0f766e] underline" href={FORMULATION_PEPTIDES_SOURCE}>
-              formulationrx.com/peptides
-            </a>
-            ). Confirm current eligibility with the pharmacy before any order.
-          </p>
-        </div>
-      </footer>
-    </div>
+    </FormulationPartnerShell>
   );
 }

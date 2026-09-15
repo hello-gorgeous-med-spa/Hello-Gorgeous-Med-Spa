@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
+
 const BRAND = {
   teal: '#0D9488',
   tealDark: '#0D5C63',
@@ -46,12 +48,12 @@ const CATEGORIES = [
   },
   {
     id: 'skincare',
-    title: 'Prescription Skincare',
-    subtitle: 'Medical-Grade Anti-Aging',
-    description: 'Explore prescription-strength treatments like tretinoin, hydroquinone, and GHK-Cu peptides for real results.',
+    title: 'Dermatology',
+    subtitle: 'Formulation 503A · compounded Rx',
+    description: 'Brightening, acne and rosacea, hair restoration, procedural anesthesia, and custom bases — compounded to the prescription a licensed Illinois clinician writes.',
     icon: '✨',
-    href: '/learn/skincare',
-    topics: ['Tretinoin explained', 'Hydroquinone for pigmentation', 'GHK-Cu peptides', 'Building a routine', 'What to expect'],
+    href: '/dermatology',
+    topics: ['Kligman-style brightening', 'Hair restoration (90+ formulas)', 'BLT for device days', 'Acne · rosacea · GHK-Cu'],
     color: BRAND.pink,
   },
   {
@@ -77,11 +79,11 @@ const CATEGORIES = [
   {
     id: 'sexual-health',
     title: 'Sexual Wellness',
-    subtitle: 'Intimacy & Performance',
-    description: 'Discreet, effective solutions for desire, performance, and confidence — for both men and women.',
+    subtitle: 'Formulation 503A · men & women',
+    description: 'Custom strengths, combinations, and routes when a pill is not enough — oral, injectable, topical, and needle-free options for men and women.',
     icon: '💗',
-    href: '/learn/sexual-health',
-    topics: ['ED medications explained', 'PT-141 for desire', 'Women\'s arousal support', 'How they work', 'Safety considerations'],
+    href: '/sexual-health',
+    topics: ['PDE5 custom strengths', 'BiMix · TriMix · QuadMix', 'Women’s options', 'PT-141 · oxytocin'],
     color: BRAND.pink,
   },
 ];
@@ -96,21 +98,7 @@ const TRUST_POINTS = [
 export default function LearnHubPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: BRAND.dark }}>
-      {/* Header */}
-      <nav className="border-b" style={{ backgroundColor: BRAND.darkAlt, borderColor: `${BRAND.teal}20` }}>
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center">
-            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={160} height={50} className="h-12 w-auto brightness-110" />
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link href="/tools" className="text-sm font-medium text-gray-400 hover:text-white">Free Tools</Link>
-            <Link href="/learn" className="text-sm font-medium" style={{ color: BRAND.teal }}>Learn</Link>
-            <Link href="/start" className="px-5 py-2 text-white text-sm font-bold rounded-full" style={{ backgroundColor: BRAND.pink }}>
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <RegenPublicNav />
 
       {/* Hero */}
       <section className="py-16 px-6 text-center" style={{ background: `linear-gradient(180deg, ${BRAND.darkAlt} 0%, ${BRAND.dark} 100%)` }}>

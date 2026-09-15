@@ -85,6 +85,16 @@ export default function HairLearnPage() {
             </svg>
             Back to Education Center
           </Link>
+          <Link
+            href="/dermatology"
+            className="mb-8 flex items-start gap-3 rounded-2xl border px-4 py-3 text-sm"
+            style={{ borderColor: `${BRAND.teal}55`, backgroundColor: `${BRAND.teal}14`, color: BRAND.cream }}
+          >
+            <span aria-hidden>◆</span>
+            <span>
+              <strong style={{ color: BRAND.teal }}>Hair lives on the Formulation dermatology page.</strong> Oral, topical, and intradermal formulas — 90+ options when a clinician writes it.
+            </span>
+          </Link>
           <div className="flex items-center gap-4 mb-4">
             <span className="text-5xl">💇</span>
             <div>

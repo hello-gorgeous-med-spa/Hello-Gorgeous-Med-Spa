@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { RegenBundlesBand } from '@/components/regen/RegenBundlesBand';
+import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
 
 const BRAND = {
   teal: '#0D9488',
@@ -57,32 +57,15 @@ const CATEGORIES = [
   { name: 'Weight Loss', href: '/learn/weight-loss', icon: '📉' },
   { name: 'Energy & longevity', href: '/peptides', icon: '🧬' },
   { name: 'Hormones', href: '/learn/hormones', icon: '⚡' },
-  { name: 'Skincare', href: '/learn/skincare', icon: '✨' },
+  { name: 'Dermatology', href: '/dermatology', icon: '✨' },
   { name: 'Hair', href: '/learn/hair', icon: '💇' },
-  { name: 'Sexual Health', href: '/learn/sexual-health', icon: '💗' },
+  { name: 'Sexual Health', href: '/sexual-health', icon: '💗' },
 ];
 
 export default function ProductsPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: BRAND.dark }}>
-      {/* Navigation */}
-      <nav className="border-b px-6 py-4" style={{ borderColor: `${BRAND.teal}20` }}>
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/images/regen/logo-full.png" alt="REGEN RX" width={160} height={50} className="h-12 w-auto brightness-110" />
-          </Link>
-          <div className="flex items-center gap-5">
-            <Link href="/tools" className="text-sm font-medium text-gray-400 hover:text-white">Free Tools</Link>
-            <Link
-              href="/start"
-              className="px-6 py-2 text-sm font-bold rounded-full"
-              style={{ backgroundColor: BRAND.pink, color: 'white' }}
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <RegenPublicNav />
 
       {/* Hero */}
       <section className="py-16 px-6 text-center" style={{ background: `linear-gradient(135deg, ${BRAND.dark} 0%, ${BRAND.tealDark} 100%)` }}>

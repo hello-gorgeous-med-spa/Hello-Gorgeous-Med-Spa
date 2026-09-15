@@ -137,6 +137,16 @@ export default function SkincareLearnPage() {
             </svg>
             Back to Education Center
           </Link>
+          <Link
+            href="/dermatology"
+            className="mb-8 flex items-start gap-3 rounded-2xl border px-4 py-3 text-sm"
+            style={{ borderColor: `${BRAND.teal}55`, backgroundColor: `${BRAND.teal}14`, color: BRAND.cream }}
+          >
+            <span aria-hidden>◆</span>
+            <span>
+              <strong style={{ color: BRAND.teal }}>New: dermatology compounded to Rx.</strong> See what Formulation actually compounds — brightening, acne, hair, and in-office BLT.
+            </span>
+          </Link>
           <div className="flex items-center gap-4 mb-4">
             <span className="text-5xl">✨</span>
             <div>

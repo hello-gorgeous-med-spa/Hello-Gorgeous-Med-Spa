@@ -39,6 +39,8 @@ import {
 import { isMedicalNavActive } from "@/lib/medical-nav";
 import { labsNavSection } from "@/lib/labs-nav";
 import { medicalMegaMenuMobileGroups, SHOP_RX_NAV } from "@/lib/medical-mega-menu";
+import { FORMULATION_HUB_LINKS, FORMULATION_NAV_LABEL } from "@/lib/regen/formulation-partner";
+import { REGEN_RX_PUBLIC_URL } from "@/lib/regen-partnership";
 import { QUIZ_NAV } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SKIN_101_NAV } from "@/lib/skin-101-nav";
@@ -717,6 +719,57 @@ export function Header() {
               </Link>
             </div>
 
+            {/* Peptides — Formulation landing pages on tryregenrx.com */}
+            <div
+              className={cx("relative flex items-center", activeDropdown === "peptides" && "z-[110]")}
+              onMouseEnter={() => openDropdown("peptides")}
+              onMouseLeave={closeDropdown}
+            >
+              <Link
+                href={`${REGEN_RX_PUBLIC_URL}/peptides`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={NAV_LINK_BASE}
+                style={navPillStyle(1, false)}
+                onFocus={() => openDropdown("peptides")}
+                aria-haspopup="true"
+                aria-expanded={activeDropdown === "peptides"}
+                aria-label="Peptides, sexual health, and dermatology on REGEN RX"
+              >
+                {FORMULATION_NAV_LABEL}
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "peptides" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              {activeDropdown === "peptides" ? (
+                <div
+                  className="absolute top-full left-0 pt-2 z-[100]"
+                  onMouseEnter={() => openDropdown("peptides")}
+                  onMouseLeave={closeDropdown}
+                >
+                  <div
+                    className="w-[min(300px,calc(100vw-2rem))] overflow-hidden rounded-xl border shadow-2xl backdrop-blur-md"
+                    style={{ backgroundColor: "rgba(24, 24, 27, 0.97)", borderColor: "rgba(255,255,255,0.12)" }}
+                  >
+                    {FORMULATION_HUB_LINKS.map((link) => (
+                      <a
+                        key={link.id}
+                        href={`${REGEN_RX_PUBLIC_URL}${link.href}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={closeDropdown}
+                        className="block border-b px-4 py-3 last:border-0 transition hover:bg-white/5"
+                        style={{ borderColor: "rgba(255,255,255,0.08)" }}
+                      >
+                        <span className="block text-sm font-semibold text-white">{link.label}</span>
+                        <span className="mt-0.5 block text-xs text-white/50">{link.sub}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
             {/* Specials — includes Gift Cards, Clubs, Supplements */}
             <div
               className={cx("relative flex items-center", activeDropdown === "specials" && "z-[110]")}
@@ -911,6 +964,7 @@ export function Header() {
                 groups: medicalMegaMenuMobileGroups(),
                 highlight: true,
               },
+              { key: "peptides", label: FORMULATION_NAV_LABEL },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
             ].map(({ key, label, links, groups, highlight }) => (
@@ -929,6 +983,27 @@ export function Header() {
                       <span className="text-xs font-semibold text-[#FFB8DC]">Our medical partnership</span>
                     </span>
                   </Link>
+                ) : key === "peptides" ? (
+                  <div className="mb-3">
+                    <p className="px-4 pb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[#FFB8DC]">
+                      {FORMULATION_NAV_LABEL}
+                    </p>
+                    <div className="flex flex-col gap-1 px-2">
+                      {FORMULATION_HUB_LINKS.map((link) => (
+                        <a
+                          key={link.id}
+                          href={`${REGEN_RX_PUBLIC_URL}${link.href}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setMobileOpen(false)}
+                          className="rounded-xl px-4 py-3 text-sm font-semibold text-white hover:bg-white/5"
+                        >
+                          {link.label}
+                          <span className="mt-0.5 block text-xs font-normal text-white/50">{link.sub}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
                 ) : (
                 <>
                 <button

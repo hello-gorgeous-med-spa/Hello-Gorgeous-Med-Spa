@@ -5,11 +5,20 @@
  * Source frame: Formulation Compounding Center public peptide page, July 2026.
  */
 
+import {
+  FORMULATION_ADDRESS,
+  FORMULATION_PARTNER_NAME,
+  FORMULATION_PHONE,
+} from "@/lib/regen/formulation-partner";
+
+export {
+  FORMULATION_ADDRESS,
+  FORMULATION_PARTNER_NAME,
+  FORMULATION_PHONE,
+};
+
 export const FORMULATION_PEPTIDE_REVIEWED = "July 2026" as const;
-export const FORMULATION_PARTNER_NAME = "Formulation Compounding Center";
 export const FORMULATION_PEPTIDES_SOURCE = "https://formulationrx.com/peptides/";
-export const FORMULATION_ADDRESS = "1511 Justin Rd, STE 106A, Lewisville, TX 75077";
-export const FORMULATION_PHONE = "469-946-6690";
 
 export type PeptideLegalStatus = "lawful" | "review" | "none";
 
