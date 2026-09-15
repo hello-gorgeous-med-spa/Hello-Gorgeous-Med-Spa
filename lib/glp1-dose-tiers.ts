@@ -61,7 +61,7 @@ export const GLP1_TIRZEPATIDE_DOSE_TIERS: Glp1DoseTier[] = [
     id: "tirz-2.5",
     medication: "Tirzepatide",
     doseLabel: "2.5 mg/week",
-    priceUsd: 235,
+    priceUsd: 299,
     invoiceTemplateId: "glp1-tirz-2.5",
     vialsPer30Day: 1,
     wholesaleCostPerVialUsd: 50,
@@ -70,7 +70,7 @@ export const GLP1_TIRZEPATIDE_DOSE_TIERS: Glp1DoseTier[] = [
     id: "tirz-5",
     medication: "Tirzepatide",
     doseLabel: "5 mg/week",
-    priceUsd: 275,
+    priceUsd: 399,
     invoiceTemplateId: "glp1-tirz-5",
     vialsPer30Day: 1,
     wholesaleCostPerVialUsd: 90,
@@ -79,7 +79,7 @@ export const GLP1_TIRZEPATIDE_DOSE_TIERS: Glp1DoseTier[] = [
     id: "tirz-7.5",
     medication: "Tirzepatide",
     doseLabel: "7.5 mg/week",
-    priceUsd: 315,
+    priceUsd: 399,
     invoiceTemplateId: "glp1-tirz-7.5",
     vialsPer30Day: 1,
     wholesaleCostPerVialUsd: 115,
@@ -88,7 +88,7 @@ export const GLP1_TIRZEPATIDE_DOSE_TIERS: Glp1DoseTier[] = [
     id: "tirz-10",
     medication: "Tirzepatide",
     doseLabel: "10 mg/week",
-    priceUsd: 350,
+    priceUsd: 450,
     invoiceTemplateId: "glp1-tirz-10",
     vialsPer30Day: 1,
     wholesaleCostPerVialUsd: 130,
@@ -97,7 +97,7 @@ export const GLP1_TIRZEPATIDE_DOSE_TIERS: Glp1DoseTier[] = [
     id: "tirz-12.5",
     medication: "Tirzepatide",
     doseLabel: "12.5 mg/week",
-    priceUsd: 395,
+    priceUsd: 499,
     invoiceTemplateId: "glp1-tirz-12.5",
     /** Max dose — BoomRx 3mL 60mg ($150/mo) or Formulation SKU 2498/2500 */
     vialsPer30Day: 1,
@@ -155,7 +155,7 @@ export function glp1LowestSemaglutideUsd(): number {
 }
 
 export function glp1LowestTirzepatideUsd(): number {
-  return GLP1_TIRZEPATIDE_DOSE_TIERS[0]?.priceUsd ?? 235;
+  return GLP1_TIRZEPATIDE_DOSE_TIERS[0]?.priceUsd ?? 299;
 }
 
 export function glp1LowestInjectableUsd(): number {
@@ -167,5 +167,5 @@ export function glp1HighestSemaglutideUsd(): number {
 }
 
 export function glp1HighestTirzepatideUsd(): number {
-  return GLP1_TIRZEPATIDE_DOSE_TIERS.at(-1)?.priceUsd ?? 395;
+  return GLP1_TIRZEPATIDE_DOSE_TIERS.at(-1)?.priceUsd ?? 499;
 }

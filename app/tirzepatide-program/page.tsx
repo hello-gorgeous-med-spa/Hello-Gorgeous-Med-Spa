@@ -9,9 +9,7 @@ import { BOOKING_URL } from "@/lib/flows";
 import { pageMetadata, siteJsonLd, faqJsonLd, breadcrumbJsonLd, SITE } from "@/lib/seo";
 
 // ============================================================
-// 10-WEEK TIRZEPATIDE PROGRAM — $600 offer landing page
-// Built to convert the program email + GBP/social traffic, and to
-// carry the at-home subcutaneous injection instructions (booklet).
+// TIRZEPATIDE MONTHLY PROGRAM — 4-week fills by milligram
 // ============================================================
 
 export const revalidate = 3600;
@@ -22,16 +20,16 @@ const PROGRAM_BOOKING_URL = BOOKING_URL;
 
 export const metadata: Metadata = {
   ...pageMetadata({
-    title: "The 10-Week Tirzepatide Program — $600 | Oswego, IL | Hello Gorgeous",
+    title: "Tirzepatide Monthly Program — $299–$499 | Oswego, IL | Hello Gorgeous",
     description:
-      "A medically guided 10-week tirzepatide weight-loss program in Oswego, IL — $600 all-in. One easy weekly dose, provider on site 6 days a week, at-home self-injection with simple training. Free consultation.",
+      "Tirzepatide monthly program in Oswego: 2.5 mg $299 · 5–7.5 mg $399 · 10 mg $450 · 12.5 mg $499 per 4-week fill. Consult required. Results vary.",
     path: PROGRAM_PATH,
   }),
   keywords: [
     "tirzepatide program Oswego",
-    "10 week tirzepatide Oswego IL",
+    "tirzepatide monthly Oswego IL",
     "tirzepatide weight loss Oswego",
-    "tirzepatide $600 program",
+    "tirzepatide $299 program",
     "compounded tirzepatide Oswego",
     "GLP-1 weight loss Oswego",
     "Mounjaro alternative Illinois",
@@ -41,13 +39,13 @@ export const metadata: Metadata = {
   ],
 };
 
-// What's included in the flat $600 program.
+// What's included in the monthly program.
 const INCLUDED = [
   "Private consultation & medical eligibility review",
-  "Your 10-week supply of tirzepatide (starts at 2.5)",
+  "One 4-week fill priced by your weekly milligram dose",
+  "2.5 mg $299 · 5 or 7.5 mg $399 · 10 mg $450 · 12.5 mg $499",
   "Simple at-home injection training",
-  "Provider-guided dosing & check-ins throughout",
-  "Optional +$100 to upgrade to 5 mL at week 5 if your provider steps the dose up",
+  "Stay at a dose = stay at that price",
 ];
 
 // "Why women love it" — mirrors the program email.
@@ -59,7 +57,7 @@ const BENEFITS = [
   },
   {
     title: "Steady, sustainable progress",
-    body: "A ten-week structure built for real change you can feel, not a crash.",
+    body: "A monthly structure built for real change you can feel, not a crash.",
   },
   {
     title: "One dose a week",
@@ -73,7 +71,7 @@ const BENEFITS = [
   {
     title: "Provider-guided the whole way",
     body:
-      "Your dose is determined and adjusted by a licensed Illinois clinician — never guesswork — with check-ins across your ten weeks.",
+      "Your dose is determined and adjusted by a licensed Illinois clinician — never guesswork — with check-ins as you titrate.",
   },
   {
     title: "Care that knows your name",
@@ -128,14 +126,14 @@ const INJECTION_STEPS = [
 
 const PROGRAM_FAQS = [
   {
-    question: "What is the 10-week tirzepatide program?",
+    question: "What is the tirzepatide monthly program?",
     answer:
-      "It's a medically guided weight-loss program at Hello Gorgeous Med Spa in Oswego, IL for a flat $600. You get a private consultation and eligibility review, a 10-week supply of tirzepatide, simple at-home injection training, and provider-guided dosing with check-ins throughout. One easy weekly dose, with a licensed Illinois clinician on site 6 days a week.",
+      "A medically guided tirzepatide program at Hello Gorgeous Med Spa in Oswego. You pay for a 4-week fill based on your weekly milligram dose: 2.5 mg $299, 5 or 7.5 mg $399, 10 mg $450, 12.5 mg $499. Consult required. Compounded tirzepatide is not FDA-approved. Results vary.",
   },
   {
     question: "How much does it cost?",
     answer:
-      "$600 for the full ten weeks — that includes your consultation and medical eligibility review, your 10-week supply of tirzepatide starting at 2.5, at-home injection training, and provider-guided dosing and check-ins. If your provider steps you up to 5 mL at week 5, that upgrade is $100. No insurance required.",
+      "Your price is your weekly milligram dose for four weekly injections: $299 at 2.5 mg, $399 at 5 or 7.5 mg, $450 at 10 mg, $499 at 12.5 mg. Stay at a dose and you stay at that price. No insurance required. Consult required.",
   },
   {
     question: "How often do I take it, and do I inject myself?",
@@ -162,16 +160,16 @@ const PROGRAM_FAQS = [
 export default function TirzepatideProgramPage() {
   const breadcrumbs = [
     { name: "Home", url: SITE.url },
-    { name: "10-Week Tirzepatide Program", url: `${SITE.url}${PROGRAM_PATH}` },
+    { name: "Tirzepatide Monthly Program", url: `${SITE.url}${PROGRAM_PATH}` },
   ];
 
   const offerJsonLd = {
     "@context": "https://schema.org",
     "@type": "Offer",
-    name: "10-Week Tirzepatide Weight-Loss Program",
+    name: "Tirzepatide Monthly Weight-Loss Program",
     description:
-      "Medically guided 10-week tirzepatide program: consultation & eligibility review, 10-week supply of tirzepatide, at-home injection training, and provider-guided dosing with check-ins.",
-    price: "600",
+      "Medically guided tirzepatide: 4-week fills priced by weekly milligrams. 2.5 mg $299 · 5–7.5 mg $399 · 10 mg $450 · 12.5 mg $499.",
+    price: "299",
     priceCurrency: "USD",
     url: `${SITE.url}${PROGRAM_PATH}`,
     availability: "https://schema.org/InStock",
@@ -210,21 +208,20 @@ export default function TirzepatideProgramPage() {
           <div className="relative max-w-4xl mx-auto text-center">
             <FadeUp>
               <p className="uppercase tracking-[0.3em] text-xs text-[#FFB8DC] mb-4">
-                The 10-Week Program · Oswego, IL
+                The Monthly Program · Oswego, IL
               </p>
               <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
                 Tirzepatide,{" "}
                 <span className="text-[#E6007E]">made simple.</span>
               </h1>
               <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-8">
-                Ten weeks. One easy weekly dose. A medically guided path to feeling confident in your
-                body again — with a provider on site 6 days a week.
+                One easy weekly dose. A medically guided path — priced by your milligram dose, not a flat package.
               </p>
               <div className="flex flex-wrap justify-center gap-3 text-sm mb-10">
-                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ $600 all-in</span>
+                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ From $299 / 4 weeks</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ One dose a week</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Self-dose at home</span>
-                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ FNP-BC on site 6 days</span>
+                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Clinician-guided</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <CTA href={PROGRAM_BOOKING_URL} variant="gradient">
@@ -244,11 +241,11 @@ export default function TirzepatideProgramPage() {
             <FadeUp>
               <div className="rounded-3xl border-4 border-black bg-white p-8 md:p-10 shadow-[8px_8px_0_0_rgba(230,0,126,0.35)] text-center">
                 <p className="text-[#E6007E] font-bold uppercase tracking-wider text-xs mb-2">
-                  The 10-Week Self-Dose Program
+                  Monthly program · 4-week fills
                 </p>
-                <div className="text-6xl md:text-7xl font-black text-[#E6007E] leading-none mb-2">$600</div>
+                <div className="text-5xl md:text-6xl font-black text-[#E6007E] leading-none mb-2">$299–$499</div>
                 <p className="text-black/70 font-medium italic mb-6">
-                  everything you need for your full ten weeks
+                  per 4-week fill · price follows your weekly milligram dose
                 </p>
                 <ul className="text-left max-w-md mx-auto space-y-3">
                   {INCLUDED.map((item) => (
@@ -313,7 +310,7 @@ export default function TirzepatideProgramPage() {
                       love deserve real help, delivered by people who actually know them.&rdquo;
                     </p>
                     <p className="text-black/70 font-medium mb-5">
-                      The honest truth about what our 10-week tirzepatide program is, what it isn&apos;t,
+                      The honest truth about what our tirzepatide monthly program is, what it isn&apos;t,
                       and why we built it this way. — Danielle Alcala
                     </p>
                     <Link

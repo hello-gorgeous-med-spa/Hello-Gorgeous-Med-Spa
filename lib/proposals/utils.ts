@@ -244,7 +244,7 @@ const RX_CONSULT_REQUIRED_IDS = [
   "biote-women-pellet",
   "biote-men-pellet",
   "trt-injections",
-  "pkg-tirz-10week",
+  "pkg-tirz-monthly",
 ] as const;
 
 /** Check if a service requires medical consultation before purchase. */

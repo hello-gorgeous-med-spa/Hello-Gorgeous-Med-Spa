@@ -4,7 +4,7 @@
  */
 
 import { PEPTIDE_FLYER_IMAGES, VITAMIN_BAR_FLYER_IMAGES } from "@/lib/club-flyer-images";
-import { GLP1_PROGRAM, GLP1_PROGRAM_DISCLAIMER, GLP1_SQUARE_CLINIC } from "@/lib/glp1-program-pricing";
+import { GLP1_PROGRAM, GLP1_PROGRAM_DISCLAIMER } from "@/lib/glp1-program-pricing";
 import {
   GLP1_ALL_DOSE_TIERS,
   GLP1_INSURANCE_OVERSIGHT,
@@ -316,16 +316,16 @@ const GLP1_DOSE_ITEMS: WellnessPriceListItem[] = GLP1_ALL_DOSE_TIERS.map((tier) 
 
 const GLP1_ITEMS: WellnessPriceListItem[] = [
   {
-    id: "glp1-tirz-10week",
-    name: "Tirzepatide 10-Week Program",
-    priceLabel: `$${GLP1_SQUARE_CLINIC.tenWeekProgramUsd}`,
-    tagline: "Square clinic program · starts at 2.5",
-    note: `Optional +$${GLP1_SQUARE_CLINIC.tenWeekUpgradeTo5mlUsd} to upgrade to 5 mL at week 5`,
+    id: "glp1-tirz-monthly",
+    name: "Tirzepatide monthly program",
+    priceLabel: "$299–$499 / 4 weeks",
+    tagline: "Price follows weekly milligrams",
+    note: "2.5 mg $299 · 5–7.5 mg $399 · 10 mg $450 · 12.5 mg $499",
     benefits: [
-      "Consult + 10-week tirzepatide supply",
-      "At-home injection training",
-      "Provider-guided dosing & check-ins",
-      `Upgrade to 5 mL at week 5: +$${GLP1_SQUARE_CLINIC.tenWeekUpgradeTo5mlUsd}`,
+      "One 4-week fill priced by the highest weekly mg dose",
+      "Stay at a dose = stay at that price",
+      "Medication included · consult required",
+      "Compounded tirzepatide is not FDA-approved · results vary",
     ],
     image: PEPTIDE_FLYER_IMAGES.tirzepatide,
     imageAlt: "10-week tirzepatide program — Hello Gorgeous Oswego IL",

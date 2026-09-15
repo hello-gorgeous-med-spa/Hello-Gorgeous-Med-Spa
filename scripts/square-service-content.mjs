@@ -178,6 +178,18 @@ export const SERVICE_CONTENT = {
   },
 
   // ===== WEIGHT LOSS INJECTIONS =====
+  "Tirzepatide Program — 2.5 mg (4 weeks)": {
+    d: "Tirzepatide program — 2.5 mg weekly for 4 weeks. Medication included. Consult required. Compounded tirzepatide is not FDA-approved. Results vary. Hello Gorgeous Med Spa, Oswego.",
+  },
+  "Tirzepatide Program — 5–7.5 mg (4 weeks)": {
+    d: "Tirzepatide program — 5 mg or 7.5 mg weekly for 4 weeks. Same price for either dose. Medication included. Consult required. Compounded tirzepatide is not FDA-approved. Results vary.",
+  },
+  "Tirzepatide Program — 10 mg (4 weeks)": {
+    d: "Tirzepatide program — 10 mg weekly for 4 weeks. Medication included. Only if the clinician steps the dose up. Compounded tirzepatide is not FDA-approved. Results vary.",
+  },
+  "Tirzepatide Program — 12.5 mg (4 weeks)": {
+    d: "Tirzepatide program — 12.5 mg weekly for 4 weeks. Clinic max. Medication included. Consult required. Compounded tirzepatide is not FDA-approved. Results vary.",
+  },
   "Tirzepatide (Zepbound/Mounjaro) - 90 Day Program": {
     n: "Tirzepatide 90-Day Program (Zepbound/Mounjaro alternative)",
     d: "Three-month tirzepatide weight loss program with NP supervision, monthly check-ins, and at-home injections. Most clients lose 15–22% of body weight.",

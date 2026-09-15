@@ -18,17 +18,18 @@ export const FORMULATION_GHK_CU_TOTAL_USD = FORMULATION_GHK_CU_MED_USD + FORMULA
 
 export const PROPOSAL_PACKAGES: ProposalPackage[] = [
   {
-    id: "pkg-tirz-10week",
-    name: "Tirzepatide 10-Week Program",
+    id: "pkg-tirz-monthly",
+    name: "Tirzepatide monthly program",
     category: "Packages",
-    price: GLP1_SQUARE_CLINIC.tenWeekProgramUsd,
-    unit: "per 10 weeks",
+    price: GLP1_SQUARE_CLINIC.tirzepatideMonthlyUsd.mg2_5,
+    unit: "starting 4-week fill",
     description:
-      "Square clinic program — starts at 2.5. Optional step-up to 5 mL at week 5 is +$100.",
+      "Price the month by weekly milligrams: 2.5 mg $299 · 5–7.5 mg $399 · 10 mg $450 · 12.5 mg $499.",
     bullets: [
-      `$${GLP1_SQUARE_CLINIC.tenWeekProgramUsd} all-in for 10 weeks — consult, supply, training, and check-ins`,
-      "Starts at 2.5 · add Upgrade to 5 mL (+$100) at week 5 if the provider steps the dose up",
-      "Matches the Square “Tirzepatide 10 week program” SKU",
+      "$299 for 2.5 mg weekly (typical month 1)",
+      "$399 for 5 or 7.5 mg weekly",
+      "$450 for 10 mg · $499 for 12.5 mg",
+      "Stay at a dose = stay at that price",
     ],
   },
   {

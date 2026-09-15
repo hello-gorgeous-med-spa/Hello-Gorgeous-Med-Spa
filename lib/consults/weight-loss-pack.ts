@@ -11,7 +11,7 @@ import {
   GLP1_SEMAGLUTIDE_DOSE_TIERS,
   GLP1_TIRZEPATIDE_DOSE_TIERS,
 } from "@/lib/glp1-dose-tiers";
-import { GLP1_PROGRAM_CONSULT_USD, GLP1_SQUARE_CLINIC } from "@/lib/glp1-program-pricing";
+import { GLP1_PROGRAM_CONSULT_USD } from "@/lib/glp1-program-pricing";
 import type { ConsultEducationPack } from "@/lib/consults/types";
 
 const mechanismById = (id: string) => GLP1_SCIENCE_MECHANISMS.find((m) => m.id === id);
@@ -175,10 +175,10 @@ export const WEIGHT_LOSS_CONSULT_PACK: ConsultEducationPack = {
   ],
   paths: [
     {
-      id: "tirz-10week",
-      label: "10-week tirzepatide program",
-      summary: `Square $${GLP1_SQUARE_CLINIC.tenWeekProgramUsd} program — starts at 2.5. Add the $${GLP1_SQUARE_CLINIC.tenWeekUpgradeTo5mlUsd} 5 mL upgrade at week 5 if the dose steps up.`,
-      serviceIds: ["glp1-tirz-10week"],
+      id: "tirz-monthly",
+      label: "Tirzepatide monthly (dose band)",
+      summary: `2.5 mg $299 · 5–7.5 mg $399 · 10 mg $450 · 12.5 mg $499 per 4-week fill.`,
+      serviceIds: ["glp1-tirz-2.5"],
     },
     {
       id: "consult-only",

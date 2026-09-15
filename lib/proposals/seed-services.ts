@@ -28,48 +28,6 @@ export type SeedService = {
 
 const WEIGHT_LOSS_SERVICES: SeedService[] = [
   {
-    id: "glp1-tirz-10week",
-    name: "Tirzepatide 10-Week Program",
-    category: "Weight Loss Programs",
-    price: GLP1_SQUARE_CLINIC.tenWeekProgramUsd,
-    unit: "per 10 weeks",
-    description:
-      "Square clinic SKU — starts at 2.5. Consult, 10-week supply, injection training, and check-ins.",
-  },
-  {
-    id: "glp1-tirz-10week-5ml",
-    name: "Upgrade to 5 mL (week 5+)",
-    category: "Weight Loss Programs",
-    price: GLP1_SQUARE_CLINIC.tenWeekUpgradeTo5mlUsd,
-    unit: "add-on",
-    description:
-      "Add to the 10-week program if the provider steps up to 5.0 / 5 mL at week 5. Square extra $100.",
-  },
-  {
-    id: "glp1-tirz-consult-first",
-    name: "Tirzepatide — Initial Consult + First Injection",
-    category: "Weight Loss Programs",
-    price: GLP1_SQUARE_CLINIC.tirzConsultFirstUsd,
-    unit: "one-time",
-    description: "Square clinic price — new-patient visit, medical review, and first injection / starter supply.",
-  },
-  {
-    id: "glp1-tirz-monthly",
-    name: "Tirzepatide — Monthly Maintenance",
-    category: "Weight Loss Programs",
-    price: GLP1_SQUARE_CLINIC.tirzMonthlyMaintenanceUsd,
-    unit: "per month",
-    description: "Square clinic price — established-patient maintenance refill (low / maintenance volume).",
-  },
-  {
-    id: "glp1-tirz-4week",
-    name: "4-Week Tirzepatide Program",
-    category: "Weight Loss Programs",
-    price: GLP1_SQUARE_CLINIC.fourWeekTirzUsd,
-    unit: "per 4 weeks",
-    description: "Square clinic price — structured 4-week program visit with medication for that cycle.",
-  },
-  {
     id: "glp1-sema-consult-first",
     name: "Semaglutide — Initial Consult + First Injection",
     category: "Weight Loss Programs",

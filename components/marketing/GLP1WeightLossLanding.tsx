@@ -103,7 +103,7 @@ export function GLP1WeightLossLanding() {
                 href="/tirzepatide-program"
                 className="text-[#E6007E] font-semibold underline decoration-[#E6007E]/40 underline-offset-4 hover:no-underline"
               >
-                See our 10-week tirzepatide program — $600
+                See tirzepatide monthly pricing — from $299
               </Link>
               .
             </p>

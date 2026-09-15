@@ -23,12 +23,20 @@ export const GLP1_PROGRAM_CONSULT_USD = PROGRAM_CONSULT_FEE_USD;
  * Pulled from live Square catalog — keep the proposal menu in lockstep.
  */
 export const GLP1_SQUARE_CLINIC = {
+  /** Retired — do not sell. Kept so old invoices still resolve. */
   tenWeekProgramUsd: 600,
-  /** Square copy: "starting at 2.5, option to go up to 5.0 at week 5 (extra $100)" */
   tenWeekUpgradeTo5mlUsd: 100,
-  tirzConsultFirstUsd: 349,
-  tirzMonthlyMaintenanceUsd: 299,
-  fourWeekTirzUsd: 349,
+  /** Month 1 / 2.5 mg 4-week fill */
+  tirzConsultFirstUsd: 299,
+  /** Standard band (5 or 7.5 mg). There is no flat “maintenance” price. */
+  tirzMonthlyMaintenanceUsd: 399,
+  fourWeekTirzUsd: 299,
+  tirzepatideMonthlyUsd: {
+    mg2_5: 299,
+    mg5to7_5: 399,
+    mg10: 450,
+    mg12_5: 499,
+  },
   semaConsultFirstUsd: 299,
   semaMonthlyMaintenanceUsd: 249,
   medicalWeightManagementUsd: 295,
@@ -110,7 +118,7 @@ export const GLP1_PROGRAM_DISCLAIMER =
 
 export const GLP1_PROGRAM_PRICING_BULLETS = [
   `${GLP1_PROGRAM.injectable.heading}: ${GLP1_PROGRAM.injectable.includes}`,
-  `10-week tirzepatide program: $${GLP1_SQUARE_CLINIC.tenWeekProgramUsd} (starts at 2.5; +$${GLP1_SQUARE_CLINIC.tenWeekUpgradeTo5mlUsd} to upgrade to 5 mL at week 5)`,
+  `Tirzepatide monthly: $299 (2.5 mg) · $399 (5–7.5 mg) · $450 (10 mg) · $499 (12.5 mg)`,
   `GLP-1 weight loss from $${GLP1_PROGRAM.injectable.monthlyFromUsd}/month — price scales with weekly dose`,
   ...GLP1_SEMAGLUTIDE_DOSE_TIERS.map(
     (t) => `Semaglutide ${t.doseLabel}: $${t.priceUsd}/mo`,
