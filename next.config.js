@@ -28,6 +28,18 @@ function buildDeindexedCityRedirects() {
   return rules;
 }
 
+/** Hello Gorgeous apex only — never fire on tryregenrx.com (same Next app, same redirects). */
+const HG_HOSTS = ["hellogorgeousmedspa.com", "www.hellogorgeousmedspa.com"];
+
+function hgOnlyRedirect(source, destination, permanent = true) {
+  return HG_HOSTS.map((host) => ({
+    source,
+    destination,
+    permanent,
+    has: [{ type: "host", value: host }],
+  }));
+}
+
 /** CSP for static HTML embedded in iframes on www (intake forms, education handouts). */
 const EMBEDDABLE_HTML_CSP = [
   "default-src 'self'",
@@ -280,30 +292,32 @@ const nextConfig = {
     { source: "/rx/catalog", destination: "https://tryregenrx.com/products", permanent: true },
     { source: "/rx/product/p166", destination: "https://tryregenrx.com/products", permanent: true },
     { source: "/docs/dosing-guides/ss-31-elamipretide.pdf", destination: "https://tryregenrx.com", permanent: true },
-    { source: "/peptides/ss-31", destination: "https://tryregenrx.com/peptides", permanent: true },
     { source: "/regen/peptides/ss-31", destination: "/regen/peptides", permanent: true },
-    { source: "/bpc-157", destination: "https://tryregenrx.com/peptides/bpc-157", permanent: true },
     { source: "/skin-101/find-your-peptide", destination: "https://tryregenrx.com/start", permanent: true },
-    { source: "/peptides/bpc-157", destination: "https://tryregenrx.com/peptides/bpc-157", permanent: true },
-    { source: "/peptides/ghk-cu-injectable", destination: "https://tryregenrx.com/peptides/ghk-cu", permanent: true },
-    { source: "/peptides/copper-peptides", destination: "https://tryregenrx.com/peptides/ghk-cu", permanent: true },
-    { source: "/peptides/cjc-1295", destination: "https://tryregenrx.com/peptides/cjc-1295-no-dac", permanent: true },
-    { source: "/peptides/cjc-1295-ipamorelin", destination: "https://tryregenrx.com/peptides/cjc-ipamorelin", permanent: true },
-    { source: "/peptides/ipamorelin", destination: "https://tryregenrx.com/peptides/ipamorelin", permanent: true },
-    { source: "/peptides/tb-500", destination: "https://tryregenrx.com/peptides/tb-500", permanent: true },
-    { source: "/peptides/recovery-blend", destination: "https://tryregenrx.com/peptides/wolverine-blend", permanent: true },
-    { source: "/peptides/heal-blend", destination: "https://tryregenrx.com/peptides/wolverine-blend", permanent: true },
-    { source: "/peptides/k-glow", destination: "https://tryregenrx.com/peptides/klow-blend", permanent: true },
-    { source: "/peptides/aod-9604", destination: "https://tryregenrx.com/learn/peptides", permanent: true },
-    { source: "/peptides/mots-c", destination: "https://tryregenrx.com/peptides/mots-c", permanent: true },
-    { source: "/peptides/selank", destination: "https://tryregenrx.com/peptides/selank", permanent: true },
-    { source: "/peptides/semax", destination: "https://tryregenrx.com/peptides/semax", permanent: true },
-    { source: "/peptides/epithalon", destination: "https://tryregenrx.com/peptides/epithalon", permanent: true },
-    { source: "/peptides/retatrutide", destination: "https://tryregenrx.com/learn/weight-loss", permanent: true },
     { source: "/rx/protocols/tirzepatide", destination: "https://tryregenrx.com/learn/weight-loss", permanent: true },
     { source: "/rx/protocols/semaglutide", destination: "https://tryregenrx.com/learn/weight-loss", permanent: true },
     { source: "/rx/protocols/bpc157", destination: "https://tryregenrx.com/peptides/bpc-157", permanent: true },
     { source: "/rx/protocols/sermorelin", destination: "https://tryregenrx.com/peptides/sermorelin", permanent: true },
+    // HG → tryregenrx learn pages. Must be host-scoped: the same rules on
+    // tryregenrx.com 308 to themselves and the learn pages never render.
+    ...hgOnlyRedirect("/peptides/ss-31", "https://tryregenrx.com/peptides"),
+    ...hgOnlyRedirect("/bpc-157", "https://tryregenrx.com/peptides/bpc-157"),
+    ...hgOnlyRedirect("/peptides/bpc-157", "https://tryregenrx.com/peptides/bpc-157"),
+    ...hgOnlyRedirect("/peptides/ghk-cu-injectable", "https://tryregenrx.com/peptides/ghk-cu"),
+    ...hgOnlyRedirect("/peptides/copper-peptides", "https://tryregenrx.com/peptides/ghk-cu"),
+    ...hgOnlyRedirect("/peptides/cjc-1295", "https://tryregenrx.com/peptides/cjc-1295-no-dac"),
+    ...hgOnlyRedirect("/peptides/cjc-1295-ipamorelin", "https://tryregenrx.com/peptides/cjc-ipamorelin"),
+    ...hgOnlyRedirect("/peptides/ipamorelin", "https://tryregenrx.com/peptides/ipamorelin"),
+    ...hgOnlyRedirect("/peptides/tb-500", "https://tryregenrx.com/peptides/tb-500"),
+    ...hgOnlyRedirect("/peptides/recovery-blend", "https://tryregenrx.com/peptides/wolverine-blend"),
+    ...hgOnlyRedirect("/peptides/heal-blend", "https://tryregenrx.com/peptides/wolverine-blend"),
+    ...hgOnlyRedirect("/peptides/k-glow", "https://tryregenrx.com/peptides/klow-blend"),
+    ...hgOnlyRedirect("/peptides/aod-9604", "https://tryregenrx.com/learn/peptides"),
+    ...hgOnlyRedirect("/peptides/mots-c", "https://tryregenrx.com/peptides/mots-c"),
+    ...hgOnlyRedirect("/peptides/selank", "https://tryregenrx.com/peptides/selank"),
+    ...hgOnlyRedirect("/peptides/semax", "https://tryregenrx.com/peptides/semax"),
+    ...hgOnlyRedirect("/peptides/epithalon", "https://tryregenrx.com/peptides/epithalon"),
+    ...hgOnlyRedirect("/peptides/retatrutide", "https://tryregenrx.com/learn/weight-loss"),
     { source: "/rx/catalog/goal/:slug", destination: "https://tryregenrx.com/start", permanent: true },
     // Stripe RX review: labeled WADA-peptide vial art must not stay fetchable.
     { source: "/images/regen/marketing/vial-lineup.png", destination: "/images/regen/marketing/cell-peptide.png", permanent: true },
