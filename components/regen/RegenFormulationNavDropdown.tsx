@@ -53,8 +53,10 @@ export function RegenFormulationNavDropdown() {
     >
       <button
         type="button"
-        className="flex items-center gap-1 text-sm font-medium transition-colors hover:text-white"
-        style={{ color: active || open ? TEAL : undefined }}
+        className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+          active || open ? "text-white" : "text-gray-400 hover:text-white"
+        }`}
+        style={active || open ? { color: TEAL } : undefined}
         aria-expanded={open}
         aria-haspopup="true"
         aria-controls={menuId}

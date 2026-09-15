@@ -18,7 +18,7 @@ export const FORMULATION_HUB_LINKS = [
     href: "/peptides",
     id: "peptides",
     label: "Peptides",
-    sub: "Legal-basis grid — what we can lawfully compound",
+    sub: "What we can compound — and what we cannot",
   },
   {
     href: "/sexual-health",

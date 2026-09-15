@@ -40,7 +40,7 @@ export function FormulationPartnerShell({
               <Link
                 key={link.id}
                 href={link.href}
-                className={active === link.id ? "text-[#0D9488]" : "hover:text-white"}
+                className={active === link.id ? "text-white" : "hover:text-white"}
               >
                 {link.label}
               </Link>
@@ -67,7 +67,7 @@ export function FormulationPartnerShell({
             <Link
               key={link.id}
               href={link.href}
-              className={active === link.id ? "text-[#0D9488]" : "whitespace-nowrap hover:text-white"}
+              className={active === link.id ? "text-white whitespace-nowrap" : "whitespace-nowrap hover:text-white"}
             >
               {link.label}
             </Link>

@@ -280,6 +280,8 @@ const nextConfig = {
     { source: "/rx/catalog", destination: "https://tryregenrx.com/products", permanent: true },
     { source: "/rx/product/p166", destination: "https://tryregenrx.com/products", permanent: true },
     { source: "/docs/dosing-guides/ss-31-elamipretide.pdf", destination: "https://tryregenrx.com", permanent: true },
+    { source: "/peptides/ss-31", destination: "https://tryregenrx.com/peptides", permanent: true },
+    { source: "/regen/peptides/ss-31", destination: "/regen/peptides", permanent: true },
     { source: "/bpc-157", destination: "https://tryregenrx.com/peptides/bpc-157", permanent: true },
     { source: "/skin-101/find-your-peptide", destination: "https://tryregenrx.com/start", permanent: true },
     { source: "/peptides/bpc-157", destination: "https://tryregenrx.com/peptides/bpc-157", permanent: true },

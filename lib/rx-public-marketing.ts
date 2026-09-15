@@ -10,7 +10,7 @@
  * or misleading efficacy). 225 ILCS 60/22 (discipline for false/misleading ads).
  *
  * Federal: compounded drugs are not FDA-approved. Do not call them generic, equivalent,
- * or “the same as” branded products. SS-31 / elamipretide is not offered.
+ * or “the same as” branded products.
  *
  * This module is copy + policy for public pages. It is not legal advice and does not
  * make compounding lawful. Counsel still owns the Foley Hoag / FDA response.

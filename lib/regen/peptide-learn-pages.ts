@@ -1125,51 +1125,6 @@ const COPY: Record<string, PeptideLearnCopy> = {
       { q: "Is this the same as NMN or NR?", a: "Those are oral precursors sold as supplements in other channels. This page is about a clinician-directed NAD+ protocol, not a supplement aisle." },
     ], true),
   },
-  "ss-31": {
-    tagline: "A mitochondrial-targeted tetrapeptide — no lawful §503A pathway at RE GEN today.",
-    what: "SS-31 (elamipretide) is a mitochondria-targeted peptide studied for bioenergetic and cardiometabolic research. It is scientifically serious. It is not something we can lawfully compound for you today.",
-    delivery: "Not orderable.",
-    why: [
-      "Mitochondrial inner-membrane interest",
-      "Cardiac and aging research conversations",
-      "No 503A pathway we can use",
-      "NAD+ is the mitochondrial visit we can actually run",
-    ],
-    interests: [
-      {
-        n: "01",
-        title: "Why specialists know the name",
-        body: "Elamipretide has a real development history. That is not a compounding catalog item at RE GEN.",
-        bullets: ["Mitochondrial-targeted peptide", "Not a biohacker default", "Not orderable"],
-      },
-      {
-        n: "02",
-        title: "Do not download a “protocol”",
-        body: "We will not help you reconstitute a research vial.",
-        bullets: ["No dosing advice for SS-31", "No gray-market sourcing", "Ask what is carried"],
-      },
-      {
-        n: "03",
-        title: "Carried alternative",
-        body: "NAD+ when a clinician decides it fits.",
-        bullets: ["NAD+ page", "Consult", "Honesty over a banned-sounding peptide"],
-      },
-    ],
-    animal: {
-      lead: "SS-31 has substantial preclinical mitochondrial literature.",
-      bullets: ["Bioenergetic models", "Not 503A eligibility here", "Not orderable"],
-    },
-    human: {
-      lead: "Human development exists in other regulatory lanes. That does not open 503A compounding at RE GEN.",
-      bullets: ["Not orderable", "No cardiac or energy promise", "Do not buy research elamipretide"],
-    },
-    legal: "No lawful §503A pathway at this time. We will not compound SS-31 / elamipretide.",
-    instead: [{ label: "NAD+", href: NAD }],
-    faqs: faqs("SS-31", [
-      { q: "What is SS-31?", a: "Elamipretide — a mitochondria-targeted peptide in research and drug-development conversations. Not orderable at RE GEN." },
-      { q: "Can you get it as a named drug instead?", a: "That is a different regulatory lane than 503A compounding. This page is about what RE GEN can lawfully request as a compounded peptide. Today, that answer is no." },
-    ], false),
-  },
   "bpc-157": {
     tagline:
       "The most-asked repair peptide — PCAC recommended listing in July 2026, and it is still not orderable.",

@@ -24,7 +24,6 @@ const MAP = {
   "regen-semax": "prod-semax-regen.png",
   "regen-selank": "prod-selank-regen.png",
   "regen-5-amino-1mq": "prod-5amino1mq-regen.png",
-  "regen-ss-31": "prod-ss31-regen.png",
   "regen-glutathione": "prod-glutathione-regen.png",
   "regen-methylene-blue": "prod-methylene-blue-regen.png",
   "regen-thymosin-alpha-1": "prod-thymosin-a1-regen.png",

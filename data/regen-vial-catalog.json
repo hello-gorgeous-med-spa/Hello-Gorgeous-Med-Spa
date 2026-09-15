@@ -11,7 +11,6 @@
   { "file": "prod-methylene-blue-regen.png", "name": "METHYLENE BLUE", "category": "COGNITIVE SUPPORT", "dose": "30 ct", "usage": ["Capsules", "For Oral Use"], "form": "bottle" },
   { "file": "prod-thymosin-a1-regen.png", "name": "THYMOSIN A-1", "category": "IMMUNE SUPPORT", "dose": "5 mg", "usage": ["Sterile", "For Subcutaneous Use"] },
   { "file": "prod-glutathione-regen.png", "name": "GLUTATHIONE", "category": "ANTIOXIDANT", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
-  { "file": "prod-ss31-regen.png", "name": "SS-31", "category": "MITO SUPPORT", "dose": "5 mL", "usage": ["Sterile", "For Subcutaneous Use"], "skip": true },
   { "file": "prod-selank-regen.png", "name": "SELANK", "category": "CALM SUPPORT", "dose": "Spray", "usage": ["Nasal Spray", "For Intranasal Use"], "form": "spray", "skip": true },
   { "file": "prod-semax-regen.png", "name": "SEMAX", "category": "FOCUS SUPPORT", "dose": "Spray", "usage": ["Nasal Spray", "For Intranasal Use"], "form": "spray", "skip": true },
   { "file": "prod-5amino1mq-regen.png", "name": "5-AMINO-1MQ", "category": "METABOLIC SUPPORT", "dose": "30 ct", "usage": ["Capsules", "For Oral Use"], "form": "bottle", "skip": true },

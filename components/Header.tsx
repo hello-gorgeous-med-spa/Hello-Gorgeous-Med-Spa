@@ -730,7 +730,7 @@ export function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={NAV_LINK_BASE}
-                style={navPillStyle(1, false)}
+                style={navPillStyle(0, false)}
                 onFocus={() => openDropdown("peptides")}
                 aria-haspopup="true"
                 aria-expanded={activeDropdown === "peptides"}
@@ -984,11 +984,9 @@ export function Header() {
                     </span>
                   </Link>
                 ) : key === "peptides" ? (
-                  <div className="mb-3">
-                    <p className="px-4 pb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-[#FFB8DC]">
-                      {FORMULATION_NAV_LABEL}
-                    </p>
-                    <div className="flex flex-col gap-1 px-2">
+                  <div className="mb-1">
+                    <p className="px-4 py-3.5 text-sm font-semibold text-white">{FORMULATION_NAV_LABEL}</p>
+                    <div className="flex flex-col pb-2">
                       {FORMULATION_HUB_LINKS.map((link) => (
                         <a
                           key={link.id}
@@ -996,10 +994,9 @@ export function Header() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => setMobileOpen(false)}
-                          className="rounded-xl px-4 py-3 text-sm font-semibold text-white hover:bg-white/5"
+                          className="block px-4 py-2.5 text-sm text-white/80 hover:bg-white/5"
                         >
                           {link.label}
-                          <span className="mt-0.5 block text-xs font-normal text-white/50">{link.sub}</span>
                         </a>
                       ))}
                     </div>

@@ -183,7 +183,7 @@ for (const name of unmatchedSheetRows) {
 /* ------------------------------------------------------------------------ *
  * 6. Paused compounds stay off every client surface.
  *
- * Retatrutide, SS-31 / elamipretide, and the public-marketing pause list in
+ * Retatrutide and the public-marketing pause list in
  * `NEVER_CLIENT_VISIBLE`. The name guard in client-visibility is the enforcement;
  * this asserts it still bites after a catalog re-sync.
  * ------------------------------------------------------------------------ */

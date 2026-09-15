@@ -317,16 +317,6 @@ export const PEPTIDE_REQUEST_ITEMS: PeptideRequestItem[] = [
     rxRequired: true,
   },
   {
-    id: "ss-31",
-    name: "SS-31",
-    thumbnailSlug: "mots-c",
-    category: "Energy & Longevity",
-    benefit: "Mitochondrial energy & recovery support",
-    screeningSet: "general",
-    rxRequired: true,
-    investigational: true,
-  },
-  {
     id: "ll-37",
     name: "LL-37",
     thumbnailSlug: "amino-blend",

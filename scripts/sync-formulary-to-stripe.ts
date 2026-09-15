@@ -111,7 +111,6 @@ const FORMULARY: FormularyItem[] = [
   { name: 'GHK-Cu Injectable', form: 'Injectable', strength: '10mg/mL 5mL', wholesale: 120, vendor: 'DRX', category: 'Peptides - Longevity' },
   { name: 'MOTS-c Injectable', form: 'Injectable', strength: '2mg/mL 5mL', wholesale: 120, vendor: 'DRX', category: 'Peptides - Longevity' },
   { name: 'MOTS-c / Tesamorelin Blend', form: 'Injectable', strength: '2mg/3mg 5mL', wholesale: 150, vendor: 'DRX', category: 'Peptides - Longevity' },
-  { name: 'SS-31 Injectable', form: 'Injectable', strength: '2mg/mL 5mL', wholesale: 120, vendor: 'DRX', category: 'Peptides - Longevity' },
   { name: 'Thymosin Alpha-1 Injectable', form: 'Injectable', strength: '5mg/mL 5mL', wholesale: 120, vendor: 'DRX', category: 'Peptides - Longevity' },
   { name: 'Methylene Blue Capsules 25mg', form: 'Capsule', strength: '25mg', wholesale: 2.5, vendor: 'V', category: 'Peptides - Longevity' },
   { name: 'Methylene Blue Capsules 50mg', form: 'Capsule', strength: '50mg', wholesale: 4, vendor: 'V', category: 'Peptides - Longevity' },

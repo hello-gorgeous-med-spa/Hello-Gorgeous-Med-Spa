@@ -294,13 +294,6 @@ export const PEPTIDE_SHOWCASE_SECTIONS: PeptideShowcaseSection[] = [
         status: "lawful",
         startHref: "/start?goal=energy&program=nad-injection",
       },
-      {
-        slug: "ss-31",
-        name: "SS-31",
-        spec: "Mitochondrial-targeted",
-        blurb: "No lawful §503A pathway at this time.",
-        status: "none",
-      },
     ],
   },
   {

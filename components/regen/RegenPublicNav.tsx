@@ -133,7 +133,7 @@ export function RegenPublicNav({ fixed = false }: { fixed?: boolean }) {
                 </Link>
               );
             })}
-            <p className="pt-2 text-xs font-bold uppercase tracking-[0.18em]" style={{ color: peptidesOpen ? BRAND.teal : '#6B7280' }}>
+            <p className="pt-2 text-sm font-medium" style={{ color: peptidesOpen ? BRAND.teal : '#9CA3AF' }}>
               {FORMULATION_NAV_LABEL}
             </p>
             <div className="ml-1 flex flex-col gap-2 border-l pl-3" style={{ borderColor: `${BRAND.teal}40` }}>
@@ -141,11 +141,11 @@ export function RegenPublicNav({ fixed = false }: { fixed?: boolean }) {
                 <Link
                   key={link.id}
                   href={link.href}
-                  className="text-sm font-medium text-white"
+                  className="text-sm font-medium"
+                  style={{ color: '#9CA3AF' }}
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
-                  <span className="mt-0.5 block text-xs font-normal text-white/45">{link.sub}</span>
                 </Link>
               ))}
             </div>
