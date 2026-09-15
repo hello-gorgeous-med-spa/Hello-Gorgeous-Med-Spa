@@ -614,7 +614,7 @@ When you lose significant weight, collagen and elastin fibers in your skin have 
 
 **Weight loss:** Free consultation. Same-day or next-day labs. NP-supervised Semaglutide or Tirzepatide. Weekly injections. Regular check-ins. Programs from approximately $600 for 10 weeks.
 
-**Skin tightening:** Morpheus8 Burst for face and/or body. VIP Model pricing available — Morpheus8 Burst from $799 single, $1,999 for 3-pack, $1,200 for 2 areas. We'll create a customized protocol based on your goals and timeline.
+**Skin tightening:** Morpheus8 Burst for face and/or body. VIP model spots are filled — **$500 off any area** if purchased in September or October. 0% financing through Cherry for qualified clients. We'll create a customized protocol based on your goals and timeline.
 
 **One team:** Your NP manages both. No referrals. No fragmented care. We see the whole picture.
 
@@ -644,7 +644,7 @@ Morpheus8 for body has 2–5 days of redness and pinpoint marks. Most clients re
 
 ### How much does Morpheus8 body cost in Oswego?
 
-At Hello Gorgeous, VIP Model pricing applies: Morpheus8 Burst single from $799, 3-pack $1,999, or 2 areas for $1,200. Pricing varies by area. [See our VIP Model Program](/vip-model) or [Morpheus8 service page](/services/morpheus8) for full details.
+At Hello Gorgeous, VIP model spots are filled. Purchase any area in September or October and take **$500 off**. 0% financing through Cherry for qualified clients. [See the offer](/vip-model) or [Morpheus8 service page](/services/morpheus8) for full details.
 `,
   },
   // ====================================================================
@@ -652,94 +652,78 @@ At Hello Gorgeous, VIP Model pricing applies: Morpheus8 Burst single from $799, 
   // ====================================================================
   {
     slug: "vip-model-program-complete-guide",
-    title: "VIP Model Program at Hello Gorgeous: What's Included & How to Get VIP Pricing",
-    metaTitle: "VIP Model Program | Morpheus8 & Solaria Pricing | Up to 50% Off | Hello Gorgeous",
-    metaDescription: "Only 20 spots. VIP Model Program: Morpheus8 $799, 3-pack $1,999, 2 areas $1,200. Solaria $899, Combo $1,499, Trifecta $1,999. Book a consultation to secure your spot. Oswego, IL.",
-    excerpt: "Limited to 20 clients. Up to 50% off Morpheus8 Burst, Solaria CO₂, and the Trifecta. Here's what's included, the pricing for each tier, and exactly how to secure your VIP spot.",
+    title: "VIP Model Spots Filled: $500 Off Any Area in September & October",
+    metaTitle: "$500 Off Any Area · VIP Model Spots Filled | Hello Gorgeous",
+    metaDescription: "All 20 VIP model spots are filled. $500 off any treatment area when purchased in September or October. 0% financing through Cherry for qualified clients. Oswego, IL.",
+    excerpt: "The 20 VIP model spots are fulfilled. Purchase any area in September or October and get $500 off — plus 0% financing through Cherry for qualified clients.",
     category: "Education",
     date: "2026-03-23",
     readTime: "6 min",
     keywords: ["VIP Model Program", "Morpheus8 pricing", "Solaria CO2 discount", "med spa Oswego", "50% off Morpheus8", "VIP med spa pricing", "Morpheus8 Burst Oswego"],
-    content: `# VIP Model Program at Hello Gorgeous: What's Included & How to Get VIP Pricing
+    content: `# VIP Model Spots Filled — $500 Off Any Area This Fall
 
-The VIP Model Program at Hello Gorgeous Med Spa is a limited-time promotional offering that gives you access to medical-grade skin transformation at up to 50% off retail pricing. But with only **20 spots** available, how does it work? What's included? And how do you secure your spot before pricing returns to full retail?
+**Update:** All **20 VIP model spots are filled.** Thank you to everyone who claimed a model place.
 
-Here's the complete guide.
+The current offer: **$500 off any treatment area** when you purchase in **September or October**. 0% financing is available through [Cherry](https://pay.withcherry.com/hellogorgeous?utm_source=practice&utm_medium=website&m=466&utm_campaign=vip_500_off_fall_2026) for qualified clients. Consult required. Results vary.
 
-## What Is the VIP Model Program?
+[See the live offer](/vip-model) · [Book a consult](/book) · [Apply with Cherry](https://pay.withcherry.com/hellogorgeous?utm_source=practice&utm_medium=website&m=466&utm_campaign=vip_500_off_fall_2026)
 
-We invested over $500,000 in Class 4 medical devices — Morpheus8 Burst, Solaria CO₂ Laser, and Quantum RF — so that Oswego, Naperville, Aurora, Plainfield, and the Fox Valley don't have to travel to Chicago for the best technology. The VIP Model Program is our way of introducing these treatments to our community at promotional pricing before full launch.
+## What the original VIP Model Program was
 
-**The catch:** Only 20 clients get these prices. Once filled, pricing returns to full retail. No other med spa in the area offers all three technologies under one roof — and no one else is offering this discount.
+The VIP Model Program at Hello Gorgeous Med Spa was a limited 20-spot introduction to medical-grade skin transformation. We invested over $500,000 in Class 4 medical devices — Morpheus8 Burst, Solaria CO₂ Laser, and Quantum RF — so that Oswego, Naperville, Aurora, Plainfield, and the Fox Valley don't have to travel to Chicago for this technology.
 
-## What's Included: All 6 Tiers
+Those 20 model spots are now fulfilled. If you still want in this fall, purchase any mapped area in September or October and take **$500 off**.
 
-### Tier 1 — Morpheus8 Burst (Collagen Rebuild)
-**Retail:** $1,400 → **VIP:** $799
+## What's included: treatment areas
 
-Full-face Morpheus8 Burst. Advanced RF microneedling at up to 8mm depth. Custom depth mapping, medical-grade protocol, numbing, and post-care included. Ideal for loose skin, fine lines, acne scars, jowls, and enlarged pores. Face or body.
+### Morpheus8 Burst (Collagen Rebuild)
+Full-face or body Morpheus8 Burst. Advanced RF microneedling at up to 8mm depth. Custom depth mapping, medical-grade protocol, numbing, and post-care included. Ideal for loose skin, fine lines, acne scars, jowls, and enlarged pores.
 
-### Tier 1B — Morpheus8 Burst × 3 (Best Value)
-**Retail:** $4,200 → **VIP:** $1,999
+### Solaria CO₂ Laser (Skin Resurfacing)
+Fractional CO₂ laser resurfacing. Gold standard for texture, pores, pigmentation, wrinkles, and acne scars. Full face or targeted area. Recovery protocol included.
 
-Three full Morpheus8 Burst treatments, spaced 4–6 weeks apart. Our most popular package. Apply to face, neck, or body areas. Optimal collagen remodeling for maximum results.
+### Quantum RF (Contour)
+Neck, abdomen, or a quoted body area. Tightening and subdermal contouring.
 
-### Tier 1C — Buy One Area, Get One 50% Off
-**Retail:** $2,400 → **VIP:** $1,200 (2 areas total)
+## How to get the $500 off
 
-Two treatment areas for $1,200. Face + neck, décolletage + arms, abdomen + thighs — any combination. Same Morpheus8 Burst technology.
+Purchase any treatment area in September or October 2026. Book a consultation — you pay for your treatment at the spa. The $500 comes off that area.
 
-### Tier 2 — Solaria CO₂ Laser (Skin Resurfacing)
-**Retail:** $1,600 → **VIP:** $899
-
-Fractional CO₂ laser resurfacing. Gold standard for texture, pores, pigmentation, wrinkles, and acne scars. Full face or targeted area. Recovery protocol included. No other med spa in Oswego, Naperville, Aurora, or Plainfield offers Solaria.
-
-### Tier 3 — Morpheus8 + CO₂ Combo (Total Skin Rebuild)
-**Retail:** $3,000 → **VIP:** $1,499
-
-Dual-layer transformation. Morpheus8 at depth for tightening and collagen stimulation. Solaria at the surface for resurfacing and tone. Most popular for clients who want the full package.
-
-### Tier 4 — The Trifecta
-**Retail:** $4,500 → **VIP:** $1,999
-
-Morpheus8 + Solaria CO₂ + Quantum RF. Face, neck, and body. Tightening, resurfacing, and subdermal contouring in one protocol. The most comprehensive package we offer. Quantum RF is exclusive to Hello Gorgeous in the entire western Chicago suburbs.
-
-## How to Get VIP Pricing
-
-To lock in your promotional price and secure your spot, book a consultation. There is no online deposit — you pay for your treatment at the spa.
-
-**How to secure your spot:**
+**How to lock it in:**
 - Book a consultation: [hellogorgeousmedspa.com/book](https://www.hellogorgeousmedspa.com/book)
+- Apply for 0% financing (qualified clients): [Cherry](https://pay.withcherry.com/hellogorgeous?utm_source=practice&utm_medium=website&m=466&utm_campaign=vip_500_off_fall_2026)
 - Or call: (630) 636-6193
 
-## Who Is the VIP Model Program For?
+## Who this is for
 
-- Anyone considering Morpheus8, Solaria CO₂, or the Trifecta
-- Clients who want to plan ahead — claim your spot now, schedule when ready
-- People who've lost weight and want to address loose skin (Morpheus8 for body)
+- Anyone considering Morpheus8, Solaria CO₂, or Quantum RF
+- Clients who missed the original 20 model spots
+- People who've lost weight and want to address loose skin
 - Anyone tired of driving to Naperville or Chicago for advanced treatments
 
-## What Happens After You Book?
+## What happens after you book?
 
-1. **Consultation** — Our NP evaluates your goals and skin. We'll recommend the right tier.
-2. **Schedule** — Morpheus8, Solaria, and Quantum RF (Hello Gorgeous Contour Lift™) are now booking — see Model Days on our Quantum RF page.
+1. **Consultation** — Our NP evaluates your goals and skin. We'll recommend the right area.
+2. **Purchase in September or October** — that's when the $500 off applies.
 3. **Treatment** — You pay for your service at or before your appointment.
-4. **Results** — Collagen remodeling continues for 3–6 months. Most clients see improvement within weeks.
+4. **Results** — Collagen remodeling continues for 3–6 months. Most clients see improvement within weeks. Individual results vary.
 
-## Terms to Know
+## Terms to know
 
-- **Limited to 20 clients** — Once filled, promotional pricing ends.
-- **Financing available** — Cherry and CareCredit for those who qualify. See full terms at /vip-model/terms.
+- **Model spots are filled** — the original 20-spot VIP pricing is closed.
+- **$500 off any area** — must be purchased in September or October 2026.
+- **0% financing** — Cherry options for those who qualify. Approval is not guaranteed.
+- Original program terms: [/vip-model/terms](/vip-model/terms)
 
-## Book Your Free Consultation
+## Book your consultation
 
-See which tier is right for you. Meet our team. Lock in your VIP pricing.
+See which area is right for you. Meet our team. Take $500 off if you purchase this September or October.
 
 📞 **630-636-6193**
 🌐 **hellogorgeousmedspa.com/vip-model**
 📍 **74 W Washington Street, Oswego, IL 60543**
 
-*Hello Gorgeous Med Spa — the only Oswego-area med spa with Morpheus8 Burst, Solaria CO₂, and Quantum RF. VIP pricing ends when 20 spots are filled.*`,
+*Hello Gorgeous Med Spa — Morpheus8 Burst, Solaria CO₂, and Quantum RF in Oswego. VIP model spots are filled. $500 off any area when purchased in September or October.*`,
   },
 
   // ====================================================================

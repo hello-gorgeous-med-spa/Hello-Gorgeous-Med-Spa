@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { BOOKING_URL } from "@/lib/flows";
+import { VIP_500_OFF_CAMPAIGN, VIP_500_OFF_COPY } from "@/lib/campaigns/vip-500-off-fall-2026";
 
 const PINK = "#FF2D8E";
 
@@ -157,8 +158,8 @@ export function Morpheus8SkinRebuildSection({ variant = "bestSkin" }: { variant?
             />
           </svg>
           <span className="text-white font-medium text-sm md:text-base">
-            Limited <strong style={{ color: PINK }}>VIP</strong> pricing available for{" "}
-            <strong style={{ color: PINK }}>first 20 clients only</strong>
+            All 20 VIP model spots are <strong style={{ color: PINK }}>filled</strong>
+            {" — "}$500 off any area if purchased in September or October
           </span>
         </div>
 
@@ -239,9 +240,10 @@ export function Morpheus8SkinRebuildSection({ variant = "bestSkin" }: { variant?
                   className="text-2xl md:text-3xl font-bold"
                   style={{ color: PINK }}
                 >
-                  ${card.vip.toLocaleString()}
+                  $500 off
                 </span>
               </div>
+              <p className="text-white/60 text-xs mb-6 -mt-4">If purchased in September or October</p>
               <ul className="space-y-2 mb-6">
                 {card.features.map((f) => (
                   <li
@@ -308,19 +310,21 @@ export function Morpheus8SkinRebuildSection({ variant = "bestSkin" }: { variant?
               Book Now
             </CTA>
             <Link
-              href="/vip-model"
+              href={VIP_500_OFF_CAMPAIGN.path}
               className="inline-flex items-center justify-center gap-2 py-4 px-8 border font-semibold rounded-md uppercase tracking-widest text-sm transition-all hover:-translate-y-[2px] hover:shadow-lg"
               style={{ borderColor: PINK, color: PINK }}
             >
-              View All VIP Packages
+              $500 off any area
             </Link>
-            <Link
-              href="/blog/vip-model-program-complete-guide"
+            <a
+              href={VIP_500_OFF_CAMPAIGN.cherryHref}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 py-4 px-8 border font-semibold rounded-md text-sm transition-all hover:-translate-y-[2px]"
               style={{ borderColor: "rgba(255,255,255,0.4)", color: "rgba(255,255,255,0.9)" }}
             >
-              Read: VIP Program Guide →
-            </Link>
+              {VIP_500_OFF_COPY.cherryLabel}
+            </a>
           </div>
         </div>
       </div>

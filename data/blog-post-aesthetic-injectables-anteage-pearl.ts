@@ -219,7 +219,7 @@ Injectable and regenerative medicine should never be “just a menu.” At Hello
 ## Current specials worth pairing with your plan
 
 - **[Signature Treatment Menu](/specials)** — Botox $10/unit (first-time), lip filler, Morpheus8, Solaria, Trifecta packages  
-- **[VIP Model Program](/vip-model)** — advanced device and injectable opportunities at reduced promotional pricing (limited spots)  
+- **[VIP Model — $500 off any area](/vip-model)** — all 20 model spots are filled; $500 off any area if purchased in September or October. 0% financing with Cherry for qualified clients.  
 
 ## Book your injectable or P.E.A.R.L. consult in Oswego
 

@@ -169,7 +169,7 @@ const NAV = {
         badge: "NEW",
       },
       { label: "Spring Laser Hair Special", href: "/spring-special-laser-hair", sub: "Underarms $79 · Bikini $129 · No packages", badge: "SPRING" },
-      { label: "VIP Model Program", href: "/vip-model", sub: "Up to 50% off advanced treatments — limited spots", badge: "50% OFF" },
+      { label: "VIP Model — $500 off any area", href: "/vip-model", sub: "All 20 spots filled · Sept & Oct purchase · 0% with Cherry", badge: "$500 OFF" },
       { label: "Memberships", href: "/monthly-memberships", sub: "Peptides, hormones, wellness & Vitamin Bar" },
       { label: "Free Vitamin Shot", href: "/free-vitamin", sub: "New clients only", badge: "FREE" },
       { label: "Alle Rewards", href: "/alle-botox-rewards", sub: "Earn points on Botox & Juvederm" },

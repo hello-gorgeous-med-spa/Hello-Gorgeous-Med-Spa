@@ -42,7 +42,7 @@ export default function VIPModelTermsPage() {
         <div className="max-w-3xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-xl font-bold">VIP Model Program</h1>
-            <p className="text-white/80 text-sm">Terms, Conditions & Program Description</p>
+            <p className="text-white/80 text-sm">Original 20-spot program terms (spots filled)</p>
           </div>
           <div className="flex gap-3">
             <Link
@@ -56,6 +56,14 @@ export default function VIPModelTermsPage() {
             </CTA>
           </div>
         </div>
+      </div>
+
+      <div className="bg-[#FF2D8E] text-white py-3 px-4 text-center text-sm font-semibold">
+        All 20 VIP model spots are filled. Current offer: $500 off any area if purchased in September or October —{" "}
+        <Link href="/vip-model" className="underline">
+          see the offer
+        </Link>
+        .
       </div>
 
       {/* Content */}

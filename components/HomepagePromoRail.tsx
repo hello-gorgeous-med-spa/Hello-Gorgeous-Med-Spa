@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { FALL_MAKEOVER_CONTACT, FALL_MAKEOVER_PATH } from "@/lib/campaigns/fall-makeover-2026";
+import { VIP_500_OFF_CAMPAIGN } from "@/lib/campaigns/vip-500-off-fall-2026";
 
 const INTERVAL_MS = 8000;
 
@@ -100,16 +101,17 @@ const SLIDES: Slide[] = [
     id: "signature-menu",
     badge: "Signature menu",
     line:
-      "Botox as low as $9/unit · Lip filler $450 · Morpheus8 from $799 · Solaria CO₂ $599 fall special · Trifecta with FREE CO₂.",
+      "Botox as low as $9/unit · Lip filler $450 · Morpheus8 $500 off any area (Sept–Oct) · Solaria CO₂ $599 fall special.",
     primary: { label: "View all specials", href: "/specials" },
     secondary: { label: "Book online", href: "/book" },
   },
   {
     id: "vip",
-    badge: "Limited — first 20",
+    badge: "Spots filled",
     line:
-      "Burst 8 model pricing — half off. Limited model spots · FREE Solaria CO₂ (use or gift).",
-    primary: { label: "Inquire & book", href: "/book" },
+      "All 20 VIP model spots are filled. $500 off any area if you purchase in September or October — 0% financing with Cherry.",
+    primary: { label: "See the $500 off", href: "/vip-model" },
+    secondary: { label: "Apply with Cherry", href: VIP_500_OFF_CAMPAIGN.cherryHref },
   },
   {
     id: "inmode",

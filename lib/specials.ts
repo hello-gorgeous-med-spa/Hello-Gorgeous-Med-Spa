@@ -19,6 +19,14 @@ export const SPECIALS_SEO = {
 /** Top conversion picks — shown above the full menu. */
 export const SPECIALS_FEATURED = [
   {
+    title: "VIP model spots filled — $500 off",
+    accentLine: "$500 off any area · Sept & Oct",
+    description:
+      "All 20 model spots are filled. Purchase any treatment area in September or October and take $500 off. 0% financing through Cherry for qualified clients.",
+    href: "/vip-model",
+    badge: "$500 OFF",
+  },
+  {
     title: "Solaria CO₂ fall special",
     accentLine: "$599 · recovery serum included",
     description:
@@ -130,10 +138,10 @@ export const MORE_SPECIALS_LINKS = [
     badge: "SPRING",
   },
   {
-    label: "VIP Model Program",
+    label: "VIP Model — $500 off any area",
     href: "/vip-model",
-    sub: "Up to 50% off advanced treatments — limited spots",
-    badge: "50% OFF",
+    sub: "All 20 spots filled · purchase in Sept or Oct · 0% with Cherry",
+    badge: "$500 OFF",
   },
   {
     label: "Memberships",

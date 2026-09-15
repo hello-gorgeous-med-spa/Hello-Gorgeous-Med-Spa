@@ -31,8 +31,8 @@ export function InjectablesBlogPromo({
     },
     {
       slug: "vip-model-program-complete-guide",
-      title: "VIP Model Program",
-      excerpt: "Up to 50% off Morpheus8, Solaria & Trifecta",
+      title: "VIP Model — $500 off",
+      excerpt: "All 20 spots filled. $500 off any area in Sept & Oct. 0% with Cherry.",
       icon: "✨",
     },
   ];
