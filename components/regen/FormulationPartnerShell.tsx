@@ -22,8 +22,8 @@ export function FormulationPartnerShell({
   children: ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[#f3efe6] text-[#13241f]">
-      <header className="border-b border-white/10 bg-[#0c1613]">
+    <div className="min-h-screen bg-white text-[#111111]">
+      <header className="border-b border-white/10 bg-[#0A0A0A]">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
           <Link href="/" className="flex items-center gap-3">
             <Image
@@ -40,7 +40,7 @@ export function FormulationPartnerShell({
               <Link
                 key={link.id}
                 href={link.href}
-                className={active === link.id ? "text-[#8fd4c4]" : "hover:text-white"}
+                className={active === link.id ? "text-[#0D9488]" : "hover:text-white"}
               >
                 {link.label}
               </Link>
@@ -67,7 +67,7 @@ export function FormulationPartnerShell({
             <Link
               key={link.id}
               href={link.href}
-              className={active === link.id ? "text-[#8fd4c4]" : "whitespace-nowrap hover:text-white"}
+              className={active === link.id ? "text-[#0D9488]" : "whitespace-nowrap hover:text-white"}
             >
               {link.label}
             </Link>
@@ -75,8 +75,8 @@ export function FormulationPartnerShell({
         </div>
       </header>
       {children}
-      <section className="bg-[#0c1613] py-16 text-center text-white">
-        <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#c4a36a]">
+      <section className="bg-[#0A0A0A] py-16 text-center text-white">
+        <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#0D9488]">
           Illinois practice · licensed 503A compounding
         </p>
         <h2 className="mx-auto mt-3 max-w-3xl font-serif text-4xl leading-tight sm:text-5xl">
@@ -94,19 +94,19 @@ export function FormulationPartnerShell({
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
             href={startHref}
-            className="rounded-full bg-[#c4a36a] px-6 py-3 text-sm font-bold text-[#0c1613]"
+            className="rounded-full bg-[#E91E8C] px-6 py-3 text-sm font-bold text-white"
           >
             Start a visit
           </Link>
           <Link
             href={REGEN_TELEHEALTH_PATH}
-            className="rounded-full border border-white/25 px-6 py-3 text-sm font-bold"
+            className="rounded-full border-2 border-[#0D9488] px-6 py-3 text-sm font-bold text-[#2DD4BF]"
           >
             Book a consult · {regenTelehealthPriceLabel()}
           </Link>
         </div>
       </section>
-      <footer className="border-t border-[#e7e0d4] bg-[#f3efe6] px-5 py-10 text-sm leading-relaxed text-[#6b7a75]">
+      <footer className="border-t border-[#0D9488]/15 bg-[#FAF9F6] px-5 py-10 text-sm leading-relaxed text-[#6B7280]">
         <div className="mx-auto max-w-6xl">
           <p>
             Educational information for Illinois patients. Not a substitute for independent clinical

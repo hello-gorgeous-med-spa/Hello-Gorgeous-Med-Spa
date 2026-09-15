@@ -12,6 +12,7 @@ import { LADIES_CLUB_PATH } from '@/lib/ladies-club';
 import { MEDICAL_OPTIMIZATION_PATH } from '@/lib/medical-optimization';
 import { QUIZ_HUB_PATH } from '@/lib/quiz-nav';
 import { getPublishedPeptideTopics, PEPTIDES_HUB_PATH } from '@/lib/peptides-hub';
+import { allShowcaseSlugs } from '@/lib/regen/peptide-showcase-grid';
 import { REGEN_CATEGORY_HUBS } from '@/lib/rx-category-hubs';
 import { publishedProtocolModels, RX_PROTOCOLS_PATH } from '@/lib/regen/catalog/protocol-pages';
 import { SKIN_101_GUIDES, SKIN_101_PATH } from '@/lib/skin-101-nav';
@@ -355,6 +356,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.9,
     },
+    ...allShowcaseSlugs().map((slug) => ({
+      url: `https://tryregenrx.com/peptides/${slug}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
     {
       url: `${baseUrl}/regen/sexual-health`,
       lastModified: currentDate,
