@@ -1,4 +1,8 @@
-/** Shared RE GEN × Formulation Compounding Center partner constants. */
+/**
+ * Fulfillment-partner constants.
+ * Public marketing brands RE GEN / Hello Gorgeous. Do not put the pharmacy
+ * name, Texas address, or pharmacy phone on client-facing pages.
+ */
 
 export const FORMULATION_PARTNER_NAME = "Formulation Compounding Center";
 export const FORMULATION_ADDRESS = "1511 Justin Rd, STE 106A, Lewisville, TX 75077";
@@ -14,7 +18,7 @@ export const FORMULATION_HUB_LINKS = [
     href: "/peptides",
     id: "peptides",
     label: "Peptides",
-    sub: "Legal-basis grid — what Formulation can fill",
+    sub: "Legal-basis grid — what we can lawfully compound",
   },
   {
     href: "/sexual-health",

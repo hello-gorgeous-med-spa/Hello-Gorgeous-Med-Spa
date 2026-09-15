@@ -10,6 +10,10 @@ import {
   isTryregenBundleProgram,
   tryregenBundleShippingUsd,
 } from '@/lib/regen/tryregen-bundles';
+import {
+  formulationSheetShippingUsd,
+  isFormulationSheetProgram,
+} from '@/lib/regen/formulation-client-pricing';
 import { isTirzepatideProgram, quoteTirzepatideFromRequest } from '@/lib/regen/tirzepatide-vial-pricing';
 import { isStripeWadaBlockedProgram, isStripeWadaBlockedPublicText } from '@/lib/regen/wada-public-block';
 
@@ -101,12 +105,20 @@ export async function POST(request: NextRequest) {
             quantity: item.quantity || 1,
           }));
       if (
-        (isVitaminVialProgram(program, goal) || tirzQuote || isTryregenBundleProgram(program)) &&
+        (isVitaminVialProgram(program, goal) ||
+          tirzQuote ||
+          isTryregenBundleProgram(program) ||
+          isFormulationSheetProgram(program)) &&
         !lineItems.some((i) => /shipping/i.test(i.name))
       ) {
+        const shippingAmount = isTryregenBundleProgram(program)
+          ? tryregenBundleShippingUsd()
+          : isFormulationSheetProgram(program)
+            ? formulationSheetShippingUsd()
+            : REGEN_VIAL_SHIPPING_USD;
         lineItems.push({
           name: isTryregenBundleProgram(program) ? 'Cold shipping' : 'Pharmacy shipping',
-          amount: isTryregenBundleProgram(program) ? tryregenBundleShippingUsd() : REGEN_VIAL_SHIPPING_USD,
+          amount: shippingAmount,
           quantity: 1,
         });
       }

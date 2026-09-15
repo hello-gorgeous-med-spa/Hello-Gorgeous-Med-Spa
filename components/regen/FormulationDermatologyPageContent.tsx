@@ -1,23 +1,21 @@
 import Link from "next/link";
 
 import { FormulationPartnerShell } from "@/components/regen/FormulationPartnerShell";
-import { FORMULATION_PARTNER_NAME } from "@/lib/regen/formulation-partner";
+import { FormulationShopCta } from "@/components/regen/FormulationShopCta";
 import {
   DERM_CATEGORIES,
   DERM_FORMS,
   DERM_QUALITY,
   DERM_STATS,
-  FORMULATION_DERMATOLOGY_SOURCE,
 } from "@/lib/regen/formulation-dermatology";
+import { REGEN_TELEHEALTH_PATH, regenTelehealthPriceLabel } from "@/lib/regen/telehealth-consult";
 
 export function FormulationDermatologyPageContent() {
   return (
     <FormulationPartnerShell
       active="dermatology"
       startHref="/start?goal=skincare"
-      closingHeadline="Bring dermatology compounding to a partner that actually formulates."
-      sourceLabel="formulationrx.com/dermatology"
-      sourceHref={FORMULATION_DERMATOLOGY_SOURCE}
+      closingHeadline="Dermatology compounding, written by your clinician — filled to that prescription."
     >
       <section className="relative overflow-hidden bg-[#0c1613] text-white">
         <div
@@ -30,17 +28,17 @@ export function FormulationDermatologyPageContent() {
         <div className="relative mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-[1.2fr_0.8fr] lg:py-24">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#c4a36a]">
-              RE GEN RX · in partnership with {FORMULATION_PARTNER_NAME}
+              RE GEN RX · prescription skin &amp; hair
             </p>
             <h1 className="mt-5 font-serif text-4xl font-medium leading-[1.05] tracking-tight sm:text-6xl">
               Dermatology, compounded to your{" "}
               <em className="text-[#8fd4c4]">exact prescription.</em>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
-              Specify the active, the strength, and the base — Formulation compounds it. From
-              Kligman-style brightening creams and multi-agent hair formulas to procedural
+              Specify the active, the strength, and the base — a licensed 503A pharmacy compounds
+              it. From Kligman-style brightening creams and multi-agent hair formulas to procedural
               anesthetics and rosacea care. Illinois clinician writes it. Pharmacy fills it. Shipped
-              to Oswego or to the patient.
+              to Oswego or to you.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -49,15 +47,15 @@ export function FormulationDermatologyPageContent() {
               >
                 Start a visit →
               </Link>
-              <a
-                href="#formulary"
+              <Link
+                href={REGEN_TELEHEALTH_PATH}
                 className="rounded-full border border-white/25 px-5 py-3 text-sm font-bold text-white"
               >
-                What they actually compound
-              </a>
+                Book a consult · {regenTelehealthPriceLabel()}
+              </Link>
             </div>
             <p className="mt-6 text-xs text-white/45">
-              503A compounding · patient-specific prescriptions · potency-tested
+              503A compounding · patient-specific prescriptions · from-prices plus shipping
             </p>
           </div>
           <aside className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
@@ -78,12 +76,12 @@ export function FormulationDermatologyPageContent() {
           The formulary · real formulations, not filler
         </p>
         <h2 className="mt-3 font-serif text-4xl leading-tight sm:text-5xl">
-          What Formulation actually compounds for dermatology.
+          What we actually compound for dermatology.
         </h2>
         <p className="mt-4 max-w-3xl text-lg text-[#3d524c]">
           A working snapshot of what dermatology and aesthetics clinicians order today. Every formula
           is compounded to a valid, patient-specific prescription — and every strength here can be
-          adjusted. Confirm at prescribing time.
+          adjusted. Confirm at prescribing time. Prices are starting points plus shipping.
         </p>
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
           {DERM_CATEGORIES.map((cat) => (
@@ -99,6 +97,7 @@ export function FormulationDermatologyPageContent() {
                 ))}
               </ul>
               <p className="mt-4 text-xs font-bold uppercase tracking-wide text-[#c4a36a]">{cat.note}</p>
+              {cat.shopId ? <FormulationShopCta id={cat.shopId} /> : null}
             </article>
           ))}
         </div>
@@ -111,9 +110,9 @@ export function FormulationDermatologyPageContent() {
             <em className="text-[#8fd4c4]">compound.</em>
           </h2>
           <p className="mt-4 max-w-3xl text-lg text-white/70">
-            Commercial products come in fixed strengths and vehicles. Formulation builds the
-            medication around the patient — combining actives into a single application, tuning
-            concentrations, and selecting the base that gets the drug where it needs to go.
+            Commercial products come in fixed strengths and vehicles. We build the medication around
+            the patient — combining actives into a single application, tuning concentrations, and
+            selecting the base that gets the drug where it needs to go.
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {DERM_FORMS.map((f) => (
@@ -144,12 +143,12 @@ export function FormulationDermatologyPageContent() {
         <div className="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-2">
           <div>
             <h2 className="font-serif text-4xl leading-tight">
-              Order what’s carried — after the clinician writes it.
+              Request what’s carried — after the clinician writes it.
             </h2>
             <p className="mt-4 text-lg text-[#3d524c]">
               RE GEN starts the visit. A licensed Illinois clinician chooses the active, strength,
-              and plan. Formulation compounds it on FormuConnect — no faxes, no phone tag. If an
-              active is not compoundable, we will not pretend it is.
+              and plan. If it is appropriate, you pay the invoice and a licensed 503A pharmacy
+              compounds it. If an active is not compoundable, we will not pretend it is.
             </p>
             <ul className="mt-6 space-y-3 font-semibold text-[#13241f]">
               <li>✓ Live catalog: patient, product, strength, ship-to.</li>
@@ -176,13 +175,13 @@ export function FormulationDermatologyPageContent() {
               How we answer it
             </p>
             <p className="mt-4 rounded-2xl bg-white/10 p-4 text-sm">
-              What hydroquinone strengths does Formulation carry for melasma, and what’s a good base?
+              What hydroquinone strengths do you carry for melasma, and what’s a good base?
             </p>
             <p className="mt-3 rounded-2xl bg-[#8fd4c4]/15 p-4 text-sm leading-relaxed text-white/90">
-              Formulation compounds hydroquinone from 2% up to 13%, including tri-agent brightening
-              creams with tretinoin, azelaic, and kojic acid. For melasma, an elegant milled cream
-              base is typical. The licensed Illinois clinician picks the regimen — we confirm the live
-              catalog and the base with the pharmacist before it ships.
+              We compound hydroquinone from 2% up to 13%, including tri-agent brightening creams with
+              tretinoin, azelaic, and kojic acid. For melasma, an elegant milled cream base is
+              typical. The licensed Illinois clinician picks the regimen — we confirm the live
+              catalog and the base before it ships.
             </p>
             <p className="mt-4 text-[11px] text-white/40">
               General reference only · not individualized medical advice · confirm at prescribing

@@ -29,8 +29,8 @@ const CATEGORIES = [
   {
     id: 'peptides',
     title: 'Peptides',
-    subtitle: 'Formulation 503A · legal basis',
-    description: 'The straight answer, peptide by peptide — what Formulation can lawfully compound, what is still under FDA review, and how RE GEN orders only what is carried.',
+    subtitle: '503A · legal basis',
+    description: 'The straight answer, peptide by peptide — what we can lawfully compound, what is still under FDA review, and how RE GEN orders only what is carried.',
     icon: '🧬',
     href: '/peptides',
     topics: ['503A legal bases', 'Sermorelin · Tesamorelin · PT-141', 'Why BPC-157 is not available yet', 'How a visit works'],
@@ -49,7 +49,7 @@ const CATEGORIES = [
   {
     id: 'skincare',
     title: 'Dermatology',
-    subtitle: 'Formulation 503A · compounded Rx',
+    subtitle: '503A · compounded Rx',
     description: 'Brightening, acne and rosacea, hair restoration, procedural anesthesia, and custom bases — compounded to the prescription a licensed Illinois clinician writes.',
     icon: '✨',
     href: '/dermatology',
@@ -79,7 +79,7 @@ const CATEGORIES = [
   {
     id: 'sexual-health',
     title: 'Sexual Wellness',
-    subtitle: 'Formulation 503A · men & women',
+    subtitle: '503A · men & women',
     description: 'Custom strengths, combinations, and routes when a pill is not enough — oral, injectable, topical, and needle-free options for men and women.',
     icon: '💗',
     href: '/sexual-health',
@@ -90,7 +90,7 @@ const CATEGORIES = [
 
 const TRUST_POINTS = [
   { icon: '🏥', title: 'Licensed Providers', desc: 'Illinois FPA Nurse Practitioner with MD oversight' },
-  { icon: '💊', title: '503A Compounding Pharmacy', desc: 'Formulation Rx — licensed, inspected, compliant' },
+  { icon: '💊', title: '503A Compounding Pharmacy', desc: 'US-licensed, inspected, compliant' },
   { icon: '📋', title: 'Real Prescriptions', desc: 'Legitimate telehealth — not research chemicals' },
   { icon: '🔒', title: 'HIPAA Compliant', desc: 'Your health information is protected' },
 ];

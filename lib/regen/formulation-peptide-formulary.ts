@@ -1,24 +1,10 @@
 /**
- * RE GEN RX × Formulation Compounding Center — peptide legal grid.
- * Status is educational, for Illinois patients and the RE GEN care team.
- * Confirm live eligibility with Formulation / FormuConnect before any order.
- * Source frame: Formulation Compounding Center public peptide page, July 2026.
+ * RE GEN RX peptide legal grid — educational, for Illinois patients.
+ * Status is what a licensed 503A pharmacy can lawfully compound today.
+ * Confirm live eligibility before any order. A PCAC vote is not a green light.
  */
 
-import {
-  FORMULATION_ADDRESS,
-  FORMULATION_PARTNER_NAME,
-  FORMULATION_PHONE,
-} from "@/lib/regen/formulation-partner";
-
-export {
-  FORMULATION_ADDRESS,
-  FORMULATION_PARTNER_NAME,
-  FORMULATION_PHONE,
-};
-
 export const FORMULATION_PEPTIDE_REVIEWED = "July 2026" as const;
-export const FORMULATION_PEPTIDES_SOURCE = "https://formulationrx.com/peptides/";
 
 export type PeptideLegalStatus = "lawful" | "review" | "none";
 
@@ -70,7 +56,7 @@ export type FormularyCard = {
   badge: string;
   blurb: string;
   forms: string;
-  startHref: string;
+  shopId: "sermorelin" | "tesamorelin" | "pt-141" | "oxytocin" | "glutathione" | "ghk-cu";
 };
 
 export const FORMULARY_MAINSTAYS: FormularyCard[] = [
@@ -78,9 +64,9 @@ export const FORMULARY_MAINSTAYS: FormularyCard[] = [
     name: "Sermorelin",
     badge: "Approved-drug-component pathway",
     blurb:
-      "A growth-hormone-releasing hormone analog that signals the body’s own GH release rather than replacing it. Formulation’s most-prescribed peptide, in the routes patients actually use.",
+      "A growth-hormone-releasing hormone analog that signals the body’s own GH release rather than replacing it. Our most-requested peptide, in the routes patients actually use.",
     forms: "Injection 1 & 1.5 mg/mL · sublingual troches, RDTs & triturates 0.5 mg · combinations when prescribed",
-    startHref: "/start?goal=energy&peptide=sermorelin",
+    shopId: "sermorelin",
   },
   {
     name: "Tesamorelin",
@@ -88,7 +74,7 @@ export const FORMULARY_MAINSTAYS: FormularyCard[] = [
     blurb:
       "A GHRH analog with an FDA-approved reference product — compounded only where a documented, patient-specific clinical difference applies.",
     forms: "Sterile injection 5 mg/mL · single- and multi-vial supplies",
-    startHref: "/start?goal=energy&peptide=tesamorelin",
+    shopId: "tesamorelin",
   },
   {
     name: "PT-141 (Bremelanotide)",
@@ -96,21 +82,21 @@ export const FORMULARY_MAINSTAYS: FormularyCard[] = [
     blurb:
       "A melanocortin-receptor agonist used in sexual-health protocols. Injectable and needle-free forms when a licensed Illinois clinician decides it is appropriate.",
     forms: "Injection 2 mg/mL · sublingual and nasal combinations",
-    startHref: "/start?goal=sexual-health&peptide=pt-141",
+    shopId: "pt-141",
   },
   {
     name: "Oxytocin",
     badge: "Monograph / approved-drug basis",
     blurb: "Compounded in needle-free troche, sublingual, and nasal forms for clinician-directed protocols.",
     forms: "Troches, sublingual RDTs & nasal spray",
-    startHref: "/start?goal=sexual-health",
+    shopId: "oxytocin",
   },
   {
     name: "Glutathione",
     badge: "Monograph / bulks framework",
     blurb: "The body’s primary antioxidant, compounded in injectable and oral forms for wellness and adjunctive protocols.",
     forms: "Injectable 200 mg/mL · oral troches",
-    startHref: "/start?goal=energy&program=radiance",
+    shopId: "glutathione",
   },
   {
     name: "GHK-Cu (topical)",
@@ -118,7 +104,7 @@ export const FORMULARY_MAINSTAYS: FormularyCard[] = [
     blurb:
       "The copper tripeptide for skin and scalp — compounded topically, where it has an eligible route. Injectable GHK-Cu is not covered under this pathway.",
     forms: "Topical solution, foam & cream · sublingual triturates",
-    startHref: "/start?goal=skincare",
+    shopId: "ghk-cu",
   },
 ];
 

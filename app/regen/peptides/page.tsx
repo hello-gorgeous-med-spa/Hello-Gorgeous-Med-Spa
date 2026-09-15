@@ -5,7 +5,7 @@ import { FORMULATION_PEPTIDE_REVIEWED } from "@/lib/regen/formulation-peptide-fo
 
 const TITLE = "Compounded peptides with a legal basis";
 const DESCRIPTION =
-  "RE GEN RX partners with Formulation Compounding Center, a LegitScript-certified 503A pharmacy. See which peptides have a lawful pathway — and which do not — before you start a visit.";
+  "RE GEN RX compounded peptides in Oswego, Illinois. See which peptides have a lawful 503A pathway — and which do not — then start a visit with a licensed Illinois clinician.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -42,11 +42,6 @@ export default function RegenPeptidesPage() {
         addressRegion: "IL",
         postalCode: "60543",
       },
-    },
-    mention: {
-      "@type": "Organization",
-      name: "Formulation Compounding Center",
-      url: "https://formulationrx.com/peptides/",
     },
     lastReviewed: FORMULATION_PEPTIDE_REVIEWED,
   };

@@ -1,4 +1,4 @@
-export const FORMULATION_DERMATOLOGY_SOURCE = "https://formulationrx.com/dermatology/";
+import type { FormulationShopId } from "@/lib/regen/formulation-client-pricing";
 
 export const DERM_STATS = [
   {
@@ -20,6 +20,7 @@ export type DermCategory = {
   body: string;
   items: string[];
   note: string;
+  shopId?: FormulationShopId;
 };
 
 export const DERM_CATEGORIES: DermCategory[] = [
@@ -34,6 +35,7 @@ export const DERM_CATEGORIES: DermCategory[] = [
       "Sensitive (HQ-free) — kojic / niacinamide / tranexamic, anhydrous",
     ],
     note: "Custom HQ 2%–13% · kojic / azelaic / tranexamic blends",
+    shopId: "cleartone",
   },
   {
     title: "Acne & rosacea",
@@ -46,10 +48,11 @@ export const DERM_CATEGORIES: DermCategory[] = [
       "Custom clindamycin, benzoyl peroxide, dapsone & sulfur blends to Rx",
     ],
     note: "Single-compound combinations · non-antibiotic options",
+    shopId: "clarity",
   },
   {
     title: "Hair restoration",
-    body: "Formulation’s deepest dermatology category — oral, topical, and intradermal routes so a plan can escalate without switching pharmacies.",
+    body: "Oral, topical, and intradermal routes so a plan can escalate without switching pharmacies.",
     items: [
       "Minoxidil / finasteride / arginine topical solution",
       "Minoxidil / dutasteride / spironolactone / tretinoin / ketoconazole / hydrocortisone",
@@ -58,6 +61,7 @@ export const DERM_CATEGORIES: DermCategory[] = [
       "Oral hair capsules · GHK-Cu foam & solution",
     ],
     note: "Oral · topical solution · intradermal · foam",
+    shopId: "fin-minox-solution",
   },
   {
     title: "Procedural & topical anesthesia",
@@ -70,6 +74,7 @@ export const DERM_CATEGORIES: DermCategory[] = [
       "Bulk clinic sizes — 60 g up to 300 g",
     ],
     note: "Penetration-enhancing bases for laser & device work",
+    shopId: "blt",
   },
   {
     title: "Anti-aging & skin health",
@@ -82,6 +87,7 @@ export const DERM_CATEGORIES: DermCategory[] = [
       "Custom tretinoin strengths & combination retinoid regimens",
     ],
     note: "Pharmaceutically elegant · patient-specific strengths",
+    shopId: "ghk-cu",
   },
   {
     title: "Antifungal, wound & everyday derm",
@@ -93,7 +99,7 @@ export const DERM_CATEGORIES: DermCategory[] = [
       "Corticosteroid creams — custom potencies",
       "All-purpose nipple ointment (APNO) & pediatric-friendly bases",
     ],
-    note: "If it is compoundable to a valid Rx, Formulation will make it",
+    note: "If it is compoundable to a valid Rx, we will make it",
   },
 ];
 
@@ -112,7 +118,7 @@ export const DERM_QUALITY = [
   },
   {
     title: "Intradermal, in-house",
-    body: "Preservative-free intradermal minoxidil and dutasteride for hair mesotherapy are compounded under Formulation’s sterile process — not outsourced.",
+    body: "Preservative-free intradermal minoxidil and dutasteride for hair mesotherapy are compounded under a sterile 503A process — not gray-market vials.",
   },
   {
     title: "Potency-tested",

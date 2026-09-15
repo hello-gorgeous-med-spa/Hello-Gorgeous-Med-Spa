@@ -351,10 +351,18 @@ export function getTreatmentCategory(programId: string): TreatmentCategory {
     'nad-sermorelin': 'peptides',
     'radiance': 'vitamin-injectables',
     'bundles': 'vitamin-injectables',
+    'sermorelin': 'peptides',
+    'tesamorelin': 'peptides',
     
     // Sexual wellness
     'ed': 'sexual-wellness',
     'libido-women': 'sexual-wellness',
+    'pt-141': 'sexual-wellness',
+    'oxytocin': 'sexual-wellness',
+    'sildenafil-apo': 'sexual-wellness',
+    'ici': 'sexual-wellness',
+    'scream-cream': 'sexual-wellness',
+    'estriol': 'sexual-wellness',
     
     // Vitamins
     'b12': 'vitamin-injectables',
@@ -371,6 +379,7 @@ export function getTreatmentCategory(programId: string): TreatmentCategory {
     'clarity': 'prescription-skincare',
     'refine-pm': 'prescription-skincare',
     'lumineye': 'prescription-skincare',
+    'blt': 'prescription-skincare',
     
     // Hair
     'fin-minox-foam': 'hair-restoration',

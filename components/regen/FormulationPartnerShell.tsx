@@ -3,29 +3,22 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import {
-  FORMULATION_ADDRESS,
   FORMULATION_HUB_LINKS,
-  FORMULATION_PARTNER_NAME,
-  FORMULATION_PHONE,
-  FORMULATION_PROVIDERS_URL,
   REGEN_DESK_PHONE,
   REGEN_STREET,
   type FormulationHubId,
 } from "@/lib/regen/formulation-partner";
+import { REGEN_TELEHEALTH_PATH, regenTelehealthPriceLabel } from "@/lib/regen/telehealth-consult";
 
 export function FormulationPartnerShell({
   active,
   startHref,
   closingHeadline,
-  sourceLabel,
-  sourceHref,
   children,
 }: {
   active: FormulationHubId;
   startHref: string;
   closingHeadline: string;
-  sourceLabel: string;
-  sourceHref: string;
   children: ReactNode;
 }) {
   return (
@@ -53,7 +46,7 @@ export function FormulationPartnerShell({
               </Link>
             ))}
             <Link href="/safety" className="hover:text-white">
-              Pharmacy
+              Safety
             </Link>
             <Link
               href={startHref}
@@ -84,15 +77,19 @@ export function FormulationPartnerShell({
       {children}
       <section className="bg-[#0c1613] py-16 text-center text-white">
         <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#c4a36a]">
-          Illinois practice · Texas 503A pharmacy
+          Illinois practice · licensed 503A compounding
         </p>
         <h2 className="mx-auto mt-3 max-w-3xl font-serif text-4xl leading-tight sm:text-5xl">
           {closingHeadline}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-white/70">
-          {FORMULATION_ADDRESS}
+          Hello Gorgeous PC · {REGEN_STREET}
           <br />
-          {FORMULATION_PHONE} · RE GEN desk {REGEN_DESK_PHONE} · {REGEN_STREET}
+          RE GEN desk {REGEN_DESK_PHONE}
+        </p>
+        <p className="mx-auto mt-3 max-w-xl text-sm text-white/50">
+          Start a visit, a licensed Illinois clinician reviews, then you pay the invoice. If they
+          don&apos;t prescribe, we refund.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
@@ -101,31 +98,22 @@ export function FormulationPartnerShell({
           >
             Start a visit
           </Link>
-          <a
-            href={FORMULATION_PROVIDERS_URL}
+          <Link
+            href={REGEN_TELEHEALTH_PATH}
             className="rounded-full border border-white/25 px-6 py-3 text-sm font-bold"
-            target="_blank"
-            rel="noreferrer"
           >
-            Formulation for prescribers ↗
-          </a>
+            Book a consult · {regenTelehealthPriceLabel()}
+          </Link>
         </div>
       </section>
       <footer className="border-t border-[#e7e0d4] bg-[#f3efe6] px-5 py-10 text-sm leading-relaxed text-[#6b7a75]">
         <div className="mx-auto max-w-6xl">
           <p>
-            Educational information for Illinois patients and licensed clinicians. Not a substitute
-            for independent clinical or legal judgment. Compounded medications are not FDA-approved.
-            A request is a consult — not a guaranteed prescription. {FORMULATION_PARTNER_NAME} is a
-            LegitScript-certified 503A pharmacy. RE GEN RX is the prescription door of Hello Gorgeous
-            Med Spa (Hello Gorgeous PC), Oswego, Illinois.
-          </p>
-          <p className="mt-3">
-            Formulary snapshot summarized from Formulation’s public reference (
-            <a className="font-semibold text-[#0f766e] underline" href={sourceHref}>
-              {sourceLabel}
-            </a>
-            ). Confirm current eligibility, strength, and base with the pharmacy before any order.
+            Educational information for Illinois patients. Not a substitute for independent clinical
+            judgment. Compounded medications are prepared by a US-licensed 503A compounding pharmacy
+            and are not FDA-approved. A request is a consult — not a guaranteed prescription. RE GEN
+            RX is the prescription door of Hello Gorgeous Med Spa (Hello Gorgeous PC), Oswego,
+            Illinois.
           </p>
         </div>
       </footer>

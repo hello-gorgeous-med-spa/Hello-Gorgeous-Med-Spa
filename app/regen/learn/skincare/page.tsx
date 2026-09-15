@@ -144,7 +144,7 @@ export default function SkincareLearnPage() {
           >
             <span aria-hidden>◆</span>
             <span>
-              <strong style={{ color: BRAND.teal }}>New: dermatology compounded to Rx.</strong> See what Formulation actually compounds — brightening, acne, hair, and in-office BLT.
+              <strong style={{ color: BRAND.teal }}>New: dermatology compounded to Rx.</strong> See what we actually compound — brightening, acne, hair, and in-office BLT.
             </span>
           </Link>
           <div className="flex items-center gap-4 mb-4">

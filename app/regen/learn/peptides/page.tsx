@@ -81,7 +81,7 @@ export default function PeptidesLearnPage() {
           >
             <span aria-hidden>◆</span>
             <span>
-              <strong style={{ color: BRAND.teal }}>New: compounded peptides with a legal basis.</strong> See which peptides Formulation can fill today — and which have no lawful pathway yet.
+              <strong style={{ color: BRAND.teal }}>New: compounded peptides with a legal basis.</strong> See which peptides we can fill today — and which have no lawful pathway yet.
             </span>
           </Link>
           <div className="flex items-center gap-4 mb-4">

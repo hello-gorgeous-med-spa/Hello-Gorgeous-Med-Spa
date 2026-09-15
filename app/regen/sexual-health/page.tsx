@@ -4,7 +4,7 @@ import { FormulationSexualHealthPageContent } from "@/components/regen/Formulati
 
 const TITLE = "Intimate health, individualized";
 const DESCRIPTION =
-  "RE GEN RX partners with Formulation Compounding Center for men’s and women’s sexual-health compounds — custom strengths, combinations, and routes when a licensed Illinois clinician decides it is appropriate.";
+  "RE GEN RX sexual-health compounds for men and women in Oswego, Illinois — custom strengths, combinations, and routes when a licensed Illinois clinician decides it is appropriate.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -31,11 +31,6 @@ export default function RegenSexualHealthPage() {
     publisher: {
       "@type": "MedicalBusiness",
       name: "RE GEN RX · Hello Gorgeous Med Spa",
-    },
-    mention: {
-      "@type": "Organization",
-      name: "Formulation Compounding Center",
-      url: "https://formulationrx.com/sexual-health/",
     },
   };
 

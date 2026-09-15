@@ -1,15 +1,16 @@
 import Link from "next/link";
 
 import { FormulationPartnerShell } from "@/components/regen/FormulationPartnerShell";
-import { FORMULATION_PARTNER_NAME } from "@/lib/regen/formulation-partner";
+import { FormulationShopCta } from "@/components/regen/FormulationShopCta";
 import {
   COPY_RULE_POINTS,
   FORMULATION_PEPTIDE_REVIEWED,
-  FORMULATION_PEPTIDES_SOURCE,
   FORMULARY_MAINSTAYS,
   PCAC_JULY_2026,
   PEPTIDE_LEGAL_ROWS,
 } from "@/lib/regen/formulation-peptide-formulary";
+import { formulationStartHref } from "@/lib/regen/formulation-client-pricing";
+import { REGEN_TELEHEALTH_PATH, regenTelehealthPriceLabel } from "@/lib/regen/telehealth-consult";
 
 const STATUS_STYLE = {
   lawful: { bg: "bg-emerald-50", text: "text-emerald-800", mark: "✓" },
@@ -22,9 +23,7 @@ export function FormulationPeptidesPageContent() {
     <FormulationPartnerShell
       active="peptides"
       startHref="/start?goal=energy"
-      closingHeadline="Partnered with a compliance-first peptide pharmacy."
-      sourceLabel="formulationrx.com/peptides"
-      sourceHref="https://formulationrx.com/peptides/"
+      closingHeadline="Illinois clinician first. A licensed 503A pharmacy fills what they prescribe."
     >
       <section className="relative overflow-hidden bg-[#0c1613] text-white">
         <div
@@ -37,7 +36,7 @@ export function FormulationPeptidesPageContent() {
         <div className="relative mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-[1.2fr_0.8fr] lg:py-24">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#c4a36a]">
-              RE GEN RX · in partnership with {FORMULATION_PARTNER_NAME}
+              RE GEN RX · compounded peptides
             </p>
             <h1 className="mt-5 font-serif text-4xl font-medium leading-[1.05] tracking-tight sm:text-6xl">
               Compounded peptides — with the{" "}
@@ -45,9 +44,9 @@ export function FormulationPeptidesPageContent() {
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
               Peptide therapy is the fastest-moving corner of compounding, and the most confused.
-              RE GEN only sends Formulation a peptide where a documented §503A basis exists — and
-              we will show you that basis. Research-chemical shops cannot. A real Illinois practice,
-              filling through a LegitScript-certified 503A pharmacy.
+              RE GEN only requests a peptide where a documented §503A basis exists — and we will show
+              you that basis. Research-chemical shops cannot. A real Illinois practice, filling
+              through a licensed 503A pharmacy.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -56,15 +55,16 @@ export function FormulationPeptidesPageContent() {
               >
                 Start a visit →
               </Link>
-              <a
-                href="#status"
+              <Link
+                href={REGEN_TELEHEALTH_PATH}
                 className="rounded-full border border-white/25 px-5 py-3 text-sm font-bold text-white"
               >
-                Where every peptide stands
-              </a>
+                Book a consult · {regenTelehealthPriceLabel()}
+              </Link>
             </div>
             <p className="mt-6 text-xs text-white/45">
-              Reviewed with Formulation’s public peptide grid · Updated {FORMULATION_PEPTIDE_REVIEWED}
+              Legal-basis grid updated {FORMULATION_PEPTIDE_REVIEWED} · from-prices plus shipping · a
+              clinician still decides
             </p>
           </div>
           <aside className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
@@ -78,14 +78,13 @@ export function FormulationPeptidesPageContent() {
               <div>
                 <dt className="font-serif text-2xl text-[#8fd4c4]">{FORMULATION_PEPTIDE_REVIEWED}</dt>
                 <dd className="mt-1 text-sm text-white/70">
-                  PCAC recommended 6 of 7 reviewed peptides — Formulation adds on confirmation, not
-                  on a vote
+                  PCAC recommended 6 of 7 reviewed peptides — we add on confirmation, not on a vote
                 </dd>
               </div>
               <div>
                 <dt className="font-serif text-2xl text-[#8fd4c4]">Sterile &amp; tested</dt>
                 <dd className="mt-1 text-sm text-white/70">
-                  What they carry is potency-tested and defensible — never research-chemical sourced
+                  What we carry is potency-tested and defensible — never research-chemical sourced
                 </dd>
               </div>
             </dl>
@@ -98,12 +97,12 @@ export function FormulationPeptidesPageContent() {
           <p className="font-serif text-2xl leading-snug text-[#13241f] sm:text-3xl">
             Products sold online as “research peptides,” clinic vials of uncertain origin, and
             shifting FDA guidance have left people unsure what a pharmacy can{" "}
-            <em className="text-[#0f766e]">lawfully</em> prepare. Formulation compounds only where
-            a documented legal basis exists — and they will not compound a substance that lacks a
-            lawful pathway, no matter the demand. RE GEN follows that same line.
+            <em className="text-[#0f766e]">lawfully</em> prepare. We only request a peptide where a
+            documented legal basis exists — and we will not request a substance that lacks a lawful
+            pathway, no matter the demand.
           </p>
           <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.18em] text-[#c4a36a]">
-            ◆ LegitScript-certified · §503A patient-specific compounding · sterile &amp; potency-tested
+            ◆ Licensed 503A compounding · patient-specific · sterile &amp; potency-tested
           </p>
         </div>
       </section>
@@ -194,8 +193,9 @@ export function FormulationPeptidesPageContent() {
             The straight answer, peptide by peptide.
           </h2>
           <p className="mt-4 max-w-3xl text-lg text-[#3d524c]">
-            This is the grid RE GEN uses with Formulation. Status can change as FDA acts — we
-            confirm the current basis before a prescription is sent.
+            This is the grid RE GEN uses. Status can change as FDA acts — we confirm the current
+            basis before a prescription is sent. Peptides without a lawful pathway are not
+            orderable.
           </p>
           <div className="mt-8 overflow-x-auto rounded-3xl bg-white ring-1 ring-[#e7e0d4]">
             <table className="w-full min-w-[720px] text-left text-sm">
@@ -238,8 +238,9 @@ export function FormulationPeptidesPageContent() {
           A formulary you can defend — with the basis beside every item.
         </h2>
         <p className="mt-4 max-w-3xl text-lg text-[#3d524c]">
-          Here are Formulation’s peptide mainstays. If it is not on their live catalog, RE GEN will
-          not pretend it is available — no matter what Instagram says.
+          Here are the peptide mainstays we can actually request. Prices start from the listed
+          amount plus shipping. A licensed Illinois clinician still decides. If it is not on the
+          live catalog, we will not pretend it is available — no matter what Instagram says.
         </p>
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {FORMULARY_MAINSTAYS.map((card) => (
@@ -252,9 +253,7 @@ export function FormulationPeptidesPageContent() {
               </div>
               <p className="mt-3 text-[#3d524c]">{card.blurb}</p>
               <p className="mt-4 text-sm font-semibold text-[#13241f]">{card.forms}</p>
-              <Link href={card.startHref} className="mt-4 inline-block text-sm font-bold text-[#E91E8C]">
-                Request a visit →
-              </Link>
+              <FormulationShopCta id={card.shopId} />
             </article>
           ))}
         </div>
@@ -300,15 +299,15 @@ export function FormulationPeptidesPageContent() {
               </li>
               <li>
                 <strong className="text-[#8fd4c4]">✓ We add on confirmation, not on a vote.</strong>{" "}
-                If FDA lists a peptide or issues written discretion, Formulation will add it — with
-                its documented basis, and not before.
+                If FDA lists a peptide or issues written discretion, we will add it — with its
+                documented basis, and not before.
               </li>
             </ol>
           </div>
           <p className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm leading-relaxed text-white/70">
             Bottom line: the compounding status of those six has not changed — they are not
-            orderable from Formulation today. What changed is a realistic path forward, pending FDA
-            action. The live catalog is the source of truth for what RE GEN can send.
+            orderable today. What changed is a realistic path forward, pending FDA action. The live
+            catalog is the source of truth for what RE GEN can send.
           </p>
         </div>
       </section>
@@ -319,8 +318,7 @@ export function FormulationPeptidesPageContent() {
         </h2>
         <p className="mt-4 max-w-3xl text-lg text-[#3d524c]">
           For peptides we actually carry, start with our education hub. Claims should be cited, not
-          asserted. Formulation’s learning center links primary sources; RE GEN will not promise
-          outcomes.
+          asserted. RE GEN will not promise outcomes.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
@@ -329,14 +327,12 @@ export function FormulationPeptidesPageContent() {
           >
             RE GEN peptide education
           </Link>
-          <a
-            href={FORMULATION_PEPTIDES_SOURCE}
+          <Link
+            href="/safety"
             className="rounded-full border border-[#13241f] px-5 py-3 text-sm font-bold"
-            target="_blank"
-            rel="noreferrer"
           >
-            Formulation’s peptide page ↗
-          </a>
+            Safety &amp; compounding
+          </Link>
         </div>
       </section>
 
@@ -344,21 +340,21 @@ export function FormulationPeptidesPageContent() {
         <div className="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-2">
           <div>
             <h2 className="font-serif text-4xl leading-tight">
-              Order what’s carried — Illinois clinician first, pharmacy second.
+              Request what’s carried — Illinois clinician first.
             </h2>
             <p className="mt-4 text-lg text-[#3d524c]">
               Patients start a visit with RE GEN. A licensed Illinois clinician decides. If a
-              peptide is appropriate <em>and</em> Formulation can lawfully compound it, the order
-              goes to FormuConnect. If it is not carried, it is not available — regardless of the
-              noise online.
+              peptide is appropriate <em>and</em> a licensed 503A pharmacy can lawfully compound it,
+              you pay the invoice and it ships. If it is not carried, it is not available —
+              regardless of the noise online.
             </p>
             <ul className="mt-6 space-y-3 font-semibold text-[#13241f]">
-              <li>✓ Start in minutes — free to submit, $49 consult if you move forward.</li>
+              <li>✓ Intake in minutes — then pay only if prescribed (or we refund).</li>
               <li>✓ Ask whether a peptide is even compoundable yet. We will tell you no.</li>
               <li>✓ Catalog is the source of truth. No gray-market vials.</li>
             </ul>
             <Link
-              href="/start?goal=energy"
+              href={formulationStartHref("sermorelin")}
               className="mt-8 inline-block rounded-full bg-[#E91E8C] px-6 py-3 text-sm font-bold text-white"
             >
               Start at tryregenrx.com/start
@@ -371,15 +367,14 @@ export function FormulationPeptidesPageContent() {
             <p className="mt-4 rounded-2xl bg-white/10 p-4 text-sm">Can you compound BPC-157 for me?</p>
             <p className="mt-3 rounded-2xl bg-[#8fd4c4]/15 p-4 text-sm leading-relaxed text-white/90">
               Not yet. BPC-157 has no lawful §503A pathway today. FDA’s advisory committee
-              recommended it for the bulks list in July 2026, but FDA has not acted, so Formulation
-              cannot compound it. If the goal is recovery support, we can show you what is currently
+              recommended it for the bulks list in July 2026, but FDA has not acted, so it cannot be
+              compounded. If the goal is recovery support, we can show you what is currently
               carried and its legal basis — then a licensed Illinois clinician decides if any of it
               is right for you.
             </p>
             <p className="mt-4 text-[11px] text-white/40">
-              RE GEN RX · Formulation Compounding Center · regulatory status as of{" "}
-              {FORMULATION_PEPTIDE_REVIEWED} · confirm before prescribing · not legal or medical
-              advice
+              RE GEN RX · regulatory status as of {FORMULATION_PEPTIDE_REVIEWED} · confirm before
+              prescribing · not legal or medical advice
             </p>
           </div>
         </div>

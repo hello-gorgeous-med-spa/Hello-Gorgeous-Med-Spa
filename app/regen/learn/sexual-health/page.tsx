@@ -125,7 +125,7 @@ export default function SexualHealthLearnPage() {
           >
             <span aria-hidden>◆</span>
             <span>
-              <strong style={{ color: BRAND.teal }}>New: intimate health, individualized.</strong> See the Formulation routes for men and women — oral, injectable, topical, and needle-free.
+              <strong style={{ color: BRAND.teal }}>New: intimate health, individualized.</strong> See the routes for men and women — oral, injectable, topical, and needle-free.
             </span>
           </Link>
           <div className="flex items-center gap-4 mb-4">

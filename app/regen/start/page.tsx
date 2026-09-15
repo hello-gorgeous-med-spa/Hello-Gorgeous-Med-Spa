@@ -6,6 +6,12 @@ import { useSearchParams } from 'next/navigation';
 import { TREATMENT_CONSENTS, getTreatmentCategory, CONSENT_VERSION, type TreatmentCategory } from '@/lib/regen/informed-consent';
 import { formatUsd, isVitaminVialProgram, REGEN_VIAL_SHIPPING_USD, vitaminVialRetailUsd } from '@/lib/regen/vitamin-vial-pricing';
 import {
+  formulationSheetShippingUsd,
+  formulationShopRetail,
+  isFormulationSheetProgram,
+  resolveFormulationProgramParam,
+} from '@/lib/regen/formulation-client-pricing';
+import {
   TRYREGEN_BUNDLES,
   TRYREGEN_BUNDLES_LEGAL,
   isTryregenBundleProgram,
@@ -44,8 +50,15 @@ const BRAND = {
 
 function programPriceSuffix(program: { id: string; unit?: string }) {
   if (isTryregenBundleProgram(program.id)) return "";
+  if (isFormulationSheetProgram(program.id)) return "";
   if (program.unit === "vial") return " per vial";
   return "/mo";
+}
+
+function checkoutShippingUsd(programId?: string | null) {
+  if (isTryregenBundleProgram(programId)) return tryregenBundleShippingUsd();
+  if (isFormulationSheetProgram(programId)) return formulationSheetShippingUsd();
+  return REGEN_VIAL_SHIPPING_USD;
 }
 
 const GOALS = [
@@ -65,8 +78,14 @@ const GOALS = [
     description: 'Discreet care for desire and performance.',
     icon: '💗',
     programs: [
-      { id: 'ed', name: 'Men\'s Performance', price: 49, description: 'Sildenafil, Tadalafil & more' },
-      { id: 'libido-women', name: 'Women\'s Desire', price: 79, description: 'PT-141, oxytocin & arousal support' },
+      { id: 'ed', name: 'Men\'s Performance', price: formulationShopRetail('ed'), fromPrice: true, description: 'Sildenafil / tadalafil capsules — custom strengths when prescribed' },
+      { id: 'sildenafil-apo', name: 'Sildenafil / apomorphine', price: formulationShopRetail('sildenafil-apo'), fromPrice: true, description: 'Faster sublingual troches' },
+      { id: 'ici', name: 'Injectable (ICI)', price: formulationShopRetail('ici'), fromPrice: true, description: 'BiMix / TriMix / QuadMix — clinician-directed' },
+      { id: 'pt-141', name: 'PT-141 (Bremelanotide)', price: formulationShopRetail('pt-141'), fromPrice: true, description: 'Injectable and needle-free desire support' },
+      { id: 'oxytocin', name: 'Oxytocin', price: formulationShopRetail('oxytocin'), fromPrice: true, description: 'Troches, sublingual, and nasal when prescribed' },
+      { id: 'scream-cream', name: 'Arousal cream', price: formulationShopRetail('scream-cream'), fromPrice: true, description: 'Sildenafil / arginine / papaverine topical' },
+      { id: 'estriol', name: 'Estriol vaginal gel', price: formulationShopRetail('estriol'), fromPrice: true, description: 'Comfort & GSM support when prescribed' },
+      { id: 'libido-women', name: 'Women\'s Desire', price: formulationShopRetail('libido-women'), fromPrice: true, description: 'Oxytocin, PT-141 & arousal support' },
     ],
   },
   {
@@ -76,7 +95,7 @@ const GOALS = [
     icon: '💇',
     programs: [
       { id: 'fin-minox-foam', name: 'Finasteride + Minoxidil Foam', price: 175, description: 'Topical DHT blocker + growth stimulator' },
-      { id: 'fin-minox-solution', name: 'Finasteride + Minoxidil Solution', price: 175, description: 'Liquid formula for scalp application' },
+      { id: 'fin-minox-solution', name: 'Finasteride + Minoxidil Solution', price: formulationShopRetail('fin-minox-solution'), fromPrice: true, description: 'Liquid formula for scalp application' },
       { id: 'advanced-hair', name: 'Advanced Hair Formula', price: 325, description: 'Finasteride + minoxidil + latanoprost + tretinoin' },
       { id: 'oral-minox', name: 'Oral Minoxidil', price: 40, description: 'Low-dose pill for systemic hair growth' },
     ],
@@ -89,10 +108,11 @@ const GOALS = [
     programs: [
       { id: 'tretinoin', name: 'Tretinoin Cream', price: 125, description: 'Prescription retinoid for wrinkles, collagen & acne' },
       { id: 'tretinoin-ha', name: 'Tretinoin + HA Blend', price: 175, description: 'Tretinoin with hyaluronic acid for hydration' },
-      { id: 'hydroquinone', name: 'Hydroquinone Brightening', price: 175, description: 'Prescription strength for dark spots & melasma' },
-      { id: 'ghk-cu', name: 'GHK-Cu Cream', price: 275, description: 'Firming, repair & collagen support' },
-      { id: 'cleartone', name: 'ClearTone Brightening', price: 275, description: 'Multi-acid blend for hyperpigmentation & tone' },
-      { id: 'clarity', name: 'Clarity Acne Cream', price: 275, description: 'Azelaic acid + tretinoin for breakouts & redness' },
+      { id: 'hydroquinone', name: 'Hydroquinone Brightening', price: formulationShopRetail('hydroquinone'), fromPrice: true, description: 'Prescription strength for dark spots & melasma' },
+      { id: 'ghk-cu', name: 'GHK-Cu topical', price: formulationShopRetail('ghk-cu'), fromPrice: true, description: 'Firming, repair & collagen support' },
+      { id: 'cleartone', name: 'ClearTone Brightening', price: formulationShopRetail('cleartone'), fromPrice: true, description: 'Multi-acid blend for hyperpigmentation & tone' },
+      { id: 'clarity', name: 'Clarity Acne Cream', price: formulationShopRetail('clarity'), fromPrice: true, description: 'Azelaic acid + tretinoin for breakouts & redness' },
+      { id: 'blt', name: 'BLT numbing cream', price: formulationShopRetail('blt'), fromPrice: true, description: 'In-office benzocaine / lidocaine / tetracaine' },
       { id: 'refine-pm', name: 'Refine PM Anti-Aging', price: 275, description: 'GHK-Cu + tretinoin for nighttime repair' },
       { id: 'lumineye', name: 'LuminEye Under-Eye', price: 275, description: 'GHK-Cu + tranexamic for dark circles & puffiness' },
     ],
@@ -113,9 +133,11 @@ const GOALS = [
     description: 'NAD+, antioxidant support, and vitamin shots.',
     icon: '🧬',
     programs: [
+      { id: 'sermorelin', name: 'Sermorelin', price: formulationShopRetail('sermorelin'), fromPrice: true, description: 'GH-releasing analog — injection and needle-free forms' },
+      { id: 'tesamorelin', name: 'Tesamorelin', price: formulationShopRetail('tesamorelin'), fromPrice: true, description: 'GHRH analog — compounded only with a documented clinical difference' },
       { id: 'nad', name: 'NAD+ Therapy', price: 199, description: 'Cellular energy and healthy-aging support' },
       { id: 'nad-injection', name: 'NAD+ Injection', price: vitaminVialRetailUsd('nad-injection')!, unit: 'vial' as const, description: 'Cellular energy and mental clarity' },
-      { id: 'glutathione', name: 'Glutathione Injection', price: vitaminVialRetailUsd('glutathione')!, unit: 'vial' as const, description: 'Antioxidant support for skin and cellular health' },
+      { id: 'glutathione', name: 'Glutathione Injection', price: formulationShopRetail('glutathione'), fromPrice: true, description: 'Antioxidant support for skin and cellular health' },
       { id: 'b12', name: 'Vitamin B12 Injection', price: vitaminVialRetailUsd('b12')!, unit: 'vial' as const, description: 'Energy, metabolism, and nerve health' },
       { id: 'biotin', name: 'Biotin Injection', price: vitaminVialRetailUsd('biotin')!, unit: 'vial' as const, description: 'Hair, skin, and nail support' },
       ...TRYREGEN_BUNDLES.map((bundle) => ({
@@ -165,7 +187,9 @@ const SCREENING_QUESTIONS: Record<string, Array<{id: string; question: string; t
 
 function RegenStartContent() {
   const searchParams = useSearchParams();
-  const requestedProgram = searchParams.get('program') || '';
+  const requestedProgram = resolveFormulationProgramParam(
+    searchParams.get('program') || searchParams.get('peptide'),
+  );
   const initialProgram = isStripeWadaBlockedProgram(requestedProgram) ? '' : requestedProgram;
   const promoCode = (searchParams.get('promo') || GORGEOUS20_CODE).toUpperCase();
   const affiliateCode = (searchParams.get('ref') || searchParams.get('aff') || readAffiliateCodeClient()).toUpperCase();
@@ -173,17 +197,22 @@ function RegenStartContent() {
     goal: searchParams.get('goal'),
     program: initialProgram,
   });
+  const knownProgram = Boolean(
+    initialProgram && GOALS.some((goal) => goal.programs.some((program) => program.id === initialProgram)),
+  );
+  const programGoal =
+    GOALS.find((goal) => goal.programs.some((program) => program.id === initialProgram))?.id || "";
   
   const [step, setStep] = useState<Step>(
     initialProgram === 'tirzepatide'
       ? 'tirz-plan'
-      : isTryregenBundleProgram(initialProgram)
+      : isTryregenBundleProgram(initialProgram) || knownProgram
         ? 'info'
         : inferredGoal
           ? 'program'
           : 'goal'
   );
-  const [selectedGoal, setSelectedGoal] = useState(inferredGoal);
+  const [selectedGoal, setSelectedGoal] = useState(programGoal || inferredGoal);
   const [selectedProgram, setSelectedProgram] = useState<string | null>(initialProgram || null);
   const [tirzWeeklyMg, setTirzWeeklyMg] = useState<TirzWeeklyDose>(2.5);
   const [tirzTermDays, setTirzTermDays] = useState<TirzTermDays>(30);
@@ -222,10 +251,8 @@ function RegenStartContent() {
   const tirzQuote = isTirzepatideProgram(selectedProgram) ? quoteTirzepatide(tirzWeeklyMg, tirzTermDays) : null;
   const checkoutAmount = tirzQuote?.retail ?? currentProgram?.price ?? 299;
   const checkoutName = tirzQuote?.lineName ?? currentProgram?.name ?? 'RE GEN Program';
-  const addsVialShipping = Boolean(tirzQuote) || isVitaminVialProgram(currentProgram?.id, selectedGoal) || isTryregenBundleProgram(selectedProgram);
-  const vialShipUsd = isTryregenBundleProgram(selectedProgram)
-    ? tryregenBundleShippingUsd()
-    : REGEN_VIAL_SHIPPING_USD;
+  const addsVialShipping = Boolean(tirzQuote) || isVitaminVialProgram(currentProgram?.id, selectedGoal) || isTryregenBundleProgram(selectedProgram) || isFormulationSheetProgram(selectedProgram);
+  const vialShipUsd = checkoutShippingUsd(selectedProgram);
 
   const handleGoalSelect = (goalId: string) => {
     setSelectedGoal(goalId);
@@ -574,11 +601,11 @@ function RegenStartContent() {
                           {programPriceSuffix(program)}
                         </span>
                       </span>
-                      {'unit' in program && program.unit === 'vial' && (
+                      {('unit' in program && program.unit === 'vial') || isFormulationSheetProgram(program.id) ? (
                         <span className="block text-xs mt-1" style={{ color: BRAND.gray }}>
-                          + {formatUsd(isTryregenBundleProgram(program.id) ? tryregenBundleShippingUsd() : REGEN_VIAL_SHIPPING_USD)} shipping
+                          + {formatUsd(checkoutShippingUsd(program.id))} shipping
                         </span>
-                      )}
+                      ) : null}
                     </span>
                   </div>
                   <p style={{ color: BRAND.gray }}>{program.description}</p>
@@ -641,7 +668,7 @@ function RegenStartContent() {
                   <span className="text-2xl font-bold" style={{ color: BRAND.pink }}>{formatUsd(checkoutAmount)}</span>
                   {addsVialShipping && (
                     <span className="block text-xs" style={{ color: BRAND.gray }}>
-                      {tirzQuote ? `${tirzQuote.termDays} days · ${tirzQuote.vials} vial${tirzQuote.vials === 1 ? '' : 's'}` : 'per vial'}
+                      {tirzQuote ? `${tirzQuote.termDays} days · ${tirzQuote.vials} vial${tirzQuote.vials === 1 ? '' : 's'}` : isFormulationSheetProgram(selectedProgram) ? 'starting' : 'per vial'}
                       {' · + '}{formatUsd(vialShipUsd)} shipping
                     </span>
                   )}

@@ -4,7 +4,7 @@ import { FormulationDermatologyPageContent } from "@/components/regen/Formulatio
 
 const TITLE = "Dermatology compounded to your prescription";
 const DESCRIPTION =
-  "RE GEN RX partners with Formulation Compounding Center for patient-specific dermatology — brightening, acne and rosacea care, hair restoration, procedural anesthesia, and custom bases.";
+  "RE GEN RX patient-specific dermatology in Oswego, Illinois — brightening, acne and rosacea care, hair restoration, procedural anesthesia, and custom bases.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -31,11 +31,6 @@ export default function RegenDermatologyPage() {
     publisher: {
       "@type": "MedicalBusiness",
       name: "RE GEN RX · Hello Gorgeous Med Spa",
-    },
-    mention: {
-      "@type": "Organization",
-      name: "Formulation Compounding Center",
-      url: "https://formulationrx.com/dermatology/",
     },
   };
 

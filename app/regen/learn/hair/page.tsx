@@ -92,7 +92,7 @@ export default function HairLearnPage() {
           >
             <span aria-hidden>◆</span>
             <span>
-              <strong style={{ color: BRAND.teal }}>Hair lives on the Formulation dermatology page.</strong> Oral, topical, and intradermal formulas — 90+ options when a clinician writes it.
+              <strong style={{ color: BRAND.teal }}>Hair lives on the dermatology page.</strong> Oral, topical, and intradermal formulas — 90+ options when a clinician writes it.
             </span>
           </Link>
           <div className="flex items-center gap-4 mb-4">

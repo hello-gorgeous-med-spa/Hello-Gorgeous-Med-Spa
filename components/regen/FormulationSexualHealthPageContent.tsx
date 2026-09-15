@@ -1,15 +1,15 @@
 import Link from "next/link";
 
 import { FormulationPartnerShell } from "@/components/regen/FormulationPartnerShell";
-import { FORMULATION_PARTNER_NAME } from "@/lib/regen/formulation-partner";
+import { FormulationShopCta } from "@/components/regen/FormulationShopCta";
 import {
-  FORMULATION_SEXUAL_HEALTH_SOURCE,
   ICI_LADDER,
   SEXUAL_HEALTH_GAPS,
   SEXUAL_HEALTH_ROUTES,
   SEXUAL_HEALTH_STATS,
   WOMENS_SEXUAL_CARDS,
 } from "@/lib/regen/formulation-sexual-health";
+import { REGEN_TELEHEALTH_PATH, regenTelehealthPriceLabel } from "@/lib/regen/telehealth-consult";
 
 export function FormulationSexualHealthPageContent() {
   return (
@@ -17,8 +17,6 @@ export function FormulationSexualHealthPageContent() {
       active="sexual-health"
       startHref="/start?goal=sexual-health"
       closingHeadline="Give every patient a real option — not just the default pill."
-      sourceLabel="formulationrx.com/sexual-health"
-      sourceHref={FORMULATION_SEXUAL_HEALTH_SOURCE}
     >
       <section className="relative overflow-hidden bg-[#0c1613] text-white">
         <div
@@ -31,7 +29,7 @@ export function FormulationSexualHealthPageContent() {
         <div className="relative mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-[1.2fr_0.8fr] lg:py-24">
           <div>
             <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#c4a36a]">
-              RE GEN RX · in partnership with {FORMULATION_PARTNER_NAME}
+              RE GEN RX · intimate health
             </p>
             <h1 className="mt-5 font-serif text-4xl font-medium leading-[1.05] tracking-tight sm:text-6xl">
               Intimate health, individualized — for{" "}
@@ -41,7 +39,7 @@ export function FormulationSexualHealthPageContent() {
               The standard pill helps some people and fails others — wrong dose, wrong side effects,
               or simply not made for them. Compounding opens custom strengths, combinations,
               injectable and topical routes, and options for women that barely exist commercially.
-              Discreet. Illinois clinician first. Formulation fills what is prescribed.
+              Discreet. Illinois clinician first. A licensed pharmacy fills what is prescribed.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -50,15 +48,15 @@ export function FormulationSexualHealthPageContent() {
               >
                 Start a visit →
               </Link>
-              <a
-                href="#formulary"
+              <Link
+                href={REGEN_TELEHEALTH_PATH}
                 className="rounded-full border border-white/25 px-5 py-3 text-sm font-bold text-white"
               >
-                See the routes
-              </a>
+                Book a consult · {regenTelehealthPriceLabel()}
+              </Link>
             </div>
             <p className="mt-6 text-xs text-white/45">
-              503A compounding · patient-specific prescriptions · custom strengths &amp; combinations
+              503A compounding · patient-specific prescriptions · from-prices plus shipping
             </p>
           </div>
           <aside className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
@@ -80,7 +78,7 @@ export function FormulationSexualHealthPageContent() {
             Fixed-dose commercial products leave real gaps: people who don’t respond, people who
             can’t tolerate the dose, people who want a faster or needle-free route — and{" "}
             <em className="text-[#0f766e]">women</em>, for whom the commercial shelf is nearly empty.
-            Formulation fills those gaps. RE GEN decides if any of it is clinically right.
+            Compounding fills those gaps. RE GEN decides if any of it is clinically right.
           </p>
         </div>
       </section>
@@ -98,6 +96,7 @@ export function FormulationSexualHealthPageContent() {
               <h3 className="font-serif text-2xl">{card.title}</h3>
               <p className="mt-3 text-[#3d524c]">{card.body}</p>
               <p className="mt-4 text-sm font-semibold text-[#13241f]">{card.forms}</p>
+              <FormulationShopCta id={card.shopId} />
             </article>
           ))}
         </div>
@@ -109,11 +108,10 @@ export function FormulationSexualHealthPageContent() {
             BiMix · TriMix · QuadMix — titrated to response.
           </h2>
           <p className="mt-4 max-w-3xl text-lg text-[#3d524c]">
-            Intracavernosal combinations are not sold commercially — they are compounded.
-            Formulation prepares the full ladder in sterile multi-strength vials so a clinician can
-            start conservative and step up. Alprostadil alone is also available, with phenylephrine
-            as a compounded reversal agent for prolonged response. Every injectable is sterile and
-            potency-tested.
+            Intracavernosal combinations are not sold commercially — they are compounded. The full
+            ladder is prepared in sterile multi-strength vials so a clinician can start conservative
+            and step up. Alprostadil alone is also available, with phenylephrine as a compounded
+            reversal agent for prolonged response. Every injectable is sterile and potency-tested.
           </p>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {ICI_LADDER.map((rung) => (
@@ -122,6 +120,9 @@ export function FormulationSexualHealthPageContent() {
                 <p className="mt-2 text-[#3d524c]">{rung.detail}</p>
               </div>
             ))}
+          </div>
+          <div className="mx-auto mt-8 max-w-xl rounded-3xl bg-white p-6 ring-1 ring-[#e7e0d4]">
+            <FormulationShopCta id="ici" />
           </div>
         </div>
       </section>
@@ -136,6 +137,7 @@ export function FormulationSexualHealthPageContent() {
               <h3 className="font-serif text-2xl">{card.title}</h3>
               <p className="mt-3 text-[#3d524c]">{card.body}</p>
               <p className="mt-4 text-sm font-semibold text-[#13241f]">{card.forms}</p>
+              <FormulationShopCta id={card.shopId} />
             </article>
           ))}
         </div>
@@ -161,6 +163,16 @@ export function FormulationSexualHealthPageContent() {
               </span>
             ))}
           </div>
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            <div className="rounded-3xl bg-white p-6 text-[#13241f]">
+              <h3 className="font-serif text-2xl">PT-141</h3>
+              <FormulationShopCta id="pt-141" />
+            </div>
+            <div className="rounded-3xl bg-white p-6 text-[#13241f]">
+              <h3 className="font-serif text-2xl">Oxytocin</h3>
+              <FormulationShopCta id="oxytocin" />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -168,11 +180,11 @@ export function FormulationSexualHealthPageContent() {
         <div className="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-2">
           <div>
             <h2 className="font-serif text-4xl leading-tight">
-              Discreet visit. Real prescription. Shipped when it is appropriate.
+              Discreet visit. Real prescription. Pay the invoice when it is appropriate.
             </h2>
             <p className="mt-4 text-lg text-[#3d524c]">
               Start with RE GEN. A licensed Illinois clinician reviews history and goals. If a
-              compound is appropriate, the order goes to FormuConnect — oral, injectable, topical, or
+              compound is appropriate, you pay the invoice — oral, injectable, topical, or
               needle-free, for men and women. If it is not carried, we will say so.
             </p>
             <ul className="mt-6 space-y-3 font-semibold text-[#13241f]">
@@ -192,16 +204,16 @@ export function FormulationSexualHealthPageContent() {
               How we answer it
             </p>
             <p className="mt-4 rounded-2xl bg-white/10 p-4 text-sm">
-              Oral therapy isn’t working. What TriMix strengths does Formulation carry?
+              Oral therapy isn’t working. What injectable options do you carry?
             </p>
             <p className="mt-3 rounded-2xl bg-[#8fd4c4]/15 p-4 text-sm leading-relaxed text-white/90">
-              Formulation compounds TriMix (papaverine / phentolamine / alprostadil) across a wide
-              alprostadil potency range, plus BiMix and QuadMix, in 2.5, 5, and 10 mL sterile vials.
-              A conservative starting strength is typical, titrated to response — that call stays with
+              We compound TriMix (papaverine / phentolamine / alprostadil) across a wide alprostadil
+              potency range, plus BiMix and QuadMix, in 2.5, 5, and 10 mL sterile vials. A
+              conservative starting strength is typical, titrated to response — that call stays with
               the licensed Illinois clinician. We confirm the live catalog before anything is sent.
             </p>
             <p className="mt-4 text-[11px] text-white/40">
-              General reference only · not individualized medical advice · confirm with the pharmacist
+              General reference only · not individualized medical advice · confirm at prescribing
             </p>
           </div>
         </div>
