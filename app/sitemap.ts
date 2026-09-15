@@ -344,6 +344,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.82,
     },
     {
+      url: `${baseUrl}/regen/peptides`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.88,
+    },
+    {
+      url: 'https://tryregenrx.com/peptides',
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/rx/learn`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

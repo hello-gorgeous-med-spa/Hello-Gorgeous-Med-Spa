@@ -74,6 +74,16 @@ export default function PeptidesLearnPage() {
             </svg>
             Back to Education Center
           </Link>
+          <Link
+            href="/peptides"
+            className="mb-8 flex items-start gap-3 rounded-2xl border px-4 py-3 text-sm"
+            style={{ borderColor: `${BRAND.teal}55`, backgroundColor: `${BRAND.teal}14`, color: BRAND.cream }}
+          >
+            <span aria-hidden>◆</span>
+            <span>
+              <strong style={{ color: BRAND.teal }}>New: compounded peptides with a legal basis.</strong> See which peptides Formulation can fill today — and which have no lawful pathway yet.
+            </span>
+          </Link>
           <div className="flex items-center gap-4 mb-4">
             <span className="text-5xl">🧬</span>
             <div>

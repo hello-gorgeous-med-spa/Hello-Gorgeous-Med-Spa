@@ -26,12 +26,12 @@ const CATEGORIES = [
   },
   {
     id: 'peptides',
-    title: 'Energy & longevity',
-    subtitle: 'NAD+ & wellness',
-    description: 'Learn how NAD+ and vitamin injectables support cellular energy — prescribed only when A licensed Illinois clinician decides it is appropriate.',
+    title: 'Peptides',
+    subtitle: 'Formulation 503A · legal basis',
+    description: 'The straight answer, peptide by peptide — what Formulation can lawfully compound, what is still under FDA review, and how RE GEN orders only what is carried.',
     icon: '🧬',
-    href: '/learn/peptides',
-    topics: ['What are peptides?', 'NAD+ & cellular energy', 'How online visits work', 'Safety & research'],
+    href: '/peptides',
+    topics: ['503A legal bases', 'Sermorelin · Tesamorelin · PT-141', 'Why BPC-157 is not available yet', 'How a visit works'],
     color: BRAND.pink,
   },
   {
