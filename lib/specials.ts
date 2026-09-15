@@ -3,13 +3,13 @@
 export const SPECIALS_PATH = "/specials";
 
 export const SPECIALS_SEO = {
-  title: "Solaria CO₂ $799 September Special & Menu | Oswego IL",
+  title: "Solaria CO₂ $599 Fall Special & Menu | Oswego IL",
   description:
-    "September specials at Hello Gorgeous Med Spa in Oswego: Solaria CO₂ face, neck & chin $799, neck/chin/chest $400, under eyes $299. Botox $10/unit, Morpheus8, Quantum RF. Book this month.",
+    "Fall specials at Hello Gorgeous Med Spa in Oswego: InMode Solaria CO₂ fractional resurfacing $599 with complimentary recovery serum. Botox $10/unit, Morpheus8, Quantum RF. Book a consult.",
   keywords: [
     "Solaria CO2 special Oswego",
-    "CO2 laser sale September Oswego IL",
-    "CO2 laser $799 Oswego",
+    "CO2 laser $599 Oswego IL",
+    "Solaria fall special Oswego",
     "med spa specials Oswego",
     "Solaria sale Naperville Aurora",
     "Hello Gorgeous specials",
@@ -19,12 +19,12 @@ export const SPECIALS_SEO = {
 /** Top conversion picks — shown above the full menu. */
 export const SPECIALS_FEATURED = [
   {
-    title: "Solaria CO₂ September sale",
-    accentLine: "$799 · $400 · $299",
+    title: "Solaria CO₂ fall special",
+    accentLine: "$599 · recovery serum included",
     description:
-      "$100 off full face, neck & chin — $799 includes 23/7 numbing cream. Neck, chin & chest $400. Under eyes $299. Book in September.",
-    href: "/blog/solaria-co2-september-sale-oswego-il",
-    badge: "Sept",
+      "Limited-time InMode Solaria CO₂ fractional resurfacing — complimentary recovery serum included. Results vary. Consultation required.",
+    href: "/services/solaria-co2",
+    badge: "Fall",
   },
   {
     title: "Fall Makeover",
@@ -82,10 +82,10 @@ export const SPECIALS_JUMP_LINKS = [
 
 export const MORE_SPECIALS_LINKS = [
   {
-    label: "Solaria CO₂ September sale",
-    href: "/blog/solaria-co2-september-sale-oswego-il",
-    sub: "Face/neck/chin $799 · neck/chin/chest $400 · under eyes $299",
-    badge: "SEPT",
+    label: "Solaria CO₂ fall special",
+    href: "/services/solaria-co2",
+    sub: "$599 InMode Solaria CO₂ · complimentary recovery serum",
+    badge: "FALL",
   },
   {
     label: "Fall Makeover — Repair · Prevent · Lose",

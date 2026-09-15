@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { SOLARIA_FALL_599_CAMPAIGN } from "@/lib/campaigns/solaria-fall-599-2026";
 import { SolariaCo2PageContent } from "@/components/solaria/SolariaCo2PageContent";
 import {
   SOLARIA_CO2_PATH,
@@ -26,8 +27,8 @@ const baseMeta = pageMetadata({
   path: SOLARIA_CO2_PATH,
   keywords: [
     "Solaria CO2 Oswego IL",
-    "Solaria September sale Oswego",
-    "CO2 laser $799 Oswego",
+    "Solaria fall special Oswego",
+    "CO2 laser $599 Oswego",
     "CO2 laser resurfacing Naperville",
     "fractional laser Aurora IL",
     "acne scar laser Oswego",
@@ -40,9 +41,9 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE.url}${SOLARIA_CO2_PATH}` },
   openGraph: {
     ...baseMeta.openGraph,
-    images: [{ url: `${SITE.url}${SOLARIA_MARKETING.images.danielleBa}`, width: 1200, height: 630, alt: SOLARIA_SEO.ogAlt }],
+    images: [{ url: `${SITE.url}${SOLARIA_FALL_599_CAMPAIGN.imagePath}`, width: 1024, height: 1536, alt: SOLARIA_SEO.ogAlt }],
   },
-  twitter: { ...baseMeta.twitter, images: [`${SITE.url}${SOLARIA_MARKETING.images.danielleBa}`] },
+  twitter: { ...baseMeta.twitter, images: [`${SITE.url}${SOLARIA_FALL_599_CAMPAIGN.imagePath}`] },
 };
 
 export default function SolariaCo2ServicePage() {

@@ -13,6 +13,10 @@ import {
 import { FALL_FACIALS_CAMPAIGN, FALL_FACIALS_GBP } from "@/lib/campaigns/fall-into-facials-2026";
 import { FALL_MAKEOVER_CAMPAIGN, FALL_MAKEOVER_GBP } from "@/lib/campaigns/fall-makeover-2026";
 import {
+  SOLARIA_FALL_599_CAMPAIGN,
+  SOLARIA_FALL_599_GBP,
+} from "@/lib/campaigns/solaria-fall-599-2026";
+import {
   REGEN_LAUNCH_GBP,
   REGEN_WEIGHT_LOSS_GBP,
   REGEN_PEPTIDES_GBP,
@@ -30,6 +34,28 @@ export type GbpPostPreset = {
 };
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
+  {
+    id: "solaria-fall-599-2026",
+    label: "Solaria CO₂ fall special — $599",
+    message: SOLARIA_FALL_599_GBP,
+    linkPath: SOLARIA_FALL_599_CAMPAIGN.gbpPath,
+    imagePath: SOLARIA_FALL_599_CAMPAIGN.imagePath,
+  },
+  {
+    id: "come-in-were-here",
+    label: "Come in — we're here for you (storefront)",
+    message: `Come in — we're here for you.
+
+Hello Gorgeous Med Spa is open on Washington Street in downtown Oswego. New patients welcome. Walk in, book online, or call.
+
+Botox, filler, Morpheus8, CO₂ laser, IV therapy, peptides, hormones, lashes & brows.
+
+74 W. Washington St · (630) 636-6193
+
+Tap below to book a free consult.`,
+    linkPath: "/come-in?utm_source=google&utm_medium=gbp_post&utm_campaign=come_in_2026",
+    imagePath: "/images/marketing/hello-gorgeous-storefront-windows-2026.png",
+  },
   {
     id: "regen-gorgeous20",
     label: "REGEN RX — GORGEOUS20 first order 20% off",
@@ -335,23 +361,10 @@ $49 peptide consult — book below.`,
   },
   {
     id: "solaria-september-sale-2026",
-    label: "Solaria September sale — $799 / $400 / $299",
-    message: `I sat in the chair. I am a believer. I am finally secure to wear no makeup.
-
-— Danielle, founder, Hello Gorgeous Med Spa, Oswego
-
-September Solaria:
-Full face, neck & chin $799 ($100 off · 23/7 numbing included)
-Neck, chin & chest $400
-Under eyes only $299
-
-Her photos are her result. Yours will vary. Consult required.
-74 W Washington St · (630) 636-6193
-
-Read the guide:`,
-    linkPath:
-      "/blog/solaria-co2-september-sale-oswego-il?utm_source=google&utm_medium=gbp_post&utm_campaign=solaria_september_2026",
-    imagePath: "/images/solaria/danielle-solaria-co2-before-during-after.png",
+    label: "Solaria CO₂ fall special — $599 (archive alias)",
+    message: SOLARIA_FALL_599_GBP,
+    linkPath: SOLARIA_FALL_599_CAMPAIGN.gbpPath,
+    imagePath: SOLARIA_FALL_599_CAMPAIGN.imagePath,
   },
   {
     id: "bpc157-research-blog",

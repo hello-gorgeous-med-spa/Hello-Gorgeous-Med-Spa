@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
 import { SpecialsPageContent } from "@/components/marketing/SpecialsPageContent";
+import { SOLARIA_FALL_599_CAMPAIGN } from "@/lib/campaigns/solaria-fall-599-2026";
 import { SPECIALS_PATH, SPECIALS_SEO } from "@/lib/specials";
-import { SOLARIA_MARKETING, solariaSeptemberOfferJsonLd } from "@/lib/solaria-marketing";
+import { solariaSeptemberOfferJsonLd } from "@/lib/solaria-marketing";
 import { breadcrumbJsonLd, faqJsonLd, localBusinessJsonLd, pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 const _meta = pageMetadata({
@@ -19,10 +20,10 @@ export const metadata: Metadata = {
     ..._meta.openGraph,
     images: [
       {
-        url: `${SITE.url}${SOLARIA_MARKETING.images.danielleBa}`,
-        width: 1200,
-        height: 630,
-        alt: "Danielle Solaria CO₂ September sale — Hello Gorgeous Med Spa Oswego",
+        url: `${SITE.url}${SOLARIA_FALL_599_CAMPAIGN.imagePath}`,
+        width: 1024,
+        height: 1536,
+        alt: "Solaria CO₂ $599 fall special — Hello Gorgeous Med Spa Oswego",
       },
     ],
   },
@@ -30,14 +31,14 @@ export const metadata: Metadata = {
 
 const SPECIALS_FAQS = [
   {
-    question: "What is the Solaria CO₂ September special in Oswego?",
+    question: "What is the Solaria CO₂ fall special in Oswego?",
     answer:
-      "Full face, neck and chin is $799 ($100 off, includes 23/7 numbing cream). Neck, chin and chest is $400. Under eyes only is $299. Book in September 2026. Consult required.",
+      "Limited-time fall special: InMode Solaria CO₂ fractional resurfacing is $599 and includes complimentary recovery serum. Results vary. Consultation required.",
   },
   {
-    question: "Where do I book the September Solaria sale?",
+    question: "Where do I book the Solaria fall special?",
     answer:
-      "Book a free consult at hellogorgeousmedspa.com/book or call 630-636-6193. Details: hellogorgeousmedspa.com/blog/solaria-co2-september-sale-oswego-il",
+      "Book a free consult at hellogorgeousmedspa.com/book or call 630-636-6193. Details: hellogorgeousmedspa.com/services/solaria-co2",
   },
 ];
 

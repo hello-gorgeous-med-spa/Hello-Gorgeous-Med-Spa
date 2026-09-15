@@ -32,7 +32,51 @@ const APP_IV_BUILD_URL = 'https://www.hellogorgeousmedspa.com/app?iv=build';
 const IV_APP_BLOG_URL =
   'https://www.hellogorgeousmedspa.com/blog/build-your-iv-bag-hello-gorgeous-app-oswego-il';
 
+const COME_IN_URL = 'https://www.hellogorgeousmedspa.com/come-in';
+
+const SOLARIA_FALL_URL = 'https://www.hellogorgeousmedspa.com/services/solaria-co2';
+
 const CAMPAIGNS: Campaign[] = [
+  {
+    id: 'solaria-fall-599-2026',
+    title: 'Solaria CO₂ fall special — $599',
+    type: 'Offer',
+    headline: 'Your Skin — Renewed. Solaria CO₂ $599',
+    description: `InMode Solaria CO₂ fractional resurfacing at Hello Gorgeous Medical Spa in downtown Oswego.
+
+One treatment designed to help smoother, brighter, firmer-looking skin.
+
+What it targets:
+• Fine lines + wrinkles
+• Acne scars
+• Sun damage + brown spots
+• Uneven texture + enlarged pores
+• Mild skin laxity
+
+Limited-time fall special: $599
+Complimentary recovery serum included
+Limited appointments available
+
+Results vary. Consultation required.
+74 W Washington St · (630) 636-6193`,
+    ctaText: 'Book',
+    ctaUrl: SOLARIA_FALL_URL,
+  },
+  {
+    id: 'come-in-were-here',
+    title: 'Come in — we\'re here for you (storefront)',
+    type: 'Update',
+    headline: 'Come In — We\'re Here For You',
+    description: `Come in — we're here for you.
+
+Hello Gorgeous Med Spa is open on Washington Street in downtown Oswego. New patients welcome. Walk in, book online, or call.
+
+Botox, filler, Morpheus8, CO₂ laser, IV therapy, peptides, hormones, lashes & brows.
+
+74 W. Washington St · (630) 636-6193`,
+    ctaText: 'Book',
+    ctaUrl: COME_IN_URL,
+  },
   {
     id: 'hello-gorgeous-app-iv',
     title: 'NEW — Hello Gorgeous App + Build Your IV Bag',

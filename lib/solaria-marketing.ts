@@ -3,6 +3,7 @@
  * Canonical route: /services/solaria-co2 (peer to Morpheus8 Journey).
  */
 
+import { SOLARIA_FALL_599_CAMPAIGN, SOLARIA_FALL_599_USD } from "@/lib/campaigns/solaria-fall-599-2026";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import { SITE } from "@/lib/seo";
 
@@ -65,37 +66,37 @@ export const SOLARIA_MARKETING = {
 } as const;
 
 export const SOLARIA_SEPTEMBER_SPECIAL = {
-  badge: "September only",
-  title: "Solaria CO₂ September sale",
-  priceLabel: "$799",
-  priceNote: "$100 off full face, neck & chin · includes 23/7 numbing cream",
+  badge: SOLARIA_FALL_599_CAMPAIGN.seasonLabel,
+  title: "Your skin — renewed",
+  priceLabel: `$${SOLARIA_FALL_599_USD}`,
+  priceNote: "Complimentary recovery serum included · limited appointments",
   description:
-    "September is CO₂ season — less sun, real downtime you can hide before the holidays. Full face, neck & chin $799. Neck, chin & chest $400. Under eyes $299. Consult required.",
-  ctaLabel: "Book September Solaria",
+    "Limited-time fall special on InMode Solaria CO₂ fractional resurfacing — one treatment designed to help smoother, brighter, firmer-looking skin. Fine lines, acne scars, sun damage, texture, and mild laxity. Results vary. Consultation required.",
+  ctaLabel: "Book your consultation",
   href: SOLARIA_CO2_PATH,
-  validThrough: "September 30, 2026",
-  validUntilIso: "2026-09-30",
+  validThrough: "October 31, 2026",
+  validUntilIso: SOLARIA_FALL_599_CAMPAIGN.validUntilIso,
   offers: [
     {
       id: "face-neck-chin",
-      name: "Full face, neck & chin",
-      price: "$799",
+      name: "InMode Solaria CO₂",
+      price: `$${SOLARIA_FALL_599_USD}`,
       was: "$899",
-      note: "$100 off · includes 23/7 numbing cream",
+      note: "Fall special · complimentary recovery serum",
     },
     {
       id: "neck-chin-chest",
       name: "Neck, chin & chest",
-      price: "$400",
+      price: "Consult",
       was: null,
-      note: "Area special · September only",
+      note: "Mapped at your consultation",
     },
     {
       id: "under-eyes",
       name: "Under eyes only",
-      price: "$299",
+      price: "Consult",
       was: null,
-      note: "Periocular resurfacing · September only",
+      note: "Periocular plan at consult",
     },
   ],
 } as const;
@@ -103,14 +104,17 @@ export const SOLARIA_SEPTEMBER_SPECIAL = {
 export const SOLARIA_SEPTEMBER_BLOG_PATH = "/blog/solaria-co2-september-sale-oswego-il" as const;
 
 export function solariaSeptemberOfferJsonLd(pagePath: string) {
+  const pricedOffers = SOLARIA_SEPTEMBER_SPECIAL.offers.filter((offer) =>
+    /\d/.test(offer.price),
+  );
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Solaria CO₂ September sale at Hello Gorgeous Med Spa, Oswego IL",
+    name: "Solaria CO₂ fall special at Hello Gorgeous Med Spa, Oswego IL",
     description: SOLARIA_SEPTEMBER_SPECIAL.description,
     url: `${SITE.url}${pagePath}`,
-    numberOfItems: SOLARIA_SEPTEMBER_SPECIAL.offers.length,
-    itemListElement: SOLARIA_SEPTEMBER_SPECIAL.offers.map((offer, index) => ({
+    numberOfItems: pricedOffers.length,
+    itemListElement: pricedOffers.map((offer, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
@@ -121,7 +125,7 @@ export function solariaSeptemberOfferJsonLd(pagePath: string) {
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
         priceValidUntil: SOLARIA_SEPTEMBER_SPECIAL.validUntilIso,
-        url: `${SITE.url}${SOLARIA_SEPTEMBER_BLOG_PATH}`,
+        url: `${SITE.url}${SOLARIA_CO2_PATH}`,
         seller: {
           "@type": "MedicalBusiness",
           name: SITE.name,
@@ -298,25 +302,25 @@ export const SOLARIA_RECOVERY = [
 export const SOLARIA_PACKAGES = [
   {
     id: "face-neck-chin",
-    name: "Full face, neck & chin",
-    price: "$799",
-    detail: "$100 off · includes 23/7 numbing cream · Sept only",
-    bullets: ["Was $899", "September 2026 sale", "Consult required"],
+    name: "InMode Solaria CO₂",
+    price: `$${SOLARIA_FALL_599_USD}`,
+    detail: "Limited-time fall special · complimentary recovery serum",
+    bullets: ["Was $899", "Limited appointments", "Consult required"],
     highlight: true,
   },
   {
     id: "neck-chin-chest",
     name: "Neck, chin & chest",
-    price: "$400",
-    detail: "Area special · September only",
-    bullets: ["Neck + chin + décolleté", "Mapped at consult", "Honest downtime plan"],
+    price: "Consult",
+    detail: "Mapped at your consultation",
+    bullets: ["Neck + chin + décolleté", "Honest downtime plan", "Quoted at consult"],
     highlight: false,
   },
   {
     id: "under-eyes",
     name: "Under eyes only",
-    price: "$299",
-    detail: "Periocular · September only",
+    price: "Consult",
+    detail: "Periocular plan at consult",
     bullets: ["Crepey texture & fine lines", "Light–moderate depth", "Consult required"],
     highlight: false,
   },
@@ -442,7 +446,7 @@ export const SOLARIA_FAQS = [
   },
   {
     q: "How much does Solaria cost?",
-    a: "For September 2026: full face, neck & chin is $799 ($100 off, includes 23/7 numbing cream). Neck, chin & chest is $400. Under eyes only is $299. Other areas and deeper plans are quoted at your free consultation. Sale ends September 30, 2026.",
+    a: "Limited-time fall special: InMode Solaria CO₂ fractional resurfacing is $599 and includes complimentary recovery serum. Other areas are quoted at your consultation. Results vary. Consultation required.",
   },
 ] as const;
 
@@ -461,8 +465,8 @@ export function isSolariaNavActive(pathname: string | null): boolean {
 }
 
 export const SOLARIA_SEO = {
-  title: "Solaria CO₂ September Sale | $799 Face Neck Chin | Oswego IL",
+  title: "Solaria CO₂ Fall Special | $599 Fractional Resurfacing | Oswego IL",
   description:
-    "September Solaria CO₂ sale in Oswego, IL — full face, neck & chin $799 ($100 off, 23/7 numbing included), neck/chin/chest $400, under eyes $299. InMode fractional laser. Free consult.",
-  ogAlt: "Danielle Solaria CO₂ before during after — Hello Gorgeous Med Spa Oswego September sale",
+    "Limited-time fall special: InMode Solaria CO₂ fractional resurfacing $599 at Hello Gorgeous in Oswego, IL — complimentary recovery serum included. Fine lines, acne scars, sun damage, texture. Consult required.",
+  ogAlt: "Solaria CO₂ $599 fall special — Hello Gorgeous Med Spa Oswego",
 } as const;

@@ -175,7 +175,7 @@ export function SolariaCo2PageContent() {
               <GhostBtn href={textTel}>Text {textDisplay}</GhostBtn>
             </div>
             <div className="mt-6 flex flex-wrap gap-2.5">
-              {["InMode verified", "Fractional CO₂", "Custom depth", "$799 September"].map((chip) => (
+              {["InMode verified", "Fractional CO₂", "Custom depth", "$599 fall special"].map((chip) => (
                 <span
                   key={chip}
                   className="rounded-full border border-white/30 px-4 py-1.5 text-[13px] font-semibold"
@@ -230,7 +230,7 @@ export function SolariaCo2PageContent() {
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
             <PinkBtn href={bookHref}>{SOLARIA_LAUNCH_SPECIAL.ctaLabel}</PinkBtn>
-            <GhostBtn href="/blog/solaria-co2-september-sale-oswego-il">Read the September guide</GhostBtn>
+            <GhostBtn href="/book">Book your consultation</GhostBtn>
           </div>
         </div>
       </section>
@@ -490,7 +490,7 @@ export function SolariaCo2PageContent() {
 
       <section id="pricing" className="scroll-mt-24 px-6 py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px]">
-          <SectionHead eyebrow="Pricing" title="$799 September ·" titleAccent="depth quoted at consult" />
+          <SectionHead eyebrow="Pricing" title="$599 fall special ·" titleAccent="depth quoted at consult" />
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {SOLARIA_PACKAGES.map((pkg) => (
               <article
@@ -592,7 +592,7 @@ export function SolariaCo2PageContent() {
             Ready for smoother, clearer skin?
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-black/80">
-            Free consult · InMode Solaria · Oswego IL · $799 September sale
+            Free consult · InMode Solaria · Oswego IL · $599 fall special
           </p>
           <div className="mt-8 flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row">
             <Link

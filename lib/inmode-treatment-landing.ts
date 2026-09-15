@@ -93,13 +93,13 @@ const SHARED_RELATED = {
     href: "/services/solaria-co2",
     eyebrow: "Flagship",
     title: "Solaria Journey",
-    blurb: "Full InMode CO₂ story, recovery guide, before/afters & $799 September sale — start here.",
+    blurb: "Full InMode CO₂ story, recovery guide, before/afters & $599 fall special — start here.",
   },
   solariaLander: {
     href: "/solaria-co2-oswego",
     eyebrow: "Resurfacing",
     title: "Solaria CO₂ Oswego",
-    blurb: "Fractional CO₂ for tone, sun damage, scars, and texture — from $299 this September.",
+    blurb: "Fractional CO₂ for tone, sun damage, scars, and texture — $599 fall special.",
   },
   burst: {
     href: "/morpheus8-burst-oswego",
