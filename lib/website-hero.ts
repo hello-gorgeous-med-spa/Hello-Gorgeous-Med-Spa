@@ -23,6 +23,26 @@ export type WebsiteHeroSegment =
 
 export const WEBSITE_HERO_SEGMENTS: WebsiteHeroSegment[] = [
   {
+    type: "image",
+    src: "/images/website-hero/team-hero-vial.png",
+    eyebrow: "This is us",
+    title: "Hello",
+    titleEm: "Gorgeous",
+    sub: "Owner-led care in downtown Oswego — a real team, not a letterhead.",
+    durationMs: 5200,
+    objectPosition: "center 35%",
+  },
+  {
+    type: "image",
+    src: "/images/website-hero/team-hero-highfive.png",
+    eyebrow: "The team",
+    title: "In this",
+    titleEm: "together.",
+    sub: "Meet us in the studio — licensed, hands-on, and here for you.",
+    durationMs: 5200,
+    objectPosition: "center 35%",
+  },
+  {
     type: "video",
     src: "/videos/website-hero/solaria.mp4",
     poster: "/images/website-hero/solaria-poster.jpg",

@@ -136,12 +136,12 @@ function reserveActionJsonLd(reservationName = "Appointment at Hello Gorgeous Me
 }
 
 /** Homepage hero art. Bump `v` after replacing the file to bust CDN + Next/Image cache. */
-export const SITE_HERO_IMAGE = "/images/hero-brand.webp" as const;
-/** Mobile LCP crop (~768w) — prefer for phones; desktop uses SITE_HERO_IMAGE. */
-export const SITE_HERO_IMAGE_SM = "/images/hero-brand-sm.webp" as const;
-export const SITE_OG_IMAGE = `${SITE.url}/images/hero-banner.png?v=2026-06-us-hero` as const;
+export const SITE_HERO_IMAGE = "/images/website-hero/team-hero-vial.png" as const;
+/** Mobile LCP crop — same team still until a tighter phone crop is cut. */
+export const SITE_HERO_IMAGE_SM = "/images/website-hero/team-hero-vial.png" as const;
+export const SITE_OG_IMAGE = `${SITE.url}/images/website-hero/team-hero-vial.png?v=2026-09-team-hero` as const;
 export const SITE_OG_IMAGE_ALT =
-  "Danielle Alcala-Glazier — Hello Gorgeous Med Spa, Oswego IL";
+  "Danielle Alcala-Glazier with the Hello Gorgeous team in the Oswego studio";
 
 /** Must match visible copy in `components/homepage-v3/HomepageFAQ.tsx` (single source for FAQ rich results). */
 export const HOME_FAQS: readonly FAQ[] = [
