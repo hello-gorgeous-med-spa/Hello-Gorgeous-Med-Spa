@@ -58,6 +58,8 @@ const additionalImages = [
   { src: "/images/events/botox-party.png", title: "Botox Party", caption: "Host a Botox party at Hello Gorgeous Med Spa" },
   { src: "/images/events/botox-bash-2026/weekend-flyer.png", title: "Weekend Botox Bash Aug 28–29", caption: "Botox $9 per unit plus tax — Friday August 28 and Saturday August 29 at Hello Gorgeous Med Spa Oswego" },
   { src: "/images/events/botox-bash-2026/friday-girls-night.png", title: "Girls Night Out Botox Bash", caption: "Friday August 28 5–9 PM Girls Night Out — Botox $9 per unit at Hello Gorgeous Med Spa" },
+  { src: "/images/studio/waiting-lounge-2026.jpg", title: "Hello Gorgeous waiting lounge", caption: "The downtown Oswego lounge clients sit in at Hello Gorgeous Med Spa" },
+  { src: "/images/website-hero/lounge-cinematic.jpg", title: "Hello Gorgeous lounge — cinematic", caption: "Come sit with us — Hello Gorgeous Med Spa waiting lounge in downtown Oswego" },
   { src: "/images/studio/reception.png", title: "Hello Gorgeous reception desk", caption: "New downtown Oswego Hello Gorgeous Med Spa reception" },
   { src: "/images/studio/retail-wall.png", title: "Hello Gorgeous retail wall", caption: "Medical-grade skincare retail at Hello Gorgeous Med Spa Oswego" },
   { src: "/images/studio/lobby-window.png", title: "Hello Gorgeous lobby", caption: "New Hello Gorgeous Med Spa lobby — 74 W Washington Street Oswego" },

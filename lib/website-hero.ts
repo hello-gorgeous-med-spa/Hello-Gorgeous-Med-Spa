@@ -63,6 +63,16 @@ export const WEBSITE_HERO_SEGMENTS: WebsiteHeroSegment[] = [
     objectPosition: "center center",
   },
   {
+    type: "image",
+    src: "/images/website-hero/lounge-cinematic.jpg",
+    eyebrow: "Come sit with us",
+    title: "The",
+    titleEm: "lounge.",
+    sub: "Downtown Oswego — walk in, take a chair, then we'll take care of you.",
+    durationMs: 5200,
+    objectPosition: "center center",
+  },
+  {
     type: "video",
     src: "/videos/website-hero/solaria.mp4",
     poster: "/images/website-hero/solaria-poster.jpg",

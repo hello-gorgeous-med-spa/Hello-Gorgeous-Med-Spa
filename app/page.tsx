@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { ClinicServicesBand } from "@/components/marketing/ClinicServicesBand";
 import { NewStudioRevealBand } from "@/components/marketing/NewStudioRevealBand";
-import { HOME_THIS_IS_US_PHOTOS } from "@/lib/campaigns/fall-makeover-2026";
+import { HOME_LOUNGE_PHOTO, HOME_THIS_IS_US_PHOTOS } from "@/lib/campaigns/fall-makeover-2026";
 import { MdOversightWelcomeBand } from "@/components/MdOversightWelcomeBand";
 import { LiveGooglePlaceCard } from "@/components/LiveGooglePlaceCard";
 import {
@@ -160,7 +160,7 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             imageGalleryJsonLd(
-              HOME_THIS_IS_US_PHOTOS.map((photo) => ({
+              [HOME_LOUNGE_PHOTO, ...HOME_THIS_IS_US_PHOTOS].map((photo) => ({
                 src: photo.src,
                 alt: photo.alt,
                 title: `Hello Gorgeous Med Spa — ${photo.caption}`,

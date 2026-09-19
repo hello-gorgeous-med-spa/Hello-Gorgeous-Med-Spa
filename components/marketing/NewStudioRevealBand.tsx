@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { RoseGoldFrame } from "@/components/marketing/RoseGoldFrame";
 import { FadeUp } from "@/components/Section";
-import { HOME_THIS_IS_US_PHOTOS } from "@/lib/campaigns/fall-makeover-2026";
+import { HOME_LOUNGE_PHOTO, HOME_THIS_IS_US_PHOTOS } from "@/lib/campaigns/fall-makeover-2026";
 
 /** Homepage — This is us studio gallery. */
 export function NewStudioRevealBand() {
@@ -27,13 +27,30 @@ export function NewStudioRevealBand() {
               This is <span className="text-[#FF2D8E]">who we are</span>
             </h2>
             <p className="mt-4 text-base leading-relaxed text-white/70 sm:text-lg">
-              Real night in the new Washington Street studio — friends, treatments, and the room we
-              built. Not a stock set. Come sit with us.
+              This is the lounge you walk into on Washington Street — then the nights, the
+              treatments, and the people. Not a stock set. Come sit with us.
             </p>
           </div>
         </FadeUp>
 
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+        <FadeUp delayMs={40}>
+          <div className="mx-auto mt-10 max-w-5xl">
+            <RoseGoldFrame caption={HOME_LOUNGE_PHOTO.caption}>
+              <div className="relative aspect-[16/9] w-full">
+                <Image
+                  src={HOME_LOUNGE_PHOTO.src}
+                  alt={HOME_LOUNGE_PHOTO.alt}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  priority
+                />
+              </div>
+            </RoseGoldFrame>
+          </div>
+        </FadeUp>
+
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:mt-10 lg:grid-cols-4 lg:gap-5">
           {HOME_THIS_IS_US_PHOTOS.map((photo, i) => (
             <FadeUp key={photo.src} delayMs={i * 40}>
               <RoseGoldFrame caption={photo.caption}>

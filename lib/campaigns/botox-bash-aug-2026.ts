@@ -36,6 +36,11 @@ export const BOTOX_BASH_CAMPAIGN = {
 
 export const STUDIO_PHOTOS = [
   {
+    src: "/images/studio/waiting-lounge-2026.jpg",
+    alt: "Hello Gorgeous Med Spa waiting lounge in downtown Oswego — cream chairs and the room clients sit in",
+    caption: "Come sit with us",
+  },
+  {
     src: "/images/studio/reception.png",
     alt: "Hello Gorgeous Med Spa reception desk — downtown Oswego",
     caption: "Reception",

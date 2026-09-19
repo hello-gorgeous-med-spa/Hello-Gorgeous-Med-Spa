@@ -107,6 +107,13 @@ export const FALL_MAKEOVER_EVENT_PHOTOS = [
   },
 ] as const;
 
+/** Lounge clients sit in — lead the homepage studio band. */
+export const HOME_LOUNGE_PHOTO = {
+  src: "/images/studio/waiting-lounge-2026.jpg",
+  alt: "Hello Gorgeous Med Spa waiting lounge in downtown Oswego — cream chairs, glass table, and the room clients sit in",
+  caption: "Come sit with us",
+} as const;
+
 /** Four lifestyle frames for the homepage — skip the tight clinical close-ups. */
 export const HOME_THIS_IS_US_PHOTOS = FALL_MAKEOVER_EVENT_PHOTOS.slice(0, 4);
 
