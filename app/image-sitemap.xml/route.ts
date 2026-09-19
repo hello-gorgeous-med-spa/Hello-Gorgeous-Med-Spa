@@ -9,8 +9,10 @@ import { buildInModePageImageMap } from "@/lib/inmode-image-sitemap";
 
 const additionalImages = [
   // Hero & Brand Images
-  { src: "/images/website-hero/team-hero-vial.png", title: "Hello Gorgeous Med Spa — the team", caption: "Danielle Alcala-Glazier with the Hello Gorgeous team in the Oswego studio — owner-led medical aesthetics." },
-  { src: "/images/website-hero/team-hero-highfive.png", title: "Hello Gorgeous Med Spa — together", caption: "The Hello Gorgeous team in the Oswego studio." },
+  { src: "/images/website-hero/team-hero-vial-cinematic.jpg", title: "Hello Gorgeous Med Spa — the team", caption: "Danielle Alcala-Glazier with the Hello Gorgeous team in the Oswego studio — owner-led medical aesthetics." },
+  { src: "/images/website-hero/team-hero-highfive-cinematic.jpg", title: "Hello Gorgeous Med Spa — together", caption: "The Hello Gorgeous team in the Oswego studio." },
+  { src: "/images/website-hero/team-hero-four-cinematic.jpg", title: "Hello Gorgeous Med Spa — four of us", caption: "The Hello Gorgeous studio team in Oswego." },
+  { src: "/images/website-hero/team-hero-group-cinematic.jpg", title: "Hello Gorgeous Med Spa — the whole crew", caption: "Hello Gorgeous medical family in the Oswego studio." },
   { src: "/images/hero-banner.png", title: "Hello Gorgeous Med Spa Hero", caption: "Hello Gorgeous Med Spa — Botox, Morpheus8, GLP-1 weight loss in Oswego IL" },
   { src: "/images/logo-full.png", title: "Hello Gorgeous Med Spa Logo", caption: "Hello Gorgeous Med Spa official logo" },
   

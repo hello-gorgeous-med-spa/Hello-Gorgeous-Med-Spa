@@ -27,7 +27,6 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
   const isApp = variant === "app";
   const [index, setIndex] = useState(0);
   const [captionOn, setCaptionOn] = useState(true);
-  const [introVisible, setIntroVisible] = useState(!isApp);
   const [reduceMotion, setReduceMotion] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const timerRef = useRef<number | null>(null);
@@ -60,15 +59,6 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
     mq.addEventListener("change", apply);
     return () => mq.removeEventListener("change", apply);
   }, []);
-
-  useEffect(() => {
-    if (isApp || reduceMotion) {
-      setIntroVisible(false);
-      return;
-    }
-    const t = window.setTimeout(() => setIntroVisible(false), 3200);
-    return () => window.clearTimeout(t);
-  }, [isApp, reduceMotion]);
 
   useEffect(() => {
     indexRef.current = index;
@@ -137,8 +127,8 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
               boxShadow: "0 28px 90px rgba(0,0,0,0.55)",
             }
           : {
-              /* Match prior homepage hero scale — not full-viewport */
-              height: "clamp(260px, 42vw, 480px)",
+              /* Full team in the first viewport — 16:9 plate, never taller than leftover screen */
+              height: "clamp(400px, min(56.25vw, calc(100svh - 8.75rem)), 860px)",
             }
       }
       aria-label="Hello Gorgeous featured treatments"
@@ -148,12 +138,12 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
         <img
           src={stillSrc}
           alt=""
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+          className={`absolute inset-0 h-full w-full bg-black transition-opacity duration-700 ${
             showVideo ? "opacity-0" : "opacity-100"
-          }`}
+          } ${seg.type === "image" ? "object-contain" : "object-cover"}`}
           style={{
             objectPosition:
-              seg.type === "image" ? seg.objectPosition || "center" : "center",
+              seg.type === "image" ? seg.objectPosition || "center center" : "center",
           }}
           aria-hidden
         />
@@ -171,7 +161,9 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 48%, rgba(0,0,0,.55) 76%, rgba(0,0,0,.92) 100%)",
+              seg.type === "image"
+                ? "linear-gradient(180deg, rgba(0,0,0,.42) 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 58%, rgba(0,0,0,.45) 82%, rgba(0,0,0,.82) 100%)"
+                : "linear-gradient(180deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,0) 22%, rgba(0,0,0,0) 48%, rgba(0,0,0,.55) 76%, rgba(0,0,0,.92) 100%)",
           }}
           aria-hidden
         />
@@ -224,7 +216,7 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
         } ${
           isApp
             ? "left-3 right-3 bottom-3 max-w-[90%]"
-            : "left-4 right-4 bottom-14 max-w-xl sm:left-6 sm:bottom-16 sm:max-w-2xl"
+            : "left-5 right-5 bottom-6 max-w-xl sm:left-8 sm:bottom-8 sm:max-w-2xl"
         }`}
       >
         <div className={`rounded-full bg-[#FF2D8E] ${isApp ? "mb-2 h-0.5 w-8" : "mb-2 h-0.5 w-10"}`} />
@@ -238,7 +230,7 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
         </p>
         <h1
           className={`font-bold leading-[1.05] tracking-tight text-white ${
-            isApp ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl md:text-4xl"
+            isApp ? "text-xl sm:text-2xl" : "text-3xl sm:text-4xl md:text-5xl"
           }`}
           style={{ fontFamily: "var(--font-display), Georgia, serif" }}
         >
@@ -301,25 +293,6 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
         ))}
       </div>
 
-      {introVisible ? (
-        <div
-          className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 text-center transition-opacity duration-1000"
-          aria-hidden
-        >
-          <p
-            className="mb-2 text-[10px] font-bold uppercase tracking-[0.32em] sm:text-xs"
-            style={{ color: PINK }}
-          >
-            Medical Aesthetics · Oswego, IL
-          </p>
-          <p
-            className="text-3xl font-semibold italic tracking-tight text-white sm:text-4xl md:text-5xl"
-            style={{ fontFamily: "var(--font-display), Georgia, serif" }}
-          >
-            Hello, <span style={{ color: PINK }}>gorgeous.</span>
-          </p>
-        </div>
-      ) : null}
     </section>
   );
 }

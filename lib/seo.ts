@@ -136,10 +136,10 @@ function reserveActionJsonLd(reservationName = "Appointment at Hello Gorgeous Me
 }
 
 /** Homepage hero art. Bump `v` after replacing the file to bust CDN + Next/Image cache. */
-export const SITE_HERO_IMAGE = "/images/website-hero/team-hero-vial.png" as const;
-/** Mobile LCP crop — same team still until a tighter phone crop is cut. */
-export const SITE_HERO_IMAGE_SM = "/images/website-hero/team-hero-vial.png" as const;
-export const SITE_OG_IMAGE = `${SITE.url}/images/website-hero/team-hero-vial.png?v=2026-09-team-hero` as const;
+export const SITE_HERO_IMAGE = "/images/website-hero/team-hero-vial-cinematic.jpg" as const;
+/** Mobile LCP crop — same cinematic still. */
+export const SITE_HERO_IMAGE_SM = "/images/website-hero/team-hero-vial-cinematic.jpg" as const;
+export const SITE_OG_IMAGE = `${SITE.url}/images/website-hero/team-hero-vial-cinematic.jpg?v=2026-09-team-hero-cinematic` as const;
 export const SITE_OG_IMAGE_ALT =
   "Danielle Alcala-Glazier with the Hello Gorgeous team in the Oswego studio";
 
