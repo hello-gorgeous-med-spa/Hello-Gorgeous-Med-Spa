@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { RoseGoldFrame } from "@/components/marketing/RoseGoldFrame";
 import { FadeUp } from "@/components/Section";
-import { HOME_LOUNGE_PHOTO, HOME_THIS_IS_US_PHOTOS } from "@/lib/campaigns/fall-makeover-2026";
+import { HOME_CIRCLE_PHOTO, HOME_LOUNGE_PHOTO, HOME_THIS_IS_US_PHOTOS } from "@/lib/campaigns/fall-makeover-2026";
 
 /** Homepage — This is us studio gallery. */
 export function NewStudioRevealBand() {
@@ -33,8 +33,8 @@ export function NewStudioRevealBand() {
           </div>
         </FadeUp>
 
-        <FadeUp delayMs={40}>
-          <div className="mx-auto mt-10 max-w-5xl">
+        <div className="mx-auto mt-10 grid max-w-6xl gap-6 lg:grid-cols-12 lg:items-center">
+          <FadeUp delayMs={40} className="lg:col-span-7">
             <RoseGoldFrame caption={HOME_LOUNGE_PHOTO.caption}>
               <div className="relative aspect-[16/9] w-full">
                 <Image
@@ -42,13 +42,27 @@ export function NewStudioRevealBand() {
                   alt={HOME_LOUNGE_PHOTO.alt}
                   fill
                   className="object-cover object-center"
-                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  sizes="(max-width: 1024px) 100vw, 640px"
                   priority
                 />
               </div>
             </RoseGoldFrame>
-          </div>
-        </FadeUp>
+          </FadeUp>
+          <FadeUp delayMs={80} className="lg:col-span-5">
+            <RoseGoldFrame caption={HOME_CIRCLE_PHOTO.caption}>
+              <div className="relative mx-auto aspect-square w-full max-w-md lg:max-w-none">
+                <Image
+                  src={HOME_CIRCLE_PHOTO.src}
+                  alt={HOME_CIRCLE_PHOTO.alt}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 90vw, 420px"
+                  priority
+                />
+              </div>
+            </RoseGoldFrame>
+          </FadeUp>
+        </div>
 
         <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:mt-10 lg:grid-cols-4 lg:gap-5">
           {HOME_THIS_IS_US_PHOTOS.map((photo, i) => (

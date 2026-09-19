@@ -114,6 +114,12 @@ export const HOME_LOUNGE_PHOTO = {
   caption: "Come sit with us",
 } as const;
 
+export const HOME_CIRCLE_PHOTO = {
+  src: "/images/studio/team-circle-2026.jpg",
+  alt: "The Hello Gorgeous studio team in pink scrubs, heads together in a circle",
+  caption: "This is us",
+} as const;
+
 /** Four lifestyle frames for the homepage — skip the tight clinical close-ups. */
 export const HOME_THIS_IS_US_PHOTOS = FALL_MAKEOVER_EVENT_PHOTOS.slice(0, 4);
 

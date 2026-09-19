@@ -54,6 +54,16 @@ export const WEBSITE_HERO_SEGMENTS: WebsiteHeroSegment[] = [
   },
   {
     type: "image",
+    src: "/images/website-hero/team-hero-circle-cinematic.jpg",
+    eyebrow: "This is us",
+    title: "All",
+    titleEm: "in.",
+    sub: "The Hello Gorgeous studio team — one room, one vibe, downtown Oswego.",
+    durationMs: 5200,
+    objectPosition: "center center",
+  },
+  {
+    type: "image",
     src: "/images/website-hero/team-hero-group-cinematic.jpg",
     eyebrow: "The whole crew",
     title: "Medical",
