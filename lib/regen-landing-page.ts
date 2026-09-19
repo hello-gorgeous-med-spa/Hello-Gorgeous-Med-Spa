@@ -194,19 +194,19 @@ export const REGEN_GOALS = [
 export const REGEN_PROVIDERS = {
   headline: "Backed by licensed providers",
   intro:
-    "REGEN prescriptions are supervised by a licensed Illinois clinician — a board-certified Family Nurse Practitioner with prescriptive authority. Every treatment plan is reviewed, personalized, and monitored.",
+    "REGEN prescriptions are written by Ryan Kent, FNP-BC — a board-certified Family Nurse Practitioner with prescriptive authority. Every treatment plan is reviewed, personalized, and monitored.",
   bullets: [
     { id: "board", text: "Board-certified NP" },
     { id: "onsite", text: "On-site 6 days a week in Oswego" },
     { id: "telehealth", text: "Telehealth when required" },
   ],
   provider: {
-    name: "a licensed Illinois clinician",
-    title: "On-Site Nurse Practitioner · FNP-BC",
+    name: "Ryan Kent, FNP-BC",
+    title: "RE GEN RX Prescriber · FNP-BC",
     credentials: "Board-certified Family Nurse Practitioner",
     affiliation: "Hello Gorgeous Med Spa",
-    image: "/images/team/ryan-kent.png",
-    imageAlt: "a licensed Illinois clinician — RE GEN On-Site Nurse Practitioner",
+    image: "/images/team/ryan-kent-portrait.jpg",
+    imageAlt: "Ryan Kent, FNP-BC — RE GEN RX prescriber at Hello Gorgeous Med Spa",
   },
 } as const;
 
@@ -221,8 +221,8 @@ export const REGEN_HOW_IT_WORKS = {
       id: "message",
       title: "Message your provider 24/7",
       description: "Ask questions, report progress, adjust your plan — all through secure messaging.",
-      image: "/images/team/ryan-kent.png",
-      imageAlt: "Provider messaging",
+      image: "/images/team/ryan-kent-portrait.jpg",
+      imageAlt: "Ryan Kent, FNP-BC — RE GEN RX provider messaging",
     },
     {
       id: "manage",

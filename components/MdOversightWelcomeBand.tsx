@@ -8,7 +8,7 @@ import { CTA } from "@/components/CTA";
 import { FadeUp } from "@/components/Section";
 import { CONVERSION_HIERARCHY } from "@/lib/illinois-excellence";
 import { DANI_FULL_NAME } from "@/lib/founder-credentials";
-import { MEDICAL_DIRECTOR, PRESCRIBING_NP } from "@/lib/medical-authority";
+import { MEDICAL_DIRECTOR } from "@/lib/medical-authority";
 import {
   DANI_CLINICAL_CREDENTIALS,
   DR_ARORA_FULL_NAME,
@@ -61,8 +61,9 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
               Medical leadership you can meet
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-white/70">
-              Owner-operator with clinical credentials. Medical Director Dr. Mukesh Arora, MD.
-              Prescriptions by a licensed Illinois clinician. Real people — not a letterhead.
+              Owner-operator with clinical credentials. Ryan Kent, FNP-BC writes RE GEN RX
+              prescriptions. Kristina Huda, BSN, RN is our RN injector. Medical Director Dr.
+              Mukesh Arora, MD. Real people — not a letterhead.
             </p>
           </div>
 
@@ -80,18 +81,14 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
           </div>
         </FadeUp>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 sm:max-w-3xl sm:mx-auto">
+        <div className="mt-10 grid gap-4 grid-cols-2 lg:grid-cols-4">
           {MD_OVERSIGHT_TEAM.map((provider, i) => {
             const isArora = provider.name === DR_ARORA_FULL_NAME;
             return (
               <FadeUp key={provider.name} delayMs={i * 50}>
                 <div className="flex h-full flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
                   {(() => {
-                    const profileHref = isArora
-                      ? MEDICAL_DIRECTOR.profilePath
-                      : provider.name === DANI_FULL_NAME
-                        ? "/about"
-                        : PRESCRIBING_NP.profilePath;
+                    const profileHref = provider.href;
                     return (
                       <Link
                         href={profileHref}

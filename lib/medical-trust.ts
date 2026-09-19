@@ -1,9 +1,11 @@
-import { DANI_FULL_NAME, DANI_IMAGE } from "@/lib/founder-credentials";
+import { DANI_FULL_NAME, DANI_IMAGE, RYAN_FULL_NAME, RYAN_IMAGE } from "@/lib/founder-credentials";
+import { KRISTINA_FULL_NAME, KRISTINA_IMAGE } from "@/lib/kristina-huda";
 import {
   MEDICAL_DIRECTOR,
   MEDICAL_DIRECTOR_AFFILIATIONS,
   MEDICAL_DIRECTOR_GRADUATED,
   MEDICAL_DIRECTOR_SPECIALTY,
+  PRESCRIBING_NP,
   medicalDirectorPersonJsonLd,
 } from "@/lib/medical-authority";
 import { MEDICAL_TEAM_QUOTE } from "@/lib/medical-optimization";
@@ -24,13 +26,30 @@ export const DANI_CLINICAL_CREDENTIALS = [
 export const MEDICAL_TRUST_PROVIDERS = [
   {
     name: DANI_FULL_NAME,
-    // "Practice leadership", not "clinical": the owner is not a licensed clinician, and
-    // this band sits next to the prescriber and the physician Medical Director.
     role: "Owner & Founder · Practice leadership",
     detail: "RN-S · CNA · CMAA · Licensed Phlebotomist · Licensed Esthetician",
     image: DANI_IMAGE,
     imageAlt: `${DANI_FULL_NAME}, Owner & Founder of Hello Gorgeous Med Spa`,
     badge: "Owner · in clinic daily",
+    href: "/about",
+  },
+  {
+    name: RYAN_FULL_NAME,
+    role: "Prescriber · RE GEN RX",
+    detail: "FNP-BC · intakes, labs, and prescription protocols",
+    image: RYAN_IMAGE,
+    imageAlt: `${RYAN_FULL_NAME}, RE GEN RX prescriber at Hello Gorgeous Med Spa`,
+    badge: "RE GEN RX · prescriber",
+    href: PRESCRIBING_NP.profilePath,
+  },
+  {
+    name: KRISTINA_FULL_NAME,
+    role: "RN Injector",
+    detail: "Neuromodulators · fillers · IVs · wellness support",
+    image: KRISTINA_IMAGE,
+    imageAlt: `${KRISTINA_FULL_NAME}, RN injector at Hello Gorgeous Med Spa`,
+    badge: "RN injector",
+    href: "/meet-the-team#kristina-huda",
   },
   {
     name: DR_ARORA_FULL_NAME,
@@ -39,13 +58,14 @@ export const MEDICAL_TRUST_PROVIDERS = [
     image: MEDICAL_DIRECTOR.image,
     imageAlt: `${DR_ARORA_FULL_NAME}, Medical Director at Hello Gorgeous Med Spa`,
     badge: "Medical Director",
+    href: MEDICAL_DIRECTOR.profilePath,
   },
 ] as const;
 
-/** Full medical leadership trio on the homepage MD-oversight band. */
+/** Full medical leadership row — Danielle, Ryan, Kristina, Dr. Arora. */
 export const MD_OVERSIGHT_TEAM = MEDICAL_TRUST_PROVIDERS;
 
-/** @deprecated Prefer MD_OVERSIGHT_TEAM — Danielle and Medical Director Arora. */
+/** @deprecated Prefer MD_OVERSIGHT_TEAM. */
 export const MD_OVERSIGHT_PAIR = MEDICAL_TRUST_PROVIDERS;
 
 export const DR_ARORA_PROFILE = {
@@ -77,16 +97,16 @@ export const DR_ARORA_PROFILE = {
 
 export const MEDICAL_TRUST_BADGES = [
   "MD Medical Director",
-  "Illinois clinician review",
+  "Ryan Kent, FNP-BC · RE GEN RX",
+  "Kristina Huda, BSN, RN · injector",
   "Owner · RN-S · CNA · CMAA",
-  "Licensed phlebotomist & esthetician",
   "Consult-first RX",
   "Illinois telehealth licensed",
 ] as const;
 
 /** Crawlable / AEO blurb — keep in HTML even when UI uses a Learn more modal. */
 export const DR_ARORA_SEO_BLURB =
-  "Dr. Mukesh Arora, MD is Medical Director of Hello Gorgeous Med Spa in Oswego, Illinois. Internal Medicine with 30+ years of experience. Graduated Ggs Medical College, 1991. Affiliated with Advocate Good Shepherd Hospital and Northwestern Medicine McHenry Hospital. Hello Gorgeous chose Dr. Arora as Medical Director for patient-first leadership: unhurried visits, clear communication, and long-term trust. Prescriptions are written only by a licensed Illinois clinician; the practice is owned by Danielle Alcala-Glazier.";
+  "Dr. Mukesh Arora, MD is Medical Director of Hello Gorgeous Med Spa in Oswego, Illinois. Internal Medicine with 30+ years of experience. Graduated Ggs Medical College, 1991. Affiliated with Advocate Good Shepherd Hospital and Northwestern Medicine McHenry Hospital. Hello Gorgeous chose Dr. Arora as Medical Director for patient-first leadership: unhurried visits, clear communication, and long-term trust. Prescriptions are written by Ryan Kent, FNP-BC; the practice is owned by Danielle Alcala-Glazier.";
 
 /**
  * Standalone `Person` schema for Google. Identity and credentials come from

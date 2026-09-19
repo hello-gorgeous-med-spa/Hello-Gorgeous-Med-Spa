@@ -5,8 +5,18 @@
 import {
   DANI_FULL_NAME,
   DANI_IMAGE,
+  RYAN_FULL_NAME,
+  RYAN_IMAGE,
+  RYAN_MEDIUM_BIO,
   TEAM_FOUNDERS_IMAGE,
 } from "@/lib/founder-credentials";
+import {
+  KRISTINA_BIO_PARAGRAPHS,
+  KRISTINA_FULL_NAME,
+  KRISTINA_IMAGE,
+  KRISTINA_QUOTE,
+} from "@/lib/kristina-huda";
+import { MEDICAL_DIRECTOR } from "@/lib/medical-authority";
 import { SITE } from "@/lib/seo";
 
 export type TeamMember = {
@@ -34,9 +44,31 @@ export type TeamMember = {
 };
 
 export const MEET_THE_TEAM_SEO_DESCRIPTION =
-  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Michelle Colby (office manager, laser hair & IPL tech & certified InMode instructor), Laura Witt (client relations & wellness sales), Jen Vokoun (permanent makeup & brow artist), plus founder Danielle Alcala-Glazier.";
+  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Danielle Alcala-Glazier, Ryan Kent, FNP-BC (RE GEN RX prescriber), Kristina Huda, BSN, RN (injector), Dr. Mukesh Arora, MD, plus Michelle Colby, Laura Witt, and Jen Vokoun.";
 
 export const TEAM_MEMBERS: TeamMember[] = [
+  {
+    id: "kristina-huda",
+    slug: "kristina-huda",
+    fullName: KRISTINA_FULL_NAME,
+    badge: "RN Injector",
+    title: "Registered Nurse · Aesthetic Injector",
+    isNewHire: true,
+    image: {
+      src: KRISTINA_IMAGE,
+      alt: `${KRISTINA_FULL_NAME}, RN injector at Hello Gorgeous Med Spa in Oswego, IL`,
+      objectClassName: "object-cover object-[center_28%]",
+    },
+    quote: KRISTINA_QUOTE,
+    bioParagraphs: KRISTINA_BIO_PARAGRAPHS,
+    specialties: [
+      "Neuromodulators",
+      "Dermal fillers",
+      "IV hydration",
+      "Vitamin infusions",
+      "Wellness support",
+    ],
+  },
   {
     id: "michelle-colby",
     slug: "michelle-colby",
@@ -142,12 +174,63 @@ export const LEADERSHIP_TEAM: TeamMember[] = [
     ],
     specialties: ["Morpheus8 · Quantum RF · Solaria", "Brows & skin", "InMode Trifecta"],
   },
+  {
+    id: "ryan-kent",
+    slug: "ryan-kent",
+    fullName: RYAN_FULL_NAME,
+    badge: "Prescriber · RE GEN RX",
+    title: "Nurse Practitioner · FNP-BC",
+    profileHref: "/providers/ryan",
+    profileLabel: "Full profile →",
+    image: {
+      src: RYAN_IMAGE,
+      alt: `${RYAN_FULL_NAME}, RE GEN RX prescriber at Hello Gorgeous Med Spa in Oswego, IL`,
+    },
+    quote: "Consult first. I review the chart. Then I write the plan — or I don't.",
+    bioParagraphs: [RYAN_MEDIUM_BIO],
+    specialties: ["Medical weight loss", "Hormones", "Peptide protocols", "Labs & refills"],
+  },
+  {
+    id: "kristina-leadership",
+    slug: "kristina-row",
+    fullName: KRISTINA_FULL_NAME,
+    badge: "RN Injector",
+    title: "Registered Nurse",
+    profileHref: "/meet-the-team#kristina-huda",
+    profileLabel: "Read Kristina’s bio →",
+    image: {
+      src: KRISTINA_IMAGE,
+      alt: `${KRISTINA_FULL_NAME}, RN injector at Hello Gorgeous Med Spa in Oswego, IL`,
+      objectClassName: "object-cover object-[center_28%]",
+    },
+    bioParagraphs: [
+      "Our RN injector for neuromodulators, fillers, IVs, and wellness support. She does not prescribe — Ryan Kent, FNP-BC writes every prescription.",
+    ],
+    specialties: ["Neuromodulators", "Fillers", "IVs"],
+  },
+  {
+    id: "dr-arora",
+    slug: "dr-arora",
+    fullName: MEDICAL_DIRECTOR.displayName,
+    badge: "Medical Director",
+    title: "Internal Medicine",
+    profileHref: MEDICAL_DIRECTOR.profilePath,
+    profileLabel: "Full profile →",
+    image: {
+      src: MEDICAL_DIRECTOR.image,
+      alt: MEDICAL_DIRECTOR.imageAlt,
+    },
+    bioParagraphs: [
+      "Physician Medical Director for Hello Gorgeous. Thirty-plus years in Internal Medicine. Patient-first oversight — unhurried visits, clear communication, long-term trust.",
+    ],
+    specialties: ["Physician oversight", "Internal Medicine"],
+  },
 ];
 
 export const TEAM_FOUNDERS_GROUP_IMAGE = TEAM_FOUNDERS_IMAGE;
 
 export function meetTheTeamJsonLd() {
-  const all = [...TEAM_MEMBERS, ...LEADERSHIP_TEAM];
+  const all = [...TEAM_MEMBERS, ...LEADERSHIP_TEAM.filter((m) => m.id !== "kristina-leadership")];
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",

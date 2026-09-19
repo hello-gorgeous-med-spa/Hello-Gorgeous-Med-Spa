@@ -13,6 +13,7 @@ import {
   DANI_LONG_BIO,
   DANI_MEDIUM_BIO,
 } from "@/lib/founder-credentials";
+import { MEDICAL_TRUST_PROVIDERS } from "@/lib/medical-trust";
 import { DANIELLE_INMODE_CERTIFICATES } from "@/lib/inmode-training-certificates";
 import { SITE } from "@/lib/seo";
 
@@ -27,12 +28,12 @@ const ABOUT_FAQS = [
   {
     question: "Who owns Hello Gorgeous?",
     answer:
-      "Danielle Alcala-Glazier — Licensed Esthetician and founder. She works in the Oswego studio every day. Prescriptions are written only by a licensed Illinois clinician under Medical Director Dr. Mukesh Arora, MD. Danielle is not the prescriber.",
+      "Danielle Alcala-Glazier — Licensed Esthetician and founder. She works in the Oswego studio every day. Prescriptions are written by Ryan Kent, FNP-BC under Medical Director Dr. Mukesh Arora, MD. Danielle is not the prescriber.",
   },
   {
     question: "Who performs treatments at Hello Gorgeous?",
     answer:
-      "Danielle Alcala-Glazier performs hands-on aesthetic treatments — brows, skin, and advanced device work she's trained on for 10+ years. Medical protocols and prescriptions are reviewed by a licensed Illinois clinician under Medical Director Dr. Mukesh Arora, MD — not a remote letterhead from another state.",
+      "Danielle Alcala-Glazier performs hands-on aesthetic treatments — brows, skin, and advanced device work she's trained on for 10+ years. Kristina Huda, BSN, RN is our RN injector. Ryan Kent, FNP-BC writes RE GEN RX prescriptions under Medical Director Dr. Mukesh Arora, MD — not a remote letterhead from another state.",
   },
   {
     question: "Is Hello Gorgeous a chain or franchise?",
@@ -122,7 +123,7 @@ const SECTIONS: AboutSection[] = [
     learnMoreHref: "/faq",
     learnMoreLabel: "Read the full FAQ →",
     extraLinks: [
-      { label: "Meet the full team — Michelle, Laura & Jen →", href: "/meet-the-team" },
+      { label: "Meet the full team — Kristina, Michelle, Laura & Jen →", href: "/meet-the-team" },
     ],
   },
 ];
@@ -295,6 +296,52 @@ export function AboutPageContent() {
               </CTA>
             </div>
           </FadeUp>
+        </div>
+      </Section>
+
+      <Section className="!px-0 border-b-4 border-black py-10 md:py-12">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <FadeUp>
+            <p className="text-center text-[10px] font-bold uppercase tracking-[0.28em] text-[#FFB8DC]">
+              The four of us
+            </p>
+            <h2 className="mt-2 text-center font-serif text-2xl font-bold text-white md:text-3xl">
+              Owner · Prescriber · RN injector · Medical Director
+            </h2>
+          </FadeUp>
+          <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+            {MEDICAL_TRUST_PROVIDERS.map((person, i) => (
+              <FadeUp key={person.name} delayMs={i * 40}>
+                <Link
+                  href={person.href}
+                  className="block overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
+                >
+                  <div className="relative aspect-[3/4] bg-[#f8f4f0]">
+                    <Image
+                      src={person.image}
+                      alt={person.imageAlt}
+                      fill
+                      className={
+                        person.name === "Kristina Huda, BSN, RN"
+                          ? "object-cover object-[center_28%]"
+                          : "object-cover object-center"
+                      }
+                      sizes="(max-width: 1024px) 45vw, 22vw"
+                    />
+                  </div>
+                  <div className="border-t-4 border-black p-3 sm:p-4">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#E6007E]">
+                      {person.badge}
+                    </p>
+                    <p className="mt-1 text-sm font-black leading-snug text-black sm:text-base">
+                      {person.name}
+                    </p>
+                    <p className="mt-1 text-[11px] font-semibold text-[#E6007E]">{person.role}</p>
+                  </div>
+                </Link>
+              </FadeUp>
+            ))}
+          </div>
         </div>
       </Section>
 

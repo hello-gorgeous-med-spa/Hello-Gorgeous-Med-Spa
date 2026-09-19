@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
-import { DANI_IMAGE } from "@/lib/founder-credentials";
+import { DANI_IMAGE, RYAN_IMAGE } from "@/lib/founder-credentials";
+import { KRISTINA_IMAGE } from "@/lib/kristina-huda";
 import {
   SHOWCASE_ACCENTS,
   TrifectaShowcaseSection,
@@ -113,11 +114,11 @@ export function MeetDaniRyanSection() {
               backgroundImage: "linear-gradient(to right, #ec4899, #60a5fa, #f59e0b)",
             }}
           >
-            Danielle
+            the team
           </span>
         </>
       }
-      description="A real founder with real credentials. On site every week — not a rented medical director from another state."
+      description="Owner, prescriber, RN injector, and physician Medical Director — four of us, in a row. On site in Oswego. Not a rented letterhead from another state."
       footer={
         <>
           <div
@@ -160,7 +161,7 @@ export function MeetDaniRyanSection() {
         </>
       }
     >
-      <div className="grid gap-6 md:grid-cols-2 lg:gap-8">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4 lg:gap-8">
         <FounderTrifectaCard
           image={DANI_IMAGE}
           imageAlt="Danielle Alcala-Glazier, Owner and Founder of Hello Gorgeous Med Spa"
@@ -174,16 +175,47 @@ export function MeetDaniRyanSection() {
           delayMs={200}
         />
         <FounderTrifectaCard
+          image={RYAN_IMAGE}
+          imageAlt="Ryan Kent, FNP-BC, RE GEN RX prescriber at Hello Gorgeous Med Spa"
+          heading="Ryan Kent"
+          role="Prescriber · RE GEN RX"
+          credentials="FNP-BC · Illinois APRN with prescriptive authority"
+          body="Ryan runs RE GEN RX — medical weight loss, hormones, and peptide protocols. He reviews intakes, labs, and refills. Consult first. He writes the prescription. Danielle does not."
+          ctaLabel="Meet Ryan"
+          ctaHref="/providers/ryan"
+          accent={SHOWCASE_ACCENTS[1]}
+          delayMs={300}
+        />
+        <FounderTrifectaCard
+          image={KRISTINA_IMAGE}
+          imageAlt="Kristina Huda, BSN, RN, RN injector at Hello Gorgeous Med Spa"
+          heading="Kristina Huda"
+          role="RN Injector"
+          credentials="BSN, RN · Illinois-licensed registered nurse"
+          body="Kristina is our RN injector — neuromodulators, fillers, IVs, and wellness support. She takes her time in the chair. She does not prescribe."
+          ctaLabel="Meet Kristina"
+          ctaHref="/meet-the-team#kristina-huda"
+          accent={SHOWCASE_ACCENTS[2]}
+          delayMs={400}
+        />
+        <FounderTrifectaCard
           image="/images/providers/dr-mukesh-arora.jpg"
           imageAlt="Dr. Mukesh Arora, MD, Medical Director at Hello Gorgeous Med Spa"
-          heading="Medical Director"
-          role="Dr. Mukesh Arora, MD"
+          heading="Dr. Arora"
+          role="Medical Director"
           credentials="Internal Medicine · physician Medical Director"
-          body="Physician oversight for Hello Gorgeous. Prescriptions are written only by a licensed Illinois clinician after a consult — not by the owner."
+          body="Physician oversight for Hello Gorgeous. Prescriptions are written by Ryan Kent, FNP-BC after a consult — not by the owner."
           ctaLabel="Read about Dr. Arora"
           ctaHref="/providers/dr-arora"
-          accent={SHOWCASE_ACCENTS[1]}
-          delayMs={350}
+          accent={{
+            border: "rgba(20, 184, 166, 0.35)",
+            subtitle: "#5eead4",
+            bullet: "#14b8a6",
+            badgeBg: "#14b8a6",
+            buttonFrom: "#14b8a6",
+            buttonTo: "#0d9488",
+          }}
+          delayMs={500}
         />
       </div>
     </TrifectaShowcaseSection>

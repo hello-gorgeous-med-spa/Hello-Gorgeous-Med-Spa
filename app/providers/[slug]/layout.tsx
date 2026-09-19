@@ -4,8 +4,15 @@ import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/hgos/supabase";
 import {
   DANI_FULL_NAME,
+  RYAN_FULL_NAME,
+  RYAN_MEDIUM_BIO,
 } from "@/lib/founder-credentials";
-import { DANIELLE_CREDENTIALS } from "@/lib/provider-credentials";
+import { KRISTINA_FULL_NAME, KRISTINA_SHORT_BIO } from "@/lib/kristina-huda";
+import { DANIELLE_CREDENTIALS, KRISTINA_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentials";
+import {
+  medicalDirectorPersonJsonLd,
+  prescribingNpPersonJsonLd,
+} from "@/lib/medical-authority";
 import { pageMetadata, SITE } from "@/lib/seo";
 
 const FALLBACK_PROVIDERS: Record<
@@ -18,6 +25,18 @@ const FALLBACK_PROVIDERS: Record<
     credentials: DANIELLE_CREDENTIALS,
     description:
       "Meet Danielle Alcala-Glazier — Licensed Esthetician and founder of Hello Gorgeous Med Spa in Oswego, IL. 10+ years serving Naperville, Aurora & Plainfield.",
+  },
+  ryan: {
+    name: RYAN_FULL_NAME,
+    title: "RE GEN RX Prescriber",
+    credentials: RYAN_CREDENTIALS,
+    description: RYAN_MEDIUM_BIO,
+  },
+  kristina: {
+    name: KRISTINA_FULL_NAME,
+    title: "RN Injector",
+    credentials: KRISTINA_CREDENTIALS,
+    description: KRISTINA_SHORT_BIO,
   },
 };
 
@@ -32,10 +51,6 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  if (slug === "ryan") {
-    redirect("/about");
-  }
-
   let providerName = "Provider";
   let providerTitle = "";
   let providerCredentials = "";
@@ -97,7 +112,13 @@ export async function generateMetadata({
       type: "profile",
       images: [
         {
-          url: `${SITE.url}/images/team/danielle-alcala-glazier-portrait.png`,
+          url: `${SITE.url}${
+            slug === "ryan"
+              ? "/images/team/ryan-kent-portrait.jpg"
+              : slug === "kristina"
+                ? "/images/team/kristina-huda-2026.jpg"
+                : "/images/team/danielle-alcala-glazier-portrait.png"
+          }`,
           width: 1200,
           height: 630,
           alt: `${providerName} at Hello Gorgeous Med Spa`,
@@ -109,9 +130,27 @@ export async function generateMetadata({
 
 export default async function ProviderLayout({ children, params }: LayoutProps) {
   const { slug } = await params;
-  if (slug === "danielle" || slug === "ryan") {
+  if (slug === "danielle") {
     redirect("/about");
   }
 
-  return <>{children}</>;
+  const schema =
+    slug === "ryan"
+      ? {
+          "@context": "https://schema.org",
+          "@graph": [prescribingNpPersonJsonLd(SITE.url), medicalDirectorPersonJsonLd(SITE.url)],
+        }
+      : null;
+
+  return (
+    <>
+      {schema ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ) : null}
+      {children}
+    </>
+  );
 }

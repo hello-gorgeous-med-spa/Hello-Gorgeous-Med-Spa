@@ -16,27 +16,24 @@
 /** Kept local so this stays a leaf module; mirrors `SITE.url` in `lib/seo.ts`. */
 const SITE_ORIGIN = "https://www.hellogorgeousmedspa.com";
 
-/**
- * Public phrasing while a named Illinois NP is being onboarded.
- * Do not invent a replacement NP. Do not name Danielle as the prescriber.
- */
+/** Generic legal phrasing when a sentence should not name a person. */
 export const LICENSED_CLINICIAN_PHRASE = "a licensed Illinois clinician";
 export const LICENSED_CLINICIAN_ROLE = "Illinois-licensed physician or APRN";
 
-/** @deprecated No named NP is currently on staff. Prefer {@link LICENSED_CLINICIAN_PHRASE}. */
-export const NP_ON_SITE_DAYS_PER_WEEK = 0;
+/** Ryan Kent leads RE GEN RX prescribing. Do not name Danielle as the prescriber. */
+export const NP_ON_SITE_DAYS_PER_WEEK = 6;
 
 /** Prose form — use in sentences. */
-export const NP_ON_SITE_PHRASE = "reviewed by a licensed Illinois clinician";
+export const NP_ON_SITE_PHRASE = "prescribed by Ryan Kent, FNP-BC";
 
 /** Compact form — use in chips, badges, and price-list notes. */
-export const NP_ON_SITE_SHORT = "IL clinician review";
+export const NP_ON_SITE_SHORT = "Ryan Kent, FNP-BC";
 
 /**
  * Date the clinical content owned by this authority layer was last reviewed.
  * Bump this when clinical surfaces are re-read, not on every deploy.
  */
-export const CLINICAL_REVIEW_DATE = "2026-09-09";
+export const CLINICAL_REVIEW_DATE = "2026-09-19";
 
 export type ClinicianAuthority = {
   /** Display name including credential suffix, e.g. "Dr. Mukesh Arora, MD". */
@@ -72,22 +69,21 @@ export const MEDICAL_DIRECTOR: ClinicianAuthority = {
   schemaId: "#dr-mukesh-arora",
 };
 
-/**
- * Generic public clinician — not a named person.
- * Kept so existing interpolations (`PRESCRIBING_NP.displayName`) stop naming a
- * departed NP. JSON-LD reviewers should use {@link medicalDirectorPersonJsonLd}.
- */
+/** On-site NP and RE GEN RX prescriber. Danielle does not prescribe. */
 export const PRESCRIBING_NP: ClinicianAuthority = {
-  displayName: LICENSED_CLINICIAN_PHRASE,
-  schemaName: "Hello Gorgeous clinical review",
-  honorificSuffix: "",
-  jobTitle: LICENSED_CLINICIAN_ROLE,
-  roleLine: "Illinois-licensed physician or APRN review",
-  credentials: ["Illinois medical license"],
-  profilePath: "/contact",
-  image: MEDICAL_DIRECTOR.image,
-  imageAlt: "Clinical care at Hello Gorgeous Med Spa in Oswego, IL — Medical Director Dr. Mukesh Arora, MD",
-  schemaId: "#licensed-illinois-clinician",
+  displayName: "Ryan Kent, FNP-BC",
+  schemaName: "Ryan Kent",
+  honorificSuffix: "FNP-BC",
+  jobTitle: "Nurse Practitioner · RE GEN RX Prescriber",
+  roleLine: "RE GEN RX prescriber · board-certified Family Nurse Practitioner",
+  credentials: [
+    "Family Nurse Practitioner-Board Certified (FNP-BC)",
+    "Illinois APRN with prescriptive authority",
+  ],
+  profilePath: "/providers/ryan",
+  image: "/images/team/ryan-kent-portrait.jpg",
+  imageAlt: "Ryan Kent, FNP-BC, RE GEN RX prescriber at Hello Gorgeous Med Spa in Oswego, IL",
+  schemaId: "#ryan-kent",
 };
 
 /** Medical specialty of the Medical Director. */
@@ -128,8 +124,8 @@ export const NP_LICENSURE_FACTS = [
 /** How oversight actually works between clinicians and the physician Medical Director. */
 export const OVERSIGHT_MODEL = [
   {
-    title: "A licensed Illinois clinician evaluates and prescribes",
-    body: "An Illinois-licensed physician or APRN reviews your intake and history, orders and interprets labs where indicated, decides whether a medication or protocol is appropriate, and sets the plan — in person in Oswego or by telehealth for Illinois patients.",
+    title: "Ryan Kent, FNP-BC evaluates and prescribes",
+    body: "Ryan Kent, FNP-BC — board-certified Family Nurse Practitioner and RE GEN RX prescriber — reviews your intake and history, orders and interprets labs where indicated, decides whether a medication or protocol is appropriate, and sets the plan — in person in Oswego or by telehealth for Illinois patients.",
   },
   {
     title: "A physician Medical Director stands behind the practice",
@@ -167,7 +163,7 @@ export function formatReviewMonth(isoDate: string = CLINICAL_REVIEW_DATE): strin
 }
 
 /** Plain-text authority sentence for metadata, AI answers, and llms.txt-style surfaces. */
-export const CLINICAL_AUTHORITY_SUMMARY = `Clinical care at Hello Gorgeous Med Spa is overseen by Medical Director ${MEDICAL_DIRECTOR.displayName} (${MEDICAL_DIRECTOR_SPECIALTY}). Prescriptions are written only by ${LICENSED_CLINICIAN_PHRASE} (${LICENSED_CLINICIAN_ROLE}) after a consult — not by the owner.`;
+export const CLINICAL_AUTHORITY_SUMMARY = `Clinical care at Hello Gorgeous Med Spa is overseen by Medical Director ${MEDICAL_DIRECTOR.displayName} (${MEDICAL_DIRECTOR_SPECIALTY}). Prescriptions are written by Ryan Kent, FNP-BC after a consult — not by the owner.`;
 
 function credentialNodes(credentials: readonly string[]) {
   return credentials.map((credentialCategory) => ({
@@ -176,15 +172,31 @@ function credentialNodes(credentials: readonly string[]) {
   }));
 }
 
-/**
- * @deprecated No named prescribing NP is currently published. Returns the Medical
- * Director `Person` node so leftover callers do not emit a departed clinician.
- */
+/** `Person` node for Ryan Kent, FNP-BC. */
 export function prescribingNpPersonJsonLd(
   siteUrl: string = SITE_ORIGIN,
-  _opts?: { profileUrl?: string },
+  opts?: { profileUrl?: string },
 ) {
-  return medicalDirectorPersonJsonLd(siteUrl);
+  const profileUrl = opts?.profileUrl ?? `${siteUrl}${PRESCRIBING_NP.profilePath}`;
+  return {
+    "@type": "Person" as const,
+    "@id": `${siteUrl}/${PRESCRIBING_NP.schemaId}`,
+    name: PRESCRIBING_NP.schemaName,
+    honorificSuffix: PRESCRIBING_NP.honorificSuffix,
+    jobTitle: PRESCRIBING_NP.jobTitle,
+    url: profileUrl,
+    image: `${siteUrl}${PRESCRIBING_NP.image}`,
+    description: `${PRESCRIBING_NP.displayName} is the RE GEN RX prescriber at Hello Gorgeous Med Spa in Oswego, Illinois. Board-certified Family Nurse Practitioner with Illinois prescriptive authority. Medical Director ${MEDICAL_DIRECTOR.displayName} provides physician oversight. Danielle Alcala-Glazier owns the practice and does not prescribe.`,
+    knowsAbout: [
+      "Medical weight loss",
+      "Hormone therapy",
+      "Prescription peptide protocols",
+      "RE GEN RX",
+    ],
+    worksFor: { "@id": `${siteUrl}/#organization` },
+    affiliation: { "@id": `${siteUrl}/#organization` },
+    hasCredential: credentialNodes(PRESCRIBING_NP.credentials),
+  };
 }
 
 /** `Person` node for the physician Medical Director. */
@@ -235,6 +247,7 @@ export type ClinicalPageSchemaOptions = {
 export function clinicalPageJsonLd(opts: ClinicalPageSchemaOptions) {
   const siteUrl = opts.siteUrl ?? SITE_ORIGIN;
   const director = medicalDirectorPersonJsonLd(siteUrl);
+  const prescriber = prescribingNpPersonJsonLd(siteUrl);
 
   // Same `@id` convention as `webPageJsonLd` so a page emitting both ends up as one
   // merged entity rather than two competing descriptions of the same URL.
@@ -254,6 +267,6 @@ export function clinicalPageJsonLd(opts: ClinicalPageSchemaOptions) {
 
   return {
     "@context": "https://schema.org",
-    "@graph": [medicalWebPage, director, ...(opts.extraNodes ?? [])],
+    "@graph": [medicalWebPage, director, prescriber, ...(opts.extraNodes ?? [])],
   };
 }

@@ -2,10 +2,9 @@
  * Canonical Danielle credential copy — source of truth for founder surfaces.
  */
 
+import { kristinaPersonJsonLd } from "@/lib/kristina-huda";
 import {
   CLINICAL_REVIEW_DATE,
-  LICENSED_CLINICIAN_PHRASE,
-  LICENSED_CLINICIAN_ROLE,
   MEDICAL_DIRECTOR,
   medicalDirectorPersonJsonLd,
 } from "@/lib/medical-authority";
@@ -13,11 +12,7 @@ import { SITE } from "@/lib/seo";
 
 export const DANI_FULL_NAME = "Danielle Alcala-Glazier";
 
-/**
- * @deprecated No named NP is currently on staff. Kept so leftover interpolations
- * read as a generic clinician instead of a departed provider.
- */
-export const RYAN_FULL_NAME = LICENSED_CLINICIAN_PHRASE;
+export const RYAN_FULL_NAME = "Ryan Kent, FNP-BC";
 
 /** Service page slugs that use the prescription-focused credentials strip. */
 export const PRESCRIPTION_SERVICE_SLUGS = new Set([
@@ -32,13 +27,13 @@ export const PRESCRIPTION_SERVICE_SLUGS = new Set([
 export const FOOTER_CREDENTIALS_HEADLINE = "Hello Gorgeous Med Spa — Family-owned. Clinician-directed.";
 
 export const FOOTER_CREDENTIALS_LINE =
-  `Founder: Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) · Medical Director: ${MEDICAL_DIRECTOR.displayName} · Prescriptions: ${LICENSED_CLINICIAN_ROLE}`;
+  `Founder: Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) · Medical Director: ${MEDICAL_DIRECTOR.displayName} · Prescriber: ${RYAN_FULL_NAME} · RN Injector: Kristina Huda, BSN, RN`;
 
-export const CREDENTIAL_STRIP_STANDARD = `Performed by our team. Medical Director: ${MEDICAL_DIRECTOR.displayName}. Prescriptions are written only by ${LICENSED_CLINICIAN_PHRASE}.
+export const CREDENTIAL_STRIP_STANDARD = `Performed by our team. Medical Director: ${MEDICAL_DIRECTOR.displayName}. Prescriptions are written by ${RYAN_FULL_NAME}.
 
 Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician. 10+ years at this practice.`;
 
-export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeous is written by ${LICENSED_CLINICIAN_PHRASE} (${LICENSED_CLINICIAN_ROLE}) under Medical Director ${MEDICAL_DIRECTOR.displayName}. Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician.`;
+export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeous is written by ${RYAN_FULL_NAME} under Medical Director ${MEDICAL_DIRECTOR.displayName}. Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician.`;
 
 export const DANI_SHORT_BIO =
   "Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician. Owner & Founder, Hello Gorgeous Med Spa.";
@@ -60,29 +55,23 @@ Dani is still in the office every day. She still answers texts. She still orders
 /** Full bio for provider profiles and GBP paste blocks. */
 export const DANI_PROVIDER_BIO = `${DANI_MEDIUM_BIO}\n\n${DANI_LONG_BIO}`;
 
-/** @deprecated No named NP is currently published. */
 export const RYAN_SHORT_BIO =
-  `Prescriptions at Hello Gorgeous Med Spa are written only by ${LICENSED_CLINICIAN_PHRASE} under Medical Director ${MEDICAL_DIRECTOR.displayName}.`;
+  `${RYAN_FULL_NAME} is the RE GEN RX prescriber at Hello Gorgeous Med Spa — medical weight loss, hormones, and peptide protocols after a consult.`;
 
-/** @deprecated No named NP is currently published. */
-export const RYAN_MEDIUM_BIO = `Hello Gorgeous Med Spa in Oswego, Illinois is a physician-directed medical spa. Prescriptions are written only by ${LICENSED_CLINICIAN_PHRASE} (${LICENSED_CLINICIAN_ROLE}) under Medical Director ${MEDICAL_DIRECTOR.displayName}.`;
+export const RYAN_MEDIUM_BIO = `${RYAN_FULL_NAME} is a board-certified Family Nurse Practitioner and the RE GEN RX prescriber at Hello Gorgeous Med Spa in Oswego, Illinois. He reviews intakes, labs, and refill requests and writes prescriptions only when a plan is appropriate — under Medical Director ${MEDICAL_DIRECTOR.displayName}.`;
 
-/** @deprecated No named NP is currently published. */
-export const RYAN_LONG_BIO = `Clinical decisions — from medical weight-loss protocols to hormone and peptide plans — go through a licensed Illinois clinician. Danielle Alcala-Glazier owns and operates the practice daily. She is not the prescriber.`;
+export const RYAN_LONG_BIO = `Ryan leads RE GEN RX: medical weight loss, hormone therapy, and prescription peptide protocols for Illinois patients. Consult first. Nothing is filled without his review. Danielle Alcala-Glazier owns and operates the practice daily. She is not the prescriber.`;
 
-/** @deprecated No named NP profile is published. */
 export const RYAN_PROVIDER_BIO = `${RYAN_MEDIUM_BIO}\n\n${RYAN_LONG_BIO}`;
 
 export const ABOUT_PAGE_SEO_DESCRIPTION =
-  "Meet Danielle Alcala-Glazier — Owner & Founder (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) of Hello Gorgeous Med Spa in Oswego, IL. 10+ years serving Naperville, Aurora & Plainfield. Morpheus8, Solaria, Botox, brows & more. Medical Director Dr. Mukesh Arora, MD.";
+  "Meet Danielle Alcala-Glazier — Owner & Founder of Hello Gorgeous Med Spa in Oswego, IL — with Ryan Kent, FNP-BC (RE GEN RX prescriber), Kristina Huda, BSN, RN (injector), and Medical Director Dr. Mukesh Arora, MD.";
 
 export const DANI_IMAGE = "/images/team/danielle-alcala-glazier-portrait.png";
 /** Primary Dani portrait on /about — clinic setting with InMode equipment visible */
 export const ABOUT_DANI_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
-/** @deprecated Former NP headshot — do not use on public people cards. */
-export const RYAN_IMAGE = "/images/providers/dr-mukesh-arora.jpg";
-/** @deprecated Former NP patient-care photo — do not use as a named-provider band. */
-export const RYAN_PATIENT_CARE_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
+export const RYAN_IMAGE = "/images/team/ryan-kent-portrait.jpg";
+export const RYAN_PATIENT_CARE_IMAGE = "/images/team/ryan-kent-portrait.jpg";
 export const TEAM_FOUNDERS_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
 export const SOLARIA_DANI_DEVICE_IMAGE = "/images/solaria/danielle-solaria-inmode-clinic.png";
 export const SOLARIA_TREATMENT_IMAGE = "/images/solaria/solaria-co2-treatment-oswego.png";
@@ -150,12 +139,26 @@ export function daniPersonJsonLd() {
   };
 }
 
-/**
- * @deprecated No named NP is published. Returns the Medical Director node so
- * leftover schema callers do not emit a departed clinician.
- */
-export function ryanPersonJsonLd(_opts?: { profileUrl?: string }) {
-  return medicalDirectorPersonJsonLd(SITE.url);
+export function ryanPersonJsonLd(opts?: { profileUrl?: string }) {
+  return {
+    "@type": "Person",
+    "@id": `${SITE.url}/#ryan-kent`,
+    name: "Ryan Kent",
+    honorificSuffix: "FNP-BC",
+    jobTitle: "Nurse Practitioner · RE GEN RX Prescriber",
+    url: opts?.profileUrl ?? `${SITE.url}/providers/ryan`,
+    image: `${SITE.url}${RYAN_IMAGE}`,
+    description: RYAN_MEDIUM_BIO,
+    knowsAbout: ["RE GEN RX", "Medical weight loss", "Hormone therapy", "Peptide protocols"],
+    worksFor: { "@id": `${SITE.url}/#organization` },
+    affiliation: { "@id": `${SITE.url}/#organization` },
+    hasCredential: [
+      {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "Family Nurse Practitioner-Board Certified (FNP-BC)",
+      },
+    ],
+  };
 }
 
 export function aboutPageJsonLd() {
@@ -167,6 +170,8 @@ export function aboutPageJsonLd() {
     description: ABOUT_PAGE_SEO_DESCRIPTION,
     mainEntity: [
       { "@id": `${SITE.url}/about#dani` },
+      { "@id": `${SITE.url}/#ryan-kent` },
+      { "@id": `${SITE.url}/#kristina-huda` },
       { "@id": `${SITE.url}/${MEDICAL_DIRECTOR.schemaId}` },
     ],
     isPartOf: { "@id": `${SITE.url}/#website` },
@@ -180,6 +185,8 @@ export function aboutPageGraphJsonLd() {
     "@graph": [
       aboutPageJsonLd(),
       daniPersonJsonLd(),
+      ryanPersonJsonLd(),
+      kristinaPersonJsonLd(SITE.url),
       medicalDirectorPersonJsonLd(SITE.url),
     ],
   };

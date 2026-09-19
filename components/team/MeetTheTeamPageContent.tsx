@@ -10,7 +10,6 @@ import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SITE } from "@/lib/seo";
 import {
   LEADERSHIP_TEAM,
-  TEAM_FOUNDERS_GROUP_IMAGE,
   TEAM_MEMBERS,
   type TeamMember,
 } from "@/lib/team-members";
@@ -19,10 +18,11 @@ const TEXT_TEL = "sms:6302016867";
 const TEXT_DISPLAY = "(630) 201-6867";
 
 const JUMP_LINKS = [
+  { label: "Kristina Huda", href: "#kristina-huda" },
   { label: "Michelle Colby", href: "#michelle-colby" },
   { label: "Laura Witt", href: "#laura-witt" },
   { label: "Jen Vokoun", href: "#jen-vokoun" },
-  { label: "Danielle", href: "#leadership" },
+  { label: "The four of us", href: "#leadership" },
   { label: "Book a visit", href: BOOKING_URL, external: true },
 ] as const;
 
@@ -245,37 +245,25 @@ export function MeetTheTeamPageContent() {
         <div className="mx-auto max-w-[1200px]">
           <FadeUp>
             <div className="mx-auto mb-10 max-w-[720px] text-center">
-              <Eyebrow>Founders &amp; Medical Leadership</Eyebrow>
+              <Eyebrow>The four of us</Eyebrow>
               <h2 className="mt-3 font-serif text-[34px] font-bold leading-[1.05] text-white lg:text-[46px]">
-                Danielle <span className="text-[#FF2D8E]">&amp;</span> the team
+                Owner · Prescriber · Injector · <span className="text-[#FF2D8E]">MD</span>
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-white/70">
-                Family-owned at 74 W. Washington St. — Danielle on aesthetics, with physician Medical
-                Director oversight and licensed Illinois clinician review.
+                Family-owned at 74 W. Washington St. — Danielle, Ryan, Kristina, and Dr. Arora in
+                one row. Ryan writes RE GEN RX prescriptions. Kristina is our RN injector.
               </p>
             </div>
           </FadeUp>
 
-          <FadeUp delayMs={40}>
-            <div className="relative mx-auto mb-12 aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
-              <Image
-                src={TEAM_FOUNDERS_GROUP_IMAGE}
-                alt="Danielle Alcala-Glazier and a licensed Illinois clinician — founders of Hello Gorgeous Med Spa in Oswego, IL"
-                fill
-                className="object-cover object-center"
-                sizes="(max-width: 768px) 100vw, 448px"
-              />
-            </div>
-          </FadeUp>
-
-          <div className="grid gap-8 lg:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {LEADERSHIP_TEAM.map((member, i) => (
               <FadeUp key={member.id} delayMs={i * 50}>
                 <article
                   id={member.slug}
                   className="scroll-mt-28 h-full rounded-3xl border border-[#FF2D8E]/25 bg-white/[0.03] p-6 md:p-8"
                 >
-                  <div className="grid gap-6 sm:grid-cols-[160px_1fr] sm:items-start">
+                  <div className="grid gap-6">
                     <div className="relative aspect-[4/5] w-full max-w-[200px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 bg-[#0a0206]">
                       <Image
                         src={member.image.src}
