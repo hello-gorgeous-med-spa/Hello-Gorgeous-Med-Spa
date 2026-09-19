@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { BestOfOswegoBadge } from "@/components/BestOfOswegoBadge";
+import { CinematicProviderPoster } from "@/components/CinematicProviderPoster";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { InModeTrainingCertificates } from "@/components/marketing/InModeTrainingCertificates";
@@ -312,33 +313,14 @@ export function AboutPageContent() {
           <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
             {MEDICAL_TRUST_PROVIDERS.map((person, i) => (
               <FadeUp key={person.name} delayMs={i * 40}>
-                <Link
+                <CinematicProviderPoster
+                  name={person.name}
+                  role={person.role}
+                  badge={person.badge}
+                  image={person.image}
+                  imageAlt={person.imageAlt}
                   href={person.href}
-                  className="block overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
-                >
-                  <div className="relative aspect-[3/4] bg-[#f8f4f0]">
-                    <Image
-                      src={person.image}
-                      alt={person.imageAlt}
-                      fill
-                      className={
-                        person.name === "Kristina Huda, BSN, RN"
-                          ? "object-cover object-[center_28%]"
-                          : "object-cover object-center"
-                      }
-                      sizes="(max-width: 1024px) 45vw, 22vw"
-                    />
-                  </div>
-                  <div className="border-t-4 border-black p-3 sm:p-4">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#E6007E]">
-                      {person.badge}
-                    </p>
-                    <p className="mt-1 text-sm font-black leading-snug text-black sm:text-base">
-                      {person.name}
-                    </p>
-                    <p className="mt-1 text-[11px] font-semibold text-[#E6007E]">{person.role}</p>
-                  </div>
-                </Link>
+                />
               </FadeUp>
             ))}
           </div>

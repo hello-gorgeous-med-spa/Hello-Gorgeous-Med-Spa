@@ -67,11 +67,11 @@ export const RYAN_PROVIDER_BIO = `${RYAN_MEDIUM_BIO}\n\n${RYAN_LONG_BIO}`;
 export const ABOUT_PAGE_SEO_DESCRIPTION =
   "Meet Danielle Alcala-Glazier — Owner & Founder of Hello Gorgeous Med Spa in Oswego, IL — with Ryan Kent, FNP-BC (RE GEN RX prescriber), Kristina Huda, BSN, RN (injector), and Medical Director Dr. Mukesh Arora, MD.";
 
-export const DANI_IMAGE = "/images/team/danielle-alcala-glazier-portrait.png";
+export const DANI_IMAGE = "/images/team/cinematic/danielle.jpg";
 /** Primary Dani portrait on /about — clinic setting with InMode equipment visible */
 export const ABOUT_DANI_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
-export const RYAN_IMAGE = "/images/team/ryan-kent-portrait.jpg";
-export const RYAN_PATIENT_CARE_IMAGE = "/images/team/ryan-kent-portrait.jpg";
+export const RYAN_IMAGE = "/images/team/cinematic/ryan.jpg";
+export const RYAN_PATIENT_CARE_IMAGE = "/images/team/cinematic/ryan.jpg";
 export const TEAM_FOUNDERS_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
 export const SOLARIA_DANI_DEVICE_IMAGE = "/images/solaria/danielle-solaria-inmode-clinic.png";
 export const SOLARIA_TREATMENT_IMAGE = "/images/solaria/solaria-co2-treatment-oswego.png";

@@ -3,7 +3,7 @@
  */
 
 export const KRISTINA_FULL_NAME = "Kristina Huda, BSN, RN";
-export const KRISTINA_IMAGE = "/images/team/kristina-huda-2026.jpg";
+export const KRISTINA_IMAGE = "/images/team/cinematic/kristina.jpg";
 export const KRISTINA_CREDENTIALS =
   "BSN, RN · Illinois-licensed registered nurse · RN injector";
 

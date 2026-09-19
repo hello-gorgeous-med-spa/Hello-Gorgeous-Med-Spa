@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
 
+import { CinematicProviderPoster } from "@/components/CinematicProviderPoster";
 import { CTA } from "@/components/CTA";
 import { FadeUp } from "@/components/Section";
 import { CONVERSION_HIERARCHY } from "@/lib/illinois-excellence";
@@ -11,7 +12,6 @@ import { DANI_FULL_NAME } from "@/lib/founder-credentials";
 import { MEDICAL_DIRECTOR } from "@/lib/medical-authority";
 import {
   DANI_CLINICAL_CREDENTIALS,
-  DR_ARORA_FULL_NAME,
   DR_ARORA_PROFILE,
   DR_ARORA_SEO_BLURB,
   MD_OVERSIGHT_TEAM,
@@ -81,82 +81,40 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
           </div>
         </FadeUp>
 
-        <div className="mt-10 grid gap-4 grid-cols-2 lg:grid-cols-4">
-          {MD_OVERSIGHT_TEAM.map((provider, i) => {
-            const isArora = provider.name === DR_ARORA_FULL_NAME;
-            return (
-              <FadeUp key={provider.name} delayMs={i * 50}>
-                <div className="flex h-full flex-col overflow-hidden rounded-3xl border-4 border-black bg-white shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
-                  {(() => {
-                    const profileHref = provider.href;
-                    return (
-                      <Link
-                        href={profileHref}
-                        className="group relative aspect-[4/5] bg-[#f8f4f0] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#E6007E] focus-visible:ring-offset-2"
-                      >
-                        <Image
-                          src={provider.image}
-                          alt={provider.imageAlt}
-                          fill
-                          className={
-                            provider.name === DANI_FULL_NAME
-                              ? "object-cover object-[center_12%] transition duration-300 group-hover:scale-[1.02]"
-                              : "object-cover object-center transition duration-300 group-hover:scale-[1.02]"
-                          }
-                          sizes="(max-width: 640px) 100vw, 33vw"
-                        />
-                        <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-3 pt-10">
-                          <span className="inline-flex items-center rounded-full border-2 border-white/40 bg-[#E6007E] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-lg">
-                            View profile →
-                          </span>
-                        </span>
-                      </Link>
-                    );
-                  })()}
-                  <div className="flex flex-1 flex-col border-t-4 border-black p-4 sm:p-5">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#E6007E]">
-                      {provider.badge}
-                    </p>
-                    <h3 className="mt-1 font-serif text-lg font-bold leading-snug text-black sm:text-xl">
-                      {provider.name}
-                    </h3>
-                    <p className="mt-1 text-sm font-semibold text-[#E6007E]">{provider.role}</p>
-                    <p className="mt-2 text-sm leading-snug text-black/70">{provider.detail}</p>
-                    {provider.name === DANI_FULL_NAME ? (
-                      <div className="mt-3 flex flex-wrap gap-1.5">
-                        {DANI_CLINICAL_CREDENTIALS.map((cred) => (
-                          <span
-                            key={cred}
-                            className="rounded-full border border-black/15 bg-[#FFF0F7] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#E6007E]"
-                          >
-                            {cred}
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
-                    {isArora ? (
-                      <>
-                        <button
-                          type="button"
-                          onClick={() => setAroraOpen(true)}
-                          className="mt-3 self-start text-sm font-bold text-[#E6007E] underline decoration-2 underline-offset-2 hover:text-[#FF2D8E]"
-                        >
-                          Why we chose him as Medical Director →
-                        </button>
-                        <Link href={MEDICAL_DIRECTOR.profilePath} className="sr-only">
-                          Read about Medical Director Dr. Mukesh Arora, MD at Hello Gorgeous
-                        </Link>
-                      </>
-                    ) : null}
-                  </div>
-                </div>
-              </FadeUp>
-            );
-          })}
+        <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+          {MD_OVERSIGHT_TEAM.map((provider, i) => (
+            <FadeUp key={provider.name} delayMs={i * 50}>
+              <CinematicProviderPoster
+                name={provider.name}
+                role={provider.role}
+                badge={provider.badge}
+                detail={
+                  provider.name === DANI_FULL_NAME
+                    ? DANI_CLINICAL_CREDENTIALS.join(" · ")
+                    : provider.detail
+                }
+                image={provider.image}
+                imageAlt={provider.imageAlt}
+                href={provider.href}
+              />
+            </FadeUp>
+          ))}
         </div>
 
         <FadeUp delayMs={100}>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => setAroraOpen(true)}
+              className="text-sm font-bold text-[#FFB8DC] underline decoration-2 underline-offset-2 hover:text-[#FF2D8E]"
+            >
+              Why we chose Dr. Arora as Medical Director →
+            </button>
+            <Link href={MEDICAL_DIRECTOR.profilePath} className="sr-only">
+              Read about Medical Director Dr. Mukesh Arora, MD at Hello Gorgeous
+            </Link>
+          </div>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
             <CTA href={CONVERSION_HIERARCHY.primary.href} variant="gradient">
               {CONVERSION_HIERARCHY.primary.label}
             </CTA>

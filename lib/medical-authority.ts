@@ -64,7 +64,7 @@ export const MEDICAL_DIRECTOR: ClinicianAuthority = {
   roleLine: "Medical Director · Internal Medicine",
   credentials: ["Doctor of Medicine (MD) · Internal Medicine"],
   profilePath: "/providers/dr-arora",
-  image: "/images/providers/dr-mukesh-arora.jpg",
+  image: "/images/team/cinematic/dr-arora.jpg",
   imageAlt: "Dr. Mukesh Arora, MD, Medical Director at Hello Gorgeous Med Spa in Oswego, IL",
   schemaId: "#dr-mukesh-arora",
 };
@@ -81,7 +81,7 @@ export const PRESCRIBING_NP: ClinicianAuthority = {
     "Illinois APRN with prescriptive authority",
   ],
   profilePath: "/providers/ryan",
-  image: "/images/team/ryan-kent-portrait.jpg",
+  image: "/images/team/cinematic/ryan.jpg",
   imageAlt: "Ryan Kent, FNP-BC, RE GEN RX prescriber at Hello Gorgeous Med Spa in Oswego, IL",
   schemaId: "#ryan-kent",
 };
