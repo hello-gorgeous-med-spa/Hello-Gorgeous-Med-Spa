@@ -12,6 +12,7 @@ import { InModeTrainingCertificates } from "@/components/marketing/InModeTrainin
 import { BOOKING_URL } from "@/lib/flows";
 import {
   ABOUT_DANI_IMAGE,
+  DANI_INDUSTRY_RELATIONSHIPS,
   DANI_LONG_BIO,
   DANI_MEDIUM_BIO,
   DANI_OWNER_STORY_PHOTOS,
@@ -32,6 +33,10 @@ const ABOUT_FAQS = [
     question: "Who owns Hello Gorgeous?",
     answer:
       "Danielle Alcala-Glazier — Owner & Founder. She is a certified CNA and CMAA, a licensed phlebotomist and licensed esthetician, a 10+ year business owner and developer, and an RN student at Waubonsee Community College. She works in the Oswego studio every day. Prescriptions are written by Ryan Kent, FNP-BC under Medical Director Dr. Mukesh Arora, MD. Danielle is not the prescriber.",
+  },
+  {
+    question: "Who does Danielle work with after ten years in this industry?",
+    answer: DANI_INDUSTRY_RELATIONSHIPS,
   },
   {
     question: "Who performs treatments at Hello Gorgeous?",
@@ -95,6 +100,7 @@ const SECTIONS: AboutSection[] = [
     highlights: [
       "CNA · CMAA · Licensed Phlebotomist · Licensed Esthetician",
       "10+ year business owner · developer",
+      "Pharmacies · McKesson · AnteAGE · Botox, Jeuveau, Dysport, Xeomin · InMode",
       "RN student at Waubonsee Community College",
       "InMode Trifecta: Morpheus8 · Quantum RF · Solaria CO₂",
     ],
