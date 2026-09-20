@@ -24,11 +24,15 @@ export function JourneyResultsCinema({
   productName,
   showAreaFilter = false,
   intervalMs = AUTO_MS,
+  frameClassName = "h-[min(48vw,360px)] sm:h-[380px]",
+  stageClassName = "max-w-4xl",
 }: {
   slides: JourneyResultSlide[];
   productName: string;
   showAreaFilter?: boolean;
   intervalMs?: number;
+  frameClassName?: string;
+  stageClassName?: string;
 }) {
   const titleId = useId();
   const [filter, setFilter] = useState<Filter>("all");
@@ -132,8 +136,8 @@ export function JourneyResultsCinema({
         </div>
       ) : null}
 
-      <div className="mx-auto w-full max-w-4xl overflow-hidden rounded-2xl border border-[#FF2D8E]/35 bg-[#050205] shadow-[0_16px_48px_rgba(255,45,142,0.14)]">
-        <div className="relative mx-auto h-[min(48vw,360px)] w-full max-w-4xl bg-black sm:h-[380px]">
+      <div className={`mx-auto w-full overflow-hidden rounded-2xl border border-[#FF2D8E]/35 bg-[#050205] shadow-[0_16px_48px_rgba(255,45,142,0.14)] ${stageClassName}`}>
+        <div className={`relative w-full bg-black ${frameClassName}`}>
           {/* Ambient glow */}
           <div
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_70%_at_50%_40%,rgba(255,45,142,0.12),transparent_70%)]"
@@ -210,7 +214,7 @@ export function JourneyResultsCinema({
       </div>
 
       {/* Thumbnail strip */}
-      <div className="mx-auto mt-3 flex max-w-4xl gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className={`mx-auto mt-3 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${stageClassName}`}>
         {filtered.map((slide, i) => (
           <button
             key={slide.src}

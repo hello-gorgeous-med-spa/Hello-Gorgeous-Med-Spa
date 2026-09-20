@@ -6,6 +6,7 @@ import Link from "next/link";
 import { BestOfOswegoBadge } from "@/components/BestOfOswegoBadge";
 import { CinematicProviderPoster } from "@/components/CinematicProviderPoster";
 import { CTA } from "@/components/CTA";
+import { JourneySoundVideo } from "@/components/marketing/JourneySoundVideo";
 import { FadeUp, Section } from "@/components/Section";
 import { InModeTrainingCertificates } from "@/components/marketing/InModeTrainingCertificates";
 import { BOOKING_URL } from "@/lib/flows";
@@ -14,7 +15,7 @@ import {
   DANI_LONG_BIO,
   DANI_MEDIUM_BIO,
 } from "@/lib/founder-credentials";
-import { MEDICAL_TRUST_PROVIDERS } from "@/lib/medical-trust";
+import { MEDICAL_TRUST_PROVIDERS, RYAN_CLINIC_VIDEOS } from "@/lib/medical-trust";
 import { DANIELLE_INMODE_CERTIFICATES } from "@/lib/inmode-training-certificates";
 import { SITE } from "@/lib/seo";
 
@@ -324,6 +325,35 @@ export function AboutPageContent() {
               </FadeUp>
             ))}
           </div>
+          <FadeUp delayMs={80}>
+            <div className="mt-10">
+              <p className="text-center text-[10px] font-bold uppercase tracking-[0.28em] text-[#FFB8DC]">
+                In clinic · this is us
+              </p>
+              <h3 className="mt-2 text-center font-serif text-2xl font-bold text-white md:text-3xl">
+                Ryan with the family
+              </h3>
+              <div className="mt-6 grid items-start gap-4 lg:grid-cols-[1.35fr_0.75fr]">
+                {RYAN_CLINIC_VIDEOS.map((clip) => (
+                  <figure
+                    key={clip.src}
+                    className="overflow-hidden rounded-3xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
+                  >
+                    <JourneySoundVideo
+                      src={clip.src}
+                      poster={clip.poster}
+                      label={clip.label}
+                      aspectClassName={clip.aspectClassName}
+                      objectClassName="object-cover"
+                    />
+                    <figcaption className="border-t-2 border-white/10 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#FFB8DC]">
+                      {clip.caption}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </FadeUp>
         </div>
       </Section>
 

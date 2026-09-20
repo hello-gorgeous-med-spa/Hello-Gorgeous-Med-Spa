@@ -16,6 +16,7 @@ import {
   QUANTUM_RF_INTRO_SPECIAL,
   QUANTUM_RF_MARKETING,
   QUANTUM_RF_NAV,
+  QUANTUM_RF_FEATURED_RESULTS,
   QUANTUM_RF_PACKAGES,
   QUANTUM_RF_RESULTS,
   QUANTUM_RF_STEPS,
@@ -359,11 +360,45 @@ export function QuantumRFPageContent() {
           <SectionHead
             eyebrow="Real results"
             title="Before & after —"
-            titleAccent="cinematic gallery"
-            description="HD slideshow of Hello Gorgeous clinic cases and curated InMode QuantumRF clinical photography. Individual results vary."
+            titleAccent="our clients"
+            description="Side-by-side Quantum RF results from Hello Gorgeous clients in Oswego — chin & neck and abdomen. Individual results vary. Consult required."
           />
-          <div className="mt-10">
-            <JourneyResultsCinema productName="Quantum RF" slides={QUANTUM_RF_RESULTS} showAreaFilter />
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            {QUANTUM_RF_FEATURED_RESULTS.map((shot) => (
+              <figure
+                key={shot.src}
+                className="overflow-hidden rounded-3xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
+              >
+                <div className="relative aspect-video w-full bg-black">
+                  <Image
+                    src={shot.src}
+                    alt={shot.alt}
+                    fill
+                    priority
+                    className="object-contain"
+                    sizes="(max-width: 1024px) 100vw, 560px"
+                  />
+                </div>
+                <figcaption className="border-t-4 border-black bg-white px-4 py-3">
+                  <p className="font-bold text-[#E6007E]">{shot.label}</p>
+                  <p className="mt-0.5 text-xs font-medium text-black/60">
+                    Hello Gorgeous clinic · Individual results vary
+                  </p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <div className="mt-12">
+            <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.18em] text-[#FF2D8E]">
+              Full gallery · clinic + InMode clinical
+            </p>
+            <JourneyResultsCinema
+              productName="Quantum RF"
+              slides={QUANTUM_RF_RESULTS}
+              showAreaFilter
+              stageClassName="max-w-5xl"
+              frameClassName="h-[min(56vw,560px)] sm:h-[560px]"
+            />
           </div>
         </div>
       </section>

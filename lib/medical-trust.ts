@@ -29,7 +29,7 @@ export const MEDICAL_TRUST_PROVIDERS = [
     role: "Owner & Founder · Practice leadership",
     detail: "RN-S · CNA · CMAA · Licensed Phlebotomist · Licensed Esthetician",
     image: DANI_IMAGE,
-    imageAlt: `${DANI_FULL_NAME}, Owner & Founder of Hello Gorgeous Med Spa`,
+    imageAlt: `${DANI_FULL_NAME}, Owner & Founder of Hello Gorgeous Med Spa, in clinic with Solaria`,
     badge: "Owner · in clinic daily",
     href: "/about",
   },
@@ -120,6 +120,24 @@ export function aroraPersonJsonLd(siteUrl = "https://www.hellogorgeousmedspa.com
     description: DR_ARORA_SEO_BLURB,
   };
 }
+
+/** Ryan in-clinic clips — family, not patient marketing. */
+export const RYAN_CLINIC_VIDEOS = [
+  {
+    src: "/videos/team/ryan-clinic-consult.mp4",
+    poster: "/images/team/ryan-clinic-consult-poster.jpg",
+    label: "Ryan Kent, FNP-BC in the Oswego clinic",
+    caption: "In clinic",
+    aspectClassName: "aspect-video",
+  },
+  {
+    src: "/videos/team/ryan-clinic-family.mp4",
+    poster: "/images/team/ryan-clinic-family-poster.jpg",
+    label: "Ryan Kent, FNP-BC in the Hello Gorgeous clinic",
+    caption: "This is us",
+    aspectClassName: "aspect-[9/16]",
+  },
+] as const;
 
 /** Storefront plaque copy + asset — keep site and door sign aligned. */
 export const STOREFRONT_TRUST_SIGN = {

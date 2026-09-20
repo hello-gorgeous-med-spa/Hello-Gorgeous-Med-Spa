@@ -62,6 +62,8 @@ const additionalImages = [
   { src: "/images/website-hero/lounge-cinematic.jpg", title: "Hello Gorgeous lounge — cinematic", caption: "Come sit with us — Hello Gorgeous Med Spa waiting lounge in downtown Oswego" },
   { src: "/images/studio/team-circle-2026.jpg", title: "Hello Gorgeous team — this is us", caption: "The Hello Gorgeous studio team in downtown Oswego" },
   { src: "/images/website-hero/team-hero-circle-cinematic.jpg", title: "Hello Gorgeous team circle — cinematic", caption: "The Hello Gorgeous studio team, heads together" },
+  { src: "/images/quantum-rf/hg-client-chin-cinematic.jpg", title: "Quantum RF chin and neck before and after", caption: "Hello Gorgeous client Quantum RF chin and neck results — Oswego IL. Individual results vary." },
+  { src: "/images/quantum-rf/hg-client-abdomen-cinematic.jpg", title: "Quantum RF abdomen before and after", caption: "Hello Gorgeous client Quantum RF abdomen results — Oswego IL. Individual results vary." },
   { src: "/images/studio/reception.png", title: "Hello Gorgeous reception desk", caption: "New downtown Oswego Hello Gorgeous Med Spa reception" },
   { src: "/images/studio/retail-wall.png", title: "Hello Gorgeous retail wall", caption: "Medical-grade skincare retail at Hello Gorgeous Med Spa Oswego" },
   { src: "/images/studio/lobby-window.png", title: "Hello Gorgeous lobby", caption: "New Hello Gorgeous Med Spa lobby — 74 W Washington Street Oswego" },
