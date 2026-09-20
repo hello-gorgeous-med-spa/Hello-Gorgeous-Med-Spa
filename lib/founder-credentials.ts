@@ -27,7 +27,7 @@ export const PRESCRIPTION_SERVICE_SLUGS = new Set([
 export const FOOTER_CREDENTIALS_HEADLINE = "Hello Gorgeous Med Spa — Family-owned. Clinician-directed.";
 
 export const FOOTER_CREDENTIALS_LINE =
-  `Founder: Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) · Medical Director: ${MEDICAL_DIRECTOR.displayName} · Prescriber: ${RYAN_FULL_NAME} · RN Injector: Kristina Huda, BSN, RN`;
+  `Founder: Danielle Alcala-Glazier (CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician, 10+ year owner & developer, RN-S at Waubonsee) · Medical Director: ${MEDICAL_DIRECTOR.displayName} · Prescriber: ${RYAN_FULL_NAME} · RN Injector: Kristina Huda, BSN, RN`;
 
 export const CREDENTIAL_STRIP_STANDARD = `Performed by our team. Medical Director: ${MEDICAL_DIRECTOR.displayName}. Prescriptions are written by ${RYAN_FULL_NAME}.
 
@@ -35,10 +35,13 @@ Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotom
 
 export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeous is written by ${RYAN_FULL_NAME} under Medical Director ${MEDICAL_DIRECTOR.displayName}. Owner & Founder: Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician.`;
 
-export const DANI_SHORT_BIO =
-  "Danielle Alcala-Glazier — RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician. Owner & Founder, Hello Gorgeous Med Spa.";
+export const DANI_CREDENTIALS_PUBLIC =
+  "certified CNA, CMAA, licensed phlebotomist, licensed esthetician, 10+ year business owner, developer, and RN student at Waubonsee Community College";
 
-export const DANI_MEDIUM_BIO = `Danielle Alcala-Glazier is a Licensed Esthetician, Licensed Phlebotomist, Certified Medical Administrative Assistant (CMAA), and Certified Nursing Assistant (CNA), and is an RN student (RN-S). She is the Owner and Founder of Hello Gorgeous Med Spa in Oswego, Illinois.
+export const DANI_SHORT_BIO =
+  `Danielle Alcala-Glazier — ${DANI_CREDENTIALS_PUBLIC}. Owner & Founder, Hello Gorgeous Med Spa.`;
+
+export const DANI_MEDIUM_BIO = `Danielle Alcala-Glazier is a certified CNA and CMAA, a licensed phlebotomist and licensed esthetician, a 10+ year business owner and developer, and an RN student (RN-S) at Waubonsee Community College. She is the Owner and Founder of Hello Gorgeous Med Spa in Oswego, Illinois.
 
 Danielle's path into medical aesthetics began at age twelve, when severe acne led her down a years-long journey through every product, peel, and treatment she could find — including Accutane at eighteen. That struggle did not end with clearer skin; it became a lifelong obsession with how skin actually heals, what ingredients and devices truly change outcomes, and why so many people waste money on treatments that never deliver.`;
 

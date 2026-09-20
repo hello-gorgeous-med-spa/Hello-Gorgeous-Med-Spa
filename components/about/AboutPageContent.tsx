@@ -31,12 +31,12 @@ const ABOUT_FAQS = [
   {
     question: "Who owns Hello Gorgeous?",
     answer:
-      "Danielle Alcala-Glazier — Licensed Esthetician and founder. She works in the Oswego studio every day. Prescriptions are written by Ryan Kent, FNP-BC under Medical Director Dr. Mukesh Arora, MD. Danielle is not the prescriber.",
+      "Danielle Alcala-Glazier — Owner & Founder. She is a certified CNA and CMAA, a licensed phlebotomist and licensed esthetician, a 10+ year business owner and developer, and an RN student at Waubonsee Community College. She works in the Oswego studio every day. Prescriptions are written by Ryan Kent, FNP-BC under Medical Director Dr. Mukesh Arora, MD. Danielle is not the prescriber.",
   },
   {
     question: "Who performs treatments at Hello Gorgeous?",
     answer:
-      "Danielle Alcala-Glazier performs hands-on aesthetic treatments — brows, skin, and advanced device work she's trained on for 10+ years. Kristina Huda, BSN, RN is our RN injector. Ryan Kent, FNP-BC writes RE GEN RX prescriptions under Medical Director Dr. Mukesh Arora, MD — not a remote letterhead from another state.",
+      "Danielle Alcala-Glazier owns the practice and still treats clients — brows, skin, and advanced device work she has trained on for 10+ years, alongside running the business and the technology behind the brand. Kristina Huda, BSN, RN is our RN injector. Ryan Kent, FNP-BC writes RE GEN RX prescriptions under Medical Director Dr. Mukesh Arora, MD — not a remote letterhead from another state.",
   },
   {
     question: "Is Hello Gorgeous a chain or franchise?",
@@ -93,14 +93,14 @@ const SECTIONS: AboutSection[] = [
     badge: "OWNER & FOUNDER",
     description: DANI_MEDIUM_BIO,
     highlights: [
-      "Licensed Esthetician · Phlebotomist · CMAA · CNA",
-      "RN degree in progress",
+      "CNA · CMAA · Licensed Phlebotomist · Licensed Esthetician",
+      "10+ year business owner · developer",
+      "RN student at Waubonsee Community College",
       "InMode Trifecta: Morpheus8 · Quantum RF · Solaria CO₂",
-      "Microblading · skin · hands-on care daily",
     ],
     image: {
       src: ABOUT_DANI_IMAGE,
-      alt: "Danielle Alcala-Glazier, Licensed Esthetician and founder of Hello Gorgeous Med Spa in Oswego, IL",
+      alt: "Danielle Alcala-Glazier, owner and founder of Hello Gorgeous Med Spa in Oswego, IL",
     },
   },
   {

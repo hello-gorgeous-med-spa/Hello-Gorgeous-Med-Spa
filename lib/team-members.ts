@@ -161,7 +161,7 @@ export const LEADERSHIP_TEAM: TeamMember[] = [
     slug: "danielle",
     fullName: DANI_FULL_NAME,
     badge: "Owner & Founder",
-    title: "Licensed Esthetician",
+    title: "CNA · CMAA · Phlebotomist · Esthetician · Developer · RN-S, Waubonsee",
     profileHref: "/about#dani",
     profileLabel: "Full profile →",
     image: {

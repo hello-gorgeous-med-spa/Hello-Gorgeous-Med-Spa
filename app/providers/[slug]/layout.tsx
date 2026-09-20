@@ -24,7 +24,7 @@ const FALLBACK_PROVIDERS: Record<
     title: "Owner & Founder",
     credentials: DANIELLE_CREDENTIALS,
     description:
-      "Meet Danielle Alcala-Glazier — Licensed Esthetician and founder of Hello Gorgeous Med Spa in Oswego, IL. 10+ years serving Naperville, Aurora & Plainfield.",
+      "Meet Danielle Alcala-Glazier — Owner & Founder of Hello Gorgeous Med Spa. CNA, CMAA, licensed phlebotomist, licensed esthetician, developer, and RN student at Waubonsee. 10+ years in Oswego, Naperville, Aurora & Plainfield.",
   },
   ryan: {
     name: RYAN_FULL_NAME,

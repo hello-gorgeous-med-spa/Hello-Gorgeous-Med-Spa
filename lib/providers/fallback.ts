@@ -67,7 +67,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     credentials: DANIELLE_CREDENTIALS,
     tagline: "Practice and protect with heart",
     short_bio:
-      "Licensed Esthetician and founder of Hello Gorgeous Med Spa in Oswego, IL — 10+ years serving Naperville, Aurora, Plainfield, and the Fox Valley.",
+      "Owner & Founder of Hello Gorgeous Med Spa — CNA, CMAA, licensed phlebotomist, licensed esthetician, developer, and RN student at Waubonsee. 10+ years serving Oswego, Naperville, Aurora, Plainfield, and the Fox Valley.",
     philosophy:
       "Your money should buy results you can see in the mirror — honest recommendations, personalized plans, and providers who remember your name, your skin history, and what actually worked for you last time.",
     headshot_url: "/images/team/danielle-alcala-glazier-portrait.png",

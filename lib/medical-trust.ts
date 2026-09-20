@@ -16,18 +16,19 @@ export const DR_ARORA_FULL_NAME = MEDICAL_DIRECTOR.displayName;
 /** Dani’s clinical + ownership credentials — listed on the medical trust surface. */
 export const DANI_CLINICAL_CREDENTIALS = [
   "Owner & Founder",
-  "RN-S",
   "CNA",
   "CMAA",
   "Licensed Phlebotomist",
   "Licensed Esthetician",
+  "Developer",
+  "RN-S, Waubonsee",
 ] as const;
 
 export const MEDICAL_TRUST_PROVIDERS = [
   {
     name: DANI_FULL_NAME,
     role: "Owner & Founder · Practice leadership",
-    detail: "RN-S · CNA · CMAA · Licensed Phlebotomist · Licensed Esthetician",
+    detail: "CNA · CMAA · Phlebotomist · Esthetician · Developer · RN-S, Waubonsee",
     image: DANI_IMAGE,
     imageAlt: `${DANI_FULL_NAME}, Owner & Founder of Hello Gorgeous Med Spa, in clinic with Solaria`,
     badge: "Owner · in clinic daily",
