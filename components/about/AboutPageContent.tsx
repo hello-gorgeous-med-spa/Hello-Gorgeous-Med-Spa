@@ -14,6 +14,7 @@ import {
   ABOUT_DANI_IMAGE,
   DANI_LONG_BIO,
   DANI_MEDIUM_BIO,
+  DANI_OWNER_STORY_PHOTOS,
 } from "@/lib/founder-credentials";
 import { MEDICAL_TRUST_PROVIDERS, RYAN_CLINIC_VIDEOS } from "@/lib/medical-trust";
 import { DANIELLE_INMODE_CERTIFICATES } from "@/lib/inmode-training-certificates";
@@ -204,6 +205,42 @@ function AboutSectionRow({ section, index }: { section: AboutSection; index: num
                   title="InMode verified training"
                   subtitle="Luxora, Morpheus8 Deep, Quantum RF, Solaria CO₂ — InMode clinical education."
                 />
+              </div>
+            ) : null}
+
+            {section.id === "dani" ? (
+              <div className="mt-8">
+                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FFB8DC]">
+                  This is Dani
+                </p>
+                <h3 className="mt-2 font-serif text-xl text-white md:text-2xl">
+                  Owner. Teammate. Mom.
+                </h3>
+                <ul className="mt-5 grid gap-4 sm:grid-cols-3">
+                  {DANI_OWNER_STORY_PHOTOS.map((photo) => (
+                    <li key={photo.src}>
+                      <figure className="overflow-hidden rounded-3xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]">
+                        <div className="relative aspect-[4/5]">
+                          <Image
+                            src={photo.src}
+                            alt={photo.alt}
+                            fill
+                            className="object-cover object-top"
+                            sizes="(max-width: 640px) 100vw, 220px"
+                          />
+                        </div>
+                        <figcaption className="border-t-2 border-white/10 px-3 py-3">
+                          <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#FFB8DC]">
+                            {photo.title}
+                          </p>
+                          <p className="mt-1 text-xs font-medium leading-relaxed text-white/75">
+                            {photo.caption}
+                          </p>
+                        </figcaption>
+                      </figure>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ) : null}
 

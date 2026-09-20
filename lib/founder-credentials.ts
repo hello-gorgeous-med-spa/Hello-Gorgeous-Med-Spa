@@ -70,6 +70,31 @@ export const ABOUT_PAGE_SEO_DESCRIPTION =
 export const DANI_IMAGE = "/images/team/cinematic/danielle-solaria-fitted.jpg";
 /** Primary Dani portrait on /about — clinic setting with InMode equipment visible */
 export const ABOUT_DANI_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
+
+/** Owner-profile story plates on /about#dani — family photos are not patients. */
+export const DANI_OWNER_STORY_PHOTOS = [
+  {
+    src: "/images/team/owner/woman-behind-the-brand.png",
+    title: "The woman behind the brand",
+    caption: "Building confidence. Creating beauty. Loving the journey.",
+    alt: "Danielle Alcala-Glazier at sunset — founder of Hello Gorgeous Med Spa in Oswego, IL",
+    sitemap: true,
+  },
+  {
+    src: "/images/team/owner/laura-michelle-keep-it-together.png",
+    title: "Laura + Michelle",
+    caption: "The heart, hustle, and magic that keep Hello Gorgeous together.",
+    alt: "Danielle Alcala-Glazier with Laura Witt and Michelle Colby — Hello Gorgeous Med Spa, Oswego",
+    sitemap: true,
+  },
+  {
+    src: "/images/team/owner/mom-favorite-role.png",
+    title: "Mom — her favorite role",
+    caption: "When she is not in the studio, she is mom to two sons.",
+    alt: "Danielle Alcala-Glazier with her sons — family, not patients",
+    sitemap: false,
+  },
+] as const;
 export const RYAN_IMAGE = "/images/team/cinematic/ryan.jpg";
 export const RYAN_PATIENT_CARE_IMAGE = "/images/team/cinematic/ryan.jpg";
 export const TEAM_FOUNDERS_IMAGE = "/images/team/danielle-alcala-glazier-about.png";

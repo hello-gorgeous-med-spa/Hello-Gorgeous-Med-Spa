@@ -37,6 +37,8 @@ const additionalImages = [
   
   // Team
   { src: "/images/team/danielle.png", title: "Danielle Alcala", caption: "Danielle Alcala, Owner of Hello Gorgeous Med Spa" },
+  { src: "/images/team/owner/woman-behind-the-brand.png", title: "The woman behind the brand", caption: "Danielle Alcala-Glazier, founder of Hello Gorgeous Med Spa in Oswego, IL." },
+  { src: "/images/team/owner/laura-michelle-keep-it-together.png", title: "Laura and Michelle with Danielle", caption: "Laura Witt and Michelle Colby with Danielle — the heart of Hello Gorgeous Med Spa." },
   
   // Partners
   { src: "/images/partners/alle-rewards.png", title: "Allē Rewards Partner", caption: "Hello Gorgeous is an Allē Rewards participating provider" },
