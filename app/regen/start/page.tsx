@@ -384,7 +384,9 @@ function RegenStartContent() {
       }
 
       const intakeQs = intakeData.intakeId ? `&intake=${encodeURIComponent(intakeData.intakeId)}` : '';
-      window.location.href = `/success?requested=1${intakeQs}`;
+      const onRegenHost = typeof window !== 'undefined' && window.location.hostname.includes('tryregenrx.com');
+      const successPath = onRegenHost ? '/success' : '/regen/success';
+      window.location.href = `${successPath}?requested=1${intakeQs}`;
     } catch (err) {
       alert(err instanceof Error ? err.message : 'Something went wrong');
       setLoading(false);
