@@ -112,7 +112,7 @@ export default function SubscriptionsPage() {
             No Active Subscriptions
           </h3>
           <p style={{ color: '#888', marginBottom: 24, maxWidth: 400, margin: '0 auto 24px' }}>
-            Start a subscription to get your treatments delivered monthly with savings on every order.
+            Recurring REGEN plans are billed on a clinic invoice (Charm + Bluefin). This page does not open a card form.
           </p>
           <Link
             href="/pricing"

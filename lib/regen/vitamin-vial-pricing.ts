@@ -1,6 +1,6 @@
 import { REGEN_MARKUP, REGEN_VITAMIN_PRICING, REGEN_PEPTIDE_PRICING } from '@/lib/regen/pricing-sync';
 
-/** Flat pharmacy ship shown as its own Stripe line on vial checkouts. */
+/** Flat pharmacy ship shown as its own line on vial quotes. */
 export const REGEN_VIAL_SHIPPING_USD = 25;
 
 const WHOLESALE: Record<string, number> = {

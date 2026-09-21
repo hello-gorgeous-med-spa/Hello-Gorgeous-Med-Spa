@@ -137,7 +137,7 @@ async function sendStaffNewIntakeEmail(
             <p style="color: #fff; margin: 0 0 8px;"><strong>Patient:</strong> ${patient.name}</p>
             <p style="color: #fff; margin: 0 0 8px;"><strong>Email:</strong> ${patient.email}</p>
             <p style="color: #fff; margin: 0 0 8px;"><strong>Phone:</strong> ${patient.phone || 'Not provided'}</p>
-            <p style="color: ${BRAND.teal}; margin: 0;"><strong>Program:</strong> ${intake.goal}</p>
+            <p style="color: ${BRAND.pink}; margin: 12px 0 0;"><strong>Next:</strong> After Ryan reviews, send a Charm invoice with a real Charge and a Bluefin payment link. Do not use Stripe.</p>
           </div>
           <a href="https://tryregenrx.com/ops/intake" 
              style="display: inline-block; background: ${BRAND.teal}; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">
@@ -162,7 +162,7 @@ async function sendStaffNewIntakeSMS(
   );
 
   await twilio.messages.create({
-    body: `🔔 REGEN RX: New intake from ${patient.name} for ${intake.goal}. Review at tryregenrx.com/ops`,
+    body: `REGEN RX: New intake from ${patient.name} for ${intake.goal}. Review at tryregenrx.com/ops. Invoice in Charm after Ryan reviews — no Stripe.`,
     from: process.env.TWILIO_PHONE_NUMBER,
     to: STAFF_PHONE,
   });
@@ -193,15 +193,15 @@ async function sendPatientWelcomeEmail(patient: { name: string; email: string },
           <p style="color: ${BRAND.pink}; font-weight: 800; letter-spacing: 0.08em; margin: 0 0 16px;">REGEN RX</p>
           <h1 style="color: #fff; margin: 0 0 16px;">You're in, ${firstName}.</h1>
           <p style="color: #9CA3AF; line-height: 1.6;">
-            We received your intake and payment. A licensed provider will review your information within 24–48 hours.
+            We received your intake. A licensed provider will review your information within 1–2 business days. If treatment is appropriate, we send a secure clinic payment link — you do not pay on this website.
           </p>
           <div style="background: ${BRAND.teal}20; padding: 16px; border-radius: 8px; margin: 24px 0; border-left: 4px solid ${BRAND.teal};">
             <p style="color: ${BRAND.teal}; margin: 0; font-weight: bold;">What happens next</p>
             <p style="color: #9CA3AF; margin: 8px 0 0; line-height: 1.6;">
               1. Your visit is in our clinical queue now<br>
-              2. Provider review within 24–48 hours<br>
-              3. You'll get an email if we need labs, a video visit, or can approve treatment<br>
-              4. If approved, your prescription ships to your door
+              2. Provider review within 1–2 business days<br>
+              3. If appropriate, you get a secure payment link from the clinic<br>
+              4. After payment posts, the pharmacy ships to your Illinois address
             </p>
           </div>
           <a href="https://tryregenrx.com/login"

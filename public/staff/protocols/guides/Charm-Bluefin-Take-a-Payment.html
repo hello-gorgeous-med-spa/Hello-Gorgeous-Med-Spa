@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Take a card payment — Charm + Bluefin</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; max-width: 720px; margin: 0 auto; padding: 20px; color: #111; line-height: 1.4; }
+    h1 { font-size: 1.5rem; }
+    .who { background: #111; color: #fff; padding: 10px 12px; font-weight: 800; }
+    .card { border: 4px solid #000; padding: 14px; margin: 14px 0; }
+    .pink { color: #E6007E; font-weight: 800; }
+    ol { padding-left: 1.2rem; }
+    li { margin: 6px 0; font-weight: 600; }
+    .warn { background: #fff0f7; border: 3px solid #E6007E; padding: 10px; font-weight: 700; }
+    .no { background: #2a1215; color: #ffc9c2; padding: 10px; font-weight: 700; }
+    code { background: #f3f3f3; padding: 1px 5px; }
+    @media print { body { padding: 0; } }
+  </style>
+</head>
+<body>
+  <p class="who">STAFF · Hello Gorgeous · Charm is the chart. Bluefin is the card. Square is still the spa.</p>
+  <h1>How to take a payment (Bluefin / Charm)</h1>
+  <p>You are not looking for a Square terminal. Med-spa services stay Square. <b>RE GEN / Charm patient charges go through Bluefin inside Charm.</b></p>
+
+  <div class="warn">
+    If Bluefin says “no charge” / grand total won’t calculate: Charm thinks the invoice is <b>$0</b>. Fix the invoice first. Bluefin cannot invent a dollar amount.
+    <ol>
+      <li>Billing → Invoices → <b>+ Invoice</b> → pick the patient. Leave Encounter blank if this is just a product/visit charge.</li>
+      <li>If an Insurance / Payer is selected, <b>clear it</b>. You are cash/self-pay. Insurance makes Patient Responsibility $0 until a claim posts — Bluefin then has nothing to charge.</li>
+      <li>In Procedures (or Products), search a code/name. On that row, click the <b>Charge</b> box and type the dollars (example <b>299.00</b>). Tab out. Quantity at least 1.</li>
+      <li>Watch the bottom: <b>Total / Balance Due</b> must show $299, not $0. If Charge stays blank, Charm never sums it.</li>
+      <li>Payment details: check <b>Pay Invoice in full</b> so Payment Amount fills with that total.</li>
+      <li>Then check <b>Use Payment Gateway</b> → Key-In or reader → <b>Approve</b> (not Save as Draft — gateway invoices cannot stay draft).</li>
+    </ol>
+    Still $0? Settings → Billing → Fee Schedules — your codes are priced at $0. Type the Charge on the invoice anyway; that overrides.
+  </div>
+
+  <div class="card">
+    <p class="pink">A. Patient in the chair — fastest (use this)</p>
+    <ol>
+      <li>Charm: <a href="https://accounts.charmtracker.com/signin">accounts.charmtracker.com/signin</a></li>
+      <li>Open the <b>patient</b> (search their name).</li>
+      <li>On their Dashboard, find <b>Billing</b> → click <b>Add Payment</b>.</li>
+      <li>Type the dollar amount.</li>
+      <li>Payment method = <b>Card</b>.</li>
+      <li>Check <b>Use Payment Gateway</b>. (If you don’t see that box, skip to “Stuck” below.)</li>
+      <li>Beneficiary = your Bluefin account (Hello Gorgeous / RE GEN).</li>
+      <li>Input type:
+        <ul>
+          <li><b>Key-In</b> — type the card (phone / no reader).</li>
+          <li><b>EMV Chip Reader</b> — pick the device, hit Add, then tap/insert on the reader.</li>
+          <li><b>Swipe</b> — cursor in Card Information, swipe, then Add.</li>
+        </ul>
+      </li>
+      <li>Click <b>Add</b>. Wait for the receipt. That is the payment.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <p class="pink">B. They’re not here — send a pay link (easiest for telehealth)</p>
+    <ol>
+      <li>Charm → <b>Billing → Invoices</b> (or make a + Invoice first if nothing is owed).</li>
+      <li>Open the unpaid invoice → <b>Send Invoice</b> (or ⋯ → Send Invoice).</li>
+      <li>Check <b>Send Payment Link</b> (email and/or SMS).</li>
+      <li>Pick the Bluefin beneficiary. Send.</li>
+      <li>They pay from the text/email or from their Charm patient portal <b>Pay</b> button.</li>
+    </ol>
+    <p>Official Charm walkthrough: <a href="https://charmhealth.com/resources/billing/online-patient-payment.html">Online Patient Payment</a></p>
+  </div>
+
+  <div class="card">
+    <p class="pink">C. One-click from an existing invoice</p>
+    <ol>
+      <li>Billing → Invoices → ⋯ on the unpaid row → <b>Add Payment</b>.</li>
+      <li>Same as A: Card + <b>Use Payment Gateway</b> + Add.</li>
+    </ol>
+    <p>Or Billing → Receipts → <b>+ Payment</b> → pick patient → same checkboxes.</p>
+  </div>
+
+  <div class="card">
+    <p class="pink">D. Backup only — PayConex (not the chart)</p>
+    <p>Use this if Charm is down and you still need to run a card. Then you must still record it in Charm as a payment so the balance isn’t wrong.</p>
+    <ol>
+      <li>Go to <a href="https://secure.payconex.net/">secure.payconex.net</a></li>
+      <li>Virtual Terminal / Sale → amount → card → process.</li>
+      <li>Go back to Charm and <b>Add Payment</b> as a recorded payment (do <i>not</i> check Use Payment Gateway a second time or you will double-charge).</li>
+    </ol>
+  </div>
+
+  <div class="warn">
+    One-time setup so the checkbox appears every time:<br>
+    Charm → <b>Settings → Billing → Bluefin → Default Settings</b><br>
+    Turn on: auto-select Use Payment Gateway · default Input Type (Key-In until a reader is mapped) · optional store card on file.<br>
+    Beneficiary lives under <b>Settings → Billing → Bluefin → + Bluefin Beneficiary</b> (PayConex account # + API key — already done if you saw Bluefin live).
+  </div>
+
+  <div class="no">
+    Do not: charge Square for an RX/Charm visit · charge PayConex AND Charm gateway for the same card · overwrite Charm’s Bluefin postback URL · type a card into our website (that is not this processor yet).
+  </div>
+
+  <p>Charm’s own page: <a href="https://www.charmhealth.com/resources/billing/bluefin-payment-gateway.html">Bluefin Patient Payment Gateway</a> (video at the top).</p>
+  <p>Stuck: no “Use Payment Gateway” box = Bluefin beneficiary not mapped to this facility, or your user isn’t a biller. Call Charm support or Bluefin <code>service@bluefin.com</code> — don’t guess a second MID.</p>
+</body>
+</html>

@@ -64,13 +64,14 @@ We are not a research-chem shop, not a nationwide Hims clone, and not insurance.
 
 ## 4. Patient journey
 
-1. **Start** — tryregenrx.com/start. Promo GORGEOUS20 is entered on the Stripe payment screen.
-2. **Screening + consent** — they answer medical questions and sign. If they do not qualify, they get a **full refund**.
-3. **Pay** — Stripe. Payment is a consult deposit toward medication if prescribed — not a purchase of a specific vial yet.
+1. **Start** — tryregenrx.com/start. Promo GORGEOUS20 is applied by staff on the Charm invoice (shipping excluded).
+2. **Screening + consent** — they answer medical questions and sign. If they do not qualify, do not invoice.
+3. **Request lands in Today** — this is not a card charge yet.
 4. **A licensed Illinois clinician reviews** — Today queue. Four boxes must be true before Approve: medical history, contraindications, telehealth is appropriate, and “I am Ryan and this is my decision.” Or: Need labs / Video / Decline.
-5. **Damara places pharmacy** — Formulation / FormuConnect first. BoomRx only when Formulation does not carry the line.
-6. **Ship + portal** — tracking in the patient account. Messages stay in-app.
-7. **Refill** — same clinical bar every month. Auto-pay does not mean auto-prescribe.
+5. **Charm invoice + Bluefin pay link** — real Charge (not $0), self-pay, Send Payment Link. Square stays spa. Stripe is retired.
+6. **Damara places pharmacy** — Formulation / FormuConnect first. BoomRx only when Formulation does not carry the line.
+7. **Ship + portal** — tracking in the patient account. Messages stay in-app.
+8. **Refill** — same clinical bar every month. A paid refill is another consult.
 
 ---
 
@@ -85,7 +86,7 @@ Bookmark after ops login:
 | Messages | /ops/messages | Same thread as /account/messages |
 | Orders | /ops/orders | Pharmacy id + tracking |
 | Labs | /ops/labs | Requested / received |
-| Payments | /ops/payments | Stripe totals (refunds in Stripe Dashboard) |
+| Payments | /ops/payments | Order rows (refunds in Charm, not Stripe) |
 | Partners | /ops/affiliates | Approve, pause, terminate |
 | Clinical tools | /ops/calculator, reconstitution, tirzepatide | Math — never a patient dose card |
 | Staff Bible | /ops/playbook | This document, live |
@@ -130,18 +131,18 @@ Patients log in at tryregenrx.com/login. Home is `/account`: dashboard, subscrip
 
 ## 8. Money, GORGEOUS20, refunds
 
-**GORGEOUS20** = 20% off the first medication order. Shipping excluded. Illinois only. Ryan still decides. Stripe coupon must exist as code `GORGEOUS20`.
+**GORGEOUS20** = 20% off the first medication order. Shipping excluded. Illinois only. Ryan still decides. Damara types the discount on the Charm invoice.
 
-There is no refund button inside /ops/payments yet. Danielle or Damara refund in the **REGEN Stripe Dashboard**: Payments → search the patient email → the charge → Refund. Paste the Stripe refund id in the chart the same day.
+There is no refund button inside /ops/payments. Danielle or Damara refund in **Charm** (Billing → the payment → refund). Paste the Charm receipt id in the chart the same day. Stripe is retired.
 
 | Situation | Action | Who |
 |---|---|---|
 | Ryan declines before a prescription | Full refund of the consult/medication charge. Note: reason + next step. | Danielle or Damara. Same day. |
-| Duplicate charge / Stripe error | Full refund. Screenshot the Stripe id in the chart. | Damara |
+| Duplicate charge / processor error | Full refund in Charm. Screenshot the Charm receipt in the chart. | Damara |
 | Cancel after pay, before A licensed Illinois clinician reviews | Full refund if no clinical work has started. If Ryan already reviewed, Danielle decides. | Danielle |
 | Pharmacy already compounded / shipped | No product refund. Shipping not refunded. Offer a clinical follow-up. | Danielle + Ryan |
 | Side effect / they “don’t like it” | Clinical visit first. Refund is not the first tool. | Ryan, then Danielle if money |
-| Chargeback | Pull consent, screening, Stripe, tracking. Pause refills until resolved. | Danielle |
+| Chargeback | Pull consent, screening, Charm receipt, tracking. Pause refills until resolved. | Danielle |
 | Partial subscription month | No refund for unused days unless Danielle writes a courtesy credit. | Danielle |
 
 Do not keep medication money for an Rx that will not be written.
@@ -177,7 +178,7 @@ Rate follows concurrent actives and can move up or down. Shipping is not commiss
 
 **SOP-01 Eligibility.** Confirm Illinois residency and adult status before checkout help. Affiliates: 21+. Out of state = spa menu or waitlist, not a “friend in Illinois” workaround.
 
-**SOP-02 Intake & payment.** Patient completes start → screening → consent → Stripe. Staff may sit with them at the iPad. Staff does not fill medical answers for them. GORGEOUS20 is typed by the patient on the payment screen.
+**SOP-02 Intake & payment.** Patient completes start → screening → consent. Staff may sit with them at the iPad. Staff does not fill medical answers for them. After Ryan reviews, send a Charm invoice with a real Charge and a Bluefin payment link. Apply GORGEOUS20 on that invoice.
 
 **SOP-03 Clinical review.** Only Ryan (or a covering Illinois-licensed prescriber Danielle has named in writing) clicks Approve. Four attestations must be true. Thin history = labs or video.
 
@@ -221,7 +222,7 @@ Rate follows concurrent actives and can move up or down. Shipping is not commiss
 
 **How you know it’s working.** Time-to-Ryan-review under 1–2 business days, every decline refunded, every approved order has a pharmacy id, messages answered, no BoomRx on the public site, partners on v2 only.
 
-**Escalate to Danielle immediately.** Press, attorney letter, pharmacy recall, staff arguing with Ryan’s decline, a partner posting a dose, a minor in the funnel, a Stripe flood of chargebacks.
+**Escalate to Danielle immediately.** Press, attorney letter, pharmacy recall, staff arguing with Ryan’s decline, a partner posting a dose, a minor in the funnel, a Bluefin / Charm dispute flood.
 
 ---
 
@@ -230,7 +231,7 @@ Rate follows concurrent actives and can move up or down. Shipping is not commiss
 Fifteen minutes, Mondays. Danielle runs it. Damara brings the queue. Ryan brings anything clinical that scared him.
 
 1. How many paid starts, approvals, labs, videos, declines last week?
-2. Every decline — was the Stripe refund done the same day?
+2. Every decline — was the Charm refund done the same day (if they had already paid)?
 3. Every approval — does Orders have a pharmacy id and tracking?
 4. Messages older than one business day?
 5. Partners: new applications, anyone posting medical claims?

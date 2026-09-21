@@ -41,7 +41,7 @@ export default function PaymentsPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-white">Payments</h1>
-          <p className="text-white/50">Stripe totals and paid fulfill rows. Empty means nobody has paid yet.</p>
+          <p className="text-white/50">Order rows from the clinic queue. Cards post in Charm + Bluefin — refunds live in Charm, not here.</p>
         </div>
         <button onClick={load} className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm">Refresh</button>
       </div>

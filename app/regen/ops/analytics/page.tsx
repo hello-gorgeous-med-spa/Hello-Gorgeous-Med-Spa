@@ -17,7 +17,7 @@ const LINKS = [
   { href: '/ops/patients', label: 'Patients', desc: 'Charts, screening, consent, shipping' },
   { href: '/ops/orders', label: 'Orders', desc: 'Formulation ids and pharmacy errors' },
   { href: '/ops/labs', label: 'Labs', desc: 'Required panels and uploads' },
-  { href: '/ops/payments', label: 'Payments', desc: 'Paid visits and Stripe totals' },
+  { href: '/ops/payments', label: 'Payments', desc: 'Paid visits and Charm / Bluefin invoices' },
   { href: '/ops/catalog', label: 'Catalog', desc: 'What we can send to pharmacy' },
 ];
 

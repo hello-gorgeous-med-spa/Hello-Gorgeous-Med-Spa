@@ -108,5 +108,5 @@ export const AFFILIATE_POSTING_RULES = [
   "No diagnosis, no “this is your dose,” no pound-loss promises.",
   "Disclose the relationship: #ad or #partner on every paid or commissioned post.",
   "Vial photos are art. They are not a menu you can promise to ship.",
-  "Do not name recovery or growth-hormone peptides on posts or landing pages. Stripe and advertising rules do not allow those listings on REGEN public pages.",
+  "Do not name recovery or growth-hormone peptides on posts or landing pages. Public listing and advertising rules do not allow those on REGEN public pages.",
 ] as const;

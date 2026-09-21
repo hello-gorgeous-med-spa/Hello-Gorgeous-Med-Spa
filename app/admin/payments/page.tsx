@@ -162,23 +162,15 @@ export default function AdminPaymentsPage() {
         </div>
       </div>
 
-      {/* Stripe Status */}
-      <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
+      {/* Processor note */}
+      <div className="p-4 bg-pink-50 border border-pink-200 rounded-xl">
         <div className="flex items-start gap-3">
           <span className="text-xl">✓</span>
           <div>
-            <p className="font-medium text-green-800">Stripe Connected</p>
-            <p className="text-sm text-green-700 mt-1">
-              Payments are processed through Stripe. View detailed reports in your Stripe Dashboard.
+            <p className="font-medium text-pink-800">Square + Charm / Bluefin</p>
+            <p className="text-sm text-pink-700 mt-1">
+              Spa cards run on Square. REGEN RX invoices run in Charm with Bluefin. Stripe is retired.
             </p>
-            <a 
-              href="https://dashboard.stripe.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="mt-2 inline-block text-sm font-medium text-green-800 hover:text-green-900"
-            >
-              Open Stripe Dashboard →
-            </a>
           </div>
         </div>
       </div>

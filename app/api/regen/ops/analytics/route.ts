@@ -1,13 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase-server';
-import Stripe from 'stripe';
-
-// Lazy init to avoid build-time errors
-function getStripe() {
-  const key = process.env.REGEN_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
-  if (!key) throw new Error('Stripe API key not configured');
-  return new Stripe(key, { apiVersion: '2024-06-20' });
-}
 
 export async function GET(request: NextRequest) {
   try {
@@ -24,29 +16,20 @@ export async function GET(request: NextRequest) {
     const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
     const yearStart = new Date(now.getFullYear(), 0, 1);
 
-    // Fetch Stripe revenue
-    let revenue = { today: 0, week: 0, month: 0, year: 0, lastMonth: 0 };
-    try {
-      // This month
-      const charges = await getStripe().charges.list({
-        created: { gte: Math.floor(yearStart.getTime() / 1000) },
-        limit: 100,
-      });
+    const { data: yearOrdersForRevenue } = await supabase
+      .from('regen_orders')
+      .select('total, created_at')
+      .gte('created_at', yearStart.toISOString());
 
-      for (const charge of charges.data) {
-        if (charge.paid && !charge.refunded) {
-          const chargeDate = new Date(charge.created * 1000);
-          const amount = charge.amount / 100;
-
-          if (chargeDate >= todayStart) revenue.today += amount;
-          if (chargeDate >= weekStart) revenue.week += amount;
-          if (chargeDate >= monthStart) revenue.month += amount;
-          if (chargeDate >= lastMonthStart && chargeDate < monthStart) revenue.lastMonth += amount;
-          revenue.year += amount;
-        }
-      }
-    } catch (stripeError) {
-      console.error('Stripe analytics error:', stripeError);
+    const revenue = { today: 0, week: 0, month: 0, year: 0, lastMonth: 0 };
+    for (const order of yearOrdersForRevenue || []) {
+      const amount = Number(order.total ?? 0);
+      const created = new Date(order.created_at);
+      if (created >= todayStart) revenue.today += amount;
+      if (created >= weekStart) revenue.week += amount;
+      if (created >= monthStart) revenue.month += amount;
+      if (created >= lastMonthStart && created < monthStart) revenue.lastMonth += amount;
+      revenue.year += amount;
     }
 
     const growth = revenue.lastMonth > 0 
@@ -91,22 +74,7 @@ export async function GET(request: NextRequest) {
       ? Math.max(0, ((totalPatients - activePatients) / totalPatients) * 100)
       : 0;
 
-    // Subscriptions (from Stripe)
-    let subscriptionStats = { active: 0, mrr: 0, growth: 0 };
-    try {
-      const subscriptions = await getStripe().subscriptions.list({
-        status: 'active',
-        limit: 100,
-      });
-
-      subscriptionStats.active = subscriptions.data.length;
-      subscriptionStats.mrr = subscriptions.data.reduce((sum, sub) => {
-        const item = sub.items.data[0];
-        return sum + (item?.price?.unit_amount || 0) / 100;
-      }, 0);
-    } catch (subError) {
-      console.error('Subscription analytics error:', subError);
-    }
+    const subscriptionStats = { active: 0, mrr: 0, growth: 0 };
 
     // Top products
     const productCounts: Record<string, { name: string; revenue: number; count: number }> = {};

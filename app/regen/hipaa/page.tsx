@@ -113,7 +113,7 @@ export default function HipaaPage() {
             <li><strong style={{ color: '#fff' }}>Health Questionnaire Responses:</strong> Screening questions for treatment eligibility</li>
             <li><strong style={{ color: '#fff' }}>Treatment Records:</strong> Prescriptions, provider notes, lab results (if applicable)</li>
             <li><strong style={{ color: '#fff' }}>Communication Records:</strong> Messages between you and your care team</li>
-            <li><strong style={{ color: '#fff' }}>Payment Information:</strong> Billing records (credit card numbers are processed securely by Stripe and not stored by us)</li>
+            <li><strong style={{ color: '#fff' }}>Payment Information:</strong> Billing records (credit card numbers are processed by our clinic payment gateway and not stored on this website)</li>
           </ul>
 
           {/* Section 3 */}
@@ -239,7 +239,7 @@ export default function HipaaPage() {
           <p style={{ marginTop: 16 }}>
             Our telehealth platform uses industry-standard encryption. Patient communications are transmitted 
             securely. We use HIPAA-compliant infrastructure providers including Supabase (database), Vercel (hosting), 
-            and Stripe (payments).
+            and our clinic billing system (Charm with Bluefin for cards).
           </p>
 
           {/* Section 7 */}
@@ -252,7 +252,7 @@ export default function HipaaPage() {
           </p>
           <ul style={{ paddingLeft: 24 }}>
             <li><strong style={{ color: '#fff' }}>Compounding Pharmacy:</strong> To fill your prescriptions (Formulation Rx — our exclusive pharmacy partner)</li>
-            <li><strong style={{ color: '#fff' }}>Payment Processors:</strong> To process payments securely (Stripe)</li>
+            <li><strong style={{ color: '#fff' }}>Payment Processors:</strong> To process payments securely (Charm EHR with Bluefin)</li>
             <li><strong style={{ color: '#fff' }}>Communication Platforms:</strong> For secure messaging and video consultations (Doxy.me)</li>
             <li><strong style={{ color: '#fff' }}>Cloud Service Providers:</strong> For secure data storage</li>
           </ul>

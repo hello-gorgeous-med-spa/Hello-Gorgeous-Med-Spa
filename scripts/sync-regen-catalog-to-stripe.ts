@@ -13,6 +13,9 @@ import { PRODUCTS, GOALS } from '../lib/regen/catalog/catalog-data.js';
 
 const STRIPE_SECRET = process.env.REGEN_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
 
+console.error('RETIRED: Do not sync the REGEN catalog to Stripe. REGEN cards go through Charm + Bluefin.');
+process.exit(1);
+
 if (!STRIPE_SECRET) {
   console.error('Missing STRIPE_SECRET_KEY');
   process.exit(1);

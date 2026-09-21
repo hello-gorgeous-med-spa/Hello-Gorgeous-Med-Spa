@@ -52,11 +52,11 @@ function LabSuccessContent() {
         </div>
 
         <h1 className="text-3xl font-bold mb-4" style={{ color: BRAND.cream }}>
-          Lab Order Confirmed! 🧪
+          Lab request received
         </h1>
         
         <p className="text-lg mb-8" style={{ color: BRAND.gray }}>
-          Your lab requisition is being prepared and will be emailed to you shortly.
+          We have your lab request. A secure clinic payment link is sent after we confirm the panel — do not type a card on this website.
         </p>
 
         {/* Next Steps */}
@@ -68,8 +68,8 @@ function LabSuccessContent() {
             <li className="flex gap-4">
               <span className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.teal, color: 'white' }}>1</span>
               <div>
-                <p className="font-semibold" style={{ color: BRAND.cream }}>Check Your Email</p>
-                <p className="text-sm">You&apos;ll receive your lab requisition form within the next few minutes.</p>
+                <p className="font-semibold" style={{ color: BRAND.cream }}>Pay the clinic invoice</p>
+                <p className="text-sm">We email or text a secure payment link. After it posts, you get the requisition.</p>
               </div>
             </li>
             <li className="flex gap-4">

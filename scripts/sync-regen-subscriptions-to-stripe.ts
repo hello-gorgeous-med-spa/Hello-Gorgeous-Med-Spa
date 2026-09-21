@@ -10,6 +10,8 @@ import Stripe from 'stripe';
 import { SUBSCRIPTION_TIERS, SUBSCRIPTION_CATEGORIES, PREPAY_DISCOUNTS } from '../lib/regen/subscriptions/subscription-tiers';
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
+console.error('RETIRED: Do not sync REGEN subscriptions to Stripe. Bill in Charm with Bluefin.');
+process.exit(1);
 if (!STRIPE_SECRET_KEY) {
   console.error('Missing STRIPE_SECRET_KEY');
   process.exit(1);

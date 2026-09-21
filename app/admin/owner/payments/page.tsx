@@ -34,7 +34,7 @@ export default function PaymentsPage() {
   });
 
   const [processorSettings, setProcessorSettings] = useState({
-    processor: 'Stripe',
+    processor: 'Square (spa) · Charm/Bluefin (REGEN)',
     mode: 'live',
     statement_descriptor: 'HELLO GORGEOUS',
   });
@@ -80,9 +80,9 @@ export default function PaymentsPage() {
               />
             </div>
           </div>
-          <a href="https://dashboard.stripe.com" target="_blank" rel="noopener" className="inline-block mt-4 text-sm text-pink-600 hover:text-pink-700">
-            Open Stripe Dashboard →
-          </a>
+          <p className="text-sm text-gray-600 mt-4">
+            Spa cards: Square. REGEN RX: Charm invoice + Bluefin. Stripe is retired.
+          </p>
         </div>
 
         {/* Tax Settings */}

@@ -1,13 +1,5 @@
 import { NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase-server';
-import Stripe from 'stripe';
-
-// Lazy init to avoid build-time errors
-function getStripe() {
-  const key = process.env.REGEN_STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY;
-  if (!key) throw new Error('Stripe API key not configured');
-  return new Stripe(key, { apiVersion: '2024-06-20' });
-}
 
 export async function GET() {
   try {
@@ -30,26 +22,18 @@ export async function GET() {
     weekStart.setDate(weekStart.getDate() - 7);
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    // Fetch Stripe revenue data
-    let revenue = { today: 0, week: 0, month: 0 };
-    try {
-      const charges = await getStripe().charges.list({
-        created: { gte: Math.floor(monthStart.getTime() / 1000) },
-        limit: 100,
-      });
-      
-      for (const charge of charges.data) {
-        if (charge.paid && !charge.refunded) {
-          const chargeDate = new Date(charge.created * 1000);
-          const amount = charge.amount / 100;
-          
-          if (chargeDate >= todayStart) revenue.today += amount;
-          if (chargeDate >= weekStart) revenue.week += amount;
-          revenue.month += amount;
-        }
-      }
-    } catch (stripeError) {
-      console.error('Stripe error:', stripeError);
+    const { data: monthOrders } = await supabase
+      .from('regen_orders')
+      .select('total, created_at')
+      .gte('created_at', monthStart.toISOString());
+
+    const revenue = { today: 0, week: 0, month: 0 };
+    for (const order of monthOrders || []) {
+      const amount = Number(order.total ?? 0);
+      const created = new Date(order.created_at);
+      if (created >= todayStart) revenue.today += amount;
+      if (created >= weekStart) revenue.week += amount;
+      revenue.month += amount;
     }
 
     // Fetch intake queue count

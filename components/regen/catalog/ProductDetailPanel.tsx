@@ -35,7 +35,7 @@ import { REGEN_SHOP_SHIPPING_USD } from "@/lib/regen/shop-surface";
 
 const SHIPPING_LABEL = `$${REGEN_SHOP_SHIPPING_USD}`;
 
-/** Staff point-of-sale gate — mirrors app/api/regen/checkout + post-payment intake. */
+/** Staff point-of-sale gate — in-clinic Square terminal, then intake. Prescription products are invoiced in Charm. */
 const CHECKOUT_STEPS = [
   { title: "Add to cart", body: "Pick your strength and 30- or 90-day supply." },
   { title: "Pay at the spa", body: "Tap, dip, or swipe on the Terminal in Oswego — Square cannot take RX by a link." },

@@ -10,7 +10,6 @@
 
   const HG_LOGIN_URL = '/portal/login?redirect=/rx';
   const HG_INTAKE_ROUTE_API = '/api/regen/intake-route';
-  const HG_CHECKOUT_API = '/api/regen/checkout';
 
   // Wait for the prototype to fully load
   function waitForApp(callback) {

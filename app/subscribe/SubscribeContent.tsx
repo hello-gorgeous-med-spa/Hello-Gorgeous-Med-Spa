@@ -77,7 +77,7 @@ const howItWorks = [
   {
     step: "2",
     title: "Complete Checkout",
-    description: "Secure payment through Stripe - cancel anytime",
+    description: "Secure payment through Square - cancel anytime",
     icon: "💳",
   },
   {
@@ -152,7 +152,7 @@ export function SubscribeContent() {
     setError(null);
 
     try {
-      // Call the checkout API to create a Stripe session
+      // Membership request — payment is Square at the spa
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -168,11 +168,9 @@ export function SubscribeContent() {
         throw new Error(data.error || "Failed to create checkout session");
       }
 
-      // If Stripe is configured, redirect to checkout
       if (data.checkoutUrl) {
         window.location.href = data.checkoutUrl;
       } else {
-        // Placeholder: Show success for now (Stripe not configured yet)
         setSubmitted(true);
       }
     } catch (err) {
@@ -301,7 +299,7 @@ export function SubscribeContent() {
                 </button>
               </form>
               <p className="text-black text-sm mt-3">
-                Secure checkout via Stripe • Cancel anytime • Instant access
+                Secure checkout at the spa via Square • Cancel anytime
               </p>
               {selectedPlan === "monthly" && (
                 <p className="text-[#FF2D8E]/80 text-sm mt-2">

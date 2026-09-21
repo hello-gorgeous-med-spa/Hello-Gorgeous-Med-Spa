@@ -17,7 +17,7 @@ function splitName(name: string): { first_name: string; last_name: string } {
 
 /**
  * POST /api/regen/intake
- * Creates patient + intake in Supabase before Stripe checkout.
+ * Creates patient + intake in Supabase. Payment is Charm + Bluefin after review.
  */
 export async function POST(request: NextRequest) {
   try {
@@ -134,10 +134,10 @@ export async function POST(request: NextRequest) {
         hipaa_consent_at: hipaaConsent ? new Date().toISOString() : null,
         telehealth_consent_at: telehealthConsent ? new Date().toISOString() : null,
         treatment_consent_at: treatmentConsent ? new Date().toISOString() : null,
-        stripe_payment_intent_id: stripePaymentIntentId,
-        amount_paid: amountPaid,
+        stripe_payment_intent_id: stripePaymentIntentId || null,
+        amount_paid: amountPaid || null,
         affiliate_code: affiliateCode ? String(affiliateCode).toUpperCase() : null,
-        status: amountPaid ? 'pending' : 'awaiting_payment',
+        status: 'pending',
       })
       .select()
       .single();
@@ -213,7 +213,7 @@ export async function POST(request: NextRequest) {
       resource_id: intake.id,
       actor_type: 'patient',
       actor_email: email,
-      details: { goal, has_payment: !!amountPaid },
+      details: { goal, processor: 'charm-bluefin' },
     });
 
     return NextResponse.json({

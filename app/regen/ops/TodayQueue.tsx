@@ -127,7 +127,7 @@ export default function TodayQueue({
       status === 'approved'
         ? `Approved ${intake.name}. This visit left Needs action. Open Orders to place the pharmacy ticket.`
         : status === 'declined'
-          ? `Declined ${intake.name}. Refund the charge in Stripe the same day.`
+          ? `Declined ${intake.name}. If they already paid, refund in Charm the same day.`
           : `${intake.name} is now “${label}” and will stay in Needs action until Ryan approves.`;
     if (json.fulfillment?.pharmacyError) {
       nextNotice += ` ${json.fulfillment.pharmacyError}`;
@@ -183,8 +183,7 @@ export default function TodayQueue({
       )}
 
       <p className="text-white/35 text-xs">
-        Stripe leftovers (Dashboard only): support email provider@hellogorgeousmedspa.com · support URL https://tryregenrx.com · statement name REGEN RX.
-        Resend: From is provider@hellogorgeousmedspa.com until tryregenrx.com is verified.
+        Charm + Bluefin is the card processor. Square is spa only. From: provider@hellogorgeousmedspa.com until tryregenrx.com is verified.
       </p>
 
       {loading && <p className="text-white/40">Loading…</p>}

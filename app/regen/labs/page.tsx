@@ -50,7 +50,6 @@ function LabsContent() {
     setLoading(true);
 
     try {
-      // Create Stripe checkout for lab panel
       const res = await fetch('/api/regen/labs/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -65,10 +64,10 @@ function LabsContent() {
 
       const data = await res.json();
       
-      if (data.url) {
-        window.location.href = data.url;
+      if (res.ok && (data.submitted || data.redirect)) {
+        window.location.href = data.redirect || '/labs/success';
       } else {
-        throw new Error(data.error || 'Failed to create checkout');
+        throw new Error(data.error || 'Failed to submit lab request');
       }
     } catch (error) {
       alert(error instanceof Error ? error.message : 'Something went wrong');

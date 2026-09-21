@@ -87,7 +87,7 @@ export default function PrivacyPage() {
           <ul style={{ color: BRAND.gray }}>
             <li><strong>Contact Information:</strong> Name, email address, phone number, mailing address</li>
             <li><strong>Account Information:</strong> Username, password, account preferences</li>
-            <li><strong>Payment Information:</strong> Credit card details, billing address (processed securely through Stripe)</li>
+            <li><strong>Payment Information:</strong> Credit card details, billing address (processed securely through our clinic payment gateway — Charm with Bluefin)</li>
             <li><strong>Identification:</strong> Date of birth, government ID (when required for verification)</li>
           </ul>
 
@@ -144,7 +144,7 @@ export default function PrivacyPage() {
             We work with third-party companies that help us operate our business, including:
           </p>
           <ul style={{ color: BRAND.gray }}>
-            <li>Payment processors (Stripe)</li>
+            <li>Payment processors (Charm EHR with Bluefin; Square for spa services)</li>
             <li>Email and communication providers</li>
             <li>Cloud hosting services</li>
             <li>Analytics providers</li>

@@ -321,33 +321,13 @@ function RegenStartContent() {
     }
 
     if (isStripeWadaBlockedProgram(selectedProgram) || isStripeWadaBlockedPublicText(checkoutName)) {
-      alert('This program is not available for online checkout. Contact us for a consult instead.');
+      alert('This program is not available to request online. Book a consult instead.');
       return;
     }
     
     setLoading(true);
-    
-    // Create checkout session with consent data
+
     try {
-      const baseUrl = typeof window !== 'undefined' 
-        ? `${window.location.protocol}//${window.location.host}` 
-        : 'https://tryregenrx.com';
-      
-      const consentData = {
-        treatmentCategory: selectedProgram ? getTreatmentCategory(selectedProgram) : 'vitamin-injectables',
-        patientName: `${formData.firstName} ${formData.lastName}`,
-        patientEmail: formData.email,
-        patientDob: formData.dob,
-        signedAt: new Date().toISOString(),
-        consentVersion: CONSENT_VERSION,
-        acknowledgedRisks: consentChecks.readRisks,
-        acknowledgedAlternatives: consentChecks.informedOfAlternatives,
-        acknowledgedNoGuarantees: consentChecks.understandNoGuarantees,
-        emergencyContactName: emergencyContact.name || undefined,
-        emergencyContactPhone: emergencyContact.phone || undefined,
-      };
-      
-      // Step 1: Save intake to database FIRST
       const intakeRes = await fetch('/api/regen/intake', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -369,6 +349,7 @@ function RegenStartContent() {
             boomrxSheetNames: isTryregenBundleProgram(selectedProgram)
               ? tryregenBundleSheetNames(selectedProgram)
               : undefined,
+            requestedTotal: checkoutAmount,
             shipping: {
               street1: formData.address,
               city: formData.city,
@@ -402,48 +383,8 @@ function RegenStartContent() {
         throw new Error(intakeData.error || 'Failed to save intake');
       }
 
-      // Step 2: Now create checkout session
-      const res = await fetch('/api/regen/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: formData.email,
-          name: `${formData.firstName} ${formData.lastName}`,
-          phone: formData.phone,
-          items: [{
-            name: checkoutName,
-            amount: checkoutAmount,
-            quantity: 1,
-          }],
-          mode: 'payment',
-          successUrl: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}&intake=${intakeData.intakeId}`,
-          cancelUrl: `${baseUrl}/start?goal=${selectedGoal}`,
-          metadata: {
-            program: selectedProgram,
-            goal: selectedGoal,
-            promo: promoCode,
-            affiliateCode,
-            medAmount: String(checkoutAmount),
-            intakeId: intakeData.intakeId,
-            dob: formData.dob,
-            screening: JSON.stringify(screeningAnswers),
-            consent: JSON.stringify(consentData),
-            ...(tirzQuote
-              ? {
-                  tirzWeeklyMg: String(tirzQuote.weeklyMg),
-                  tirzTermDays: String(tirzQuote.termDays),
-                }
-              : {}),
-          },
-        }),
-      });
-      
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error(data.error || 'Failed to create checkout');
-      }
+      const intakeQs = intakeData.intakeId ? `&intake=${encodeURIComponent(intakeData.intakeId)}` : '';
+      window.location.href = `/success?requested=1${intakeQs}`;
     } catch (err) {
       alert(err instanceof Error ? err.message : 'Something went wrong');
       setLoading(false);
@@ -471,7 +412,7 @@ function RegenStartContent() {
       <div style={{ backgroundColor: BRAND.darkAlt, borderBottom: `1px solid ${BRAND.teal}20` }}>
         <div className="max-w-3xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            {['Goal', 'Program', 'Info', 'Medical', 'Consent', 'Pay'].map((label, idx) => {
+            {['Goal', 'Program', 'Info', 'Medical', 'Consent', 'Request'].map((label, idx) => {
               const stepMap: Step[] = ['goal', 'program', 'info', 'screening', 'consent', 'checkout'];
               const progressStep = step === 'tirz-plan' ? 'program' : step;
               const currentStepIdx = stepMap.indexOf(progressStep);
@@ -513,7 +454,7 @@ function RegenStartContent() {
         {' '}— {REGEN_TELEHEALTH_CREDIT_SHORT}
       </div>
       <div className="px-6 py-3 text-center text-sm font-semibold" style={{ backgroundColor: `${BRAND.pink}18`, color: BRAND.cream, borderBottom: `1px solid ${BRAND.pink}40` }}>
-        First order {GORGEOUS20_PERCENT}% off — enter <span style={{ color: BRAND.pink }}>{promoCode}</span> on the payment screen
+        First medication order {GORGEOUS20_PERCENT}% off (shipping excluded) — we apply <span style={{ color: BRAND.pink }}>{promoCode}</span> on your clinic invoice
       </div>
 
       <main className="max-w-3xl mx-auto px-6 py-12">
@@ -1116,10 +1057,10 @@ function RegenStartContent() {
                     }}
                   >
                     {loading
-                      ? 'Processing...'
+                      ? 'Submitting...'
                       : addsVialShipping
-                        ? `Sign Consent & Proceed to Payment — ${formatUsd(checkoutAmount)} + ${formatUsd(vialShipUsd)} shipping`
-                        : `Sign Consent & Proceed to Payment — ${formatUsd(checkoutAmount)}`}
+                        ? `Sign consent & submit request — ${formatUsd(checkoutAmount)} + ${formatUsd(vialShipUsd)} shipping`
+                        : `Sign consent & submit request — ${formatUsd(checkoutAmount)}`}
                   </button>
 
                   <p className="text-xs text-center" style={{ color: BRAND.gray }}>
