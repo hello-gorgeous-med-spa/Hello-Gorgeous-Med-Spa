@@ -2,8 +2,8 @@
  * Formulation Rx / FormuConnect dispatch ticket.
  *
  * Monday operating path: resolve a real catalog SKU, give Ryan/Damara a
- * copy-paste ticket for portal.formuconnect.com. Do not invent a live
- * FormuConnect order API — adapters stay manual until the vendor client lands.
+ * copy-paste ticket for portal.formuconnect.com. Live POST /orders stays
+ * behind RX_PHARMACY_API_ENABLED (see lib/formuconnect.ts).
  */
 
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
@@ -93,7 +93,7 @@ const PROGRAM_SKU: Record<
   sermorelin: { sku: "2884", daysSupply: 30, note: "Sermorelin injection 6mL · 1mg/mL" },
   tesamorelin: { sku: "2896", daysSupply: 30, note: "Tesamorelin sterile injection 3mL · 5mg/mL" },
   "pt-141": { sku: "3502", daysSupply: 30, note: "PT-141 (Bremelanotide) 10mL · 2mg/mL" },
-  oxytocin: { sku: "3078", daysSupply: 30, note: "Oxytocin troches 15ct · 10 IU" },
+  oxytocin: { sku: "3078", daysSupply: 30, note: "Oxytocin troches 30ct" },
   "sildenafil-apo": { sku: "2957", daysSupply: 30, note: "Sildenafil / apomorphine troches 15ct" },
   "scream-cream": { sku: "2903", daysSupply: 30, note: "Sildenafil / arginine / papaverine 30g" },
   estriol: { sku: "2631", daysSupply: 30, note: "Estriol vaginal gel 30g · 0.5mg/mL" },

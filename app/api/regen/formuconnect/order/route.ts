@@ -1,162 +1,158 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { 
-  isFormuConnectConfigured, 
-  submitFormuConnectOrder,
+import { NextRequest, NextResponse } from "next/server";
+import {
   getFormuConnectOrderStatus,
-  type FormuConnectOrder 
-} from '@/lib/formuconnect';
+  isFormuConnectConfigured,
+  isFormuConnectLiveSubmitEnabled,
+  submitFormuConnectOrder,
+  type FormuConnectOrderRequest,
+  type FormuConnectPatient,
+} from "@/lib/formuconnect";
 
-/**
- * POST /api/regen/formuconnect/order
- * Blocked unless RX_PHARMACY_API_ENABLED=true and every productId is a numeric SKU.
- * Monday path: paste the ticket in FormuConnect — do not call this.
- */
-export async function POST(request: NextRequest) {
-  if (process.env.RX_PHARMACY_API_ENABLED !== 'true') {
-    return NextResponse.json({
-      success: false,
-      error: 'FormuConnect live submit is off. Copy the Formulation ticket into the portal.',
-    }, { status: 503 });
-  }
-
-  if (!isFormuConnectConfigured()) {
-    return NextResponse.json({
-      success: false,
-      error: 'FormuConnect API not configured',
-    }, { status: 503 });
-  }
-
-  try {
-    const body = await request.json();
-    
-    // Validate required fields
-    const { patient, prescriptions } = body;
-    
-    if (!patient || !patient.firstName || !patient.lastName || !patient.address) {
-      return NextResponse.json({
-        success: false,
-        error: 'Patient information required (firstName, lastName, address)',
-      }, { status: 400 });
-    }
-
-    if (!prescriptions || !Array.isArray(prescriptions) || prescriptions.length === 0) {
-      return NextResponse.json({
-        success: false,
-        error: 'At least one prescription required',
-      }, { status: 400 });
-    }
-
-    const badIds = prescriptions.filter(
-      (rx: { productId?: string }) => !/^\d{3,6}$/.test(String(rx.productId || '').trim()),
-    );
-    if (badIds.length) {
-      return NextResponse.json({
-        success: false,
-        error: 'Every productId must be a numeric Formulation SKU',
-      }, { status: 400 });
-    }
-
-    // Build order object
-    const order: FormuConnectOrder = {
-      patient: {
-        firstName: patient.firstName,
-        lastName: patient.lastName,
-        dateOfBirth: patient.dateOfBirth,
-        email: patient.email,
-        phone: patient.phone,
-        address: {
-          street1: patient.address.street1,
-          street2: patient.address.street2,
-          city: patient.address.city,
-          state: patient.address.state,
-          zip: patient.address.zip,
-        },
-      },
-      prescriptions: prescriptions.map((rx: {
-        productId: string;
-        productName?: string;
-        quantity: number;
-        sig?: string;
-        refills?: number;
-        daysSupply?: number;
-      }) => ({
-        productId: rx.productId,
-        productName: rx.productName,
-        quantity: rx.quantity || 1,
-        sig: rx.sig,
-        refills: rx.refills || 0,
-        daysSupply: rx.daysSupply || 30,
-      })),
-      prescriberId: body.prescriberId,
-      notes: body.notes,
-      metadata: {
-        regenOrderId: body.regenOrderId,
-        patientEmail: patient.email,
-        ...body.metadata,
-      },
-    };
-
-    // Submit to FormuConnect
-    const result = await submitFormuConnectOrder(order);
-
-    console.log('[formuconnect] Order submitted:', {
-      orderId: result.orderId,
-      patientEmail: patient.email,
-      prescriptionCount: prescriptions.length,
-    });
-
-    return NextResponse.json({
-      success: true,
-      orderId: result.orderId,
-      status: result.status,
-      message: result.message || 'Order submitted successfully',
-      estimatedShipDate: result.estimatedShipDate,
-    });
-
-  } catch (error) {
-    console.error('[formuconnect] Order submission error:', error);
-    return NextResponse.json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Failed to submit order',
-    }, { status: 500 });
-  }
+function asPatient(input: Record<string, unknown>): FormuConnectPatient | null {
+  const addr = (input.address && typeof input.address === "object"
+    ? (input.address as Record<string, unknown>)
+    : {}) as Record<string, unknown>;
+  const first =
+    String(input.first_name || input.firstName || "").trim();
+  const last = String(input.last_name || input.lastName || "").trim();
+  const dob = String(input.dob || input.dateOfBirth || "").trim();
+  const sexRaw = String(input.sex || "").trim().toUpperCase();
+  const sex = sexRaw === "F" || sexRaw === "FEMALE" ? "F" : sexRaw === "M" || sexRaw === "MALE" ? "M" : "";
+  const street = String(input.address_line || addr.street1 || addr.address || input.street || "").trim();
+  const city = String(input.city || addr.city || "").trim();
+  const state = String(input.state || addr.state || "").trim();
+  const zip = String(input.zip || addr.zip || "").trim();
+  const phone = String(input.phone || "").trim();
+  if (!first || !last || !dob || !sex || !street || !city || !state || !zip) return null;
+  return {
+    first_name: first,
+    last_name: last,
+    dob,
+    sex,
+    phone,
+    address: street,
+    city,
+    state,
+    zip,
+  };
 }
 
 /**
- * GET /api/regen/formuconnect/order?orderId=xxx
- * Get order status from FormuConnect
+ * POST /api/regen/formuconnect/order
+ * Blocked unless RX_PHARMACY_API_ENABLED=true.
+ * Monday path: paste the ticket in FormuConnect — do not call this.
  */
-export async function GET(request: NextRequest) {
-  if (!isFormuConnectConfigured()) {
-    return NextResponse.json({
-      success: false,
-      error: 'FormuConnect API not configured',
-    }, { status: 503 });
+export async function POST(request: NextRequest) {
+  if (!isFormuConnectLiveSubmitEnabled()) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: "FormuConnect live submit is off. Copy the Formulation ticket into the portal.",
+      },
+      { status: 503 },
+    );
   }
 
-  const { searchParams } = new URL(request.url);
-  const orderId = searchParams.get('orderId');
+  if (!isFormuConnectConfigured()) {
+    return NextResponse.json(
+      { success: false, error: "FormuConnect API not configured" },
+      { status: 503 },
+    );
+  }
 
-  if (!orderId) {
+  try {
+    const body = (await request.json()) as Record<string, unknown>;
+    const patient = asPatient((body.patient as Record<string, unknown>) || {});
+    if (!patient) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Patient first_name, last_name, dob, sex, address, city, state, and zip are required",
+        },
+        { status: 400 },
+      );
+    }
+
+    const rawItems = Array.isArray(body.items)
+      ? body.items
+      : Array.isArray(body.prescriptions)
+        ? body.prescriptions
+        : [];
+    const items = rawItems.map((rx: Record<string, unknown>) => ({
+      sku: String(rx.sku || rx.productId || "").trim(),
+      quantity: Number(rx.quantity) || 1,
+      sig: String(rx.sig || "Use as directed").trim(),
+      prescriber_notes: rx.prescriber_notes ? String(rx.prescriber_notes) : undefined,
+    }));
+    if (!items.length || items.some((item) => !item.sku)) {
+      return NextResponse.json(
+        { success: false, error: "Every item needs a FormuConnect SKU assigned to this account" },
+        { status: 400 },
+      );
+    }
+
+    const physician = body.physician && typeof body.physician === "object"
+      ? (body.physician as FormuConnectOrderRequest["physician"])
+      : body.prescriberId
+        ? { last_name: "Kent", npi: String(body.prescriberId) }
+        : undefined;
+
+    const order: FormuConnectOrderRequest = {
+      patient,
+      items,
+      diagnosis: body.diagnosis as FormuConnectOrderRequest["diagnosis"],
+      physician,
+      shipping: (body.shipping as FormuConnectOrderRequest["shipping"]) || {
+        ship_to: "patient",
+        method: "ground",
+      },
+      vendor_order_id: String(body.vendor_order_id || body.regenOrderId || "").trim() || undefined,
+    };
+
+    const result = await submitFormuConnectOrder(order);
+    const first = result.orders?.[0];
+
     return NextResponse.json({
-      success: false,
-      error: 'orderId parameter required',
-    }, { status: 400 });
+      success: Boolean(result.ok),
+      orderId: first?.order_number,
+      batch_number: result.batch_number,
+      vendor_order_id: result.vendor_order_id,
+      orders: result.orders,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: error instanceof Error ? error.message : "Failed to submit order",
+      },
+      { status: 500 },
+    );
+  }
+}
+
+export async function GET(request: NextRequest) {
+  if (!isFormuConnectConfigured()) {
+    return NextResponse.json(
+      { success: false, error: "FormuConnect API not configured" },
+      { status: 503 },
+    );
+  }
+
+  const orderId = new URL(request.url).searchParams.get("orderId");
+  if (!orderId) {
+    return NextResponse.json({ success: false, error: "orderId parameter required" }, { status: 400 });
   }
 
   try {
     const status = await getFormuConnectOrderStatus(orderId);
-
-    return NextResponse.json({
-      success: true,
-      ...status,
-    });
-
+    return NextResponse.json({ success: true, status });
   } catch (error) {
-    console.error('[formuconnect] Status check error:', error);
-    return NextResponse.json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Failed to get order status',
-    }, { status: 500 });
+    return NextResponse.json(
+      {
+        success: false,
+        error: error instanceof Error ? error.message : "Failed to get order status",
+      },
+      { status: 500 },
+    );
   }
 }

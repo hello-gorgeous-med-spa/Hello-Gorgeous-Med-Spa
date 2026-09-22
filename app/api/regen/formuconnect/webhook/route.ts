@@ -1,17 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase-server';
+import { verifyFormuConnectWebhookSignature } from '@/lib/formuconnect';
 import { Resend } from 'resend';
 
 /**
  * POST /api/regen/formuconnect/webhook
  * Receive order status updates from FormuConnect (Formulation Rx)
  * 
- * Events:
- * - order.received — Pharmacy received the order
- * - order.processing — Compounding started
- * - order.shipped — Shipped with tracking
- * - order.delivered — Delivered to patient
- * - order.cancelled — Order cancelled
+ * Documented events (portal.formuconnect.com/api/docs):
+ * - order.status_changed
+ * - order.shipped
+ * - order.tracking_updated
  */
 
 // Lazy init Resend to avoid build-time errors
@@ -26,22 +25,25 @@ function getResend(): Resend {
 
 interface WebhookPayload {
   event: string;
-  orderId: string;
+  orderId?: string;
+  order_number?: string;
   status?: string;
   trackingNumber?: string;
+  tracking_number?: string;
   carrier?: string;
   shipDate?: string;
   estimatedDelivery?: string;
   metadata?: Record<string, string>;
-  reason?: string; // for cancellations
+  reason?: string;
 }
 
-// Map FormuConnect events to our status
 const EVENT_STATUS_MAP: Record<string, string> = {
+  'order.status_changed': 'compounding',
+  'order.shipped': 'shipped',
+  'order.tracking_updated': 'shipped',
   'order.received': 'pharmacy_received',
   'order.processing': 'compounding',
   'order.quality_check': 'quality_check',
-  'order.shipped': 'shipped',
   'order.delivered': 'delivered',
   'order.cancelled': 'cancelled',
 };
@@ -50,26 +52,28 @@ export async function POST(request: NextRequest) {
   const startTime = Date.now();
   
   try {
-    const body = await request.json() as WebhookPayload;
-    
-    console.log('[formuconnect-webhook] Received:', JSON.stringify(body, null, 2));
+    const rawBody = await request.text();
+    const signature = request.headers.get('x-formuconnect-signature');
+    if (process.env.FORMUCONNECT_WEBHOOK_SECRET) {
+      if (!verifyFormuConnectWebhookSignature(rawBody, signature)) {
+        return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
+      }
+    }
 
-    const { 
-      event,
-      orderId,
-      trackingNumber,
-      carrier,
-      shipDate,
-      estimatedDelivery,
-      metadata,
-      reason,
-    } = body;
+    const body = JSON.parse(rawBody) as WebhookPayload;
+    const event = body.event;
+    const orderId = body.order_number || body.orderId;
+    const trackingNumber = body.tracking_number || body.trackingNumber;
+    const { carrier, shipDate, estimatedDelivery, metadata, reason } = body;
 
     if (!event || !orderId) {
       return NextResponse.json({ error: 'Missing event or orderId' }, { status: 400 });
     }
 
-    const newStatus = EVENT_STATUS_MAP[event];
+    let newStatus = EVENT_STATUS_MAP[event];
+    if (event === 'order.status_changed' && body.status) {
+      newStatus = EVENT_STATUS_MAP[`order.${body.status}`] || body.status;
+    }
     if (!newStatus) {
       console.log(`[formuconnect-webhook] Unknown event: ${event}`);
       return NextResponse.json({ received: true, message: 'Unknown event type' });

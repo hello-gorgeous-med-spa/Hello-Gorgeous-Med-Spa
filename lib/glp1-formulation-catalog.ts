@@ -1,6 +1,9 @@
 /**
  * Formulation Compounding — GLP-1 injectable SKU catalog (wholesale).
  * Tirzepatide / B6 · 12.5mg/10mg/mL · cold ship · next day only.
+ *
+ * Patient-fill packs: Chelsea (Formulation) approved 16 Sep 2026 — not $40/vial.
+ * Office 503B stock stays $600 / 15 mL ($40/vial) on SKU 3595.
  */
 
 export type FormulationGlp1Pack = {
@@ -24,7 +27,7 @@ export const FORMULATION_TIRZ_B6_INJECTABLE_PACKS: FormulationGlp1Pack[] = [
     vialCount: 1,
     concentration: "12.5mg/10mg/mL",
     form: "injectable",
-    wholesaleUsd: 85,
+    wholesaleUsd: 75,
     coldShip: true,
     shipNote: "Cold ship · Next day only",
   },
@@ -35,7 +38,7 @@ export const FORMULATION_TIRZ_B6_INJECTABLE_PACKS: FormulationGlp1Pack[] = [
     vialCount: 2,
     concentration: "12.5mg/10mg/mL",
     form: "injectable",
-    wholesaleUsd: 140,
+    wholesaleUsd: 120,
     coldShip: true,
     shipNote: "Cold ship · Next day only",
   },
@@ -46,7 +49,7 @@ export const FORMULATION_TIRZ_B6_INJECTABLE_PACKS: FormulationGlp1Pack[] = [
     vialCount: 3,
     concentration: "12.5mg/10mg/mL",
     form: "injectable",
-    wholesaleUsd: 190,
+    wholesaleUsd: 155,
     coldShip: true,
     shipNote: "Cold ship · Next day only",
   },
@@ -57,7 +60,7 @@ export const FORMULATION_TIRZ_B6_INJECTABLE_PACKS: FormulationGlp1Pack[] = [
     vialCount: 4,
     concentration: "12.5mg/10mg/mL",
     form: "injectable",
-    wholesaleUsd: 240,
+    wholesaleUsd: 185,
     coldShip: true,
     shipNote: "Cold ship · Next day only",
   },
@@ -68,7 +71,7 @@ export const FORMULATION_TIRZ_B6_INJECTABLE_PACKS: FormulationGlp1Pack[] = [
     vialCount: 5,
     concentration: "12.5mg/10mg/mL",
     form: "injectable",
-    wholesaleUsd: 285,
+    wholesaleUsd: 205,
     coldShip: true,
     shipNote: "Cold ship · Next day only",
   },
@@ -117,6 +120,21 @@ export function pickFormulationTirzInjectablePack(
   return (
     FORMULATION_TIRZ_B6_INJECTABLE_PACKS.find((p) => p.vialCount === vialCount) ?? null
   );
+}
+
+/** Chelsea 16 Sep 2026: first 3 titration months can ship as one 5-vial fill (SKU 2502). */
+export const FORMULATION_TIRZ_3MO_STARTER_SKU = "2502";
+export const FORMULATION_TIRZ_3MO_STARTER_USD = 205;
+
+/** Patient-fill COGS for N × 1 mL vials. Uses approved packs; leftover vials use the next pack. */
+export function formulationTirzPatientWholesaleUsd(vialCount: number): number {
+  const n = Math.max(0, Math.floor(vialCount));
+  if (n === 0) return 0;
+  const pack = pickFormulationTirzInjectablePack(n);
+  if (pack) return pack.wholesaleUsd;
+  const fives = Math.floor(n / 5);
+  const rem = n % 5;
+  return fives * FORMULATION_TIRZ_3MO_STARTER_USD + formulationTirzPatientWholesaleUsd(rem);
 }
 
 /** Semaglutide / B6 · 2.5mg/10mg/mL · cold ship · next day only. */

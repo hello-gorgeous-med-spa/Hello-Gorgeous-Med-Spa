@@ -1,181 +1,188 @@
 /**
- * FormuConnect client — guessed `/v1/orders` endpoint, not a vendor-documented API.
- * Do not enable live submit. Monday ops = paste a numeric Formulation SKU in the portal.
+ * FormuConnect EMR Integration API — portal.formuconnect.com/api/docs (OAS 3.0, 1.0.0).
+ *
+ * Production: https://portal.formuconnect.com/api/v1
+ * Auth: X-API-Key (admin-issued, tied to the provider account).
+ * POST /orders charges the card on file (or invoices net-terms) and sends the Rx to PioneerRx.
+ *
+ * Live submit stays off until RX_PHARMACY_API_ENABLED=true. Monday path is still
+ * paste the ticket in portal.formuconnect.com.
  */
+
+import { createHmac, timingSafeEqual } from "node:crypto";
+
+export const FORMUCONNECT_API_BASE =
+  process.env.FORMUCONNECT_API_URL?.replace(/\/$/, "") ||
+  "https://portal.formuconnect.com/api/v1";
 
 const FORMUCONNECT_API_KEY = process.env.FORMUCONNECT_API_KEY;
-const FORMUCONNECT_BASE_URL = process.env.FORMUCONNECT_API_URL || 'https://api.formuconnect.com';
 
-export interface FormuConnectPatient {
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string; // YYYY-MM-DD
-  email?: string;
-  phone?: string;
-  address: {
-    street1: string;
-    street2?: string;
-    city: string;
-    state: string;
-    zip: string;
-  };
-}
+export type FormuConnectPatient = {
+  first_name: string;
+  last_name: string;
+  dob: string;
+  sex: "M" | "F";
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+};
 
-export interface FormuConnectPrescription {
-  productId: string;       // FormuConnect catalog product ID
-  productName?: string;    // Human-readable name
+export type FormuConnectOrderItem = {
+  sku: string;
   quantity: number;
-  sig?: string;            // Prescribing instructions
-  refills?: number;
-  daysSupply?: number;
-}
+  sig: string;
+  prescriber_notes?: string;
+};
 
-export interface FormuConnectOrder {
+export type FormuConnectPhysician = {
+  first_name?: string;
+  last_name: string;
+  npi?: string;
+  dea?: string;
+  phone?: string;
+  address?: string;
+};
+
+export type FormuConnectShipping = {
+  ship_to: "office" | "patient";
+  method?: "ground" | "next_day" | "two_day" | string;
+};
+
+export type FormuConnectOrderRequest = {
   patient: FormuConnectPatient;
-  prescriptions: FormuConnectPrescription[];
-  prescriberId?: string;   // NPI or FormuConnect provider ID
-  notes?: string;
-  metadata?: Record<string, string>;
-}
+  items: FormuConnectOrderItem[];
+  diagnosis?: { icd10?: string; clinical_notes?: string };
+  physician?: FormuConnectPhysician;
+  supervising_physician?: FormuConnectPhysician;
+  shipping?: FormuConnectShipping;
+  vendor_order_id?: string;
+};
 
-export interface FormuConnectOrderResponse {
-  success: boolean;
-  orderId?: string;
-  status?: string;
-  message?: string;
-  trackingNumber?: string;
-  estimatedShipDate?: string;
-}
+export type FormuConnectOrderLine = {
+  product?: string;
+  sku?: string;
+  quantity?: number;
+  unit_price?: number;
+  line_total?: number;
+};
 
-export interface FormuConnectOrderStatus {
-  orderId: string;
-  status: 'pending' | 'processing' | 'compounding' | 'quality_check' | 'shipped' | 'delivered' | 'cancelled';
-  trackingNumber?: string;
-  carrier?: string;
-  shipDate?: string;
-  estimatedDelivery?: string;
-  updatedAt: string;
-}
+export type FormuConnectCreatedOrder = {
+  order_number: string;
+  patient_id?: string;
+  patient?: string;
+  items?: FormuConnectOrderLine[];
+  subtotal?: number;
+};
 
-/**
- * Check if FormuConnect API is configured
- */
+export type FormuConnectOrderResponse = {
+  ok: boolean;
+  batch_number?: string;
+  vendor_order_id?: string;
+  patient_id?: string;
+  orders?: FormuConnectCreatedOrder[];
+  shipping?: { method?: string; cost?: number };
+  errors?: string[];
+};
+
 export function isFormuConnectConfigured(): boolean {
-  return !!FORMUCONNECT_API_KEY;
+  return Boolean(FORMUCONNECT_API_KEY && FORMUCONNECT_API_KEY.length > 8);
 }
 
-/**
- * Make authenticated request to FormuConnect API
- */
+export function isFormuConnectLiveSubmitEnabled(): boolean {
+  return process.env.RX_PHARMACY_API_ENABLED === "true";
+}
+
 async function formuConnectRequest<T>(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> {
   if (!FORMUCONNECT_API_KEY) {
-    throw new Error('FormuConnect API key not configured');
+    throw new Error("FormuConnect API key not configured");
   }
 
-  const url = `${FORMUCONNECT_BASE_URL}${endpoint}`;
-  
-  const response = await fetch(url, {
+  const path = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+  const response = await fetch(`${FORMUCONNECT_API_BASE}${path}`, {
     ...options,
     headers: {
-      'Authorization': `Bearer ${FORMUCONNECT_API_KEY}`,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-Client': 'regen-rx',
+      "X-API-Key": FORMUCONNECT_API_KEY,
+      "Content-Type": "application/json",
+      Accept: "application/json",
       ...options.headers,
     },
   });
 
+  const data = (await response.json().catch(() => ({}))) as T & { errors?: string[]; ok?: boolean };
   if (!response.ok) {
-    const errorText = await response.text();
-    console.error(`[formuconnect] API error ${response.status}:`, errorText);
-    throw new Error(`FormuConnect API error: ${response.status} ${response.statusText}`);
+    const detail = Array.isArray(data.errors) ? data.errors.join("; ") : JSON.stringify(data).slice(0, 400);
+    throw new Error(`FormuConnect ${response.status}: ${detail || response.statusText}`);
   }
-
-  return response.json();
+  return data;
 }
 
-/**
- * Test API connection
- */
 export async function testFormuConnectConnection(): Promise<{ success: boolean; message: string }> {
   try {
-    // Try to hit a basic endpoint to verify credentials
-    const result = await formuConnectRequest<{ status?: string }>('/v1/ping');
-    return { success: true, message: result.status || 'Connected' };
+    const products = await formuConnectRequest<{ products?: unknown[] } | unknown[]>("/products");
+    const count = Array.isArray(products)
+      ? products.length
+      : Array.isArray((products as { products?: unknown[] }).products)
+        ? (products as { products: unknown[] }).products.length
+        : 0;
+    return { success: true, message: `Connected · ${count} product${count === 1 ? "" : "s"} on this key` };
   } catch (error) {
-    return { 
-      success: false, 
-      message: error instanceof Error ? error.message : 'Connection failed' 
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Connection failed",
     };
   }
 }
 
-/**
- * Submit a new prescription order
- */
+export async function listFormuConnectProducts(): Promise<unknown> {
+  return formuConnectRequest("/products");
+}
+
 export async function submitFormuConnectOrder(
-  order: FormuConnectOrder
+  order: FormuConnectOrderRequest,
 ): Promise<FormuConnectOrderResponse> {
-  if (process.env.RX_PHARMACY_API_ENABLED !== 'true') {
+  if (!isFormuConnectLiveSubmitEnabled()) {
     throw new Error(
-      'FormuConnect live submit is off. Copy the Formulation ticket into portal.formuconnect.com.',
+      "FormuConnect live submit is off. Copy the Formulation ticket into portal.formuconnect.com.",
     );
   }
-  const badIds = order.prescriptions.filter((rx) => !/^\d{3,6}$/.test(String(rx.productId || '').trim()));
-  if (badIds.length) {
-    throw new Error(
-      `Refusing FormuConnect submit — productId must be a numeric Formulation SKU (got ${badIds.map((rx) => rx.productId).join(', ')})`,
-    );
+  if (!order.patient?.first_name || !order.patient?.last_name || !order.patient?.dob) {
+    throw new Error("Patient first_name, last_name, and dob are required");
+  }
+  if (!order.items?.length) {
+    throw new Error("At least one item is required");
+  }
+  const badSku = order.items.filter((item) => !String(item.sku || "").trim());
+  if (badSku.length) {
+    throw new Error("Every item needs a FormuConnect SKU assigned to this account");
   }
 
-  return formuConnectRequest<FormuConnectOrderResponse>('/v1/orders', {
-    method: 'POST',
-    body: JSON.stringify({
-      patient: order.patient,
-      prescriptions: order.prescriptions,
-      prescriber_id: order.prescriberId,
-      notes: order.notes,
-      metadata: {
-        source: 'regen-rx',
-        ...order.metadata,
-      },
-    }),
+  return formuConnectRequest<FormuConnectOrderResponse>("/orders", {
+    method: "POST",
+    body: JSON.stringify(order),
   });
 }
 
-/**
- * Get order status by ID
- */
-export async function getFormuConnectOrderStatus(
-  orderId: string
-): Promise<FormuConnectOrderStatus> {
-  return formuConnectRequest<FormuConnectOrderStatus>(`/v1/orders/${orderId}`);
+export async function getFormuConnectOrderStatus(identifier: string): Promise<unknown> {
+  return formuConnectRequest(`/orders/${encodeURIComponent(identifier)}`);
 }
 
-/**
- * Get product catalog (formulary)
- */
-export async function getFormuConnectCatalog(
-  category?: string
-): Promise<{ products: Array<{ id: string; name: string; category: string; price?: number }> }> {
-  const endpoint = category 
-    ? `/v1/products?category=${encodeURIComponent(category)}`
-    : '/v1/products';
-  return formuConnectRequest(endpoint);
+export async function getFormuSyncRxStatus(rxNumber: string): Promise<unknown> {
+  return formuConnectRequest(`/rx/${encodeURIComponent(rxNumber)}`);
 }
 
-/**
- * Cancel an order (if still possible)
- */
-export async function cancelFormuConnectOrder(
-  orderId: string,
-  reason?: string
-): Promise<{ success: boolean; message: string }> {
-  return formuConnectRequest(`/v1/orders/${orderId}/cancel`, {
-    method: 'POST',
-    body: JSON.stringify({ reason }),
-  });
+/** X-FormuConnect-Signature: sha256=<hex> over the raw body. */
+export function verifyFormuConnectWebhookSignature(rawBody: string, header: string | null): boolean {
+  const secret = process.env.FORMUCONNECT_WEBHOOK_SECRET;
+  if (!secret || !header) return false;
+  const hex = header.replace(/^sha256=/i, "").trim();
+  const expected = createHmac("sha256", secret).update(rawBody, "utf8").digest("hex");
+  const a = Buffer.from(expected, "utf8");
+  const b = Buffer.from(hex, "utf8");
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
 }

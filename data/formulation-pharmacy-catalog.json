@@ -32,7 +32,19 @@
     "bud": "90 days",
     "category": "Weight Management",
     "flags": ["Cold Ship", "Next Day Only"],
-    "wholesaleUsd": 85,
+    "wholesaleUsd": 75,
+    "controlled": false
+  },
+  {
+    "sku": "2499",
+    "product": "Tirzepatide / B6 (Pyridoxine)",
+    "size": "2mL (Vial #1: 1mL) (Vial #2: 1mL)",
+    "concentration": "12.5mg/10mg/mL",
+    "form": "Injectable",
+    "bud": "90 days",
+    "category": "Weight Management",
+    "flags": ["Cold Ship", "Next Day Only"],
+    "wholesaleUsd": 120,
     "controlled": false
   },
   {
@@ -44,7 +56,31 @@
     "bud": "90 days",
     "category": "Weight Management",
     "flags": ["Cold Ship", "Next Day Only"],
-    "wholesaleUsd": 190,
+    "wholesaleUsd": 155,
+    "controlled": false
+  },
+  {
+    "sku": "2501",
+    "product": "Tirzepatide / B6 (Pyridoxine)",
+    "size": "4mL (4 × 1mL vials)",
+    "concentration": "12.5mg/10mg/mL",
+    "form": "Injectable",
+    "bud": "90 days",
+    "category": "Weight Management",
+    "flags": ["Cold Ship", "Next Day Only"],
+    "wholesaleUsd": 185,
+    "controlled": false
+  },
+  {
+    "sku": "2502",
+    "product": "Tirzepatide / B6 (Pyridoxine)",
+    "size": "5mL (5 × 1mL vials)",
+    "concentration": "12.5mg/10mg/mL",
+    "form": "Injectable",
+    "bud": "90 days",
+    "category": "Weight Management",
+    "flags": ["Cold Ship", "Next Day Only"],
+    "wholesaleUsd": 205,
     "controlled": false
   },
   {
@@ -104,7 +140,7 @@
     "bud": "60 days",
     "category": "Peptide",
     "flags": ["Cold Ship", "Next Day Only"],
-    "wholesaleUsd": 200,
+    "wholesaleUsd": 150,
     "controlled": false
   },
   {
@@ -142,5 +178,65 @@
     "flags": [],
     "wholesaleUsd": 27,
     "controlled": true
+  },
+  {
+    "sku": "2489",
+    "product": "Semaglutide / B6 (Pyridoxine)",
+    "size": "2mL Vial",
+    "concentration": "2.5mg/10mg/mL",
+    "form": "Injectable",
+    "bud": "90 days",
+    "category": "Weight Management",
+    "flags": ["Cold Ship", "Next Day Only"],
+    "wholesaleUsd": 70,
+    "controlled": false
+  },
+  {
+    "sku": "2491",
+    "product": "Semaglutide / B6 (Pyridoxine)",
+    "size": "4mL (Vial #1: 2mL) (Vial #2: 2mL)",
+    "concentration": "2.5mg/10mg/mL",
+    "form": "Injectable",
+    "bud": "90 days",
+    "category": "Weight Management",
+    "flags": ["Cold Ship", "Next Day Only"],
+    "wholesaleUsd": 131,
+    "controlled": false
+  },
+  {
+    "sku": "2897",
+    "product": "Tesamorelin Sterile Injection Solution",
+    "size": "6mL Vial",
+    "concentration": "5mg/mL",
+    "form": "Injectable",
+    "bud": "60 days",
+    "category": "Peptide",
+    "flags": ["Cold Ship", "Next Day Only"],
+    "wholesaleUsd": 245,
+    "controlled": false
+  },
+  {
+    "sku": "3078",
+    "product": "Oxytocin Sublingual Oral Troche",
+    "size": "30 troches",
+    "concentration": "various strengths",
+    "form": "Troche",
+    "bud": null,
+    "category": "Peptide",
+    "flags": [],
+    "wholesaleUsd": 39,
+    "controlled": false
+  },
+  {
+    "sku": "3763",
+    "product": "GHK-Cu Topical Hair Solution",
+    "size": "30mL bottle",
+    "concentration": "0.25%",
+    "form": "Topical",
+    "bud": null,
+    "category": "Hair Loss",
+    "flags": [],
+    "wholesaleUsd": 45,
+    "controlled": false
   }
 ]
