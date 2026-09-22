@@ -61,8 +61,8 @@ export const ATELIER_SERVICES = [
     title: "IV & wellness",
     note: "Drips, shots, and recovery — by consult",
     href: IV_THERAPY_PATH,
-    image: "/images/homepage-buyer-paths/iv-wellness.png",
-    alt: "IV therapy at Hello Gorgeous Med Spa",
+    image: "/images/homepage-atelier/iv-therapy.jpg",
+    alt: "IV therapy drips at Hello Gorgeous Med Spa",
   },
 ] as const;
 
