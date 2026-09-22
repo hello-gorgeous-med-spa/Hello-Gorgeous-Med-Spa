@@ -198,11 +198,11 @@ function resolveStaff(serviceName, categoryNames) {
     };
   }
 
-  // ── Laser hair / DuoCratus LHR → Danielle + Ryan + Michelle ──
+  // ── Laser hair / DuoCratus LHR → Danielle + Ryan ──
   if (/laser hair|brazilian laser|duocratus/.test(hay) && !/ipl|photofacial|solaria|morpheus|quantum/.test(hay)) {
     return {
-      ids: [TEAM.danielle, TEAM.ryan, TEAM.michelle],
-      rule: "Laser hair removal → Danielle + Ryan + Michelle",
+      ids: [TEAM.danielle, TEAM.ryan],
+      rule: "Laser hair removal → Danielle + Ryan",
     };
   }
 

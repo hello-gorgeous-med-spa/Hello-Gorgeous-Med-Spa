@@ -48,7 +48,7 @@ export const SERVICE_SLUG_MAP: Record<string, string[]> = {
   "lip-filler": ["Lip Filler — 1ml", "Lip Filler — 0.5ml"],
   "iv-therapy": ["IV Hour — Pick Your Bag"],
   "vitamin-injections": ["Vitamin Injection Bar — Choose Your Shot"],
-  "laser-hair-removal": ["Laser Hair Removal — Brazilian (Single Session)", "Laser Brazilian — 3-Month Package"],
+  "laser-hair-removal": ["Laser Hair Removal — Pick Your Area"],
   "hydra-facial": ["HydraFacial + Dermaplaning Glow Special", "HydraFacial"],
   "chemical-peels": ["Chemical Peel", "VI Peel"],
   prp: ["PRP — Hair Restoration", "Microneedling with PRP"],

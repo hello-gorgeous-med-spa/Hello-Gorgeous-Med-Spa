@@ -45,7 +45,7 @@ const SLIDES: Slide[] = [
     id: "oswego-specials",
     badge: "Oswego specials",
     line:
-      "HydraFacial $129 · lashes $89 · laser from $69 · IPL $79. Book at Hello Gorgeous Oswego.",
+      "HydraFacial $129 · lashes $89 · laser from $79 · IPL $79. Book at Hello Gorgeous Oswego.",
     primary: { label: "See all specials", href: "/oswego-specials" },
     secondary: { label: "Book now", href: "/book?ref=oswego_specials_2026" },
   },

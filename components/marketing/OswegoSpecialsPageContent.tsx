@@ -93,8 +93,8 @@ export function OswegoSpecialsPageContent() {
             <span className="text-[#FF2D8E]">specials</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/80">
-            Full-set lashes $89 beginning {LASH_89_STARTS} · laser hair chin or lip $69, medium areas $89,
-            Brazilian / back / full legs $129 · plus dermaplaning &amp; Hydra Spa Infusion. Book at Hello Gorgeous Med Spa.
+            Full-set lashes $89 beginning {LASH_89_STARTS} · laser hair Small $79, Medium $99,
+            Large $129 · plus dermaplaning &amp; Hydra Spa Infusion. Book at Hello Gorgeous Med Spa.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <JourneyPinkBtn href={OSWEGO_SPECIALS_BOOK_HREF}>Book now</JourneyPinkBtn>

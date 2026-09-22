@@ -12,7 +12,7 @@ export const LASER_HAIR_MENU_PATH = "/services/laser-hair-removal" as const;
 
 export const LASER_HAIR_MENU: ServiceMenuConfig = {
   path: LASER_HAIR_MENU_PATH,
-  metaTitle: "Laser Hair Removal | Chin & Lip $69 · Medium $89 · Large $129 | Hello Gorgeous Oswego",
+  metaTitle: "Laser Hair Removal | Small $79 · Medium $99 · Large $129 | Hello Gorgeous Oswego",
   metaDescription: `Laser hair removal in Oswego — ${LASER_HAIR_MENU_BLURB} Medical-grade Zemits DuoCratus at Hello Gorgeous Med Spa.`,
   hero: {
     eyebrow: "Oswego, IL · All skin types",
@@ -36,27 +36,27 @@ export const LASER_HAIR_MENU: ServiceMenuConfig = {
       pricing: LASER_HAIR_AREAS.map((area) => ({
         label: area.label,
         price: laserHairPriceLabel(area.price),
-        href: "/book?ref=laser_hair_menu",
+        href: "/book?service=laser-hair-removal",
         note: `${area.tier === "small" ? "Small" : area.tier === "medium" ? "Medium" : "Large"} area`,
       })),
-      learnMoreHref: "/book?ref=laser_hair_menu",
+      learnMoreHref: "/book?service=laser-hair-removal",
     },
     {
       id: "packages",
       number: "02",
       title: "Packages",
-      description: "Seasonal Brazilian packages when offered — otherwise book the area you want, per session.",
+      description: "Book Small, Medium, or Large in Square — then tell us the area at the chair.",
       highlights: [
-        "Brazilian 3-month package when offered",
-        "Custom large areas quoted in clinic",
+        "One booking — pick your area size",
+        "Custom extra areas quoted in clinic",
         "Memberships for long-term savings",
       ],
       pricing: [
         {
-          label: "Laser Brazilian — 3-Month Package",
-          price: "$499",
-          href: "/spring-special-laser-hair",
-          note: "Book in Square · follow-ups as Prepaid Package Visit $0",
+          label: "Laser Hair Removal — Pick Your Area",
+          price: "$79–$129",
+          href: "/book?service=laser-hair-removal",
+          note: "Small $79 · Medium $99 · Large $129",
         },
       ],
       learnMoreHref: "/laser-hair-memberships",

@@ -52,6 +52,14 @@ export const SQUARE_RX_PHYSICAL_SERVICE_VARIATION_ID = "DOLCYP22JIP2KKS2LDKCHXH4
 /** Square Appointments — IV Hour ($150 / 60 min, Ryan + Kristina). */
 export const SQUARE_IV_HOUR_SERVICE_VARIATION_ID = "OWV3XWDCH6BNZIRUDVBOMLA5";
 
+/** Square Appointments — Laser Hair Removal — Pick Your Area (Danielle + Ryan). */
+export const SQUARE_LASER_AREA_VARIATIONS = {
+  small: "4DILVWXK7OXHSKS6GAJQ6A2I",
+  medium: "EOKCS4ATX6P4TC5OAQCIQ6IL",
+  large: "7MVMMG5CSNSKJZGZEVIMHKEP",
+} as const;
+export const SQUARE_LASER_AREA_SERVICE_VARIATION_ID = SQUARE_LASER_AREA_VARIATIONS.small;
+
 /**
  * Square Appointments — "Vitamin Injection Bar — Choose Your Shot" ($25, 10 min).
  * The in-clinic shot a nurse gives, as opposed to the pharmacy-shipped vials on

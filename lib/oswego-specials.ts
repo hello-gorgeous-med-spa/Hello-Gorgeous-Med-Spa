@@ -31,7 +31,7 @@ export const OSWEGO_SPECIALS_BOOK_HREF = `${PRIMARY_BOOKING_CTA.href}${
 export const OSWEGO_SPECIALS_NAV = [
   { href: "#flyer", label: "Flyer" },
   { href: "#lashes", label: "Lashes $89" },
-  { href: "#laser", label: "Laser $69+" },
+  { href: "#laser", label: "Laser $79+" },
   { href: "#hydrafacial", label: "HydraFacial" },
   { href: "#ipl", label: "IPL $79" },
   { href: "#faq", label: "FAQ" },
@@ -56,7 +56,7 @@ export const LASH_FULL_SET_SPECIAL = {
   detailsHref: `${OSWEGO_SPECIALS_PATH}#lashes`,
 } as const;
 
-/** Laser hair — current Square menu (small $69 / medium $89 / large $129) */
+/** Laser hair — current Square menu (small $79 / medium $99 / large $129) */
 export const LASER_59_AREAS = LASER_HAIR_AREAS.map((a) => ({
   id: a.id,
   label: a.label,
@@ -182,8 +182,8 @@ export const OSWEGO_SPECIALS_GBP_MESSAGE = `✨ Oswego Specials — Hello Gorgeo
 👁 Full set eyelash extensions — ONLY $89
 Beginning August 1st — book ahead now
 
-⚡ Laser hair removal — chin or lip $69 · underarms, upper/lower legs, bikini $89 · Brazilian, back, full legs $129
-Performed by Danielle, Ryan, and Michelle
+⚡ Laser hair removal — Small $79 · Medium $99 · Large $129
+Performed by Danielle and Ryan
 
 Also featuring dermaplaning & Hydra Spa Infusion
 

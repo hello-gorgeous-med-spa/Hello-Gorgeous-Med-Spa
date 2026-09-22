@@ -1,5 +1,15 @@
 #!/usr/bin/env node
 /**
+ * RETIRED — do not run.
+ * Laser booking is one service: "Laser Hair Removal — Pick Your Area"
+ * Small $79 / Medium $99 / Large $129. Use scripts/square-upsert-laser-area.mjs.
+ */
+console.error(
+  "RETIRED: Laser menu is Pick Your Area ($79 / $99 / $129). Run scripts/square-upsert-laser-area.mjs instead.",
+);
+process.exit(1);
+
+/**
  * Laser hair removal — Square prices + staff.
  *
  *   Small  $69  chin / upper lip
