@@ -1,3 +1,4 @@
+export { HomepageAtelier } from "@/components/homepage-atelier/HomepageAtelier";
 export { HeroV3 } from "./HeroV3";
 export { HomepageLookbookPageContent } from "./HomepageLookbookPageContent";
 export { BuildYourProposalHomeInvite } from "./BuildYourProposalHomeInvite";

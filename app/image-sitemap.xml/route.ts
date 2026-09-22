@@ -9,7 +9,9 @@ import { buildInModePageImageMap } from "@/lib/inmode-image-sitemap";
 
 const additionalImages = [
   // Hero & Brand Images
-  { src: "/images/website-hero/hello-gorgeous-medical-spa-hero.png", title: "Hello Gorgeous Medical Spa lounge", caption: "We screen you like a medical practice because we are one — Hello Gorgeous Med Spa in Oswego, IL." },
+  { src: "/images/website-hero/hello-gorgeous-medical-spa-hero.jpg", title: "Hello Gorgeous Medical Spa lounge", caption: "We screen you like a medical practice because we are one — Hello Gorgeous Med Spa in Oswego, IL." },
+  { src: "/images/solaria/hg-clinic-solaria-treatment.jpg", title: "Solaria CO₂ treatment at Hello Gorgeous", caption: "InMode Solaria CO₂ treatment at Hello Gorgeous Med Spa in Oswego, IL." },
+  { src: "/images/team/danielle-heart-hands.jpg", title: "Danielle Alcala-Glazier — owner", caption: "Danielle Alcala-Glazier, owner of Hello Gorgeous Med Spa in Oswego, IL." },
   { src: "/images/website-hero/team-hero-vial-cinematic.jpg", title: "Hello Gorgeous Med Spa — the team", caption: "Danielle Alcala-Glazier with the Hello Gorgeous team in the Oswego studio — owner-led medical aesthetics." },
   { src: "/images/website-hero/team-hero-highfive-cinematic.jpg", title: "Hello Gorgeous Med Spa — together", caption: "The Hello Gorgeous team in the Oswego studio." },
   { src: "/images/website-hero/team-hero-four-cinematic.jpg", title: "Hello Gorgeous Med Spa — four of us", caption: "The Hello Gorgeous studio team in Oswego." },

@@ -1,15 +1,7 @@
 import { Metadata } from "next";
-import { ClinicServicesBand } from "@/components/marketing/ClinicServicesBand";
-import { NewStudioRevealBand } from "@/components/marketing/NewStudioRevealBand";
 import { HOME_CIRCLE_PHOTO, HOME_LOUNGE_PHOTO, HOME_THIS_IS_US_PHOTOS } from "@/lib/campaigns/fall-makeover-2026";
-import { MdOversightWelcomeBand } from "@/components/MdOversightWelcomeBand";
 import { LiveGooglePlaceCard } from "@/components/LiveGooglePlaceCard";
-import {
-  BuildYourProposalHomeInvite,
-  BuildYourProposalScrollCue,
-  HeroV3,
-  HomepageLookbookPageContent,
-} from "@/components/homepage-v3";
+import { HomepageAtelier } from "@/components/homepage-atelier/HomepageAtelier";
 import { resolveReviewTrust } from "@/lib/review-trust";
 import { getGooglePlace } from "@/lib/seo/google-places";
 import { aroraPersonJsonLd } from "@/lib/medical-trust";
@@ -174,17 +166,11 @@ export default async function HomePage() {
       />
 
       <main>
-        <HeroV3 />
-        <NewStudioRevealBand />
-        <ClinicServicesBand />
-        <MdOversightWelcomeBand />
-        <BuildYourProposalHomeInvite />
-        <HomepageLookbookPageContent
+        <HomepageAtelier
           googleRating={trust.google.rating}
           googleCount={trust.google.count}
           liveReviews={<LiveGooglePlaceCard />}
         />
-        <BuildYourProposalScrollCue />
       </main>
     </>
   );
