@@ -53,8 +53,8 @@ export const ATELIER_SERVICES = [
     title: "Weight loss",
     note: "GLP-1 care after a licensed clinician reviews you",
     href: "/glp-1-weight-loss-oswego",
-    image: "/images/homepage-buyer-paths/weight-loss-hormones.png",
-    alt: "Medical weight loss at Hello Gorgeous",
+    image: "/images/homepage-atelier/weight-loss.jpg",
+    alt: "Medical weight loss at Hello Gorgeous Med Spa",
   },
   {
     id: "iv",
