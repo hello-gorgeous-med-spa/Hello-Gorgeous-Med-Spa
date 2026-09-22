@@ -37,21 +37,24 @@ export function squareIvBookUrl(variationId: string): string {
  * Live Square Appointments variation IDs (IV Drip Package Deals / Vitamin Injections).
  * Synced via `scripts/square-upsert-iv-therapy-menu.mjs`.
  */
+export const IV_SQUARE_HOUR_VARIATION_ID = "OWV3XWDCH6BNZIRUDVBOMLA5";
+
 export const IV_SQUARE_VARIATIONS = {
-  newClientIntro: "AEDNO33WXEA7EX3ZV3P5MDYL",
-  buildYourBag: "HILLZETHYMFWSPZZ44J5RPAA",
-  dehydration: "2EFV7V43OOOUSZUYPTHIJB35",
-  energy: "SWE6UNSS7A37GTK22L6M7MMM",
-  immune: "G2FQZGRXMWYPPTRE4BYGOMYW",
-  recovery: "KSRW6LDDHYAEXZ7QCE3SDFUW",
-  beauty: "NKLU5NLESACPERIF5VMQXPQR",
-  innerBeauty: "RGSHQSEHLETM5V6XI5S72XC4",
-  myers: "ZBFULHWWOQ55BRRMNFMSJFIO",
-  hangover: "TIMBLO7O4HZH3W6ID2FA7T42",
-  headache: "IYCAJ2EK6XXMFQFD6KGDM5OI",
-  clarity: "D5UNYL2MYUM3MWYFYJHWV3PZ",
-  triImmune: "OMRFBVPSJUP2WEBZXNLDY77R",
-  nad: "LIHMWYFWKPMKGMFJJGQTMVAC",
+  hour: IV_SQUARE_HOUR_VARIATION_ID,
+  newClientIntro: IV_SQUARE_HOUR_VARIATION_ID,
+  buildYourBag: IV_SQUARE_HOUR_VARIATION_ID,
+  dehydration: IV_SQUARE_HOUR_VARIATION_ID,
+  energy: IV_SQUARE_HOUR_VARIATION_ID,
+  immune: IV_SQUARE_HOUR_VARIATION_ID,
+  recovery: IV_SQUARE_HOUR_VARIATION_ID,
+  beauty: IV_SQUARE_HOUR_VARIATION_ID,
+  innerBeauty: IV_SQUARE_HOUR_VARIATION_ID,
+  myers: IV_SQUARE_HOUR_VARIATION_ID,
+  hangover: IV_SQUARE_HOUR_VARIATION_ID,
+  headache: IV_SQUARE_HOUR_VARIATION_ID,
+  clarity: IV_SQUARE_HOUR_VARIATION_ID,
+  triImmune: IV_SQUARE_HOUR_VARIATION_ID,
+  nad: IV_SQUARE_HOUR_VARIATION_ID,
   vitaminShotBar: "UOLBQHORYETG7CFT2MX6TRYJ",
 } as const;
 
@@ -61,9 +64,9 @@ export const IV_THERAPY_MARKETING = {
   bookHref: PRIMARY_BOOKING_CTA.href,
   /** Square Appointments — all services list */
   squareBookHref: `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services`,
-  /** Primary IV CTAs → Build Your Own Bag booking (Square Appointments checkout) */
-  bagBookHref: squareIvBookUrl(IV_SQUARE_VARIATIONS.buildYourBag),
-  introBookHref: squareIvBookUrl(IV_SQUARE_VARIATIONS.newClientIntro),
+  /** Primary IV CTAs → one $150 IV Hour (preset or custom bag) */
+  bagBookHref: squareIvBookUrl(IV_SQUARE_VARIATIONS.hour),
+  introBookHref: squareIvBookUrl(IV_SQUARE_VARIATIONS.hour),
   vitaminShotBookHref: squareIvBookUrl(IV_SQUARE_VARIATIONS.vitaminShotBar),
   phoneHref: `tel:${SITE.phone}`,
   phoneDisplay: "(630) 636-6193",
@@ -82,7 +85,7 @@ export const IV_THERAPY_MARKETING = {
 export const IV_THERAPY_SEO = {
   title: "IV Therapy Oswego IL | Vitamin Drips Near Naperville & Aurora",
   description:
-    "NP-supervised IV therapy in Oswego for Naperville, Aurora, Plainfield, Yorkville & Montgomery — signature drips from $150, new-client $99, Myers Cocktail, NAD+, medical relief, vitamin shots $25. Hello Gorgeous Med Spa.",
+    "NP-supervised IV therapy in Oswego — one $150 hour. Pick Hangover, Headache, Energy, or build your bag. NAD+ $25 upgrade. Ryan Kent, FNP-BC or Kristina Huda, BSN, RN. Vitamin shots $25.",
   ogAlt: "IV therapy infusion bag at Hello Gorgeous Med Spa Oswego IL",
 } as const;
 
@@ -108,18 +111,18 @@ export const IV_THERAPY_GOALS = [
 
 export const IV_STATS = [
   { value: "100%", label: "Nutrient absorption" },
-  { value: "~45 min", label: "Average drip time" },
-  { value: "6+", label: "Signature formulas" },
+  { value: "60 min", label: "IV Hour" },
+  { value: "$150", label: "Any bag" },
   { value: "NP", label: "Medically supervised" },
 ] as const;
 
 export const IV_NEW_CLIENT_OFFER = {
-  badge: "NEW CLIENT OFFER",
-  titleBefore: "Your first drip, ",
-  titleAccent: "$99",
-  body: "New to Hello Gorgeous? Try any signature wellness drip for $99 — includes your NP consult so we build the right formula for you.",
-  ctaLabel: "Claim my $99 drip ›",
-  href: squareIvBookUrl(IV_SQUARE_VARIATIONS.newClientIntro),
+  badge: "IV HOUR",
+  titleBefore: "Any bag, ",
+  titleAccent: "$150",
+  body: "One hour with Ryan Kent, FNP-BC or Kristina Huda, BSN, RN. Pick Hangover, Headache, Energy, Immunity, Myers', Beauty, or build your own. Add NAD+ for $25.",
+  ctaLabel: "Book IV Hour ›",
+  href: squareIvBookUrl(IV_SQUARE_VARIATIONS.hour),
 } as const;
 
 export type IvVitaminDrip = {
@@ -178,7 +181,7 @@ export const IV_VITAMIN_DRIPS: IvVitaminDrip[] = [
     name: "Recovery",
     kit: "Olympia Recovery & Performance",
     tag: "ATHLETIC RECOVERY",
-    price: "$175",
+    price: "$150",
     bg: "linear-gradient(135deg,#E6007E,#B10E63)",
     image: `${OLYMPIA}2025/10/recovery-and-performance-websized-new-300x300.png`,
     description: "Reduce recovery time and enhance athletic performance.",
@@ -190,7 +193,7 @@ export const IV_VITAMIN_DRIPS: IvVitaminDrip[] = [
     name: "Beauty",
     kit: "Olympia Snow Bright",
     tag: "BRIGHTEN & GLOW",
-    price: "$175",
+    price: "$150",
     bg: "linear-gradient(135deg,#FF3D9A,#E6007E)",
     image: `${OLYMPIA}2025/10/Glutathione-Websized-30mL-600x600.png`,
     description: "Brighten and rejuvenate skin from within.",
@@ -214,7 +217,7 @@ export const IV_VITAMIN_DRIPS: IvVitaminDrip[] = [
     name: "Hangover",
     kit: "Olympia Reboot",
     tag: "BOUNCE BACK FAST",
-    price: "$165",
+    price: "$150",
     bg: "linear-gradient(135deg,#2AA9A0,#16736C)",
     image: `${OLYMPIA}2025/10/Olympia-Mineral-Blend-Websized-300x300.png`,
     description: "Bounce back fast — anti-nausea plus vitamins and minerals to rehydrate.",
@@ -243,7 +246,7 @@ export const IV_VITAMIN_DRIPS: IvVitaminDrip[] = [
     name: "Mental Clarity",
     kit: "Olympia Brainstorm",
     tag: "FOCUS & CLARITY",
-    price: "$165",
+    price: "$150",
     bg: "linear-gradient(135deg,#3B82F6,#1E4FBF)",
     image: `${OLYMPIA}2025/10/Alpha-Lipoic-Acid-Websized-300x300.png`,
     description: "Sharpen focus and enhance mental clarity.",
@@ -281,10 +284,10 @@ export const IV_SPECIALTY_DRIPS: IvSpecialtyDrip[] = [
     id: "nad",
     name: "NAD+ IV",
     tag: "ENERGY & LONGEVITY",
-    price: "$350",
+    price: "+$25",
     bg: "linear-gradient(135deg,#111,#4A3FB0)",
     image: `${OLYMPIA}2025/10/Olympia-NAD-2027-1024x683.png`,
-    description: "Cellular energy and anti-aging at the mitochondrial level — for focus, clarity, and recovery.",
+    description: "Add NAD+ to any IV Hour for $25 — cellular energy support in the same visit.",
     contains: ["NAD+ 500mg", "IV fluids", "B-Complex add-on"],
     squareVariationId: IV_SQUARE_VARIATIONS.nad,
   },

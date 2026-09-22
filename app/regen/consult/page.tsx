@@ -17,7 +17,7 @@ import {
 } from "@/lib/regen/telehealth-consult";
 
 export const metadata: Metadata = {
-  title: `Book ${REGEN_TELEHEALTH_PROVIDER} — $${REGEN_TELEHEALTH_FEE_USD} video consult`,
+  title: `Book ${REGEN_TELEHEALTH_PROVIDER} — $${REGEN_TELEHEALTH_FEE_USD} phone consult`,
   description: REGEN_TELEHEALTH_BLURB,
 };
 
@@ -35,8 +35,8 @@ const STEPS = [
   },
   {
     n: "02",
-    title: "Talk before you buy therapy",
-    body: "Ask questions. A licensed Illinois clinician reviews whether a request is appropriate. A visit is not a guaranteed prescription.",
+    title: "He calls you at appointment time",
+    body: "Stay by the number on your booking. Ask about a refill, peptides, or weight loss. A visit is not a guaranteed prescription.",
   },
   {
     n: "03",
@@ -72,7 +72,7 @@ export default function ConsultPage() {
               marginBottom: 20,
             }}
           >
-            Video first · no therapy purchase required
+            Phone visit · he calls you · no therapy purchase required
           </p>
           <h1
             style={{

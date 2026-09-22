@@ -63,7 +63,7 @@ export const ATELIER_SERVICES = [
   {
     id: "iv",
     title: "IV & wellness",
-    note: "Drips, shots, and recovery — by consult",
+    note: "IV Hour $150 — pick a bag or build your own",
     href: IV_THERAPY_PATH,
     image: "/images/homepage-atelier/iv-therapy.jpg",
     alt: "IV therapy drips at Hello Gorgeous Med Spa",

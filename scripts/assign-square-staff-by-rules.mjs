@@ -29,6 +29,7 @@ const SQUARE_VERSION = "2025-04-16";
 /** Hello Gorgeous Med Spa RX — production team member IDs */
 export const TEAM = {
   ryan: "TM1IptWCrgxkY4p7",
+  kristina: "TMHO9ZpVf-A62bgD",
   danielle: "TMqnS9cNU-3s3lUR",
   michelle: "TMqy8tRlmyMRkQ25",
   laura: "TMxkWb1md-cZHvkq",
@@ -37,6 +38,7 @@ export const TEAM = {
 
 const NAMES = {
   [TEAM.ryan]: "Ryan",
+  [TEAM.kristina]: "Kristina",
   [TEAM.danielle]: "Danielle",
   [TEAM.michelle]: "Michelle",
   [TEAM.laura]: "Laura",
@@ -81,6 +83,14 @@ function resolveStaff(serviceName, categoryNames) {
   const n = norm(serviceName);
   const cats = categoryNames.map(norm).join(" | ");
   const hay = `${n} ${cats}`;
+
+  // ── HOCO / Homecoming specials → Danielle only ──
+  if (/hoco|homecoming|high school acne facial|lash & brow glow up|lash and brow glow up/.test(hay)) {
+    return {
+      ids: [TEAM.danielle],
+      rule: "HOCO Specials → Danielle only",
+    };
+  }
 
   // ── FlowWave / Shockwave / Recovery Stack → Michelle only ──
   if (
@@ -163,7 +173,7 @@ function resolveStaff(serviceName, categoryNames) {
 
   // ── Medical consult / trigger point → Ryan only ──
   if (
-    /medical visit|wellness physical|physical exam|trigger point|consultation with ryan/.test(hay) ||
+    /medical visit|telehealth|phone visit|wellness physical|physical exam|trigger point|consultation with ryan/.test(hay) ||
     cats.includes("medical consultations") ||
     cats.includes("trigger point injections")
   ) {
@@ -292,11 +302,14 @@ function resolveStaff(serviceName, categoryNames) {
     };
   }
 
-  // ── IV drips → Danielle ──
-  if (/iv drip|myers|hangover|jet lag|b lean|nad\+/.test(hay) || cats.includes("iv drip package deals")) {
+  // ── IV Hour / drips → Ryan + Kristina ──
+  if (
+    /iv hour|iv drip|myers|hangover|jet lag|b lean|nad\+/.test(hay) ||
+    cats.includes("iv drip package deals")
+  ) {
     return {
-      ids: [TEAM.danielle],
-      rule: "IV drips → Danielle",
+      ids: [TEAM.ryan, TEAM.kristina],
+      rule: "IV Hour → Ryan + Kristina",
     };
   }
 

@@ -15,10 +15,13 @@ export const SQUARE_RX_LOCATION_ID = "L3QDRS4DX9ZE4";
 export const SQUARE_RX_BOOKING_SITE_ID = "pf2o75yphk7vw6";
 
 /**
- * Square Appointments — former named-NP telehealth variation ($49).
- * Do not deep-link this on public CTAs. Public consults go to /contact.
+ * Square Appointments — Ryan Kent phone telehealth ($49 / 15 min).
+ * He calls the booking number at appointment time. Not an in-clinic visit.
  */
-export const SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID = "ZLCRRG4BM6W2DCLWDWIDVBPA";
+export const SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID = "VOT5CUFMWV5LWPEIPW6VCS5H";
+
+/** Square Appointments — in-clinic $49 / 15 min Medical Visit with Ryan. */
+export const SQUARE_RX_MEDICAL_VISIT_SERVICE_VARIATION_ID = "ZLCRRG4BM6W2DCLWDWIDVBPA";
 
 /**
  * Square Appointments — RE GEN Peptide Consult ($49, 15 min).
@@ -45,6 +48,9 @@ export const SQUARE_FALL_MAKEOVER_VARIATIONS = {
  * Hands-on exam; not the $49 / 15 min Medical Visit consult.
  */
 export const SQUARE_RX_PHYSICAL_SERVICE_VARIATION_ID = "DOLCYP22JIP2KKS2LDKCHXH4";
+
+/** Square Appointments — IV Hour ($150 / 60 min, Ryan + Kristina). */
+export const SQUARE_IV_HOUR_SERVICE_VARIATION_ID = "OWV3XWDCH6BNZIRUDVBOMLA5";
 
 /**
  * Square Appointments — "Vitamin Injection Bar — Choose Your Shot" ($25, 10 min).
@@ -78,10 +84,7 @@ export const SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL =
   process.env.NEXT_PUBLIC_SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL?.trim() ||
   `https://square.site/appointments/buyer/widget/${SQUARE_RX_BOOKING_SITE_ID}/${SQUARE_RX_LOCATION_ID}.js`;
 
-/**
- * Legacy Square telehealth variation URL. Public CTAs must not use this while
- * no named NP calendar is published — see PROGRAM_CONSULT_BOOKING_URL.
- */
+/** Ryan Kent $49 phone telehealth — Square Appointments deep link. */
 export const SQUARE_RX_TELEHEALTH_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_RX_TELEHEALTH_URL?.trim() ||
   `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID}`;
@@ -122,8 +125,8 @@ export function squareAppointmentServiceUrl(variationId: string): string {
 
 export const PROGRAM_CONSULT_FEE_USD = 49;
 
-/** Club & program funnels — $49 consult door. No named-NP Square calendar is published. */
-export const PROGRAM_CONSULT_BOOKING_URL = "/contact";
+/** Club & program funnels — $49 Ryan Kent phone telehealth on Square. */
+export const PROGRAM_CONSULT_BOOKING_URL = SQUARE_RX_TELEHEALTH_BOOKING_URL;
 
 /** Branded entry on our domain — redirects to {@link BOOKING_URL} with optional UTM merge. */
 export const BOOK_PAGE_PATH = "/book";

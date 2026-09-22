@@ -29,6 +29,10 @@ export const SERVICE_CONTENT = {
     d: "NP medical visit with Ryan Kent, FNP-BC — GLP-1, hormones, and peptide consults. $49 visit; medication billed only after he approves a plan.",
     cat: "Medical Consultations",
   },
+  "Telehealth Phone Visit — Ryan Kent, FNP-BC": {
+    d: "Can't come in? $49 phone visit with Ryan Kent, FNP-BC. Refill review, peptides, or weight loss. He calls you at your appointment time.",
+    cat: "Medical Consultations",
+  },
   "Wellness Physical — Ryan Kent, FNP-BC": {
     d: "In-person NP physical in Oswego — history, vitals, and a focused exam with Ryan Kent, FNP-BC. $149 / 30 min. Labs and medication billed separately after he approves a plan.",
     cat: "Medical Consultations",
@@ -324,6 +328,10 @@ export const SERVICE_CONTENT = {
   },
 
   // ===== IV DRIPS (synced with square-upsert-iv-therapy-menu.mjs + /services/iv-therapy) =====
+  "IV Hour — Pick Your Bag": {
+    d: "One $150 hour. Pick Hangover, Headache, Energy, or build your bag. NAD+ $25 upgrade. Ryan Kent, FNP-BC or Kristina Huda, BSN, RN.",
+    cat: "IV Drip Package Deals",
+  },
   "IV Drip — NAD+": {
     d: "NAD+ 500mg IV for cellular energy, focus, and recovery. NP-screened. 2–3 hour infusion at Hello Gorgeous Med Spa, Oswego.",
   },

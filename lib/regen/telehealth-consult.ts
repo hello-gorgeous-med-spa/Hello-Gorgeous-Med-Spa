@@ -1,26 +1,26 @@
 /**
- * REGEN RX video consult — before a therapy purchase.
+ * REGEN RX phone consult — before a therapy purchase.
  * Single source for price, booking URL, and credit-toward-therapy copy.
  */
 
 import {
   PROGRAM_CONSULT_FEE_USD,
+  SQUARE_RX_TELEHEALTH_BOOKING_URL,
 } from "@/lib/flows";
-import { LICENSED_CLINICIAN_PHRASE } from "@/lib/medical-authority";
 
 export const REGEN_TELEHEALTH_FEE_USD = PROGRAM_CONSULT_FEE_USD;
 
-/** Public consult door — do not deep-link a departed clinician's Square calendar. */
-export const REGEN_TELEHEALTH_BOOKING_URL = "/contact";
+/** Public consult door — Ryan Kent $49 phone visit on Square. */
+export const REGEN_TELEHEALTH_BOOKING_URL = SQUARE_RX_TELEHEALTH_BOOKING_URL;
 
 /** On-site explainer. */
 export const REGEN_TELEHEALTH_PATH = "/consult";
 
-export const REGEN_TELEHEALTH_PROVIDER = "a licensed Illinois clinician";
+export const REGEN_TELEHEALTH_PROVIDER = "Ryan Kent, FNP-BC";
 
-export const REGEN_TELEHEALTH_SERVICE_NAME = "REGEN RX medical consult";
+export const REGEN_TELEHEALTH_SERVICE_NAME = "Telehealth Phone Visit — Ryan Kent, FNP-BC";
 
-export const REGEN_TELEHEALTH_DURATION = "15-minute video visit";
+export const REGEN_TELEHEALTH_DURATION = "15-minute phone visit";
 
 export function regenTelehealthPriceLabel(prefix = "$"): string {
   return `${prefix}${REGEN_TELEHEALTH_FEE_USD}`;
@@ -33,4 +33,4 @@ export const REGEN_TELEHEALTH_CREDIT_LINE = `The ${regenTelehealthPriceLabel()} 
 export const REGEN_TELEHEALTH_CREDIT_SHORT = `${regenTelehealthPriceLabel()} credited toward therapy if prescribed`;
 
 export const REGEN_TELEHEALTH_BLURB =
-  `Talk to ${LICENSED_CLINICIAN_PHRASE} on video before you buy. If they prescribe, we credit the ${regenTelehealthPriceLabel()} visit toward your first therapy order.`;
+  `Can't come in? Ryan Kent, FNP-BC calls you at your appointment time. If he prescribes, we credit the ${regenTelehealthPriceLabel()} visit toward your first therapy order.`;

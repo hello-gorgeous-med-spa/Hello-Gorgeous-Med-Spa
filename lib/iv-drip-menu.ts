@@ -9,7 +9,7 @@ import {
 /** Build-your-bag fluid base (app builder) — add-ons stack on top toward $150–199. */
 export const IV_CUSTOM_BAG_BASE_USD = 89;
 export const IV_CUSTOM_BAG_LARGE_USD = 109;
-export const IV_CUSTOM_BAG_TARGET_LABEL = "$150–199";
+export const IV_CUSTOM_BAG_TARGET_LABEL = "$150";
 /** Signature named drips — Olympia kits / Square “IV Drip Package Deals”. */
 export const IV_SIGNATURE_DRIP_FROM_USD = 150;
 

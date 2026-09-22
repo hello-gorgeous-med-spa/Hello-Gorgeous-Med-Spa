@@ -68,7 +68,7 @@ export const FRONT_DESK_ORDER_QA_SECTIONS: FrontDeskQaSection[] = [
       },
       {
         q: "Consult or wellness physical?",
-        a: `$${CONSULT} Medical Visit is 15 minutes (often telehealth) to start a protocol. Wellness Physical is $149 / 30 minutes in the Oswego chair — history, vitals, and a focused exam when they need clearance or a first in-person workup. Labs and medication are separate.`,
+        a: `$${CONSULT} Telehealth Phone Visit is 15 minutes — Ryan Kent, FNP-BC calls them at appointment time for refill review, peptides, or weight loss when they cannot come in. In-clinic Medical Visit is the same $${CONSULT} if they can sit in Oswego. Wellness Physical is $149 / 30 minutes in the chair — history, vitals, and a focused exam. Labs and medication are separate.`,
         say: `“Quick start is $${CONSULT}. If they need a hands-on exam, book the $149 physical with Ryan.”`,
       },
       {
