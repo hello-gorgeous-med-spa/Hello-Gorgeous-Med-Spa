@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Charm intake confirmation — paste this</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; max-width: 640px; margin: 0 auto; padding: 20px; color: #111; line-height: 1.45; }
+    .who { background: #111; color: #fff; padding: 10px 12px; font-weight: 800; }
+    textarea { width: 100%; min-height: 280px; font: inherit; padding: 12px; border: 3px solid #000; }
+    .pink { color: #E6007E; font-weight: 800; }
+  </style>
+</head>
+<body>
+  <p class="who">STAFF · Paste into Charm → Settings → Patient messaging / PHR email templates</p>
+  <h1>Intake received (no charge yet)</h1>
+  <p class="pink">Do not tell them they already paid. Do not send a Stripe link. Invoice after Ryan reviews.</p>
+  <p>Subject: REGEN RX — we received your request</p>
+  <textarea readonly>
+Hi {{PatientFirstName}},
+
+Thank you for starting with REGEN RX at Hello Gorgeous.
+
+A licensed Illinois clinician will review your health questionnaire. This is a consult request — not a guaranteed prescription.
+
+What happens next
+1. We review your intake, usually within 1–2 business days.
+2. We may ask for a short video visit or labs.
+3. If treatment is appropriate, we send a secure clinic payment link. Please do not type your card on the website.
+4. After payment posts, a licensed compounding pharmacy ships to your Illinois address.
+
+Questions? Call (630) 636-6193 or reply in your REGEN account.
+
+REGEN RX · Hello Gorgeous Med Spa
+74 W. Washington St, Oswego, IL 60543
+  </textarea>
+</body>
+</html>

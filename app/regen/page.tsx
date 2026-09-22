@@ -5,13 +5,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
 import { RegenExplainerHero } from '@/components/regen/RegenExplainerHero';
-import { RegenGorgeous20Popup } from '@/components/regen/RegenGorgeous20Popup';
 import { GORGEOUS20_MARQUEE, GORGEOUS20_START_HREF } from '@/lib/regen-gorgeous20';
 import {
   REGEN_TELEHEALTH_CREDIT_SHORT,
   REGEN_TELEHEALTH_PATH,
   regenTelehealthPriceLabel,
 } from '@/lib/regen/telehealth-consult';
+import {
+  REGEN_HOW_IT_WORKS_FOOTNOTE,
+  REGEN_HOW_IT_WORKS_LEDE,
+  REGEN_HOW_IT_WORKS_PRIMARY_CTA,
+  REGEN_HOW_IT_WORKS_SECONDARY_CTA,
+  REGEN_HOW_IT_WORKS_SECONDARY_HREF,
+  REGEN_HOW_IT_WORKS_STEPS,
+  REGEN_START_PATH,
+} from '@/lib/regen/how-it-works';
 
 const BRAND = {
   teal: '#0D9488',      // Bright teal (molecules)
@@ -81,13 +89,7 @@ const PROGRAMS = [
   },
 ];
 
-const STEPS = [
-  { num: '01', title: 'Talk to a clinician — or start online', desc: `Book a ${regenTelehealthPriceLabel()} video visit (${REGEN_TELEHEALTH_CREDIT_SHORT.toLowerCase()}), or start a request if you already know what you want.`, icon: '📋', time: '15 min' },
-  { num: '02', title: 'Provider reviews your info', desc: 'A licensed Illinois provider evaluates your history and determines if treatment is right for you.', icon: '👨‍⚕️', time: '24-48 hrs' },
-  { num: '03', title: 'Clinical decision', desc: 'If appropriate, your provider may request labs, a video visit, or additional info before prescribing.', icon: '💊', time: 'Varies' },
-  { num: '04', title: 'Medication ships to you', desc: 'Once approved, your treatment ships directly to your door — discreet packaging included.', icon: '📦', time: '3-5 days' },
-  { num: '05', title: 'Ongoing care', desc: 'Message your care team for support. Your provider may request follow-ups when clinically necessary.', icon: '💬', time: 'As needed' },
-];
+const STEPS = REGEN_HOW_IT_WORKS_STEPS;
 
 function WeightLossCalculator() {
   const [weight, setWeight] = useState(220);
@@ -429,12 +431,12 @@ export default function RegenLandingPage() {
                 How It Works
               </span>
               <h2 className="text-4xl md:text-5xl font-black mb-6" style={{ color: BRAND.cream }}>
-                Simple process.
+                3 steps to
                 <br />
-                <span style={{ color: BRAND.pink }}>Big results.</span>
+                <span style={{ color: BRAND.pink }}>get started</span>
               </h2>
               <p className="text-xl mb-12" style={{ color: BRAND.gray }}>
-                Book a consult on video first if you want to talk before you buy — or start a request online. A clinician may still ask for labs when clinically necessary.
+                {REGEN_HOW_IT_WORKS_LEDE}
               </p>
               
               <div className="space-y-6">
@@ -448,13 +450,13 @@ export default function RegenLandingPage() {
                       />
                     )}
                     <div 
-                      className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center text-2xl transition-all group-hover:scale-110 relative z-10"
+                      className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center text-xl font-black text-white transition-all group-hover:scale-110 relative z-10"
                       style={{ 
                         backgroundColor: idx === STEPS.length - 1 ? BRAND.pink : BRAND.teal,
                         boxShadow: `0 0 20px ${idx === STEPS.length - 1 ? BRAND.pink : BRAND.teal}30`
                       }}
                     >
-                      {step.icon}
+                      {step.num}
                     </div>
                     <div className="flex-1 pb-4">
                       <div className="flex items-center gap-3 mb-1">
@@ -471,6 +473,25 @@ export default function RegenLandingPage() {
                   </div>
                 ))}
               </div>
+              <div className="mt-10 flex flex-col sm:flex-row gap-3">
+                <Link
+                  href={REGEN_START_PATH}
+                  className="inline-flex justify-center rounded-full px-8 py-4 text-sm font-bold text-white"
+                  style={{ backgroundColor: BRAND.pink }}
+                >
+                  {REGEN_HOW_IT_WORKS_PRIMARY_CTA}
+                </Link>
+                <Link
+                  href={REGEN_HOW_IT_WORKS_SECONDARY_HREF}
+                  className="inline-flex justify-center rounded-full px-8 py-4 text-sm font-bold border-2"
+                  style={{ borderColor: BRAND.teal, color: BRAND.teal }}
+                >
+                  {REGEN_HOW_IT_WORKS_SECONDARY_CTA}
+                </Link>
+              </div>
+              <p className="mt-4 text-sm" style={{ color: BRAND.gray }}>
+                {REGEN_HOW_IT_WORKS_FOOTNOTE}
+              </p>
             </div>
             
             <div className="relative hidden lg:block">
@@ -929,7 +950,6 @@ export default function RegenLandingPage() {
           </div>
         </div>
       </footer>
-      <RegenGorgeous20Popup />
     </div>
   );
 }

@@ -20,6 +20,7 @@ const BRAND = {
 
 const LINKS = [
   { href: '/start', label: 'Programs' },
+  { href: '/how-it-works', label: 'How it works' },
   { href: '/products', label: 'Products' },
   { href: '/tools', label: 'Free Tools' },
   { href: '/pricing', label: 'Pricing' },
