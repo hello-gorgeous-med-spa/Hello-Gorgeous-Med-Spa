@@ -7,8 +7,8 @@ import { getGooglePlace } from "@/lib/seo/google-places";
 import { aroraPersonJsonLd } from "@/lib/medical-trust";
 import {
   SITE,
-  SITE_HERO_IMAGE,
   SITE_OG_IMAGE,
+  SITE_OG_IMAGE_PATH,
   SITE_OG_IMAGE_ALT,
   SITE_OG_IMAGE_HEIGHT,
   SITE_OG_IMAGE_WIDTH,
@@ -78,7 +78,7 @@ export default async function HomePage() {
               description:
                 "#1 Best Med Spa in Oswego, IL. Medical Director Dr. Mukesh Arora, MD · NP on site. Morpheus8 Burst, injectables, GLP-1, hormone support, Solaria CO₂, IV therapy, and advanced skin + body treatments.",
               path: "/",
-              image: SITE_HERO_IMAGE,
+              image: SITE_OG_IMAGE_PATH,
               datePublished: "2023-01-01",
               dateModified: new Date().toISOString().split("T")[0],
             }),

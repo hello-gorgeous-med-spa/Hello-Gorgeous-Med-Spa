@@ -139,7 +139,8 @@ function reserveActionJsonLd(reservationName = "Appointment at Hello Gorgeous Me
 export const SITE_HERO_IMAGE = "/images/website-hero/hello-gorgeous-medical-spa-hero.jpg" as const;
 /** Mobile LCP crop — same still. */
 export const SITE_HERO_IMAGE_SM = "/images/website-hero/hello-gorgeous-medical-spa-hero.jpg" as const;
-export const SITE_OG_IMAGE = `${SITE.url}/images/website-hero/hello-gorgeous-medical-spa-og.jpg?v=2026-09-lounge-og-2x` as const;
+export const SITE_OG_IMAGE_PATH = "/images/website-hero/hello-gorgeous-medical-spa-og.jpg" as const;
+export const SITE_OG_IMAGE = `${SITE.url}${SITE_OG_IMAGE_PATH}?v=2026-09-22-google-lounge` as const;
 export const SITE_OG_IMAGE_ALT =
   "Hello Gorgeous Medical Spa lounge — we screen you like a medical practice because we are one.";
 export const SITE_OG_IMAGE_WIDTH = 1200;
@@ -1339,7 +1340,7 @@ export function mainLocalBusinessJsonLd(opts?: { aggregateRating?: AggregateRati
     description: SITE.description,
     telephone: SITE.phone,
     email: SITE.email,
-    image: `${SITE.url}/images/logo-full.png`,
+    image: SITE_OG_IMAGE,
     priceRange: SITE.priceRange,
     address: {
       "@type": "PostalAddress",
