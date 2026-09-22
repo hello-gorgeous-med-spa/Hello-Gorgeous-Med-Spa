@@ -2,7 +2,7 @@
 /**
  * One Square IV booking: $150 / 60 min, Ryan + Kristina.
  * Customer picks a preset bag or build-your-own, optional NAD+ $25.
- * Old à-la-carte IV drips stay in catalog but come off the online book.
+ * Old à-la-carte IV drips are deleted (see square-purge-unbookable.mjs).
  *
  *   node --env-file=.env.local scripts/square-upsert-iv-hour.mjs --dry-run
  *   node --env-file=.env.local scripts/square-upsert-iv-hour.mjs --apply
@@ -264,35 +264,22 @@ async function main() {
     );
   }
 
-  const retired = [];
+  const doomed = [];
   for (const item of appt) {
     const name = item.item_data?.name || "";
     if (KEEP_BOOKABLE.some((re) => re.test(name))) continue;
     if (!RETIRE_FROM_BOOKING.some((re) => re.test(name))) continue;
-    const vars = item.item_data?.variations || [];
-    const needs = vars.some((v) => v.item_variation_data?.available_for_booking !== false);
-    if (!needs) continue;
-    retired.push(name);
-    if (DRY_RUN) continue;
-    const next = structuredClone(item);
-    next.item_data.ecom_visibility = "HIDDEN";
-    next.item_data.ecom_available = false;
-    for (const v of next.item_data.variations || []) {
-      v.item_variation_data = {
-        ...v.item_variation_data,
-        available_for_booking: false,
-      };
-    }
-    await square("/v2/catalog/object", {
-      method: "POST",
-      body: {
-        idempotency_key: `hg-iv-retire-${item.id}-${crypto.randomBytes(3).toString("hex")}`,
-        object: next,
-      },
-    });
+    doomed.push({ id: item.id, name });
   }
-  console.log(`\nOff the book (${retired.length}):`);
-  for (const n of retired) console.log(`  - ${n}`);
+  console.log(`\nDelete old IV drips (${doomed.length}):`);
+  for (const n of doomed) console.log(`  - ${n.name}`);
+  if (!DRY_RUN && doomed.length) {
+    await square("/v2/catalog/batch-delete", {
+      method: "POST",
+      body: { object_ids: doomed.map((d) => d.id) },
+    });
+    console.log("  ✓ deleted");
+  }
   if (DRY_RUN) console.log("\nRe-run with --apply to write to Square.\n");
 }
 

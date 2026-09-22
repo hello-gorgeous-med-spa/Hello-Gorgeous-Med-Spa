@@ -26,11 +26,11 @@ export const SERVICE_SLUG_MAP: Record<string, string[]> = {
     "Microneedling",
   ],
   "weight-loss-therapy": [
-    "Tirzepatide — Initial Consult + First Injection",
+    "Tirzepatide Program — 2.5 mg (4 weeks)",
     "Semaglutide — Initial Consult + First Injection",
     "Medical Weight Management Program",
   ],
-  tirzepatide: ["Tirzepatide — Initial Consult + First Injection"],
+  tirzepatide: ["Tirzepatide Program — 2.5 mg (4 weeks)"],
   semaglutide: ["Semaglutide — Initial Consult + First Injection"],
   morpheus8: [
     "Morpheus8 + CO₂ Combo — Most Popular",
@@ -46,7 +46,7 @@ export const SERVICE_SLUG_MAP: Record<string, string[]> = {
   "solaria-co2": ["Solaria CO₂ — Face Treatment", "Solaria CO₂ Laser"],
   "dermal-fillers": ["Dermal Filler — Per Syringe", "Filler — 2 Syringes"],
   "lip-filler": ["Lip Filler — 1ml", "Lip Filler — 0.5ml"],
-  "iv-therapy": ["IV Drip — Build Your Own Bag", "IV Drip — New Client Intro"],
+  "iv-therapy": ["IV Hour — Pick Your Bag"],
   "vitamin-injections": ["Vitamin Injection Bar — Choose Your Shot"],
   "laser-hair-removal": ["Laser Hair Removal — Brazilian (Single Session)", "Laser Brazilian — 3-Month Package"],
   "hydra-facial": ["HydraFacial + Dermaplaning Glow Special", "HydraFacial"],

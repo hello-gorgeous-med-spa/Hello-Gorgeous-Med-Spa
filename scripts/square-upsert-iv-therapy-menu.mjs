@@ -1,5 +1,15 @@
 #!/usr/bin/env node
 /**
+ * RETIRED — do not run.
+ * IV booking is one service: "IV Hour — Pick Your Bag" ($150 / 60 min).
+ * Use scripts/square-upsert-iv-hour.mjs. Old à-la-carte drips were deleted.
+ */
+console.error(
+  "RETIRED: IV menu is IV Hour — Pick Your Bag. Run scripts/square-upsert-iv-hour.mjs instead.",
+);
+process.exit(1);
+
+/**
  * Upsert Hello Gorgeous IV Therapy appointment services into Square.
  * Category: "IV Drip Package Deals"
  *
