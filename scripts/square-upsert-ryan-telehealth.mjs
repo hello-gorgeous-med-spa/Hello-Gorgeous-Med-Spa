@@ -55,6 +55,8 @@ const SERVICE = {
     "4. Medication is billed separately only if he approves a plan.",
     "",
     "Illinois patients only. Not for emergencies. Not an in-person exam — injectables and procedures still require a clinic visit.",
+    "",
+    "Policies: hellogorgeousmedspa.com/service-policy · hellogorgeousmedspa.com/cancellation-policy — 24-hour cancel (48 hours for CO₂ / Morpheus8). Late cancel $50 or 50%. No-show $100 or 100%.",
   ].join("\n"),
 };
 

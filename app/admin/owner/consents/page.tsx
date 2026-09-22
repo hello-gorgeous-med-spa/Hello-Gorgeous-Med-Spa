@@ -8,6 +8,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import OwnerLayout from '../layout-wrapper';
 import { CONSENT_FORMS, type ConsentForm as ConsentFormType } from '@/lib/hgos/consent-forms';
+import { SQUARE_BOOKING_CONTRACT_TEXT } from '@/lib/square-booking-policies';
 
 interface Client {
   id: string;
@@ -282,6 +283,24 @@ export default function ConsentsPage() {
           </div>
         </div>
 
+        <div className="bg-white rounded-xl border p-4">
+          <h2 className="text-lg font-semibold">Square booking contract</h2>
+          <p className="text-sm text-gray-600 mt-1">
+            Square cannot hold the 29 medical consent bodies. Paste this one booking agreement in Dashboard → Orders &amp; payments → Contracts → Templates, then attach it under Appointments → Settings → Communications → Forms. Treatment consents stay on the iPad / client chart.
+          </p>
+          <button
+            type="button"
+            onClick={async () => {
+              await navigator.clipboard.writeText(SQUARE_BOOKING_CONTRACT_TEXT);
+              setMessage({ type: 'success', text: 'Square booking contract copied. Paste it as a new Contracts template.' });
+              setTimeout(() => setMessage(null), 5000);
+            }}
+            className="mt-3 rounded-lg border border-[#E6007E] px-4 py-2 text-sm font-semibold text-[#E6007E] hover:bg-[#FFF0F7]"
+          >
+            Copy Square contract text
+          </button>
+        </div>
+
         {/* Quick Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="bg-white rounded-xl border p-4 text-center">
@@ -304,9 +323,18 @@ export default function ConsentsPage() {
 
         {/* Consent Forms List */}
         <div className="bg-white rounded-xl border">
-          <div className="p-4 border-b">
-            <h2 className="text-lg font-semibold">Consent Forms Library</h2>
-            <p className="text-sm text-gray-600 mt-1">Click on any form to preview, print, download, or send to clients</p>
+          <div className="p-4 border-b flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-semibold">Consent Forms Library</h2>
+              <p className="text-sm text-gray-600 mt-1">Click on any form to preview, print, download, or send to clients. Signed copies stay on the client chart — this is the blank template file.</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => window.open("/admin/owner/consents/print/all", "_blank", "noopener,noreferrer")}
+              className="shrink-0 rounded-lg bg-[#E6007E] px-4 py-2 text-sm font-semibold text-white hover:bg-[#c4006b]"
+            >
+              Save all {CONSENT_FORMS.length} as PDF binder
+            </button>
           </div>
           <div className="divide-y max-h-[600px] overflow-y-auto">
             {filteredForms.map(form => {

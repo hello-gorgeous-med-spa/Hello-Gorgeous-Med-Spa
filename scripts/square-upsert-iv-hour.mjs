@@ -41,6 +41,8 @@ const SERVICE = {
     "Add NAD+ for $25 if you want the cellular-energy boost.",
     "",
     "We screen you before the drip. Illinois only. Not an emergency visit. How you feel after a drip varies.",
+    "",
+    "Policies: hellogorgeousmedspa.com/service-policy · hellogorgeousmedspa.com/cancellation-policy — 24-hour cancel (48 hours for CO₂ / Morpheus8). Late cancel $50 or 50%. No-show $100 or 100%.",
   ].join("\n"),
 };
 
