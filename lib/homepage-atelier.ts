@@ -19,6 +19,10 @@ export const ATELIER = {
 
 export const ATELIER_SLOGAN = "We screen you like a medical practice because we are one.";
 
+export const ATELIER_INTRO_VIDEO = "/videos/website-hero/hello-gorgeous-intro.mp4" as const;
+export const ATELIER_INTRO_POSTER = "/images/website-hero/hello-gorgeous-intro-poster.jpg" as const;
+export const ATELIER_INTRO_SESSION_KEY = "hg-atelier-intro-played";
+
 export const ATELIER_DANI_IMAGE = "/images/team/danielle-heart-hands.jpg" as const;
 export const ATELIER_DANI_ALT =
   "Danielle Alcala-Glazier, owner of Hello Gorgeous Med Spa — medical aesthetic care in Oswego, IL.";
