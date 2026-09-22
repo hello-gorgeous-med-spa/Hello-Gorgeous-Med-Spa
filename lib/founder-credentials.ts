@@ -6,6 +6,7 @@ import { kristinaPersonJsonLd } from "@/lib/kristina-huda";
 import {
   CLINICAL_REVIEW_DATE,
   MEDICAL_DIRECTOR,
+  PRESCRIBING_NP_NPI,
   medicalDirectorPersonJsonLd,
 } from "@/lib/medical-authority";
 import { SITE } from "@/lib/seo";
@@ -190,7 +191,16 @@ export function ryanPersonJsonLd(opts?: { profileUrl?: string }) {
         "@type": "EducationalOccupationalCredential",
         credentialCategory: "Family Nurse Practitioner-Board Certified (FNP-BC)",
       },
+      {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "Illinois Full Practice Authority (FPA)",
+      },
     ],
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "NPI",
+      value: PRESCRIBING_NP_NPI,
+    },
   };
 }
 

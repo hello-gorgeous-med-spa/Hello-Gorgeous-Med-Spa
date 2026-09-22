@@ -5,7 +5,7 @@
 export const DANIELLE_CREDENTIALS =
   "Owner & Founder · CNA · CMAA · Licensed Phlebotomist · Licensed Esthetician · Developer · RN-S, Waubonsee";
 
-export const RYAN_CREDENTIALS = "FNP-BC · RE GEN RX Prescriber · Full prescriptive authority";
+export const RYAN_CREDENTIALS = "FNP-BC FPA · Family · RE GEN RX Prescriber";
 
 export const KRISTINA_CREDENTIALS =
   "BSN, RN · Illinois-licensed registered nurse · RN injector";

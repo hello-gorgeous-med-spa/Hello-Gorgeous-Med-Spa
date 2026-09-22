@@ -33,7 +33,7 @@ export const NP_ON_SITE_SHORT = "Ryan Kent, FNP-BC";
  * Date the clinical content owned by this authority layer was last reviewed.
  * Bump this when clinical surfaces are re-read, not on every deploy.
  */
-export const CLINICAL_REVIEW_DATE = "2026-09-19";
+export const CLINICAL_REVIEW_DATE = "2026-09-22";
 
 export type ClinicianAuthority = {
   /** Display name including credential suffix, e.g. "Dr. Mukesh Arora, MD". */
@@ -52,6 +52,8 @@ export type ClinicianAuthority = {
   imageAlt: string;
   /** Stable JSON-LD node id fragment. */
   schemaId: string;
+  /** National Provider Identifier when on file. Public — NPPES. */
+  npi?: string;
 };
 
 /** The physician Medical Director. Oversight of the medical program. */
@@ -69,21 +71,29 @@ export const MEDICAL_DIRECTOR: ClinicianAuthority = {
   schemaId: "#dr-mukesh-arora",
 };
 
+/** Legal name as on NPPES / FormuConnect — middle initial D. */
+export const PRESCRIBING_NP_LEGAL_NAME = "Ryan D Kent";
+
+/** NPI #1265021919 — Family. Public on NPPES. */
+export const PRESCRIBING_NP_NPI = "1265021919";
+
 /** On-site NP and RE GEN RX prescriber. Danielle does not prescribe. */
 export const PRESCRIBING_NP: ClinicianAuthority = {
-  displayName: "Ryan Kent, FNP-BC",
-  schemaName: "Ryan Kent",
-  honorificSuffix: "FNP-BC",
+  displayName: "Ryan Kent, FNP-BC FPA",
+  schemaName: "Ryan D Kent",
+  honorificSuffix: "FNP-BC FPA",
   jobTitle: "Nurse Practitioner · RE GEN RX Prescriber",
-  roleLine: "RE GEN RX prescriber · board-certified Family Nurse Practitioner",
+  roleLine: "RE GEN RX prescriber · board-certified Family Nurse Practitioner · Full Practice Authority",
   credentials: [
     "Family Nurse Practitioner-Board Certified (FNP-BC)",
+    "Illinois Full Practice Authority (FPA)",
     "Illinois APRN with prescriptive authority",
   ],
   profilePath: "/providers/ryan",
   image: "/images/team/cinematic/ryan.jpg",
-  imageAlt: "Ryan Kent, FNP-BC, RE GEN RX prescriber at Hello Gorgeous Med Spa in Oswego, IL",
+  imageAlt: "Ryan D Kent, FNP-BC FPA, RE GEN RX prescriber at Hello Gorgeous Med Spa in Oswego, IL",
   schemaId: "#ryan-kent",
+  npi: PRESCRIBING_NP_NPI,
 };
 
 /** Medical specialty of the Medical Director. */
@@ -196,6 +206,13 @@ export function prescribingNpPersonJsonLd(
     worksFor: { "@id": `${siteUrl}/#organization` },
     affiliation: { "@id": `${siteUrl}/#organization` },
     hasCredential: credentialNodes(PRESCRIBING_NP.credentials),
+    identifier: PRESCRIBING_NP.npi
+      ? {
+          "@type": "PropertyValue" as const,
+          propertyID: "NPI",
+          value: PRESCRIBING_NP.npi,
+        }
+      : undefined,
   };
 }
 

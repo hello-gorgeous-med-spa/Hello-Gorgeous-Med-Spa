@@ -179,7 +179,7 @@ export function MeetDaniRyanSection() {
           imageAlt="Ryan Kent, FNP-BC, RE GEN RX prescriber at Hello Gorgeous Med Spa"
           heading="Ryan Kent"
           role="Prescriber · RE GEN RX"
-          credentials="FNP-BC · Illinois APRN with prescriptive authority"
+          credentials="FNP-BC FPA · Family · Illinois APRN"
           body="Ryan runs RE GEN RX — medical weight loss, hormones, and peptide protocols. He reviews intakes, labs, and refills. Consult first. He writes the prescription. Danielle does not."
           ctaLabel="Meet Ryan"
           ctaHref="/providers/ryan"

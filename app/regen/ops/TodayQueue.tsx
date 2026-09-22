@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
+import { PRESCRIBING_NP_NPI } from '@/lib/medical-authority';
 import { getOpsStaff, opsChartHref } from '@/lib/regen/ops-staff';
 import { useOpsStaff } from './OpsShell';
 
@@ -111,7 +112,7 @@ export default function TodayQueue({
         review_notes: note || undefined,
         staff: { id: staff.id, name: staff.name, email: staff.email },
         attestation: status === 'approved' ? {
-          provider_npi: staff.id === 'ryan' ? '' : undefined,
+          provider_npi: staff.id === 'ryan' ? PRESCRIBING_NP_NPI : undefined,
           attestation_text: `I, ${staff.name}, reviewed this patient's history and contraindications and attest telehealth is appropriate.`,
         } : undefined,
       }),

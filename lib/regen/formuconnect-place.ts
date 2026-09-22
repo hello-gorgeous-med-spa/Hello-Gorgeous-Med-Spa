@@ -11,7 +11,7 @@ import {
   type FormuConnectOrderResponse,
   type FormuConnectPatient,
 } from "@/lib/formuconnect";
-import { PRESCRIBING_NP } from "@/lib/medical-authority";
+import { PRESCRIBING_NP, PRESCRIBING_NP_NPI } from "@/lib/medical-authority";
 import {
   BOOMRX_PHARMACY_LABEL,
   resolveFormulationTicket,
@@ -179,7 +179,7 @@ export function buildFormuConnectOrderFromRegen(
   if (!phone) return { ok: false, error: "Patient phone is required." };
 
   const cold = ticket.lines.some((line) => line.coldShip);
-  const npi = str(process.env.FORMUCONNECT_PHYSICIAN_NPI);
+  const npi = str(process.env.FORMUCONNECT_PHYSICIAN_NPI) || PRESCRIBING_NP_NPI;
   const dea = str(process.env.FORMUCONNECT_PHYSICIAN_DEA);
 
   return {
