@@ -14,8 +14,8 @@ type BrandHeroProps = {
 };
 
 /**
- * App home brand block — cinematic rotating hero (Solaria / Quantum / Morpheus8)
- * plus welcome + CTAs. Public homepage uses `HeroV3` → `WebsiteHeroBanner` directly.
+ * App home brand block — lounge hero still plus welcome + CTAs.
+ * Public homepage uses `HeroV3` → `WebsiteHeroBanner` directly.
  */
 export function BrandHero({
   variant = "home",

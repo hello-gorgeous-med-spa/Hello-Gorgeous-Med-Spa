@@ -18,6 +18,8 @@ import {
   SITE_HERO_IMAGE,
   SITE_OG_IMAGE,
   SITE_OG_IMAGE_ALT,
+  SITE_OG_IMAGE_HEIGHT,
+  SITE_OG_IMAGE_WIDTH,
   pageMetadata,
   mainLocalBusinessJsonLd,
   breadcrumbJsonLd,
@@ -47,7 +49,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     ..._homeBase.openGraph,
-    images: [{ url: SITE_OG_IMAGE, width: 1200, height: 630, alt: SITE_OG_IMAGE_ALT }],
+    images: [{ url: SITE_OG_IMAGE, width: SITE_OG_IMAGE_WIDTH, height: SITE_OG_IMAGE_HEIGHT, alt: SITE_OG_IMAGE_ALT }],
   },
   twitter: {
     ..._homeBase.twitter,

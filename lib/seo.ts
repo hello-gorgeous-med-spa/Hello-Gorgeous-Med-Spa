@@ -136,12 +136,14 @@ function reserveActionJsonLd(reservationName = "Appointment at Hello Gorgeous Me
 }
 
 /** Homepage hero art. Bump `v` after replacing the file to bust CDN + Next/Image cache. */
-export const SITE_HERO_IMAGE = "/images/website-hero/team-hero-vial-cinematic.jpg" as const;
-/** Mobile LCP crop — same cinematic still. */
-export const SITE_HERO_IMAGE_SM = "/images/website-hero/team-hero-vial-cinematic.jpg" as const;
-export const SITE_OG_IMAGE = `${SITE.url}/images/website-hero/team-hero-vial-cinematic.jpg?v=2026-09-team-hero-cinematic` as const;
+export const SITE_HERO_IMAGE = "/images/website-hero/hello-gorgeous-medical-spa-hero.png" as const;
+/** Mobile LCP crop — same still. */
+export const SITE_HERO_IMAGE_SM = "/images/website-hero/hello-gorgeous-medical-spa-hero.png" as const;
+export const SITE_OG_IMAGE = `${SITE.url}/images/website-hero/hello-gorgeous-medical-spa-og.jpg?v=2026-09-lounge-og` as const;
 export const SITE_OG_IMAGE_ALT =
-  "Danielle Alcala-Glazier with the Hello Gorgeous team in the Oswego studio";
+  "Hello Gorgeous Medical Spa lounge — we screen you like a medical practice because we are one.";
+export const SITE_OG_IMAGE_WIDTH = 1200;
+export const SITE_OG_IMAGE_HEIGHT = 630;
 
 /** Must match visible copy in `components/homepage-v3/HomepageFAQ.tsx` (single source for FAQ rich results). */
 export const HOME_FAQS: readonly FAQ[] = [
@@ -1224,9 +1226,9 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
     email: SITE.email,
     image: {
       "@type": "ImageObject",
-      url: `${SITE.url}/images/logo-full.png`,
-      width: 600,
-      height: 600,
+      url: SITE_OG_IMAGE,
+      width: SITE_OG_IMAGE_WIDTH,
+      height: SITE_OG_IMAGE_HEIGHT,
     },
     logo: {
       "@type": "ImageObject",
