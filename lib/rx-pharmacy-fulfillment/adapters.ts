@@ -1,11 +1,13 @@
 /**
  * Pharmacy fulfillment adapters (HGRX-040 Formulation, HGRX-041 BoomRx, HGRX-042 Olympia).
  *
- * Monday path: keep `RX_PHARMACY_API_ENABLED=false`. Staff copy the Formulation ticket
- * from `/admin/rx/regen-orders/[ref]` and paste it in FormuConnect. Do not POST guessed
- * product IDs. Live submit stays stubbed until Formulation ships a real OpenAPI client.
+ * Formulation live submit: `/admin/rx/regen-orders/[ref]` → Send to Formulation.
+ * This adapter only places a shipment when it can load that RE GEN order.
  */
 
+import { fetchRegenFulfillmentOrder } from "@/lib/regen/order-fulfillment";
+import { placeFormuConnectFromRegenOrder } from "@/lib/regen/formuconnect-place";
+import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";
 import type { PharmacyShipmentRow } from "@/lib/rx-pharmacy-fulfillment/types";
 import { vendorPortalUrl } from "@/lib/rx-pharmacy-fulfillment/pharmacy-key";
 
@@ -36,50 +38,52 @@ async function submitFormulation(order: PharmacyShipmentRow): Promise<PharmacySu
     };
   }
 
-  // Live path — only after Formulation documents a real order endpoint.
   if (!formulationCredentialsPresent()) {
     return {
       ok: false,
       error:
-        "RX_PHARMACY_API_ENABLED is true but Formulation API credentials are missing (FORMULATION_API_KEY / FORMUCONNECT_API_KEY)",
+        "RX_PHARMACY_API_ENABLED is true but Formulation API credentials are missing (FORMUCONNECT_API_KEY)",
     };
   }
 
-  // Placeholder until vendor OpenAPI client is generated from their docs.
+  if (order.request_kind !== "regen") {
+    return {
+      ok: false,
+      error: "Open the RE GEN order and tap Send to Formulation. This shipment is not a RE GEN ticket.",
+    };
+  }
+
+  const admin = getSupabaseAdminClient();
+  if (!admin) return { ok: false, error: "Database unavailable" };
+  const regen = await fetchRegenFulfillmentOrder(admin, order.request_id);
+  if (!regen) {
+    return { ok: false, error: `RE GEN order ${order.request_id} not found` };
+  }
+
+  const placed = await placeFormuConnectFromRegenOrder(regen);
+  if (!placed.ok) return { ok: false, error: placed.error };
   return {
-    ok: false,
-    error:
-      "Formulation live submit not implemented yet — keep RX_PHARMACY_API_ENABLED=false and use vendor portal until Phase 6 client lands",
+    ok: true,
+    status: "submitted",
+    externalOrderId: placed.orderNumbers[0] || placed.batchNumber,
   };
 }
 
 async function submitBoomRx(order: PharmacyShipmentRow): Promise<PharmacySubmitResult> {
-  if (!isRxPharmacyApiEnabled()) {
-    return {
-      ok: true,
-      status: "submitted",
-      externalOrderId: `BRX-MANUAL-${order.request_id}`,
-      manualPortalUrl: vendorPortalUrl("boomrx") ?? undefined,
-    };
-  }
   return {
-    ok: false,
-    error: "BoomRx/WellSync live API not configured — set credentials after Phase 6",
+    ok: true,
+    status: "submitted",
+    externalOrderId: `BRX-MANUAL-${order.request_id}`,
+    manualPortalUrl: vendorPortalUrl("boomrx") ?? undefined,
   };
 }
 
 async function submitOlympia(order: PharmacyShipmentRow): Promise<PharmacySubmitResult> {
-  if (!isRxPharmacyApiEnabled()) {
-    return {
-      ok: true,
-      status: "submitted",
-      externalOrderId: `OLY-MANUAL-${order.request_id}`,
-      manualPortalUrl: vendorPortalUrl("olympia") ?? undefined,
-    };
-  }
   return {
-    ok: false,
-    error: "Olympia live API not configured — set credentials after Phase 6",
+    ok: true,
+    status: "submitted",
+    externalOrderId: `OLY-MANUAL-${order.request_id}`,
+    manualPortalUrl: vendorPortalUrl("olympia") ?? undefined,
   };
 }
 

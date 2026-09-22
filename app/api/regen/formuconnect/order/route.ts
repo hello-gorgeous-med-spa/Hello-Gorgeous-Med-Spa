@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { requireProviderAreaAccess } from "@/lib/api-auth";
 import {
   getFormuConnectOrderStatus,
   isFormuConnectConfigured,
@@ -39,10 +40,13 @@ function asPatient(input: Record<string, unknown>): FormuConnectPatient | null {
 
 /**
  * POST /api/regen/formuconnect/order
- * Blocked unless RX_PHARMACY_API_ENABLED=true.
- * Monday path: paste the ticket in FormuConnect — do not call this.
+ * Staff/provider only. Prefer PATCH /api/admin/rx/regen-orders/[ref]
+ * with action formuconnect_submit so the ticket, patient, and receipt stay on the order.
  */
 export async function POST(request: NextRequest) {
+  const auth = requireProviderAreaAccess(request);
+  if ("error" in auth) return auth.error;
+
   if (!isFormuConnectLiveSubmitEnabled()) {
     return NextResponse.json(
       {
@@ -131,6 +135,9 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+  const auth = requireProviderAreaAccess(request);
+  if ("error" in auth) return auth.error;
+
   if (!isFormuConnectConfigured()) {
     return NextResponse.json(
       { success: false, error: "FormuConnect API not configured" },

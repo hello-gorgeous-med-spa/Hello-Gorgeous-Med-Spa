@@ -7,6 +7,7 @@ import {
   fetchRegenFulfillmentOrder,
   formulationTicketFromOrder,
   regenFulfillmentSummary,
+  submitRegenOrderToFormuConnect,
 } from "@/lib/regen/order-fulfillment";
 import { syncRegenOrderShippingFromSquare } from "@/lib/regen/order-square-sync";
 import { formatSquareShippingAddress } from "@/lib/square/order-shipping";
@@ -69,6 +70,7 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
     actionType !== "telehealth_complete" &&
     actionType !== "approve" &&
     actionType !== "pharmacy_ordered" &&
+    actionType !== "formuconnect_submit" &&
     actionType !== "ship" &&
     actionType !== "delivered" &&
     actionType !== "sync_shipping"
@@ -88,6 +90,19 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
       shippingAddress: formatSquareShippingAddress(sync.shippingAddress),
       summary: regenFulfillmentSummary(order),
       order,
+    });
+  }
+
+  if (actionType === "formuconnect_submit") {
+    const result = await submitRegenOrderToFormuConnect(decodeURIComponent(ref));
+    if (!result.ok) {
+      return NextResponse.json({ error: result.error }, { status: 400 });
+    }
+    return NextResponse.json({
+      ok: true,
+      notified: false,
+      formuconnect: result.formuconnect,
+      summary: regenFulfillmentSummary(result.order),
     });
   }
 

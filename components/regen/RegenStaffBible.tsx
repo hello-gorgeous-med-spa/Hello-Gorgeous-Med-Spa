@@ -269,19 +269,19 @@ export function RegenStaffBible() {
 
       <Section id="pharmacy" kicker="07" title="Orders and pharmacy">
         <p>
-          Default shipper is <strong>Formulation Rx via FormuConnect</strong>. Copy the Formulation ticket SKU, paste,
-          then mark pharmacy ordered.{" "}
+          Default shipper is <strong>Formulation Rx via FormuConnect</strong>. After Ryan approves, Danielle or Ryan
+          taps <strong>Send to Formulation</strong> on the order. That charges the clinic account.{" "}
           <a className="underline" href="https://portal.formuconnect.com/login">
             portal.formuconnect.com
-          </a>
+          </a>{" "}
+          is backup if send is down.
         </p>
         <p className="mt-3">
           Backup: <strong>BoomRx</strong> for lines Formulation does not carry (BPC/TB stacks, sheet blends). Patients
           still hear “licensed compounding pharmacy.” Staff portal is internal only.
         </p>
         <p className="mt-3">
-          Live pharmacy APIs stay off until Danielle turns them on. We copy-paste. We do not let a patient “order
-          their own vial.”
+          Patients never order their own vial. Damara is not required for Formulation sends.
         </p>
         <p className="mt-3">
           After ship: tracking number in Orders, one portal message: “Your medication left the pharmacy. Tracking is

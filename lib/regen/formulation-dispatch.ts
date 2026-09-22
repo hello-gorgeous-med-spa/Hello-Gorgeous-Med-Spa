@@ -1,9 +1,8 @@
 /**
  * Formulation Rx / FormuConnect dispatch ticket.
  *
- * Monday operating path: resolve a real catalog SKU, give Ryan/Damara a
- * copy-paste ticket for portal.formuconnect.com. Live POST /orders stays
- * behind RX_PHARMACY_API_ENABLED (see lib/formuconnect.ts).
+ * Resolve a real catalog SKU for Ryan/Danielle. Live POST /orders runs from
+ * the RE GEN order page when RX_PHARMACY_API_ENABLED=true.
  */
 
 import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
@@ -375,7 +374,7 @@ function buildPasteText(ticket: Omit<FormulationTicket, "pasteText">): string {
     ticket.notes.length ? `Staff notes:\n- ${ticket.notes.join("\n- ")}` : null,
     ticket.pharmacy === BOOMRX_PHARMACY_LABEL
       ? "After placing in BoomRx: mark Pharmacy ordered on this order."
-      : "After placing in FormuConnect: mark Pharmacy ordered on this order.",
+      : "After Send to Formulation (or a portal paste): this order should show Pharmacy ordered.",
   ]
     .filter((block) => block != null)
     .join("\n");
@@ -457,7 +456,7 @@ export function resolveFormulationTicket(input: FormulationTicketInput): Formula
     } else if (program.startsWith("hrt")) {
       notes.push("HRT/TRT has no safe default SKU. Ryan picks the Formulation hormone SKU after labs/visit.");
     } else {
-      notes.push("Ryan must pick the Formulation SKU in the catalog before Damara places this in FormuConnect.");
+      notes.push("Ryan must pick the Formulation SKU in the catalog before anyone sends this to FormuConnect.");
     }
   } else {
     status = "needs_np_sku";

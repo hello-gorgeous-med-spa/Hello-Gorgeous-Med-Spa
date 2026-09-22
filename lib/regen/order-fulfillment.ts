@@ -22,9 +22,18 @@ import {
 } from "@/lib/regen/formulation-dispatch";
 import { regenOrderTitle, regenOrderTotalUsd } from "@/lib/regen/order-patient-status";
 import {
+  mergeFormuConnectReceipt,
+  placeFormuConnectFromRegenOrder,
+  readFormuConnectReceipt,
+} from "@/lib/regen/formuconnect-place";
+import {
   REGEN_DEFAULT_PHARMACY_SOURCE,
   REGEN_PHARMACY_STAFF_PLACED_ONLY,
 } from "@/lib/regen/pharmacy-placement";
+import {
+  isFormuConnectConfigured,
+  isFormuConnectLiveSubmitEnabled,
+} from "@/lib/formuconnect";
 import type { SquareShippingAddress } from "@/lib/square/order-shipping-format";
 import { formatSquareShippingAddress } from "@/lib/square/order-shipping-format";
 
@@ -106,8 +115,66 @@ export async function listRegenFulfillmentOrders(
 }
 
 export type RegenFulfillmentActionResult =
-  | { ok: true; order: RegenFulfillmentOrder; notified?: boolean }
+  | { ok: true; order: RegenFulfillmentOrder; notified?: boolean; formuconnect?: { alreadyPlaced?: boolean; orderNumbers: string[]; batchNumber?: string } }
   | { ok: false; error: string };
+
+export async function submitRegenOrderToFormuConnect(
+  orderRef: string,
+): Promise<RegenFulfillmentActionResult> {
+  const admin = getSupabaseAdminClient();
+  if (!admin) return { ok: false, error: "Database unavailable" };
+
+  const order = await fetchRegenFulfillmentOrder(admin, orderRef);
+  if (!order) return { ok: false, error: "Order not found" };
+  if (!order.intake_completed_at) {
+    return { ok: false, error: "Intake not completed yet" };
+  }
+  if (order.telehealth_required !== false && !order.telehealth_completed_at) {
+    return { ok: false, error: "Mark telehealth complete first" };
+  }
+  if (!order.np_approved_at) {
+    return { ok: false, error: "Ryan must approve before we send this to Formulation." };
+  }
+
+  const placed = await placeFormuConnectFromRegenOrder(order);
+  if (!placed.ok) return placed;
+
+  const now = new Date().toISOString();
+  const updates: Record<string, unknown> = {
+    updated_at: now,
+    pharmacy_ordered_at: order.pharmacy_ordered_at || now,
+    pharmacy_source: REGEN_DEFAULT_PHARMACY_SOURCE,
+    status: order.shipped_at ? order.status : "ordered",
+    intake_data: mergeFormuConnectReceipt(order.intake_data, placed),
+  };
+
+  const { data: updated, error: updateErr } = await admin
+    .from("regen_orders")
+    .update(updates)
+    .eq("reference", order.reference)
+    .select(FULFILLMENT_SELECT)
+    .single();
+
+  if (updateErr || !updated) {
+    console.error("[regen/fulfillment] formuconnect update error:", updateErr);
+    return {
+      ok: false,
+      error: placed.alreadyPlaced
+        ? "Already sent, but could not save the receipt on the order."
+        : `FormuConnect accepted (${placed.orderNumbers.join(", ") || placed.batchNumber || "ok"}) but we could not mark the order. Do not send again — copy the pharmacy id onto this order.`,
+    };
+  }
+
+  return {
+    ok: true,
+    order: updated as RegenFulfillmentOrder,
+    formuconnect: {
+      alreadyPlaced: placed.alreadyPlaced,
+      orderNumbers: placed.orderNumbers,
+      batchNumber: placed.batchNumber,
+    },
+  };
+}
 
 async function notifyApproved(order: RegenFulfillmentOrder): Promise<boolean> {
   if (!order.customer_phone) return false;
@@ -315,5 +382,7 @@ export function regenFulfillmentSummary(order: RegenFulfillmentOrder) {
     soldByLabel,
     salesChannel: order.sales_channel ?? "online",
     formulationTicket: formulationTicketFromOrder(order),
+    formuconnectLive: isFormuConnectLiveSubmitEnabled() && isFormuConnectConfigured(),
+    formuconnectReceipt: readFormuConnectReceipt(order),
   };
 }

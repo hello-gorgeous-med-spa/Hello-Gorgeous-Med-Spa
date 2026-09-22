@@ -25,8 +25,8 @@ export async function GET(req: NextRequest) {
     manualPortalUrl: vendorPortalUrl("formulation"),
     message: apiEnabled
       ? hasFormulationCreds
-        ? "Live API flagged on — submit client still pending vendor wiring"
-        : "RX_PHARMACY_API_ENABLED is on but Formulation credentials are missing"
-      : "Manual FormuConnect / Formulation portal until credentials + live client",
+        ? "Live submit on — send from /admin/rx/regen-orders after Ryan approves"
+        : "RX_PHARMACY_API_ENABLED is on but FORMUCONNECT_API_KEY is missing"
+      : "Manual FormuConnect portal until live submit is on",
   });
 }

@@ -70,6 +70,8 @@ type Summary = {
   shippingAddress?: string;
   hasShippingAddress?: boolean;
   formulationTicket?: FormulationTicket;
+  formuconnectLive?: boolean;
+  formuconnectReceipt?: { batchNumber?: string; orderNumbers: string[]; submittedAt?: string } | null;
 };
 
 export default function RegenOrderFulfillmentDetailPage() {
@@ -129,11 +131,25 @@ export default function RegenOrderFulfillmentDetailPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Action failed");
-      setMessage(
-        data.notified
-          ? "Saved — patient notified by SMS."
-          : "Saved.",
-      );
+      if (action === "formuconnect_submit" && data.formuconnect) {
+        const ids = [
+          data.formuconnect.batchNumber,
+          ...(data.formuconnect.orderNumbers || []),
+        ]
+          .filter(Boolean)
+          .join(" · ");
+        setMessage(
+          data.formuconnect.alreadyPlaced
+            ? `Already at Formulation${ids ? ` — ${ids}` : ""}.`
+            : `Sent to Formulation${ids ? ` — ${ids}` : ""}.`,
+        );
+      } else {
+        setMessage(
+          data.notified
+            ? "Saved — patient notified by SMS."
+            : "Saved.",
+        );
+      }
       await load();
     } catch (e) {
       setMessage(e instanceof Error ? e.message : "Action failed");
@@ -266,10 +282,12 @@ export default function RegenOrderFulfillmentDetailPage() {
                 </h2>
                 <p className="text-xs text-gray-400 mt-1">
                   {ticket.status === "ready"
-                    ? "Copy this into FormuConnect — do not invent an API submit."
+                    ? summary.formuconnectLive
+                      ? "SKU ready. After Ryan approves, send this from the button below — no Damara paste."
+                      : "Copy this into FormuConnect if live send is down."
                     : ticket.status === "no_formulation_sku"
                       ? "No Formulation SKU. Ryan picks BoomRx or an alternate."
-                      : "Ryan must pick the SKU before Damara places this."}
+                      : "Ryan must pick the SKU before anyone sends this."}
                 </p>
               </div>
               <span
@@ -303,6 +321,15 @@ export default function RegenOrderFulfillmentDetailPage() {
                   <li key={note}>{note}</li>
                 ))}
               </ul>
+            ) : null}
+
+            {summary.formuconnectReceipt ? (
+              <p className="mb-4 rounded-lg border border-green-500/30 bg-green-500/10 px-3 py-2 text-xs text-green-200 font-mono">
+                Formulation {summary.formuconnectReceipt.batchNumber || "accepted"}
+                {summary.formuconnectReceipt.orderNumbers?.length
+                  ? ` · ${summary.formuconnectReceipt.orderNumbers.join(", ")}`
+                  : ""}
+              </p>
             ) : null}
 
             <div className="flex flex-wrap gap-2">
@@ -401,6 +428,17 @@ export default function RegenOrderFulfillmentDetailPage() {
                 <p className="mt-1 text-xs text-amber-100/90">
                   {REGEN_PHARMACY_PLACEMENT_COPY.staffDetail}
                 </p>
+                {summary.formuconnectReceipt ? (
+                  <p className="mt-2 font-mono text-xs text-green-200">
+                    Already sent
+                    {summary.formuconnectReceipt.batchNumber
+                      ? ` · batch ${summary.formuconnectReceipt.batchNumber}`
+                      : ""}
+                    {summary.formuconnectReceipt.orderNumbers?.length
+                      ? ` · ${summary.formuconnectReceipt.orderNumbers.join(", ")}`
+                      : ""}
+                  </p>
+                ) : null}
                 <div className="mt-2 flex flex-wrap gap-3">
                   <a
                     href={FORMUCONNECT_STAFF_PORTAL_URL}
@@ -420,6 +458,18 @@ export default function RegenOrderFulfillmentDetailPage() {
                   </a>
                 </div>
               </div>
+              {ticket?.pharmacy !== "BoomRx" &&
+              ticket?.status === "ready" &&
+              summary.formuconnectLive ? (
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={() => void runAction("formuconnect_submit")}
+                  className="w-full rounded-lg bg-[#E6007E] py-3 text-sm font-bold hover:bg-[#FF2D8E] disabled:opacity-50"
+                >
+                  {REGEN_PHARMACY_PLACEMENT_COPY.liveCta} — charges Formulation
+                </button>
+              ) : null}
               <div>
                 <label className="block text-xs text-gray-400 mb-1">Pharmacy / vendor</label>
                 <input

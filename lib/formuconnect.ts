@@ -5,8 +5,8 @@
  * Auth: X-API-Key (admin-issued, tied to the provider account).
  * POST /orders charges the card on file (or invoices net-terms) and sends the Rx to PioneerRx.
  *
- * Live submit stays off until RX_PHARMACY_API_ENABLED=true. Monday path is still
- * paste the ticket in portal.formuconnect.com.
+ * Live submit: RX_PHARMACY_API_ENABLED=true. Staff send from the RE GEN order
+ * page after Ryan approves. POST /orders charges the clinic account.
  */
 
 import { createHmac, timingSafeEqual } from "node:crypto";
