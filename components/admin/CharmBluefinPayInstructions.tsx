@@ -27,7 +27,7 @@ export function CharmBluefinPayInstructions({ title }: { title?: string }) {
         <li>Open the patient → Billing → + Invoice. Clear Insurance / Payer (self-pay).</li>
         <li>Type a real Charge (not $0). Total / Balance Due must show dollars before Bluefin will run.</li>
         <li>Send Invoice → Send Payment Link (email and/or SMS) with the Bluefin beneficiary.</li>
-        <li>After it posts, Damara places the Rx in FormuConnect.</li>
+        <li>After it posts, Danielle or Ryan opens the order and taps Send to Formulation.</li>
       </ol>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
         <a

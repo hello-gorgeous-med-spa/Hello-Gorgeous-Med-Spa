@@ -8,7 +8,7 @@ import { REGEN_DEFAULT_PHARMACY_SOURCE } from '@/lib/regen/pharmacy-placement';
 function pharmacyErrorForTicket(ticket: ReturnType<typeof resolveFormulationTicket>): string {
   if (ticket.status === 'ready') {
     const skus = ticket.lines.map((line) => line.sku).filter(Boolean).join(', ');
-    return `FormuConnect portal ticket ready — paste SKU ${skus}. Live API is off (RX_PHARMACY_API_ENABLED=false).`;
+    return `FormuConnect ticket ready — SKU ${skus}. After the Charm invoice posts, Send to Formulation on the order.`;
   }
   if (ticket.status === 'no_formulation_sku') {
     return ticket.notes[0] || 'No Formulation SKU — Ryan picks BoomRx or an alternate.';

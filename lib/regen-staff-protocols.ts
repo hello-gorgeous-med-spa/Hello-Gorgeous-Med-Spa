@@ -98,10 +98,99 @@ const WEEK_1_STAFF_ASSETS: Record<string, { image: string; caption: string }> = 
 
 export const REGEN_CORE_PROTOCOL_GUIDES: RegenProtocolGuide[] = [
   {
+    id: "kristina-huda-welcome",
+    title: "Kristina Huda, RN — Welcome Letter",
+    description:
+      "Employee-facing welcome for our new 1099 RN. Print with her offer, handbook, and onboarding packet.",
+    href: "/staff/protocols/guides/Kristina-Huda-Welcome-Letter.html",
+    category: "getting-started",
+    format: "html",
+  },
+  {
+    id: "kristina-huda-offer",
+    title: "Kristina Huda, RN — Contractor Offer",
+    description:
+      "Print 2 pages to sign: $50/hour + tips, $100 hour when collected production exceeds $800, 10% on peptides and weight loss she sells, 25 hours/week, every other Saturday.",
+    href: "/staff/protocols/guides/Kristina-Huda-Offer-Letter.html",
+    category: "getting-started",
+    format: "html",
+  },
+  {
+    id: "kristina-huda-handbook",
+    title: "Kristina Huda, RN — Team Handbook",
+    description:
+      "Print 2 pages for her to sign: hours, booking access, pay reminder, training path, HIPAA, floor rules.",
+    href: "/staff/protocols/guides/Kristina-Huda-Team-Handbook.html",
+    category: "getting-started",
+    format: "html",
+  },
+  {
+    id: "kristina-huda-onboarding",
+    title: "Kristina Huda, RN — Onboarding Packet",
+    description:
+      "Print 2 pages: license, BLS, W-9, malpractice COI, Square deposit, and pay initials.",
+    href: "/staff/protocols/guides/Kristina-Huda-Onboarding-Packet.html",
+    category: "getting-started",
+    format: "html",
+  },
+  {
+    id: "ryan-kent-collaborative-prescriber",
+    title: "Ryan Kent — Collaborative Prescriber Agreement",
+    description:
+      "Print 3 pages to sign: at-will 1099, RE GEN clinical lead, protocol charting/call-ins under his license, 50% NET on Quantum he performs, 20% after cost on everything else.",
+    href: "/staff/protocols/guides/Ryan-Kent-Collaborative-Prescriber-Agreement.html",
+    category: "getting-started",
+    format: "html",
+  },
+  {
+    id: "ryan-kent-production-agreement",
+    title: "Ryan Kent — 20% Production Pay Agreement (superseded)",
+    description:
+      "History only. Replaced the same day by the collaborative prescriber agreement (50% Quantum NET / 20% after cost).",
+    href: "/staff/protocols/guides/Ryan-Kent-Production-Compensation-Agreement.html",
+    category: "getting-started",
+    format: "html",
+  },
+  {
+    id: "glp1-rn-delegation-arora-diana",
+    title: "GLP-1 RN Delegation — Arora / Diana",
+    description:
+      "Print 3 pages for Dr. Arora to sign: Diana Simms, RN may inject GLP-1 in clinic only after his exam and written mg dose. She cannot prescribe.",
+    href: "/staff/protocols/guides/GLP1-RN-Delegation-Arora-Diana.html",
+    category: "in-spa",
+    format: "html",
+  },
+  {
+    id: "operating-system-a-to-z",
+    title: "REGEN RX Operating System — A to Z",
+    description:
+      "Ryan + staff training: two doors, Charm invoice (not website-integrated), Bluefin pay link, Send to Formulation. Print / PDF.",
+    href: "/staff/protocols/guides/REGEN-RX-Operating-System-A-to-Z.html",
+    category: "getting-started",
+    format: "html",
+  },
+  {
+    id: "operating-system-a-to-z-pdf",
+    title: "REGEN RX Operating System — A to Z (PDF)",
+    description: "Same A-to-Z packet as a printable PDF for Ryan’s binder.",
+    href: "/staff/protocols/guides/REGEN-RX-Operating-System-A-to-Z.pdf",
+    category: "getting-started",
+    format: "pdf",
+  },
+  {
     id: "staff-bible",
     title: "REGEN RX Owner & Staff Bible",
     description: "How we run telehealth: ops, portal, orders, refunds, affiliates, and the policies staff must follow.",
     href: "/staff/protocols/guides/REGEN-RX-Staff-Bible.html",
+    category: "getting-started",
+    format: "html",
+  },
+  {
+    id: "damara-regen-huddle",
+    title: "Damara & RE GEN team huddle — roles + hub",
+    description:
+      "2pm slideshow: Damara owns telehealth. Charm = chart (no paid API). FormuConnect by hand. Portals + every login URL.",
+    href: "/staff/protocols/guides/Damara-REGEN-Team-Huddle.html",
     category: "getting-started",
     format: "html",
   },
@@ -173,7 +262,6 @@ export const REGEN_PEPTIDE_DOSING_GUIDES: RegenProtocolGuide[] = [
   "NAD+_Injection Dosing Guide (2).pdf",
   "Oxytocin_Nasal_Spray Dosing Guide.pdf",
   "Pentadeca_Arginate_Injection_Dosing Guide.pdf",
-  "SS-31_Elamipretide_Injection Dosing Guide.pdf",
   "Selank_Nasal_Spray Dosing Guide.pdf",
   "Sermorelin_Injection Dosing Guide (2).pdf",
   "Tesamorelin Injection Dosing Guide (2).pdf",
