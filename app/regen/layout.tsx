@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { RegenAffiliateTracker } from '@/components/regen/RegenAffiliateTracker';
 import { RegenAuthProvider } from '@/components/regen/RegenAuthProvider';
-import { RegenPeppyMount } from '@/components/regen/RegenPeppyMount';
 
 export const metadata: Metadata = {
   title: {
@@ -40,7 +39,6 @@ export default function RegenLayout({
     <RegenAuthProvider>
       <RegenAffiliateTracker />
       {children}
-      <RegenPeppyMount />
     </RegenAuthProvider>
   );
 }

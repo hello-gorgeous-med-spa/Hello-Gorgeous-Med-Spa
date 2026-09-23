@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { HomepageIntroReel } from "@/components/homepage-atelier/HomepageIntroReel";
 import { HeroV3 } from "@/components/homepage-v3/HeroV3";
 import { FadeUp } from "@/components/Section";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
@@ -54,7 +53,6 @@ export function HomepageAtelier({
 } = {}) {
   return (
     <div className="bg-[#fdf8f4] text-black">
-      <HomepageIntroReel />
       <HeroV3 />
 
       <nav

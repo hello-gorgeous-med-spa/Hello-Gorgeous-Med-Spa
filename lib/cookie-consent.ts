@@ -82,7 +82,8 @@ export function clearConsentStatus(): void {
  * Use this to gate pixel/tag loading.
  */
 export function hasAcceptedAnalytics(): boolean {
-  return getConsentStatus() === "accepted";
+  // Banner is off the public sites — load analytics unless the visitor declined.
+  return getConsentStatus() !== "declined";
 }
 
 /**
