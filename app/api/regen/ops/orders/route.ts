@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase-server';
+import { ensureOrdersForApprovedIntakes } from '@/lib/regen/fulfill-approved-intake';
 
 // Generate order number: REGEN-YYYYMM-XXXXX
 function generateOrderNumber(): string {
@@ -34,6 +35,8 @@ export async function GET(request: NextRequest) {
     if (search) {
       query = query.or(`order_number.ilike.%${search}%`);
     }
+
+    await ensureOrdersForApprovedIntakes();
 
     const { data, error } = await query;
 

@@ -121,6 +121,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     let fulfillment: Awaited<ReturnType<typeof fulfillApprovedIntake>> | null = null;
+    let fulfillmentError: string | null = null;
     if (status === 'approved' && data) {
       try {
         fulfillment = await fulfillApprovedIntake({
@@ -134,8 +135,10 @@ export async function PATCH(request: NextRequest) {
           medical_history: data.medical_history,
           review_notes: review_notes || data.review_notes,
         });
-      } catch (fulfillError) {
-        console.error('Fulfillment error:', fulfillError);
+      } catch (fulfillErr) {
+        console.error('Fulfillment error:', fulfillErr);
+        fulfillmentError =
+          fulfillErr instanceof Error ? fulfillErr.message : 'Approved, but the Orders row failed to create.';
       }
     }
 
@@ -171,7 +174,7 @@ export async function PATCH(request: NextRequest) {
       // Don't fail the request
     }
 
-    return NextResponse.json({ intake: data, fulfillment });
+    return NextResponse.json({ intake: data, fulfillment, fulfillmentError });
   } catch (error) {
     console.error('Intake update error:', error);
     return NextResponse.json(

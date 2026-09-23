@@ -126,17 +126,22 @@ export default function TodayQueue({
     const label = status.replace(/_/g, ' ');
     let nextNotice =
       status === 'approved'
-        ? `Approved ${intake.name}. This visit left Needs action. Open Orders to place the pharmacy ticket.`
+        ? json.fulfillment?.orderNumber
+          ? `Approved ${intake.name}. Order ${json.fulfillment.orderNumber} is on Orders — invoice in Charm, then send to Formulation.`
+          : `Approved ${intake.name}. Open the Approved tab, then Orders.`
         : status === 'declined'
           ? `Declined ${intake.name}. If they already paid, refund in Charm the same day.`
           : `${intake.name} is now “${label}” and will stay in Needs action until Ryan approves.`;
-    if (json.fulfillment?.pharmacyError) {
+    if (json.fulfillmentError) {
+      nextNotice = `Approved ${intake.name}, but Orders did not get a row: ${json.fulfillmentError}`;
+    } else if (json.fulfillment?.pharmacyError) {
       nextNotice += ` ${json.fulfillment.pharmacyError}`;
     }
     setNotice(nextNotice);
     setSelected(null);
     setNote('');
     setAttest({ history: false, contra: false, tele: false, sign: false });
+    if (status === 'approved') setFilter('approved');
     await load();
   }
 
@@ -179,7 +184,10 @@ export default function TodayQueue({
 
       {notice && (
         <div className="rounded-2xl border border-teal-400/40 bg-teal-500/15 px-4 py-3 text-sm text-teal-100">
-          {notice}
+          {notice}{' '}
+          <Link href="/ops/orders" className="underline font-bold text-white">
+            Open Orders →
+          </Link>
         </div>
       )}
 
@@ -192,7 +200,11 @@ export default function TodayQueue({
         <div className="bg-white/5 rounded-2xl p-10 text-center text-white/50">No shipped orders yet.</div>
       )}
       {!loading && filter !== 'shipped' && visible.length === 0 && (
-        <div className="bg-white/5 rounded-2xl p-10 text-center text-white/50">No visits in this list.</div>
+        <div className="bg-white/5 rounded-2xl p-10 text-center text-white/50">
+          {filter === 'action'
+            ? 'Nothing waiting. Approved visits are on the Approved tab, then Orders.'
+            : 'No visits in this list.'}
+        </div>
       )}
 
       {filter === 'shipped' && (

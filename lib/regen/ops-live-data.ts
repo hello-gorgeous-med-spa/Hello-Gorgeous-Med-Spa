@@ -1,4 +1,5 @@
 import { getSupabase } from '@/lib/supabase-server';
+import { ensureOrdersForApprovedIntakes } from '@/lib/regen/fulfill-approved-intake';
 
 export async function loadOpsToday() {
   const empty = {
@@ -60,6 +61,7 @@ export async function loadOpsToday() {
 export async function loadOpsOrders() {
   const supabase = getSupabase();
   if (!supabase) return [];
+  await ensureOrdersForApprovedIntakes();
   const { data } = await supabase
     .from('regen_orders')
     .select('*')
