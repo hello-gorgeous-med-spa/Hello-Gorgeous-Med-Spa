@@ -77,6 +77,16 @@ export const PRESCRIBING_NP_LEGAL_NAME = "Ryan D Kent";
 /** NPI #1265021919 — Family. Public on NPPES. */
 export const PRESCRIBING_NP_NPI = "1265021919";
 
+/**
+ * Illinois IDFPR numbers from Ryan's printed cards (packet 01 / 02).
+ * Printed expiration on both cards: May 31, 2026. Confirm live on IDFPR
+ * before treating as current — do not publish home address or Access ID.
+ */
+export const PRESCRIBING_NP_IL_FPA_APRN = "277.003448";
+export const PRESCRIBING_NP_IL_RN = "041.413092";
+export const PRESCRIBING_NP_IL_CS = "377.003259";
+export const PRESCRIBING_NP_IL_LICENSE_PRINTED_EXP = "2026-05-31";
+
 /** On-site NP and RE GEN RX prescriber. Danielle does not prescribe. */
 export const PRESCRIBING_NP: ClinicianAuthority = {
   displayName: "Ryan Kent, FNP-BC FPA",
@@ -86,8 +96,9 @@ export const PRESCRIBING_NP: ClinicianAuthority = {
   roleLine: "RE GEN RX prescriber · board-certified Family Nurse Practitioner · Full Practice Authority",
   credentials: [
     "Family Nurse Practitioner-Board Certified (FNP-BC)",
-    "Illinois Full Practice Authority (FPA)",
-    "Illinois APRN with prescriptive authority",
+    "Illinois Full Practice Authority APRN 277.003448",
+    "Illinois RN 041.413092",
+    "Illinois Controlled Substance 377.003259 (schedules II–V)",
   ],
   profilePath: "/providers/ryan",
   image: "/images/team/cinematic/ryan.jpg",

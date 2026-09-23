@@ -10,6 +10,8 @@ SOP kits:
 
 Credentials on file:
 - dr-arora-idfpr-licenses-exp-2029.pdf  (Physician & Surgeon 036.097343 + CS 336.057947, exp 7/31/2029)
+- ryan-kent-idfpr-fpa-aprn-np.pdf  (FPA APRN 277.003448 + RN 041.413092; card printed exp 5/31/2026)
+- ryan-kent-idfpr-controlled-substance.pdf  (CS 377.003259 II–V; card printed exp 5/31/2026)
 - hello-gorgeous-arora-management-agreement-2026-draft.pdf  (FINAL DRAFT + BAA, unsigned)
 
 Still needed:

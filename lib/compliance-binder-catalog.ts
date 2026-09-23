@@ -159,6 +159,18 @@ export const BINDER_ON_FILE_PDFS: BinderPdfDoc[] = [
       "Illinois Licensed Physician and Surgeon 036.097343 and Physician Controlled Substance 336.057947 (schedules II–V). Print for the credentials tab.",
   },
   {
+    file: "ryan-kent-idfpr-fpa-aprn-np.pdf",
+    title: "Ryan D Kent — IDFPR Full Practice Authority APRN / NP (277.003448, RN 041.413092)",
+    description:
+      "Certified Nurse Practitioner. Printed expiration on the card: May 31, 2026. Confirm live at IDFPR.illinois.gov before treating as current.",
+  },
+  {
+    file: "ryan-kent-idfpr-controlled-substance.pdf",
+    title: "Ryan D Kent — IDFPR Controlled Substance (377.003259, schedules II–V)",
+    description:
+      "Tied to FPA APRN 277.003448. Printed expiration on the card: May 31, 2026. This is the Illinois CS license — not a federal DEA.",
+  },
+  {
     file: "hello-gorgeous-arora-management-agreement-2026-draft.pdf",
     title: "Hello Gorgeous P.C. + Dr. Arora — management agreement (FINAL DRAFT, Aug 1 2026)",
     description:
