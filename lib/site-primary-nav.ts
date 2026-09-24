@@ -11,7 +11,6 @@ import { MORPHEUS8_PATH } from "@/lib/morpheus8-marketing";
 import { SOLARIA_CO2_PATH } from "@/lib/solaria-marketing";
 import { QUANTUM_RF_PATH } from "@/lib/quantum-rf-marketing";
 import { INJECTABLES_NAV, INJECTABLES_PATH } from "@/lib/injectables-marketing";
-import { BIOSTIMULATORS_NAV, BIOSTIMULATORS_PATH } from "@/lib/biostimulators-marketing";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
@@ -26,8 +25,7 @@ import { BUILD_YOUR_PROPOSAL_NAV } from "@/lib/build-your-proposal-marketing";
 export const PRIMARY_NAV_HUBS = [
   { id: "services", label: "Services", href: "/services", hasDropdown: true },
   { id: "facials", label: FACIALS_PEELS_NAV.label, href: FACIALS_PEELS_MENU_PATH, hasDropdown: false },
-  { id: "injectables", label: INJECTABLES_NAV.label, href: INJECTABLES_PATH, hasDropdown: false },
-  { id: "biostimulators", label: BIOSTIMULATORS_NAV.label, href: BIOSTIMULATORS_PATH, hasDropdown: false },
+  { id: "injectables", label: INJECTABLES_NAV.label, href: INJECTABLES_PATH, hasDropdown: true },
   { id: "iv-therapy", label: IV_THERAPY_NAV.label, href: IV_THERAPY_PATH, hasDropdown: false },
   {
     id: "microblading",

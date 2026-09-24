@@ -22,12 +22,13 @@ import { BROW_MICROBLADING_NAV, isBrowMicrobladingNavActive } from "@/lib/brow-j
 import { MORPHEUS8_PATH, isMorpheus8NavActive } from "@/lib/morpheus8-marketing";
 import { SOLARIA_CO2_PATH, isSolariaNavActive } from "@/lib/solaria-marketing";
 import { QUANTUM_RF_PATH, isQuantumRfNavActive } from "@/lib/quantum-rf-marketing";
-import { INJECTABLES_NAV, INJECTABLES_PATH, isInjectablesNavActive } from "@/lib/injectables-marketing";
 import {
-  BIOSTIMULATORS_NAV,
-  BIOSTIMULATORS_PATH,
-  isBiostimulatorsNavActive,
-} from "@/lib/biostimulators-marketing";
+  INJECTABLES_DROPDOWN,
+  INJECTABLES_NAV,
+  INJECTABLES_PATH,
+  isInjectablesNavActive,
+} from "@/lib/injectables-marketing";
+import { BIOSTIMULATORS_PATH, isBiostimulatorsNavActive } from "@/lib/biostimulators-marketing";
 import {
   FACIALS_PEELS_MENU_PATH,
   FACIALS_PEELS_NAV,
@@ -652,28 +653,51 @@ export function Header() {
               </Link>
             </div>
 
-            {/* Botox & Fillers — injectables flagship */}
-            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
+            {/* Injectables — Botox, fillers, biostimulators */}
+            <div
+              className={cx("relative flex items-center", activeDropdown === "injectables" && "z-[110]")}
+              onMouseEnter={() => openDropdown("injectables")}
+              onMouseLeave={closeDropdown}
+            >
               <Link
                 href={INJECTABLES_PATH}
                 className={NAV_LINK_BASE}
                 style={navPillStyle(0, isInjectablesNavActiveState)}
-                aria-label="Botox and dermal fillers — injectables menu"
+                onFocus={() => openDropdown("injectables")}
+                aria-haspopup="true"
+                aria-expanded={activeDropdown === "injectables"}
+                aria-label="Injectables — Botox, fillers, and biostimulators"
               >
                 {INJECTABLES_NAV.label}
+                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "injectables" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
               </Link>
-            </div>
-
-            {/* Biostimulators — Sculptra + Radiesse flagship */}
-            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
-              <Link
-                href={BIOSTIMULATORS_PATH}
-                className={NAV_LINK_BASE}
-                style={navPillStyle(0, isBiostimulatorsNavActiveState)}
-                aria-label="Sculptra and Radiesse biostimulators"
-              >
-                {BIOSTIMULATORS_NAV.label}
-              </Link>
+              {activeDropdown === "injectables" ? (
+                <div
+                  className="absolute top-full left-0 z-[100] pt-2"
+                  onMouseEnter={() => openDropdown("injectables")}
+                  onMouseLeave={closeDropdown}
+                >
+                  <div
+                    className="w-[min(300px,calc(100vw-2rem))] overflow-hidden rounded-xl border shadow-2xl backdrop-blur-md"
+                    style={{ backgroundColor: "rgba(24, 24, 27, 0.97)", borderColor: "rgba(255,255,255,0.12)" }}
+                  >
+                    {INJECTABLES_DROPDOWN.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={closeDropdown}
+                        className="block border-b px-4 py-3 last:border-0 transition hover:bg-white/5"
+                        style={{ borderColor: "rgba(255,255,255,0.08)" }}
+                      >
+                        <span className="block text-sm font-semibold text-white">{link.label}</span>
+                        <span className="mt-0.5 block text-xs text-white/50">{link.sub}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
             </div>
 
             {/* IV Therapy — vitamin drips & shots flagship */}
@@ -908,27 +932,26 @@ export function Header() {
               </span>
             </Link>
 
-            <Link
-              href={INJECTABLES_PATH}
-              onClick={() => setMobileOpen(false)}
-              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
-            >
-              <span className="flex flex-col items-start gap-0.5">
-                <span>{INJECTABLES_NAV.label}</span>
-                <span className="text-xs font-semibold text-[#FFB8DC]">Botox $10/unit · lip filler $450</span>
-              </span>
-            </Link>
-
-            <Link
-              href={BIOSTIMULATORS_PATH}
-              onClick={() => setMobileOpen(false)}
-              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
-            >
-              <span className="flex flex-col items-start gap-0.5">
-                <span>{BIOSTIMULATORS_NAV.label}</span>
+            <div className="mb-3 overflow-hidden rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black">
+              <Link
+                href={INJECTABLES_PATH}
+                onClick={() => setMobileOpen(false)}
+                className="flex w-full items-center justify-between gap-2 px-4 py-3.5 text-sm font-bold text-white"
+              >
+                <span className="flex flex-col items-start gap-0.5">
+                  <span>{INJECTABLES_NAV.label}</span>
+                  <span className="text-xs font-semibold text-[#FFB8DC]">Botox · fillers · biostimulators</span>
+                </span>
+              </Link>
+              <Link
+                href={BIOSTIMULATORS_PATH}
+                onClick={() => setMobileOpen(false)}
+                className="block border-t border-white/10 px-4 py-3 text-sm font-semibold text-white/90"
+              >
+                <span className="block">Biostimulators</span>
                 <span className="text-xs font-semibold text-[#FFB8DC]">Sculptra® + Radiesse® · collagen</span>
-              </span>
-            </Link>
+              </Link>
+            </div>
 
             <Link
               href={IV_THERAPY_PATH}

@@ -4,16 +4,30 @@
  */
 
 import { INJECTABLES_MENU, INJECTABLES_MENU_PATH } from "@/lib/injectables-menu";
+import { BIOSTIMULATORS_NAV, BIOSTIMULATORS_NAV_ACTIVE_PREFIXES } from "@/lib/biostimulators-marketing";
 import { PRIMARY_CITY_SLUGS } from "@/lib/city-seo-tier";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 
 export const INJECTABLES_PATH = INJECTABLES_MENU_PATH;
 
 export const INJECTABLES_NAV = {
-  label: "Botox & Fillers",
+  label: "Injectables",
   href: INJECTABLES_PATH,
-  sub: "Botox $10/unit · lip filler · dermal fillers · all 5 neurotoxins",
+  sub: "Botox · fillers · Sculptra® + Radiesse®",
 } as const;
+
+export const INJECTABLES_DROPDOWN = [
+  {
+    label: "Botox & Fillers",
+    href: INJECTABLES_PATH,
+    sub: "Neurotoxins · lips · dermal filler",
+  },
+  {
+    label: BIOSTIMULATORS_NAV.label,
+    href: BIOSTIMULATORS_NAV.href,
+    sub: BIOSTIMULATORS_NAV.sub,
+  },
+] as const;
 
 export const INJECTABLES_MARKETING = {
   name: "Injectables",
@@ -229,6 +243,7 @@ export const INJECTABLES_NAV_ACTIVE_PREFIXES = [
   "/xeomin",
   "/botox-vs-dysport",
   "/hyperhidrosis-botox",
+  ...BIOSTIMULATORS_NAV_ACTIVE_PREFIXES,
 ] as const;
 
 export function isInjectablesNavActive(pathname: string | null): boolean {
