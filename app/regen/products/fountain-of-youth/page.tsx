@@ -177,7 +177,7 @@ export default function FountainOfYouthPage() {
               { label: 'Protocol', value: '5-10 weeks' },
               { label: 'Frequency', value: '5x per week' },
               { label: 'Administration', value: 'SubQ injection' },
-              { label: 'Starting at', value: '$349/mo' },
+              { label: 'Availability', value: 'Consult only' },
             ].map((stat) => (
               <div key={stat.label}>
                 <div style={{ fontSize: 12, color: '#666', textTransform: 'uppercase', letterSpacing: '1px' }}>{stat.label}</div>
@@ -422,8 +422,8 @@ export default function FountainOfYouthPage() {
               },
               {
                 step: '3',
-                title: 'Delivered to You',
-                desc: 'Your prescription is sent to our 503A compounding pharmacy and shipped directly to your door.',
+                title: 'Only if prescribed',
+                desc: 'If Ryan, the pharmacy, and counsel clear this protocol later, we send a clinic invoice first. There is no online order button today.',
               },
             ].map((item) => (
               <div key={item.step} style={{ textAlign: 'center' }}>
