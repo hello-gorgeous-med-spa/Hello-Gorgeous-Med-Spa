@@ -23,8 +23,11 @@
 | 11 | [GLP-1 Monitoring, Adverse Events, and Off-Ramps](./11-glp1-monitoring-adverse-events-off-ramps.md) | Refill re-screen, red-flag escalation, when to stop/taper/maintain. |
 | 12 | [Practice Readiness Audit](./12-practice-readiness-audit.md) | 35-point Yes/No/Not sure audit mapped to this binder; score, roadmap, 30-day sprint. |
 | 13 | [Medical Director Adoption & Sign-Off](./13-medical-director-adoption.md) | Cover sheet for Dr. Mukesh Arora, MD — sign, then file the original at the front desk. |
+| 14 | [GLP-1 RN Administration Delegation](./14-glp1-rn-administration-delegation.md) | Physician standing order: Diana Simms, RN injects only after Dr. Arora’s exam + written mg dose. |
+| 15 | [GLP-1 RN Visit Checklist & Order Pad](./15-glp1-rn-visit-checklist.md) | Chair-side hard-stop checklist and photocopiable patient-specific order. |
 | — | **SOP kits (PDF)** | Operations (OPS-001–005), Weight loss (WL-001–010), Skin & laser (SKN-001–009) in `public/compliance-binder/protocols/`. Print the three COMPLETE kit PDFs. |
 | — | **Dr. Arora IDFPR licenses** (PDF) | Physician & Surgeon 036.097343 and Controlled Substance 336.057947, exp 7/31/2029: `dr-arora-idfpr-licenses-exp-2029.pdf`. |
+| — | **Ryan Kent IDFPR licenses** (PDF) | FPA APRN 277.003448, RN 041.413092, CS 377.003259 (II–V). Cards print exp 5/31/2026 — verify live: `ryan-kent-idfpr-fpa-aprn-np.pdf` + `ryan-kent-idfpr-controlled-substance.pdf`. |
 | — | **Management agreement** (PDF) | Hello Gorgeous P.C. + Dr. Arora FINAL DRAFT (effective Aug 1, 2026) + BAA: `hello-gorgeous-arora-management-agreement-2026-draft.pdf`. Replace with signed original after both sign. |
 | — | **Medical Director Agreement** (PDF) | Separate MDA referenced in the management agreement — add signed copy as `ryan_2026_medical_director_agreement.pdf` when you have it. |
 
@@ -32,7 +35,7 @@
 
 ## How to Use
 
-1. **Print the packet** from Admin → Clinical Guidance → Compliance Binder → **Print packet for Dr. Arora**, then print the three complete SOP kit PDFs. Place in a physical 3-ring binder at the front desk after signature.
+1. **Print the packet** from Admin → Clinical Guidance → Compliance Binder → **Print packet for Dr. Arora**, then print the three complete SOP kit PDFs. Place in a physical 3-ring binder at the front desk after signature. For RN GLP-1 shots only, print **14** and **15** (or `/staff/protocols/guides/GLP1-RN-Delegation-Arora-Diana.html`).
 2. **Complete blanks** — Fill in “Approved by,” “Review date,” emergency contacts, and physician signatures where indicated.
 3. **Customize** — Have your supervising physician and legal counsel review and adapt to your practice and current Illinois law and IDFPR guidance.
 4. **Review annually** — Re-sign standing orders and protocol approval at least yearly; update when laws or protocols change.
@@ -46,4 +49,4 @@ These documents are templates and guidance only. They do not constitute legal or
 
 ---
 
-*Last updated: August 22, 2026*
+*Last updated: September 10, 2026*

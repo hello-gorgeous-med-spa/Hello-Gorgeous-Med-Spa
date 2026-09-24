@@ -1,0 +1,138 @@
+/* RE GEN — teal / white / hot pink print kit
+   Yard: 18×24 in  ·  Window vinyl: 36×48 in
+   Colors from lib/regen/tools-brand.ts */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+:root {
+  --teal: #0d5c63;
+  --teal-bright: #0d9488;
+  --pink: #ff2d8e;
+  --white: #ffffff;
+  --mute: #d4f1ee;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #e8e8e8;
+  font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.no-print {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 20px 22px 8px;
+  color: #111;
+}
+.no-print h1 { font-size: 22px; margin: 0 0 8px; }
+.no-print p, .no-print li { font-size: 14px; line-height: 1.45; margin: 0 0 8px; }
+.no-print button, .no-print a.btn {
+  display: inline-block;
+  font: inherit;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: var(--pink);
+  color: #fff;
+  border: 0;
+  padding: 10px 16px;
+  margin: 4px 6px 12px 0;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+.board {
+  position: relative;
+  overflow: hidden;
+  background: var(--teal);
+  color: var(--white);
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.board:last-of-type { page-break-after: auto; }
+
+.yard {
+  width: 18in;
+  height: 24in;
+  padding: 1.15in 0.85in 1in;
+}
+.window {
+  width: 36in;
+  height: 48in;
+  padding: 2.2in 1.8in 2in;
+}
+
+.kicker {
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-size: 0.3in;
+  color: var(--pink);
+}
+.sub {
+  margin-top: 0.12in;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.2in;
+  color: var(--mute);
+}
+.hero {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+}
+.hero .line { display: block; }
+.hero .pink { color: var(--pink); }
+.price {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--pink);
+  line-height: 0.88;
+}
+.price .mo {
+  font-size: 0.42em;
+  letter-spacing: -0.02em;
+}
+.support {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+}
+.support .pink { color: var(--pink); }
+.phone {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--white);
+}
+.fine {
+  font-weight: 500;
+  color: var(--mute);
+  letter-spacing: 0.04em;
+}
+
+.yard .hero { font-size: 1.85in; }
+.yard .price { font-size: 2.35in; margin: 0.15in 0 0.2in; }
+.yard .support { font-size: 0.42in; }
+.yard .phone { font-size: 0.52in; margin-top: 0.35in; }
+.yard .fine { font-size: 0.16in; margin-top: 0.18in; }
+
+.window .kicker { font-size: 0.52in; letter-spacing: 0.36em; }
+.window .sub { font-size: 0.34in; }
+.window .hero { font-size: 3.4in; }
+.window .price { font-size: 4.4in; margin: 0.25in 0 0.35in; }
+.window .support { font-size: 0.72in; }
+.window .phone { font-size: 0.95in; margin-top: 0.55in; }
+.window .fine { font-size: 0.28in; margin-top: 0.28in; }
+
+@media print {
+  body { background: #fff; }
+  .no-print { display: none !important; }
+}

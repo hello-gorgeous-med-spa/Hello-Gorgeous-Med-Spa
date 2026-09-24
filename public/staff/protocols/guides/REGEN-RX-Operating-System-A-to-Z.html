@@ -61,22 +61,22 @@
     <header class="stamp">
       <p class="kicker">Internal · Staff + Ryan training · September 22, 2026</p>
       <h1>REGEN RX operating system — A to Z</h1>
-      <p>How Danielle and Ryan run online orders: the website, Charm invoices, Bluefin cards, and Formulation / FormuConnect. Print this. Teach from this. Do not invent a third payment system.</p>
+      <p>How Danielle and Ryan run online orders: the website, automatic Bluefin pay links, Charm as backup, and Formulation / FormuConnect. Print this. Teach from this. Do not invent a third payment system.</p>
       <p class="who">Ryan writes the Rx. Danielle or Ryan send it to Formulation. Patients never order from a pharmacy. Stripe is off.</p>
     </header>
 
     <section>
       <p class="num">00 · The honest money answer</p>
       <h2>Is the invoice integrated?</h2>
-      <div class="no">
-        <p><strong>No. Our website does not automatically send a Charm invoice or charge a card when Ryan approves.</strong></p>
-        <p>After Ryan says yes, a person signs into Charm, types a real dollar Charge, and taps <strong>Send Invoice → Send Payment Link</strong>. Charm emails and/or texts the patient a Bluefin pay page. They do not type a card on tryregenrx.com.</p>
+      <div class="yes">
+        <p><strong>Yes — Bluefin, not Charm.</strong> Charm has no invoice API. We cannot click Charm for you. When PayConex Account ID + Hosted Form ID are on the server, Ryan Approve emails and texts a Bluefin pay page. They do not type a card on tryregenrx.com.</p>
+        <p>Orders → <strong>Send pay link</strong> resends it. Type a dollar amount first when there is no catalog SKU (most sexual-health tickets). Charm is backup for credits, $1 tests, and in-chair charts.</p>
       </div>
       <div class="yes" style="margin-top:10px">
-        <p><strong>What is integrated</strong></p>
+        <p><strong>What else is integrated</strong></p>
         <ul>
           <li><strong>Square $49 phone telehealth</strong> — they book and pay Square. Confirmation comes from Square.</li>
-          <li><strong>FormuConnect “Send to Formulation”</strong> — after Ryan approves and the ticket has a SKU, one tap charges the <em>clinic</em> Formulation account (wholesale) and forwards the Rx. That is not the patient invoice.</li>
+          <li><strong>FormuConnect “Send to Formulation”</strong> — after the Bluefin invoice posts and the ticket has a SKU, one tap charges the <em>clinic</em> Formulation account (wholesale) and forwards the Rx. That is not the patient invoice.</li>
           <li><strong>In-chair Square Terminal</strong> — tap / dip / swipe still allowed if they are at 74 W. Washington.</li>
         </ul>
       </div>
@@ -94,7 +94,7 @@
         </tr>
         <tr>
           <td>Danielle</td>
-          <td>Queue, Charm invoice + Bluefin link, GORGEOUS20 / $49 credit, Send to Formulation, tracking, patient message.</td>
+          <td>Queue, confirm the Bluefin pay link went, GORGEOUS20 / $49 credit in Charm if needed, Send to Formulation, tracking, patient message.</td>
           <td>Write or approve a prescription.</td>
         </tr>
         <tr>
@@ -118,7 +118,7 @@
           <li>They book <span class="mono">tryregenrx.com/consult</span> — Ryan Kent phone visit, $49, 15 minutes. Square takes the card.</li>
           <li>They get Square’s confirmation (email/SMS) with the appointment time. Ryan calls them.</li>
           <li>If he does not prescribe: they paid for the visit. No therapy refund.</li>
-          <li>If he does prescribe: send them <span class="mono">tryregenrx.com/start</span> if intake is not done. On the Charm therapy invoice, credit $49 and paste the Square receipt id in the chart.</li>
+          <li>If he does prescribe: send them <span class="mono">tryregenrx.com/start</span> if intake is not done. Credit the $49 on the therapy invoice (type the net amount on Orders, or apply it in Charm) and paste the Square receipt id in the chart.</li>
         </ol>
       </div>
       <div class="card">
@@ -127,7 +127,7 @@
           <li>They complete <span class="mono">tryregenrx.com/start</span> (~8 min). Illinois, 21+. GORGEOUS20 = 20% off first medication order, shipping excluded, Ryan still decides.</li>
           <li>They do <strong>not</strong> pay for medication on the website.</li>
           <li>Ryan reviews at <span class="mono">tryregenrx.com/ops</span> → Today → Needs action → Chart.</li>
-          <li>If yes: Danielle sends the Charm invoice (see 04). If no: stop. No invoice.</li>
+          <li>If yes: Approve sends the Bluefin pay link. If no: stop. No invoice.</li>
         </ol>
       </div>
       <p>Out of state: stop. We do not work around Illinois.</p>
@@ -151,15 +151,15 @@
         </tr>
         <tr>
           <td>Ryan approves</td>
-          <td>Internal order is created. <strong>They do not automatically get a pay email from our site.</strong> Danielle must send the Charm invoice.</td>
+          <td>Internal order is created. Email and SMS go out with a <strong>Bluefin</strong> pay link (catalog price + $30 shipping). Sexual-health without a SKU: type the dollars on Orders, then Send pay link.</td>
         </tr>
         <tr>
-          <td>Charm invoice sent</td>
-          <td>Email and/or SMS from <strong>Charm</strong> with a <strong>Bluefin</strong> payment link. They tap Pay, enter the card on Bluefin’s page (or pay in the Charm patient portal Pay button). Receipt lives in Charm.</td>
+          <td>Pay link sent</td>
+          <td>Email from provider@hellogorgeousmedspa.com and/or SMS from our Twilio number. They tap Pay and enter the card on Bluefin. Charm is only if you built a backup invoice.</td>
         </tr>
         <tr>
           <td>Card posts</td>
-          <td>Charm receipt. We do not have an in-app “paid” toast on tryregenrx.com. Check Charm Billing. Then send the Rx.</td>
+          <td>Bluefin / PayConex receipt. Then send the Rx. Do not Send to Formulation before they pay — that charges the clinic wholesale.</td>
         </tr>
         <tr>
           <td>Rx sent to pharmacy</td>
@@ -170,12 +170,13 @@
           <td>Staff puts tracking on the order and sends one message: “Your medication left the pharmacy. Tracking is in your account.” SMS if we have a paid Square-era order wired for it.</td>
         </tr>
       </table>
-      <p>Tell them: compounded medication is not FDA-approved. A consult is not a guaranteed prescription. We are cash-pay. We do not bill insurance. Shipping is on the invoice ($25 most vials / $35 stacks unless you wrote something else).</p>
+      <p>Tell them: compounded medication is not FDA-approved. A consult is not a guaranteed prescription. We are cash-pay. We do not bill insurance. Shipping is $30 on the invoice unless you typed a different total.</p>
     </section>
 
     <section>
-      <p class="num">04 · How to send the invoice (Charm + Bluefin)</p>
-      <p>Sign in: <span class="mono">https://accounts.charmtracker.com/signin</span></p>
+      <p class="num">04 · How to send the invoice (automatic Bluefin · Charm backup)</p>
+      <p><strong>Normal path:</strong> Ryan Approves. The patient is emailed and texted. Resend on Orders → Send pay link. Type dollars first if there is no catalog SKU.</p>
+      <p>Charm backup — sign in: <span class="mono">https://accounts.charmtracker.com/signin</span></p>
       <ol>
         <li>Open the patient → <strong>Billing → + Invoice</strong>.</li>
         <li><strong>Clear Insurance / Payer.</strong> Self-pay. If insurance is on the invoice, Patient Responsibility stays $0 and Bluefin will not charge.</li>

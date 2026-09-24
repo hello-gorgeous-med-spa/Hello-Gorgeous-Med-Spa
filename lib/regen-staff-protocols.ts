@@ -164,7 +164,7 @@ export const REGEN_CORE_PROTOCOL_GUIDES: RegenProtocolGuide[] = [
     id: "operating-system-a-to-z",
     title: "REGEN RX Operating System — A to Z",
     description:
-      "Ryan + staff training: two doors, Charm invoice (not website-integrated), Bluefin pay link, Send to Formulation. Print / PDF.",
+      "Ryan + staff training: two doors, Approve emails the Bluefin pay link, Charm is backup, Send to Formulation. Print / PDF.",
     href: "/staff/protocols/guides/REGEN-RX-Operating-System-A-to-Z.html",
     category: "getting-started",
     format: "html",

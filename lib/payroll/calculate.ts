@@ -25,8 +25,10 @@ export function ryanTieredRate(monthlyGeneralSalesCents: number): number {
 }
 
 function bucketCommissionLabel(bucket: PayrollBucket): string {
-  if (bucket === "regen") return "ReGen";
+  if (bucket === "general") return "Esthetic / aesthetic services";
+  if (bucket === "regen") return "RE GEN RX prescribing";
   if (bucket === "luxora") return "Luxora";
+  if (bucket === "quantum") return "Quantum RF (NET)";
   if (bucket === "flowwave") return "FlowWave / shockwave";
   return bucket;
 }
@@ -96,6 +98,11 @@ export function buildStaffPayPreview(input: {
 
     if (c.type === "bucket_percent" && teamId) {
       const bucketSales = sumSales(periodSales, c.bucket, teamId);
+      if (bucketSales === 0 && sumSales(periodSales, c.bucket) > 0) {
+        warnings.push(
+          `${bucketCommissionLabel(c.bucket)} sales exist but none tagged to this provider — assign at checkout.`,
+        );
+      }
       lineItems.push({
         code: `${c.bucket}_commission`,
         label: `${bucketCommissionLabel(c.bucket)} commission (${(c.rate * 100).toFixed(0)}%)`,
@@ -113,6 +120,7 @@ export function buildStaffPayPreview(input: {
         (l) =>
           l.teamMemberId === teamId &&
           l.bucket !== "luxora" &&
+          l.bucket !== "quantum" &&
           l.bucket !== "regen" &&
           l.bucket !== "flowwave" &&
           l.bucket !== "excluded",

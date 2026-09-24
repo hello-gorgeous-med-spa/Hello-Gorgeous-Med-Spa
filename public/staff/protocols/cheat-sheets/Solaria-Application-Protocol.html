@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>STAFF ONLY — Solaria application protocol (InMode QRG April v1 2025)</title>
+  <style>
+    :root { --pink:#E6007E; --red:#9b1c1c; --ink:#111; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12.4px; line-height: 1.32; background: #f3e4ec; color: var(--ink); }
+    .page { max-width: 1080px; margin: 10px auto; background: #fff; border: 4px solid #000; padding: 12px 14px 14px; }
+    .banner { background: var(--red); color: #fff; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; font-size: 11px; text-align: center; padding: 6px; margin: -12px -14px 10px; }
+    h1 { font-size: 22px; font-weight: 900; }
+    .meta { color: var(--pink); font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+    h2 { background: #000; color: #fff; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; padding: 4px 8px; margin: 10px 0 6px; }
+    h2.pink { background: var(--pink); }
+    h2.gold { background: #6b3f00; }
+    table { width: 100%; border-collapse: collapse; font-size: 11.2px; }
+    th, td { border: 1px solid #000; padding: 5px 6px; vertical-align: top; }
+    th { background: #000; color: #fff; text-align: left; font-size: 10.5px; }
+    tr:nth-child(even) td { background: #fff0f7; }
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .card { border: 3px solid #000; padding: 8px; }
+    .card h3 { font-size: 13px; font-weight: 900; color: var(--pink); margin-bottom: 4px; }
+    .warn { color: var(--red); font-weight: 800; }
+    ul { padding-left: 16px; }
+    li { margin: 2px 0; }
+    .if { background: #111; color: #fff; display: inline-block; padding: 1px 6px; font-size: 10px; font-weight: 800; margin-right: 4px; }
+    .then { background: var(--pink); color: #fff; display: inline-block; padding: 1px 6px; font-size: 10px; font-weight: 800; margin-right: 4px; }
+    footer { font-size: 10px; font-weight: 700; color: #555; margin-top: 8px; border-top: 3px solid #000; padding-top: 5px; display: flex; justify-content: space-between; gap: 8px; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .never { background: #2a1215; color: #ffc9c2; border: 3px solid #000; padding: 8px; font-weight: 650; }
+    @media print {
+      body { background: #fff; }
+      .page { border: 0; margin: 0; max-width: none; page-break-after: always; }
+      .page:last-child { page-break-after: auto; }
+      @page { size: landscape; margin: .3in; }
+    }
+    @media (max-width: 800px) { .flow, .cols { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <div class="banner">Staff only — InMode typical ranges, not a standing order. Customize after test spot. Never hand to a client.</div>
+  <div class="meta">Hello Gorgeous · Solaria Fractional CO₂ · QRG April v1 2025 · Scanner handpiece</div>
+  <h1>Application protocol — what to pick, and why</h1>
+  <p><b>One primary application per zone per visit</b> unless the clinician documents a second, gentler pass for a different goal (example: dyschromia on temples, texture on cheeks). Do not average two applications into one “hot and dense” setting. <span class="warn">Higher density = lower energy. Lower density = higher energy. Off-face (neck, chest) = turn everything down.</span></p>
+
+  <h2>Step 1 — What is the #1 thing they hate in this zone?</h2>
+  <div class="flow">
+    <div class="card">
+      <h3>Skin resurfacing</h3>
+      <p><span class="if">IF</span> lines, crepe, “I want new skin,” overall quality, photo-aged field without the main complaint being pits or brown.</p>
+      <p style="margin-top:6px"><span class="then">THEN</span> Resurfacing row. This is the global refresh. Energy sits <b>below</b> texture.</p>
+      <p class="warn" style="margin-top:6px">Not the pigment pass. Not the scar-roughness pass.</p>
+    </div>
+    <div class="card">
+      <h3>Texture improvement</h3>
+      <p><span class="if">IF</span> pores, sandpaper, acne-scar surface, roughness they can feel with a fingertip.</p>
+      <p style="margin-top:6px"><span class="then">THEN</span> Texture row. Same densities as resurfacing, <b>energy shifted up</b> (light starts 30 mJ, heavy to 70 mJ).</p>
+      <p class="warn" style="margin-top:6px">This is the more aggressive quality pass. Match downtime or don’t pick Heavy.</p>
+    </div>
+    <div class="card">
+      <h3>Dyschromia</h3>
+      <p><span class="if">IF</span> brown, blotch, sun spots, mottled tone — color more than lines.</p>
+      <p style="margin-top:6px"><span class="then">THEN</span> Dyschromia row. <b>Much lower energy</b> (5–25 mJ), <b>higher density</b> allowed. You are peppering color, not carving columns for wrinkles.</p>
+      <p class="warn" style="margin-top:6px">Melasma is not automatically this row — heat can flare it. Stop and rethink.</p>
+    </div>
+    <div class="card">
+      <h3>Neck</h3>
+      <p><span class="if">IF</span> the zone is neck (or you are treating chest as off-face).</p>
+      <p style="margin-top:6px"><span class="then">THEN</span> Neck row only. <b>Micro tip. Light 5–15 mJ. One pass.</b> Do not copy the face program onto the neck.</p>
+      <p class="warn" style="margin-top:6px">Even if the face is Heavy texture, neck stays the Neck line.</p>
+    </div>
+  </div>
+
+  <h2>Step 2 — Light vs medium vs heavy (this is downtime, not price)</h2>
+  <table>
+    <tr>
+      <th></th>
+      <th>Pick Light when…</th>
+      <th>Pick Medium when…</th>
+      <th>Pick Heavy when…</th>
+    </tr>
+    <tr>
+      <td><b>Calendar</b></td>
+      <td>They can hide ~5–7 days (makeup often 5–7)</td>
+      <td>~7–10 days social downtime</td>
+      <td>2+ weeks is actually possible — no wedding, no sun trip</td>
+    </tr>
+    <tr>
+      <td><b>Skin / history</b></td>
+      <td>First CO₂, cautious, PIH risk, or test spot was modest</td>
+      <td>Prior laser, good healer, test spot looked as expected</td>
+      <td>Candidate + test spot tolerated + clinician OK. Not a $599 default.</td>
+    </tr>
+    <tr>
+      <td><b>Passes (QRG)</b></td>
+      <td>1 to 2 (Repeat mode = extra pass on the same scan for deeper fractional)</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td><b>Neck / chest</b></td>
+      <td colspan="3" class="warn">Stay Light band. Do not “match” a Heavy face. QRG neck is Light 5–15 mJ, 1 pass, Micro only.</td>
+    </tr>
+  </table>
+
+  <h2 class="pink">Step 3 — Micro vs Macro vs Face tip (this is anatomy, not the complaint)</h2>
+  <table>
+    <tr>
+      <th>Tip</th>
+      <th>QRG job</th>
+      <th>Use it on</th>
+      <th>Do not use it to…</th>
+    </tr>
+    <tr>
+      <td><b>Micro</b></td>
+      <td>Standard fractional ablation · face and neck · smaller spots</td>
+      <td><b>Default.</b> All neck. Most face work. Any time you want finer columns.</td>
+      <td>Skip it on neck so you can “cover faster” with Macro.</td>
+    </tr>
+    <tr>
+      <td><b>Macro</b></td>
+      <td>Larger treatment areas / more extensive ablation · slightly <b>larger spots</b> than Micro · higher % density on the chart</td>
+      <td>Broad fields: cheeks, forehead, jaw, full-face real estate when you need coverage.</td>
+      <td>Eyelids, lips, sides of nose, or neck. Macro is not “stronger resurfacing” — it is a bigger spot.</td>
+    </tr>
+    <tr>
+      <td><b>Face</b></td>
+      <td>Same ablation as Micro · built for tight geometry</td>
+      <td>Nose, periorbital, perioral — hard-to-reach corners.</td>
+      <td>Paint the whole cheek with Face tip “because it sounds fancier.”</td>
+    </tr>
+  </table>
+  <p style="margin-top:6px"><b>Typical full-face map:</b> Macro on cheeks/forehead → Face tip around eyes, lips, nose → Micro (or Face) at hairline/edges as needed → <b>switch to Neck row + Micro</b> if you continue under the jaw. Scanner for all of this. Surgical handpiece is lesion incision/excision only (4–10 W, 90 ms, 10 PPS) — not a menu add-on.</p>
+
+  <footer>
+    <span>Start low. Watch tissue. Raise energy first, then density. Endpoint: erythema, edema, stippled gray fractional epidermolysis.</span>
+    <span>InModeResources.com for current QRG</span>
+  </footer>
+</div>
+
+<div class="page">
+  <div class="banner">Staff only — page 2 · numbers from QRG + HG zone rules</div>
+  <h1>Numbers on the machine + how we combine zones</h1>
+
+  <h2>QRG typical parameters (Scanner)</h2>
+  <table>
+    <tr>
+      <th>Application</th>
+      <th>Tips allowed</th>
+      <th>Light mJ</th>
+      <th>Medium mJ</th>
+      <th>Heavy mJ</th>
+      <th>Density Micro / Face</th>
+      <th>Density Macro</th>
+      <th>Passes L / M / H</th>
+    </tr>
+    <tr>
+      <td><b>Skin resurfacing</b></td>
+      <td>Micro / Macro / Face</td>
+      <td>20–40</td>
+      <td>30–50</td>
+      <td>40–65</td>
+      <td>L 0.42%/1.5mm · M/H 0.89%/1mm</td>
+      <td>L 1.5%/1.8mm · M/H 3.2%/1.2mm</td>
+      <td>1–2 / 1 / 1</td>
+    </tr>
+    <tr>
+      <td><b>Texture improvement</b></td>
+      <td>Micro / Macro / Face</td>
+      <td>30–45</td>
+      <td>40–50</td>
+      <td>50–70</td>
+      <td>same as resurfacing</td>
+      <td>same as resurfacing</td>
+      <td>1–2 / 1 / 1</td>
+    </tr>
+    <tr>
+      <td><b>Dyschromia</b></td>
+      <td>Micro / Macro / Face</td>
+      <td>5–15</td>
+      <td>5–20</td>
+      <td>10–25</td>
+      <td>0.89–1.3% · 1mm–0.8mm</td>
+      <td>3.2–4.8% · 1.2mm–1mm</td>
+      <td>1–2 / 1 / 1</td>
+    </tr>
+    <tr>
+      <td><b>Neck</b></td>
+      <td><b>Micro only</b></td>
+      <td>5–15</td>
+      <td class="warn">not listed — do not invent Medium/Heavy neck</td>
+      <td class="warn">not listed</td>
+      <td>0.42%/1.5mm</td>
+      <td>1.5%/1.8mm <i>(chart lists Macro density; still Micro tip)</i></td>
+      <td>1 / — / —</td>
+    </tr>
+  </table>
+
+  <div class="cols" style="margin-top:8px">
+    <div>
+      <h2 class="pink">Mixed complaints — zone it, don’t blend it</h2>
+      <table>
+        <tr><th>What they want</th><th>Protocol</th></tr>
+        <tr><td>Lines + a few sun spots</td><td>Resurfacing on the field (cheeks/forehead). Optional lighter dyschromia-style energy only on discrete brown islands if the clinician wants a second, lower-energy pass — not a second Heavy.</td></tr>
+        <tr><td>Pores / scars + lines</td><td>Texture is the primary on the field. Do not also run Heavy resurfacing on the same skin the same day.</td></tr>
+        <tr><td>Mostly brown / blotch</td><td>Dyschromia primary. Do not “help it along” by jumping to texture Heavy because they paid $599.</td></tr>
+        <tr><td>Face + neck</td><td>Finish face. Change to <b>Neck application + Micro + Light 5–15 mJ + 1 pass</b>. Chart both.</td></tr>
+        <tr><td>Chest / décolleté</td><td>Off-face: reduce vs face (QRG caution). Treat as cautious as neck, not as cheeks. Quote separately.</td></tr>
+        <tr><td>Under-eyes / lips / nose</td><td>Face tip. Stay Light unless test spot and clinician say otherwise. Eye shields when treating near eyes.</td></tr>
+      </table>
+      <h2>Mode & pattern (internal)</h2>
+      <ul>
+        <li><b>Repeat</b> — extra pass on the same scanned area. QRG: typically deep fractional. That is how Light gets “1 to 2” passes. Medium/Heavy stay 1 unless clinician documents why.</li>
+        <li><b>Continuous</b> — keep scanning without lifting the footswitch. Do not narrate the pedal to the guest.</li>
+        <li><b>Random vs sequential</b> — layout of the dots. Sequential = line by line. Random = less patterned look. Pick for even coverage, not as a sales word.</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="gold">Room order (every Solaria)</h2>
+      <ol style="padding-left:18px">
+        <li>Candidate + downtime + photos.</li>
+        <li>Write the plan: <b>application + tip + light/med/heavy + zones</b> before the laser comes on.</li>
+        <li>Test spot when new patient, PIH risk, or any setting change. Several energies, smallest spot that still shows the expected response. Wait for healing if the QRG “several days prior” applies — don’t skip because the slot is full.</li>
+        <li>Numbing ≤ 45–60 min. Sensitive skin: extra caution. Reaction → stop.</li>
+        <li>Scanner + smoke evacuator + eyewear / shields.</li>
+        <li>Start at the <b>low end of the chosen band</b>. Watch tissue. Energy first, then density.</li>
+        <li>Wanted look: erythema, edema, stippled gray. Not char, not confluent white sheet.</li>
+        <li>Do not debride eschar. It is the dressing.</li>
+        <li>Teach aftercare out loud. Book follow-up photos.</li>
+      </ol>
+      <h2>Chart this or don’t fire</h2>
+      <ul>
+        <li>Primary application per zone</li>
+        <li>Tip (Micro / Macro / Face)</li>
+        <li>Band (L/M/H) and actual mJ / density used</li>
+        <li>Passes / Repeat yes-no</li>
+        <li>Test spot result</li>
+        <li>Neck/chest called out separately</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="never" style="margin-top:8px">
+    <b>Hard stops:</b> Do not pick Texture Heavy because the special is $599.
+    Do not run high mJ and high density together.
+    Do not put Macro or face-Heavy on the neck.
+    Do not stack Resurfacing Heavy + Texture Heavy on one zone.
+    Do not treat melasma as “just dyschromia.”
+    Do not treat the same day as consult if prep (antiviral, no tan, ride home) is missing.
+    Surgical handpiece ≠ cosmetic package.
+    This card yields to the current InMode QRG and the treating clinician.
+  </div>
+
+  <footer>
+    <span>Source: Solaria Fractional CO₂ Quick Reference Guide, April v1 2025. Practitioner must use the current version on InModeResources.com.</span>
+    <span>Client leave-behind has no mJ — keep it that way.</span>
+  </footer>
+</div>
+
+</body>
+</html>

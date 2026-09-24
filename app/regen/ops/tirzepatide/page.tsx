@@ -26,10 +26,25 @@ export default function TirzepatideOpsPage() {
             Formulation $40 / 1 mL at 12.5 mg/mL · retail 2.5× · 10% off 90-day. Same picker clients use on Start.
           </p>
         </div>
-        <Link href="/ops/reconstitution" className="text-sm text-teal-400 hover:text-teal-300">
-          Reconstitution →
-        </Link>
+        <div className="flex flex-wrap gap-3">
+          <Link href="/ops/clinical?sheet=Tirzepatide-Consult-Checklist" className="text-sm text-teal-400 hover:text-teal-300">
+            Consult checklist →
+          </Link>
+          <Link href="/ops/reconstitution" className="text-sm text-teal-400 hover:text-teal-300">
+            Reconstitution →
+          </Link>
+        </div>
       </div>
+
+      <a
+        href="/ops/clinical?sheet=Tirzepatide-Consult-Checklist"
+        className="block rounded-2xl border border-teal-400/30 bg-teal-500/10 px-4 py-3 text-sm text-teal-50 hover:bg-teal-500/15"
+      >
+        <p className="font-semibold text-white">Tirzepatide consult checklist</p>
+        <p className="mt-0.5 text-white/60">
+          Open the offline consult sheet in Clinical — screening, talking points, chart notes. Not a standing order.
+        </p>
+      </a>
 
       <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
         <TirzepatidePlanPicker

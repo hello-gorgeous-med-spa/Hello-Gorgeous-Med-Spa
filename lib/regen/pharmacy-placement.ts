@@ -15,7 +15,7 @@ export const BOOMRX_STAFF_PORTAL_URL =
 export const REGEN_PHARMACY_PLACEMENT_COPY = {
   staffTitle: "Send this Rx to Formulation",
   staffDetail:
-    "Ryan approves. Then Danielle or Ryan taps Send to Formulation — that charges the clinic account and forwards the Rx. BoomRx is only for SKUs Formulation does not carry (e.g. BPC/TB recovery stack). Patients never order from the pharmacy.",
+    "Ryan approves. The patient gets a Bluefin pay link. After it posts, Danielle or Ryan taps Send to Formulation — that charges the clinic account and forwards the Rx. BoomRx is only for SKUs Formulation does not carry (e.g. BPC/TB recovery stack). Patients never order from the pharmacy.",
   patientStepLabel: "Pharmacy fulfillment",
   patientPending:
     "Our RE GEN team is placing your prescription with the pharmacy. You will receive tracking when it ships.",

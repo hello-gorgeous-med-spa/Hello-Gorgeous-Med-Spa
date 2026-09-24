@@ -1,8 +1,11 @@
+import { formulationTirzPatientWholesaleUsd } from '@/lib/glp1-formulation-catalog';
 import { REGEN_90DAY_DISCOUNT, REGEN_MARKUP } from '@/lib/regen/pricing-sync';
 import { REGEN_VIAL_SHIPPING_USD } from '@/lib/regen/vitamin-vial-pricing';
 
-/** Formulation Rx: $40 for 1 mL at 12.5 mg/mL. */
-export const TIRZ_WHOLESALE_PER_ML = 40;
+/** Office 503B stock only — Chelsea confirmed $600 / 15 mL. Not the telehealth pack price. */
+export const TIRZ_OFFICE_503B_PER_ML = 40;
+/** @deprecated Use TIRZ_OFFICE_503B_PER_ML — patient fills use Chelsea pack SKUs 2498–2502. */
+export const TIRZ_WHOLESALE_PER_ML = TIRZ_OFFICE_503B_PER_ML;
 export const TIRZ_STRENGTH_MG_PER_ML = 12.5;
 export const TIRZ_VIAL_ML = 1;
 export const TIRZ_RETAIL_PER_VIAL = TIRZ_WHOLESALE_PER_ML * REGEN_MARKUP;
@@ -83,7 +86,7 @@ export function quoteTirzepatide(weeklyMg: number, termDays: TirzTermDays): Tirz
   const vials = monthlyVials * months;
   const mgNeeded = weeklyMg * weeks;
   const mlNeeded = mgNeeded / TIRZ_STRENGTH_MG_PER_ML;
-  const wholesale = vials * TIRZ_WHOLESALE_PER_ML;
+  const wholesale = formulationTirzPatientWholesaleUsd(vials);
   const retailBeforeDiscount = vials * TIRZ_RETAIL_PER_VIAL;
   const discount = termDays === 90 ? Math.round(retailBeforeDiscount * REGEN_90DAY_DISCOUNT * 100) / 100 : 0;
   const retail = Math.round((retailBeforeDiscount - discount) * 100) / 100;

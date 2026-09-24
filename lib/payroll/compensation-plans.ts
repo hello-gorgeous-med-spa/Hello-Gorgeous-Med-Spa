@@ -10,45 +10,32 @@ export const SQUARE_TEAM = {
 } as const;
 
 /**
- * Canonical compensation — sourced from signed agreements (July 2026).
+ * Canonical compensation — sourced from signed agreements.
+ * Ryan: September 11, 2026 collaborative prescriber agreement
+ * (50% NET Quantum he performs · 20% after cost on all other production).
  * Weekly pay cycle; Square Payroll runs W-2 + Ryan 1099 contractor payouts.
  */
 export const COMPENSATION_PLANS: StaffCompensationPlan[] = [
   {
     id: "ryan-kent",
     displayName: "Ryan Kent, FNP-BC",
-    role: "Nurse Practitioner · Independent Contractor (1099)",
+    role: "Nurse Practitioner · At-will 1099 · RE GEN clinical lead · 50% Quantum NET / 20% after cost",
     squareTeamMemberId: SQUARE_TEAM.ryan,
     payoutChannel: "square_payroll_1099",
     payFrequency: "weekly",
     components: [
-      {
-        type: "flat_monthly_oversight",
-        tiers: [
-          { minWeeklyHours: 20, monthlyCents: 75_000 },
-          { minWeeklyHours: 30, monthlyCents: 100_000 },
-          { minWeeklyHours: 38, monthlyCents: 150_000 },
-        ],
-        maxMonthlyCents: 150_000,
-      },
-      {
-        type: "tiered_monthly_volume",
-        tiers: [
-          { minMonthlySalesCents: 0, rate: 0.1 },
-          { minMonthlySalesCents: 1_000_000, rate: 0.15 },
-          { minMonthlySalesCents: 2_000_000, rate: 0.2 },
-        ],
-        volumePeriod: "calendar_month",
-      },
-      { type: "bucket_percent", bucket: "regen", rate: 0.1 },
-      { type: "bucket_percent", bucket: "luxora", rate: 0.5 },
-      { type: "google_review_bonus", dollarsPerReview: 10 },
+      { type: "bucket_percent", bucket: "quantum", rate: 0.5 },
+      { type: "bucket_percent", bucket: "general", rate: 0.2 },
+      { type: "bucket_percent", bucket: "regen", rate: 0.2 },
+      { type: "bucket_percent", bucket: "flowwave", rate: 0.2 },
     ],
     notes: [
-      "Oversight is flat monthly (max $1,500) from clocked admin hours — not hourly clinical time.",
-      "Tiered commission applies to collected general services only; ReGen and Luxora are separate.",
-      "Commission on collected revenue only — no unpaid, refunds, chargebacks, no-shows, or comps.",
-      "Paid via Square Payroll as 1099-NEC contractor.",
+      "At-will 1099 — no salary or hourly. Clinical lead for RE GEN RX; protocol pathway staff may chart/transmit under his protocols.",
+      "Bucket Q: scheduled Quantum RF / Luxora he personally performs — 50% of NET (collected − refunds − Quantum COGS). Preview currently uses collected × 50% until COGS is keyed on the line.",
+      "Bucket R: peptides, weight loss, consults, telehealth, injectables, and any other service he performs or prescribes — 20% after cost. Preview currently uses collected × 20% until COGS is keyed.",
+      "Collected only — no unpaid, refunds, chargebacks, no-shows, comps, or shipping.",
+      "No prescription quota. Declined charts earn $0. Paid via Square Payroll as 1099-NEC.",
+      "Supersedes the same-day flat 20% production letter and the July 2026 mix. Agreement: docs/legal/ryan-kent-collaborative-prescriber-agreement-2026.md",
     ],
   },
   {

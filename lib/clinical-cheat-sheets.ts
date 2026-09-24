@@ -121,6 +121,13 @@ export const CLINICAL_CHEAT_SHEETS: ClinicalCheatSheet[] = [
     "injectables",
   ),
   sheet(
+    "Tirzepatide-Consult-Checklist.html",
+    "Tirzepatide — Consult Checklist",
+    "Offline consult checklist for tirzepatide visits — screening, talking points, and chart notes.",
+    "weight-loss",
+    { opsFeatured: true },
+  ),
+  sheet(
     "NPA-GLP1-Clinical-Cheat-Sheet.html",
     "GLP-1 — Clinical (NPA)",
     "Semaglutide vs tirzepatide, titration, labs, interactions, and consult notes.",
@@ -228,6 +235,34 @@ export const CLINICAL_CHEAT_SHEETS: ClinicalCheatSheet[] = [
     "Olympia IV Dosing Guide",
     "Olympia wholesale IV formulation reference.",
     "iv-peptides",
+  ),
+  sheet(
+    "Solaria-Consult-Staff.html",
+    "Solaria CO₂ — Consult & Parameters",
+    "InMode QRG settings plus consult selling language. Staff only — never hand to a client.",
+    "skin-laser",
+    { opsFeatured: true },
+  ),
+  sheet(
+    "Solaria-Application-Protocol.html",
+    "Solaria CO₂ — Application Protocol",
+    "When to pick resurfacing vs texture vs dyschromia vs neck, and Micro vs Macro vs Face.",
+    "skin-laser",
+    { opsFeatured: true },
+  ),
+  sheet(
+    "Solaria-Science-Staff.html",
+    "Solaria CO₂ — Science Talk Track",
+    "Why fractional CO₂ is the medical tool for resurfacing and texture — say this / don’t say.",
+    "skin-laser",
+    { opsFeatured: true },
+  ),
+  sheet(
+    "Solaria-Consult-QA-Staff.html",
+    "Solaria CO₂ — Consult Q&A",
+    "Popular questions with say-this / don't-say. Staff only.",
+    "skin-laser",
+    { opsFeatured: true },
   ),
   sheet(
     "ipl-laser-clinical-cheat-sheet.pdf",

@@ -27,8 +27,9 @@ export default function ComplianceBinderPage() {
         </p>
         <h2 className="mt-1 text-xl font-black text-black">Print the full packet</h2>
         <p className="mt-2 text-sm text-black/75">
-          One print job for the adoption/sign-off page plus core protocols 01–12. Then print the
-          three complete SOP kits. After he signs, hole-punch and store at the front desk.
+          One print job for the adoption/sign-off page plus core protocols 01–12 and GLP-1 RN
+          delegation 14–15. Then print the three complete SOP kits. After he signs, hole-punch
+          and store at the front desk.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
           <Link

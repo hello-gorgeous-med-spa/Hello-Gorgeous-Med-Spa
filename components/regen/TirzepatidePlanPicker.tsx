@@ -111,7 +111,7 @@ export function TirzepatidePlanPicker({
         </p>
         {ops && (
           <p className="text-xs text-teal-300 mt-2">
-            COGS {formatUsd(quote.wholesale)} ({quote.vials} × {formatUsd(TIRZ_WHOLESALE_PER_ML)}) · retail {formatUsd(TIRZ_RETAIL_PER_VIAL)}/vial · margin {formatUsd(quote.retail - quote.wholesale)}
+            COGS {formatUsd(quote.wholesale)} Chelsea pack · office 503B {formatUsd(TIRZ_WHOLESALE_PER_ML)}/mL · retail {formatUsd(TIRZ_RETAIL_PER_VIAL)}/vial · margin {formatUsd(quote.retail - quote.wholesale)}
           </p>
         )}
       </div>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 150" role="img" aria-label="Hello Gorgeous Medical Spa">
+  <g fill="none" stroke="#FFB8DC" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M28 58h22M39 47v22"/>
+    <path d="M54 58h38l10-22 16 50 14-28h48"/>
+  </g>
+  <text x="210" y="72" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="54" letter-spacing="4" fill="#FFFFFF">HELLO</text>
+  <text x="430" y="72" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="54" letter-spacing="4" fill="#FFB8DC">GORGEOUS</text>
+  <text x="210" y="122" font-family="Inter, Helvetica Neue, Arial, sans-serif" font-weight="600" font-size="28" letter-spacing="8" fill="#FFFFFF">Medical Spa</text>
+</svg>

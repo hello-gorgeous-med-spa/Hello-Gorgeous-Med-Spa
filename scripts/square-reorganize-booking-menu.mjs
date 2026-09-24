@@ -32,8 +32,9 @@ if (!TOKEN || TOKEN.length < 10) {
  * label_color = hex for Square POS item label.
  */
 const CATEGORY_META = {
-  "End of July Specials": { ordinal: 0, label_color: "FF2D8E", calendarHint: "Hot pink / promo" },
-  "Skin Spa": { ordinal: 1, label_color: "FB7185", calendarHint: "Soft rose / pink" },
+  "HOCO Specials": { ordinal: 0, label_color: "FF2D8E", calendarHint: "Hot pink / HOCO promo" },
+  "End of July Specials": { ordinal: 1, label_color: "FF2D8E", calendarHint: "Hot pink / promo" },
+  "Skin Spa": { ordinal: 2, label_color: "FB7185", calendarHint: "Soft rose / pink" },
   "AnteAGE Skin Regeneration": { ordinal: 2, label_color: "10B981", calendarHint: "Green" },
   FlowWave: { ordinal: 3, label_color: "7C3AED", calendarHint: "Purple" },
   "RE GEN Peptide Therapy": { ordinal: 4, label_color: "8B5CF6", calendarHint: "Violet" },
@@ -58,6 +59,7 @@ const CATEGORY_META = {
 /** First match wins — keep specific rules above broad Skin Spa catch-alls. */
 const MOVE_RULES = [
   // Promo / limited-time (keep first)
+  { re: /^hoco\b|homecoming|lash & brow glow up|lash and brow glow up|high school acne facial/i, cat: "HOCO Specials" },
   { re: /july special|end of july|40 units \+ 20|hydrafacial bogo/i, cat: "End of July Specials" },
 
   // Shockwave / recovery

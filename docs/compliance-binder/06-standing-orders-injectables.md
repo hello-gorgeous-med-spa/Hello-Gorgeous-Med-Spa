@@ -21,7 +21,7 @@ Under these standing orders, the following may be performed by **authorized, tra
 - **Hyaluronic acid (HA) dermal fillers** for FDA-approved and/or accepted cosmetic indications (e.g., nasolabial folds, lips, midface, tear trough per training), using approved products, dosing, and techniques.
 - **Hyaluronidase** — Only for reversal of HA filler (vascular occlusion or overcorrection) per the **Hyaluronidase Emergency Protocol** and dosing specified below or in a separate signed addendum.
 
-**Exclusions:** No treatment outside the above scope without a specific physician order. No use of hyaluronidase for non-HA products.
+**Exclusions:** No treatment outside the above scope without a specific physician order. No use of hyaluronidase for non-HA products. **GLP-1 / weight-loss injections are not covered here** — use binder **14** (RN delegation) and a patient-specific order (binder **15**).
 
 ---
 

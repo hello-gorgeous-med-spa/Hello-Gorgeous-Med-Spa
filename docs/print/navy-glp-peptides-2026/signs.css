@@ -1,0 +1,219 @@
+/* Hello Gorgeous — navy / pink “simple affordable” print kit
+   Yard: 18×24 in  ·  Window vinyl: 36×48 in
+   Print → Save as PDF → paper size matches the board → Margins: None → Background graphics ON */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+:root {
+  --navy: #0b1228;
+  --pink: #ff6ba8;
+  --white: #ffffff;
+  --mute: #d8deea;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #e8e8e8;
+  font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.no-print {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 20px 22px 8px;
+  color: #111;
+}
+.no-print h1 { font-size: 22px; margin: 0 0 8px; }
+.no-print p, .no-print li { font-size: 14px; line-height: 1.45; margin: 0 0 8px; }
+.no-print button, .no-print a.btn {
+  display: inline-block;
+  font: inherit;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: var(--pink);
+  color: #0b1228;
+  border: 0;
+  padding: 10px 16px;
+  margin: 4px 6px 12px 0;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+.board {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--white);
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+.board:last-of-type { page-break-after: auto; }
+
+.yard {
+  width: 18in;
+  height: 24in;
+  padding: 1.15in 0.85in 1in;
+}
+.yard.yard-tight {
+  padding: 1.2in 0.9in 1.15in;
+}
+.window {
+  width: 36in;
+  height: 48in;
+  padding: 2.2in 1.8in 2in;
+}
+
+.kicker {
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 0.28in;
+  color: var(--mute);
+}
+.sub {
+  margin-top: 0.12in;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.2in;
+  color: var(--mute);
+}
+.hero {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+}
+.hero .line { display: block; }
+.hero .pink { color: var(--pink); }
+.price {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--pink);
+  line-height: 0.88;
+}
+.price .mo {
+  font-size: 0.42em;
+  letter-spacing: -0.02em;
+}
+.support {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+}
+.support .pink { color: var(--pink); }
+.phone {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--white);
+}
+.fine {
+  font-weight: 500;
+  color: var(--mute);
+  letter-spacing: 0.04em;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.yard .logo { max-width: 15.6in; }
+.yard-tight {
+  justify-content: flex-start;
+  gap: 0.95in;
+}
+.yard-tight .offer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-bottom: 0.15in;
+}
+
+.yard .hero { font-size: 1.42in; }
+.yard .price { font-size: 2.05in; margin: 0; }
+.yard .support { font-size: 0.38in; }
+.yard .phone {
+  font-size: 1.02in;
+  letter-spacing: 0.01em;
+  margin-top: 0;
+  line-height: 1;
+}
+.yard .fine { font-size: 0.16in; margin-top: 0.18in; }
+
+.window .kicker { font-size: 0.48in; letter-spacing: 0.32em; }
+.window .sub { font-size: 0.34in; }
+.window .hero { font-size: 3.4in; }
+.window .price { font-size: 4.4in; margin: 0.25in 0 0.35in; }
+.window .support { font-size: 0.72in; }
+.window .phone { font-size: 0.95in; margin-top: 0.55in; }
+.window .fine { font-size: 0.28in; margin-top: 0.28in; }
+
+.window.window-menu {
+  padding: 1.05in 1.35in 0.95in;
+  justify-content: flex-start;
+  gap: 0.42in;
+}
+.window-menu .logo { max-width: 30in; }
+.window-menu .menu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0;
+  padding: 0.15in 0 0.2in;
+}
+.window-menu .group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2in;
+}
+.window-menu .cat {
+  font-size: 0.62in;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink);
+  line-height: 1;
+  margin-bottom: 0.06in;
+}
+.window-menu .item {
+  font-weight: 800;
+  font-size: 1.78in;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+.window-menu .item .soft,
+.window-menu .item .brands {
+  display: none;
+}
+.window-menu .foot {
+  flex: none;
+  border-top: 0.055in solid var(--pink);
+  padding-top: 0.42in;
+  margin-top: 0.1in;
+}
+.window-menu .phone {
+  font-size: 1.7in;
+  letter-spacing: -0.02em;
+  margin-top: 0;
+  line-height: 1;
+}
+.window-menu .fine {
+  font-size: 0.26in;
+  margin-top: 0.14in;
+}
+
+@media print {
+  body { background: #fff; }
+  .no-print { display: none !important; }
+}

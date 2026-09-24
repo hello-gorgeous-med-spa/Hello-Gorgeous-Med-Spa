@@ -16,8 +16,9 @@
 
 | Role | Name |
 |------|------|
-| Medical Director / collaborating physician | **Mukesh Arora, MD** (Internal Medicine) |
-| On-site APRN | **Ryan Kent, FNP-BC** |
+| Medical Director / ordering physician | **Mukesh Arora, MD** (Internal Medicine) |
+| Illinois APRN (when credentialed) | **Ryan D Kent, FNP-BC FPA** (277.003448 · NPI 1265021919) |
+| Authorized RN — in-clinic GLP-1 administration | **Diana Simms, RN** (see binder **14**) |
 | Practice owner | **Danielle Alcala-Glazier** |
 
 ---
@@ -49,6 +50,8 @@ These documents are **practice templates**. They are not a substitute for the Me
 11. Compounded semaglutide & tirzepatide  
 12. GLP-1 monitoring, adverse events, and off-ramps  
 13. Practice readiness audit  
+14. GLP-1 RN administration delegation *(physician + RN signatures)*  
+15. GLP-1 RN visit checklist and order pad  
 
 ### B. Attached SOP kits (print the three COMPLETE PDFs)
 
@@ -68,7 +71,7 @@ Each kit PDF already includes a medical-director authorization block. Sign those
 
 ## How the front desk uses this after signature
 
-1. Hole-punch the signed cover, sections 01–12, standing orders, the three kit PDFs, and the credentials tab.  
+1. Hole-punch the signed cover, sections 01–12, **14–15**, standing orders, the three kit PDFs, and the credentials tab.  
 2. Tabs: **Sign-off · Emergency · Injectables · Laser · Consents · GLP-1 · IDFPR · Kits · Credentials**.  
 3. Store at the front desk. Do not take the original off site.  
 4. To reprint after wear or a lost page: Admin → Clinical Guidance → **Compliance Binder** → **Print packet**.  
@@ -91,14 +94,24 @@ I have reviewed the Hello Gorgeous Med Spa compliance binder listed above (core 
 
 ---
 
-## Collaborating APRN acknowledgment
+## Authorized RN acknowledgment (GLP-1 administration)
+
+I will inject GLP-1 only under binder **14** and a current patient-specific order. I will not prescribe or choose doses.
+
+**Name (print):** Diana Simms, RN  
+**Illinois RN license #:** _______________________  
+**Signature:** _______________________  
+**Date:** _____________
+
+---
+
+## Covering APRN acknowledgment (when credentialed)
 
 I have read these protocols and will practice within my license, the signed standing orders, and this binder.
 
-**Name (print):** Ryan Kent, FNP-BC  
-**Illinois APRN license #:** _______________________  
-**Signature:** _______________________  
-**Date:** _____________
+**Name (print):** Ryan D Kent, FNP-BC FPA  
+**Illinois APRN license #:** 277.003448  
+**Signature:** _______________________ **Date:** _____________
 
 ---
 

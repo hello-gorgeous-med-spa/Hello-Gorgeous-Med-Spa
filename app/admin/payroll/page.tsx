@@ -16,17 +16,13 @@ function payoutLabel(channel: StaffPayPreview["payoutChannel"]): string {
 export default function AdminPayrollPage() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<PayrollPreviewResult | null>(null);
-  const [ryanReviews, setRyanReviews] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const q = new URLSearchParams({
-        ryanReviews: String(ryanReviews),
-      });
-      const res = await fetch(`/api/admin/payroll/preview?${q}`, { cache: "no-store" });
+      const res = await fetch("/api/admin/payroll/preview", { cache: "no-store" });
       const json = (await res.json()) as PayrollPreviewResult & { error?: string };
       if (!res.ok) throw new Error(json.error || "Failed to load payroll preview");
       setData(json);
@@ -35,7 +31,7 @@ export default function AdminPayrollPage() {
     } finally {
       setLoading(false);
     }
-  }, [ryanReviews]);
+  }, []);
 
   useEffect(() => {
     load();
@@ -55,22 +51,22 @@ export default function AdminPayrollPage() {
         <h1 className="text-2xl font-black">Weekly payroll preview</h1>
         <p className="text-sm text-black/70 mt-1 max-w-2xl">
           Pay rules from signed agreements · <strong>Monday–Sunday</strong> pay periods · Run payouts in{" "}
-          <strong>Square Payroll</strong> (W-2 + Ryan 1099). Danielle is owner draw — not in this run.
+          <strong>Square Payroll</strong> (W-2 + Ryan 1099). Ryan is <strong>50% NET on Quantum</strong> he
+          performs and <strong>20% after cost</strong> on peptides, weight loss, consults, telehealth,
+          injectables, and other services he performs or prescribes. Danielle is owner draw — not in this
+          run.
+        </p>
+        <p className="text-sm mt-2">
+          <a
+            href="/staff/protocols/guides/Ryan-Kent-Collaborative-Prescriber-Agreement.html"
+            className="text-[#E6007E] font-medium hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Print Ryan&apos;s collaborative prescriber agreement →
+          </a>
         </p>
       </div>
-
-      <section className="grid sm:grid-cols-1 gap-3 mb-6 max-w-md">
-        <label className="block text-sm border-2 border-black rounded-xl p-3 bg-white">
-          <span className="font-semibold">Ryan — Google reviews this week</span>
-          <input
-            type="number"
-            min={0}
-            value={ryanReviews}
-            onChange={(e) => setRyanReviews(parseInt(e.target.value, 10) || 0)}
-            className="mt-1 w-full border border-black/20 rounded px-2 py-1"
-          />
-        </label>
-      </section>
 
       <div className="flex gap-2 mb-4">
         <button

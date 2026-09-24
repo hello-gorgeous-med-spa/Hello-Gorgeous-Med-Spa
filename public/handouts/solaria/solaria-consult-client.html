@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Solaria CO₂ — Your consult | Hello Gorgeous Med Spa</title>
+  <style>
+    :root {
+      --pink: #E6007E;
+      --hot: #FF2D8E;
+      --rose: #FFF0F7;
+      --tint: #FFB8DC;
+      --dark: #0a0a0a;
+      --plum: #2d1020;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--dark);
+      background: linear-gradient(180deg, var(--rose) 0%, #fff 40%, #fafafa 100%);
+      line-height: 1.45;
+    }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 20px 16px 48px; }
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #1a0a12 40%, var(--plum) 70%, var(--dark) 100%);
+      color: #fff;
+      border: 4px solid #000;
+      border-radius: 24px;
+      padding: 28px 24px 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 8px 8px 0 0 rgba(230,0,126,0.35);
+    }
+    .hero::after {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 90% -10%, #E6007E55, transparent 50%),
+        radial-gradient(ellipse 50% 60% at 0% 100%, #FF2D8E33, transparent 50%);
+      pointer-events: none;
+    }
+    .hero > * { position: relative; z-index: 1; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1);
+      backdrop-filter: blur(8px); border-radius: 999px; padding: 6px 12px;
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--tint);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pink); }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; margin: 12px 0 8px; letter-spacing: -0.03em; }
+    h1 span {
+      background: linear-gradient(90deg, #FFB8DC, #FF2D8E, #E6007E);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+    .sub { color: rgba(255,255,255,.82); font-weight: 500; max-width: 38rem; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .btn {
+      display: inline-block; text-decoration: none; font-weight: 800; font-size: 14px;
+      padding: 12px 18px; border-radius: 999px; border: 2px solid #000;
+    }
+    .btn-p { background: linear-gradient(125deg, #FF2D8E, #E6007E 55%, #9b0a4d); color: #fff; }
+    .btn-o { background: transparent; color: #fff; border-color: rgba(255,255,255,.55); }
+    .grid { display: grid; gap: 16px; margin-top: 20px; }
+    @media (min-width: 700px) { .grid-2 { grid-template-columns: 1fr 1fr; } .grid-4 { grid-template-columns: repeat(4, 1fr); } }
+    .card {
+      background: #fff; border: 4px solid #000; border-radius: 24px;
+      padding: 18px 18px 16px; box-shadow: 8px 8px 0 0 rgba(230,0,126,0.35);
+    }
+    .badge {
+      display: inline-block; background: linear-gradient(90deg, #FF2D8E, #E6007E);
+      color: #fff; border: 2px solid #000; border-radius: 10px;
+      font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+      padding: 3px 8px; margin-bottom: 8px;
+    }
+    h2 { font-size: 1.15rem; font-weight: 900; margin-bottom: 8px; }
+    .q { color: var(--pink); font-weight: 800; }
+    ul { padding-left: 1.1rem; }
+    li { margin: 4px 0; font-weight: 500; color: rgba(0,0,0,.85); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; background: #000; color: #fff; padding: 8px; }
+    td { border-bottom: 2px solid #000; padding: 8px; font-weight: 600; }
+    tr:nth-child(even) td { background: var(--rose); }
+    .price {
+      background: linear-gradient(125deg, #FF2D8E 0%, #E6007E 45%, #9b0a4d 100%);
+      color: #fff; border: 4px solid #000; border-radius: 24px; padding: 22px;
+      box-shadow: 8px 8px 0 0 rgba(0,0,0,.35);
+    }
+    .price h2 { font-size: 1.4rem; }
+    .big { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.04em; }
+    .fine { font-size: 12px; color: rgba(0,0,0,.6); font-weight: 600; margin-top: 12px; }
+    .qr { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 14px; }
+    .qr img { width: 92px; height: 92px; background: #fff; border-radius: 8px; padding: 4px; }
+    footer { margin-top: 18px; font-size: 12px; font-weight: 600; color: rgba(0,0,0,.55); }
+    @media print {
+      body { background: #fff; }
+      .wrap { padding: 0; max-width: none; }
+      .hero, .card, .price { box-shadow: none; break-inside: avoid; }
+      .btn-o { color: #000; border-color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="pill"><span class="dot"></span> Oswego, IL · InMode Solaria · Consult sheet</div>
+      <h1>Your skin, renewed with <span>Solaria CO₂</span></h1>
+      <p class="sub">Fractional ablative laser — the workhorse for lines, sun damage, texture, and acne scars. We map a plan to your downtime, not a one-size setting.</p>
+      <div class="cta-row">
+        <a class="btn btn-p" href="https://www.hellogorgeousmedspa.com/book">Book a free consult</a>
+        <a class="btn btn-o" href="tel:6306366193">Call (630) 636-6193</a>
+      </div>
+    </header>
+
+    <div class="grid grid-4" style="margin-top:20px">
+      <div class="card"><div class="badge">01</div><h2>Resurface</h2><p>Softens lines and refreshes the top layers so skin looks smoother and brighter.</p></div>
+      <div class="card"><div class="badge">02</div><h2>Texture</h2><p>Helps pores, roughness, and acne-scar look — without a “full-field” old-school peel.</p></div>
+      <div class="card"><div class="badge">03</div><h2>Tone</h2><p>Sun spots and uneven pigment are a core reason people choose CO₂.</p></div>
+      <div class="card"><div class="badge">04</div><h2>Neck too</h2><p>Neck and chest can be treated more gently than the face. We plan that on purpose.</p></div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="badge">Visit</div>
+        <h2>What today looks like</h2>
+        <p class="q">▸ Free consult first</p>
+        <p>We check your history, skin type, goals, and how much social downtime you can take. If CO₂ is not the right tool, we say so.</p>
+        <p class="q" style="margin-top:10px">▸ Comfort plan</p>
+        <p>Topical numbing is typically 30–45 minutes. Sensitive skin gets extra care. If anything feels wrong, we stop.</p>
+        <p class="q" style="margin-top:10px">▸ Treatment</p>
+        <p>The laser is customized to your face and — if we add it — neck. Mild plans are quicker; deeper plans take longer. Most visits are 1½–3 hours with photos, numbing, and aftercare.</p>
+      </div>
+      <div class="card">
+        <div class="badge">Honest</div>
+        <h2>Downtime (typical ranges)</h2>
+        <table>
+          <thead><tr><th>Plan</th><th>Redness</th><th>Makeup</th></tr></thead>
+          <tbody>
+            <tr><td>Light</td><td>2–3 days</td><td>~5–7 days</td></tr>
+            <tr><td>Moderate</td><td>3–5 days</td><td>~7–10 days</td></tr>
+            <tr><td>Deeper</td><td>5–7 days</td><td>2+ weeks</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">Peeling and pinkness keep evolving after that. Collagen remodeling can continue for 3–6 months. Your result is yours — we do not promise a magazine photo.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="badge">Before</div>
+        <h2>How to arrive ready</h2>
+        <ul>
+          <li>No fresh tan, tanning beds, or unprotected sun.</li>
+          <li>Come with clean, product-free skin — no lotion, makeup, perfume, or oils.</li>
+          <li>A button-down shirt is easier after face / neck / chest.</li>
+          <li>No contact lenses in the treatment area visit.</li>
+          <li>If we use stronger comfort measures, arrange a ride home.</li>
+          <li>We may start an antiviral the day or two before if your history calls for it.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="badge">After</div>
+        <h2>The first week at home</h2>
+        <ul>
+          <li>Cool packs as directed (on/off — do not freeze the skin).</li>
+          <li>Keep ointment on as we show you. Do not pick or scrub scabs.</li>
+          <li>Gentle cleanser twice a day once we say you can wash.</li>
+          <li>Sleep with extra pillows if the face is puffy.</li>
+          <li>Broad-spectrum SPF 50+ and a hat. No sun-seeking for the first weeks.</li>
+          <li>Itching and tightness are common. Call us for anything that worries you.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="price">
+      <div class="badge" style="border-color:#fff">Fall special</div>
+      <h2>InMode Solaria CO₂</h2>
+      <p class="big">$599</p>
+      <p>Was $899 · complimentary recovery serum · through October 31, 2026 · limited appointments</p>
+      <p style="margin-top:8px;font-weight:700">Neck, chest, and under-eyes are mapped at consult — we do not guess those on a flyer.</p>
+      <div class="qr">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&amp;data=https%3A%2F%2Fwww.hellogorgeousmedspa.com%2Fbook" width="92" height="92" alt="Book QR" />
+        <div>
+          <p style="font-weight:800">Scan to book · hellogorgeousmedspa.com/book</p>
+          <p>74 W Washington St, Oswego IL · Text (630) 201-6867</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <p class="q">▸ Questions</p>
+      <p style="font-weight:600">Downtime, makeup, sun, neck, Accutane, cold sores, darker skin, melasma — we wrote the common ones down.</p>
+      <p style="margin-top:8px"><a href="./solaria-consult-qa-client.html" style="font-weight:800;color:#E6007E">Open the full Q&amp;A →</a></p>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <p class="q">▸ From Danielle</p>
+      <p style="font-weight:600">I sat in the chair. I am a believer. I bought Solaria because I was tired of covering texture — not for a brochure. Your result will be yours. Mine is mine.</p>
+      <p style="margin-top:8px;font-weight:800">xoxo, Danielle · Founder · InMode-trained</p>
+    </div>
+
+    <p class="fine">Hello Gorgeous Med Spa · NP-directed · Medical Director Dr. Mukesh Arora, MD. Compounded and device treatments are individualized. Solaria is InMode fractional CO₂. Results vary. Consultation required. This sheet is education — not a guarantee, diagnosis, or standing order. Full care guide: hellogorgeousmedspa.com/pre-post-care/solaria-co2</p>
+    <footer>Staff: this is the CLIENT sheet. Device settings live on the staff consult card — do not hand that one over.</footer>
+  </div>
+</body>
+</html>

@@ -23,6 +23,8 @@ const PRINT_ORDER = [
   "10-glp1-compounded-semaglutide-tirzepatide",
   "11-glp1-monitoring-adverse-events-off-ramps",
   "12-practice-readiness-audit",
+  "14-glp1-rn-administration-delegation",
+  "15-glp1-rn-visit-checklist",
 ];
 
 export default async function BinderPrintPage() {

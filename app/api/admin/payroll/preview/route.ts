@@ -20,7 +20,6 @@ export async function GET(req: Request) {
 
   const url = new URL(req.url);
   const weekStart = url.searchParams.get("weekStart");
-  const ryanReviews = parseInt(url.searchParams.get("ryanReviews") ?? "0", 10) || 0;
 
   const period = weekStart
     ? getWeekContaining(new Date(`${weekStart}T12:00:00Z`))
@@ -29,9 +28,6 @@ export async function GET(req: Request) {
   try {
     const result = await buildPayrollPreview({
       period,
-      googleReviews: {
-        "ryan-kent": ryanReviews,
-      },
     });
     return NextResponse.json(result);
   } catch (err) {

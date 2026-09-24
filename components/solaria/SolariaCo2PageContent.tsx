@@ -23,6 +23,7 @@ import {
   SOLARIA_STEPS,
   SOLARIA_TREATMENT_AREAS,
   SOLARIA_TREATS,
+  SOLARIA_SCIENCE,
   SOLARIA_WHAT_IT_DOES,
 } from "@/lib/solaria-marketing";
 import { SITE } from "@/lib/seo";
@@ -288,6 +289,29 @@ export function SolariaCo2PageContent() {
         </div>
       </section>
 
+      <section id="science" className="scroll-mt-24 px-6 py-16 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <SectionHead
+            eyebrow={SOLARIA_SCIENCE.eyebrow}
+            title={SOLARIA_SCIENCE.title}
+            titleAccent={SOLARIA_SCIENCE.titleAccent}
+            description={SOLARIA_SCIENCE.dek}
+          />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {SOLARIA_SCIENCE.points.map((point) => (
+              <div key={point.id} className="rounded-[20px] border border-white/14 bg-[#0a0206] p-5">
+                <h3 className="font-bold text-[#FF2D8E]">{point.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">{point.body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm text-white/50">
+            Individual response varies. Solaria is a medical device procedure — consultation required. This is education,
+            not a promise of a specific result.
+          </p>
+        </div>
+      </section>
+
       <section className="bg-[radial-gradient(85%_95%_at_20%_30%,#1a0510,#000_62%)] px-6 py-16 lg:py-24">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-12">
           <div className="mx-auto w-full max-w-[280px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)] lg:max-w-[300px]">
@@ -474,15 +498,28 @@ export function SolariaCo2PageContent() {
               Pre & post care guide →
             </Link>
           </div>
-          <div className="mx-auto w-full max-w-[320px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)] lg:max-w-[360px]">
-            <div className="relative aspect-[4/5] w-full">
-              <Image
-                src={images.clinicDanielle}
-                alt="Danielle with Solaria CO2 InMode at Hello Gorgeous Med Spa clinic"
-                fill
-                className="object-cover object-center"
-                sizes="360px"
-              />
+          <div className="mx-auto grid w-full max-w-[720px] gap-4 sm:grid-cols-2 lg:max-w-none">
+            <div className="overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)]">
+              <div className="relative aspect-[4/5] w-full">
+                <Image
+                  src={images.clinicTreatment}
+                  alt="Solaria CO₂ treatment at Hello Gorgeous Med Spa in Oswego"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 640px) 100vw, 360px"
+                />
+              </div>
+            </div>
+            <div className="overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)]">
+              <div className="relative aspect-[4/5] w-full">
+                <Image
+                  src={images.clinicDanielle}
+                  alt="Danielle with Solaria CO2 InMode at Hello Gorgeous Med Spa clinic"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 640px) 100vw, 360px"
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -53,6 +53,7 @@ export const SOLARIA_MARKETING = {
     introducing: "/images/solaria/solaria-inmode-introducing-best-version.jpg",
     founder: "/images/team/dani-ryan-founders-portrait.png",
     clinicDanielle: "/images/solaria/danielle-solaria-inmode-clinic.png",
+    clinicTreatment: "/images/solaria/hg-clinic-solaria-treatment.jpg",
     danielleBa: "/images/solaria/danielle-solaria-co2-before-during-after.png",
     edu1: "/images/solaria/education/solaria-educational-1.png",
     edu2: "/images/solaria/education/solaria-educational-2.png",
@@ -166,6 +167,7 @@ export const SOLARIA_INTRO_SPECIAL = SOLARIA_LAUNCH_SPECIAL;
 export const SOLARIA_NAV = [
   { href: "#inmode", label: "InMode" },
   { href: "#why", label: "Why Solaria" },
+  { href: "#science", label: "Science" },
   { href: "#treats", label: "Treats" },
   { href: "#results", label: "Results" },
   { href: "#recovery", label: "Recovery" },
@@ -229,6 +231,46 @@ export const SOLARIA_WHAT_IT_DOES = [
     statLabel: "control",
   },
 ] as const;
+
+/** Consult + page: why fractional CO₂ is the medical resurfacing tool. Not a guarantee. */
+export const SOLARIA_SCIENCE = {
+  eyebrow: "The science",
+  title: "Why carbon dioxide",
+  titleAccent: "is the resurfacing laser",
+  dek: "Skin is mostly water. CO₂ light is absorbed by that water, so it can vaporize a precise column of tissue — then the untreated skin beside it heals the gap. That is why this is a medical procedure, not a facial.",
+  points: [
+    {
+      id: "wavelength",
+      title: "Water is the target",
+      body: "CO₂ light sits at 10,600 nm — a wavelength water grabs hard. Epidermis and dermis are water-rich, so the beam turns a tiny column of tissue into vapor (ablation) instead of just warming it. That is the difference from non-ablative “heat only” lasers.",
+    },
+    {
+      id: "fractional",
+      title: "Fractional, not old full-field",
+      body: "Classic CO₂ removed the entire surface. Powerful — and slow to heal. Fractional Solaria lays a grid of micro-columns with intact bridges between them. New skin grows from those bridges and from hair follicles and glands. You still get true resurfacing; you do not strip the whole face at once.",
+    },
+    {
+      id: "heat",
+      title: "Ablation plus a collar of heat",
+      body: "Each column has a vaporized center and a thin coagulated rim. That residual heat is why CO₂ is chosen when you want collagen to tighten and remodel — not only a polish. Texture and lines live in that dermal response over weeks to months, not only in the peel you see at day five.",
+    },
+    {
+      id: "resurfacing",
+      title: "Why we pick it for resurfacing",
+      body: "Resurfacing means taking off damaged top layers so a new epidermis can form. CO₂ does that in controlled micro-zones: sun-worn cells, etch lines, dull stratum corneum. The medical reason: you cannot get that reset from cream, a hydrafacial, or RF that never opens the surface.",
+    },
+    {
+      id: "texture",
+      title: "Why we pick it for texture",
+      body: "Texture is peaks and valleys — pores, roughness, acne-scar look. Ablating columns knocks down the peaks; the heat collar signals fibroblasts to lay new collagen in the valleys. That is why the QRG texture row uses more energy than a simple color pass: you are remodeling architecture, not just peppering pigment.",
+    },
+    {
+      id: "medical",
+      title: "Why it is a medical procedure",
+      body: "You are creating an open wound pattern on purpose. Plume, eyes, infection, pigment change, scarring, and cold-sore flare are real. Candidacy, eye shields, smoke evacuator, aftercare, and a trained operator are the point. If it did not injure the skin in a controlled way, it would not rebuild it.",
+    },
+  ],
+} as const;
 
 export const SOLARIA_STEPS = [
   {
@@ -426,27 +468,103 @@ export const SOLARIA_RESULTS: SolariaResult[] = [
 export const SOLARIA_FAQS = [
   {
     q: "What is Solaria CO₂?",
-    a: "Solaria is InMode's advanced fractional ablative CO₂ laser — thousands of microscopic treatment columns stimulate deep collagen while leaving surrounding skin intact for faster healing than old full-field lasers.",
+    a: "Solaria is InMode's fractional ablative CO₂ laser. It places thousands of microscopic treatment columns in the skin so collagen can rebuild, while leaving bridges of untreated skin so you heal faster than old full-field CO₂. It is a medical resurfacing treatment — not a lunchtime facial.",
+  },
+  {
+    q: "What does it treat?",
+    a: "Fine lines, sun damage and brown spots, uneven texture, enlarged pores, acne-scar appearance, perioral lines, and mild laxity. Neck and chest can be treated more gently than the face. We map the plan to the photo you dislike — not to a package name.",
   },
   {
     q: "How long is downtime?",
-    a: "Light plans often need about a week of social downtime. Moderate runs longer. Skin is red, then peels. We map your calendar honestly at consult — see our recovery guide on this page.",
+    a: "Light plans: redness about 2–3 days, makeup often around 5–7 days. Moderate: redness 3–5 days, makeup about 7–10 days. Deeper ablative: redness 5–7 days, makeup 2+ weeks, with peeling that can last longer. We will not book a depth your calendar cannot support.",
+  },
+  {
+    q: "When will I see results?",
+    a: "The peel and pinkness are week one. Texture and glow keep changing as you heal. Collagen remodeling can continue for about 3–6 months. Results vary. We do not promise a magazine photo.",
   },
   {
     q: "How many treatments do I need?",
-    a: "Many clients see dramatic results from one treatment. Deep scarring or significant sun damage may need 2–3 sessions spaced months apart — we plan at your free consult.",
+    a: "Some people are happy after one well-planned treatment. Deep scarring or heavy sun damage may need a series spaced for healing — often months apart. Number of sessions depends on area size, how you respond, and what downtime you can take. That is decided at consult, not from a flyer.",
   },
   {
     q: "Does it hurt?",
-    a: "We numb thoroughly beforehand. Most describe heat and mild prickling during treatment, then a sunburn sensation for a few days after.",
+    a: "We numb thoroughly — topical anesthetic is typically 30–45 minutes (not more than about 45–60 minutes). Most people describe heat and mild prickling during, then a sunburn feel after. Sensitive skin gets extra caution. If you react to the numbing, we stop.",
   },
   {
     q: "Solaria vs Morpheus8 — which is right for me?",
-    a: "Solaria resurfaces the surface for tone, lines & sun damage. Morpheus8 remodels deeper tissue for laxity & scars. Together they're our most complete skin overhaul — ask about VIP Trifecta packages.",
+    a: "Solaria resets the surface: tone, etch lines, sun, texture. Morpheus8 works under the surface for collagen and tightening. They are different tools. Some people need one. Some need both (our InMode Trifecta). We pick from the photo, not from a trend.",
   },
   {
     q: "How much does Solaria cost?",
-    a: "Limited-time fall special: InMode Solaria CO₂ fractional resurfacing is $599 and includes complimentary recovery serum. Other areas are quoted at your consultation. Results vary. Consultation required.",
+    a: "Limited-time fall special: InMode Solaria CO₂ fractional resurfacing is $599 and includes complimentary recovery serum (was $899), through October 31, 2026. Neck, chest, and under-eyes are quoted at consult because those areas are treated more carefully. Results vary. Consultation required.",
+  },
+  {
+    q: "Can I treat my neck or chest?",
+    a: "Yes — with gentler settings than the face. Off-face skin (neck and chest) needs reduced parameters. That is safety, not an upsell. Those zones are quoted separately.",
+  },
+  {
+    q: "What about under-eyes?",
+    a: "Periocular skin can be treated with a small-area tip and a lighter plan when you are a candidate. Eye shields are used when we treat near the eyes. This is mapped at consult — not a walk-in add-on.",
+  },
+  {
+    q: "When can I wear makeup?",
+    a: "After the surface has started to re-heal and we clear you — often about 5–7 days for light, 7–10 for moderate, 2+ weeks for deeper. Do not pack makeup into peeling skin. Mineral makeup only when we say so.",
+  },
+  {
+    q: "When can I work out or sweat?",
+    a: "Skip heat, heavy sweat, saunas, and pools until the skin is closed and we say you can. Sweat in open laser columns is an infection and irritation risk. We will give you a date based on your depth.",
+  },
+  {
+    q: "What about sun?",
+    a: "No fresh tan, beds, or unprotected sun before treatment. Afterward: broad-spectrum SPF 50+ and a hat for the first weeks. Sun on healing CO₂ is how people stain. If you cannot hide from a beach trip, we wait.",
+  },
+  {
+    q: "I get cold sores. Can I still do this?",
+    a: "Tell us. Laser around the mouth can wake HSV. Many people start an antiviral 1–2 days before. Do not hide a history of cold sores — we would rather pretreat than have an outbreak on peeling skin.",
+  },
+  {
+    q: "I am on Accutane / isotretinoin.",
+    a: "Recent isotretinoin is a pause. Healing and scarring risk can stay elevated after a course. We screen this at consult and wait until it is appropriate. Do not stop a prescription on your own — talk to the clinician who prescribed it.",
+  },
+  {
+    q: "Is it safe on darker skin?",
+    a: "CO₂ can cause pigment change (darker or lighter) on any skin, with higher PIH risk on deeper tones. We type your skin, talk through risk, and may test-spot or choose a different plan. We do not treat everyone the same day with the same depth.",
+  },
+  {
+    q: "I have melasma.",
+    a: "Ablative CO₂ is not automatically the first tool for melasma — heat can flare it. We look at your pattern, your sun habits, and whether a different approach is smarter. Honesty here saves you a worse blotch.",
+  },
+  {
+    q: "I still have active acne.",
+    a: "Open, infected, or very active breakouts may mean we wait or treat around them. CO₂ is for texture and scars after the fire is out — not a substitute for an acne plan.",
+  },
+  {
+    q: "Can I do this if I am pregnant or breastfeeding?",
+    a: "We do not perform Solaria during pregnancy. Breastfeeding is a clinician call at consult. If you are trying to conceive, tell us so we can time numbing, antivirals, and downtime with you.",
+  },
+  {
+    q: "I have fillers / Botox. Do I wait?",
+    a: "Tell us dates and areas. Many people keep neuromodulators and wait a period after filler before aggressive laser on that zone. We will not guess — bring your last treatment dates.",
+  },
+  {
+    q: "Will I look scary / peel in sheets?",
+    a: "You will be red, then bronzy, then flake. Deeper plans look more dramatic in the mirror. That is expected — not a burn you hide from us. Do not pick. The bronzy layer is part of healing. Ice, ointment, and extra pillows as we show you.",
+  },
+  {
+    q: "Do you do a test spot?",
+    a: "When it helps us choose energy and density — especially if your history, skin type, or a setting change calls for it. A tiny test can save a full-face surprise. We watch how you heal before we commit to a deeper pass.",
+  },
+  {
+    q: "Can I be treated the same day as my consult?",
+    a: "Only if you are a candidate, you can take the downtime, prep is done (including antiviral if needed), and the schedule allows. Many people consult first and book the laser on a date that matches work and events.",
+  },
+  {
+    q: "How long do results last?",
+    a: "You keep aging and the sun keeps working. A strong treatment can change the baseline for years; maintenance and SPF decide how long it looks that way. We do not sell 'permanent.'",
+  },
+  {
+    q: "Who should not have Solaria?",
+    a: "Examples we screen: pregnancy, recent isotretinoin, active infection in the area, certain autoimmune or healing problems, unrealistic event timelines, and anyone who cannot do aftercare or sun avoidance. Final yes/no is clinical — not this list alone.",
   },
 ] as const;
 

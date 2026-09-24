@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 /**
- * Align Ryan Kent's Square Team wage with his 1099 Compensation Agreement (July 2026).
+ * Align Ryan Kent's Square Team wage with his 1099 collaborative agreement (Sept 2026).
  *
- * Ryan is NOT paid $100/hr clinical — pay is oversight (flat monthly by clocked hrs/wk)
- * plus commission buckets. Square Payroll should import timecards for hours only and use
- * the Amount column (or /admin/payroll preview) for actual 1099 pay.
+ * Ryan is NOT paid hourly clinical. Pay is 50% NET on scheduled Quantum he performs
+ * and 20% after cost on peptides, weight loss, consults, telehealth, injectables,
+ * and other services he performs or prescribes (collected only).
+ * Square Payroll should not import hours × a wage. Use the Amount column
+ * (or /admin/payroll preview) for actual 1099 pay. Keep Square rate at $0.00/hr.
  *
  * This script sets:
  *   Job:  NP Service Provider (1099)
