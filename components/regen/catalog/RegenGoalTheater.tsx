@@ -68,6 +68,12 @@ const GOAL_STAGE: Record<
     heroName: "NAD+",
     badge: "Cellular",
   },
+  Bundles: {
+    wash: "rgba(230,0,126,0.4)",
+    glow: "rgba(255,45,142,0.5)",
+    heroName: "Protocol stacks",
+    badge: "Consult first",
+  },
 };
 
 function lowestPricedInGoal(
