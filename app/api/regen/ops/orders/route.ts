@@ -135,6 +135,25 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
+    const { data: existing } = await supabase.from('regen_orders').select('id,status,pharmacy_order_id').eq('id', id).maybeSingle();
+    if (existing?.pharmacy_order_id && pharmacy_order_id && existing.pharmacy_order_id !== pharmacy_order_id) {
+      return NextResponse.json(
+        {
+          error: 'This order already has a Formulation confirmation. A second pharmacy send was blocked.',
+          duplicate: true,
+          pharmacy_order_id: existing.pharmacy_order_id,
+        },
+        { status: 409 },
+      );
+    }
+    if (existing?.pharmacy_order_id && status === 'sent_to_pharmacy' && !pharmacy_order_id) {
+      return NextResponse.json({
+        order: existing,
+        duplicate: true,
+        error: 'Formulation was already recorded. A second send was blocked.',
+      });
+    }
+
     // Update order
     const updateData: Record<string, unknown> = {
       status,

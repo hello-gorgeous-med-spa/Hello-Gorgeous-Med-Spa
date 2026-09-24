@@ -233,7 +233,12 @@ export default function TodayQueue({
           <div key={i.id} className="bg-white/5 border border-white/10 rounded-2xl p-5">
             <div className="flex flex-wrap justify-between gap-3">
               <div>
-                <p className="text-white font-semibold text-lg">{i.name}</p>
+                <p className="text-white font-semibold text-lg">
+                  {i.name}
+                  {(i.name.startsWith('TEST ') || i.medical_history?.stage2Test) && (
+                    <span className="ml-2 text-xs font-bold text-amber-300">TEST — no Charm / no Formulation</span>
+                  )}
+                </p>
                 <p className="text-white/50 text-sm">{i.email} {i.phone ? `· ${i.phone}` : ''}</p>
                 <p className="text-white/40 text-xs mt-1">{i.goal} · {requestStatusLabel(i.status)} · {timeAgo(i.created_at)}</p>
                 {i.medical_history?.tirzepatide && typeof i.medical_history.tirzepatide === 'object' && (

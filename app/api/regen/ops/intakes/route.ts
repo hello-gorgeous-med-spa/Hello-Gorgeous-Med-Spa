@@ -142,7 +142,9 @@ export async function PATCH(request: NextRequest) {
         fulfillmentError =
           fulfillErr instanceof Error ? fulfillErr.message : 'Approved, but the Orders row failed to create.';
       }
-      if (fulfillment) {
+      const history = (data.medical_history as Record<string, unknown> | null) || {};
+      const isStage2Test = history.stage2Test === true;
+      if (fulfillment && !isStage2Test) {
         try {
           const quote =
             'invoiceQuote' in fulfillment && fulfillment.invoiceQuote
