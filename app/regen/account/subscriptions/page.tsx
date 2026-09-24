@@ -83,10 +83,10 @@ export default function SubscriptionsPage() {
     <div>
       <div style={{ marginBottom: 32 }}>
         <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 8 }}>
-          My Subscriptions
+          Refill requests
         </h1>
         <p style={{ color: '#888' }}>
-          Manage your monthly treatment plans
+          Nothing auto-renews or auto-refills. Ask us for a refill and Ryan reviews again before any clinic invoice or pharmacy send.
         </p>
       </div>
 
@@ -109,10 +109,10 @@ export default function SubscriptionsPage() {
         }}>
           <div style={{ fontSize: 48, marginBottom: 16 }}>📦</div>
           <h3 style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>
-            No Active Subscriptions
+            No refill requests yet
           </h3>
           <p style={{ color: '#888', marginBottom: 24, maxWidth: 400, margin: '0 auto 24px' }}>
-            Recurring REGEN plans are billed on a clinic invoice (Charm + Bluefin). This page does not open a card form.
+            Nothing auto-renews. When you need more medication, start a request or call us. Ryan reviews again before any clinic invoice or pharmacy send.
           </p>
           <Link
             href="/pricing"

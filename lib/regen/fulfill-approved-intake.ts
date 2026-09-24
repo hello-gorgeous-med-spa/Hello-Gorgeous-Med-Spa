@@ -5,6 +5,7 @@
  */
 
 import { getSupabase } from "@/lib/supabase-server";
+import { quoteClinicInvoice } from "@/lib/regen/clinic-invoice";
 import {
   enrichOrderItemsWithFormulationSku,
   resolveFormulationTicket,
@@ -14,7 +15,7 @@ import { REGEN_DEFAULT_PHARMACY_SOURCE } from "@/lib/regen/pharmacy-placement";
 function pharmacyErrorForTicket(ticket: ReturnType<typeof resolveFormulationTicket>): string {
   if (ticket.status === "ready") {
     const skus = ticket.lines.map((line) => line.sku).filter(Boolean).join(", ");
-    return `FormuConnect ticket ready — SKU ${skus}. After the Charm invoice posts, Send to Formulation on the order.`;
+    return `FormuConnect ticket ready — SKU ${skus}. After the Bluefin invoice posts, Send to Formulation on the order.`;
   }
   if (ticket.status === "no_formulation_sku") {
     return ticket.notes[0] || "No Formulation SKU — Ryan picks BoomRx or an alternate.";
@@ -78,7 +79,16 @@ export async function fulfillApprovedIntake(intake: ApprovedIntakeInput) {
   );
 
   const orderNumber = `RX-${Date.now().toString(36).toUpperCase()}`;
-  const total = Number(intake.amount_paid || 0);
+  const quote = quoteClinicInvoice({
+    goal: intake.goal,
+    program: ticket.program,
+    customerName: intake.name,
+    customerEmail: intake.email,
+    customerPhone: intake.phone,
+    amountPaid: intake.amount_paid,
+    medicalHistory: history,
+  });
+  const total = quote.ready ? quote.amountUsd : Number(intake.amount_paid || 0);
   const pharmacyError = pharmacyErrorForTicket(ticket);
   const now = new Date().toISOString();
   const program = String(intake.goal || ticket.program || "regen").slice(0, 80) || "regen";
@@ -115,11 +125,11 @@ export async function fulfillApprovedIntake(intake: ApprovedIntakeInput) {
     goal: intake.goal,
     items,
     subtotal: total,
-    shipping: 0,
+    shipping: quote.ready ? quote.shippingUsd : 0,
     discount: 0,
     total,
-    subtotal_usd: total,
-    shipping_usd: 0,
+    subtotal_usd: quote.ready ? quote.productUsd : total,
+    shipping_usd: quote.ready ? quote.shippingUsd : 0,
     pharmacy_name: ticket.pharmacy || REGEN_DEFAULT_PHARMACY_SOURCE,
     pharmacy_source: ticket.pharmacy || REGEN_DEFAULT_PHARMACY_SOURCE,
     np_approved_at: now,
@@ -156,6 +166,7 @@ export async function fulfillApprovedIntake(intake: ApprovedIntakeInput) {
       pharmacy: ticket.pharmacy,
       pasteText: ticket.pasteText,
     },
+    invoiceQuote: quote,
   };
 }
 

@@ -238,6 +238,14 @@ export function formulationShopRetail(id: FormulationShopId): number {
   return retailFromSheet(SHOP[id].sheetUsd);
 }
 
+/** Sheet × 2.5 from a Formulation SKU. Null if the SKU is not on the shop list. */
+export function formulationRetailUsdForSku(sku?: string | null): number | null {
+  const needle = String(sku || "").trim();
+  if (!needle) return null;
+  const item = Object.values(SHOP).find((row) => row.sku === needle);
+  return item ? retailFromSheet(item.sheetUsd) : null;
+}
+
 export function isFormulationSheetProgram(programId?: string | null): boolean {
   if (!programId) return false;
   return programId in SHOP;

@@ -127,7 +127,7 @@ export default function ConsultPage() {
             </Link>
           </div>
           <p style={{ fontSize: 13, color: "#777", marginTop: 16, maxWidth: 520, marginLeft: "auto", marginRight: "auto" }}>
-            Starting a request online still pays for therapy first. If you want to talk first and skip that refund dance, book the visit.
+            Starting a request online does not charge you for medication. A clinician reviews first. You pay a clinic invoice only if they approve a plan. If they decline an unpaid request, you owe $0 for therapy.
           </p>
         </div>
       </section>

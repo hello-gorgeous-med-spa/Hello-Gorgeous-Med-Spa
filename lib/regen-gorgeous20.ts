@@ -1,7 +1,7 @@
 /**
- * REGEN RX launch promo — GORGEOUS20.
- * Stripe Checkout already accepts promotion codes (`allow_promotion_codes`).
- * The 20% coupon must exist in the REGEN Stripe account as code GORGEOUS20.
+ * REGEN RX first-order promo — GORGEOUS20.
+ * Staff apply 20% off medication (not shipping) on the Charm clinic invoice.
+ * Patients do not enter this code on a website payment screen.
  */
 
 export const GORGEOUS20_CODE = "GORGEOUS20" as const;
@@ -10,8 +10,8 @@ export const GORGEOUS20_START_HREF = `/start?promo=${GORGEOUS20_CODE}` as const;
 
 /** Repeating ticker copy — no dedicated landing page. */
 export const GORGEOUS20_MARQUEE = [
-  `GORGEOUS20 · ${GORGEOUS20_PERCENT}% off your first order`,
-  "Enter the code on the payment screen",
+  `GORGEOUS20 · ${GORGEOUS20_PERCENT}% off your first medication order`,
+  "We apply it on the clinic invoice — shipping is $30 and is not discounted",
   "Illinois patients · A licensed Illinois clinician decides",
 ] as const;
 
@@ -31,7 +31,7 @@ export const REGEN_VIAL_ART = {
 } as const;
 
 export const GORGEOUS20_LEGAL =
-  "Illinois patients only. One use on your first REGEN RX medication order. Enter the code on the payment screen. Shipping is not discounted. a licensed Illinois clinician prescribes only when clinically appropriate, including off-label use when indicated. Compounded medications are not FDA-approved. Requesting a visit is a consult — not a guaranteed prescription.";
+  "Illinois patients only. One use on your first REGEN RX medication order. Staff apply GORGEOUS20 on the clinic invoice after a clinician approves — you do not enter a code on this website. Shipping is $30 and is not discounted. A $49 consult credit, if earned, is also applied on that invoice. A licensed Illinois clinician prescribes only when clinically appropriate. Compounded medications are not FDA-approved. A request is not a guaranteed prescription.";
 
 export type Gorgeous20Example = {
   name: string;
@@ -80,13 +80,13 @@ export const GORGEOUS20_EXAMPLES: Gorgeous20Example[] = [
 ];
 
 export const GORGEOUS20_COPY = {
-  sms: `Same Danielle. Same Ryan. New door — REGEN RX. First order 20% off with GORGEOUS20. Illinois only, A licensed Illinois clinician decides. Start free: tryregenrx.com/start?promo=GORGEOUS20`,
+  sms: `Same Danielle. Same Ryan. New door — REGEN RX. First medication order 20% off — we apply GORGEOUS20 on the clinic invoice. Shipping $30. Illinois only. A licensed Illinois clinician decides. Start: tryregenrx.com/start`,
   emailSubject: `GORGEOUS20 — 20% off your first REGEN RX order`,
   instagram: `Same team you already trust. New prescription door.
 
 Danielle + a licensed Illinois clinician. Black scrubs. REGEN RX.
 
-First order 20% off with code GORGEOUS20.
+First medication order 20% off. We apply GORGEOUS20 on the clinic invoice. Shipping is $30.
 
 Weight loss · hormones · vitamins · NAD+ · hair · Rx skincare.
 
@@ -99,14 +99,14 @@ tryregenrx.com/start
 
 Danielle and a licensed Illinois clinician — REGEN RX. Weight loss, hormones, vitamins, and NAD+ support Ryan can prescribe when it is appropriate.
 
-First order 20% off. Code GORGEOUS20 on the payment screen.
+First order 20% off medication. We apply GORGEOUS20 on the clinic invoice.
 
 Illinois only. Compounded medications are not FDA-approved. A request is a consult — not a guaranteed prescription.
 
 Start free: tryregenrx.com/start`,
   gbp: `REGEN RX is live from Hello Gorgeous in Oswego.
 
-Danielle + a licensed Illinois clinician. First order 20% off with GORGEOUS20.
+Danielle + a licensed Illinois clinician. First medication order 20% off on the clinic invoice. Shipping $30.
 
 Weight loss, hormones, vitamins, NAD+ — prescribed only when clinically appropriate. Illinois patients.
 

@@ -92,7 +92,7 @@ const TRUST_POINTS = [
   { icon: '🏥', title: 'Licensed Providers', desc: 'Illinois FPA Nurse Practitioner with MD oversight' },
   { icon: '💊', title: '503A Compounding Pharmacy', desc: 'US-licensed, inspected, compliant' },
   { icon: '📋', title: 'Real Prescriptions', desc: 'Legitimate telehealth — not research chemicals' },
-  { icon: '🔒', title: 'HIPAA Compliant', desc: 'Your health information is protected' },
+  { icon: '🔒', title: 'Notice of Privacy Practices', desc: 'We protect your health information. Read /hipaa.' },
 ];
 
 export default function LearnHubPage() {

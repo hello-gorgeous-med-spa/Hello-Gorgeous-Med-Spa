@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase } from '@/lib/supabase-server';
+import { quoteClinicInvoice, sendClinicInvoice } from '@/lib/regen/clinic-invoice';
 import { sendRegenNotification } from '@/lib/regen/notifications';
 import { fulfillApprovedIntake } from '@/lib/regen/fulfill-approved-intake';
 import { requireOpsAuth } from '@/lib/regen/ops-session';
@@ -122,6 +123,7 @@ export async function PATCH(request: NextRequest) {
 
     let fulfillment: Awaited<ReturnType<typeof fulfillApprovedIntake>> | null = null;
     let fulfillmentError: string | null = null;
+    let invoice: Awaited<ReturnType<typeof sendClinicInvoice>> | { ok: false; error: string } | null = null;
     if (status === 'approved' && data) {
       try {
         fulfillment = await fulfillApprovedIntake({
@@ -139,6 +141,35 @@ export async function PATCH(request: NextRequest) {
         console.error('Fulfillment error:', fulfillErr);
         fulfillmentError =
           fulfillErr instanceof Error ? fulfillErr.message : 'Approved, but the Orders row failed to create.';
+      }
+      if (fulfillment) {
+        try {
+          const quote =
+            'invoiceQuote' in fulfillment && fulfillment.invoiceQuote
+              ? fulfillment.invoiceQuote
+              : quoteClinicInvoice({
+                  goal: data.goal,
+                  customerName: data.name,
+                  customerEmail: data.email,
+                  customerPhone: data.phone,
+                  amountPaid: data.amount_paid,
+                  medicalHistory: (data.medical_history as Record<string, unknown>) || null,
+                });
+          invoice = await sendClinicInvoice({
+            orderNumber: fulfillment.orderNumber,
+            orderId: fulfillment.orderId,
+            patientName: data.name,
+            email: data.email,
+            phone: data.phone,
+            quote,
+          });
+        } catch (invoiceErr) {
+          console.error('Invoice send error:', invoiceErr);
+          invoice = {
+            ok: false,
+            error: invoiceErr instanceof Error ? invoiceErr.message : 'Could not send the pay link.',
+          };
+        }
       }
     }
 
@@ -161,7 +192,11 @@ export async function PATCH(request: NextRequest) {
         'declined': 'rx_declined',
       }[status];
 
-      if (notificationType && data.email) {
+      if (
+        notificationType &&
+        data.email &&
+        !(notificationType === 'rx_approved' && invoice && invoice.ok && !invoice.charmManual)
+      ) {
         await sendRegenNotification({
           type: notificationType as 'rx_approved' | 'rx_needs_labs' | 'rx_needs_video' | 'rx_declined',
           patient: { name: data.name, email: data.email, phone: data.phone },
@@ -174,7 +209,7 @@ export async function PATCH(request: NextRequest) {
       // Don't fail the request
     }
 
-    return NextResponse.json({ intake: data, fulfillment, fulfillmentError });
+    return NextResponse.json({ intake: data, fulfillment, fulfillmentError, invoice });
   } catch (error) {
     console.error('Intake update error:', error);
     return NextResponse.json(

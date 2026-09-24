@@ -169,21 +169,19 @@ export function RegenStaffBible() {
             <strong>Video first (preferred)</strong> — they pick a time on Ryan&apos;s Square calendar. $49 visit. If he
             does not prescribe, they paid for the visit — no therapy refund. If he does prescribe, send them{' '}
             <code>/start</code> and apply a <strong>$49 credit</strong> on the first medication charge (shipping stays).
-            Use Stripe coupon <strong>CONSULT49</strong> if it exists; otherwise Damara deducts $49 and pastes the Square
-            receipt id in the chart.
+            Check the $49 consult credit on the Charm invoice and paste the Square receipt id in the chart.
           </li>
           <li>
-            <strong>Request first (still live)</strong> — tryregenrx.com/start (goal + program). Promo GORGEOUS20 is entered on the Stripe
-            payment screen, not as a fake “already 20% off” price. This path pays for therapy first; decline = full refund.
+            <strong>Request first (live)</strong> — tryregenrx.com/start (goal + program). This is a request only.
+            Ryan reviews. If he declines, there is no therapy charge. GORGEOUS20 is applied on the Charm invoice, not a website payment screen.
           </li>
           <li>
-            <strong>Screening + consent</strong> — on the /start path they answer medical questions and sign. If Ryan
-            declines a paid therapy request, they get a <strong>full refund</strong> of that charge. A Square visit they
-            already sat is not refunded.
+            <strong>Screening + consent</strong> — they answer medical questions and sign. An unpaid request never
+            becomes a therapy invoice. A Square visit they already sat is not refunded.
           </li>
           <li>
-            <strong>Pay</strong> — Stripe checkout. Payment is a consult deposit toward medication if prescribed. It is
-            not a purchase of a specific vial yet.
+            <strong>Pay</strong> — Charm clinic invoice + Bluefin after Ryan approves a specific treatment and price.
+            Do not take a card on tryregenrx.com.
           </li>
           <li>
             <strong>Ryan reviews</strong> — Today queue. Four boxes must be true before Approve: medical history,
@@ -292,17 +290,14 @@ export function RegenStaffBible() {
       <Section id="money" kicker="08" title="Money, GORGEOUS20, refunds">
         <p>
           <strong>GORGEOUS20</strong> = 20% off the first medication order. Shipping excluded. Illinois only. Ryan
-          still decides. Stripe coupon must exist as code GORGEOUS20.
+          still decides. Staff apply it on the Charm invoice — patients do not enter a code on this website.
         </p>
         <p className="mt-3">
-          <strong>CONSULT49</strong> = $49 off the first medication order after a paid Square Medical Visit with Ryan.
-          Shipping excluded. Create this Stripe coupon if it is missing. Always paste the Square receipt id in the
-          chart so we do not double-credit.
+          <strong>$49 consult credit</strong> = $49 off the first medication order after a paid Square phone visit with Ryan.
+          Shipping is $30 and is not discounted. Always paste the Square receipt id in the chart so we do not double-credit.
         </p>
         <p className="mt-3">
-          There is no refund button inside /ops/payments yet. Danielle or Damara refund in the{" "}
-          <strong>REGEN Stripe Dashboard</strong>: Payments → search the patient email → the charge → Refund.
-          Paste the Stripe refund id in the chart the same day.
+          If a Charm invoice was sent in error, void or refund it in Charm the same day. Do not send Formulation on a declined or unpaid request.
         </p>
         <h3 className="mt-4 font-black">Refund policy we actually run</h3>
         <table>
@@ -315,9 +310,9 @@ export function RegenStaffBible() {
           </thead>
           <tbody>
             <tr>
-              <td>Ryan declines a paid /start therapy request</td>
-              <td>Full refund of the medication charge. Keep a one-line note: reason + next step (PCP, in-clinic, wait).</td>
-              <td>Danielle or Damara in Stripe. Same day.</td>
+              <td>Ryan declines a /start request</td>
+              <td>No therapy invoice. If a Charm invoice was already sent, void it the same day.</td>
+              <td>Staff in Charm. Same day.</td>
             </tr>
             <tr>
               <td>Ryan declines after a Square $49 visit (no therapy purchased)</td>
@@ -418,7 +413,7 @@ export function RegenStaffBible() {
         </Sop>
         <Sop n="02" title="Intake &amp; payment">
           Patient completes start → screening → consent → Stripe. Staff may sit with them at the iPad. Staff does not
-          fill medical answers for them. GORGEOUS20 is typed by the patient on the payment screen.
+          fill medical answers for them. GORGEOUS20 is applied by staff on the Charm invoice.
         </Sop>
         <Sop n="03" title="Clinical review">
           Only Ryan (or a covering Illinois-licensed prescriber Danielle has named in writing) clicks Approve. Four
@@ -484,7 +479,7 @@ export function RegenStaffBible() {
           tryregenrx.com/start. Illinois-only, not a guaranteed prescription.”
         </p>
         <p className="mt-3">
-          <strong>They want a price on the phone:</strong> “Ryan’s video visit is $49 and credits toward the first
+          <strong>They want a price on the phone:</strong> “Ryan’s $49 phone consult credits toward the first
           order if he prescribes. Published menus are on the site. Product plus cold shipping — $25 on most vials,
           $35 on curated stacks. If they paid for therapy first and Ryan does not prescribe, we refund that charge. I
           won’t quote a custom stack off the top of my head.”

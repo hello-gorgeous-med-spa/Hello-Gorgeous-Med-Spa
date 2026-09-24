@@ -17,7 +17,7 @@ const BRAND = {
 
 const NAV_ITEMS = [
   { href: '/account', label: 'Dashboard', icon: 'home' },
-  { href: '/account/subscriptions', label: 'Subscriptions', icon: 'subscription' },
+  { href: '/account/subscriptions', label: 'Refills', icon: 'subscription' },
   { href: '/account/orders', label: 'Orders', icon: 'package' },
   { href: '/account/prescriptions', label: 'Prescriptions', icon: 'pill' },
   { href: '/account/messages', label: 'Messages', icon: 'message' },

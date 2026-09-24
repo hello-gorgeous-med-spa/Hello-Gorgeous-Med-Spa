@@ -137,7 +137,7 @@ async function sendStaffNewIntakeEmail(
             <p style="color: #fff; margin: 0 0 8px;"><strong>Patient:</strong> ${patient.name}</p>
             <p style="color: #fff; margin: 0 0 8px;"><strong>Email:</strong> ${patient.email}</p>
             <p style="color: #fff; margin: 0 0 8px;"><strong>Phone:</strong> ${patient.phone || 'Not provided'}</p>
-            <p style="color: ${BRAND.pink}; margin: 12px 0 0;"><strong>Next:</strong> After Ryan reviews, send a Charm invoice with a real Charge and a Bluefin payment link. Do not use Stripe.</p>
+            <p style="color: ${BRAND.pink}; margin: 12px 0 0;"><strong>Next:</strong> After Ryan approves, preview the quote on Orders and send that amount from Charm → Send Invoice → Payment Link. Do not send Formulation until paid. No Stripe.</p>
           </div>
           <a href="https://tryregenrx.com/ops/intake" 
              style="display: inline-block; background: ${BRAND.teal}; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold;">
@@ -162,7 +162,7 @@ async function sendStaffNewIntakeSMS(
   );
 
   await twilio.messages.create({
-    body: `REGEN RX: New intake from ${patient.name} for ${intake.goal}. Review at tryregenrx.com/ops. Invoice in Charm after Ryan reviews — no Stripe.`,
+    body: `REGEN RX: New intake from ${patient.name} for ${intake.goal}. Review at tryregenrx.com/ops. After Ryan approves, send the Charm invoice — no Stripe.`,
     from: process.env.TWILIO_PHONE_NUMBER,
     to: STAFF_PHONE,
   });
@@ -240,18 +240,18 @@ async function sendPatientRxApprovedEmail(
           <h1 style="color: #22C55E; margin: 0 0 16px; text-align: center;">Prescription Approved!</h1>
           <p style="color: #9CA3AF; line-height: 1.6; text-align: center;">
             Hi ${patient.name.split(' ')[0]},<br><br>
-            Great news! Your provider has approved your ${intake.goal} prescription.
+            Your provider approved your ${intake.goal} plan. Pay the clinic invoice to start pharmacy fulfillment — you will not be charged on this website.
           </p>
           <div style="background: #22C55E20; padding: 16px; border-radius: 8px; margin: 24px 0; text-align: center;">
-            <p style="color: #22C55E; margin: 0; font-weight: bold;">Your prescription has been sent to the pharmacy</p>
+            <p style="color: #22C55E; margin: 0; font-weight: bold;">Watch for your clinic invoice</p>
             <p style="color: #9CA3AF; margin: 8px 0 0;">
-              You'll receive tracking information once your order ships.
+              Staff send a Charm payment link after Ryan approves. After you pay, we submit Formulation Rx. Tracking comes next — not yet.
             </p>
           </div>
           <div style="text-align: center;">
-            <a href="https://tryregenrx.com/account/orders" 
+            <a href="https://tryregenrx.com/login" 
                style="display: inline-block; background: ${BRAND.teal}; color: white; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold;">
-              Track Your Order →
+              Patient login →
             </a>
           </div>
         </div>

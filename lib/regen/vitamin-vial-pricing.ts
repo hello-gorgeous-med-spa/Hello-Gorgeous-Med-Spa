@@ -1,7 +1,7 @@
 import { REGEN_MARKUP, REGEN_VITAMIN_PRICING, REGEN_PEPTIDE_PRICING } from '@/lib/regen/pricing-sync';
 
 /** Flat pharmacy ship shown as its own line on vial quotes. */
-export const REGEN_VIAL_SHIPPING_USD = 25;
+export const REGEN_VIAL_SHIPPING_USD = 30;
 
 const WHOLESALE: Record<string, number> = {
   b12: REGEN_VITAMIN_PRICING.find((p) => p.id === 'b12-10ml')?.wholesale ?? 29.1,

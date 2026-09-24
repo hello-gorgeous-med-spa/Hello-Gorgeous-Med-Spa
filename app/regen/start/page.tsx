@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { TREATMENT_CONSENTS, getTreatmentCategory, CONSENT_VERSION, type TreatmentCategory } from '@/lib/regen/informed-consent';
-import { formatUsd, isVitaminVialProgram, REGEN_VIAL_SHIPPING_USD, vitaminVialRetailUsd } from '@/lib/regen/vitamin-vial-pricing';
+import { formatUsd, isVitaminVialProgram, vitaminVialRetailUsd } from '@/lib/regen/vitamin-vial-pricing';
+import { REGEN_SHIPPING_USD } from '@/lib/regen/pricing-sync';
+import { isConsultOnlyProgram } from '@/lib/regen/public-order-truth';
 import {
-  formulationSheetShippingUsd,
   formulationShopRetail,
   isFormulationSheetProgram,
   resolveFormulationProgramParam,
@@ -17,7 +18,6 @@ import {
   isTryregenBundleProgram,
   tryregenBundleRetailUsd,
   tryregenBundleSheetNames,
-  tryregenBundleShippingUsd,
 } from '@/lib/regen/tryregen-bundles';
 import { isStripeWadaBlockedProgram, isStripeWadaBlockedPublicText } from '@/lib/regen/wada-public-block';
 import { resolveRegenStartGoal } from '@/lib/regen/public-goals';
@@ -52,13 +52,11 @@ function programPriceSuffix(program: { id: string; unit?: string }) {
   if (isTryregenBundleProgram(program.id)) return "";
   if (isFormulationSheetProgram(program.id)) return "";
   if (program.unit === "vial") return " per vial";
-  return "/mo";
+  return " request";
 }
 
-function checkoutShippingUsd(programId?: string | null) {
-  if (isTryregenBundleProgram(programId)) return tryregenBundleShippingUsd();
-  if (isFormulationSheetProgram(programId)) return formulationSheetShippingUsd();
-  return REGEN_VIAL_SHIPPING_USD;
+function checkoutShippingUsd(_programId?: string | null) {
+  return REGEN_SHIPPING_USD;
 }
 
 const GOALS = [
@@ -190,7 +188,10 @@ function RegenStartContent() {
   const requestedProgram = resolveFormulationProgramParam(
     searchParams.get('program') || searchParams.get('peptide'),
   );
-  const initialProgram = isStripeWadaBlockedProgram(requestedProgram) ? '' : requestedProgram;
+  const initialProgram =
+    isStripeWadaBlockedProgram(requestedProgram) || isConsultOnlyProgram(requestedProgram)
+      ? ''
+      : requestedProgram;
   const promoCode = (searchParams.get('promo') || GORGEOUS20_CODE).toUpperCase();
   const affiliateCode = (searchParams.get('ref') || searchParams.get('aff') || readAffiliateCodeClient()).toUpperCase();
   const inferredGoal = resolveRegenStartGoal({
@@ -246,6 +247,12 @@ function RegenStartContent() {
   });
   const [emergencyContact, setEmergencyContact] = useState({ name: '', phone: '' });
 
+  useEffect(() => {
+    if (isConsultOnlyProgram(requestedProgram)) {
+      window.location.replace('/consult');
+    }
+  }, [requestedProgram]);
+
   const currentGoal = GOALS.find(g => g.id === selectedGoal);
   const currentProgram = currentGoal?.programs.find(p => p.id === selectedProgram);
   const tirzQuote = isTirzepatideProgram(selectedProgram) ? quoteTirzepatide(tirzWeeklyMg, tirzTermDays) : null;
@@ -261,6 +268,10 @@ function RegenStartContent() {
   };
 
   const handleProgramSelect = (programId: string) => {
+    if (isConsultOnlyProgram(programId)) {
+      window.location.assign('/consult');
+      return;
+    }
     setSelectedProgram(programId);
     if (isTirzepatideProgram(programId)) {
       setStep('tirz-plan');
@@ -320,8 +331,13 @@ function RegenStartContent() {
       return;
     }
 
-    if (isStripeWadaBlockedProgram(selectedProgram) || isStripeWadaBlockedPublicText(checkoutName)) {
-      alert('This program is not available to request online. Book a consult instead.');
+    if (
+      isConsultOnlyProgram(selectedProgram) ||
+      isStripeWadaBlockedProgram(selectedProgram) ||
+      isStripeWadaBlockedPublicText(checkoutName)
+    ) {
+      alert('This program is consult-only. Book a $49 phone consult instead.');
+      window.location.assign('/consult');
       return;
     }
     
@@ -350,6 +366,8 @@ function RegenStartContent() {
               ? tryregenBundleSheetNames(selectedProgram)
               : undefined,
             requestedTotal: checkoutAmount,
+            promo: promoCode,
+            shippingUsd: REGEN_SHIPPING_USD,
             shipping: {
               street1: formData.address,
               city: formData.city,
@@ -405,7 +423,7 @@ function RegenStartContent() {
             <svg className="w-4 h-4" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
             </svg>
-            Secure & HIPAA Compliant
+            Secure intake · Illinois 21+
           </div>
         </div>
       </header>
@@ -474,7 +492,7 @@ function RegenStartContent() {
               <div className="flex-1">
                 <h3 className="text-xl font-bold" style={{ color: BRAND.cream }}>Not sure yet? Talk to a clinician first</h3>
                 <p style={{ color: BRAND.gray }}>
-                  {regenTelehealthPriceLabel()} video visit · {REGEN_TELEHEALTH_CREDIT_SHORT}
+                  {regenTelehealthPriceLabel()} phone consult · {REGEN_TELEHEALTH_CREDIT_SHORT}
                 </p>
               </div>
               <svg className="h-6 w-6" style={{ color: BRAND.pink }} fill="none" viewBox="0 0 24 24" stroke="currentColor">

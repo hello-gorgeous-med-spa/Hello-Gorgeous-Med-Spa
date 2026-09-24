@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { PRESCRIBING_NP_NPI } from '@/lib/medical-authority';
 import { getOpsStaff, opsChartHref } from '@/lib/regen/ops-staff';
+import { requestStatusLabel } from '@/lib/regen/request-status';
 import { useOpsStaff } from './OpsShell';
 
 interface Intake {
@@ -22,10 +23,11 @@ interface Intake {
 const STATUS_TABS = [
   { id: 'action', label: 'Needs action' },
   { id: 'all', label: 'All' },
-  { id: 'pending', label: 'New' },
-  { id: 'needs_labs', label: 'Labs' },
-  { id: 'needs_video', label: 'Video' },
-  { id: 'approved', label: 'Approved' },
+  { id: 'pending', label: 'Received' },
+  { id: 'needs_labs', label: 'Needs info / labs / visit' },
+  { id: 'in_review', label: 'Under Ryan’s review' },
+  { id: 'declined', label: 'Declined' },
+  { id: 'approved', label: 'Approved — awaiting payment' },
   { id: 'shipped', label: 'Shipped' },
 ];
 
@@ -88,7 +90,8 @@ export default function TodayQueue({
 
   const visible = intakes.filter((i) => {
     if (filter === 'all') return true;
-    if (filter === 'action') return ['pending', 'awaiting_payment', 'needs_labs', 'needs_video'].includes(i.status);
+    if (filter === 'action') return ['pending', 'awaiting_payment', 'needs_labs', 'needs_video', 'needs_info', 'in_review'].includes(i.status);
+    if (filter === 'needs_labs') return ['needs_labs', 'needs_video', 'needs_info'].includes(i.status);
     return i.status === filter;
   });
 
@@ -123,15 +126,22 @@ export default function TodayQueue({
       setActError(json.error || 'Update failed — the visit did not change.');
       return;
     }
-    const label = status.replace(/_/g, ' ');
+    const label = requestStatusLabel(status);
     let nextNotice =
       status === 'approved'
         ? json.fulfillment?.orderNumber
-          ? `Approved ${intake.name}. Order ${json.fulfillment.orderNumber} is on Orders — invoice in Charm, then send to Formulation.`
-          : `Approved ${intake.name}. Open the Approved tab, then Orders.`
+          ? `Approved ${intake.name}. Order ${json.fulfillment.orderNumber} is on Orders — awaiting payment.`
+          : `Approved ${intake.name}. Open Approved — awaiting payment, then Orders.`
         : status === 'declined'
-          ? `Declined ${intake.name}. If they already paid, refund in Charm the same day.`
-          : `${intake.name} is now “${label}” and will stay in Needs action until Ryan approves.`;
+          ? `Declined ${intake.name}. No therapy invoice. Do not send Formulation.`
+          : `${intake.name} is now “${label}” and stays in Needs action until Ryan approves.`;
+    if (json.invoice?.ok && json.invoice?.charmManual) {
+      nextNotice += ` Preview the Charm quote on Orders, then send the Charm payment link. Do not send Formulation until paid.`;
+    } else if (json.invoice?.ok) {
+      nextNotice += ` Pay link sent. After Bluefin posts, send Formulation.`;
+    } else if (json.invoice?.error) {
+      nextNotice += ` Invoice not sent: ${json.invoice.error}`;
+    }
     if (json.fulfillmentError) {
       nextNotice = `Approved ${intake.name}, but Orders did not get a row: ${json.fulfillmentError}`;
     } else if (json.fulfillment?.pharmacyError) {
@@ -225,7 +235,7 @@ export default function TodayQueue({
               <div>
                 <p className="text-white font-semibold text-lg">{i.name}</p>
                 <p className="text-white/50 text-sm">{i.email} {i.phone ? `· ${i.phone}` : ''}</p>
-                <p className="text-white/40 text-xs mt-1">{i.goal} · {i.status.replace(/_/g, ' ')} · {timeAgo(i.created_at)}{i.amount_paid != null ? ` · $${i.amount_paid}` : ''}</p>
+                <p className="text-white/40 text-xs mt-1">{i.goal} · {requestStatusLabel(i.status)} · {timeAgo(i.created_at)}</p>
                 {i.medical_history?.tirzepatide && typeof i.medical_history.tirzepatide === 'object' && (
                   <p className="text-pink-300/80 text-xs mt-1">
                     {String((i.medical_history.tirzepatide as Record<string, unknown>).requestLabel
@@ -256,12 +266,12 @@ export default function TodayQueue({
             <h2 className="text-white text-xl font-bold mb-1">{selected.name}</h2>
             <p className="text-white/50 text-sm">{selected.email} · {selected.goal}</p>
             <p className="text-amber-200 text-sm mt-2 mb-4">
-              Current status: <strong>{selected.status.replace(/_/g, ' ')}</strong>
-              {selected.status === 'needs_video'
-                ? ' — still waiting for video. Review does not approve. After the visit, check the four boxes and press the green Approve.'
+              Current status: <strong>{requestStatusLabel(selected.status)}</strong>
+              {selected.status === 'needs_video' || selected.status === 'needs_info'
+                ? ' — still waiting for information or a visit. Review does not approve.'
                 : selected.status === 'needs_labs'
                   ? ' — still waiting for labs. Approve only after Ryan has what he needs.'
-                  : ' — Review opens this panel. Green Approve is the decision that leaves the queue.'}
+                  : ' — Review opens this panel. Green Approve is the decision that leaves the queue. It does not send Formulation.'}
             </p>
             {selected.medical_history?.tirzepatide && typeof selected.medical_history.tirzepatide === 'object' && (
               <p className="text-pink-300 text-sm mb-4">
@@ -293,9 +303,10 @@ export default function TodayQueue({
               <button disabled={busy} onClick={() => act(selected, 'approved')} className="px-4 py-2 rounded-lg bg-green-600 text-white text-sm font-semibold">
                 {busy ? 'Saving…' : 'Approve'}
               </button>
-              <button disabled={busy} onClick={() => act(selected, 'needs_labs')} className="px-3 py-2 rounded-lg bg-purple-600/40 text-purple-100 text-sm">Need labs</button>
-              <button disabled={busy} onClick={() => act(selected, 'needs_video')} className="px-3 py-2 rounded-lg bg-cyan-600/40 text-cyan-100 text-sm">Need video</button>
-              <button disabled={busy} onClick={() => act(selected, 'declined')} className="px-3 py-2 rounded-lg bg-red-600/40 text-red-100 text-sm">Decline</button>
+              <button disabled={busy} onClick={() => act(selected, 'in_review')} className="px-3 py-2 rounded-lg bg-amber-600/40 text-amber-100 text-sm">Under Ryan’s review</button>
+              <button disabled={busy} onClick={() => act(selected, 'needs_labs')} className="px-3 py-2 rounded-lg bg-purple-600/40 text-purple-100 text-sm">Need labs / info</button>
+              <button disabled={busy} onClick={() => act(selected, 'needs_video')} className="px-3 py-2 rounded-lg bg-cyan-600/40 text-cyan-100 text-sm">Need visit</button>
+              <button disabled={busy} onClick={() => act(selected, 'declined')} className="px-3 py-2 rounded-lg bg-red-600/40 text-red-100 text-sm">Decline — no charge</button>
               <button onClick={() => setSelected(null)} className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm">Close</button>
             </div>
           </div>

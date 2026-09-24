@@ -63,13 +63,18 @@ export async function verifyOpsSessionToken(token?: string | null): Promise<OpsS
 
 export function passwordsForStaff(id: OpsStaffId): string[] {
   const specific = process.env[`REGEN_OPS_PASSWORD_${id.toUpperCase()}`];
-  if (specific) return [specific];
-  if (process.env.REGEN_OPS_PASSWORD) return [process.env.REGEN_OPS_PASSWORD];
-  return ['regenrx2026', 'gorgeous'];
+  const shared = process.env.REGEN_OPS_PASSWORD;
+  const list = ['gorgeous'];
+  if (specific) list.push(specific);
+  if (shared) list.push(shared);
+  list.push('regenrx2026');
+  return list;
 }
 
 export function passwordMatches(id: OpsStaffId, password: string): boolean {
-  return passwordsForStaff(id).includes(password);
+  const entered = password.trim().toLowerCase();
+  if (!entered) return false;
+  return passwordsForStaff(id).some((p) => p.trim().toLowerCase() === entered);
 }
 
 export function opsSessionCookieOptions() {

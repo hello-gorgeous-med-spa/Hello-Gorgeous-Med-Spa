@@ -148,7 +148,7 @@ export default function ProductsPage() {
                     className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4"
                     style={{ backgroundColor: `${BRAND.pink}20`, color: BRAND.pink }}
                   >
-                    Anti-Aging Protocol
+                    Not for online order
                   </span>
                   <h3 className="text-3xl font-bold mb-2" style={{ color: BRAND.cream }}>
                     Fountain of Youth
@@ -157,13 +157,13 @@ export default function ProductsPage() {
                     Epitalon + GHK-Cu
                   </p>
                   <p className="max-w-xl" style={{ color: BRAND.gray }}>
-                    A powerful peptide stack targeting cellular longevity and skin regeneration. 
-                    Research-backed peptides support cellular health and collagen synthesis for comprehensive wellness.
+                    Educational page only. Epitalon and GHK-Cu are not available for online checkout pending
+                    clinician, pharmacy, and counsel review.
                   </p>
                 </div>
                 <div className="text-center md:text-right">
-                  <div className="text-sm uppercase tracking-wider mb-1" style={{ color: BRAND.gray }}>Starting at</div>
-                  <div className="text-4xl font-black" style={{ color: BRAND.cream }}>$349<span className="text-lg font-normal">/mo</span></div>
+                  <div className="text-sm uppercase tracking-wider mb-1" style={{ color: BRAND.gray }}>Consult only</div>
+                  <div className="text-2xl font-black" style={{ color: BRAND.cream }}>Book a $49 phone visit</div>
                   <div 
                     className="inline-flex items-center gap-2 mt-4 px-6 py-3 rounded-full font-bold"
                     style={{ backgroundColor: BRAND.pink, color: 'white' }}
@@ -208,7 +208,7 @@ export default function ProductsPage() {
             {[
               { icon: '🏥', title: 'Licensed Providers', desc: 'Illinois FPA Nurse Practitioner with MD oversight' },
               { icon: '💊', title: 'FDA Pharmacies', desc: 'Compounded by 503A registered pharmacies' },
-              { icon: '🚚', title: 'Free Shipping', desc: 'Delivered discreetly to your door' },
+              { icon: '🚚', title: '$30 shipping', desc: 'Shown on the clinic invoice, then shipped discreetly' },
             ].map((item) => (
               <div key={item.title}>
                 <span className="text-4xl mb-3 block">{item.icon}</span>

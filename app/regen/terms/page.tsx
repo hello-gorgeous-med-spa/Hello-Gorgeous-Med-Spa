@@ -60,7 +60,7 @@ export default function TermsPage() {
             Terms of Service
           </h1>
           <p className="text-lg" style={{ color: BRAND.gray }}>
-            Last Updated: September 3, 2026
+            Last Updated: September 23, 2026 · Operations copy aligned; counsel review still required.
           </p>
         </div>
       </section>
@@ -78,7 +78,7 @@ export default function TermsPage() {
 
           <h2 style={{ color: BRAND.cream }}>Introduction</h2>
           <p>
-            REGEN RX is a telehealth platform operated by Hello Gorgeous Med Spa LLC ("REGEN RX," "we," "us," or "our"). 
+            REGEN RX is a telehealth platform operated by Hello Gorgeous, P.C. ("REGEN RX," "we," "us," or "our"). 
             We operate the website located at tryregenrx.com (the "Platform"). Your access to and use of the Platform, 
             including its content, products, and services (collectively, the "Service"), are governed by these Terms of Service 
             ("Terms" or "Agreement").
@@ -105,7 +105,7 @@ export default function TermsPage() {
           </p>
           <p>
             <strong style={{ color: BRAND.cream }}>Important:</strong> By using the Service, you are not establishing a 
-            doctor-patient relationship with REGEN RX or Hello Gorgeous Med Spa LLC. Any doctor-patient relationship is 
+            doctor-patient relationship with REGEN RX or Hello Gorgeous, P.C.. Any doctor-patient relationship is 
             established directly between you and the Provider who evaluates and treats you through the Platform.
           </p>
           <p>
@@ -117,7 +117,7 @@ export default function TermsPage() {
           <p>The Service is available only to individuals who:</p>
           <ul style={{ color: BRAND.gray }}>
             <li>Are located in the State of Illinois</li>
-            <li>Are at least eighteen (18) years of age</li>
+            <li>Are at least twenty-one (21) years of age</li>
             <li>Have accepted this Agreement</li>
             <li>Provide truthful, accurate, and complete information</li>
           </ul>
@@ -170,20 +170,18 @@ export default function TermsPage() {
             <li>HSA and FSA payments may be accepted where applicable</li>
           </ul>
 
-          <h2 style={{ color: BRAND.cream }}>Subscription and Payment</h2>
+          <h2 style={{ color: BRAND.cream }}>Payment</h2>
           <p>
-            Certain products may be offered on a subscription basis. For subscription products:
+            You do not type a card on this website. After a licensed clinician approves a plan, we send a clinic invoice.
+            You pay that invoice (Charm + Bluefin) before a pharmacy order is placed. There is no automatic monthly charge.
+            A refill is another clinical review and a new invoice.
           </p>
           <ul style={{ color: BRAND.gray }}>
-            <li>Your payment method will be charged automatically at regular intervals</li>
-            <li>You may cancel at any time by contacting us</li>
-            <li>Cancellations take effect at the end of your current billing period</li>
-            <li>No refunds are provided for partial subscription periods</li>
+            <li>If a clinician declines an unpaid request, you are not billed for medication</li>
+            <li>A completed $49 consult is a paid visit and is not refunded if they do not prescribe</li>
+            <li>Shipping is $30 flat on the clinic invoice</li>
+            <li>Prices on public pages are request estimates until the clinician approves a plan</li>
           </ul>
-          <p>
-            All prices are subject to change. We reserve the right to modify pricing at any time, but changes will not affect 
-            orders you have already placed.
-          </p>
 
           <h2 style={{ color: BRAND.cream }}>User Accounts</h2>
           <p>
@@ -238,7 +236,7 @@ export default function TermsPage() {
 
           <h2 style={{ color: BRAND.cream }}>Indemnification</h2>
           <p>
-            You agree to indemnify, defend, and hold harmless REGEN RX, Hello Gorgeous Med Spa LLC, and our officers, directors, 
+            You agree to indemnify, defend, and hold harmless REGEN RX, Hello Gorgeous, P.C., and our officers, directors, 
             employees, and agents from any claims, damages, losses, liabilities, and expenses (including attorneys' fees) arising 
             out of or related to your use of the Service or violation of these Terms.
           </p>
@@ -264,7 +262,7 @@ export default function TermsPage() {
           <div className="p-6 rounded-xl" style={{ backgroundColor: BRAND.darkAlt }}>
             <p className="m-0" style={{ color: BRAND.cream }}>
               <strong>REGEN RX</strong><br />
-              Hello Gorgeous Med Spa LLC<br />
+              Hello Gorgeous, P.C.<br />
               Oswego, Illinois<br />
               Phone: <a href="tel:+16306366193" style={{ color: BRAND.teal }}>(630) 636-6193</a><br />
               Email: <a href="mailto:hello@tryregenrx.com" style={{ color: BRAND.teal }}>hello@tryregenrx.com</a>
@@ -282,7 +280,7 @@ export default function TermsPage() {
           <Link href="/contact" style={{ color: BRAND.gray }} className="hover:underline">Contact</Link>
           <a href="tel:+16306366193" style={{ color: BRAND.gray }}>(630) 636-6193</a>
         </div>
-        <p className="mt-4">© 2026 REGEN RX by Hello Gorgeous Med Spa LLC. All rights reserved.</p>
+        <p className="mt-4">© 2026 REGEN RX by Hello Gorgeous, P.C.. All rights reserved.</p>
       </footer>
     </div>
   );

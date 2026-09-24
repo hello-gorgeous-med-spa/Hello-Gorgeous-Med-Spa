@@ -132,7 +132,7 @@ export default function AboutPage() {
             <p style={{ fontSize: 17, color: '#bbb', lineHeight: 1.9, marginBottom: 28 }}>
               I had already built <strong style={{ color: '#fff' }}>Hello Gorgeous Med Spa</strong> in Oswego, Illinois — 
               a medical aesthetics practice that grew from a dream into a thriving clinic with thousands of 
-              loyal patients and over <strong style={{ color: BRAND.teal }}>1,900 five-star reviews</strong>. We helped people 
+              loyal patients and documented Google reviews for Hello Gorgeous Med Spa. We helped people 
               look their best on the outside. But after losing my dad, I realized I needed to do more. 
               I needed to help people feel their best on the <em>inside</em>.
             </p>
@@ -229,7 +229,7 @@ export default function AboutPage() {
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 24 }}>
             {[
-              { stat: '1,900+', label: 'Five-Star Reviews', sub: 'Hello Gorgeous Med Spa' },
+              { stat: '4.6★', label: 'Google reviews', sub: 'Hello Gorgeous Med Spa' },
               { stat: '7+ Years', label: 'Serving Illinois', sub: 'Since 2019' },
               { stat: '10,000+', label: 'Patients Treated', sub: 'And counting' },
               { stat: 'Illinois', label: 'Licensed Providers', sub: 'FPA NP + MD oversight' },
@@ -272,7 +272,7 @@ export default function AboutPage() {
               { icon: '👨‍⚕️', promise: 'A provider who knows your name and actually responds when you reach out.' },
               { icon: '📦', promise: 'Medications from FDA-registered pharmacies, shipped directly to your door.' },
               { icon: '❤️', promise: 'Care that goes beyond a transaction — we\'re invested in your results, not just your payment.' },
-              { icon: '🔒', promise: 'Complete privacy and HIPAA-compliant telehealth — your health is nobody\'s business but yours.' },
+              { icon: '🔒', promise: 'We protect health information under our Notice of Privacy Practices. Your chart is not a marketing list.' },
             ].map((item, i) => (
               <div 
                 key={i}

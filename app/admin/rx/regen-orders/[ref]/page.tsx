@@ -90,6 +90,7 @@ export default function RegenOrderFulfillmentDetailPage() {
   const [copied, setCopied] = useState(false);
   const [trackingNumber, setTrackingNumber] = useState("");
   const [carrier, setCarrier] = useState("USPS");
+  const [invoiceAmount, setInvoiceAmount] = useState("");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -112,6 +113,30 @@ export default function RegenOrderFulfillmentDetailPage() {
   useEffect(() => {
     void load();
   }, [load]);
+
+  const sendPayLink = async () => {
+    setBusy(true);
+    setMessage(null);
+    try {
+      const typed = invoiceAmount.trim();
+      const res = await fetch("/api/regen/ops/invoice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderNumber: ref,
+          amountUsd: typed ? Number(typed) : undefined,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Could not send the pay link");
+      const dollars = data.quote?.amountUsd != null ? `$${Number(data.quote.amountUsd).toFixed(2)}` : "";
+      setMessage(`Pay link sent ${dollars}${data.emailed ? " · email" : ""}${data.texted ? " · text" : ""}.`);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Could not send the pay link");
+    } finally {
+      setBusy(false);
+    }
+  };
 
   const runAction = async (action: string, extra?: Record<string, string>) => {
     setBusy(true);
@@ -458,6 +483,24 @@ export default function RegenOrderFulfillmentDetailPage() {
                   </a>
                 </div>
               </div>
+              <div>
+                <label className="block text-xs text-gray-400 mb-1">Invoice amount (blank = catalog)</label>
+                <input
+                  value={invoiceAmount}
+                  onChange={(e) => setInvoiceAmount(e.target.value)}
+                  inputMode="decimal"
+                  className="w-full rounded-lg border border-white/20 bg-black/40 px-3 py-2 text-sm"
+                  placeholder="299.00"
+                />
+              </div>
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => void sendPayLink()}
+                className="w-full rounded-lg border border-[#FFB8DC] py-3 text-sm font-semibold text-[#FFB8DC] hover:bg-white/10 disabled:opacity-50"
+              >
+                Send Bluefin pay link
+              </button>
               {ticket?.pharmacy !== "BoomRx" &&
               ticket?.status === "ready" &&
               summary.formuconnectLive ? (

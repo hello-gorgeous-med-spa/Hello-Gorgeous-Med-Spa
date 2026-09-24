@@ -148,7 +148,7 @@ export default function SignupPage() {
           </p>
           <div className="grid grid-cols-3 gap-4">
             {[
-              { value: '1,900+', label: '5-Star Reviews' },
+              { value: '4.6★', label: 'Google · Hello Gorgeous' },
               { value: '24-48h', label: 'Provider Review' },
               { value: 'Free', label: 'Shipping' },
             ].map((stat) => (

@@ -6,6 +6,7 @@ import {
   generateConsentDocument,
   getTreatmentCategory,
 } from '@/lib/regen/informed-consent';
+import { isConsultOnlyProgram } from '@/lib/regen/public-order-truth';
 
 function splitName(name: string): { first_name: string; last_name: string } {
   const parts = String(name || '').trim().split(/\s+/);
@@ -48,7 +49,6 @@ export async function POST(request: NextRequest) {
       telehealthConsent,
       treatmentConsent,
       stripePaymentIntentId,
-      amountPaid,
       affiliateCode,
     } = body;
 
@@ -63,6 +63,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'REGEN RX currently only serves Illinois residents' },
         { status: 400 }
+      );
+    }
+
+    const requestedProgram = String(
+      (medicalHistory && (medicalHistory.program || medicalHistory.requestedProgram)) || '',
+    );
+    if (isConsultOnlyProgram(requestedProgram) || isConsultOnlyProgram(goal)) {
+      return NextResponse.json(
+        {
+          error:
+            'This treatment is consult-only while clinician, pharmacy, and counsel review it. Book a $49 phone consult instead.',
+        },
+        { status: 400 },
       );
     }
 
@@ -135,7 +148,7 @@ export async function POST(request: NextRequest) {
         telehealth_consent_at: telehealthConsent ? new Date().toISOString() : null,
         treatment_consent_at: treatmentConsent ? new Date().toISOString() : null,
         stripe_payment_intent_id: stripePaymentIntentId || null,
-        amount_paid: amountPaid || null,
+        amount_paid: 0,
         affiliate_code: affiliateCode ? String(affiliateCode).toUpperCase() : null,
         status: 'pending',
       })

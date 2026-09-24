@@ -245,7 +245,7 @@ export default function OrdersPage() {
         <div className="grid sm:grid-cols-3 gap-6">
           {[
             { title: 'Fast Processing', desc: 'Orders are processed within 24-48 hours after provider approval.' },
-            { title: 'Free Shipping', desc: 'All prescriptions ship free via USPS or FedEx with tracking.' },
+            { title: '$30 shipping', desc: 'Shown on the clinic invoice. Tracking is sent after the pharmacy ships.' },
             { title: 'Discreet Packaging', desc: 'Plain packaging with no indication of contents.' },
           ].map((item) => (
             <div key={item.title}>

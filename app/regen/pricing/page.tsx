@@ -105,7 +105,7 @@ export default function PricingPage() {
           Simple, Transparent Pricing
         </h1>
         <p style={{ fontSize: 18, color: '#888', maxWidth: 600, margin: '0 auto 32px' }}>
-          All subscriptions include provider oversight, free shipping, and easy pause/cancel anytime.
+          These are request prices, not auto-renewing subscriptions. A clinician reviews first. You pay a clinic invoice only if they approve. Shipping is $30 on that invoice. No automatic monthly charge.
         </p>
 
         {/* Expert Consultation CTA */}
@@ -179,7 +179,7 @@ export default function PricingPage() {
               ${REGEN_TELEHEALTH_FEE_USD}
             </div>
             <div style={{ fontSize: 13, color: '#888', marginBottom: 16 }}>
-              video consult · before you buy
+              phone consult · before you buy therapy
             </div>
             <Link
               href={REGEN_TELEHEALTH_PATH}
@@ -467,8 +467,8 @@ export default function PricingPage() {
 
         {[
           {
-            q: 'Can I pause or cancel anytime?',
-            a: 'Yes! You can pause your subscription for up to 3 months or cancel anytime. No long-term contracts or cancellation fees.',
+            q: 'Is this a subscription?',
+            a: 'No. There is no automatic monthly charge. A refill is another clinical review and a new clinic invoice. You can stop requesting refills at any time.',
           },
           {
             q: 'Is there a consultation fee?',
@@ -476,11 +476,11 @@ export default function PricingPage() {
           },
           {
             q: 'How does shipping work?',
-            a: 'All subscriptions include free shipping. Medications are shipped discreetly from our partner pharmacy directly to your door.',
+            a: 'Shipping is $30 flat on the clinic invoice. A licensed pharmacy ships to your Illinois address after the invoice posts. Packaging is discreet.',
           },
           {
             q: 'What if I need to change my dose?',
-            a: 'Your provider can adjust your prescription at any time. Dose changes may affect your monthly price, and we\'ll always notify you before charging.',
+            a: 'Your clinician can change or stop a prescription when appropriate. A new price is shown on the next clinic invoice before you pay. Nothing auto-charges.',
           },
           {
             q: 'Do you accept insurance?',

@@ -60,7 +60,7 @@ export default function PrivacyPage() {
             Privacy Policy
           </h1>
           <p className="text-lg" style={{ color: BRAND.gray }}>
-            Last Updated: September 3, 2026
+            Last Updated: September 23, 2026 · Operations copy aligned; counsel review still required.
           </p>
         </div>
       </section>
@@ -71,7 +71,7 @@ export default function PrivacyPage() {
 
           <h2 style={{ color: BRAND.cream }}>Introduction</h2>
           <p>
-            REGEN RX, operated by Hello Gorgeous Med Spa LLC ("we," "us," or "our"), is committed to protecting your privacy. 
+            REGEN RX, operated by Hello Gorgeous, P.C. ("we," "us," or "our"), is committed to protecting your privacy. 
             This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our 
             telehealth platform at tryregenrx.com (the "Service").
           </p>
@@ -116,7 +116,7 @@ export default function PrivacyPage() {
             <li>Provide and improve our telehealth services</li>
             <li>Connect you with licensed healthcare providers</li>
             <li>Process prescriptions and coordinate with pharmacies</li>
-            <li>Process payments and manage subscriptions</li>
+            <li>Process clinic invoices after a clinician approves a plan</li>
             <li>Communicate with you about your care and orders</li>
             <li>Send service-related notifications and updates</li>
             <li>Comply with legal and regulatory requirements</li>
@@ -198,16 +198,16 @@ export default function PrivacyPage() {
 
           <h2 style={{ color: BRAND.cream }}>Children's Privacy</h2>
           <p>
-            Our Service is not intended for individuals under 18 years of age. We do not knowingly collect personal information 
-            from children. If we become aware that we have collected information from a child, we will take steps to delete it.
+            Our Service is for Illinois adults 21 years of age or older. We do not knowingly collect personal information 
+            from anyone under 21. If we become aware that we have, we will take steps to delete it.
           </p>
 
           <h2 style={{ color: BRAND.cream }}>HIPAA Notice</h2>
           <p>
-            REGEN RX is operated by Hello Gorgeous Med Spa LLC, which is not a "covered entity" under HIPAA. However, the 
-            healthcare providers and pharmacies you interact with through our platform may be covered entities subject to HIPAA. 
-            We take the privacy and security of your health information seriously and implement safeguards consistent with 
-            industry best practices.
+            Health information collected for care is handled under our{' '}
+            <a href="/hipaa" style={{ color: BRAND.teal }}>Notice of Privacy Practices</a>.
+            We do not use an unqualified “HIPAA compliant” marketing claim. Counsel should confirm covered-entity status
+            before any HIPAA badge is used in public.
           </p>
 
           <h2 style={{ color: BRAND.cream }}>Data Retention</h2>
@@ -239,7 +239,7 @@ export default function PrivacyPage() {
           <div className="p-6 rounded-xl" style={{ backgroundColor: BRAND.darkAlt }}>
             <p className="m-0" style={{ color: BRAND.cream }}>
               <strong>REGEN RX</strong><br />
-              Hello Gorgeous Med Spa LLC<br />
+              Hello Gorgeous, P.C.<br />
               Oswego, Illinois<br />
               Phone: <a href="tel:+16306366193" style={{ color: BRAND.teal }}>(630) 636-6193</a><br />
               Email: <a href="mailto:hello@tryregenrx.com" style={{ color: BRAND.teal }}>hello@tryregenrx.com</a>
@@ -257,7 +257,7 @@ export default function PrivacyPage() {
           <Link href="/contact" style={{ color: BRAND.gray }} className="hover:underline">Contact</Link>
           <a href="tel:+16306366193" style={{ color: BRAND.gray }}>(630) 636-6193</a>
         </div>
-        <p className="mt-4">© 2026 REGEN RX by Hello Gorgeous Med Spa LLC. All rights reserved.</p>
+        <p className="mt-4">© 2026 REGEN RX by Hello Gorgeous, P.C.. All rights reserved.</p>
       </footer>
     </div>
   );

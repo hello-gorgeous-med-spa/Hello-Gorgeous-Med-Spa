@@ -31,7 +31,7 @@ export default function RegenSuccessPage() {
           </h1>
           
           <p className="text-lg mb-8" style={{ color: BRAND.gray }}>
-            Thank you for starting with REGEN RX. A licensed Illinois clinician reviews every request — this is not a guaranteed prescription.
+            Thank you for starting with REGEN RX. Ryan reviews every request. This is not a guaranteed prescription, and an unpaid or declined request does not create a therapy charge.
           </p>
 
           <div className="rounded-xl p-6 mb-8 text-left" style={{ backgroundColor: BRAND.dark, border: `1px solid ${BRAND.teal}20` }}>
@@ -39,19 +39,19 @@ export default function RegenSuccessPage() {
             <ol className="space-y-3" style={{ color: BRAND.gray }}>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.teal }}>1</span>
-                <span><strong style={{ color: BRAND.cream }}>Check your email</strong> — Confirmation is sent from REGEN RX.</span>
+                <span><strong style={{ color: BRAND.cream }}>We have your request</strong> — Confirmation is emailed. Staff and Ryan can open it in Today.</span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.teal }}>2</span>
-                <span><strong style={{ color: BRAND.cream }}>Provider review</strong> — A licensed clinician reviews your intake, usually within 1–2 business days.</span>
+                <span><strong style={{ color: BRAND.cream }}>Ryan reviews</strong> — He may ask for more information, labs, or a $49 phone consult.</span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.pink }}>3</span>
-                <span><strong style={{ color: BRAND.cream }}>Secure payment link</strong> — If treatment is appropriate, we send a clinic invoice you pay online. Do not type a card on this website.</span>
+                <span><strong style={{ color: BRAND.cream }}>Clinic invoice</strong> — If he approves a treatment, we send a Charm invoice. It shows medication, $30 shipping, GORGEOUS20 on a first order, and a $49 consult credit when you already paid for the phone visit. You do not enter a coupon on this website.</span>
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-6 h-6 text-white rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: BRAND.pink }}>4</span>
-                <span><strong style={{ color: BRAND.cream }}>Pharmacy ships</strong> — After payment posts, your prescription ships to your Illinois address when filled.</span>
+                <span><strong style={{ color: BRAND.cream }}>Pay, then pharmacy</strong> — After you pay, we submit the prescription to Formulation Rx. Shipping is $30, not free.</span>
               </li>
             </ol>
           </div>

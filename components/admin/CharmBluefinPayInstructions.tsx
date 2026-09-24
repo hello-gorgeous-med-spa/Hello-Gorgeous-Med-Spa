@@ -14,20 +14,19 @@ export function CharmBluefinPayInstructions({ title }: { title?: string }) {
         {title || 'Take the card in Charm with Bluefin'}
       </h2>
       <p className="mt-3 text-gray-700 font-medium">
-        Stripe is off. Do not send a website checkout link. Square is spa booking only — not prescription products.
+        Stripe is off. Square is spa booking only — not prescription products. Ryan Approve emails and texts the Bluefin pay link when PayConex is connected. Charm is the backup if you need a credit or a $1 test.
       </p>
       <ol className="mt-5 list-decimal space-y-2 pl-5 font-semibold text-gray-900">
-        <li>
-          Sign in to{' '}
+        <li>Ryan approves on Today. The patient gets email + text with a Bluefin link. Resend from Orders if they lost it.</li>
+        <li>If they need a GORGEOUS20 or $49 credit, or PayConex is not connected yet, sign in to{' '}
           <a className="text-[#E6007E] underline" href={CHARM_SIGNIN_URL} target="_blank" rel="noopener noreferrer">
             Charm
           </a>
-          .
+          {' '}→ Billing → + Invoice. Clear Insurance / Payer (self-pay).
         </li>
-        <li>Open the patient → Billing → + Invoice. Clear Insurance / Payer (self-pay).</li>
         <li>Type a real Charge (not $0). Total / Balance Due must show dollars before Bluefin will run.</li>
         <li>Send Invoice → Send Payment Link (email and/or SMS) with the Bluefin beneficiary.</li>
-        <li>After it posts, Danielle or Ryan opens the order and taps Send to Formulation.</li>
+        <li>After Bluefin posts, Danielle or Ryan opens the order and taps Send to Formulation.</li>
       </ol>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
         <a

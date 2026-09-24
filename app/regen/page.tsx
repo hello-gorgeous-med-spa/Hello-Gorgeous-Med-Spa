@@ -148,8 +148,8 @@ function WeightLossCalculator() {
               </div>
 
               <p className="text-sm" style={{ color: BRAND.gray }}>
-                Based on clinical trials of GLP-1 medications like Wegovy® and Zepbound®, 
-                patients lose an average of 15-20% of their body weight.*
+                Published GLP-1 trials have reported about 15–20% mean weight change. That is not a REGEN RX
+                outcome and not a promise for you.*
               </p>
             </div>
 
@@ -310,7 +310,7 @@ export default function RegenLandingPage() {
               <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
-              <span className="text-sm font-medium" style={{ color: BRAND.gray }}>Free Shipping</span>
+              <span className="text-sm font-medium" style={{ color: BRAND.gray }}>$30 shipping on the invoice</span>
             </div>
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
@@ -331,11 +331,11 @@ export default function RegenLandingPage() {
               <span style={{ color: BRAND.pink }}>◆</span>
               <span style={{ color: BRAND.teal }} className="font-semibold">FDA-Registered Pharmacies</span>
               <span style={{ color: BRAND.pink }}>◆</span>
-              <span style={{ color: BRAND.teal }} className="font-semibold">Free Shipping</span>
+              <span style={{ color: BRAND.teal }} className="font-semibold">$30 shipping on the invoice</span>
               <span style={{ color: BRAND.pink }}>◆</span>
-              <span style={{ color: BRAND.teal }} className="font-semibold">HIPAA Compliant</span>
+              <span style={{ color: BRAND.teal }} className="font-semibold">Notice of Privacy Practices</span>
               <span style={{ color: BRAND.pink }}>◆</span>
-              <span style={{ color: BRAND.teal }} className="font-semibold">No Appointments Needed</span>
+              <span style={{ color: BRAND.teal }} className="font-semibold">Clinician review required</span>
               <span style={{ color: BRAND.pink }}>◆</span>
             </div>
           ))}
@@ -536,7 +536,7 @@ export default function RegenLandingPage() {
             {[
               { icon: '🏥', label: 'Illinois Licensed', desc: 'Full Practice Authority NP' },
               { icon: '💊', label: 'FDA Pharmacies', desc: '503A compounding partners' },
-              { icon: '🔒', label: 'HIPAA Compliant', desc: 'Your data is protected' },
+              { icon: '🔒', label: 'Privacy notice', desc: 'We protect health information' },
             ].map((item) => (
               <div 
                 key={item.label} 
@@ -798,9 +798,9 @@ export default function RegenLandingPage() {
             {/* Stats Bar */}
             <div className="flex flex-wrap justify-center gap-8 mt-8 mb-12">
               {[
-                { stat: '1,900+', label: 'Five-Star Reviews' },
-                { stat: '15-20%', label: 'Avg Weight Loss*' },
-                { stat: 'Illinois', label: 'Licensed Providers' },
+                { stat: '4.6★', label: 'Google · Hello Gorgeous Med Spa' },
+                { stat: 'Illinois', label: 'Adults 21+' },
+                { stat: 'Illinois', label: 'Licensed clinicians' },
               ].map((item) => (
                 <div key={item.label} className="text-center">
                   <div className="text-4xl font-black" style={{ color: BRAND.pink }}>{item.stat}</div>
@@ -868,8 +868,8 @@ export default function RegenLandingPage() {
           </div>
 
           <p className="text-center text-xs mt-8" style={{ color: '#555' }}>
-            *Individual results may vary. Testimonials represent typical patient experiences but are not guarantees. 
-            Patients compensated for sharing their stories.
+            Named stories below are illustrative, not documented REGEN RX outcomes, and not typical results.
+            Results vary. Compounded medication is not FDA-approved.
           </p>
         </div>
       </section>
@@ -884,7 +884,7 @@ export default function RegenLandingPage() {
             Ready to feel your best?
           </h2>
           <p className="text-xl mb-10 text-white/80">
-            Book a consult on video first — {REGEN_TELEHEALTH_CREDIT_SHORT.toLowerCase()}.
+            Book a phone consult first — {REGEN_TELEHEALTH_CREDIT_SHORT.toLowerCase()}.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

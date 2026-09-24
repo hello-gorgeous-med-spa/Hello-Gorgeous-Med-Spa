@@ -35,8 +35,8 @@ const CREDENTIALS = [
   },
   {
     icon: '🔒',
-    title: 'HIPAA Compliant',
-    description: 'Your health information is protected by HIPAA regulations. We use encrypted, secure telehealth infrastructure.',
+    title: 'Notice of Privacy Practices',
+    description: 'Your health information is protected. Read the Notice of Privacy Practices at /hipaa. We do not use an unqualified “HIPAA compliant” marketing badge.',
   },
   {
     icon: '📍',

@@ -16,21 +16,21 @@ export const REGEN_HOW_IT_WORKS_LEDE =
 export const REGEN_HOW_IT_WORKS_STEPS = [
   {
     num: '1',
-    title: 'Check your eligibility',
+    title: 'Start a request or book a $49 phone consult',
     time: 'About 8 min',
-    desc: 'Tap Get Started and complete the secure health questionnaire — history, goals, and consent. Illinois residents only. We do not bill insurance.',
+    desc: 'Submit a secure intake or book Ryan’s $49 phone consult. Illinois residents, 21+. This does not charge you for medication.',
   },
   {
     num: '2',
-    title: 'Medical review',
+    title: 'Ryan reviews',
     time: '1–2 business days',
-    desc: `A licensed Illinois clinician reviews your intake. If they need a face-to-face visit, book a ${regenTelehealthPriceLabel()} video consult (credited toward therapy if they prescribe and you continue). They may also ask for labs.`,
+    desc: `Ryan reviews your request. He may ask for information, labs, or a ${regenTelehealthPriceLabel()} phone consult. A request is not a guaranteed prescription.`,
   },
   {
     num: '3',
-    title: 'Pay the clinic invoice, then we ship',
+    title: 'Clinic invoice, then Formulation Rx',
     time: 'After approval',
-    desc: 'If treatment is appropriate, we send a secure clinic payment link. You do not type a card on this website. After it posts, a licensed compounding pharmacy ships to your Illinois address with instructions.',
+    desc: 'If he approves a treatment, we send a Charm clinic invoice (medication, $30 shipping, GORGEOUS20 and $49 consult credit when they apply). After you pay, we submit the prescription to Formulation Rx. You do not type a card on this website.',
   },
 ] as const;
 
@@ -39,4 +39,4 @@ export const REGEN_HOW_IT_WORKS_SECONDARY_CTA = `Talk first — ${regenTelehealt
 export const REGEN_HOW_IT_WORKS_SECONDARY_HREF = REGEN_TELEHEALTH_PATH;
 
 export const REGEN_HOW_IT_WORKS_FOOTNOTE =
-  'Refills are another clinical review — not an automatic monthly charge. Shipping is shown on your request. Results vary.';
+  'Refills are another clinical review — not an automatic monthly charge. Shipping is $30 flat on the clinic invoice. If a clinician declines an unpaid request, you are not charged for medication. A completed $49 consult is a paid visit and is not refunded. Results vary.';

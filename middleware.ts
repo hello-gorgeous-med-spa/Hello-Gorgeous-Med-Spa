@@ -115,7 +115,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (pathname.startsWith('/api/regen/ops') && pathname !== '/api/regen/ops/session') {
+  if (
+    pathname.startsWith('/api/regen/ops') &&
+    pathname !== '/api/regen/ops/session' &&
+    pathname !== '/api/regen/ops/invoice'
+  ) {
     const staff = await verifyOpsSessionToken(request.cookies.get(OPS_SESSION_COOKIE)?.value);
     if (!staff) {
       return NextResponse.json({ error: 'Staff sign-in required' }, { status: 401 });

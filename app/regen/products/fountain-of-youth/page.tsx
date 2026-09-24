@@ -64,10 +64,10 @@ export default function FountainOfYouthPage() {
             <Link href="/pricing" style={{ color: '#888', fontSize: 14, textDecoration: 'none' }}>Pricing</Link>
             <Link href="/learn" style={{ color: '#888', fontSize: 14, textDecoration: 'none' }}>Learn</Link>
             <Link
-              href="/start?goal=skincare"
+              href="/consult"
               style={{ padding: '10px 20px', backgroundColor: BRAND.pink, color: '#fff', borderRadius: 999, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}
             >
-              Get Started
+              Book a consult
             </Link>
           </nav>
         </div>
@@ -99,7 +99,7 @@ export default function FountainOfYouthPage() {
             textTransform: 'uppercase',
             letterSpacing: '1px',
           }}>
-            Peptide Protocol
+            Not for online order — clinician and pharmacy review required
           </div>
           
           <h1 style={{ 
@@ -135,7 +135,7 @@ export default function FountainOfYouthPage() {
 
           <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 40 }}>
             <Link
-              href="/start?goal=skincare&program=fountain-of-youth"
+              href="/consult"
               style={{
                 padding: '16px 32px',
                 backgroundColor: BRAND.pink,
@@ -149,7 +149,7 @@ export default function FountainOfYouthPage() {
                 gap: 8,
               }}
             >
-              Start Your Protocol
+              Talk to a clinician first
               <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
@@ -457,10 +457,10 @@ export default function FountainOfYouthPage() {
             Ready to turn back the clock?
           </h2>
           <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.8)', marginBottom: 32 }}>
-            Start your free online visit today. Our providers will determine if Fountain of Youth is right for you.
+            This protocol is not for online checkout. Ask a licensed Illinois clinician whether any peptide is appropriate.
           </p>
           <Link
-            href="/start?goal=skincare&program=fountain-of-youth"
+            href="/consult"
             style={{
               display: 'inline-block',
               padding: '18px 40px',
@@ -472,7 +472,7 @@ export default function FountainOfYouthPage() {
               textDecoration: 'none',
             }}
           >
-            Get Started — Free Consultation
+            Book a $49 phone consult
           </Link>
         </div>
       </section>
