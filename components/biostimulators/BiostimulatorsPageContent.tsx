@@ -122,37 +122,16 @@ export function BiostimulatorsPageContent() {
           </div>
 
           <div className="relative">
-            <div className="relative aspect-[4/4.6] overflow-hidden border border-[#D4A373]/20 bg-[#FFF5F7]">
-              {BIOSTIMULATORS_IMAGES.hero ? (
-                <Image src={BIOSTIMULATORS_IMAGES.hero} alt="Sculptra collagen renewal" fill className="object-cover" sizes="50vw" />
-              ) : (
-                <>
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#FFF5F7] via-[#ffe2e8] to-[#D4A373]/30" />
-                  <div
-                    className="absolute inset-0 opacity-40"
-                    style={{ backgroundImage: "radial-gradient(circle at 30% 20%, #FF6B9D 0.5px, transparent 0.5px)", backgroundSize: "18px 18px" }}
-                  />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-                    <div className="mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#D4A373] to-[#FF6B9D] text-white">
-                      <SparkleIcon className="h-8 w-8" />
-                    </div>
-                    <p className={`${serif} text-[22px] leading-[1.1] text-black`}>
-                      Natural Lift.
-                      <br />
-                      No Overfilled Look.
-                    </p>
-                    <p className="mt-3 text-[11px] uppercase tracking-[0.18em] text-zinc-500">
-                      Woman 40s · Restored Cheek Volume · Collagen Renewal
-                    </p>
-                    <div className="mt-3 flex gap-1.5">
-                      <span className="rounded-full bg-black px-2.5 py-1 text-[10px] tracking-wide text-white">SCULPTRA®</span>
-                      <span className="rounded-full border border-black px-2.5 py-1 text-[10px] tracking-wide text-black">RADIESSE®</span>
-                    </div>
-                    <p className="mt-6 text-[10px] uppercase tracking-[0.2em] text-zinc-400">Photo coming — send yours and we place it here</p>
-                  </div>
-                </>
-              )}
-              <p className="absolute right-4 top-4 text-[10px] uppercase tracking-[0.16em] text-zinc-500">Medical Screening Required</p>
+            <div className="overflow-hidden border border-[#D4A373]/20 bg-black">
+              <Image
+                src={BIOSTIMULATORS_IMAGES.hero}
+                alt="Facial anatomy map for Sculptra and Radiesse biostimulators — Hello Gorgeous Med Spa Oswego"
+                width={800}
+                height={800}
+                className="h-auto w-full object-contain"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
             </div>
             <div className="mt-4 border border-[#D4A373]/15 bg-white p-4">
               <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-black">Why Clients Choose Us</p>

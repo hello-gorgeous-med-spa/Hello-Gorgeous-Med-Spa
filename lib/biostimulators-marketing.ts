@@ -29,7 +29,7 @@ export function isBiostimulatorsNavActive(pathname: string | null): boolean {
 }
 
 export const BIOSTIMULATORS_IMAGES = {
-  hero: "",
+  hero: "/images/biostimulators/facial-anatomy.png",
   radiesseAreas: "/images/biostimulators/radiesse-areas.png",
   sculptraAreas: "/images/biostimulators/sculptra-areas.png",
   science: "/images/biostimulators/science-behind.png",
