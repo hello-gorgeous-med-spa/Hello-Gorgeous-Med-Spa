@@ -98,11 +98,11 @@ export const INJECTABLES_MENU: ServiceMenuConfig = {
         "Results build over 3–6 months",
       ],
       pricing: [
-        { label: "Sculptra", price: "Consult", href: "/services/sculptra-biostimulator", note: "Priced per vial at visit" },
-        { label: "Radiesse", price: "Consult", note: "1+ vials · quoted at consult" },
+        { label: "Sculptra", price: "Consult", href: "/services/biostimulators", note: "Priced per vial at visit" },
+        { label: "Radiesse", price: "Consult", href: "/services/biostimulators#compare", note: "1+ vials · quoted at consult" },
         { label: "Kybella (submental fat)", price: "Consult", href: "/services/kybella" },
       ],
-      learnMoreHref: "/services/sculptra-biostimulator",
+      learnMoreHref: "/services/biostimulators",
     },
     {
       id: "baby-tox",

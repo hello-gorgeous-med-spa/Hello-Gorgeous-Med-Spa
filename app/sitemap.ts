@@ -1136,6 +1136,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ]);
 
   const priorityTreatmentPages: MetadataRoute.Sitemap = [
+    '/services/biostimulators',
     '/services/sculptra-biostimulator',
     '/services/salmon-dna-glass-facial',
     '/services/ipl-photofacial',

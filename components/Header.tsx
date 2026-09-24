@@ -24,6 +24,11 @@ import { SOLARIA_CO2_PATH, isSolariaNavActive } from "@/lib/solaria-marketing";
 import { QUANTUM_RF_PATH, isQuantumRfNavActive } from "@/lib/quantum-rf-marketing";
 import { INJECTABLES_NAV, INJECTABLES_PATH, isInjectablesNavActive } from "@/lib/injectables-marketing";
 import {
+  BIOSTIMULATORS_NAV,
+  BIOSTIMULATORS_PATH,
+  isBiostimulatorsNavActive,
+} from "@/lib/biostimulators-marketing";
+import {
   FACIALS_PEELS_MENU_PATH,
   FACIALS_PEELS_NAV,
   isFacialsPeelsNavActive,
@@ -515,6 +520,7 @@ export function Header() {
   const isSolariaNavActiveState = isSolariaNavActive(pathname ?? null);
   const isQuantumRfNavActiveState = isQuantumRfNavActive(pathname ?? null);
   const isInjectablesNavActiveState = isInjectablesNavActive(pathname ?? null);
+  const isBiostimulatorsNavActiveState = isBiostimulatorsNavActive(pathname ?? null);
   const isFacialsNavActiveState = isFacialsPeelsNavActive(pathname ?? null);
   const isIvTherapyNavActiveState = isIvTherapyNavActive(pathname ?? null);
 
@@ -525,6 +531,7 @@ export function Header() {
     !isSolariaNavActiveState &&
     !isQuantumRfNavActiveState &&
     !isInjectablesNavActiveState &&
+    !isBiostimulatorsNavActiveState &&
     !isFacialsNavActiveState &&
     !isIvTherapyNavActiveState &&
     (isActive("/services") ||
@@ -654,6 +661,18 @@ export function Header() {
                 aria-label="Botox and dermal fillers — injectables menu"
               >
                 {INJECTABLES_NAV.label}
+              </Link>
+            </div>
+
+            {/* Biostimulators — Sculptra + Radiesse flagship */}
+            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
+              <Link
+                href={BIOSTIMULATORS_PATH}
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, isBiostimulatorsNavActiveState)}
+                aria-label="Sculptra and Radiesse biostimulators"
+              >
+                {BIOSTIMULATORS_NAV.label}
               </Link>
             </div>
 
@@ -897,6 +916,17 @@ export function Header() {
               <span className="flex flex-col items-start gap-0.5">
                 <span>{INJECTABLES_NAV.label}</span>
                 <span className="text-xs font-semibold text-[#FFB8DC]">Botox $10/unit · lip filler $450</span>
+              </span>
+            </Link>
+
+            <Link
+              href={BIOSTIMULATORS_PATH}
+              onClick={() => setMobileOpen(false)}
+              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+            >
+              <span className="flex flex-col items-start gap-0.5">
+                <span>{BIOSTIMULATORS_NAV.label}</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">Sculptra® + Radiesse® · collagen</span>
               </span>
             </Link>
 

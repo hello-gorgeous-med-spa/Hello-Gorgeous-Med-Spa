@@ -64,6 +64,7 @@ export const sculptraBiostimulatorSeo: TreatmentSeoConfig = {
     "Same team for injectables, lasers, and skin tightening under one roof.",
   ],
   relatedLinks: [
+    { label: "Biostimulators — Sculptra vs Radiesse", href: "/services/biostimulators" },
     { label: "Dermal fillers", href: "/services/dermal-fillers" },
     { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego-il" },
     { label: "Injectables hub", href: "/injectables" },
