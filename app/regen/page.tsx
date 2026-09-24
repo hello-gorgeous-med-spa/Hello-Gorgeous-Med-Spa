@@ -566,7 +566,7 @@ export default function RegenLandingPage() {
               Simple, honest <span style={{ color: BRAND.pink }}>pricing</span>
             </h2>
             <p className="text-lg max-w-2xl mx-auto" style={{ color: BRAND.gray }}>
-              No hidden fees. No insurance games. Just straightforward monthly plans.
+              Request prices. Ryan reviews first. You pay a clinic invoice only if he approves. Shipping is $30 — not free.
             </p>
           </div>
 
@@ -577,7 +577,7 @@ export default function RegenLandingPage() {
                 subtitle: 'Semaglutide',
                 price: 299, 
                 icon: '⚡',
-                features: ['GLP-1 medication', 'Provider oversight', 'Shipped monthly'],
+                features: ['GLP-1 medication', 'Clinician review first', '$30 shipping on the invoice'],
                 popular: true,
               },
               { 
@@ -623,7 +623,7 @@ export default function RegenLandingPage() {
                 <p className="text-sm mb-4" style={{ color: BRAND.gray }}>{tier.subtitle}</p>
                 <div className="mb-4">
                   <span className="text-3xl font-black" style={{ color: BRAND.teal }}>${tier.price}</span>
-                  <span className="text-sm" style={{ color: BRAND.gray }}>/mo</span>
+                  <span className="text-sm" style={{ color: BRAND.gray }}> request</span>
                 </div>
                 <ul className="space-y-2">
                   {tier.features.map((f) => (
@@ -648,7 +648,7 @@ export default function RegenLandingPage() {
               </svg>
             </Link>
             <p className="mt-4 text-sm" style={{ color: BRAND.gray }}>
-              Save up to 20% with prepay plans · Cancel anytime
+              GORGEOUS20 is 20% off the first medication on the clinic invoice. Nothing auto-renews.
             </p>
           </div>
         </div>

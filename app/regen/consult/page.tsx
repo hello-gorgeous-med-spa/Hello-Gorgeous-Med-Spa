@@ -165,7 +165,7 @@ export default function ConsultPage() {
             <dt style={{ fontWeight: 700, color: BRAND.pink, marginBottom: 6 }}>How does the credit work?</dt>
             <dd style={{ margin: 0, color: "#aaa", lineHeight: 1.6 }}>
               {REGEN_TELEHEALTH_CREDIT_LINE} Tell us you already completed a consult when you start your order — we apply the{" "}
-              ${REGEN_TELEHEALTH_FEE_USD} against that first medication charge (shipping stays as shown at checkout).
+              ${REGEN_TELEHEALTH_FEE_USD} against that first medication on the clinic invoice. Shipping is $30 and is not discounted.
             </dd>
           </div>
           <div>

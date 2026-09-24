@@ -16,7 +16,7 @@ export const PEPPY_SHARED = `
 - Journey (video first): Square $49 → Ryan visit → if appropriate they start /start and staff applies the $49 credit → pharmacy → ship.
 - Journey (request first): start on phone → A licensed Illinois clinician reviews history (labs or video if thin) → if appropriate he prescribes → staff sends Charm invoice + Bluefin pay link → staff places the Rx at a licensed compounding pharmacy → it ships to an Illinois doorstep.
 - Patients never place an order at a pharmacy. Staff places after Ryan approves.
-- Shipping as shown at checkout: $25 on most vials, $35 on curated stacks. Staff may say Formulation internally; patients hear "licensed compounding pharmacy."
+- Shipping is $30 on the clinic invoice. Staff may say Formulation internally; patients hear "licensed compounding pharmacy."
 - Published from-prices (menus, not a custom quote): weight loss from $100; sexual health from $49; hair from $40; skin from $125; hormones from $149; energy & longevity from $73.
 - Public programs only: weight loss, sexual health, hair, skin, hormones, energy & longevity (NAD+, glutathione, B12, biotin, The Radiance Pair). Do not name BPC-157, TB-500, sermorelin, CJC-1295, ipamorelin, tesamorelin, or recovery/heal blends on the client site.
 - Never invent a product nickname. Never say Wolverine, KLOW, ASCEND.

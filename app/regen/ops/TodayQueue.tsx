@@ -29,7 +29,12 @@ const STATUS_TABS = [
   { id: 'declined', label: 'Declined' },
   { id: 'approved', label: 'Approved — awaiting payment' },
   { id: 'shipped', label: 'Shipped' },
+  { id: 'tests', label: 'TEST only' },
 ];
+
+function isTestIntake(i: Intake) {
+  return i.name.startsWith('TEST ') || Boolean(i.medical_history?.stage2Test);
+}
 
 function timeAgo(dateStr: string) {
   const seconds = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
@@ -89,6 +94,8 @@ export default function TodayQueue({
   }, [load, initialIntakes.length]);
 
   const visible = intakes.filter((i) => {
+    if (filter === 'tests') return isTestIntake(i);
+    if (isTestIntake(i)) return false;
     if (filter === 'all') return true;
     if (filter === 'action') return ['pending', 'awaiting_payment', 'needs_labs', 'needs_video', 'needs_info', 'in_review'].includes(i.status);
     if (filter === 'needs_labs') return ['needs_labs', 'needs_video', 'needs_info'].includes(i.status);
@@ -161,6 +168,9 @@ export default function TodayQueue({
         <h1 className="text-3xl font-bold text-white">Today</h1>
         <p className="text-white/50">
           {staff ? `Signed in as ${staff.short}` : 'Not signed in'} · ${stats.revenue.today.toLocaleString()} today · {stats.intakeQueue} waiting
+        </p>
+        <p className="text-white/40 text-xs mt-2">
+          Daily: Danielle checks Needs action and unpaid invoices. Ryan checks Under review. Danielle or Damara check pharmacy issue on Orders. TEST rows stay on the TEST only tab.
         </p>
       </div>
 

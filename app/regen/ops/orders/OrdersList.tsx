@@ -28,8 +28,14 @@ interface Order {
   tracking_number?: string | null;
   tracking_carrier?: string | null;
   intake_id?: string | null;
+  notes?: string | null;
   created_at: string;
   items?: Array<{ name?: string }>;
+}
+
+function isTestOrder(o: Order) {
+  const blob = `${o.notes || ''} ${o.pharmacy_error || ''} ${o.pharmacyError || ''} ${o.pharmacy_order_id || ''}`;
+  return /STAGE2 TEST|\bTEST:|TEST-FC-|TESTTRACK/i.test(blob);
 }
 
 export default function OrdersList({ initialOrders = [] }: { initialOrders?: Order[] }) {
@@ -43,6 +49,8 @@ export default function OrdersList({ initialOrders = [] }: { initialOrders?: Ord
   const [gorgeous20, setGorgeous20] = useState<Record<string, boolean>>({});
   const [consultCredit, setConsultCredit] = useState<Record<string, boolean>>({});
   const [sending, setSending] = useState<string | null>(null);
+  const [paymentRef, setPaymentRef] = useState<Record<string, string>>({});
+  const [showTests, setShowTests] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -53,11 +61,16 @@ export default function OrdersList({ initialOrders = [] }: { initialOrders?: Ord
   }, []);
 
   async function patchOrder(order: Order, status: string, extra: Record<string, unknown> = {}) {
-    await fetch('/api/regen/ops/orders', {
+    const res = await fetch('/api/regen/ops/orders', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: order.id, status, ...extra }),
     });
+    const json = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      setInvoiceMsg((prev) => ({ ...prev, [order.id]: json.error || 'Update blocked.' }));
+      return;
+    }
     await load();
   }
 
@@ -110,11 +123,22 @@ export default function OrdersList({ initialOrders = [] }: { initialOrders?: Ord
         <div>
           <h1 className="text-3xl font-bold text-white">Orders</h1>
           <p className="text-white/50">
-            Manual clinic invoice (Charm + Bluefin). Preview the quote, send that amount from Charm, then after payment
-            submit Formulation. Product selection never writes a prescription.
+            Manual clinic invoice (Charm + Bluefin). Preview the quote, send that amount from Charm, then after Bluefin
+            posts paste the payment id. Then Formulation. TEST rows stay hidden unless you open Tests.
+          </p>
+          <p className="text-white/35 text-xs mt-2">
+            Daily: Danielle — unpaid quotes. Ryan — Today review. Danielle or Damara — pharmacy issue. Do not mark paid without a Charm/Bluefin id.
           </p>
         </div>
-        <button onClick={load} className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm">Refresh</button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowTests((v) => !v)}
+            className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm"
+          >
+            {showTests ? 'Hide TEST' : 'Show TEST'}
+          </button>
+          <button onClick={load} className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm">Refresh</button>
+        </div>
       </div>
       {loading && <p className="text-white/40">Loading…</p>}
       {!loading && orders.length === 0 && (
@@ -123,7 +147,7 @@ export default function OrdersList({ initialOrders = [] }: { initialOrders?: Ord
         </div>
       )}
       <div className="space-y-3">
-        {orders.map((o) => {
+        {orders.filter((o) => (showTests ? isTestOrder(o) : !isTestOrder(o))).map((o) => {
           const quote = quotes[o.id];
           return (
             <div key={o.id} className="bg-white/5 border border-white/10 rounded-2xl p-5">
@@ -196,11 +220,17 @@ export default function OrdersList({ initialOrders = [] }: { initialOrders?: Ord
                 >
                   Save Charm quote
                 </button>
+                <input
+                  value={paymentRef[o.id] || ''}
+                  onChange={(e) => setPaymentRef({ ...paymentRef, [o.id]: e.target.value })}
+                  placeholder="Charm / Bluefin payment id"
+                  className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm w-56"
+                />
                 <button
-                  onClick={() => void patchOrder(o, 'paid')}
+                  onClick={() => void patchOrder(o, 'paid', { payment_id: paymentRef[o.id] })}
                   className="px-3 py-2 rounded-lg bg-emerald-700 text-white text-sm"
                 >
-                  Mark paid
+                  Record posted payment
                 </button>
                 <input
                   value={pharmacyId[o.id] || ''}
@@ -233,6 +263,7 @@ export default function OrdersList({ initialOrders = [] }: { initialOrders?: Ord
                     void patchOrder(o, 'shipped', {
                       tracking_number: tracking[o.id],
                       tracking_carrier: 'USPS',
+                      pharmacy_order_id: o.pharmacy_order_id || pharmacyId[o.id] || undefined,
                     })
                   }
                   className="px-3 py-2 rounded-lg bg-teal-500 text-white text-sm"

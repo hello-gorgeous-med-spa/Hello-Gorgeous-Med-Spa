@@ -220,8 +220,8 @@ export function RegenClientFlyer({ qrDataUrl }: Props) {
             <p className="flyer-kicker">Start today · {GORGEOUS20_CODE}</p>
             <h3>Same Danielle. New door.</h3>
             <p>
-              First order {GORGEOUS20_PERCENT}% off. Enter {GORGEOUS20_CODE} on the
-              payment screen.{" "}
+              First medication order {GORGEOUS20_PERCENT}% off. We apply {GORGEOUS20_CODE} on the
+              clinic invoice. Shipping is $30.{" "}
               <strong>tryregenrx.com/start</strong>
             </p>
           </div>

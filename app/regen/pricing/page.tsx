@@ -205,6 +205,9 @@ export default function PricingPage() {
         </div>
 
         {/* Billing Toggle */}
+        <p style={{ fontSize: 13, color: '#888', maxWidth: 560, margin: '0 auto 16px' }}>
+          Multi-month prices are a single requested fill, not a subscription. Ryan reviews every refill before another invoice.
+        </p>
         <div style={{ 
           display: 'inline-flex',
           backgroundColor: 'rgba(255,255,255,0.1)',
@@ -213,10 +216,10 @@ export default function PricingPage() {
           gap: 4,
         }}>
           {[
-            { value: 'monthly' as const, label: 'Monthly' },
-            { value: 3 as const, label: '3 Months', discount: '10% off' },
-            { value: 6 as const, label: '6 Months', discount: '15% off' },
-            { value: 12 as const, label: '12 Months', discount: '20% off' },
+            { value: 'monthly' as const, label: '1-month request' },
+            { value: 3 as const, label: '3-month request', discount: '10% off' },
+            { value: 6 as const, label: '6-month request', discount: '15% off' },
+            { value: 12 as const, label: '12-month request', discount: '20% off' },
           ].map(option => (
             <button
               key={option.value}
@@ -376,7 +379,7 @@ export default function PricingPage() {
                     }}>
                       ${billingCycle === 'monthly' ? price : perMonth}
                     </span>
-                    <span style={{ color: '#666', fontSize: 14 }}>/month</span>
+                    <span style={{ color: '#666', fontSize: 14 }}> request</span>
                   </div>
                   
                   {billingCycle !== 'monthly' && (
@@ -441,7 +444,7 @@ export default function PricingPage() {
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  Get Started
+                  Start a request
                 </Link>
               </div>
             );

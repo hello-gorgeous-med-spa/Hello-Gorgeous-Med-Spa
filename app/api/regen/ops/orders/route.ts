@@ -126,7 +126,7 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
     }
     const body = await request.json();
-    const { id, status, tracking_number, tracking_carrier, pharmacy_order_id, actor_id, notes } = body;
+    const { id, status, tracking_number, tracking_carrier, pharmacy_order_id, actor_id, notes, payment_id } = body;
 
     if (!id || !status) {
       return NextResponse.json(
@@ -135,7 +135,25 @@ export async function PATCH(request: NextRequest) {
       );
     }
 
-    const { data: existing } = await supabase.from('regen_orders').select('id,status,pharmacy_order_id').eq('id', id).maybeSingle();
+    const { data: existing } = await supabase.from('regen_orders').select('id,status,pharmacy_order_id,notes').eq('id', id).maybeSingle();
+    const paymentRef = String(payment_id || '').trim();
+    if (status === 'paid') {
+      if (!paymentRef || /^TEST/i.test(paymentRef)) {
+        return NextResponse.json(
+          { error: 'Paste the Charm / Bluefin payment id from the receipt. A staff click alone cannot mark paid.' },
+          { status: 400 },
+        );
+      }
+    }
+    if (status === 'sent_to_pharmacy' || status === 'shipped') {
+      const rxId = String(pharmacy_order_id || existing?.pharmacy_order_id || '').trim();
+      if (!rxId || /^TEST/i.test(rxId)) {
+        return NextResponse.json(
+          { error: 'Paste the Formulation confirmation. A staff click or TEST id cannot mark pharmacy accepted.' },
+          { status: 400 },
+        );
+      }
+    }
     if (existing?.pharmacy_order_id && pharmacy_order_id && existing.pharmacy_order_id !== pharmacy_order_id) {
       return NextResponse.json(
         {
@@ -163,6 +181,9 @@ export async function PATCH(request: NextRequest) {
     if (tracking_number) updateData.tracking_number = tracking_number;
     if (tracking_carrier) updateData.tracking_carrier = tracking_carrier;
     if (pharmacy_order_id) updateData.pharmacy_order_id = pharmacy_order_id;
+    if (paymentRef) {
+      updateData.notes = `${existing?.notes || notes || ''} · BLUEFIN/CHARM ${paymentRef}`.slice(0, 1800);
+    }
 
     const { data: order, error } = await supabase
       .from('regen_orders')
