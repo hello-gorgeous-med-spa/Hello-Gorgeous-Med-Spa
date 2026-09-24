@@ -1,7 +1,7 @@
 /**
- * Biostimulators flagship — Sculptra® (PLLA) + Radiesse® (CaHA).
- * Canonical route: /services/biostimulators
- * Photos: drop files into public/images/biostimulators/ and wire paths here.
+ * Biostimulators flagship — visual + copy from Danielle's
+ * Sculptra-Oswego-Hello-Gorgeous.html and Sculptra-Vs-Radiesse-Hello.html.
+ * Canonical: /services/biostimulators
  */
 
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
@@ -28,174 +28,121 @@ export function isBiostimulatorsNavActive(pathname: string | null): boolean {
   );
 }
 
-/** Empty until Danielle sends photos — page shows labeled slots. */
+/** Drop files into public/images/biostimulators/ then set these paths. */
 export const BIOSTIMULATORS_IMAGES = {
   hero: "",
-  cheeks: "",
-  process: "",
-  mapping: "",
-  gallery: [] as string[],
 } as const;
 
-export const BIOSTIMULATORS_PAGE_NAV = [
-  { href: "#why", label: "Why biostimulators" },
-  { href: "#compare", label: "Sculptra vs Radiesse" },
-  { href: "#benefits", label: "Benefits" },
-  { href: "#areas", label: "Areas" },
-  { href: "#process", label: "Our process" },
-  { href: "#photos", label: "Photos" },
-  { href: "#learn", label: "Learn more" },
-  { href: "#faq", label: "FAQ" },
-] as const;
-
-/** Official manufacturer education — not our claims. */
 export const RADIESSE_LEARN_MORE = {
   href: "https://radiesse.com/",
   label: "Learn more at Radiesse.com",
-  blurb:
-    "Official RADIESSE® site from Merz — how CaHA biostimulation works, face, hands, and décolleté education, and full safety information. Prescription only. Individual results vary.",
 } as const;
 
 export const SCULPTRA_LEARN_MORE = {
   href: "https://www.sculptrausa.com/",
   label: "Learn more at SculptraUSA.com",
-  blurb:
-    "Official Sculptra® site from Galderma — PLLA collagen stimulation education and safety information. Prescription only. Individual results vary.",
 } as const;
 
-export const BIOSTIMULATORS_COMPARE_INTRO =
-  "Both rebuild collagen. The personality, timeline, and mapping are different — structure you can see sooner (Radiesse®) versus gradual restoration (Sculptra®). We never use one product for every face.";
-
-export const BIOSTIMULATORS_COMPARE_ROWS = [
-  {
-    feature: "What it is",
-    radiesse: "Calcium hydroxylapatite (CaHA) microspheres in a gel",
-    sculptra: "Poly-L-lactic acid (PLLA) that signals your own collagen",
-  },
-  {
-    feature: "When you notice change",
-    radiesse: "Often some structure the same day, then collagen over time",
-    sculptra: "Builds over weeks (often discussed as 4–12 weeks). Not same-day plump.",
-  },
-  {
-    feature: "Collagen story",
-    radiesse: "Supports collagen and elastin as the gel integrates",
-    sculptra: "Long-term Type I collagen stimulation after a series",
-  },
-  {
-    feature: "How long it is discussed",
-    radiesse: "Often 12–18 months; manufacturer education discusses up to 2 years. Results vary.",
-    sculptra: "Often discussed in years after a completed series. Results vary.",
-  },
-  {
-    feature: "Often mapped for",
-    radiesse: "Jawline, chin, cheeks, folds, and the backs of the hands",
-    sculptra: "Global volume — temples, cheeks, pre-auricular hollows, gradual midface",
-  },
-  {
-    feature: "Typical plan",
-    radiesse: "Sometimes one sculpting visit; more if your map needs it",
-    sculptra: "Often 2–3 sessions, about 4–6 weeks apart",
-  },
-  {
-    feature: "Downtime",
-    radiesse: "Usually minimal; bruising or swelling can happen",
-    sculptra: "Usually minimal; swelling 24–48 hours is common",
-  },
-] as const;
-
-export const BIOSTIMULATORS_COMPARE_CARDS = [
-  {
-    name: "Radiesse®",
-    tag: "Structure · CaHA",
-    body: "Chosen when you want contour you can see sooner — jawline, chin, cheek support, deeper folds, and hands. Diluted plans for texture are discussed at consult when appropriate.",
-    points: ["Same-day structure is possible", "Hands are a common Radiesse map", "Learn the science at Radiesse.com"],
-  },
-  {
-    name: "Sculptra®",
-    tag: "Restoration · PLLA",
-    body: "Chosen when you want no one to know the product — temples refill, cheeks regain shape, skin can feel thicker over months. It rebuilds; it does not instantly fill.",
-    points: ["Gradual so the change reads as you", "Series-based collagen banking", "Priced per vial at consult"],
-  },
+export const BIOSTIMULATORS_PAGE_NAV = [
+  { href: "#benefits", label: "Benefits" },
+  { href: "#compare", label: "Sculptra vs Radiesse" },
+  { href: "#process", label: "Process" },
+  { href: "#treats", label: "What we treat" },
+  { href: "#faq", label: "Questions" },
 ] as const;
 
 export const BIOSTIMULATORS_BENEFITS = [
   {
-    title: "Restores volume naturally",
-    body: "Sculptra® (PLLA) and Radiesse® (CaHA) signal your own collagen — cheeks, temples, and jawline without an overfilled look.",
+    sub: "Collagen Stimulation",
+    title: "Restores Volume Naturally",
+    body: "PLLA (Sculptra) and CaHA (Radiesse) trigger your body to rebuild collagen — restoring cheeks, temples, and jawline without a frozen or overfilled appearance.",
   },
   {
-    title: "Long-lasting collagen",
-    body: "HA filler is often measured in months. Sculptra results build over weeks to months and are commonly discussed in years. Your provider sets the plan.",
+    sub: "2+ Years",
+    title: "Long-Lasting Results",
+    body: "Unlike HA filler that fades in months, Sculptra results build over 3–6 months and can last 2+ years. Fewer touch-ups, more natural aging. Results vary.",
   },
   {
-    title: "Medical screening first",
-    body: "Full history, mapping, and a personalized vial plan. Same-day treatment only when your provider says it is appropriate.",
+    sub: "Medical Practice Safety",
+    title: "Minimally Invasive & Natural Look",
+    body: "Non-surgical, minimal downtime, gradual enhancement. Because we screen you like a medical practice — we are one — you get a safer, personalized plan.",
   },
-] as const;
-
-export const BIOSTIMULATORS_AREAS = [
-  { name: "Cheeks & midface", note: "Soft structure where filler can look puffy" },
-  { name: "Temples", note: "Hollows that age the upper face" },
-  { name: "Jawline & chin", note: "Definition with collagen, not just gel" },
-  { name: "Smile & marionette lines", note: "When folds need support, not just fill" },
-  { name: "Hands", note: "Radiesse is often chosen here" },
-  { name: "Body (consult)", note: "Hip and contour requests are planned in person" },
 ] as const;
 
 export const BIOSTIMULATORS_STEPS = [
   {
-    title: "Consultation & medical screening",
-    body: "We review history, medications, and goals. We decide Sculptra, Radiesse, HA filler, or a combination — not a rushed inject.",
+    n: "01",
+    title: "Consultation & Medical Screening",
+    body: "60-min medical intake, facial analysis, health history, and candidacy check for Sculptra vs Radiesse vs filler. Photos + collagen assessment.",
   },
   {
-    title: "Personalized treatment plan",
-    body: "Vial count, areas, and spacing (often 2–3 sessions, 4–6 weeks apart) are set with you before anything is placed.",
+    n: "02",
+    title: "Personalized Treatment Plan",
+    body: "Custom map of vials, vectoring, and layering technique. Transparent pricing, pre-care with arnica, and timeline for 2–3 sessions 4–6 weeks apart.",
   },
   {
-    title: "Treatment & aftercare",
-    body: "Vectoring / fanning technique, lidocaine and ice as appropriate, mapping photos, and an arnica aftercare bag.",
+    n: "03",
+    title: "Treatment & Aftercare with Arnica",
+    body: "Expert injection with comfort measures. 5-5-5 massage protocol guidance, VIP gift bag with arnica, ice, and 24/7 provider text access.",
   },
+] as const;
+
+export const BIOSTIMULATORS_TREATS = [
+  { name: "Sunken cheeks", note: "Midface volume loss from aging, weight loss or illness" },
+  { name: "Temple hollowing", note: "Hollow temples that age the upper face and eyes" },
+  { name: "Nasolabial folds", note: "Deep smile lines from nose to mouth" },
+  { name: "Marionette lines", note: "Lines from mouth corners to chin" },
+  { name: "Chin wrinkles", note: "Chin creases, dimpling and pre-jowl sulcus" },
+  { name: "Buttocks / Hip dips", note: "Sculptra for body — subtle, natural contour without surgery" },
+] as const;
+
+export const BIOSTIMULATORS_COMPARE_ROWS = [
+  { feature: "Immediate volume", radiesse: "Yes — often some lift the same day", sculptra: "No — builds over 4–12 weeks" },
+  { feature: "Collagen stimulation", radiesse: "Types I & III collagen + elastin", sculptra: "Strong long-term Type I collagen" },
+  { feature: "Longevity", radiesse: "Often 12–18 months. Results vary.", sculptra: "Often discussed as 2+ years after a series. Results vary." },
+  { feature: "Best for", radiesse: "Structure, contour, instant correction, hands", sculptra: "Global volume loss, gradual natural restoration" },
+  { feature: "Sessions needed", radiesse: "Usually 1 sculpting session", sculptra: "2–3 sessions, 4–6 weeks apart" },
+  { feature: "Downtime", radiesse: "Minimal, possible bruising", sculptra: "Minimal, possible swelling 24–48h" },
 ] as const;
 
 export const BIOSTIMULATORS_FAQ = [
   {
-    question: "Am I a good candidate for Sculptra or Radiesse?",
+    question: "Am I a good candidate for Sculptra?",
     answer:
-      "Usually someone who wants collagen and structure — temples, cheeks, jaw, folds, or hands — not only an instant HA plump. Hello Gorgeous screens medically and maps which product, or a mix, is appropriate. Results vary.",
+      "A good candidate for Sculptra is typically someone seeking a non-surgical solution to restore facial volume and address signs of aging, such as sunken cheeks or deep wrinkles. Ideal if you want gradual, natural results that rebuild your own collagen — not just fill. At Hello Gorgeous, we screen you medically to confirm Sculptra, Radiesse, or a combination is right for you.",
   },
   {
-    question: "Sculptra vs Radiesse — which should I choose?",
+    question: "How many Sculptra treatments will I need?",
     answer:
-      "Radiesse® (CaHA) is often chosen for contour you can see sooner and for the backs of the hands. Sculptra® (PLLA) is often chosen for gradual, global volume. Your injector decides after mapping — not from a one-product menu. Read manufacturer education at radiesse.com.",
+      "The number varies based on your goals and severity of volume loss. Typically 2 to 3 sessions, spaced 4–6 weeks apart, for optimal results. Your provider at Hello Gorgeous will create a customized plan during your medical consultation — including whether Radiesse is a better fit for immediate structure.",
   },
   {
-    question: "How many treatments will I need?",
+    question: "What is the downtime with Sculptra?",
     answer:
-      "Sculptra is often 2–3 sessions, about 4–6 weeks apart. Radiesse is sometimes one sculpting visit. Your provider customizes that after photos and mapping. Results vary.",
+      "Minimal downtime — most clients return to normal routines immediately. Temporary swelling, redness, or tenderness at injection sites fades within a few days. We strongly encourage arnica tablets prior to treatment to decrease bruising. We include medical-grade arnica and aftercare in your VIP gift bag.",
   },
   {
-    question: "What is the downtime?",
+    question: "When will I see the results?",
     answer:
-      "Most people return to normal routines the same day. Swelling, redness, or tenderness can last a few days. We encourage arnica beforehand and include aftercare in your visit bag.",
+      "Results are not immediate — Sculptra gradually stimulates collagen. You'll see enhanced volume, elasticity and texture in a few weeks to months, with optimal results after a series of treatments. Results can last 2+ years. Individual results vary.",
   },
   {
-    question: "When will I see results?",
+    question: "Sculptra vs Filler vs Radiesse — What's the difference?",
     answer:
-      "Radiesse can show structure the same day, then collagen over time. Sculptra is not same-day volume — collagen builds over weeks to months. Duration is discussed at consult. Individual results vary. See radiesse.com for official RADIESSE timing and safety.",
+      "Traditional fillers (hyaluronic acid) provide immediate volume that lasts 6–12 months. Sculptra (PLLA) is a collagen biostimulator that rebuilds your own collagen over time for natural, long-lasting volume. Radiesse (CaHA) offers both immediate lift + collagen stimulation and is often used for cheeks, jawline, and hands. At Hello Gorgeous we often combine them for the most natural restoration. Learn more at radiesse.com.",
   },
   {
-    question: "How much does it cost in Oswego?",
+    question: "How much does Sculptra cost in Oswego?",
     answer:
-      "Priced per vial at consult. Most plans use more than one vial. No surprise add-on fees after the quote. Cherry and CareCredit are available. Call (630) 636-6193.",
+      "Sculptra investment varies by vials needed and areas treated. In the Oswego / Yorkville area, most clients invest in 2–4 vials per session. We provide transparent, medical pricing at consultation — no surprise fees. Financing and VIP membership pricing available. Call 630-636-6193 for current specials.",
   },
 ] as const;
 
 export const BIOSTIMULATORS_SEO = {
-  title: "Sculptra & Radiesse Biostimulators | Oswego IL | Hello Gorgeous",
+  title: "Sculptra® Injections in Oswego, IL | Hello Gorgeous Medical Spa",
   description:
-    "Sculptra® and Radiesse® collagen biostimulators at Hello Gorgeous Med Spa in Oswego, IL. Gradual volume and structure — not just instant filler. Medical screening, mapping, and aftercare. Serving Naperville, Aurora & Yorkville.",
-  ogAlt: "Sculptra and Radiesse biostimulators — Hello Gorgeous Med Spa Oswego IL",
+    "Sculptra® and Radiesse® collagen biostimulators at Hello Gorgeous Medical Spa in Oswego, IL. Restore facial volume and rebuild collagen naturally. Medical screening, VIP aftercare. Serving Aurora, Naperville & Yorkville.",
+  ogAlt: "Sculptra and Radiesse at Hello Gorgeous Medical Spa Oswego IL",
   bookHref: PRIMARY_BOOKING_CTA.href,
   phone: SITE.phone,
 } as const;
