@@ -10,6 +10,7 @@ import {
   BIOSTIMULATORS_COMPARE_ROWS,
   BIOSTIMULATORS_FAQ,
   BIOSTIMULATORS_IMAGES,
+  BIOSTIMULATORS_MAPS,
   BIOSTIMULATORS_PAGE_NAV,
   BIOSTIMULATORS_STEPS,
   BIOSTIMULATORS_TREATS,
@@ -240,6 +241,50 @@ export function BiostimulatorsPageContent() {
             </a>
             . Prescription only. Individual results vary.
           </p>
+        </div>
+      </section>
+
+      <section id="mapping" className="scroll-mt-28 bg-[#FFF5F7] py-16 md:py-24">
+        <div className="mx-auto max-w-[1180px] px-5 md:px-8">
+          <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.22em] text-[#D4A373]">Facial Mapping · Oswego, IL</p>
+          <h2 className={`${serif} text-[34px] leading-[0.95] text-black md:text-[44px]`}>
+            Where we map Sculptra® and Radiesse®
+          </h2>
+          <p className="mt-5 max-w-[640px] text-[15px] leading-[1.7] text-zinc-600">
+            These diagrams are education — not a promise that every zone is treated, or that every face needs both
+            products. Your map is set after medical screening.
+          </p>
+          <div className="mt-12 grid gap-8 lg:grid-cols-2">
+            {BIOSTIMULATORS_MAPS.map((map) => (
+              <figure key={map.id} className="border border-[#D4A373]/15 bg-white">
+                <div className="bg-[#FFF8F4] px-4 pt-6 md:px-8">
+                  <Image
+                    src={map.src}
+                    alt={map.alt}
+                    width={map.width}
+                    height={map.height}
+                    className="mx-auto h-auto w-full max-w-[520px] object-contain"
+                    sizes="(max-width: 1024px) 100vw, 520px"
+                  />
+                </div>
+                <figcaption className="border-t border-[#D4A373]/15 p-6">
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-[#D4A373]">{map.sub}</p>
+                  <h3 className={`${serif} mt-1 text-[24px] text-black`}>{map.name}</h3>
+                  <p className="mt-3 text-[13.5px] leading-[1.7] text-zinc-600">{map.body}</p>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {map.zones.map((zone) => (
+                      <li
+                        key={zone}
+                        className="border border-black/10 px-2.5 py-1 text-[11px] uppercase tracking-[0.12em] text-zinc-600"
+                      >
+                        {zone}
+                      </li>
+                    ))}
+                  </ul>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 

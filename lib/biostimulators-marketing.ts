@@ -28,10 +28,36 @@ export function isBiostimulatorsNavActive(pathname: string | null): boolean {
   );
 }
 
-/** Drop files into public/images/biostimulators/ then set these paths. */
 export const BIOSTIMULATORS_IMAGES = {
   hero: "",
+  radiesseAreas: "/images/biostimulators/radiesse-areas.png",
+  sculptraAreas: "/images/biostimulators/sculptra-areas.png",
 } as const;
+
+export const BIOSTIMULATORS_MAPS = [
+  {
+    id: "radiesse-map",
+    name: "Radiesse® Areas",
+    src: BIOSTIMULATORS_IMAGES.radiesseAreas,
+    width: 1024,
+    height: 983,
+    alt: "Radiesse treatment mapping — cheeks, folds, jawline, chin, and hands at Hello Gorgeous Med Spa Oswego",
+    sub: "Hello Gorgeous · Treatment Mapping",
+    body: "Ideal placement is mapped in person: mid-cheek lift, smile folds, jawline contour, chin, and the backs of the hands. Your injector decides what is appropriate — not a diagram.",
+    zones: ["Cheeks & malar", "Nasolabial folds", "Jawline & chin", "Marionette lines", "Hands (consult)"],
+  },
+  {
+    id: "sculptra-map",
+    name: "Sculptra® Areas",
+    src: BIOSTIMULATORS_IMAGES.sculptraAreas,
+    width: 512,
+    height: 1024,
+    alt: "Sculptra treatment mapping — temples, cheeks, pre-auricular hollows, and global volume at Hello Gorgeous Med Spa Oswego",
+    sub: "Hello Gorgeous · Global Restoration",
+    body: "Global volumization: temples, lateral cheeks, pre-auricular hollowing, jawline softening. Body requests (hip dips, buttocks, texture) are planned only at consult.",
+    zones: ["Temples", "Cheeks & midface", "Pre-auricular hollows", "Folds & chin", "Body (consult)"],
+  },
+] as const;
 
 export const RADIESSE_LEARN_MORE = {
   href: "https://radiesse.com/",
@@ -46,6 +72,7 @@ export const SCULPTRA_LEARN_MORE = {
 export const BIOSTIMULATORS_PAGE_NAV = [
   { href: "#benefits", label: "Benefits" },
   { href: "#compare", label: "Sculptra vs Radiesse" },
+  { href: "#mapping", label: "Treatment maps" },
   { href: "#process", label: "Process" },
   { href: "#treats", label: "What we treat" },
   { href: "#faq", label: "Questions" },
