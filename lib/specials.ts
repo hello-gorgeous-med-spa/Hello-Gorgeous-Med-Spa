@@ -19,6 +19,14 @@ export const SPECIALS_SEO = {
 /** Top conversion picks — shown above the full menu. */
 export const SPECIALS_FEATURED = [
   {
+    title: "VIP Glow Night",
+    accentLine: "One night · RSVP + tell us what you want",
+    description:
+      "Jammies, champagne, and night-only pricing: Solaria $450 · Morpheus8 $399 · Botox $7/unit · Microblading $399 incl. touch-up. Bring a friend — we prep her IV bag too.",
+    href: "/vip-glow",
+    badge: "RSVP",
+  },
+  {
     title: "VIP model spots filled — $500 off",
     accentLine: "$500 off any area · Sept & Oct",
     description:
@@ -89,6 +97,12 @@ export const SPECIALS_JUMP_LINKS = [
 ] as const;
 
 export const MORE_SPECIALS_LINKS = [
+  {
+    label: "VIP Glow Night RSVP",
+    href: "/vip-glow",
+    sub: "Solaria $450 · Morpheus8 $399 · Botox $7/u · Microblading $399",
+    badge: "TONIGHT",
+  },
   {
     label: "Solaria CO₂ fall special",
     href: "/services/solaria-co2",

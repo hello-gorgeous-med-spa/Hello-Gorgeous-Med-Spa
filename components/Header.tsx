@@ -140,6 +140,12 @@ const NAV = {
     href: SPECIALS_PATH,
     links: [
       {
+        label: "VIP Glow Night",
+        href: "/vip-glow",
+        sub: "RSVP · $450 Solaria · $399 Morpheus8 · $7 Botox · $399 brows",
+        badge: "RSVP",
+      },
+      {
         label: "Fall Makeover — Repair · Prevent · Lose",
         href: "/fall-makeover",
         sub: "$100 off Repair + gift card · $200 off Prevent · $150 off Lose",
