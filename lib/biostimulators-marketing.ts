@@ -32,6 +32,31 @@ export const BIOSTIMULATORS_IMAGES = {
   hero: "",
   radiesseAreas: "/images/biostimulators/radiesse-areas.png",
   sculptraAreas: "/images/biostimulators/sculptra-areas.png",
+  science: "/images/biostimulators/science-behind.png",
+} as const;
+
+export const BIOSTIMULATORS_SCIENCE = {
+  src: BIOSTIMULATORS_IMAGES.science,
+  width: 512,
+  height: 1024,
+  alt: "The science behind a biostimulator — injection, activation, and collagenesis at Hello Gorgeous Med Spa Oswego",
+  stages: [
+    {
+      n: "01",
+      title: "Injection",
+      body: "PLLA (Sculptra®) or CaHA (Radiesse®) microspheres are placed in the deeper dermis to start your own collagen process.",
+    },
+    {
+      n: "02",
+      title: "Activation",
+      body: "Your body recognizes the microspheres. Fibroblasts begin building fresh collagen and elastin at the site.",
+    },
+    {
+      n: "03",
+      title: "Collagenesis",
+      body: "As the microspheres dissolve, a new collagen scaffold can support volume, thickness, and elasticity over time. Results vary.",
+    },
+  ],
 } as const;
 
 export const BIOSTIMULATORS_MAPS = [
@@ -71,6 +96,7 @@ export const SCULPTRA_LEARN_MORE = {
 
 export const BIOSTIMULATORS_PAGE_NAV = [
   { href: "#benefits", label: "Benefits" },
+  { href: "#science", label: "The science" },
   { href: "#compare", label: "Sculptra vs Radiesse" },
   { href: "#mapping", label: "Treatment maps" },
   { href: "#process", label: "Process" },

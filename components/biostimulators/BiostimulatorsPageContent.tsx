@@ -12,6 +12,7 @@ import {
   BIOSTIMULATORS_IMAGES,
   BIOSTIMULATORS_MAPS,
   BIOSTIMULATORS_PAGE_NAV,
+  BIOSTIMULATORS_SCIENCE,
   BIOSTIMULATORS_STEPS,
   BIOSTIMULATORS_TREATS,
   RADIESSE_LEARN_MORE,
@@ -197,6 +198,42 @@ export function BiostimulatorsPageContent() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="science" className="scroll-mt-28 border-y border-black/5 bg-black py-16 md:py-24">
+        <div className="mx-auto grid max-w-[1180px] items-start gap-10 px-5 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:px-8">
+          <div>
+            <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.22em] text-[#D4A373]">Science-backed · Results-driven</p>
+            <h2 className={`${serif} text-[34px] leading-[0.95] text-white md:text-[44px]`}>
+              The science behind a biostimulator
+            </h2>
+            <p className="mt-5 text-[15px] leading-[1.7] text-white/70">
+              How biostimulators restore collagen naturally — not by adding gel filler. Both Sculptra® and Radiesse®
+              stimulate your own collagen. Individual results vary. Consult a licensed provider.
+            </p>
+            <div className="mt-8 space-y-6">
+              {BIOSTIMULATORS_SCIENCE.stages.map((stage) => (
+                <div key={stage.n} className="border-l border-[#D4A373] pl-5">
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-[#D4A373]">
+                    Stage {stage.n}
+                  </p>
+                  <h3 className={`${serif} mt-1 text-[22px] text-white`}>{stage.title}</h3>
+                  <p className="mt-2 text-[13.5px] leading-[1.7] text-white/65">{stage.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <figure className="border border-white/10 bg-[#0a0a0a]">
+            <Image
+              src={BIOSTIMULATORS_SCIENCE.src}
+              alt={BIOSTIMULATORS_SCIENCE.alt}
+              width={BIOSTIMULATORS_SCIENCE.width}
+              height={BIOSTIMULATORS_SCIENCE.height}
+              className="mx-auto h-auto w-full max-w-[520px] object-contain"
+              sizes="(max-width: 768px) 100vw, 520px"
+            />
+          </figure>
         </div>
       </section>
 
