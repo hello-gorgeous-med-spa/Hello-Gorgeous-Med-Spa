@@ -148,8 +148,7 @@ export function quoteClinicInvoice(input: {
   const applyGorgeous20 = input.applyGorgeous20 ?? promo;
   const applyConsultCredit =
     input.applyConsultCredit ??
-    history.consultCredit === true ||
-    history.applyConsultCredit === true;
+    (history.consultCredit === true || history.applyConsultCredit === true);
 
   const productRounded = Math.round(productUsd * 100) / 100;
   const discountUsd = applyGorgeous20

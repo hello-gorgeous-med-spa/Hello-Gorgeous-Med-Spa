@@ -193,6 +193,7 @@ function RegenStartContent() {
       ? ''
       : requestedProgram;
   const promoCode = (searchParams.get('promo') || GORGEOUS20_CODE).toUpperCase();
+  const isRefillRequest = searchParams.get('refill') === '1' || searchParams.get('refill') === 'true';
   const affiliateCode = (searchParams.get('ref') || searchParams.get('aff') || readAffiliateCodeClient()).toUpperCase();
   const inferredGoal = resolveRegenStartGoal({
     goal: searchParams.get('goal'),
@@ -366,7 +367,8 @@ function RegenStartContent() {
               ? tryregenBundleSheetNames(selectedProgram)
               : undefined,
             requestedTotal: checkoutAmount,
-            promo: promoCode,
+            promo: isRefillRequest ? undefined : promoCode,
+            refill: isRefillRequest || undefined,
             shippingUsd: REGEN_SHIPPING_USD,
             shipping: {
               street1: formData.address,
@@ -474,7 +476,9 @@ function RegenStartContent() {
         {' '}— {REGEN_TELEHEALTH_CREDIT_SHORT}
       </div>
       <div className="px-6 py-3 text-center text-sm font-semibold" style={{ backgroundColor: `${BRAND.pink}18`, color: BRAND.cream, borderBottom: `1px solid ${BRAND.pink}40` }}>
-        First medication order {GORGEOUS20_PERCENT}% off (shipping excluded) — we apply <span style={{ color: BRAND.pink }}>{promoCode}</span> on your clinic invoice
+        {isRefillRequest
+          ? 'Refill request — Ryan reviews again before any clinic invoice or pharmacy send. Nothing auto-charges.'
+          : <>First medication order {GORGEOUS20_PERCENT}% off (shipping excluded) — we apply <span style={{ color: BRAND.pink }}>{promoCode}</span> on your clinic invoice</>}
       </div>
 
       <main className="max-w-3xl mx-auto px-6 py-12">

@@ -46,6 +46,7 @@ export async function POST(request: NextRequest) {
     applyGorgeous20?: boolean;
     applyConsultCredit?: boolean;
     previewOnly?: boolean;
+    forceResend?: boolean;
   };
 
   let order: Record<string, unknown> | null = null;
@@ -114,6 +115,18 @@ export async function POST(request: NextRequest) {
       preview: true,
       charmManual: !isBluefinPayconexConfigured(),
       quote,
+    });
+  }
+
+  const existingNotes = String(order.notes || "");
+  const alreadyQuoted = /CHARM INVOICE QUOTE|INVOICE \$/.test(existingNotes);
+  if (alreadyQuoted && !body.forceResend) {
+    return NextResponse.json({
+      ok: true,
+      duplicate: true,
+      charmManual: !isBluefinPayconexConfigured(),
+      quote,
+      error: "A clinic invoice quote is already saved for this order. Open Charm — do not create a second invoice unless you meant to resend.",
     });
   }
 
