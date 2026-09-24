@@ -86,8 +86,9 @@ Console · **Meta/Facebook** social posting. Cron jobs are defined in `vercel.js
 - **TypeScript + Tailwind**, App Router server components by default; add `"use client"`
   only when needed. Mirror the structure/naming of neighboring files.
 - Brand colors: hotPink `#E91E8C`, pink `#FF69B4`, gold accents (`tailwind.config.ts`).
-  Premium marketing pages also use HG stamp-card tokens (`#E6007E`, `#FF2D8E`, thick black
-  borders) — see `.cursor/rules/hg-premium-page-template.mdc` and `components/faq/FaqPageContent.tsx`.
+  **Do not rebuild new landings in the old FAQ stamp-card shell.** The new way is the
+  **update way**: implement the HTML/mock Danielle provides (see root `README.md` and
+  `.cursor/rules/hg-premium-page-template.mdc`). Example: `/services/biostimulators`.
 - New API route → `app/api/<name>/route.ts`; validate input (zod is available) and reuse
   the existing auth + Supabase server helpers.
 - New SEO landing page → copy an existing `*-il` route; keep per-page metadata + JSON-LD

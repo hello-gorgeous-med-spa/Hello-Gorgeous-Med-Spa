@@ -2,6 +2,21 @@
 
 Full-stack medical spa platform built on **Next.js 14 (App Router)** + **Tailwind CSS** + **Supabase** + **Remotion**.
 
+## How we build public pages now (read this first)
+
+**We no longer build that way.** Do not restyle a new landing into the old FAQ / stamp-card shell (`FaqPageContent`, dark pink hero, thick black borders, pink stamp shadows, `#E6007E` chips). That was the old default. It is retired for new flagship pages.
+
+**The new way is the update way.** When Danielle hands over an HTML file, mock, or designed landing (example: `Sculptra-Oswego-Hello-Gorgeous.html`):
+
+1. **Update the site to that page** — same layout, type, colors, sections, and copy.
+2. Wire it into Next.js (route, nav, metadata, JSON-LD, booking/phone CTAs).
+3. Drop competitor names if a mock borrowed structure. Keep medical claims defensible. Leave labeled photo slots if pictures are coming.
+4. Do not “HG-ify” it back into the old template.
+
+Live example of the update way: `/services/biostimulators` (`components/biostimulators/BiostimulatorsPageContent.tsx`).
+
+Existing `/faq` and older stamp-card pages may stay as they are until she asks to update those too.
+
 ## 🚀 Features
 
 ### Admin Dashboard (`/admin`)
