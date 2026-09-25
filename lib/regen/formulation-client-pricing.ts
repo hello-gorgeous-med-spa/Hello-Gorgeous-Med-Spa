@@ -234,6 +234,14 @@ export function formulationShop(id: FormulationShopId): FormulationShopItem {
   return SHOP[id];
 }
 
+export function listFormulationShopItems(): FormulationShopItem[] {
+  return (Object.keys(SHOP) as FormulationShopId[]).map((id) => SHOP[id]);
+}
+
+export function formatFormulationMoney(amount: number): string {
+  return money(amount);
+}
+
 export function formulationShopRetail(id: FormulationShopId): number {
   return retailFromSheet(SHOP[id].sheetUsd);
 }

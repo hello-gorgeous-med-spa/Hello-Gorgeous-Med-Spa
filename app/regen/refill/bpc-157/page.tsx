@@ -15,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function Bpc157RefillPage() {
-  return <Bpc157RefillScreening />;
+  return <Bpc157RefillScreening initialSkuId="bpc-157" initialIntent="refill" />;
 }

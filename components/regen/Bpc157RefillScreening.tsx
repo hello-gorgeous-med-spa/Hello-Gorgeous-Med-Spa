@@ -6,9 +6,6 @@ import { useMemo, useState } from "react";
 import {
   ADHERENCE_OPTIONS,
   ALCOHOL_OPTIONS,
-  BPC157_REFILL_ACK,
-  BPC157_REFILL_SHORT_URL,
-  BPC157_REFILL_SMS,
   BENEFIT_WHEN,
   CONDITION_OPTIONS,
   EMPTY_BPC157_REFILL,
@@ -17,11 +14,20 @@ import {
   SAFETY_FLAGS,
   STORAGE_OPTIONS,
   bpc157RedFlags,
-  smsRefillHref,
   validateBpc157Refill,
   type Bpc157RefillErrors,
   type Bpc157RefillForm,
 } from "@/lib/regen/bpc-157-refill-screening";
+import {
+  formatRequestPrice,
+  inferFormTypeFromSku,
+  REGEN_REFILL_REQUEST_SMS,
+  REGEN_REQUEST_ACK,
+  regenRequestShareUrl,
+  regenRequestSkuById,
+  regenRequestSkuGroups,
+  smsRegenRequestHref,
+} from "@/lib/regen/refill-request-catalog";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -128,8 +134,21 @@ function Section({ n, title, desc, children }: { n: string; title: string; desc:
   );
 }
 
-export function Bpc157RefillScreening() {
-  const [form, setForm] = useState<Bpc157RefillForm>({ ...EMPTY_BPC157_REFILL });
+export function Bpc157RefillScreening({
+  initialSkuId,
+  initialIntent,
+}: {
+  initialSkuId?: string;
+  initialIntent?: "refill" | "add";
+}) {
+  const seedSku = regenRequestSkuById(initialSkuId);
+  const [form, setForm] = useState<Bpc157RefillForm>({
+    ...EMPTY_BPC157_REFILL,
+    skuId: seedSku?.id ?? "",
+    requestIntent: initialIntent ?? "",
+    strength: seedSku?.pack ?? "",
+    formType: seedSku ? inferFormTypeFromSku(seedSku) : "",
+  });
   const [errors, setErrors] = useState<Bpc157RefillErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState<{ redFlags: string[] } | null>(null);
@@ -140,6 +159,9 @@ export function Bpc157RefillScreening() {
       id: string;
       createdAt: string;
       name: string;
+      requestIntent: string;
+      skuName: string;
+      priceLabel: string;
       formType: string;
       improvement: number;
       adherence: string;
@@ -149,6 +171,8 @@ export function Bpc157RefillScreening() {
   const [staffErr, setStaffErr] = useState("");
 
   const liveFlags = useMemo(() => bpc157RedFlags(form), [form]);
+  const selectedSku = regenRequestSkuById(form.skuId);
+  const productName = selectedSku?.name ?? "this medication";
 
   function set<K extends keyof Bpc157RefillForm>(key: K, value: Bpc157RefillForm[K]) {
     setForm((cur) => ({ ...cur, [key]: value }));
@@ -194,7 +218,9 @@ export function Bpc157RefillScreening() {
 
   async function copyLink() {
     try {
-      await navigator.clipboard.writeText(BPC157_REFILL_SHORT_URL);
+      await navigator.clipboard.writeText(
+        regenRequestShareUrl({ skuId: form.skuId, intent: form.requestIntent }),
+      );
       setCopied("Copied");
       setTimeout(() => setCopied(""), 2000);
     } catch {
@@ -215,10 +241,13 @@ export function Bpc157RefillScreening() {
 
   function downloadCsv() {
     const rows = [
-      ["Time", "Client", "Form", "% Improvement", "Adherence", "Red Flags"],
+      ["Time", "Client", "Intent", "Protocol", "Price", "Form", "% Improvement", "Adherence", "Red Flags"],
       ...staffRows.map((r) => [
         r.createdAt,
         r.name,
+        r.requestIntent,
+        r.skuName,
+        r.priceLabel,
         r.formType,
         String(r.improvement),
         r.adherence,
@@ -230,7 +259,7 @@ export function Bpc157RefillScreening() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "bpc157-refill-screenings.csv";
+    a.download = "regen-refill-requests.csv";
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -261,7 +290,13 @@ export function Bpc157RefillScreening() {
             type="button"
             onClick={() => {
               setDone(null);
-              setForm({ ...EMPTY_BPC157_REFILL });
+              setForm({
+                ...EMPTY_BPC157_REFILL,
+                skuId: seedSku?.id ?? "",
+                requestIntent: initialIntent ?? "",
+                strength: seedSku?.pack ?? "",
+                formType: seedSku ? inferFormTypeFromSku(seedSku) : "",
+              });
             }}
             className="mt-8 rounded-full bg-[#f5c2c7] px-6 py-3 text-[13px] text-black"
           >
@@ -277,9 +312,9 @@ export function Bpc157RefillScreening() {
       <header className="border-b border-white/10">
         <div className="mx-auto flex max-w-[1120px] items-center justify-between px-5 py-4 md:px-8">
           <p className={`${serif} text-[15px] tracking-[0.12em] uppercase`}>Hello Gorgeous Medical Spa</p>
-          <p className="hidden text-[10px] uppercase tracking-[0.18em] text-white/40 md:inline">BPC-157 Refill</p>
+          <p className="hidden text-[10px] uppercase tracking-[0.18em] text-white/40 md:inline">REGEN RX Request</p>
           <div className="flex gap-2">
-            <a href={smsRefillHref()} className="h-8 rounded-full border border-white/10 px-3 text-[11px] leading-8 text-white/70">
+            <a href={smsRegenRequestHref()} className="h-8 rounded-full border border-white/10 px-3 text-[11px] leading-8 text-white/70">
               Text This Form
             </a>
             <button type="button" onClick={copyLink} className="h-8 rounded-full border border-white/10 px-3 text-[11px] text-white/70">
@@ -293,18 +328,83 @@ export function Bpc157RefillScreening() {
         <form onSubmit={submit} className="space-y-6">
           <div className="mb-2">
             <p className="mb-4 text-[11px] uppercase tracking-[0.28em] text-[#f5c2c7]">
-              Approved Refill Screening · Medical Protocol
+              Refill or add-on · Medical protocol
             </p>
             <h1 className={`${serif} text-[42px] leading-[0.9] tracking-[-0.03em] md:text-[56px]`}>
-              BPC-157 — Approved
+              What would you like
               <br />
-              <span className="italic font-normal text-[#f5c2c7]">Refill Screening</span>
+              <span className="italic font-normal text-[#f5c2c7]">to refill or add?</span>
             </h1>
             <p className="mt-4 max-w-xl text-[13px] leading-relaxed text-white/55">
-              Hello Gorgeous Medical Spa — We Screen You Like A Medical Practice Because We Are One. Complete every
-              required field for provider review. Red-flag answers trigger clinical hold.
+              Hello Gorgeous Medical Spa — We Screen You Like A Medical Practice Because We Are One. Pick a protocol,
+              see patient pricing, and complete screening. Ryan reviews every request. Red-flag answers trigger a
+              clinical hold.
             </p>
           </div>
+
+          <Section n="00" title="Your request" desc="Refill an existing protocol, or ask to add something new.">
+            <div className="mb-4 flex flex-wrap gap-2">
+              {(
+                [
+                  ["refill", "Requesting a refill"],
+                  ["add", "I would like to add"],
+                ] as const
+              ).map(([id, label]) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => set("requestIntent", id)}
+                  className={`rounded-full border px-4 py-2 text-[12px] ${
+                    form.requestIntent === id
+                      ? "border-[#f5c2c7] bg-[#f5c2c7] text-black"
+                      : "border-white/15 text-white/70"
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            {errors.requestIntent ? <p className="mb-2 text-[11px] text-red-300">{errors.requestIntent}</p> : null}
+            <Field label="Protocol / SKU *" error={errors.skuId}>
+              <select
+                className={inputCls}
+                value={form.skuId}
+                onChange={(e) => {
+                  const next = regenRequestSkuById(e.target.value);
+                  setForm((cur) => ({
+                    ...cur,
+                    skuId: e.target.value,
+                    strength: next?.pack ?? cur.strength,
+                    formType: next ? inferFormTypeFromSku(next) : cur.formType,
+                  }));
+                }}
+              >
+                <option value="">Select what you want…</option>
+                {regenRequestSkuGroups().map((g) => (
+                  <optgroup key={g.hub} label={g.label}>
+                    {g.items.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name} — {formatRequestPrice(item)}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+            </Field>
+            {selectedSku ? (
+              <div className="mt-4 rounded-xl border border-[#f5c2c7]/25 bg-[#f5c2c7]/5 px-4 py-3 text-[13px]">
+                <p className="text-[#f5c2c7]">
+                  {selectedSku.name}
+                  {selectedSku.sku !== "review" ? ` · SKU ${selectedSku.sku}` : ""}
+                </p>
+                <p className="mt-1 text-white/70">{selectedSku.pack}</p>
+                <p className="mt-1 font-medium text-white">{formatRequestPrice(selectedSku)}</p>
+                <p className="mt-2 text-[11px] text-white/40">
+                  Patient price from Formulation sheet × 2.5. A refill is another review — not an automatic fill.
+                </p>
+              </div>
+            ) : null}
+          </Section>
 
           <Section n="01" title="Identity & Compliance" desc="Required for chart matching and safe dispensing.">
             <div className="grid gap-4 sm:grid-cols-2">
@@ -328,7 +428,10 @@ export function Bpc157RefillScreening() {
                   ))}
                 </select>
               </Field>
-              <Field label="Strength / dose currently using *" error={errors.strength}>
+              <Field
+                label={form.requestIntent === "add" ? "Strength / dose you want *" : "Strength / dose currently using *"}
+                error={errors.strength}
+              >
                 <input className={inputCls} value={form.strength} onChange={(e) => set("strength", e.target.value)} placeholder="e.g. 500mcg daily SubQ" />
               </Field>
               <Field label="How stored?">
@@ -363,7 +466,7 @@ export function Bpc157RefillScreening() {
 
           <Section n="02" title="Indication & Response" desc="Helps us confirm continued benefit.">
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Original goal / symptom for BPC-157 *" error={errors.originalGoal} span>
+              <Field label={`Original goal / symptom for ${productName} *`} error={errors.originalGoal} span>
                 <textarea className={inputCls} rows={2} value={form.originalGoal} onChange={(e) => set("originalGoal", e.target.value)} placeholder="e.g., Gut repair post NSAID use, shoulder tendinopathy, post-op healing support..." />
               </Field>
               <Field label="Exact % (0-100)" span>
@@ -496,7 +599,7 @@ export function Bpc157RefillScreening() {
               <label className={`rounded-xl border p-4 ${errors.ack ? "border-red-400/40" : "border-white/10"}`}>
                 <div className="flex items-start gap-3">
                   <input type="checkbox" checked={form.ack} onChange={(e) => set("ack", e.target.checked)} className="mt-1 accent-[#f5c2c7]" />
-                  <span className="text-[12.5px] leading-relaxed text-white/75">{BPC157_REFILL_ACK}</span>
+                  <span className="text-[12.5px] leading-relaxed text-white/75">{REGEN_REQUEST_ACK(productName)}</span>
                 </div>
                 {errors.ack ? <p className="mt-2 text-[11px] text-red-300">{errors.ack}</p> : null}
               </label>
@@ -522,6 +625,11 @@ export function Bpc157RefillScreening() {
           <div className="rounded-[20px] border border-white/[0.08] bg-[#0d0d11] p-5">
             <p className="text-[10px] uppercase tracking-widest text-white/40">Live Screening Summary</p>
             <p className={`${serif} mt-2 text-[22px]`}>{form.fullName || "Client"}</p>
+            <p className="mt-1 text-[13px] text-white/50">
+              {form.requestIntent === "add" ? "Add" : form.requestIntent === "refill" ? "Refill" : "Request"} ·{" "}
+              {selectedSku?.name ?? "No protocol yet"}
+            </p>
+            {selectedSku ? <p className="text-[13px] text-[#f5c2c7]">{formatRequestPrice(selectedSku)}</p> : null}
             <p className="mt-1 text-[13px] text-white/50">Improvement {form.improvement}%</p>
             <p className="text-[13px] text-white/50">Adherence {form.adherence || "—"}</p>
             <div className="mt-4">
@@ -539,9 +647,11 @@ export function Bpc157RefillScreening() {
           </div>
           <div className="rounded-[20px] border border-white/[0.08] bg-[#0d0d11] p-5">
             <p className="text-[10px] uppercase tracking-widest text-white/40">SMS Deliverable</p>
-            <p className="mt-2 text-[13px] text-[#f5c2c7]">{BPC157_REFILL_SHORT_URL.replace("https://", "")}</p>
+            <p className="mt-2 text-[13px] text-[#f5c2c7]">
+              {regenRequestShareUrl({ skuId: form.skuId, intent: form.requestIntent }).replace("https://", "")}
+            </p>
             <p className="mt-2 text-[12px] text-white/45">Short URL + native SMS composer. iOS/Android opens Messages.</p>
-            <p className="sr-only">{BPC157_REFILL_SMS}</p>
+            <p className="sr-only">{REGEN_REFILL_REQUEST_SMS}</p>
           </div>
           <div className="rounded-[20px] border border-white/[0.08] bg-[#0d0d11] p-5">
             <p className="text-[10px] uppercase tracking-widest text-white/40">Admin · All Refills</p>
@@ -567,7 +677,8 @@ export function Bpc157RefillScreening() {
                 <thead className="text-[10px] uppercase tracking-widest text-white/35">
                   <tr>
                     <th className="py-2 pr-3">Client</th>
-                    <th className="py-2 pr-3">Form</th>
+                    <th className="py-2 pr-3">Protocol</th>
+                    <th className="py-2 pr-3">Intent</th>
                     <th className="py-2 pr-3">%</th>
                     <th className="py-2">Flags</th>
                   </tr>
@@ -575,15 +686,16 @@ export function Bpc157RefillScreening() {
                 <tbody>
                   {staffRows.length === 0 ? (
                     <tr>
-                      <td colSpan={4} className="py-3 text-white/35">
-                        No refills yet. Submit to populate dashboard.
+                      <td colSpan={5} className="py-3 text-white/35">
+                        No requests yet. Submit to populate dashboard.
                       </td>
                     </tr>
                   ) : (
                     staffRows.map((r) => (
                       <tr key={r.id} className="border-t border-white/5">
                         <td className="py-2 pr-3">{r.name}</td>
-                        <td className="py-2 pr-3 text-white/50">{r.formType}</td>
+                        <td className="py-2 pr-3 text-white/50">{r.skuName || r.formType}</td>
+                        <td className="py-2 pr-3 text-white/50">{r.requestIntent || r.formType}</td>
                         <td className="py-2 pr-3">{r.improvement}</td>
                         <td className="py-2 text-red-200">{r.redFlags.length || "—"}</td>
                       </tr>
@@ -598,6 +710,12 @@ export function Bpc157RefillScreening() {
 
       <footer className="border-t border-white/10 py-8 text-center text-[11px] uppercase tracking-widest text-white/30">
         © Hello Gorgeous Medical Spa — Medical Intake · HIPAA-aware handling · Investigational use disclosure required
+        <span className="mt-2 block normal-case tracking-normal text-white/35">
+          GLP-1 patients use{" "}
+          <a href="/glp1-refill" className="text-[#f5c2c7] underline">
+            /glp1-refill
+          </a>
+        </span>
       </footer>
     </div>
   );

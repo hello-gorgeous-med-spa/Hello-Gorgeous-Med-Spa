@@ -1,4 +1,6 @@
-/** BPC-157 approved-patient refill screening — first REGEN RX refill product. */
+/** REGEN RX refill / add-on screening (BPC-157 first, now generic SKU picker). */
+
+import { regenRequestSkuById } from "@/lib/regen/refill-request-catalog";
 
 export const REGEN_REFILL_HUB_PATH = "/regen/refill";
 export const BPC157_REFILL_PATH = "/regen/refill/bpc-157";
@@ -73,6 +75,8 @@ export const SAFETY_FLAGS = [
 export type SafetyFlagId = (typeof SAFETY_FLAGS)[number]["id"];
 
 export type Bpc157RefillForm = {
+  requestIntent: string;
+  skuId: string;
   fullName: string;
   dob: string;
   phone: string;
@@ -117,6 +121,8 @@ export type Bpc157RefillForm = {
 };
 
 export const EMPTY_BPC157_REFILL: Bpc157RefillForm = {
+  requestIntent: "",
+  skuId: "",
   fullName: "",
   dob: "",
   phone: "",
@@ -164,6 +170,8 @@ export type Bpc157RefillErrors = Partial<Record<keyof Bpc157RefillForm, string>>
 
 export function validateBpc157Refill(e: Bpc157RefillForm): Bpc157RefillErrors {
   const a: Bpc157RefillErrors = {};
+  if (e.requestIntent !== "refill" && e.requestIntent !== "add") a.requestIntent = "Required";
+  if (!regenRequestSkuById(e.skuId)) a.skuId = "Select a protocol";
   if (!e.fullName.trim()) a.fullName = "Required";
   if (!e.dob) a.dob = "Required";
   if (!e.phone.trim()) a.phone = "Required";

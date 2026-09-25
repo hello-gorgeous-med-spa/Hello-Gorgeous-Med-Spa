@@ -41,17 +41,21 @@ export async function emailStaffFormSubmission(opts: {
   text: string;
   html?: string;
   replyTo?: string;
+  /** Extra inboxes (ops + provider). Always includes the contact-form inbox. */
+  alsoTo?: string[];
 }): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return false;
 
   const toEmail = getContactFormToEmail();
+  const extra = (opts.alsoTo ?? []).map((e) => e.trim()).filter((e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
+  const to = Array.from(new Set([toEmail, ...extra]));
   const fromAddress = getResendFromAddress();
   const replyTo = opts.replyTo?.trim();
   const bccRaw = process.env.LEAD_EMAIL_BCC?.trim();
   const payload: Record<string, unknown> = {
     from: fromAddress,
-    to: [toEmail],
+    to,
     subject: opts.subject,
     text: opts.text,
   };
@@ -87,11 +91,13 @@ export async function alertStaffOnFormSubmission(opts: {
   emailBody: string;
   smsLines: string[];
   replyTo?: string;
+  alsoTo?: string[];
 }): Promise<void> {
   notifyOwnerFormSubmission({ formName: opts.formName, lines: opts.smsLines });
   await emailStaffFormSubmission({
     subject: opts.emailSubject,
     text: opts.emailBody,
     replyTo: opts.replyTo,
+    alsoTo: opts.alsoTo,
   }).catch((e) => console.error("[form-alert] email error:", e));
 }

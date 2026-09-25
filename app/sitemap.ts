@@ -459,6 +459,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.88,
     },
     {
+      url: `${baseUrl}/regen/refill`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/hello-gorgeous-rx/start-here`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
