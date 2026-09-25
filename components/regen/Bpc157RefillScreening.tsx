@@ -18,6 +18,7 @@ import {
   type Bpc157RefillErrors,
   type Bpc157RefillForm,
 } from "@/lib/regen/bpc-157-refill-screening";
+import { RegenCompoundShop } from "@/components/regen/RegenCompoundShop";
 import {
   formatRequestPrice,
   inferFormTypeFromSku,
@@ -27,6 +28,8 @@ import {
   regenRequestSkuById,
   regenRequestSkuGroups,
   smsRegenRequestHref,
+  type RegenRequestIntent,
+  type RegenRequestSku,
 } from "@/lib/regen/refill-request-catalog";
 
 const cormorant = Cormorant_Garamond({
@@ -178,6 +181,23 @@ export function Bpc157RefillScreening({
     setForm((cur) => ({ ...cur, [key]: value }));
   }
 
+  function applySku(sku: RegenRequestSku, intent?: RegenRequestIntent) {
+    setForm((cur) => ({
+      ...cur,
+      skuId: sku.id,
+      requestIntent: intent ?? cur.requestIntent,
+      strength: sku.pack,
+      formType: inferFormTypeFromSku(sku),
+    }));
+  }
+
+  function pickFromShop(sku: RegenRequestSku) {
+    applySku(sku);
+    window.setTimeout(() => {
+      document.getElementById("screening")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  }
+
   function toggleCondition(c: string) {
     setForm((cur) => {
       if (c === "None") return { ...cur, conditions: cur.conditions.includes("None") ? [] : ["None"] };
@@ -324,21 +344,28 @@ export function Bpc157RefillScreening({
         </div>
       </header>
 
+      <RegenCompoundShop
+        selectedId={form.skuId}
+        intent={form.requestIntent}
+        serifClassName={serif}
+        onIntent={(id) => set("requestIntent", id)}
+        onPick={pickFromShop}
+      />
+
       <div className="mx-auto grid max-w-[1120px] items-start gap-8 px-5 py-8 md:px-8 md:py-12 lg:grid-cols-[1.15fr_0.85fr]">
-        <form onSubmit={submit} className="space-y-6">
+        <form id="screening" onSubmit={submit} className="space-y-6 scroll-mt-6">
           <div className="mb-2">
             <p className="mb-4 text-[11px] uppercase tracking-[0.28em] text-[#f5c2c7]">
-              Refill or add-on · Medical protocol
+              Screening · Medical protocol
             </p>
-            <h1 className={`${serif} text-[42px] leading-[0.9] tracking-[-0.03em] md:text-[56px]`}>
-              What would you like
+            <h2 className={`${serif} text-[36px] leading-[0.95] tracking-[-0.03em] md:text-[44px]`}>
+              Complete your
               <br />
-              <span className="italic font-normal text-[#f5c2c7]">to refill or add?</span>
-            </h1>
+              <span className="italic font-normal text-[#f5c2c7]">request</span>
+            </h2>
             <p className="mt-4 max-w-xl text-[13px] leading-relaxed text-white/55">
-              Hello Gorgeous Medical Spa — We Screen You Like A Medical Practice Because We Are One. Pick a protocol,
-              see patient pricing, and complete screening. Ryan reviews every request. Red-flag answers trigger a
-              clinical hold.
+              We Screen You Like A Medical Practice Because We Are One. Ryan reviews every request. Red-flag answers
+              trigger a clinical hold — not an automatic fill.
             </p>
           </div>
 

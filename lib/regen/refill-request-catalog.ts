@@ -27,11 +27,37 @@ export type RegenRequestSku = {
   inOffice?: boolean;
 };
 
-const HUB_LABEL: Record<RegenRequestSku["hub"], string> = {
+export const REGEN_REQUEST_HUB_LABEL: Record<RegenRequestSku["hub"], string> = {
   peptides: "Peptides & wellness",
   "sexual-health": "Sexual health",
   dermatology: "Skin & hair",
 };
+
+const ART = "/images/regen/catalog";
+const REQUEST_SKU_ART: Record<string, string> = {
+  sermorelin: `${ART}/sermorelin.png`,
+  tesamorelin: `${ART}/tesamorelin.png`,
+  "bpc-157": `${ART}/bpc-157.png`,
+  "ghk-cu": `${ART}/ghk-cu.png`,
+  glutathione: `${ART}/regen-glutathione.jpg`,
+  "pt-141": `${ART}/regen-pt141.jpg`,
+  oxytocin: `${ART}/regen-generic-oral.jpg`,
+  "libido-women": `${ART}/regen-generic-oral.jpg`,
+  ed: `${ART}/regen-pde5.jpg`,
+  "sildenafil-apo": `${ART}/regen-pde5.jpg`,
+  ici: `${ART}/regen-generic-injectable.jpg`,
+  "scream-cream": `${ART}/regen-generic-topical.jpg`,
+  estriol: `${ART}/regen-biest.jpg`,
+  cleartone: `${ART}/regen-tretinoin.jpg`,
+  hydroquinone: `${ART}/regen-tretinoin.jpg`,
+  clarity: `${ART}/regen-tretinoin.jpg`,
+  "fin-minox-solution": `${ART}/regen-finasteride.jpg`,
+  blt: `${ART}/regen-generic-topical.jpg`,
+};
+
+export function requestSkuImage(id: string): string {
+  return REQUEST_SKU_ART[id] ?? `${ART}/regen-generic-injectable.jpg`;
+}
 
 function peptideRetail(id: string, fallback: number): number {
   return REGEN_PEPTIDE_PRICING.find((p) => p.id === id)?.retail30 ?? fallback;
@@ -70,7 +96,7 @@ export function regenRequestSkuGroups(): Array<{ hub: RegenRequestSku["hub"]; la
   return hubs
     .map((hub) => ({
       hub,
-      label: HUB_LABEL[hub],
+      label: REGEN_REQUEST_HUB_LABEL[hub],
       items: REGEN_REQUEST_SKUS.filter((s) => s.hub === hub),
     }))
     .filter((g) => g.items.length);

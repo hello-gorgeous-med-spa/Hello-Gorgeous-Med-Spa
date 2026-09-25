@@ -7,9 +7,9 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = {
   ...pageMetadata({
-    title: "Refill or add a protocol | REGEN RX",
+    title: "Compound shop | REGEN RX",
     description:
-      "Request a refill or add a Hello Gorgeous RX protocol. Patient pricing shown on Formulation SKUs. Ryan reviews every request before any clinic invoice.",
+      "Shop Hello Gorgeous RX protocols, see patient pricing, and request a refill or add-on. Ryan reviews every request before any clinic invoice.",
     path: REGEN_REFILL_HUB_PATH,
   }),
 };
