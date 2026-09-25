@@ -280,6 +280,9 @@ export const GLP1_REFILL_PATH = "/glp1-refill";
 /** Hello Gorgeous RX™ peptide request & refill at `/peptide-request`. Telehealth required before approval. */
 export const PEPTIDE_REQUEST_PATH = "/peptide-request";
 
+/** REGEN RX existing-patient refill screening hub (BPC-157 first). */
+export const REGEN_REFILL_PATH = "/regen/refill";
+
 /** Hormone therapy request — pay first, telehealth before ship at `/hrt-request`. */
 export const HRT_REQUEST_PATH = "/hrt-request";
 

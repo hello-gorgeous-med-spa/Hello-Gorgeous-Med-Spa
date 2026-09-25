@@ -9,7 +9,6 @@ import {
   HELLO_GORGEOUS_RX_START_PATH,
   HG_RX_TELEHEALTH_BOOKING_LABEL,
   HG_RX_TELEHEALTH_BOOKING_URL,
-  PEPTIDE_REQUEST_PATH,
   PROGRAM_CONSULT_FEE_USD,
   RX_MESSAGES_PATH,
   RX_PATIENT_CARE_PATH,
@@ -152,7 +151,7 @@ export const RX_PATIENT_CARE_HERO = {
   subtitle:
     "Refill GLP-1, renew peptides, stack monthly add-ons, pay your invoice, and download patient guides — one place, supervised by a licensed Illinois clinician.",
   primaryCta: { label: "Renew GLP-1", href: GLP1_REFILL_PATH },
-  secondaryCta: { label: "Peptide refill", href: PEPTIDE_REQUEST_PATH },
+  secondaryCta: { label: "Peptide refill", href: "/regen/refill" },
   heroImage: RX_CARE_IMAGES.glp1Hero,
   heroImageAlt: "Compounded tirzepatide — Hello Gorgeous RX weight loss",
 } as const;
@@ -183,8 +182,8 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         title: "Peptide protocol refill",
         description:
           "Renew BPC-157, Sermorelin, NAD+, GHK-Cu, and more — pay once or enroll in monthly auto-pay (Square subscription). Hub monitors every order.",
-        href: PEPTIDE_REQUEST_PATH,
-        cta: "Peptide request / refill",
+        href: "/regen/refill",
+        cta: "Peptide refill screening",
         icon: "🧬",
         image: RX_CARE_IMAGES.peptide,
         imageAlt: "Peptide therapy — Hello Gorgeous RX",
