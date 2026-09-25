@@ -471,6 +471,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
+      url: `${baseUrl}/glp-1-quiz`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.86,
+    },
+    {
+      url: 'https://tryregenrx.com/glp-1-quiz',
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/hello-gorgeous-rx/start-here`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

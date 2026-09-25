@@ -49,6 +49,7 @@ const STANDALONE_APP_ROUTES = [
   "/microblading-brow-pmu-oswego-il",
   "/fall-makeover",
   "/vip-glow",
+  "/glp-1-quiz",
   /** Ageless-style ad LP — sticky mini-nav only */
   "/see-your-results",
   /** RE GEN telehealth platform — completely standalone brand */

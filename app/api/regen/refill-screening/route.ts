@@ -22,8 +22,6 @@ import { getStaffPortalPin, pinMatches } from "@/lib/staff-session";
 export const dynamic = "force-dynamic";
 export const maxDuration = 15;
 
-const OPS_INBOX = "hello@hellogorgeousmedspa.com";
-
 function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -230,7 +228,7 @@ export async function POST(request: NextRequest) {
         phone,
       ],
       replyTo: form.email,
-      alsoTo: [MEDSPA_OPS_EMAIL, OPS_INBOX],
+      alsoTo: [MEDSPA_OPS_EMAIL],
     });
 
     return NextResponse.json({ success: true, id, redFlags: flags });

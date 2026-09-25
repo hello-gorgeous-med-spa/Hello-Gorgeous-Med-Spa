@@ -25,11 +25,16 @@ export const QUIZ_NAV = {
       overview: true,
     },
     {
+      label: "GLP-1 quiz",
+      href: "/glp-1-quiz",
+      sub: "Start → Details → Eligibility · clinician review",
+      badge: "NEW",
+      dividerBefore: true,
+    },
+    {
       label: "GLP-1 Readiness Screener",
       href: "/quiz/glp-1-readiness",
       sub: "2 min · see if medical weight loss may fit",
-      badge: "NEW",
-      dividerBefore: true,
     },
     {
       label: "Peptide Quiz",
