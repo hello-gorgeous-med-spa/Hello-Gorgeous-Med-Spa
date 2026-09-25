@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { Bpc157RefillScreening } from "@/components/regen/Bpc157RefillScreening";
+import { RegenPublicNav } from "@/components/regen/RegenPublicNav";
 import { REGEN_REFILL_HUB_PATH } from "@/lib/regen/bpc-157-refill-screening";
 import { regenRequestSkuById, type RegenRequestIntent } from "@/lib/regen/refill-request-catalog";
 import { pageMetadata } from "@/lib/seo";
@@ -23,5 +24,10 @@ export default async function RegenRefillHubPage({
   const sku = regenRequestSkuById(sp.sku)?.id;
   const intent: RegenRequestIntent | undefined =
     sp.intent === "add" || sp.intent === "refill" ? sp.intent : undefined;
-  return <Bpc157RefillScreening initialSkuId={sku} initialIntent={intent} />;
+  return (
+    <>
+      <RegenPublicNav />
+      <Bpc157RefillScreening initialSkuId={sku} initialIntent={intent} />
+    </>
+  );
 }

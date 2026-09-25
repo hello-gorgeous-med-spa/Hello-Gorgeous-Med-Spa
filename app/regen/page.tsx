@@ -34,6 +34,16 @@ const BRAND = {
 
 const PROGRAMS = [
   {
+    id: 'compound-shop',
+    title: 'Compound shop',
+    subtitle: 'Refill or add a protocol',
+    description: 'See patient pricing on Formulation SKUs. Request review — Ryan invoices only if he says yes.',
+    price: 'from $67.50',
+    href: '/refill',
+    image: '/images/regen/catalog/sermorelin.png',
+    unit: 'request',
+  },
+  {
     id: 'weight-loss',
     title: 'Weight loss',
     subtitle: 'Weekly GLP-1 care',
@@ -294,6 +304,13 @@ export default function RegenLandingPage() {
             >
               Start a request
             </Link>
+            <Link
+              href="/refill"
+              className="px-10 py-4 text-lg font-bold rounded-full border-2 transition-all hover:scale-105 text-center"
+              style={{ borderColor: BRAND.pink, color: BRAND.pink }}
+            >
+              Compound shop
+            </Link>
           </div>
           <p className="mt-4 text-sm animate-fade-in-up delay-300" style={{ color: BRAND.gray }}>
             {REGEN_TELEHEALTH_CREDIT_SHORT}. Illinois adults 21+.
@@ -385,7 +402,7 @@ export default function RegenLandingPage() {
                   <p className="text-sm mb-4" style={{ color: BRAND.gray }}>{program.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-2xl font-black" style={{ color: BRAND.pink }}>
-                      {program.price}<span className="text-sm font-normal" style={{ color: BRAND.gray }}>{'unit' in program && program.unit === 'vial' ? ' / vial' : '/mo'}</span>
+                      {program.price}<span className="text-sm font-normal" style={{ color: BRAND.gray }}>{'unit' in program && program.unit === 'vial' ? ' / vial' : program.unit === 'request' ? '' : '/mo'}</span>
                     </span>
                     <span className="text-sm font-semibold flex items-center gap-1" style={{ color: BRAND.teal }}>
                       Start

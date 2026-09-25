@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { Bpc157RefillScreening } from "@/components/regen/Bpc157RefillScreening";
+import { RegenPublicNav } from "@/components/regen/RegenPublicNav";
 import { BPC157_REFILL_PATH } from "@/lib/regen/bpc-157-refill-screening";
 import { pageMetadata } from "@/lib/seo";
 
@@ -15,5 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default function Bpc157RefillPage() {
-  return <Bpc157RefillScreening initialSkuId="bpc-157" initialIntent="refill" />;
+  return (
+    <>
+      <RegenPublicNav />
+      <Bpc157RefillScreening initialSkuId="bpc-157" initialIntent="refill" />
+    </>
+  );
 }

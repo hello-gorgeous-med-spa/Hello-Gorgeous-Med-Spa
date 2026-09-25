@@ -15,6 +15,12 @@ export const FORMULATION_NAV_LABEL = "Peptides";
 
 export const FORMULATION_HUB_LINKS = [
   {
+    href: "/refill",
+    id: "compound-shop",
+    label: "Compound shop",
+    sub: "See patient pricing · request a refill or add-on",
+  },
+  {
     href: "/peptides",
     id: "peptides",
     label: "Peptides",

@@ -110,12 +110,32 @@ export function formatRequestPrice(sku: RegenRequestSku): string {
 }
 
 export const REGEN_REFILL_REQUEST_PATH = "/regen/refill";
+/** Public path on tryregenrx.com (middleware prefixes /regen). */
+export const REGEN_REFILL_TRYREGEN_PATH = "/refill";
 export const REGEN_REFILL_REQUEST_SHORT_URL = "https://hellogorgeousmedspa.com/regen/refill";
+export const REGEN_REFILL_TRYREGEN_URL = "https://tryregenrx.com/refill";
 export const REGEN_REFILL_REQUEST_CAMPAIGN = "regen_refill_request";
+
+/**
+ * Public REGEN-door path. `/refill` is a real App Router page (and tryregenrx
+ * middleware rewrites it to `/regen/refill`). Do not prefix `/regen` here —
+ * that double-writes on tryregenrx.com.
+ */
+export function regenHostHref(path: string): string {
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return normalized;
+}
+
+export function regenRefillShareBase(): string {
+  if (typeof window !== "undefined" && window.location.hostname.includes("tryregenrx.com")) {
+    return REGEN_REFILL_TRYREGEN_URL;
+  }
+  return REGEN_REFILL_REQUEST_SHORT_URL;
+}
 
 export const REGEN_REFILL_REQUEST_SMS = [
   "REGEN RX — refill or add a protocol. Pick your medication, see patient pricing, and complete screening so Ryan can review:",
-  REGEN_REFILL_REQUEST_SHORT_URL,
+  REGEN_REFILL_TRYREGEN_URL,
 ].join(" ");
 
 export function inferFormTypeFromSku(sku: RegenRequestSku): string {
@@ -129,7 +149,7 @@ export function inferFormTypeFromSku(sku: RegenRequestSku): string {
 }
 
 export function regenRequestShareUrl(opts?: { skuId?: string; intent?: string }): string {
-  const u = new URL(REGEN_REFILL_REQUEST_SHORT_URL);
+  const u = new URL(regenRefillShareBase());
   if (opts?.skuId && regenRequestSkuById(opts.skuId)) u.searchParams.set("sku", opts.skuId);
   if (opts?.intent === "refill" || opts?.intent === "add") u.searchParams.set("intent", opts.intent);
   return u.toString();

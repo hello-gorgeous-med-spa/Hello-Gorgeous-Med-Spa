@@ -281,7 +281,7 @@ const nextConfig = {
     { source: "/events/vip-device-night", destination: "/book", permanent: true },
     { source: "/book-now", destination: "/book", permanent: true },
     { source: "/providers/ryan", destination: "/about", permanent: true },
-    { source: "/refill", destination: "https://tryregenrx.com/account", permanent: true },
+    ...hgOnlyRedirect("/refill", "https://tryregenrx.com/refill"),
     { source: "/refills", destination: "https://tryregenrx.com/account", permanent: true },
     { source: "/patient-care", destination: "https://tryregenrx.com/account", permanent: true },
     { source: "/mens-wellness", destination: "/gentlemens-club", permanent: true },

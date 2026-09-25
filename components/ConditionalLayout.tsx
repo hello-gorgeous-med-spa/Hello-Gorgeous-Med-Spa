@@ -53,6 +53,8 @@ const STANDALONE_APP_ROUTES = [
   "/see-your-results",
   /** RE GEN telehealth platform — completely standalone brand */
   "/regen",
+  /** Compound shop public door (tryregenrx.com/refill and localhost /refill) */
+  "/refill",
 ];
 
 export function ConditionalLayout({

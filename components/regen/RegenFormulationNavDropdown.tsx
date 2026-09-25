@@ -9,6 +9,7 @@ import {
   FORMULATION_NAV_LABEL,
   isFormulationHubPath,
 } from "@/lib/regen/formulation-partner";
+import { regenHostHref } from "@/lib/regen/refill-request-catalog";
 
 const TEAL = "#0D9488";
 
@@ -87,7 +88,7 @@ export function RegenFormulationNavDropdown() {
               return (
                 <Link
                   key={link.id}
-                  href={link.href}
+                  href={link.id === "compound-shop" ? regenHostHref(link.href) : link.href}
                   role="menuitem"
                   className="block border-b px-4 py-3 last:border-0 hover:bg-white/5"
                   style={{ borderColor: `${TEAL}18` }}

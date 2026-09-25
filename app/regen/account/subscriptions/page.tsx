@@ -115,7 +115,7 @@ export default function SubscriptionsPage() {
             Nothing auto-renews. When you need more medication, start a request or call us. Ryan reviews again before any clinic invoice or pharmacy send.
           </p>
           <Link
-            href="/regen/refill"
+            href="/refill"
             style={{
               display: 'inline-block',
               padding: '14px 28px',
@@ -309,7 +309,7 @@ export default function SubscriptionsPage() {
             Looking to add another treatment?
           </p>
           <Link
-            href="/regen/refill"
+            href="/refill"
             style={{
               display: 'inline-block',
               padding: '12px 24px',

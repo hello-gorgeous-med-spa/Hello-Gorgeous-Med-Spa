@@ -148,6 +148,13 @@ export async function middleware(request: NextRequest) {
       res.headers.set('x-regen-host', '1');
       return res;
     }
+    // /refill → same compound shop as hellogorgeousmedspa.com/regen/refill
+    if (pathname === '/refill' || pathname.startsWith('/refill/')) {
+      url.pathname = '/regen/refill' + pathname.slice('/refill'.length);
+      const res = NextResponse.rewrite(url);
+      res.headers.set('x-regen-host', '1');
+      return res;
+    }
     // /start → RE GEN intake flow
     if (pathname === '/start' || pathname.startsWith('/start/')) {
       url.pathname = '/regen/start' + pathname.slice('/start'.length);

@@ -11,6 +11,7 @@ import {
   FORMULATION_NAV_LABEL,
   isFormulationHubPath,
 } from '@/lib/regen/formulation-partner';
+import { regenHostHref } from '@/lib/regen/refill-request-catalog';
 import { REGEN_TELEHEALTH_PATH, regenTelehealthPriceLabel } from '@/lib/regen/telehealth-consult';
 
 const BRAND = {
@@ -20,6 +21,7 @@ const BRAND = {
 
 const LINKS = [
   { href: '/start', label: 'Programs' },
+  { href: '/refill', label: 'Compound shop' },
   { href: '/how-it-works', label: 'How it works' },
   { href: '/products', label: 'Products' },
   { href: '/tools', label: 'Free Tools' },
@@ -55,10 +57,11 @@ export function RegenPublicNav({ fixed = false }: { fixed?: boolean }) {
         <div className="flex items-center gap-5">
           {LINKS.slice(0, 2).map((item) => {
             const active = isNavActive(pathname, item.href);
+            const href = item.href === '/refill' ? regenHostHref('/refill') : item.href;
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={href}
                 className={`text-sm font-medium transition-colors hidden lg:block ${active ? 'text-white' : 'text-gray-400 hover:text-white'}`}
                 style={active ? { color: BRAND.teal } : undefined}
               >
@@ -122,10 +125,11 @@ export function RegenPublicNav({ fixed = false }: { fixed?: boolean }) {
           <div className="flex flex-col gap-3">
             {LINKS.map((item) => {
               const active = isNavActive(pathname, item.href);
+              const href = item.href === '/refill' ? regenHostHref('/refill') : item.href;
               return (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={href}
                   className="text-sm font-medium"
                   style={{ color: active ? BRAND.teal : '#9CA3AF' }}
                   onClick={() => setMobileOpen(false)}
@@ -141,7 +145,7 @@ export function RegenPublicNav({ fixed = false }: { fixed?: boolean }) {
               {FORMULATION_HUB_LINKS.map((link) => (
                 <Link
                   key={link.id}
-                  href={link.href}
+                  href={link.id === 'compound-shop' ? regenHostHref(link.href) : link.href}
                   className="text-sm font-medium"
                   style={{ color: '#9CA3AF' }}
                   onClick={() => setMobileOpen(false)}
