@@ -9,6 +9,7 @@ import {
   labRequestUrl,
   LABS_HUB_PATH,
   PEPTIDE_REQUEST_PATH,
+  REGEN_REFILL_PATH,
   RX_PATIENT_CARE_PATH,
 } from "@/lib/flows";
 import { MEDICAL_OPTIMIZATION_PATH } from "@/lib/medical-optimization";
@@ -154,7 +155,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
     hubHref: "/peptides",
     exploreLabel: "Explore consultations",
     homepageBlurb: "Provider-led wellness consultations · not a peptide menu",
-    defaultFeaturedId: "peptide-intake",
+    defaultFeaturedId: "compound-shop",
     columns: [
       {
         heading: "Medical services",
@@ -188,6 +189,16 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
       {
         heading: "How to start",
         items: [
+          {
+            id: "compound-shop",
+            label: "Compound shop",
+            href: REGEN_REFILL_PATH,
+            rx: true,
+            badge: "NEW",
+            tagline: "Pick a protocol · patient pricing · Ryan reviews",
+            imageSrc: "/images/regen/catalog/sermorelin.png",
+            imageAlt: "REGEN RX compounded sermorelin — Hello Gorgeous compound shop",
+          },
           {
             id: "peptide-intake",
             label: "Start a medical intake",
@@ -395,6 +406,7 @@ export const MEDICAL_MEGA_MENU_COLUMNS: MedicalMegaMenuColumn[] =
   SHOP_RX_CATEGORIES.flatMap((cat) => cat.columns);
 
 export const MEDICAL_MEGA_MENU_FOOTER = [
+  { label: "Compound shop", href: REGEN_REFILL_PATH },
   { label: "RX Request Portal", href: "/rx/request" },
   { label: "Hello Gorgeous RX hub", href: "/rx" },
   { label: "Regen Science Library", href: "/regen-science" },

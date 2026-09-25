@@ -7,6 +7,7 @@ import { IV_THERAPY_PATH } from "@/lib/iv-therapy-marketing";
 import { MEDICAL_DIRECTOR } from "@/lib/medical-authority";
 import { MORPHEUS8_PATH } from "@/lib/morpheus8-marketing";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import { REGEN_REFILL_PATH } from "@/lib/flows";
 import { QUANTUM_RF_PATH } from "@/lib/quantum-rf-marketing";
 import { REGEN_RX_PUBLIC_URL } from "@/lib/regen-partnership";
 import { SOLARIA_CO2_PATH } from "@/lib/solaria-marketing";
@@ -59,6 +60,14 @@ export const ATELIER_SERVICES = [
     href: "/glp-1-weight-loss-oswego",
     image: "/images/homepage-atelier/weight-loss.jpg",
     alt: "Medical weight loss at Hello Gorgeous Med Spa",
+  },
+  {
+    id: "compound-shop",
+    title: "Compound shop",
+    note: "Peptides & RX protocols · see price · request review",
+    href: REGEN_REFILL_PATH,
+    image: "/images/regen/catalog/sermorelin.png",
+    alt: "REGEN RX compounded sermorelin vial — Hello Gorgeous compound shop",
   },
   {
     id: "iv",

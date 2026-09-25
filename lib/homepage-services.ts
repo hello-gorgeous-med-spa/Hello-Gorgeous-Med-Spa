@@ -36,6 +36,17 @@ export const homepageServicesRow1: HomepageServiceCard[] = [
     imageContain: true,
   },
   {
+    title: "Compound shop",
+    description:
+      "Shop REGEN RX protocols, see patient pricing, and request a refill or add-on. A licensed Illinois clinician reviews every request before any clinic invoice.",
+    link: "/regen/refill",
+    items: ["Sermorelin", "Tesamorelin", "BPC-157", "Sexual health & skin"],
+    image: "/images/regen/catalog/sermorelin.png",
+    imageAlt: "REGEN RX compounded sermorelin vial — Hello Gorgeous compound shop Oswego IL",
+    badge: "RX",
+    imageContain: true,
+  },
+  {
     title: "Medical Weight Loss",
     description:
       "Physician-supervised GLP-1 therapies including Semaglutide and Tirzepatide for lasting results.",

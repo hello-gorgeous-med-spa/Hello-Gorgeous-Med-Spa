@@ -3,7 +3,7 @@
  * Services · REGEN RX · Specials · About · Book
  */
 
-import { RX_PATIENT_CARE_PATH } from "@/lib/flows";
+import { REGEN_REFILL_PATH, RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import { LABS_NAV } from "@/lib/labs-nav";
 import { BROW_MICROBLADING_NAV } from "@/lib/brow-journey-marketing";
 import { FACIALS_PEELS_MENU_PATH, FACIALS_PEELS_NAV } from "@/lib/facials-peels-menu";
@@ -117,6 +117,12 @@ export const SPECIALS_NAV_EXTRA_LINKS = [
 
 /** In-office Services — prescription programs live under Shop RX only. */
 export const SERVICES_RX_BRIDGE_LINKS = [
+  {
+    label: "Compound shop",
+    href: REGEN_REFILL_PATH,
+    sub: "Peptides & RX protocols · see price · request review",
+    badge: "NEW" as const,
+  },
   {
     label: "REGEN RX",
     href: SHOP_RX_NAV.href,

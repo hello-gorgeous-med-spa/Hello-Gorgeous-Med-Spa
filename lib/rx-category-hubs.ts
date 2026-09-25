@@ -7,6 +7,7 @@ import {
   GLP1_REFILL_PATH,
   LABS_HUB_PATH,
   PEPTIDE_REQUEST_PATH,
+  REGEN_REFILL_PATH,
   RX_PATIENT_CARE_PATH,
   SQUARE_VITAMIN_SHOT_BOOKING_URL,
   VITAMIN_SHOT_FEE_USD,
@@ -753,6 +754,7 @@ export function isRegenHubActive(pathname: string | null, hub: RxCategoryHub): b
 }
 
 export const REGEN_EXPLORE_FOOTER = [
+  { label: "Compound shop", href: REGEN_REFILL_PATH },
   { label: "REGEN home", href: "/rx" },
   { label: "Protocols", href: "/rx/protocols" },
   { label: "Regen Science Library", href: "/regen-science" },
