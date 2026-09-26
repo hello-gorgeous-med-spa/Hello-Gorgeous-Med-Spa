@@ -17,12 +17,14 @@ export function RegenCompoundShop({
   selectedId,
   intent,
   serifClassName,
+  staffView = false,
   onIntent,
   onPick,
 }: {
   selectedId: string;
   intent: string;
   serifClassName: string;
+  staffView?: boolean;
   onIntent: (intent: RegenRequestIntent) => void;
   onPick: (sku: RegenRequestSku) => void;
 }) {
@@ -36,15 +38,15 @@ export function RegenCompoundShop({
           <span className="italic font-normal text-[#f5c2c7]">Request review.</span>
         </h1>
         <p className="mt-4 max-w-xl text-[14px] leading-relaxed text-white/55">
-          Patient prices from the Formulation sheet. This is not a cart — you pick what you want, complete
-          screening, and Ryan reviews before any clinic invoice.
+          Prices below are what you would pay if prescribed. This is not a cart — you pick what you want,
+          complete screening, and Ryan reviews before any clinic invoice.
         </p>
 
         <ol className="mt-6 grid gap-3 sm:grid-cols-3">
           {[
-            ["01", "Pick a protocol", "See pack, SKU, and patient price."],
-            ["02", "Screen", "Same medical form. Red flags hold the request."],
-            ["03", "Invoice after yes", "Charm + Bluefin. Then the pharmacy fills."],
+            ["01", "Pick a protocol", "See pack and patient price."],
+            ["02", "Screen", "Same medical form. Ryan reviews before anything ships."],
+            ["03", "Invoice after yes", "We send a clinic invoice. Then the pharmacy fills."],
           ].map(([n, title, body]) => (
             <li key={n} className="rounded-2xl border border-white/10 bg-[#0d0d11] px-4 py-3">
               <p className="text-[10px] uppercase tracking-widest text-[#f5c2c7]">{n}</p>
@@ -106,9 +108,14 @@ export function RegenCompoundShop({
                       <div className="px-4 pb-4 pt-2">
                         <p className={`${serifClassName} text-[22px] leading-tight`}>{sku.name}</p>
                         <p className="mt-1 text-[11px] uppercase tracking-widest text-white/35">
-                          {sku.sku !== "review" ? `SKU ${sku.sku}` : "Provider review"}
-                          {sku.investigational ? " · Investigational" : ""}
-                          {sku.inOffice ? " · In-office" : ""}
+                          {[
+                            staffView && sku.sku !== "review" ? `SKU ${sku.sku}` : null,
+                            sku.sku === "review" ? "Provider review" : null,
+                            sku.investigational ? "Investigational" : null,
+                            sku.inOffice ? "In-office" : null,
+                          ]
+                            .filter(Boolean)
+                            .join(" · ") || "\u00a0"}
                         </p>
                         <p className="mt-2 text-[13px] text-white/50">{sku.pack}</p>
                         <p className="mt-2 text-[15px] text-[#f5c2c7]">{formatRequestPrice(sku)}</p>

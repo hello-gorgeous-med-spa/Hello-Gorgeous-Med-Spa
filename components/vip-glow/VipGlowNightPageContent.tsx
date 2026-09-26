@@ -2,7 +2,7 @@
 
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { SITE } from "@/lib/seo";
 import {
@@ -218,6 +218,7 @@ export function VipGlowNightPageContent() {
   const [error, setError] = useState("");
   const [confirmed, setConfirmed] = useState<RsvpRow | null>(null);
   const [staffPin, setStaffPin] = useState("");
+  const [staffView, setStaffView] = useState(false);
   const [staffRows, setStaffRows] = useState<
     Array<{
       id: string;
@@ -230,6 +231,11 @@ export function VipGlowNightPageContent() {
     }>
   >([]);
   const [staffErr, setStaffErr] = useState("");
+
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    setStaffView(q.has("admin") || q.get("staff") === "1");
+  }, []);
 
   const confirmWants = useMemo(
     () => (confirmed ? formatGlowGoals(confirmed.clientTreatments, confirmed.clientDetails) : ""),
@@ -386,7 +392,8 @@ export function VipGlowNightPageContent() {
               Complimentary bubbly + afterglow kit.
             </p>
           </div>
-          {shareOpen ? (
+          {staffView ? (
+            shareOpen ? (
             <div className="flex flex-col gap-3 md:min-w-[360px]">
               <div className="flex items-center justify-between rounded-[14px] border border-[#e9aab0]/30 bg-[#121011] p-4">
                 <div>
@@ -418,7 +425,7 @@ export function VipGlowNightPageContent() {
                 </button>
               </div>
             </div>
-          ) : (
+            ) : (
             <button
               type="button"
               onClick={() => setShareOpen(true)}
@@ -426,7 +433,8 @@ export function VipGlowNightPageContent() {
             >
               Share invite
             </button>
-          )}
+            )
+          ) : null}
         </div>
       </div>
 
@@ -434,7 +442,7 @@ export function VipGlowNightPageContent() {
         <section className="mx-auto max-w-3xl px-6 py-12">
           <div className="quilt rounded-[24px] p-8 text-[#1a1214]">
             <p className={`${sans} text-[10px] uppercase tracking-widest text-black/50`}>
-              Allocation · {confirmed.time}
+              Your slot · {confirmed.time}
             </p>
             <h2 className={`${serif} mt-2 text-[32px]`}>You&apos;re in, {confirmed.clientName.split(" ")[0]}</h2>
             <p className={`${sans} mt-2 text-[14px] text-black/70`}>{confirmWants}</p>
@@ -643,6 +651,7 @@ export function VipGlowNightPageContent() {
         </div>
       </section>
 
+      {staffView ? (
       <section className="mx-auto max-w-6xl px-6 pb-10">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h2 className={`${serif} text-[28px]`}>Tonight&apos;s Allocation</h2>
@@ -734,6 +743,7 @@ export function VipGlowNightPageContent() {
           ) : null}
         </div>
       </section>
+      ) : null}
 
       <div className="mx-auto max-w-6xl px-6 pb-10">
         <div className="flex items-start gap-3 rounded-[16px] border border-white/10 bg-[#0d0c0d] p-4">

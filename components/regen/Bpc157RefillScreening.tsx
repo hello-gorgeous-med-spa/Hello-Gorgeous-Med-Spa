@@ -1,7 +1,7 @@
 "use client";
 
 import { Cormorant_Garamond, Inter } from "next/font/google";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   ADHERENCE_OPTIONS,
@@ -13,7 +13,6 @@ import {
   MISSED_OPTIONS,
   SAFETY_FLAGS,
   STORAGE_OPTIONS,
-  bpc157RedFlags,
   validateBpc157Refill,
   type Bpc157RefillErrors,
   type Bpc157RefillForm,
@@ -172,8 +171,13 @@ export function Bpc157RefillScreening({
     }>
   >([]);
   const [staffErr, setStaffErr] = useState("");
+  const [staffView, setStaffView] = useState(false);
 
-  const liveFlags = useMemo(() => bpc157RedFlags(form), [form]);
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    setStaffView(q.has("admin") || q.get("staff") === "1");
+  }, []);
+
   const selectedSku = regenRequestSkuById(form.skuId);
   const productName = selectedSku?.name ?? "this medication";
 
@@ -293,19 +297,14 @@ export function Bpc157RefillScreening({
       <div className={`${sans} min-h-screen bg-[#050507] px-5 py-16 text-white`}>
         <div className="mx-auto max-w-xl rounded-[24px] border border-white/10 bg-[#0d0d11] p-8 text-center">
           <p className="text-[11px] uppercase tracking-[0.28em] text-[#f5c2c7]">Hello Gorgeous Medical Spa</p>
-          <h1 className={`${serif} mt-3 text-[36px]`}>{held ? "Red Flags — Requires Review" : "Screening Received."}</h1>
+          <h1 className={`${serif} mt-3 text-[36px]`}>
+            {held ? "We received your request." : "Screening received."}
+          </h1>
           <p className="mt-3 text-[14px] text-white/60">
             {held
-              ? "Your answers triggered a clinical hold. Ryan reviews before any refill is invoiced or sent."
-              : "Clinical team will review within 1 business day. A refill is another review — not an automatic fill."}
+              ? "A licensed Illinois clinician will review this before any invoice or fill. You do not need to do anything else right now."
+              : "The clinical team reviews every request within 1 business day. A refill is another review — not an automatic fill."}
           </p>
-          {held ? (
-            <ul className="mt-5 space-y-1 text-left text-[13px] text-red-200">
-              {done.redFlags.map((f) => (
-                <li key={f}>· {f}</li>
-              ))}
-            </ul>
-          ) : null}
           <button
             type="button"
             onClick={() => {
@@ -333,14 +332,18 @@ export function Bpc157RefillScreening({
         <div className="mx-auto flex max-w-[1120px] items-center justify-between px-5 py-4 md:px-8">
           <p className={`${serif} text-[15px] tracking-[0.12em] uppercase`}>Hello Gorgeous Medical Spa</p>
           <p className="hidden text-[10px] uppercase tracking-[0.18em] text-white/40 md:inline">REGEN RX Request</p>
-          <div className="flex gap-2">
-            <a href={smsRegenRequestHref()} className="h-8 rounded-full border border-white/10 px-3 text-[11px] leading-8 text-white/70">
-              Text This Form
-            </a>
-            <button type="button" onClick={copyLink} className="h-8 rounded-full border border-white/10 px-3 text-[11px] text-white/70">
-              {copied || "Copy link"}
-            </button>
-          </div>
+          {staffView ? (
+            <div className="flex gap-2">
+              <a href={smsRegenRequestHref()} className="h-8 rounded-full border border-white/10 px-3 text-[11px] leading-8 text-white/70">
+                Text This Form
+              </a>
+              <button type="button" onClick={copyLink} className="h-8 rounded-full border border-white/10 px-3 text-[11px] text-white/70">
+                {copied || "Copy link"}
+              </button>
+            </div>
+          ) : (
+            <span />
+          )}
         </div>
       </header>
 
@@ -348,6 +351,7 @@ export function Bpc157RefillScreening({
         selectedId={form.skuId}
         intent={form.requestIntent}
         serifClassName={serif}
+        staffView={staffView}
         onIntent={(id) => set("requestIntent", id)}
         onPick={pickFromShop}
       />
@@ -364,8 +368,8 @@ export function Bpc157RefillScreening({
               <span className="italic font-normal text-[#f5c2c7]">request</span>
             </h2>
             <p className="mt-4 max-w-xl text-[13px] leading-relaxed text-white/55">
-              We Screen You Like A Medical Practice Because We Are One. Ryan reviews every request. Red-flag answers
-              trigger a clinical hold — not an automatic fill.
+              We screen you like a medical practice because we are one. Ryan reviews every request before any
+              invoice or fill.
             </p>
           </div>
 
@@ -392,7 +396,7 @@ export function Bpc157RefillScreening({
               ))}
             </div>
             {errors.requestIntent ? <p className="mb-2 text-[11px] text-red-300">{errors.requestIntent}</p> : null}
-            <Field label="Protocol / SKU *" error={errors.skuId}>
+            <Field label="Protocol *" error={errors.skuId}>
               <select
                 className={inputCls}
                 value={form.skuId}
@@ -422,18 +426,20 @@ export function Bpc157RefillScreening({
               <div className="mt-4 rounded-xl border border-[#f5c2c7]/25 bg-[#f5c2c7]/5 px-4 py-3 text-[13px]">
                 <p className="text-[#f5c2c7]">
                   {selectedSku.name}
-                  {selectedSku.sku !== "review" ? ` · SKU ${selectedSku.sku}` : ""}
+                  {staffView && selectedSku.sku !== "review" ? ` · SKU ${selectedSku.sku}` : ""}
                 </p>
                 <p className="mt-1 text-white/70">{selectedSku.pack}</p>
                 <p className="mt-1 font-medium text-white">{formatRequestPrice(selectedSku)}</p>
                 <p className="mt-2 text-[11px] text-white/40">
-                  Patient price from Formulation sheet × 2.5. A refill is another review — not an automatic fill.
+                  {staffView
+                    ? "Patient price from Formulation sheet × 2.5. A refill is another review — not an automatic fill."
+                    : "A refill is another review — not an automatic fill."}
                 </p>
               </div>
             ) : null}
           </Section>
 
-          <Section n="01" title="Identity & Compliance" desc="Required for chart matching and safe dispensing.">
+          <Section n="01" title="About you" desc="So we can match your chart and keep dispensing safe.">
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Full Name *" error={errors.fullName}>
                 <input className={inputCls} value={form.fullName} onChange={(e) => set("fullName", e.target.value)} placeholder="Jane A. Doe" />
@@ -523,7 +529,7 @@ export function Bpc157RefillScreening({
             </div>
           </Section>
 
-          <Section n="03" title="Safety Stop Light" desc="Yes/No — If Yes, details required. Any Yes = clinical review.">
+          <Section n="03" title="Safety questions" desc="If you answer yes, tell us a little more so Ryan can review.">
             <div className="space-y-3">
               {SAFETY_FLAGS.filter((f) => !("injectableOnly" in f && f.injectableOnly) || form.formType === "Injectable SubQ").map((f) => (
                 <SafetyRow
@@ -642,16 +648,16 @@ export function Bpc157RefillScreening({
               {submitting ? "Sending…" : "Submit for Medical Review"}
             </button>
             <p className="mt-3 text-[11px] leading-relaxed text-white/40">
-              By submitting you confirm information is accurate. Clinical team will review within 1 business day. If red
-              flags present, refill may be held.
+              By submitting you confirm this information is accurate. The clinical team reviews every request within 1
+              business day.
             </p>
           </Section>
         </form>
 
         <aside className="space-y-4 lg:sticky lg:top-6">
           <div className="rounded-[20px] border border-white/[0.08] bg-[#0d0d11] p-5">
-            <p className="text-[10px] uppercase tracking-widest text-white/40">Live Screening Summary</p>
-            <p className={`${serif} mt-2 text-[22px]`}>{form.fullName || "Client"}</p>
+            <p className="text-[10px] uppercase tracking-widest text-white/40">Your request</p>
+            <p className={`${serif} mt-2 text-[22px]`}>{form.fullName || "Your name"}</p>
             <p className="mt-1 text-[13px] text-white/50">
               {form.requestIntent === "add" ? "Add" : form.requestIntent === "refill" ? "Refill" : "Request"} ·{" "}
               {selectedSku?.name ?? "No protocol yet"}
@@ -659,27 +665,17 @@ export function Bpc157RefillScreening({
             {selectedSku ? <p className="text-[13px] text-[#f5c2c7]">{formatRequestPrice(selectedSku)}</p> : null}
             <p className="mt-1 text-[13px] text-white/50">Improvement {form.improvement}%</p>
             <p className="text-[13px] text-white/50">Adherence {form.adherence || "—"}</p>
-            <div className="mt-4">
-              <p className="text-[10px] uppercase tracking-widest text-white/40">Red Flags Detected</p>
-              {liveFlags.length === 0 ? (
-                <p className="mt-2 text-[13px] text-white/45">None yet</p>
-              ) : (
-                <ul className="mt-2 space-y-1 text-[12px] text-red-200">
-                  {liveFlags.map((f) => (
-                    <li key={f}>· {f}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
           </div>
+          {staffView ? (
           <div className="rounded-[20px] border border-white/[0.08] bg-[#0d0d11] p-5">
-            <p className="text-[10px] uppercase tracking-widest text-white/40">SMS Deliverable</p>
+            <p className="text-[10px] uppercase tracking-widest text-white/40">SMS share</p>
             <p className="mt-2 text-[13px] text-[#f5c2c7]">
               {regenRequestShareUrl({ skuId: form.skuId, intent: form.requestIntent }).replace("https://", "")}
             </p>
-            <p className="mt-2 text-[12px] text-white/45">Short URL + native SMS composer. iOS/Android opens Messages.</p>
             <p className="sr-only">{REGEN_REFILL_REQUEST_SMS}</p>
           </div>
+          ) : null}
+          {staffView ? (
           <div className="rounded-[20px] border border-white/[0.08] bg-[#0d0d11] p-5">
             <p className="text-[10px] uppercase tracking-widest text-white/40">Admin · All Refills</p>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -732,15 +728,16 @@ export function Bpc157RefillScreening({
               </table>
             </div>
           </div>
+          ) : null}
         </aside>
       </div>
 
       <footer className="border-t border-white/10 py-8 text-center text-[11px] uppercase tracking-widest text-white/30">
-        © Hello Gorgeous Medical Spa — Medical Intake · HIPAA-aware handling · Investigational use disclosure required
+        © Hello Gorgeous Medical Spa
         <span className="mt-2 block normal-case tracking-normal text-white/35">
-          GLP-1 patients use{" "}
+          Already on a GLP-1?{" "}
           <a href="/glp1-refill" className="text-[#f5c2c7] underline">
-            /glp1-refill
+            Request a GLP-1 refill
           </a>
         </span>
       </footer>

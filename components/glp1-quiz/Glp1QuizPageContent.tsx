@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Cormorant_Garamond, Inter } from "next/font/google";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   ABSOLUTE_FLAGS,
@@ -136,6 +136,12 @@ export function Glp1QuizPageContent({ brand }: { brand: Glp1QuizBrand }) {
   const [fail, setFail] = useState("");
   const [staffPin, setStaffPin] = useState("");
   const [board, setBoard] = useState<Array<Record<string, unknown>> | null>(null);
+  const [staffView, setStaffView] = useState(false);
+
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    setStaffView(q.has("admin") || q.get("staff") === "1");
+  }, []);
 
   const bmi = useMemo(
     () => computeBmi(form.heightFt, form.heightIn, form.weightLbs),
@@ -199,7 +205,7 @@ export function Glp1QuizPageContent({ brand }: { brand: Glp1QuizBrand }) {
             {t.name} · GLP-1 screening
           </p>
           <h1 className={`${cormorant.className} mt-3 text-[36px]`}>
-            {held ? "It looks like you may not qualify" : done.status === "needs_review" ? "Needs clinician review" : "Screening received"}
+            {held ? "It looks like you may not qualify" : "Screening received"}
           </h1>
           <p className="mt-4 text-sm leading-relaxed" style={{ color: t.muted }}>
             {held ? GLP1_QUIZ_DQ_COPY : "A licensed Illinois clinician reviews every request. This is not a prescription and not a guaranteed start."}
@@ -208,13 +214,6 @@ export function Glp1QuizPageContent({ brand }: { brand: Glp1QuizBrand }) {
             <p className="mt-3 text-sm" style={{ color: t.muted }}>
               {GLP1_QUIZ_DQ_EXCEPTION}
             </p>
-          ) : null}
-          {done.hardFlags.length ? (
-            <ul className="mt-5 space-y-1 text-left text-sm text-rose-200">
-              {done.hardFlags.map((f) => (
-                <li key={f}>· {f}</li>
-              ))}
-            </ul>
           ) : null}
           <a
             href={GLP1_QUIZ_CONSULT_HREF}
@@ -382,9 +381,9 @@ export function Glp1QuizPageContent({ brand }: { brand: Glp1QuizBrand }) {
         {step === 2 ? (
           <section className="mt-8 space-y-8 rounded-[28px] border border-white/10 p-6" style={{ background: t.card }}>
             <div>
-              <h2 className={`${cormorant.className} text-2xl`}>Section A · Safety stops</h2>
+              <h2 className={`${cormorant.className} text-2xl`}>Section A · Safety questions</h2>
               <p className="mt-1 text-xs" style={{ color: t.muted }}>
-                Yes on any of these holds telemedicine GLP-1 on this form.
+                Please answer honestly. These help your clinician decide if this program is right for you.
               </p>
               <div className="mt-4 space-y-4">
                 {ABSOLUTE_FLAGS.map((f) => (
@@ -395,7 +394,7 @@ export function Glp1QuizPageContent({ brand }: { brand: Glp1QuizBrand }) {
               </div>
             </div>
             <div>
-              <h2 className={`${cormorant.className} text-2xl`}>Section B · Needs review</h2>
+              <h2 className={`${cormorant.className} text-2xl`}>Section B · Your health history</h2>
               <div className="mt-4 space-y-4">
                 {REVIEW_FLAGS.map((f) => (
                   <Field key={f.id} label={f.label} error={errors[f.id]}>
@@ -507,6 +506,7 @@ export function Glp1QuizPageContent({ brand }: { brand: Glp1QuizBrand }) {
           )}
         </div>
 
+        {staffView ? (
         <div className="mt-10 border-t border-white/10 pt-6 text-xs" style={{ color: t.muted }}>
           <p>
             Text this quiz:{" "}
@@ -530,6 +530,7 @@ export function Glp1QuizPageContent({ brand }: { brand: Glp1QuizBrand }) {
             <p className="mt-2">{board.length} quiz rows in queue.</p>
           ) : null}
         </div>
+        ) : null}
       </div>
     </div>
   );
