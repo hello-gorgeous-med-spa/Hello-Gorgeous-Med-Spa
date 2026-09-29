@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { isBluefinChargeConfigured, payconexSaleWithEtoken } from "@/lib/bluefin-payconex";
 import { parsePatientFromOrderNotes } from "@/lib/regen/clinic-invoice";
+import { markRegenOrderPayconexPaid } from "@/lib/regen/mark-payconex-paid";
 import { getSupabase } from "@/lib/supabase-server";
 
 export const dynamic = "force-dynamic";
@@ -80,24 +81,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: sale.error }, { status: 402 });
   }
 
-  const now = new Date().toISOString();
-  const payNote = `PAYCONEX ${sale.transactionId}${sale.authCode ? ` · AUTH ${sale.authCode}` : ""}`;
-  await supabase
-    .from("regen_orders")
-    .update({
-      status: "paid",
-      notes: `${String(order.notes || "").slice(0, 1400)} · ${payNote}`.slice(0, 1800),
-      pharmacy_error: `Paid ${sale.transactionId}. Send to Formulation.`,
-      updated_at: now,
-    })
-    .eq("id", order.id);
-
-  await supabase.from("regen_order_status_history").insert({
-    order_id: order.id,
-    status: "paid",
-    actor_type: "system",
-    notes: payNote,
-    metadata: { payment_id: sale.transactionId, processor: "bluefin-payconex" },
+  await markRegenOrderPayconexPaid({
+    orderId: String(order.id),
+    existingNotes: String(order.notes || ""),
+    transactionId: sale.transactionId,
+    authCode: sale.authCode,
   });
 
   return NextResponse.json({ ok: true, transactionId: sale.transactionId });

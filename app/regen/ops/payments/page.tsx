@@ -12,6 +12,8 @@ type Order = {
   customer_name?: string;
   created_at: string;
   notes?: string;
+  payment_id?: string;
+  pharmacy_error?: string;
 };
 
 function dollars(o: Order) {
@@ -24,6 +26,8 @@ export default function PaymentsPage() {
   const [loading, setLoading] = useState(true);
   const [msg, setMsg] = useState<Record<string, string>>({});
   const [sending, setSending] = useState<string | null>(null);
+  const [syncing, setSyncing] = useState(false);
+  const [syncMsg, setSyncMsg] = useState("");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -34,6 +38,28 @@ export default function PaymentsPage() {
     }
     setLoading(false);
   }, []);
+
+  async function checkBluefin(order?: Order) {
+    setSyncing(true);
+    setSyncMsg("");
+    const res = await fetch("/api/regen/ops/bluefin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(order ? { orderId: order.id, orderNumber: order.order_number } : {}),
+    });
+    const json = await res.json();
+    setSyncing(false);
+    if (!res.ok) {
+      setSyncMsg(json.error || "PayConex did not answer.");
+      return;
+    }
+    setSyncMsg(
+      json.marked
+        ? `Bluefin posted ${json.marked} invoice${json.marked === 1 ? "" : "s"}. Send those to Formulation.`
+        : `Checked ${json.checked || 0} open invoice${json.checked === 1 ? "" : "s"}. None new in PayConex yet.`,
+    );
+    await load();
+  }
 
   useEffect(() => {
     void load();
@@ -76,13 +102,22 @@ export default function PaymentsPage() {
         <div>
           <h1 className="text-3xl font-bold text-white">Money</h1>
           <p className="text-white/50">
-            PayConex texts tryregenrx.com/pay. Charm is the backup if the card box fails. Refunds live in Charm / Bluefin.
+            Pay on our page marks Paid instantly. Check Bluefin also pulls approved sales from PayConex by order
+            number. Charm is backup if they paid a Charm invoice instead.
           </p>
         </div>
         <div className="flex gap-2">
           <Link href="/ops/desk" className="px-3 py-2 rounded-lg bg-teal-500 text-white text-sm font-semibold">
             Walk-in invoice
           </Link>
+          <button
+            type="button"
+            disabled={syncing}
+            onClick={() => void checkBluefin()}
+            className="px-3 py-2 rounded-lg bg-white/15 text-white text-sm disabled:opacity-50"
+          >
+            {syncing ? "Checking Bluefin…" : "Check Bluefin"}
+          </button>
           <button onClick={() => void load()} className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm">
             Refresh
           </button>
@@ -100,6 +135,7 @@ export default function PaymentsPage() {
         </div>
       </div>
 
+      {syncMsg ? <p className="text-teal-300 text-sm">{syncMsg}</p> : null}
       {loading && <p className="text-white/40">Loading…</p>}
       {!loading && orders.length === 0 && (
         <div className="bg-white/5 rounded-2xl p-10 text-center text-white/50">
@@ -115,18 +151,39 @@ export default function PaymentsPage() {
                 <p className="text-white/45 text-sm">
                   {o.customer_name || "Patient"} · {o.status} · {new Date(o.created_at).toLocaleString()}
                 </p>
+                {o.payment_id || /PAYCONEX/.test(String(o.notes || "")) ? (
+                  <p className="text-emerald-300 text-sm mt-1">
+                    Paid on Bluefin {o.payment_id || String(o.notes || "").match(/PAYCONEX (\S+)/)?.[1]}
+                  </p>
+                ) : null}
               </div>
               <p className="text-white text-xl font-bold">${dollars(o).toFixed(2)}</p>
             </div>
             <div className="flex flex-wrap gap-2 mt-3">
-              <button
-                type="button"
-                disabled={sending === o.id}
-                onClick={() => void sendPay(o, /INVOICE \$/.test(String(o.notes || "")))}
-                className="px-3 py-2 rounded-lg bg-[#E6007E] text-white text-sm disabled:opacity-50"
-              >
-                {sending === o.id ? "Sending…" : "Send PayConex link"}
-              </button>
+              {/paid|shipped|sent_to_pharmacy/i.test(String(o.status || "")) ? (
+                <Link href="/ops/orders" className="px-3 py-2 rounded-lg bg-emerald-700 text-white text-sm">
+                  Send to Formulation
+                </Link>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    disabled={sending === o.id}
+                    onClick={() => void sendPay(o, /INVOICE \$/.test(String(o.notes || "")))}
+                    className="px-3 py-2 rounded-lg bg-[#E6007E] text-white text-sm disabled:opacity-50"
+                  >
+                    {sending === o.id ? "Sending…" : "Send PayConex link"}
+                  </button>
+                  <button
+                    type="button"
+                    disabled={syncing}
+                    onClick={() => void checkBluefin(o)}
+                    className="px-3 py-2 rounded-lg bg-white/15 text-white text-sm disabled:opacity-50"
+                  >
+                    Check this invoice
+                  </button>
+                </>
+              )}
               <Link href="/ops/orders" className="px-3 py-2 rounded-lg bg-white/10 text-white text-sm">
                 Orders
               </Link>

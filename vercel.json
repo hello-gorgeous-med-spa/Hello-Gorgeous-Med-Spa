@@ -45,6 +45,10 @@
       "schedule": "15 * * * *"
     },
     {
+      "path": "/api/cron/regen-bluefin-paid",
+      "schedule": "*/15 * * * *"
+    },
+    {
       "path": "/api/cron/rx-refill-reminder",
       "schedule": "0 9 * * *"
     },

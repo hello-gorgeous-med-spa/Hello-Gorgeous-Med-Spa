@@ -18,6 +18,11 @@ const PAYCONEX_QSAPI =
     ? "https://cert.payconex.net/api/qsapi/3.8/"
     : "https://secure.payconex.net/api/qsapi/3.8/";
 
+const PAYCONEX_RSAPI =
+  process.env.BLUEFIN_PAYCONEX_ENV === "cert"
+    ? "https://cert.payconex.net/api/rsapi/3.8/"
+    : "https://secure.payconex.net/api/rsapi/3.8/";
+
 export const PAYCONEX_IFRAME_LIB =
   process.env.BLUEFIN_PAYCONEX_ENV === "cert"
     ? "https://cert.payconex.net/iframe/iframe-lib-1.0.0.js"
@@ -198,4 +203,100 @@ export async function payconexSaleWithEtoken(input: {
   }
 
   return { ok: true, transactionId, authCode };
+}
+
+export type PayconexFoundSale = {
+  transactionId: string;
+  authCode?: string;
+  amountUsd?: number;
+  customId?: string;
+  approved: boolean;
+};
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : null;
+}
+
+function parseRsapiRows(json: unknown): Record<string, unknown>[] {
+  if (Array.isArray(json)) return json.filter((row) => asRecord(row)) as Record<string, unknown>[];
+  const obj = asRecord(json);
+  if (!obj) return [];
+  for (const key of ["transactions", "rows", "data", "results", "report"]) {
+    const val = obj[key];
+    if (Array.isArray(val)) return val.filter((row) => asRecord(row)) as Record<string, unknown>[];
+  }
+  if (obj.transaction_id) return [obj];
+  return [];
+}
+
+function rowToSale(row: Record<string, unknown>): PayconexFoundSale | null {
+  const transactionId = String(row.transaction_id || row.transactionId || "").trim();
+  if (!transactionId) return null;
+  const status = String(row.status || row.transaction_status || "").toUpperCase();
+  const approved =
+    qsapiApproved(row) ||
+    status === "APPROVED" ||
+    String(row.transaction_approved) === "1" ||
+    row.transaction_approved === true;
+  const amount = Number(row.transaction_amount || row.amount || 0);
+  return {
+    transactionId,
+    authCode: String(row.authorization_code || row.auth_code || row.authCode || "").trim() || undefined,
+    amountUsd: Number.isFinite(amount) && amount > 0 ? amount : undefined,
+    customId: String(row.custom_id || row.customId || "").trim() || undefined,
+    approved,
+  };
+}
+
+function ymd(d: Date) {
+  return d.toISOString().slice(0, 10);
+}
+
+/** Look up an approved CARD SALE by our order number (PayConex custom_id). */
+export async function payconexFindApprovedByCustomId(
+  customId: string,
+  daysBack = 14,
+): Promise<PayconexFoundSale | null> {
+  const accountId = paddedAccountId();
+  const accessKey = apiAccessKey();
+  const needle = customId.trim();
+  if (!accountId || !accessKey || !needle) return null;
+
+  const end = new Date();
+  const start = new Date(Date.now() - Math.max(1, daysBack) * 24 * 60 * 60 * 1000);
+  const params = new URLSearchParams({
+    account_id: accountId,
+    api_accesskey: accessKey,
+    response_format: "JSON",
+    tender_type: "CARD",
+    status: "APPROVED",
+    custom_id: needle,
+    start_date: ymd(start),
+    end_date: ymd(end),
+  });
+
+  try {
+    const res = await fetch(PAYCONEX_RSAPI, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" },
+      body: params.toString(),
+    });
+    const text = await res.text();
+    let json: unknown = {};
+    try {
+      json = JSON.parse(text);
+    } catch {
+      return null;
+    }
+    const sales = parseRsapiRows(json)
+      .map(rowToSale)
+      .filter((row): row is PayconexFoundSale => Boolean(row?.approved && row.transactionId));
+    const match =
+      sales.find((row) => String(row.customId || "").toUpperCase() === needle.toUpperCase()) || sales[0] || null;
+    return match;
+  } catch {
+    return null;
+  }
 }

@@ -156,6 +156,9 @@ export default function OrdersList({ initialOrders = [] }: { initialOrders?: Ord
                 {o.items?.[0]?.name || 'REGEN RX'} · {requestStatusLabel(o.status)}
                 {o.total != null ? ` · $${o.total}` : ''}
               </p>
+              {/PAYCONEX/.test(String(o.notes || '')) || o.status === 'paid' ? (
+                <p className="text-emerald-300 text-sm mt-1">Bluefin posted. Send to Formulation.</p>
+              ) : null}
               {o.pharmacy_order_id ? (
                 <p className="text-teal-300 text-sm mt-2">Formulation confirmation: {o.pharmacy_order_id}</p>
               ) : (
