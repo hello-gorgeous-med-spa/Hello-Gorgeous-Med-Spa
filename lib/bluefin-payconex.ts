@@ -125,6 +125,10 @@ export async function payconexSaleWithEtoken(input: {
   lastName?: string;
   email?: string;
   phone?: string;
+  street?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
 }): Promise<PayconexSaleResult> {
   const accountId = paddedAccountId();
   const accessKey = apiAccessKey();
@@ -151,6 +155,11 @@ export async function payconexSaleWithEtoken(input: {
   if (input.lastName) params.set("last_name", input.lastName);
   if (input.email) params.set("email", input.email);
   if (input.phone) params.set("phone", input.phone);
+  if (input.street) params.set("street_address1", input.street);
+  if (input.city) params.set("city", input.city);
+  if (input.state) params.set("state", input.state);
+  if (input.zip) params.set("zip", input.zip);
+  params.set("country", "US");
 
   let json: Record<string, unknown> = {};
   try {

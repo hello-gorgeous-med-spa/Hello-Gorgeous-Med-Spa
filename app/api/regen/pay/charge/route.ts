@@ -21,6 +21,14 @@ export async function POST(request: NextRequest) {
   const body = (await request.json().catch(() => ({}))) as {
     orderNumber?: string;
     eToken?: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    street?: string;
+    city?: string;
+    state?: string;
+    zip?: string;
   };
   const orderNumber = String(body.orderNumber || "").trim();
   const eToken = String(body.eToken || "").trim();
@@ -51,15 +59,21 @@ export async function POST(request: NextRequest) {
   const parsed = parsePatientFromOrderNotes(String(order.notes || ""));
   const name = String(order.customer_name || parsed.name || "Patient").trim();
   const parts = name.split(/\s+/);
+  const firstName = String(body.firstName || parts[0] || "Patient").trim().slice(0, 40);
+  const lastName = String(body.lastName || parts.slice(1).join(" ") || "REGEN").trim().slice(0, 40);
 
   const sale = await payconexSaleWithEtoken({
     eToken,
     amountUsd,
     orderNumber: String(order.order_number),
-    firstName: parts[0] || "Patient",
-    lastName: parts.slice(1).join(" ") || "REGEN",
-    email: String(order.customer_email || parsed.email || "") || undefined,
-    phone: String(order.customer_phone || "") || undefined,
+    firstName,
+    lastName,
+    email: String(body.email || order.customer_email || parsed.email || "").trim().slice(0, 80) || undefined,
+    phone: String(body.phone || order.customer_phone || "").trim().slice(0, 20) || undefined,
+    street: String(body.street || "").trim().slice(0, 80) || undefined,
+    city: String(body.city || "").trim().slice(0, 40) || undefined,
+    state: String(body.state || "").trim().slice(0, 2).toUpperCase() || undefined,
+    zip: String(body.zip || "").trim().slice(0, 12) || undefined,
   });
 
   if (!sale.ok) {
