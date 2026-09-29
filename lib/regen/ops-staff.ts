@@ -32,6 +32,7 @@ export const OPS_NAV_GROUPS = [
       { href: '/ops', label: 'Today', icon: '◉' },
       { href: '/ops/patients', label: 'Patients', icon: '◎' },
       { href: '/ops/messages', label: 'Messages', icon: '✉' },
+      { href: '/ops/square', label: 'Square GLP-1', icon: '◇' },
     ],
   },
   {

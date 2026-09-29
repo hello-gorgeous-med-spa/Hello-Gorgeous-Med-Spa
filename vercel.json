@@ -73,6 +73,10 @@
       "schedule": "0 6 * * 1"
     },
     {
+      "path": "/api/cron/regen-square-glp1",
+      "schedule": "30 6 * * 1"
+    },
+    {
       "path": "/api/agents/winback",
       "schedule": "0 15 * * 1"
     },
