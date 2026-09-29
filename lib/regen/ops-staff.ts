@@ -27,6 +27,7 @@ export const OPS_NAV_GROUPS = [
   {
     section: 'Queue',
     items: [
+      { href: '/ops/desk', label: 'Walk-in', icon: '+' },
       { href: '/ops/analytics', label: 'Dashboard', icon: '▣' },
       { href: '/ops', label: 'Today', icon: '◉' },
       { href: '/ops/patients', label: 'Patients', icon: '◎' },

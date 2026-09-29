@@ -123,8 +123,8 @@ export default function OrdersList({ initialOrders = [] }: { initialOrders?: Ord
         <div>
           <h1 className="text-3xl font-bold text-white">Orders</h1>
           <p className="text-white/50">
-            Manual clinic invoice (Charm + Bluefin). Preview the quote, send that amount from Charm, then after Bluefin
-            posts paste the payment id. Then Formulation. TEST rows stay hidden unless you open Tests.
+            PayConex texts tryregenrx.com/pay. Preview the quote, send the pay link, then after Bluefin posts send
+            Formulation. Charm is the backup. TEST rows stay hidden unless you open Tests.
           </p>
           <p className="text-white/35 text-xs mt-2">
             Daily: Danielle — unpaid quotes. Ryan — Today review. Danielle or Damara — pharmacy issue. Do not mark paid without a Charm/Bluefin id.
@@ -218,7 +218,7 @@ export default function OrdersList({ initialOrders = [] }: { initialOrders?: Ord
                   disabled={sending === o.id}
                   className="px-3 py-2 rounded-lg bg-[#E6007E] text-white text-sm disabled:opacity-50"
                 >
-                  Save Charm quote
+                  Send PayConex link
                 </button>
                 <input
                   value={paymentRef[o.id] || ''}

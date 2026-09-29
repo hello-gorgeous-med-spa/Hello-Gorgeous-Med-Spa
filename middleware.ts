@@ -126,6 +126,12 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Same staff OS on both doors. Sidebar uses /ops — tryregenrx already rewrites it.
+  if (!isRegenHost && (pathname === '/ops' || pathname.startsWith('/ops/'))) {
+    url.pathname = '/regen' + pathname;
+    return NextResponse.rewrite(url);
+  }
+
   // ============================================================
   // RE GEN (tryregenrx.com) — dedicated telehealth portal
   // ============================================================

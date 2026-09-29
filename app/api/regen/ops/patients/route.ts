@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { requireOpsAuth } from '@/lib/regen/ops-session';
 import { getSupabase } from '@/lib/supabase-server';
 
 export async function GET(request: NextRequest) {
   try {
+    const auth = await requireOpsAuth(request);
+    if (auth.error) return auth.error;
     const supabase = getSupabase();
     if (!supabase) {
       return NextResponse.json({ patients: [], total: 0 });
@@ -62,16 +65,24 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const auth = await requireOpsAuth(request);
+    if (auth.error) return auth.error;
     const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    }
     const body = await request.json();
+    const first = String(body.first_name || body.firstName || '').trim();
+    const last = String(body.last_name || body.lastName || '').trim();
     
     const { data, error } = await supabase
       .from('regen_patients')
       .insert({
-        name: body.name,
-        email: body.email,
+        first_name: first,
+        last_name: last,
+        email: String(body.email || '').trim().toLowerCase(),
         phone: body.phone,
-        date_of_birth: body.date_of_birth,
+        date_of_birth: body.date_of_birth || body.dob || null,
         state: body.state || 'IL',
       })
       .select()
