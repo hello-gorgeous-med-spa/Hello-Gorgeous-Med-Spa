@@ -198,6 +198,10 @@ function inferProgram(input: FormulationTicketInput): string {
     str(asRecord(intake.formulationTicket)?.program);
   if (explicit) return explicit;
 
+  const shopSkuId = str(history.skuId) || str(intake.skuId);
+  if (shopSkuId === "bpc-157") return "bpc-tb";
+  if (shopSkuId && PROGRAM_SKU[shopSkuId]) return shopSkuId;
+
   if (history.tirzepatide || intake.tirzepatide) return "tirzepatide";
 
   if (isBoomRxComposedBundle(input)) return "boomrx-blend";

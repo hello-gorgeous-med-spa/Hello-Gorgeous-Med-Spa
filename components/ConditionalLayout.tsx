@@ -56,6 +56,7 @@ const STANDALONE_APP_ROUTES = [
   "/regen",
   /** Compound shop public door (tryregenrx.com/refill and localhost /refill) */
   "/refill",
+  "/pay",
 ];
 
 export function ConditionalLayout({

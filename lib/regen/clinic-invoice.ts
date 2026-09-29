@@ -1,11 +1,11 @@
 /**
  * Automatic clinic invoice after Ryan approves.
- * Prices from the Formulation ticket. Pay link is Bluefin PayConex.
- * We email + SMS it — Charm is not in this loop.
+ * Shop SKUs and Formulation tickets set the dollars. Approve emails tryregenrx.com/pay.
+ * Patient pays on Bluefin. Charm is backup if PayConex is down.
  */
 
 import { getSupabase } from "@/lib/supabase-server";
-import { buildBluefinHostedPayUrl, isBluefinPayconexConfigured } from "@/lib/bluefin-payconex";
+import { isBluefinAccountConfigured, regenClinicPayUrl } from "@/lib/bluefin-payconex";
 import { FORMULATION_TIRZ_B6_INJECTABLE_PACKS } from "@/lib/glp1-formulation-catalog";
 import { GLP1_SQUARE_CLINIC } from "@/lib/glp1-program-pricing";
 import { sendSms } from "@/lib/notifications/sms-outbound";
@@ -17,6 +17,7 @@ import {
   type FormulationShopId,
 } from "@/lib/regen/formulation-client-pricing";
 import { GORGEOUS20_CODE, GORGEOUS20_PERCENT } from "@/lib/regen-gorgeous20";
+import { regenRequestSkuById } from "@/lib/regen/refill-request-catalog";
 import { REGEN_MARKUP, REGEN_SHIPPING_USD } from "@/lib/regen/pricing-sync";
 import { REGEN_TELEHEALTH_FEE_USD } from "@/lib/regen/telehealth-consult";
 import { getResendFromAddress } from "@/lib/resend-config";
@@ -56,6 +57,86 @@ function emptyQuote(label: string, reason: string): ClinicInvoiceQuote {
   };
 }
 
+function promoFlags(input: {
+  medicalHistory?: Record<string, unknown> | null;
+  applyGorgeous20?: boolean;
+  applyConsultCredit?: boolean;
+}) {
+  const history = input.medicalHistory || {};
+  const promo =
+    String(history.promo || history.promoCode || "").toUpperCase() === GORGEOUS20_CODE;
+  return {
+    applyGorgeous20: input.applyGorgeous20 ?? promo,
+    applyConsultCredit:
+      input.applyConsultCredit ??
+      (history.consultCredit === true || history.applyConsultCredit === true),
+  };
+}
+
+function quoteFromShopHistory(input: {
+  medicalHistory?: Record<string, unknown> | null;
+  applyGorgeous20?: boolean;
+  applyConsultCredit?: boolean;
+}): ClinicInvoiceQuote | null {
+  const history = input.medicalHistory || {};
+  const shop = regenRequestSkuById(String(history.skuId || ""));
+  if (!shop) return null;
+  if (shop.sku === "review") {
+    return emptyQuote(
+      shop.name,
+      "Investigational — Ryan picks the fill and types the dollars before we invoice.",
+    );
+  }
+  if (!(shop.retailUsd > 0)) return null;
+  return finishQuote({
+    label: shop.name,
+    productUsd: shop.retailUsd,
+    shippingUsd: shop.inOffice ? 0 : shop.shippingUsd || REGEN_SHIPPING_USD,
+    ...promoFlags(input),
+  });
+}
+
+function finishQuote(opts: {
+  label: string;
+  productUsd: number;
+  shippingUsd: number;
+  applyGorgeous20: boolean;
+  applyConsultCredit: boolean;
+}): ClinicInvoiceQuote {
+  const productRounded = Math.round(opts.productUsd * 100) / 100;
+  const discountUsd = opts.applyGorgeous20
+    ? Math.round(productRounded * (GORGEOUS20_PERCENT / 100) * 100) / 100
+    : 0;
+  const consultCreditUsd = opts.applyConsultCredit ? REGEN_TELEHEALTH_FEE_USD : 0;
+  const shippingUsd = opts.shippingUsd;
+  const amountUsd = Math.max(
+    0,
+    Math.round((productRounded - discountUsd - consultCreditUsd + shippingUsd) * 100) / 100,
+  );
+  const lines = [
+    { label: `Medication — ${opts.label}`, amountUsd: productRounded },
+    ...(discountUsd > 0
+      ? [{ label: `GORGEOUS20 (${GORGEOUS20_PERCENT}% off medication)`, amountUsd: -discountUsd }]
+      : []),
+    ...(consultCreditUsd > 0
+      ? [{ label: `$${consultCreditUsd} phone consult credit`, amountUsd: -consultCreditUsd }]
+      : []),
+    { label: "Shipping", amountUsd: shippingUsd },
+    { label: "Clinic invoice total", amountUsd },
+  ];
+  return {
+    amountUsd,
+    productUsd: productRounded,
+    shippingUsd,
+    discountUsd,
+    consultCreditUsd,
+    label: opts.label,
+    ready: true,
+    charmManual: !isBluefinAccountConfigured(),
+    lines,
+  };
+}
+
 export function quoteClinicInvoice(input: {
   goal?: string | null;
   program?: string | null;
@@ -78,10 +159,13 @@ export function quoteClinicInvoice(input: {
       consultCreditUsd: 0,
       label: "Staff amount",
       ready: true,
-      charmManual: !isBluefinPayconexConfigured(),
+      charmManual: !isBluefinAccountConfigured(),
       lines: [{ label: "Staff amount", amountUsd }],
     };
   }
+
+  const shopQuote = quoteFromShopHistory(input);
+  if (shopQuote) return shopQuote;
 
   const ticket = resolveFormulationTicket({
     goal: input.goal,
@@ -142,48 +226,12 @@ export function quoteClinicInvoice(input: {
     );
   }
 
-  const history = input.medicalHistory || {};
-  const promo =
-    String(history.promo || history.promoCode || "").toUpperCase() === GORGEOUS20_CODE;
-  const applyGorgeous20 = input.applyGorgeous20 ?? promo;
-  const applyConsultCredit =
-    input.applyConsultCredit ??
-    (history.consultCredit === true || history.applyConsultCredit === true);
-
-  const productRounded = Math.round(productUsd * 100) / 100;
-  const discountUsd = applyGorgeous20
-    ? Math.round(productRounded * (GORGEOUS20_PERCENT / 100) * 100) / 100
-    : 0;
-  const consultCreditUsd = applyConsultCredit ? REGEN_TELEHEALTH_FEE_USD : 0;
-  const shippingUsd = REGEN_SHIPPING_USD;
-  const amountUsd = Math.max(
-    0,
-    Math.round((productRounded - discountUsd - consultCreditUsd + shippingUsd) * 100) / 100,
-  );
-  const label = names.filter(Boolean).join(" + ") || ticket.program;
-  const lines = [
-    { label: `Medication — ${label}`, amountUsd: productRounded },
-    ...(discountUsd > 0
-      ? [{ label: `GORGEOUS20 (${GORGEOUS20_PERCENT}% off medication)`, amountUsd: -discountUsd }]
-      : []),
-    ...(consultCreditUsd > 0
-      ? [{ label: `$${consultCreditUsd} phone consult credit`, amountUsd: -consultCreditUsd }]
-      : []),
-    { label: "Shipping", amountUsd: shippingUsd },
-    { label: "Clinic invoice total", amountUsd },
-  ];
-
-  return {
-    amountUsd,
-    productUsd: productRounded,
-    shippingUsd,
-    discountUsd,
-    consultCreditUsd,
-    label,
-    ready: true,
-    charmManual: !isBluefinPayconexConfigured(),
-    lines,
-  };
+  return finishQuote({
+    label: names.filter(Boolean).join(" + ") || ticket.program,
+    productUsd,
+    shippingUsd: REGEN_SHIPPING_USD,
+    ...promoFlags(input),
+  });
 }
 
 export function parsePatientFromOrderNotes(notes?: string | null): { name?: string; email?: string; intakeId?: string } {
@@ -212,27 +260,13 @@ export async function sendClinicInvoice(opts: {
   if (!opts.quote.ready || !(opts.quote.amountUsd > 0)) {
     return { ok: false, error: opts.quote.reason || "Need a dollar amount to invoice." };
   }
-  if (!isBluefinPayconexConfigured()) {
+  if (!isBluefinAccountConfigured()) {
     return { ok: true, payUrl: "", emailed: false, texted: false, charmManual: true };
   }
 
   const parts = opts.patientName.replace(/\s+/g, " ").trim().split(" ");
   const firstName = parts[0] || "Patient";
-  const lastName = parts.slice(1).join(" ") || "REGEN";
-
-  let payUrl: string;
-  try {
-    payUrl = buildBluefinHostedPayUrl({
-      amountUsd: opts.quote.amountUsd,
-      firstName,
-      lastName,
-      email: opts.email || undefined,
-      phone: opts.phone || undefined,
-      orderNumber: opts.orderNumber,
-    });
-  } catch (error) {
-    return { ok: false, error: error instanceof Error ? error.message : "Could not build pay link" };
-  }
+  const payUrl = regenClinicPayUrl(opts.orderNumber);
 
   const amount = `$${opts.quote.amountUsd.toFixed(2)}`;
   let emailed = false;
@@ -288,5 +322,5 @@ export async function sendClinicInvoice(opts: {
       .eq("id", opts.orderId);
   }
 
-  return { ok: true, payUrl, emailed, texted };
+  return { ok: true, payUrl, emailed, texted, charmManual: false };
 }

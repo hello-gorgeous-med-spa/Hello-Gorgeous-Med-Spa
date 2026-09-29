@@ -3,7 +3,7 @@ import { requireProviderAreaAccess } from "@/lib/api-auth";
 import { getSupabase } from "@/lib/supabase-server";
 import { requireOpsAuth } from "@/lib/regen/ops-session";
 import { parsePatientFromOrderNotes, quoteClinicInvoice, sendClinicInvoice } from "@/lib/regen/clinic-invoice";
-import { isBluefinPayconexConfigured } from "@/lib/bluefin-payconex";
+import { isBluefinAccountConfigured } from "@/lib/bluefin-payconex";
 
 export const dynamic = "force-dynamic";
 
@@ -20,11 +20,11 @@ export async function GET(request: NextRequest) {
   const auth = await requireInvoiceStaff(request);
   if (!auth.ok) return auth.error;
   return NextResponse.json({
-    configured: isBluefinPayconexConfigured(),
+    configured: isBluefinAccountConfigured(),
     processor: "bluefin-payconex",
     charmApi: false,
-    message: isBluefinPayconexConfigured()
-      ? "Approve can email a Bluefin pay link. Confirm payment before sending Formulation."
+    message: isBluefinAccountConfigured()
+      ? "Approve emails and texts tryregenrx.com/pay. Patient enters the card on Bluefin. After it posts, Send to Formulation. Add tryregenrx.com to PayConex Domain Whitelist if the pay form is blank."
       : "Stage 1 is Charm-manual: preview the quote, create that invoice in Charm, then Send Invoice → Payment Link.",
   });
 }
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       ok: true,
       preview: true,
-      charmManual: !isBluefinPayconexConfigured(),
+      charmManual: !isBluefinAccountConfigured(),
       quote,
     });
   }
@@ -124,7 +124,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       ok: true,
       duplicate: true,
-      charmManual: !isBluefinPayconexConfigured(),
+      charmManual: !isBluefinAccountConfigured(),
       quote,
       error: "A clinic invoice quote is already saved for this order. Open Charm — do not create a second invoice unless you meant to resend.",
     });
