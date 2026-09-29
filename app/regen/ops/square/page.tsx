@@ -4,9 +4,16 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 import {
+  REGEN_NOW_LIVE_FB,
+  REGEN_NOW_LIVE_FLYER,
+  REGEN_NOW_LIVE_GBP,
+  REGEN_NOW_LIVE_IG,
+  REGEN_NOW_LIVE_URL,
+  regenNowLiveSms,
+} from "@/lib/regen/now-live";
+import {
   REGEN_SQUARE_GLP1_GROUP,
   REGEN_SQUARE_GLP1_INVITE_MAX,
-  REGEN_SQUARE_GLP1_SHOP_URL,
   squareGlp1InviteText,
 } from "@/lib/regen/square-glp1-constants";
 
@@ -51,6 +58,8 @@ export default function OpsSquareGlp1Page() {
   const [loading, setLoading] = useState(true);
   const [pulling, setPulling] = useState(false);
   const [inviting, setInviting] = useState(false);
+  const [launching, setLaunching] = useState(false);
+  const [copied, setCopied] = useState("");
   const [msg, setMsg] = useState("");
 
   const load = useCallback(async () => {
@@ -130,6 +139,49 @@ export default function OpsSquareGlp1Page() {
     }
   }
 
+  async function launch() {
+    if (
+      !window.confirm(
+        `MMS the REGEN RX launch flyer to up to ${REGEN_SQUARE_GLP1_INVITE_MAX} Square GLP-1 clients? People who got this flyer in the last 30 days are skipped. Reply STOP is on the message.`,
+      )
+    ) {
+      return;
+    }
+    setLaunching(true);
+    setMsg("");
+    try {
+      const res = await fetch("/api/regen/ops/square-glp1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "launch" }),
+      });
+      const json = (await res.json().catch(() => ({}))) as {
+        sent?: number;
+        failed?: number;
+        skippedCooldown?: number;
+        skippedNoPhone?: number;
+        eligible?: number;
+        errors?: string[];
+      };
+      if (!res.ok && !json.sent) {
+        setMsg(json.errors?.[0] || "Could not send the launch flyer.");
+        return;
+      }
+      setMsg(
+        `Launch flyer sent to ${json.sent || 0} of ${json.eligible || 0}. Skipped ${json.skippedCooldown || 0} already notified · ${json.skippedNoPhone || 0} with no phone.${json.errors?.length ? ` ${json.errors[0]}` : ""}`,
+      );
+    } catch {
+      setMsg("Could not send the launch flyer.");
+    } finally {
+      setLaunching(false);
+    }
+  }
+
+  async function copyCaption(label: string, text: string) {
+    await navigator.clipboard.writeText(text);
+    setCopied(label);
+  }
+
   function downloadCsv() {
     const rows = report?.clients || [];
     const header = ["first_name", "last_name", "phone", "email", "last_item", "last_order", "square_id"];
@@ -189,6 +241,14 @@ export default function OpsSquareGlp1Page() {
         </button>
         <button
           type="button"
+          onClick={() => void launch()}
+          disabled={launching || !clients.length}
+          className="px-4 py-2 rounded-lg bg-amber-500 text-slate-900 text-sm font-semibold disabled:opacity-50"
+        >
+          {launching ? "Sending flyer…" : `Send launch flyer (up to ${REGEN_SQUARE_GLP1_INVITE_MAX})`}
+        </button>
+        <button
+          type="button"
           onClick={downloadCsv}
           disabled={!clients.length}
           className="px-4 py-2 rounded-lg border border-white/20 text-white text-sm font-semibold disabled:opacity-50"
@@ -201,11 +261,41 @@ export default function OpsSquareGlp1Page() {
       </div>
 
       <p className="text-white/40 text-sm">
-        Sample text: {squareGlp1InviteText("Dani")} · Shop:{" "}
-        <a href={REGEN_SQUARE_GLP1_SHOP_URL} className="text-teal-300 underline" target="_blank" rel="noreferrer">
-          {REGEN_SQUARE_GLP1_SHOP_URL}
+        Short text: {squareGlp1InviteText("Dani")}
+        <br />
+        Flyer text: {regenNowLiveSms("Dani")} ·{" "}
+        <a href={REGEN_NOW_LIVE_URL} className="text-teal-300 underline" target="_blank" rel="noreferrer">
+          {REGEN_NOW_LIVE_URL}
         </a>
       </p>
+
+      <div className="grid gap-6 lg:grid-cols-[220px_1fr] items-start">
+        <img
+          src={REGEN_NOW_LIVE_FLYER}
+          alt="REGEN RX now live flyer"
+          className="w-full max-w-[220px] rounded-xl border border-white/10"
+        />
+        <div className="space-y-3">
+          <p className="text-white/70 text-sm">Copy these for Instagram, Facebook, and Google. Same flyer. No extra list.</p>
+          <div className="flex flex-wrap gap-2">
+            <button type="button" onClick={() => void copyCaption("ig", REGEN_NOW_LIVE_IG)} className="px-3 py-2 rounded-lg border border-white/20 text-white text-xs">
+              {copied === "ig" ? "Copied IG" : "Copy Instagram"}
+            </button>
+            <button type="button" onClick={() => void copyCaption("fb", REGEN_NOW_LIVE_FB)} className="px-3 py-2 rounded-lg border border-white/20 text-white text-xs">
+              {copied === "fb" ? "Copied FB" : "Copy Facebook"}
+            </button>
+            <button type="button" onClick={() => void copyCaption("gbp", REGEN_NOW_LIVE_GBP)} className="px-3 py-2 rounded-lg border border-white/20 text-white text-xs">
+              {copied === "gbp" ? "Copied Google" : "Copy Google post"}
+            </button>
+            <a href={REGEN_NOW_LIVE_FLYER} download className="px-3 py-2 rounded-lg border border-white/20 text-white text-xs">
+              Download flyer
+            </a>
+            <Link href="/regen/now-live" className="px-3 py-2 rounded-lg border border-white/20 text-white text-xs">
+              Open share page
+            </Link>
+          </div>
+        </div>
+      </div>
 
       {msg ? <p className="text-teal-200 text-sm">{msg}</p> : null}
       {report?.error ? <p className="text-pink-300 text-sm">{report.error}</p> : null}

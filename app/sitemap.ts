@@ -483,6 +483,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/regen/now-live`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.86,
+    },
+    {
+      url: 'https://tryregenrx.com/now-live',
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+    {
       url: `${baseUrl}/hello-gorgeous-rx/start-here`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

@@ -18,7 +18,7 @@ export type SendSmsResult = {
 /**
  * Send a single SMS via Twilio (validates phone, adds opt-out line via sendSMS).
  */
-export async function sendSms(toRaw: string, text: string): Promise<SendSmsResult> {
+export async function sendSms(toRaw: string, text: string, mediaUrl?: string): Promise<SendSmsResult> {
   if (!isTwilioConfigured()) {
     console.warn('[sms-outbound] Twilio not configured — SMS not sent');
     return {
@@ -33,7 +33,7 @@ export async function sendSms(toRaw: string, text: string): Promise<SendSmsResul
 
   try {
     const config = getTwilioSmsConfig();
-    const result = await sendSMS({ to: toRaw, body: text }, config);
+    const result = await sendSMS({ to: toRaw, body: text, mediaUrl }, config);
 
     if (result.success) {
       console.log(`[sms-outbound] SMS sent via Twilio to ${toRaw}, sid: ${result.messageId}`);

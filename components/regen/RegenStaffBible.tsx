@@ -215,8 +215,8 @@ export function RegenStaffBible() {
             <strong>Messages</strong> /ops/messages — same thread the patient sees in /account/messages.
           </li>
           <li>
-            <strong>Square GLP-1</strong> /ops/square — pull in-clinic sema / tirz buyers from Square, download the
-            list, text the tryregenrx.com/start invite. Do not take Rx cards on Square.
+            <strong>Square GLP-1</strong> /ops/square — pull in-clinic sema / tirz buyers from Square, send the
+            REGEN RX launch flyer, or copy Instagram / Facebook / Google captions. Do not take Rx cards on Square.
           </li>
           <li>
             <strong>Orders</strong> /ops/orders — fulfillment + pharmacy id.

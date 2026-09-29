@@ -9,6 +9,11 @@ import { validatePhoneNumber } from "@/lib/hgos/sms-marketing";
 import { sendSms } from "@/lib/notifications/sms-outbound";
 import { normalizeToE164 } from "@/lib/phone-e164";
 import {
+  REGEN_NOW_LIVE_FLYER_ABS,
+  REGEN_SQUARE_GLP1_LAUNCH_CAMPAIGN,
+  regenNowLiveSms,
+} from "@/lib/regen/now-live";
+import {
   REGEN_SQUARE_GLP1_CAMPAIGN,
   REGEN_SQUARE_GLP1_COOLDOWN_DAYS,
   REGEN_SQUARE_GLP1_GROUP,
@@ -497,9 +502,14 @@ export async function pullSquareGlp1Clients(): Promise<SquareGlp1PullResult> {
 export async function inviteSquareGlp1Clients(options?: {
   maxBatch?: number;
   dryRun?: boolean;
+  variant?: "invite" | "launch";
 }): Promise<SquareGlp1InviteResult> {
   const maxBatch = options?.maxBatch ?? REGEN_SQUARE_GLP1_INVITE_MAX;
   const dryRun = options?.dryRun ?? false;
+  const variant = options?.variant || "invite";
+  const campaignId = variant === "launch" ? REGEN_SQUARE_GLP1_LAUNCH_CAMPAIGN : REGEN_SQUARE_GLP1_CAMPAIGN;
+  const mediaUrl = variant === "launch" ? REGEN_NOW_LIVE_FLYER_ABS : undefined;
+  const writeText = variant === "launch" ? regenNowLiveSms : squareGlp1InviteText;
   const result: SquareGlp1InviteResult = {
     ok: false,
     groupId: null,
@@ -533,7 +543,7 @@ export async function inviteSquareGlp1Clients(options?: {
       const { data } = await supabase
         .from("agent_winback_log")
         .select("phone")
-        .eq("campaign_id", REGEN_SQUARE_GLP1_CAMPAIGN)
+        .eq("campaign_id", campaignId)
         .gte("contacted_at", cutoff.toISOString())
         .in("phone", phones);
       for (const row of data || []) {
@@ -561,19 +571,19 @@ export async function inviteSquareGlp1Clients(options?: {
   for (const member of batch) {
     const phone = member.phone_number!;
     const firstName = member.given_name || "there";
-    const body = squareGlp1InviteText(firstName);
+    const body = writeText(firstName);
     if (dryRun) {
       result.sent += 1;
       continue;
     }
-    const sms = await sendSms(phone, body);
+    const sms = await sendSms(phone, body, mediaUrl);
     if (supabase) {
       await supabase.from("agent_winback_log").insert({
         square_customer_id: member.id,
         phone,
         email: member.email_address || null,
         first_name: firstName,
-        campaign_id: REGEN_SQUARE_GLP1_CAMPAIGN,
+        campaign_id: campaignId,
         channel: "sms",
         message_preview: body.slice(0, 100),
         sms_sent: sms.success,

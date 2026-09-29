@@ -27,10 +27,11 @@ export async function POST(request: NextRequest) {
   };
   const action = body.action || "pull";
 
-  if (action === "invite") {
+  if (action === "invite" || action === "launch") {
     const result = await inviteSquareGlp1Clients({
       maxBatch: body.maxBatch,
       dryRun: body.dryRun,
+      variant: action === "launch" ? "launch" : "invite",
     });
     return NextResponse.json(result, { status: result.ok || result.eligible === 0 ? 200 : 502 });
   }

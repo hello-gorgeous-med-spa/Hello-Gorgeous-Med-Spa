@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <rect width="1080" height="1920" fill="#0B4F4C"/>
+  <circle cx="980" cy="80" r="260" fill="#ffffff" fill-opacity="0.06"/>
+  <rect x="390" y="80" width="300" height="56" rx="28" fill="#E8A317"/>
+  <text x="540" y="118" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800" letter-spacing="4">NOW LIVE</text>
+  <text x="540" y="220" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="800" letter-spacing="8">REGEN RX</text>
+  <text x="540" y="262" text-anchor="middle" fill="#ffffff" fill-opacity="0.7" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" letter-spacing="4">BY HELLO GORGEOUS MED SPA</text>
+  <text x="540" y="390" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800">YOUR WELLNESS.</text>
+  <text x="540" y="470" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="800">YOUR SCHEDULE.</text>
+  <rect x="450" y="500" width="180" height="8" fill="#E8A317"/>
+  <text x="540" y="570" text-anchor="middle" fill="#ffffff" fill-opacity="0.88" font-family="Arial, Helvetica, sans-serif" font-size="30">Care from licensed Illinois clinicians</text>
+  <text x="540" y="612" text-anchor="middle" fill="#ffffff" fill-opacity="0.88" font-family="Arial, Helvetica, sans-serif" font-size="30">with delivery to your door.</text>
+  <rect x="64" y="670" width="952" height="520" rx="40" fill="#ffffff"/>
+  <text x="108" y="740" fill="#0B4F4C" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" letter-spacing="4">HOW IT WORKS</text>
+  <circle cx="148" cy="830" r="32" fill="#0B4F4C"/>
+  <text x="148" y="838" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800">01</text>
+  <text x="200" y="824" fill="#0B4F4C" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">Explore &amp; request</text>
+  <text x="200" y="858" fill="#0B4F4C" fill-opacity="0.7" font-family="Arial, Helvetica, sans-serif" font-size="20">Start online. No clinic visit required.</text>
+  <circle cx="600" cy="830" r="32" fill="#0B4F4C"/>
+  <text x="600" y="838" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800">02</text>
+  <text x="652" y="824" fill="#0B4F4C" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">Clinician review</text>
+  <text x="652" y="858" fill="#0B4F4C" fill-opacity="0.7" font-family="Arial, Helvetica, sans-serif" font-size="20">Licensed Illinois clinician.</text>
+  <circle cx="148" cy="1000" r="32" fill="#0B4F4C"/>
+  <text x="148" y="1008" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800">03</text>
+  <text x="200" y="994" fill="#0B4F4C" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">Pay clinic invoice</text>
+  <text x="200" y="1028" fill="#0B4F4C" fill-opacity="0.7" font-family="Arial, Helvetica, sans-serif" font-size="20">PayConex after approval.</text>
+  <circle cx="600" cy="1000" r="32" fill="#0B4F4C"/>
+  <text x="600" y="1008" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800">04</text>
+  <text x="652" y="994" fill="#0B4F4C" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800">Pharmacy ships</text>
+  <text x="652" y="1028" fill="#0B4F4C" fill-opacity="0.7" font-family="Arial, Helvetica, sans-serif" font-size="20">To your Illinois door.</text>
+  <text x="108" y="1135" fill="#0B4F4C" fill-opacity="0.55" font-family="Arial, Helvetica, sans-serif" font-size="20">Same Hello Gorgeous team in Oswego. A request is not a guaranteed prescription.</text>
+  <rect x="64" y="1248" width="952" height="100" rx="50" fill="#E8A317"/>
+  <text x="540" y="1312" text-anchor="middle" fill="#0B4F4C" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800">START AT TRYREGENRX.COM</text>
+  <text x="540" y="1430" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800">NO IN-CLINIC APPOINTMENT REQUIRED</text>
+  <text x="540" y="1500" text-anchor="middle" fill="#ffffff" fill-opacity="0.75" font-family="Arial, Helvetica, sans-serif" font-size="22">Illinois adults 21+  |  $30 shipping  |  Approval required</text>
+  <text x="540" y="1542" text-anchor="middle" fill="#ffffff" fill-opacity="0.75" font-family="Arial, Helvetica, sans-serif" font-size="22">Phone consult or labs may be requested.</text>
+  <text x="540" y="1584" text-anchor="middle" fill="#ffffff" fill-opacity="0.75" font-family="Arial, Helvetica, sans-serif" font-size="22">Compounded drugs are not FDA-approved.</text>
+  <text x="540" y="1820" text-anchor="middle" fill="#ffffff" fill-opacity="0.5" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="4">HELLOGORGEOUSMEDSPA.COM</text>
+</svg>
