@@ -34,9 +34,7 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
       aria-label="Hello Gorgeous Medical Spa"
     >
       <h1 className="sr-only">Hello Gorgeous Medical Spa</h1>
-      <div
-        className={`relative mx-auto w-fit max-w-full ${isApp ? "h-full w-full" : ""}`}
-      >
+      <div className={isApp ? "relative mx-auto h-full w-full" : "relative w-full"}>
         <Image
           src={WEBSITE_HERO_IMAGE}
           alt={WEBSITE_HERO_IMAGE_ALT}
@@ -47,9 +45,8 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
           className={
             isApp
               ? "absolute inset-0 h-full w-full object-contain object-center"
-              : "block h-auto w-auto max-w-full"
+              : "block h-auto w-full object-cover object-[center_58%] lg:h-[calc(100dvh-16.5rem)]"
           }
-          style={isApp ? undefined : { maxHeight: "calc(100dvh - 22rem)" }}
         />
         {/* Graphic already says “Book Your Glow” — this is the real booking hit target. */}
         <Link
