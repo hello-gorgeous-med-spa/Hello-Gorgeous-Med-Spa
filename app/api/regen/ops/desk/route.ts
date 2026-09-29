@@ -61,6 +61,9 @@ export async function POST(request: NextRequest) {
     phone?: string;
     dob?: string;
     skuId?: string;
+    manualName?: string;
+    manualSku?: string;
+    manualPack?: string;
     invoiceNow?: boolean;
     applyGorgeous20?: boolean;
     overrideUsd?: number;
@@ -72,15 +75,28 @@ export async function POST(request: NextRequest) {
   const email = String(body.email || "").trim().toLowerCase();
   const phone = normalizeToE164(String(body.phone || "")) || "";
   const dob = String(body.dob || "").trim();
-  const sku = regenRequestSkuById(String(body.skuId || ""));
+  const skuId = String(body.skuId || "").trim();
+  const isManual = skuId === "manual";
+  const sku = isManual ? null : regenRequestSkuById(skuId);
+  const manualName = String(body.manualName || "").trim().slice(0, 80);
+  const manualSku = String(body.manualSku || "").trim().slice(0, 20);
+  const manualPack = String(body.manualPack || "").trim().slice(0, 80);
+  const deskNote = String(body.notes || "").trim().slice(0, 2000);
+  const overrideUsd = body.overrideUsd && body.overrideUsd > 0 ? Number(body.overrideUsd) : null;
   if (!firstName || !lastName) {
     return NextResponse.json({ error: "First and last name are required." }, { status: 400 });
   }
   if (!email && !phone) {
     return NextResponse.json({ error: "Need a phone or email so we can send the pay link." }, { status: 400 });
   }
-  if (!sku) {
-    return NextResponse.json({ error: "Pick a protocol." }, { status: 400 });
+  if (!isManual && !sku) {
+    return NextResponse.json({ error: "Pick a protocol, or choose Manual and type it in." }, { status: 400 });
+  }
+  if (isManual && !manualName) {
+    return NextResponse.json({ error: "Type the protocol name for a manual entry." }, { status: 400 });
+  }
+  if (isManual && !overrideUsd) {
+    return NextResponse.json({ error: "Type the dollar amount for a manual invoice." }, { status: 400 });
   }
 
   const name = `${firstName} ${lastName}`.trim();
@@ -93,21 +109,27 @@ export async function POST(request: NextRequest) {
     dob,
   });
 
+  const productName = isManual ? manualName : sku?.name || "REGEN protocol";
+  const productSku = isManual ? manualSku || "review" : sku?.sku || "";
+  const pack = isManual ? manualPack : sku?.pack || "";
   const history = {
     source: "regen_ops_desk",
     requestIntent: "add",
-    skuId: sku.id,
-    sku: sku.sku,
-    productName: sku.name,
-    pack: sku.pack,
-    retailUsd: sku.retailUsd,
-    shippingUsd: sku.inOffice ? 0 : sku.shippingUsd,
+    skuId: isManual ? "manual" : sku?.id || "",
+    sku: productSku,
+    productName,
+    pack,
+    retailUsd: isManual ? overrideUsd : sku?.retailUsd,
+    shippingUsd: sku?.inOffice ? 0 : sku?.shippingUsd || 30,
     promo: body.applyGorgeous20 ? "GORGEOUS20" : "",
-    deskNotes: String(body.notes || "").slice(0, 400),
+    deskNotes: deskNote,
     enteredBy: staff.name,
   };
-
   const invoiceNow = Boolean(body.invoiceNow);
+  const staffLine = invoiceNow
+    ? `Desk walk-in by ${staff.name}. Invoice sent from /ops/desk.`
+    : `Desk walk-in by ${staff.name}. Waiting on Today review.`;
+  const reviewNotes = [deskNote, staffLine].filter(Boolean).join("\n\n");
   const { data: intake, error: intakeError } = await supabase
     .from("regen_intakes")
     .insert({
@@ -115,7 +137,7 @@ export async function POST(request: NextRequest) {
       name,
       email: savedEmail,
       phone: phone || null,
-      goal: sku.hub === "peptides" ? "energy" : sku.hub,
+      goal: sku?.hub === "sexual-health" ? "sexual-health" : sku?.hub === "dermatology" ? "skincare" : "energy",
       medical_history: history,
       current_medications: [],
       allergies: [],
@@ -123,9 +145,7 @@ export async function POST(request: NextRequest) {
       verified_illinois: true,
       amount_paid: 0,
       status: invoiceNow ? "approved" : "pending",
-      review_notes: invoiceNow
-        ? `Desk walk-in by ${staff.name}. Invoice sent from /ops/desk.`
-        : `Desk walk-in by ${staff.name}. Waiting on Today review.`,
+      review_notes: reviewNotes,
       reviewed_at: invoiceNow ? new Date().toISOString() : null,
     })
     .select("*")
@@ -154,17 +174,27 @@ export async function POST(request: NextRequest) {
     patient_id: patientId,
     amount_paid: 0,
     medical_history: history,
-    review_notes: String(intake.review_notes || ""),
+    review_notes: reviewNotes,
   });
+
+  if (deskNote) {
+    await supabase
+      .from("regen_orders")
+      .update({
+        notes: `DESK NOTE · ${deskNote}`.slice(0, 1800),
+        np_notes: reviewNotes,
+      })
+      .eq("id", fulfillment.orderId);
+  }
 
   const quote = quoteClinicInvoice({
     goal: intake.goal,
-    program: sku.id,
+    program: isManual ? "" : sku?.id || "",
     customerName: name,
     customerEmail: email || undefined,
     customerPhone: phone,
     medicalHistory: history,
-    overrideUsd: body.overrideUsd && body.overrideUsd > 0 ? body.overrideUsd : null,
+    overrideUsd,
     applyGorgeous20: Boolean(body.applyGorgeous20),
   });
 
@@ -176,6 +206,21 @@ export async function POST(request: NextRequest) {
     phone: phone || undefined,
     quote,
   });
+
+  if (deskNote) {
+    const { data: orderRow } = await supabase
+      .from("regen_orders")
+      .select("notes")
+      .eq("id", fulfillment.orderId)
+      .maybeSingle();
+    await supabase
+      .from("regen_orders")
+      .update({
+        notes: `${String(orderRow?.notes || "")} · DESK NOTE · ${deskNote}`.slice(0, 1800),
+        np_notes: reviewNotes,
+      })
+      .eq("id", fulfillment.orderId);
+  }
 
   return NextResponse.json({
     ok: true,
