@@ -153,6 +153,7 @@ export const SERVICES_MENU_GOALS: ServiceMenuSection[] = [
       { id: "neuro", name: "Botox, Dysport & Jeuveau", href: "/services/botox", icon: "💉" },
       { id: "dermal", name: "Dermal Fillers", href: "/services/dermal-fillers", icon: "💋" },
       { id: "sculptra-inj", name: "Sculptra & Biostimulators", href: "/services/biostimulators", icon: "✨" },
+      { id: "upneeq", name: "Upneeq® (coming soon)", href: "/upneeq", icon: "👁", badge: "new" },
       { id: "lip-studio", name: "Lip Filler & Lip Studio", href: "/lip-studio", icon: "👄" },
       { id: "kybella", name: "Kybella", href: "/services/kybella", icon: "✨" },
       { id: "alle", name: "Allē Rewards", href: "/alle-botox-rewards", icon: "💎" },

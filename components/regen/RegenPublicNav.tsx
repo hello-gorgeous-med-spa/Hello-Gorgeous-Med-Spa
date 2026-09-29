@@ -69,6 +69,13 @@ export function RegenPublicNav({ fixed = false }: { fixed?: boolean }) {
               </Link>
             );
           })}
+          <Link
+            href="/upneeq"
+            className={`text-sm font-medium transition-colors hidden xl:block ${isNavActive(pathname, '/upneeq') ? 'text-white' : 'text-gray-400 hover:text-white'}`}
+            style={isNavActive(pathname, '/upneeq') ? { color: BRAND.teal } : undefined}
+          >
+            Upneeq
+          </Link>
           <RegenFormulationNavDropdown />
           {LINKS.slice(2).map((item) => {
             const active = isNavActive(pathname, item.href);
@@ -138,6 +145,14 @@ export function RegenPublicNav({ fixed = false }: { fixed?: boolean }) {
                 </Link>
               );
             })}
+            <Link
+              href="/upneeq"
+              className="text-sm font-medium"
+              style={{ color: isNavActive(pathname, '/upneeq') ? BRAND.teal : '#9CA3AF' }}
+              onClick={() => setMobileOpen(false)}
+            >
+              Upneeq — coming soon
+            </Link>
             <p className="pt-2 text-sm font-medium" style={{ color: peptidesOpen ? BRAND.teal : '#9CA3AF' }}>
               {FORMULATION_NAV_LABEL}
             </p>

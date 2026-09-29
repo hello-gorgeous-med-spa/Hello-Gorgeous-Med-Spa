@@ -5,6 +5,7 @@
 
 import { INJECTABLES_MENU, INJECTABLES_MENU_PATH } from "@/lib/injectables-menu";
 import { BIOSTIMULATORS_NAV, BIOSTIMULATORS_NAV_ACTIVE_PREFIXES } from "@/lib/biostimulators-marketing";
+import { UPNEEQ_NAV, UPNEEQ_PATH } from "@/lib/upneeq-marketing";
 import { PRIMARY_CITY_SLUGS } from "@/lib/city-seo-tier";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 
@@ -26,6 +27,11 @@ export const INJECTABLES_DROPDOWN = [
     label: BIOSTIMULATORS_NAV.label,
     href: BIOSTIMULATORS_NAV.href,
     sub: BIOSTIMULATORS_NAV.sub,
+  },
+  {
+    label: UPNEEQ_NAV.label,
+    href: UPNEEQ_NAV.href,
+    sub: UPNEEQ_NAV.sub,
   },
 ] as const;
 
@@ -244,6 +250,7 @@ export const INJECTABLES_NAV_ACTIVE_PREFIXES = [
   "/botox-vs-dysport",
   "/hyperhidrosis-botox",
   ...BIOSTIMULATORS_NAV_ACTIVE_PREFIXES,
+  UPNEEQ_PATH,
 ] as const;
 
 export function isInjectablesNavActive(pathname: string | null): boolean {

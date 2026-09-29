@@ -495,6 +495,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.92,
     },
     {
+      url: `${baseUrl}/upneeq`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/regen/upneeq`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.86,
+    },
+    {
+      url: 'https://tryregenrx.com/upneeq',
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/hello-gorgeous-rx/start-here`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

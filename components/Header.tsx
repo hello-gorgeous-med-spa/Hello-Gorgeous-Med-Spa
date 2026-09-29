@@ -957,6 +957,14 @@ export function Header() {
                 <span className="block">Biostimulators</span>
                 <span className="text-xs font-semibold text-[#FFB8DC]">Sculptra® + Radiesse® · collagen</span>
               </Link>
+              <Link
+                href="/upneeq"
+                onClick={() => setMobileOpen(false)}
+                className="block border-t border-white/10 px-4 py-3 text-sm font-semibold text-white/90"
+              >
+                <span className="block">Upneeq®</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">Coming soon · Rx eyelid drop</span>
+              </Link>
             </div>
 
             <Link
