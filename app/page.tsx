@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { HOME_CIRCLE_PHOTO, HOME_LOUNGE_PHOTO, HOME_THIS_IS_US_PHOTOS } from "@/lib/campaigns/fall-makeover-2026";
 import { LiveGooglePlaceCard } from "@/components/LiveGooglePlaceCard";
-import { HomepageAtelier } from "@/components/homepage-atelier/HomepageAtelier";
+import { HomepageLuxury } from "@/components/homepage-luxury";
 import { resolveReviewTrust } from "@/lib/review-trust";
 import { getGooglePlace } from "@/lib/seo/google-places";
 import { aroraPersonJsonLd } from "@/lib/medical-trust";
@@ -166,10 +166,9 @@ export default async function HomePage() {
       />
 
       <main>
-        <HomepageAtelier
+        <HomepageLuxury
           googleRating={trust.google.rating}
           googleCount={trust.google.count}
-          liveReviews={<LiveGooglePlaceCard />}
         />
       </main>
     </>
