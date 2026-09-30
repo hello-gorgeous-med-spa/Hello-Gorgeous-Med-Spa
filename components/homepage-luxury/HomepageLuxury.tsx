@@ -101,18 +101,18 @@ function IconMapPin({ className }: { className?: string }) {
 /* -------------------------------------------------------------------------- */
 
 function GoldDot() {
-  return <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ backgroundColor: LUXURY.gold }} />;
+  return <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ backgroundColor: LUXURY.pink }} />;
 }
 
 function GoldLine() {
-  return <span className="h-px w-8" style={{ backgroundColor: LUXURY.gold }} />;
+  return <span className="h-px w-8" style={{ backgroundColor: LUXURY.pink }} />;
 }
 
 function Eyebrow({ children }: { children: ReactNode }) {
   return (
     <p
       className="text-[11px] font-semibold uppercase tracking-[0.2em]"
-      style={{ color: LUXURY.gold }}
+      style={{ color: LUXURY.pink }}
     >
       {children}
     </p>
@@ -129,23 +129,23 @@ function SectionTitle({ children }: { children: ReactNode }) {
 
 function Button({
   href,
-  variant = "gold",
+  variant = "pink",
   children,
   className = "",
 }: {
   href: string;
-  variant?: "gold" | "dark" | "outline";
+  variant?: "pink" | "dark" | "outline";
   children: ReactNode;
   className?: string;
 }) {
   const base = "inline-flex items-center justify-center gap-2 rounded-[12px] px-6 py-3 text-[14px] font-semibold transition";
   const variants = {
-    gold: `bg-[${LUXURY.gold}] text-black hover:brightness-110`,
+    pink: `text-white hover:brightness-110`,
     dark: `bg-[${LUXURY.dark}] text-white hover:bg-black`,
     outline: "border border-black/15 bg-transparent text-black hover:border-black/30",
   };
   return (
-    <Link href={href} className={`${base} ${variants[variant]} ${className}`} style={variant === "gold" ? { backgroundColor: LUXURY.gold } : variant === "dark" ? { backgroundColor: LUXURY.dark } : {}}>
+    <Link href={href} className={`${base} ${variants[variant]} ${className}`} style={variant === "pink" ? { backgroundColor: LUXURY.pink } : variant === "dark" ? { backgroundColor: LUXURY.dark } : {}}>
       {children}
     </Link>
   );
@@ -176,32 +176,34 @@ function HeroSection() {
               {LUXURY_HERO.subhead}
             </p>
 
-            {/* Trust badges */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              {LUXURY_HERO.trustBadges.map((badge) => (
-                <div
-                  key={badge.label}
-                  className="flex items-center gap-2 rounded-[12px] border px-3 py-2 text-[13px] font-medium"
-                  style={{ borderColor: "rgba(0,0,0,0.1)", backgroundColor: "rgba(255,255,255,0.5)" }}
-                >
-                  {badge.icon === "shield" && <IconShield className="h-4 w-4 text-[#D4AF37]" />}
-                  {badge.icon === "star" && <IconStar className="h-4 w-4 text-[#D4AF37]" />}
-                  {badge.icon === "check" && <IconCheck className="h-4 w-4 text-[#D4AF37]" />}
-                  {badge.label}
-                </div>
-              ))}
-            </div>
-
             {/* CTAs */}
             <div className="flex flex-wrap items-center gap-4 pt-4">
-              <Button href={PRIMARY_BOOKING_CTA.href} variant="gold">
+              <Button href={PRIMARY_BOOKING_CTA.href} variant="pink">
                 {LUXURY_HERO.cta}
                 <IconArrowRight className="h-4 w-4" />
               </Button>
-              <Button href={`tel:${LUXURY_CONTACT.phone.replace(/-/g, "")}`} variant="dark">
-                <IconPhone className="h-4 w-4" />
+              <Button href="https://tryregenrx.com" variant="outline">
                 {LUXURY_HERO.ctaSecondary}
               </Button>
+            </div>
+
+            {/* Trust badges */}
+            <div className="flex flex-wrap items-center gap-3 pt-6">
+              {LUXURY_HERO.trustBadges.map((badge) => (
+                <div
+                  key={badge.label}
+                  className="flex items-center gap-2 rounded-[8px] border px-3 py-2"
+                  style={{ borderColor: "rgba(0,0,0,0.1)", backgroundColor: "rgba(255,255,255,0.6)" }}
+                >
+                  {badge.icon === "star" && <IconStar className="h-5 w-5 text-[#E91E8C]" />}
+                  {badge.icon === "check" && <IconCheck className="h-5 w-5 text-[#E91E8C]" />}
+                  {badge.icon === "shield" && <IconShield className="h-5 w-5 text-[#E91E8C]" />}
+                  <div>
+                    <p className="text-[15px] font-bold leading-tight">{badge.label}</p>
+                    <p className="text-[10px] uppercase tracking-wide opacity-50">{(badge as { subLabel?: string }).subLabel}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -211,8 +213,8 @@ function HeroSection() {
             style={{ borderColor: "rgba(0,0,0,0.1)" }}
           >
             <Image
-              src="/images/website-hero/lounge-cinematic.jpg"
-              alt="Hello Gorgeous Med Spa lounge in downtown Oswego"
+              src="/images/website-hero/hello-gorgeous-medical-spa-hero.jpg"
+              alt="Hello Gorgeous Med Spa storefront in downtown Oswego"
               fill
               className="object-cover"
               priority
@@ -288,7 +290,7 @@ function ServiceCard({
       className="group flex flex-col rounded-[16px] border p-6 transition hover:border-black/20"
       style={{ borderColor: "rgba(0,0,0,0.1)", backgroundColor: LUXURY.cream }}
     >
-      <p className="text-[11px] font-mono uppercase tracking-[0.12em]" style={{ color: LUXURY.gold }}>
+      <p className="text-[11px] font-mono uppercase tracking-[0.12em]" style={{ color: LUXURY.pink }}>
         {service.subtitle}
       </p>
       <h3 className="mt-2 text-[20px] font-bold">{service.title}</h3>
@@ -298,7 +300,7 @@ function ServiceCard({
           ↓ {service.downtime}
         </p>
       )}
-      <div className="mt-4 flex items-center gap-2 text-[13px] font-semibold" style={{ color: LUXURY.gold }}>
+      <div className="mt-4 flex items-center gap-2 text-[13px] font-semibold" style={{ color: LUXURY.pink }}>
         Learn more
         <IconArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
       </div>
@@ -358,7 +360,7 @@ function PhilosophySection() {
 
           {/* Copy */}
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: LUXURY.gold }}>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: LUXURY.pink }}>
               {LUXURY_PHILOSOPHY.eyebrow}
             </p>
             <h2 className="mt-3 text-[28px] sm:text-[36px] lg:text-[44px] font-bold leading-[1.1]">
@@ -370,7 +372,7 @@ function PhilosophySection() {
             <div className="mt-8 space-y-4">
               {LUXURY_PHILOSOPHY.bullets.map((bullet) => (
                 <div key={bullet} className="flex items-start gap-3">
-                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ backgroundColor: LUXURY.gold }} />
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0" style={{ backgroundColor: LUXURY.pink }} />
                   <p className="text-[15px] leading-[1.5] text-white/80">{bullet}</p>
                 </div>
               ))}
@@ -396,7 +398,7 @@ function TeamSection() {
             className="rounded-[18px] p-8 lg:p-12"
             style={{ backgroundColor: LUXURY.dark }}
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: LUXURY.gold }}>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: LUXURY.pink }}>
               {LUXURY_OWNER.eyebrow}
             </p>
             <h3 className="mt-3 text-[28px] font-bold text-white">{LUXURY_OWNER.name}</h3>
@@ -405,7 +407,7 @@ function TeamSection() {
             <div className="mt-6 flex items-center gap-3">
               <div
                 className="h-8 w-8 rounded-full flex items-center justify-center"
-                style={{ backgroundColor: LUXURY.gold }}
+                style={{ backgroundColor: LUXURY.pink }}
               >
                 <IconShield className="h-4 w-4 text-black" />
               </div>
@@ -418,7 +420,7 @@ function TeamSection() {
             className="rounded-[18px] border p-8 lg:p-12"
             style={{ borderColor: "rgba(0,0,0,0.1)", backgroundColor: LUXURY.warmCream }}
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: LUXURY.gold }}>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: LUXURY.pink }}>
               {LUXURY_MD.eyebrow}
             </p>
             <h3 className="mt-3 text-[28px] font-bold">{LUXURY_MD.name}</h3>
@@ -428,7 +430,7 @@ function TeamSection() {
               <Link
                 href="/providers/dr-arora"
                 className="inline-flex items-center gap-2 text-[14px] font-semibold"
-                style={{ color: LUXURY.gold }}
+                style={{ color: LUXURY.pink }}
               >
                 Meet Dr. Arora
                 <IconArrowRight className="h-4 w-4" />
@@ -454,19 +456,19 @@ function RegenSection() {
           style={{ backgroundColor: LUXURY.darker }}
         >
           <div className="flex-1 text-white">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: LUXURY.gold }}>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: LUXURY.pink }}>
               {LUXURY_REGEN.eyebrow}
             </p>
             <h2 className="mt-3 text-[28px] sm:text-[36px] font-bold">{LUXURY_REGEN.headline}</h2>
             <p className="mt-2 text-[18px] text-white/70">{LUXURY_REGEN.subhead}</p>
             <p className="mt-4 text-[15px] leading-[1.6] text-white/60 max-w-[480px]">{LUXURY_REGEN.body}</p>
-            <p className="mt-4 text-[13px] font-semibold" style={{ color: LUXURY.gold }}>
+            <p className="mt-4 text-[13px] font-semibold" style={{ color: LUXURY.pink }}>
               {LUXURY_REGEN.promo}
             </p>
             <p className="mt-1 text-[11px] text-white/40">{LUXURY_REGEN.legal}</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button href={LUXURY_REGEN.ctaHref} variant="gold">
+            <Button href={LUXURY_REGEN.ctaHref} variant="pink">
               {LUXURY_REGEN.cta}
               <IconArrowRight className="h-4 w-4" />
             </Button>
@@ -538,13 +540,13 @@ function ContactSection() {
           {/* Brand + CTA */}
           <div>
             <h2 className="text-[26px] font-bold">
-              HELLO <span style={{ color: LUXURY.gold }}>GORGEOUS</span>
+              HELLO <span style={{ color: LUXURY.pink }}>GORGEOUS</span>
             </h2>
             <p className="mt-3 text-[14px] opacity-60 max-w-[300px]">
               Medical spa in downtown Oswego. Free consults, free parking.
             </p>
             <div className="mt-6">
-              <Button href={PRIMARY_BOOKING_CTA.href} variant="gold">
+              <Button href={PRIMARY_BOOKING_CTA.href} variant="pink">
                 Book Free Consult
               </Button>
             </div>
@@ -558,7 +560,7 @@ function ContactSection() {
                 href={LUXURY_CONTACT.phoneHref}
                 className="flex items-center gap-2 text-[15px] font-medium hover:opacity-70 transition"
               >
-                <IconPhone className="h-4 w-4 text-[#D4AF37]" />
+                <IconPhone className="h-4 w-4 text-[#E91E8C]" />
                 {LUXURY_CONTACT.phone}
               </Link>
               <Link
@@ -595,7 +597,7 @@ function ContactSection() {
               rel="noopener"
               className="mt-4 flex items-start gap-2 text-[14px] hover:opacity-70 transition"
             >
-              <IconMapPin className="h-4 w-4 mt-0.5 text-[#D4AF37]" />
+              <IconMapPin className="h-4 w-4 mt-0.5 text-[#E91E8C]" />
               <div>
                 <p className="font-medium">{LUXURY_CONTACT.address}</p>
                 <p className="mt-1 opacity-60">{LUXURY_CONTACT.parking}</p>

@@ -5,6 +5,8 @@
 
 export const LUXURY = {
   gold: "#D4AF37",
+  pink: "#E91E8C",       // Hello Gorgeous brand pink
+  hotPink: "#FF2D8E",    // Accent pink
   cream: "#FFFAF5",
   warmCream: "#F6EFE6",
   sand: "#EDE6DA",
@@ -17,16 +19,16 @@ export const LUXURY = {
 } as const;
 
 export const LUXURY_HERO = {
-  eyebrow: "Medical Spa · Oswego, IL",
-  headline: "We screen you like a medical practice because we are one.",
+  eyebrow: "We screen you like a medical practice because we are one",
+  headline: "Screened like a medical practice. Treated like family.",
   subhead:
-    "Luxe, clinical, safety-first — not a facial factory.",
+    "Safety-first menu. Licensed Illinois clinicians. InMode Trifecta in downtown Oswego — not a trend menu. Every treatment starts with a medical screening, not a sales script.",
   cta: "Book Free Consult",
-  ctaSecondary: "Call 630-636-6193",
+  ctaSecondary: "Explore REGEN RX",
   trustBadges: [
-    { label: "10+ Year Owner", icon: "shield" },
-    { label: "4.6 ★ Google", icon: "star" },
-    { label: "1,931 verified visits", icon: "check" },
+    { label: "4.6 ★", subLabel: "Google · 171 Reviews", icon: "star" },
+    { label: "1,931", subLabel: "Verified Visits · 5.0", icon: "check" },
+    { label: "Dr. Arora MD", subLabel: "Medical Director · 30+ Yrs", icon: "shield" },
   ],
 } as const;
 
