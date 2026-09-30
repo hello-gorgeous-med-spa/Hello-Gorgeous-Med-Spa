@@ -45,7 +45,7 @@ export default function WebsiteHeroBanner({ variant = "home", className = "" }: 
           className={
             isApp
               ? "absolute inset-0 h-full w-full object-contain object-center"
-              : "block h-auto w-full object-cover object-[center_58%] lg:h-[calc(100dvh-16.5rem)]"
+              : "block h-auto w-full object-cover object-[center_72%] lg:h-[calc(100dvh-14rem)]"
           }
         />
         {/* Graphic already says “Book Your Glow” — this is the real booking hit target. */}

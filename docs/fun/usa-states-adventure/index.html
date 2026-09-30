@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>50 States Together</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #16324f;
+      --deep: #0e2238;
+      --sky: #d7ecff;
+      --cream: #fff6e8;
+      --gold: #f5c518;
+      --pink: #ff6ba8;
+      --green: #2fbe74;
+      --red: #ef5d5d;
+      --map: #9ec3e6;
+      --map-stroke: #16324f;
+      --learned: #3dcf86;
+      --target: #ff6ba8;
+      --miss: #ffb4b4;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      font-family: Nunito, system-ui, sans-serif;
+      background:
+        radial-gradient(900px 420px at 10% -10%, #ffe3f1 0%, transparent 55%),
+        radial-gradient(800px 380px at 110% 0%, #cfefff 0%, transparent 50%),
+        var(--cream);
+      color: var(--navy);
+      min-height: 100%;
+    }
+    h1, h2, .brand { font-family: Fredoka, Nunito, sans-serif; }
+    button { font-family: inherit; cursor: pointer; }
+    .app { max-width: 1180px; margin: 0 auto; padding: 16px 16px 28px; }
+    .top {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .brand { font-size: 28px; margin: 0; letter-spacing: -0.03em; }
+    .brand span { color: var(--pink); }
+    .sub { margin: 2px 0 0; font-weight: 800; opacity: .7; font-size: 13px; }
+    .pill {
+      background: #fff; border: 3px solid var(--navy); border-radius: 999px;
+      padding: 8px 14px; font-weight: 800; box-shadow: 4px 4px 0 var(--navy);
+    }
+    .screen { display: none; }
+    .screen.on { display: block; }
+    .hero-card, .panel {
+      background: #fff;
+      border: 4px solid var(--navy);
+      border-radius: 28px;
+      box-shadow: 8px 8px 0 rgba(255, 107, 168, .28);
+      padding: 22px;
+    }
+    .hero-card { margin-top: 18px; }
+    .hero-card h2 { font-size: 42px; margin: 0 0 8px; line-height: 1; }
+    .names { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0; }
+    label { display: block; font-weight: 900; font-size: 13px; margin-bottom: 6px; }
+    input, select {
+      width: 100%; padding: 12px 14px; border: 3px solid var(--navy); border-radius: 14px;
+      font: inherit; font-weight: 800; font-size: 18px; background: var(--sky);
+    }
+    .modes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .mode {
+      text-align: left; background: var(--cream); border: 3px solid var(--navy);
+      border-radius: 18px; padding: 14px; font-weight: 800;
+    }
+    .mode:hover, .mode.on { background: #ffe6f2; }
+    .mode b { display: block; font-size: 18px; }
+    .mode span { display: block; font-size: 13px; opacity: .75; margin-top: 4px; }
+    .go, .ghost, .choice {
+      border: 3px solid var(--navy); border-radius: 16px; font-weight: 900;
+      box-shadow: 4px 4px 0 var(--navy);
+    }
+    .go {
+      margin-top: 16px; width: 100%; padding: 14px; font-size: 20px;
+      background: var(--pink); color: #fff;
+    }
+    .ghost { background: #fff; padding: 8px 12px; }
+    .play-grid {
+      display: grid; grid-template-columns: 1.4fr .9fr; gap: 14px; margin-top: 14px;
+    }
+    .map-wrap {
+      background: linear-gradient(#eaf6ff, #fff);
+      border: 4px solid var(--navy);
+      border-radius: 24px;
+      min-height: 460px;
+      position: relative;
+      overflow: hidden;
+    }
+    svg.map { width: 100%; height: 520px; display: block; }
+    .state { fill: var(--map); stroke: var(--map-stroke); stroke-width: 1.1; cursor: pointer; transition: fill .15s; }
+    .state:hover { fill: #7eb7ea; }
+    .state.learned { fill: var(--learned); }
+    .state.target { fill: var(--target); animation: pulse 1s ease-in-out infinite; }
+    .state.wrong { fill: var(--miss); }
+    .state.flash { fill: var(--gold); }
+    @keyframes pulse {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.18); }
+    }
+    .prompt {
+      font-family: Fredoka, sans-serif; font-size: 30px; margin: 0 0 8px; line-height: 1.15;
+    }
+    .prompt em { color: var(--pink); font-style: normal; }
+    .fact { background: var(--sky); border-radius: 14px; padding: 10px 12px; font-weight: 800; font-size: 14px; }
+    .choices { display: grid; gap: 8px; margin-top: 12px; }
+    .choice { padding: 12px; font-size: 18px; background: #fff; text-align: left; }
+    .choice.good { background: #c8f5dc; }
+    .choice.bad { background: #ffd2d2; }
+    .scores { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .score {
+      flex: 1; min-width: 140px; border: 3px solid var(--navy); border-radius: 16px; padding: 10px;
+      background: #fff;
+    }
+    .score.turn { background: #ffe6f2; box-shadow: 4px 4px 0 var(--pink); }
+    .score b { display: block; font-size: 22px; }
+    .progress { height: 14px; background: #e6e6e6; border-radius: 99px; overflow: hidden; border: 2px solid var(--navy); }
+    .progress > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--pink), var(--gold)); }
+    .tiny { font-size: 12px; font-weight: 800; opacity: .7; margin-top: 6px; }
+    .tiny-states { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tiny-states button {
+      border: 2px solid var(--navy); border-radius: 999px; background: #fff; font-weight: 800; padding: 4px 8px; font-size: 12px;
+    }
+    .tiny-states button.target { background: var(--pink); color: #fff; }
+    .toast {
+      position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);
+      background: var(--deep); color: #fff; padding: 10px 16px; border-radius: 999px; font-weight: 800;
+      display: none; white-space: nowrap;
+    }
+    .bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+    .win {
+      text-align: center; padding: 28px 12px;
+    }
+    .win h2 { font-size: 48px; margin: 0; }
+    @media (max-width: 860px) {
+      .play-grid, .names, .modes { grid-template-columns: 1fr; }
+      svg.map { height: 340px; }
+      .prompt { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div>
+        <h1 class="brand">50 States <span>Together</span></h1>
+        <p class="sub">A map game for two explorers</p>
+      </div>
+      <div class="pill" id="learnedPill">0 / 50 learned</div>
+    </header>
+
+    <section class="screen on" id="home">
+      <div class="hero-card">
+        <h2>Let’s learn every state.</h2>
+        <p style="font-weight:800;opacity:.75;margin:0">Click the map, take turns, and fill the country with green. Progress saves on this device.</p>
+        <div class="names">
+          <div>
+            <label for="p1">Explorer 1</label>
+            <input id="p1" value="Danielle" maxlength="18" />
+          </div>
+          <div>
+            <label for="p2">Explorer 2</label>
+            <input id="p2" placeholder="Your son’s name" maxlength="18" />
+          </div>
+        </div>
+        <div class="modes">
+          <button class="mode on" data-mode="team" type="button"><b>Team Map</b><span>Work together. Click the state I name.</span></button>
+          <button class="mode" data-mode="name" type="button"><b>Name It</b><span>A state lights up. Pick the right name.</span></button>
+          <button class="mode" data-mode="battle" type="button"><b>Turn Battle</b><span>Take turns. First to 12 points wins.</span></button>
+          <button class="mode" data-mode="capitals" type="button"><b>Capitals</b><span>Harder mode. What’s the capital?</span></button>
+        </div>
+        <label for="region" style="margin-top:14px">Start with a region</label>
+        <select id="region">
+          <option value="all">All 50 states</option>
+          <option value="Midwest">Midwest first (includes Illinois)</option>
+          <option value="West">West</option>
+          <option value="South">South</option>
+          <option value="Northeast">Northeast</option>
+        </select>
+        <button class="go" id="startBtn" type="button">Start exploring</button>
+        <button class="ghost" id="resetBtn" type="button" style="margin-top:10px;width:100%">Reset learned stars</button>
+      </div>
+    </section>
+
+    <section class="screen" id="play">
+      <div class="bar">
+        <button class="ghost" id="homeBtn" type="button">← Home</button>
+        <button class="ghost" id="speakBtn" type="button">🔊 Say it</button>
+        <button class="ghost" id="hintBtn" type="button">Hint</button>
+        <span class="pill" id="regionPill"></span>
+      </div>
+      <div class="play-grid">
+        <div class="map-wrap">
+          <svg class="map" id="map" viewBox="0 0 960 580" role="img" aria-label="Map of the United States"></svg>
+          <div class="toast" id="toast"></div>
+        </div>
+        <div class="panel">
+          <div class="scores" id="scores"></div>
+          <div class="progress"><i id="bar"></i></div>
+          <p class="tiny" id="barLabel">0 of 50</p>
+          <h2 class="prompt" id="prompt">Get ready…</h2>
+          <p class="fact" id="fact">Tap Start and we’ll name a state.</p>
+          <div class="choices" id="choices"></div>
+          <div class="tiny-states" id="smallStates"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <script>
+    const STATES = [
+      { fips:"01", name:"Alabama", abbr:"AL", capital:"Montgomery", region:"South", fact:"Gulf Coast + heart of the South." },
+      { fips:"02", name:"Alaska", abbr:"AK", capital:"Juneau", region:"West", fact:"Biggest state — and not connected to the others." },
+      { fips:"04", name:"Arizona", abbr:"AZ", capital:"Phoenix", region:"West", fact:"Home of the Grand Canyon." },
+      { fips:"05", name:"Arkansas", abbr:"AR", capital:"Little Rock", region:"South", fact:"Nicknamed the Natural State." },
+      { fips:"06", name:"California", abbr:"CA", capital:"Sacramento", region:"West", fact:"Pacific beaches, mountains, and Hollywood." },
+      { fips:"08", name:"Colorado", abbr:"CO", capital:"Denver", region:"West", fact:"Rocky Mountain high country." },
+      { fips:"09", name:"Connecticut", abbr:"CT", capital:"Hartford", region:"Northeast", fact:"A small New England state with a long coast." },
+      { fips:"10", name:"Delaware", abbr:"DE", capital:"Dover", region:"South", fact:"Second-smallest state — easy to miss on the map!" },
+      { fips:"12", name:"Florida", abbr:"FL", capital:"Tallahassee", region:"South", fact:"A peninsula with ocean on three sides." },
+      { fips:"13", name:"Georgia", abbr:"GA", capital:"Atlanta", region:"South", fact:"Peaches, and a coastline on the Atlantic." },
+      { fips:"15", name:"Hawaii", abbr:"HI", capital:"Honolulu", region:"West", fact:"Islands in the Pacific — look at the bottom of the map." },
+      { fips:"16", name:"Idaho", abbr:"ID", capital:"Boise", region:"West", fact:"Famous for potatoes and wild rivers." },
+      { fips:"17", name:"Illinois", abbr:"IL", capital:"Springfield", region:"Midwest", fact:"That’s home — Chicago in the north, Springfield the capital." },
+      { fips:"18", name:"Indiana", abbr:"IN", capital:"Indianapolis", region:"Midwest", fact:"Illinois’ neighbor to the east." },
+      { fips:"19", name:"Iowa", abbr:"IA", capital:"Des Moines", region:"Midwest", fact:"Farm fields between two great rivers." },
+      { fips:"20", name:"Kansas", abbr:"KS", capital:"Topeka", region:"Midwest", fact:"Right in the middle of the country." },
+      { fips:"21", name:"Kentucky", abbr:"KY", capital:"Frankfort", region:"South", fact:"Horses, bluegrass, and the Ohio River." },
+      { fips:"22", name:"Louisiana", abbr:"LA", capital:"Baton Rouge", region:"South", fact:"Where the Mississippi River meets the Gulf." },
+      { fips:"23", name:"Maine", abbr:"ME", capital:"Augusta", region:"Northeast", fact:"The farthest northeast corner of the map." },
+      { fips:"24", name:"Maryland", abbr:"MD", capital:"Annapolis", region:"South", fact:"A skinny state around the Chesapeake Bay." },
+      { fips:"25", name:"Massachusetts", abbr:"MA", capital:"Boston", region:"Northeast", fact:"Boston is one of America’s oldest cities." },
+      { fips:"26", name:"Michigan", abbr:"MI", capital:"Lansing", region:"Midwest", fact:"Looks like a mitten — and has two parts." },
+      { fips:"27", name:"Minnesota", abbr:"MN", capital:"Saint Paul", region:"Midwest", fact:"Land of 10,000 lakes, north of Iowa." },
+      { fips:"28", name:"Mississippi", abbr:"MS", capital:"Jackson", region:"South", fact:"Named for the mighty Mississippi River." },
+      { fips:"29", name:"Missouri", abbr:"MO", capital:"Jefferson City", region:"Midwest", fact:"The Gateway Arch is in St. Louis." },
+      { fips:"30", name:"Montana", abbr:"MT", capital:"Helena", region:"West", fact:"Big Sky Country — huge and on the Canadian border." },
+      { fips:"31", name:"Nebraska", abbr:"NE", capital:"Lincoln", region:"Midwest", fact:"A long rectangle across the Great Plains." },
+      { fips:"32", name:"Nevada", abbr:"NV", capital:"Carson City", region:"West", fact:"Desert, mountains, and Las Vegas." },
+      { fips:"33", name:"New Hampshire", abbr:"NH", capital:"Concord", region:"Northeast", fact:"Tiny, northern, and full of granite hills." },
+      { fips:"34", name:"New Jersey", abbr:"NJ", capital:"Trenton", region:"Northeast", fact:"A small state packed between New York and Pennsylvania." },
+      { fips:"35", name:"New Mexico", abbr:"NM", capital:"Santa Fe", region:"West", fact:"Santa Fe is one of the oldest capitals in the U.S." },
+      { fips:"36", name:"New York", abbr:"NY", capital:"Albany", region:"Northeast", fact:"New York City is in the southeast corner — capital is Albany." },
+      { fips:"37", name:"North Carolina", abbr:"NC", capital:"Raleigh", region:"South", fact:"Atlantic beaches and the Great Smoky Mountains." },
+      { fips:"38", name:"North Dakota", abbr:"ND", capital:"Bismarck", region:"Midwest", fact:"Flat, northern plains on the Canadian border." },
+      { fips:"39", name:"Ohio", abbr:"OH", capital:"Columbus", region:"Midwest", fact:"A Great Lakes state east of Indiana." },
+      { fips:"40", name:"Oklahoma", abbr:"OK", capital:"Oklahoma City", region:"South", fact:"Shaped like a pan — look for the panhandle." },
+      { fips:"41", name:"Oregon", abbr:"OR", capital:"Salem", region:"West", fact:"Pacific Coast, forests, and volcanoes." },
+      { fips:"42", name:"Pennsylvania", abbr:"PA", capital:"Harrisburg", region:"Northeast", fact:"The Keystone State, between Ohio and New Jersey." },
+      { fips:"44", name:"Rhode Island", abbr:"RI", capital:"Providence", region:"Northeast", fact:"The smallest state. Tiny corner by the ocean!" },
+      { fips:"45", name:"South Carolina", abbr:"SC", capital:"Columbia", region:"South", fact:"Under North Carolina, on the Atlantic." },
+      { fips:"46", name:"South Dakota", abbr:"SD", capital:"Pierre", region:"Midwest", fact:"Mount Rushmore is here." },
+      { fips:"47", name:"Tennessee", abbr:"TN", capital:"Nashville", region:"South", fact:"A long skinny state — music in Nashville." },
+      { fips:"48", name:"Texas", abbr:"TX", capital:"Austin", region:"South", fact:"Second-biggest state. Big as a country on the map." },
+      { fips:"49", name:"Utah", abbr:"UT", capital:"Salt Lake City", region:"West", fact:"Red rocks, big salt lake, and national parks." },
+      { fips:"50", name:"Vermont", abbr:"VT", capital:"Montpelier", region:"Northeast", fact:"Green mountains and maple syrup." },
+      { fips:"51", name:"Virginia", abbr:"VA", capital:"Richmond", region:"South", fact:"Washington, D.C. sits on Virginia’s edge." },
+      { fips:"53", name:"Washington", abbr:"WA", capital:"Olympia", region:"West", fact:"Top-left corner of the lower 48 — not Washington, D.C." },
+      { fips:"54", name:"West Virginia", abbr:"WV", capital:"Charleston", region:"South", fact:"Mountainous, and shaped like it’s hugging Virginia." },
+      { fips:"55", name:"Wisconsin", abbr:"WI", capital:"Madison", region:"Midwest", fact:"Cheese, lakes, and north of Illinois." },
+      { fips:"56", name:"Wyoming", abbr:"WY", capital:"Cheyenne", region:"West", fact:"Yellowstone National Park is mostly here." }
+    ];
+    const SMALL = new Set(["09","10","24","25","33","34","44","50"]);
+    const KEY = "usa-states-together-v1";
+    const byFips = Object.fromEntries(STATES.map((s) => [s.fips, s]));
+
+    const state = {
+      mode: "team",
+      region: "all",
+      p1: "Danielle",
+      p2: "Explorer 2",
+      turn: 0,
+      scores: [0, 0],
+      target: null,
+      learned: loadLearned(),
+      busy: false,
+    };
+
+    function loadLearned() {
+      try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch { return []; }
+    }
+    function saveLearned() {
+      localStorage.setItem(KEY, JSON.stringify(state.learned));
+      learnedPill.textContent = `${state.learned.length} / 50 learned`;
+    }
+
+    const $ = (id) => document.getElementById(id);
+    const home = $("home"), play = $("play");
+    const learnedPill = $("learnedPill");
+    saveLearned();
+
+    document.querySelectorAll(".mode").forEach((btn) => {
+      btn.onclick = () => {
+        document.querySelectorAll(".mode").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+        state.mode = btn.dataset.mode;
+      };
+    });
+
+    $("startBtn").onclick = () => {
+      state.p1 = $("p1").value.trim() || "Danielle";
+      state.p2 = $("p2").value.trim() || "Explorer 2";
+      state.region = $("region").value;
+      state.turn = 0;
+      state.scores = [0, 0];
+      home.classList.remove("on");
+      play.classList.add("on");
+      $("regionPill").textContent = state.region === "all" ? "All 50" : state.region;
+      nextQuestion();
+      drawScores();
+    };
+    $("homeBtn").onclick = () => { play.classList.remove("on"); home.classList.add("on"); };
+    $("resetBtn").onclick = () => {
+      if (confirm("Clear all learned stars?")) {
+        state.learned = [];
+        saveLearned();
+        paintMap();
+      }
+    };
+    $("speakBtn").onclick = () => speakPrompt(true);
+    $("hintBtn").onclick = hint;
+
+    function pool() {
+      const list = state.region === "all" ? STATES : STATES.filter((s) => s.region === state.region);
+      return list;
+    }
+    function unlearnedPool() {
+      const leftover = pool().filter((s) => !state.learned.includes(s.fips));
+      return leftover.length ? leftover : pool();
+    }
+    function pick() {
+      const list = unlearnedPool();
+      return list[Math.floor(Math.random() * list.length)];
+    }
+    function others(answer, n) {
+      const bag = STATES.filter((s) => s.fips !== answer.fips).sort(() => Math.random() - 0.5);
+      return bag.slice(0, n);
+    }
+    function speak(text) {
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.rate = 0.95;
+        window.speechSynthesis.speak(u);
+      } catch {}
+    }
+    function beep(ok) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = "triangle";
+        o.frequency.value = ok ? 660 : 180;
+        g.gain.value = 0.05;
+        o.connect(g); g.connect(ctx.destination);
+        o.start();
+        o.stop(ctx.currentTime + 0.16);
+      } catch {}
+    }
+    function toast(msg) {
+      const el = $("toast");
+      el.textContent = msg;
+      el.style.display = "block";
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => { el.style.display = "none"; }, 1400);
+    }
+
+    function drawScores() {
+      const names = [state.p1, state.p2];
+      $("scores").innerHTML = names.map((n, i) => `
+        <div class="score ${state.mode === "battle" && state.turn === i ? "turn" : ""}">
+          ${n}
+          <b>${state.mode === "battle" ? state.scores[i] : "★ " + countFor()}</b>
+        </div>`).join("");
+    }
+    function countFor() {
+      const p = pool();
+      return p.filter((s) => state.learned.includes(s.fips)).length + " / " + p.length;
+    }
+    function updateBar() {
+      const p = pool();
+      const n = p.filter((s) => state.learned.includes(s.fips)).length;
+      $("bar").style.width = `${(n / p.length) * 100}%`;
+      $("barLabel").textContent = `${n} of ${p.length} in this set · ${state.learned.length} of 50 total`;
+      saveLearned();
+    }
+
+    function paintMap() {
+      document.querySelectorAll(".state").forEach((el) => {
+        el.classList.remove("target", "wrong", "flash");
+        el.classList.toggle("learned", state.learned.includes(el.dataset.fips));
+      });
+      if (state.target) {
+        const el = document.querySelector(`.state[data-fips="${state.target.fips}"]`);
+        if (el && (state.mode === "name" || state.mode === "capitals")) el.classList.add("target");
+      }
+    }
+
+    function nextQuestion() {
+      state.busy = false;
+      state.target = pick();
+      paintMap();
+      updateBar();
+      drawScores();
+      const t = state.target;
+      $("choices").innerHTML = "";
+      $("smallStates").innerHTML = "";
+      if (state.mode === "team" || state.mode === "battle") {
+        $("prompt").innerHTML = `${who()} click <em>${t.name}</em>`;
+        $("fact").textContent = `Hint: ${t.region} · abbreviation ${t.abbr}`;
+        speak(`${who()} click ${t.name}`);
+        renderSmall(t);
+      } else if (state.mode === "name") {
+        $("prompt").innerHTML = `What state is <em>glowing pink</em>?`;
+        $("fact").textContent = `${t.region} · capital is a secret for now`;
+        speak("What state is glowing pink?");
+        renderChoices(t.name, others(t, 3).map((s) => s.name), (val) => val === t.name);
+      } else {
+        $("prompt").innerHTML = `Capital of <em>${t.name}</em>?`;
+        $("fact").textContent = `${t.abbr} · ${t.region}`;
+        speak(`What is the capital of ${t.name}?`);
+        renderChoices(t.capital, others(t, 3).map((s) => s.capital), (val) => val === t.capital);
+      }
+    }
+    function who() {
+      if (state.mode !== "battle") return "Team,";
+      return (state.turn === 0 ? state.p1 : state.p2) + ",";
+    }
+    function speakPrompt(force) {
+      if (!state.target) return;
+      if (state.mode === "capitals") speak(`What is the capital of ${state.target.name}?`);
+      else if (state.mode === "name") speak("What state is glowing pink?");
+      else speak(`Click ${state.target.name}`);
+      if (force) toast(state.target.name);
+    }
+    function hint() {
+      if (!state.target) return;
+      const t = state.target;
+      $("fact").textContent = `${t.fact} Capital: ${t.capital}.`;
+      speak(`${t.name} is in the ${t.region}. ${t.fact}`);
+      const el = document.querySelector(`.state[data-fips="${t.fips}"]`);
+      if (el) {
+        el.classList.add("flash");
+        setTimeout(() => el.classList.remove("flash"), 700);
+      }
+    }
+    function renderSmall(t) {
+      if (!SMALL.has(t.fips) && t.region !== "Northeast") return;
+      $("smallStates").innerHTML = STATES.filter((s) => SMALL.has(s.fips)).map((s) =>
+        `<button type="button" data-fips="${s.fips}" class="${s.fips===t.fips?"target":""}">${s.abbr}</button>`
+      ).join("");
+      $("smallStates").onclick = (e) => {
+        const b = e.target.closest("button");
+        if (b) onGuess(b.dataset.fips);
+      };
+    }
+    function renderChoices(correct, rest, check) {
+      const opts = [correct, ...rest].sort(() => Math.random() - 0.5);
+      $("choices").innerHTML = opts.map((o) => `<button class="choice" type="button">${o}</button>`).join("");
+      $("choices").onclick = (e) => {
+        const b = e.target.closest(".choice");
+        if (!b || state.busy) return;
+        const ok = check(b.textContent);
+        b.classList.add(ok ? "good" : "bad");
+        finish(ok, ok ? null : `It was ${correct}.`);
+      };
+    }
+
+    function onGuess(fips) {
+      if (state.busy || !state.target) return;
+      if (state.mode === "name" || state.mode === "capitals") return;
+      const ok = fips === state.target.fips;
+      const el = document.querySelector(`.state[data-fips="${fips}"]`);
+      if (!ok && el) {
+        el.classList.add("wrong");
+        setTimeout(() => el.classList.remove("wrong"), 500);
+        const guessed = byFips[fips];
+        toast(`That’s ${guessed ? guessed.name : "another state"}`);
+        speak(`That's ${guessed ? guessed.name : "another state"}. Try again.`);
+        beep(false);
+        return;
+      }
+      finish(true);
+    }
+
+    function finish(ok, extra) {
+      if (state.busy) return;
+      state.busy = true;
+      beep(ok);
+      if (ok) {
+        if (!state.learned.includes(state.target.fips)) state.learned.push(state.target.fips);
+        if (state.mode === "battle") state.scores[state.turn] += 1;
+        $("fact").textContent = `${state.target.name}! Capital: ${state.target.capital}. ${state.target.fact}`;
+        speak(`${state.target.name}. Capital ${state.target.capital}.`);
+        paintMap();
+        updateBar();
+        if (state.mode === "battle" && Math.max(...state.scores) >= 12) {
+          $("prompt").innerHTML = `<em>${state.scores[0] > state.scores[1] ? state.p1 : state.p2}</em> wins!`;
+          $("fact").textContent = `${state.p1} ${state.scores[0]} · ${state.p2} ${state.scores[1]}`;
+          speak("Game over. Great exploring.");
+          state.busy = false;
+          drawScores();
+          return;
+        }
+        if (pool().every((s) => state.learned.includes(s.fips))) {
+          $("prompt").innerHTML = `You filled the map!`;
+          $("fact").textContent = "Every state in this set is green. Switch regions or go for all 50.";
+          speak("You filled the map!");
+          state.busy = false;
+          drawScores();
+          return;
+        }
+        if (state.mode === "battle") state.turn = 1 - state.turn;
+        setTimeout(nextQuestion, 1100);
+      } else {
+        $("fact").textContent = extra || "Try again.";
+        speak(extra || "Try again");
+        if (state.mode === "battle") {
+          state.turn = 1 - state.turn;
+          setTimeout(nextQuestion, 1200);
+        } else {
+          state.busy = false;
+        }
+      }
+      drawScores();
+    }
+
+    async function drawMap() {
+      const svg = d3.select("#map");
+      const res = await fetch("states-10m.json");
+      const us = await res.json();
+      const geo = topojson.feature(us, us.objects.states);
+      const keep = geo.features.filter((f) => byFips[String(f.id).padStart(2, "0")]);
+      const projection = d3.geoAlbersUsa().fitSize([960, 560], { type: "FeatureCollection", features: keep });
+      const path = d3.geoPath(projection);
+      svg.selectAll("path")
+        .data(keep)
+        .join("path")
+        .attr("class", "state")
+        .attr("data-fips", (d) => String(d.id).padStart(2, "0"))
+        .attr("d", path)
+        .append("title")
+        .text((d) => byFips[String(d.id).padStart(2, "0")]?.name || "");
+      svg.on("click", (event) => {
+        const t = event.target.closest(".state");
+        if (t) onGuess(t.dataset.fips);
+      });
+      paintMap();
+    }
+    drawMap().catch(() => {
+      $("fact").textContent = "Map didn’t load — use Name It / Capitals. Keep this folder together (index.html + states-10m.json).";
+    });
+  </script>
+</body>
+</html>

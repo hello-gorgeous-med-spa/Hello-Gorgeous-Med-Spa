@@ -281,6 +281,8 @@ function BlastComposer() {
   const [selectedAudience, setSelectedAudience] = useState<BlastAudience>(BLAST_AUDIENCES[1]);
   const [message, setMessage] = useState(BLAST_TEMPLATES[0].message);
   const [imageUrl, setImageUrl] = useState<string | undefined>();
+  const [imagePreview, setImagePreview] = useState<string | undefined>();
+  const [uploading, setUploading] = useState(false);
   const [consentChecked, setConsentChecked] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [showPayload, setShowPayload] = useState(false);
@@ -291,7 +293,9 @@ function BlastComposer() {
   const isMms = !!imageUrl;
   const cost = calculateBlastCost(selectedAudience.count, isMms);
   const phiWarnings = detectPhiWarnings(message);
-  const canSend = consentChecked && message.trim().length > 0 && phiWarnings.length === 0;
+  // Can send if: consent checked, message exists, no PHI, and if image dropped, it's uploaded
+  const imageReady = !imagePreview || (imagePreview && imageUrl && !uploading);
+  const canSend = consentChecked && message.trim().length > 0 && phiWarnings.length === 0 && imageReady;
 
   const sendBlast = async (isTest = false) => {
     setSending(true);
@@ -324,14 +328,37 @@ function BlastComposer() {
     setSending(false);
   };
 
-  const handleDrop = useCallback((e: DragEvent) => {
+  const handleDrop = useCallback(async (e: DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith("image/")) {
+      // Show preview immediately
       const reader = new FileReader();
-      reader.onload = () => setImageUrl(reader.result as string);
+      reader.onload = () => setImagePreview(reader.result as string);
       reader.readAsDataURL(file);
+
+      // Upload to get public URL for Twilio
+      setUploading(true);
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+        const res = await fetch("/api/admin/sms-blast/upload-media", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await res.json();
+        if (data.success && data.url) {
+          setImageUrl(data.url);
+        } else {
+          setResult({ success: false, message: data.error || "Failed to upload image" });
+          setImagePreview(undefined);
+        }
+      } catch {
+        setResult({ success: false, message: "Failed to upload image" });
+        setImagePreview(undefined);
+      }
+      setUploading(false);
     }
   }, []);
 
@@ -443,12 +470,18 @@ function BlastComposer() {
             }`}
             style={{ backgroundColor: BLAST.cream }}
           >
-            {imageUrl ? (
+            {imagePreview ? (
               <div className="space-y-3">
-                <img src={imageUrl} alt="Flyer" className="max-h-[200px] mx-auto rounded-[12px]" />
+                <img src={imagePreview} alt="Flyer" className="max-h-[200px] mx-auto rounded-[12px]" />
+                {uploading && (
+                  <p className="text-[12px] text-amber-600">Uploading...</p>
+                )}
+                {imageUrl && !uploading && (
+                  <p className="text-[11px] text-emerald-600">✓ Uploaded & ready for Twilio MMS</p>
+                )}
                 <button
                   type="button"
-                  onClick={() => setImageUrl(undefined)}
+                  onClick={() => { setImageUrl(undefined); setImagePreview(undefined); }}
                   className="text-[12px] text-red-600 hover:underline"
                 >
                   Remove image
@@ -602,7 +635,7 @@ function BlastComposer() {
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] opacity-60 mb-4">
           Live Preview
         </p>
-        <IPhonePreview message={message} imageUrl={imageUrl} />
+        <IPhonePreview message={message} imageUrl={imagePreview} />
 
         <div
           className="mt-6 rounded-[12px] border p-4"
