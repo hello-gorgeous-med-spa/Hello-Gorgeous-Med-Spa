@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS sms_contacts (
   last_name TEXT,
   email TEXT,
   tags TEXT[] DEFAULT '{}',
+  last_service_date DATE,
   lifetime_value NUMERIC(10,2) DEFAULT 0,
   consent_date TIMESTAMPTZ,
   consent_source TEXT,

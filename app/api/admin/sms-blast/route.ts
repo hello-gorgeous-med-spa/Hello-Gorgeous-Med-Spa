@@ -53,7 +53,8 @@ export async function GET(_request: NextRequest) {
     });
   } catch (error) {
     console.error("SMS blast GET error:", error);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    const message = error instanceof Error ? error.message : String(error);
+    return NextResponse.json({ error: `Server error: ${message}` }, { status: 500 });
   }
 }
 
@@ -86,7 +87,13 @@ export async function POST(request: NextRequest) {
 
     // Check Twilio config
     if (!isTwilioConfigured()) {
-      return NextResponse.json({ error: "Twilio not configured" }, { status: 400 });
+      const sid = process.env.TWILIO_ACCOUNT_SID?.trim();
+      const token = process.env.TWILIO_AUTH_TOKEN?.trim();
+      const from = process.env.TWILIO_PHONE_NUMBER?.trim();
+      const msid = process.env.TWILIO_MESSAGING_SERVICE_SID?.trim();
+      return NextResponse.json({ 
+        error: `Twilio not configured. SID: ${!!sid}, Token: ${!!token}, From: ${!!from}, MSID: ${!!msid}` 
+      }, { status: 400 });
     }
 
     const config = getTwilioSmsConfig();
@@ -223,6 +230,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("SMS blast POST error:", error);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    const message = error instanceof Error ? error.message : String(error);
+    return NextResponse.json({ error: `Server error: ${message}` }, { status: 500 });
   }
 }
