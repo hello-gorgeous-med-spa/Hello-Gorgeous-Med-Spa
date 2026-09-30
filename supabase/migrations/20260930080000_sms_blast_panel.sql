@@ -21,12 +21,6 @@ CREATE TABLE IF NOT EXISTS sms_contacts (
   UNIQUE(phone)
 );
 
--- Index for audience queries
-CREATE INDEX IF NOT EXISTS idx_sms_contacts_opted_out ON sms_contacts(opted_out);
-CREATE INDEX IF NOT EXISTS idx_sms_contacts_last_service ON sms_contacts(last_service_date);
-CREATE INDEX IF NOT EXISTS idx_sms_contacts_tags ON sms_contacts USING GIN(tags);
-CREATE INDEX IF NOT EXISTS idx_sms_contacts_lifetime ON sms_contacts(lifetime_value);
-
 -- SMS blasts history
 CREATE TABLE IF NOT EXISTS sms_blasts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -47,9 +41,6 @@ CREATE TABLE IF NOT EXISTS sms_blasts (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-CREATE INDEX IF NOT EXISTS idx_sms_blasts_status ON sms_blasts(status);
-CREATE INDEX IF NOT EXISTS idx_sms_blasts_sent_at ON sms_blasts(sent_at DESC);
-
 -- SMS message log (individual sends)
 CREATE TABLE IF NOT EXISTS sms_messages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -62,9 +53,6 @@ CREATE TABLE IF NOT EXISTS sms_messages (
   delivered_at TIMESTAMPTZ
 );
 
-CREATE INDEX IF NOT EXISTS idx_sms_messages_blast ON sms_messages(blast_id);
-CREATE INDEX IF NOT EXISTS idx_sms_messages_twilio ON sms_messages(twilio_sid);
-
 -- Opt-out log (for compliance)
 CREATE TABLE IF NOT EXISTS sms_optouts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -74,6 +62,15 @@ CREATE TABLE IF NOT EXISTS sms_optouts (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- All indexes (after all tables created)
+CREATE INDEX IF NOT EXISTS idx_sms_contacts_opted_out ON sms_contacts(opted_out);
+CREATE INDEX IF NOT EXISTS idx_sms_contacts_last_service ON sms_contacts(last_service_date);
+CREATE INDEX IF NOT EXISTS idx_sms_contacts_tags ON sms_contacts USING GIN(tags);
+CREATE INDEX IF NOT EXISTS idx_sms_contacts_lifetime ON sms_contacts(lifetime_value);
+CREATE INDEX IF NOT EXISTS idx_sms_blasts_status ON sms_blasts(status);
+CREATE INDEX IF NOT EXISTS idx_sms_blasts_sent_at ON sms_blasts(sent_at DESC);
+CREATE INDEX IF NOT EXISTS idx_sms_messages_blast ON sms_messages(blast_id);
+CREATE INDEX IF NOT EXISTS idx_sms_messages_twilio ON sms_messages(twilio_sid);
 CREATE INDEX IF NOT EXISTS idx_sms_optouts_phone ON sms_optouts(phone);
 
 -- RLS policies
