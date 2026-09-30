@@ -276,11 +276,45 @@ function BlastComposer() {
   const [consentChecked, setConsentChecked] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [showPayload, setShowPayload] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [testPhone, setTestPhone] = useState("");
+  const [result, setResult] = useState<{ success?: boolean; message?: string } | null>(null);
 
   const isMms = !!imageUrl;
   const cost = calculateBlastCost(selectedAudience.count, isMms);
   const phiWarnings = detectPhiWarnings(message);
   const canSend = consentChecked && message.trim().length > 0 && phiWarnings.length === 0;
+
+  const sendBlast = async (isTest = false) => {
+    setSending(true);
+    setResult(null);
+    try {
+      const res = await fetch("/api/admin/sms-blast", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          audienceId: selectedAudience.id,
+          message,
+          mediaUrl: imageUrl,
+          testPhone: isTest ? testPhone : undefined,
+          consentConfirmed: consentChecked,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (isTest) {
+          setResult({ success: true, message: `Test sent to ${testPhone}` });
+        } else {
+          setResult({ success: true, message: `Blast sent! ${data.sent}/${data.total} delivered` });
+        }
+      } else {
+        setResult({ success: false, message: data.error || "Failed to send" });
+      }
+    } catch (err) {
+      setResult({ success: false, message: "Network error" });
+    }
+    setSending(false);
+  };
 
   const handleDrop = useCallback((e: DragEvent) => {
     e.preventDefault();
@@ -478,25 +512,55 @@ function BlastComposer() {
           </div>
         </div>
 
+        {/* Result message */}
+        {result && (
+          <div
+            className={`rounded-[12px] p-4 text-[13px] ${
+              result.success
+                ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                : "bg-red-50 text-red-700 border border-red-200"
+            }`}
+          >
+            {result.success ? "✓ " : "✗ "}{result.message}
+          </div>
+        )}
+
         {/* Actions */}
         <div className="flex flex-wrap items-center gap-3">
           <button
             type="button"
-            disabled={!canSend}
+            disabled={!canSend || sending}
+            onClick={() => sendBlast(false)}
             className="h-11 px-6 rounded-[12px] text-[14px] font-semibold flex items-center gap-2 transition disabled:opacity-30 disabled:cursor-not-allowed"
             style={{ backgroundColor: BLAST.gold, color: BLAST.dark }}
           >
-            <IconSend className="h-4 w-4" />
+            {sending ? (
+              <span className="animate-spin">⟳</span>
+            ) : (
+              <IconSend className="h-4 w-4" />
+            )}
             Yes, blast now • ${cost.twilioCost.toFixed(2)}
           </button>
 
-          <button
-            type="button"
-            className="h-11 px-5 rounded-[12px] text-[13px] font-medium border transition hover:bg-[#FFFBF2]"
-            style={{ borderColor: BLAST.border }}
-          >
-            Test to my phone
-          </button>
+          <div className="flex items-center gap-2">
+            <input
+              type="tel"
+              placeholder="(630) 555-1234"
+              value={testPhone}
+              onChange={(e) => setTestPhone(e.target.value)}
+              className="h-11 px-4 w-36 rounded-[12px] border text-[13px] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/30"
+              style={{ borderColor: BLAST.border }}
+            />
+            <button
+              type="button"
+              disabled={!testPhone || sending}
+              onClick={() => sendBlast(true)}
+              className="h-11 px-5 rounded-[12px] text-[13px] font-medium border transition hover:bg-[#FFFBF2] disabled:opacity-30"
+              style={{ borderColor: BLAST.border }}
+            >
+              Test
+            </button>
+          </div>
 
           <button
             type="button"
@@ -505,7 +569,7 @@ function BlastComposer() {
             style={{ backgroundColor: BLAST.dark, color: "white" }}
           >
             <IconCopy className="h-4 w-4" />
-            Copy payload for dev
+            Copy payload
           </button>
         </div>
 
