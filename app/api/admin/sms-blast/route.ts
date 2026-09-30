@@ -100,16 +100,31 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: validation.error }, { status: 400 });
       }
 
+      console.log("[SMS Blast Test] Sending to:", validation.formatted);
+      console.log("[SMS Blast Test] Message length:", fullMessage.length);
+      console.log("[SMS Blast Test] Has MMS:", !!mediaUrl);
+      if (mediaUrl) {
+        console.log("[SMS Blast Test] Media URL:", mediaUrl.substring(0, 100));
+      }
+
       const result = await sendViaTwilio(
         { to: validation.formatted, body: fullMessage, mediaUrl },
         config
       );
+
+      console.log("[SMS Blast Test] Result:", JSON.stringify(result));
 
       return NextResponse.json({
         success: result.success,
         test: true,
         messageId: result.messageId,
         error: result.error,
+        // Include debug info
+        debug: {
+          to: validation.formatted,
+          hasMms: !!mediaUrl,
+          messageLength: fullMessage.length,
+        }
       });
     }
 

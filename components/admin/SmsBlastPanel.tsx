@@ -315,7 +315,9 @@ function BlastComposer() {
       const data = await res.json();
       if (data.success) {
         if (isTest) {
-          setResult({ success: true, message: `Test sent to ${testPhone}` });
+          const mmsNote = data.debug?.hasMms ? " (MMS)" : " (SMS)";
+          const sidNote = data.messageId ? ` • SID: ${data.messageId}` : "";
+          setResult({ success: true, message: `Test sent to ${testPhone}${mmsNote}${sidNote}` });
         } else {
           setResult({ success: true, message: `Blast sent! ${data.sent}/${data.total} delivered` });
         }
