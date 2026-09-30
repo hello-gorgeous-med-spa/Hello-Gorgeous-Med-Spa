@@ -97,6 +97,14 @@ function IconHome({ className }: { className?: string }) {
   );
 }
 
+function IconUpload({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+    </svg>
+  );
+}
+
 /* -------------------------------------------------------------------------- */
 /*                              Shared Components                             */
 /* -------------------------------------------------------------------------- */
@@ -616,12 +624,77 @@ function BlastComposer() {
 /* -------------------------------------------------------------------------- */
 
 function Dashboard() {
+  const [uploading, setUploading] = useState(false);
+  const [uploadResult, setUploadResult] = useState<{ imported?: number; skipped?: number; error?: string } | null>(null);
+
+  const handleCsvUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadResult(null);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/admin/sms-blast/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUploadResult({ imported: data.imported, skipped: data.skipped });
+      } else {
+        setUploadResult({ error: data.error || "Upload failed" });
+      }
+    } catch {
+      setUploadResult({ error: "Network error" });
+    }
+    setUploading(false);
+    e.target.value = "";
+  };
+
   return (
     <div className="p-6 space-y-6">
       <div>
         <h1 className="text-[22px] font-semibold">SMS Blast Dashboard</h1>
         <p className="text-[14px] opacity-60 mt-1">
           342 due for injectables • Send in 60 sec
+        </p>
+      </div>
+
+      {/* Upload contacts */}
+      <div
+        className="rounded-[14px] border p-4"
+        style={{ borderColor: BLAST.border, backgroundColor: "white" }}
+      >
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] opacity-60 mb-3">
+          Import Contacts from Square
+        </p>
+        <div className="flex items-center gap-4">
+          <label
+            className="h-10 px-5 rounded-[12px] text-[13px] font-medium flex items-center gap-2 cursor-pointer transition hover:bg-[#FFFBF2] border"
+            style={{ borderColor: BLAST.border }}
+          >
+            <IconUpload className="h-4 w-4" />
+            {uploading ? "Uploading..." : "Upload Square CSV"}
+            <input
+              type="file"
+              accept=".csv"
+              onChange={handleCsvUpload}
+              className="hidden"
+              disabled={uploading}
+            />
+          </label>
+          {uploadResult && (
+            <p className={`text-[12px] ${uploadResult.error ? "text-red-600" : "text-emerald-600"}`}>
+              {uploadResult.error || `✓ ${uploadResult.imported} imported, ${uploadResult.skipped} skipped`}
+            </p>
+          )}
+        </div>
+        <p className="text-[11px] opacity-40 mt-2">
+          Export from Square Dashboard → Customers → Export CSV. Only consented numbers imported.
         </p>
       </div>
 
