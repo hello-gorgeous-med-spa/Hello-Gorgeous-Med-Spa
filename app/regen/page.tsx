@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
 import { RegenExplainerHero } from '@/components/regen/RegenExplainerHero';
+import { PeptideLibrarySection } from '@/components/regen/PeptideLibrarySection';
 import { GORGEOUS20_MARQUEE, GORGEOUS20_START_HREF } from '@/lib/regen-gorgeous20';
 import {
   REGEN_TELEHEALTH_CREDIT_SHORT,
@@ -358,6 +359,9 @@ export default function RegenLandingPage() {
           ))}
         </div>
       </section>
+
+      {/* Peptide Library / Peptide University */}
+      <PeptideLibrarySection />
 
       {/* Programs Section */}
       <section id="programs" className="py-24 px-6" style={{ backgroundColor: BRAND.dark }}>
