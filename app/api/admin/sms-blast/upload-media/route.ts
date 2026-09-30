@@ -46,9 +46,9 @@ export async function POST(request: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // Upload to Supabase Storage
+    // Upload to Supabase Storage (provider-media bucket is public)
     const { data, error } = await supabase.storage
-      .from("media")
+      .from("provider-media")
       .upload(filename, buffer, {
         contentType: file.type,
         cacheControl: "31536000", // 1 year cache
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get public URL
-    const { data: urlData } = supabase.storage.from("media").getPublicUrl(filename);
+    const { data: urlData } = supabase.storage.from("provider-media").getPublicUrl(filename);
 
     return NextResponse.json({
       success: true,
