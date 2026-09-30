@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerClient } from "@/lib/supabase/server";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { getTwilioSmsConfig, isTwilioConfigured } from "@/lib/hgos/twilio-config";
 import { sendViaTwilio, validatePhoneNumber } from "@/lib/hgos/sms-marketing";
 import { BLAST_FOOTER } from "@/lib/sms-blast";
@@ -12,12 +12,9 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(_request: NextRequest) {
   try {
-    const supabase = await createServerClient();
-    
-    // Check auth
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const supabase = await createServerSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json({ error: "Database not configured" }, { status: 500 });
     }
 
     // Fetch blast history
@@ -64,12 +61,9 @@ export async function GET(_request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createServerClient();
-    
-    // Check auth
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const supabase = await createServerSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json({ error: "Database not configured" }, { status: 500 });
     }
 
     const body = await request.json();
@@ -161,7 +155,7 @@ export async function POST(request: NextRequest) {
         message: message.trim(),
         media_url: mediaUrl || null,
         recipient_count: contacts.length,
-        sent_by: user.email,
+        sent_by: "admin",
         status: "sending",
       })
       .select()
