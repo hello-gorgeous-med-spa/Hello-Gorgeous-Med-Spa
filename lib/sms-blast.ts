@@ -94,7 +94,7 @@ export function calculateBlastCost(
 
 export const BLAST_COMPLIANCE = {
   consentRequired: "Express written consent required — Square checkbox + date saved",
-  footerRequired: "Every message must include: "Reply STOP to end. 74 W Washington Oswego IL"",
+  footerRequired: 'Every message must include: "Reply STOP to end. 74 W Washington Oswego IL"',
   stopHonor: "Honor STOP within 24h • Twilio handles automatically",
   consentCheckbox: "I confirm these contacts gave express written consent for SMS marketing at Hello Gorgeous. Includes STOP instructions.",
   legalProtection: "You cannot blast without consent checked. This is your legal protection vs Fresha.",
