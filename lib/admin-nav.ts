@@ -153,7 +153,8 @@ export const ADMIN_NAV_GROUPS: AdminNavGroup[] = [
     section: "Marketing",
     collapsed: true,
     items: [
-      { href: "/admin/marketing/post-social", label: "Post to Social", icon: "📲" },
+      { href: "/admin/sms-blast", label: "SMS Blast", icon: "📲" },
+      { href: "/admin/marketing/post-social", label: "Post to Social", icon: "📱" },
       { href: "/admin/promos/bestie", label: "Bestie $100 Off", icon: "💕" },
       { href: "/admin/email-campaigns", label: "Email Campaigns", icon: "📧" },
     ],
