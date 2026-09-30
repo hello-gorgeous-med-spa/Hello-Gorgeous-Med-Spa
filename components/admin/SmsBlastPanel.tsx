@@ -624,8 +624,30 @@ function BlastComposer() {
 /* -------------------------------------------------------------------------- */
 
 function Dashboard() {
+  const [syncing, setSyncing] = useState(false);
+  const [syncResult, setSyncResult] = useState<{ imported?: number; skipped?: number; total?: number; error?: string } | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadResult, setUploadResult] = useState<{ imported?: number; skipped?: number; error?: string } | null>(null);
+
+  const handleSquareSync = async () => {
+    setSyncing(true);
+    setSyncResult(null);
+
+    try {
+      const res = await fetch("/api/admin/sms-blast/sync-square", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSyncResult({ imported: data.imported, skipped: data.skipped, total: data.total });
+      } else {
+        setSyncResult({ error: data.error || "Sync failed" });
+      }
+    } catch {
+      setSyncResult({ error: "Network error" });
+    }
+    setSyncing(false);
+  };
 
   const handleCsvUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -664,13 +686,52 @@ function Dashboard() {
         </p>
       </div>
 
-      {/* Upload contacts */}
+      {/* Sync from Square */}
       <div
         className="rounded-[14px] border p-4"
         style={{ borderColor: BLAST.border, backgroundColor: "white" }}
       >
         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] opacity-60 mb-3">
-          Import Contacts from Square
+          Sync Contacts from Square
+        </p>
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={handleSquareSync}
+            disabled={syncing}
+            className="h-10 px-5 rounded-[12px] text-[13px] font-semibold flex items-center gap-2 transition disabled:opacity-50"
+            style={{ backgroundColor: BLAST.gold, color: BLAST.dark }}
+          >
+            {syncing ? (
+              <>
+                <span className="animate-spin">⟳</span>
+                Syncing...
+              </>
+            ) : (
+              <>
+                <IconUsers className="h-4 w-4" />
+                Pull from Square API
+              </>
+            )}
+          </button>
+          {syncResult && (
+            <p className={`text-[12px] ${syncResult.error ? "text-red-600" : "text-emerald-600"}`}>
+              {syncResult.error || `✓ ${syncResult.imported} imported, ${syncResult.skipped} skipped (${syncResult.total} total in Square)`}
+            </p>
+          )}
+        </div>
+        <p className="text-[11px] opacity-40 mt-2">
+          Pulls all customers from your Square account. Only numbers with marketing consent imported.
+        </p>
+      </div>
+
+      {/* Upload CSV fallback */}
+      <div
+        className="rounded-[14px] border p-4"
+        style={{ borderColor: BLAST.border, backgroundColor: "white" }}
+      >
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] opacity-60 mb-3">
+          Or Upload CSV (Manual)
         </p>
         <div className="flex items-center gap-4">
           <label
@@ -694,7 +755,7 @@ function Dashboard() {
           )}
         </div>
         <p className="text-[11px] opacity-40 mt-2">
-          Export from Square Dashboard → Customers → Export CSV. Only consented numbers imported.
+          Fallback if API sync fails. Export from Square Dashboard → Customers → Export CSV.
         </p>
       </div>
 
