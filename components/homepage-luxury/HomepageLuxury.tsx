@@ -17,6 +17,10 @@ import {
   LUXURY_FAQ,
   LUXURY_CONTACT,
 } from "@/lib/homepage-luxury";
+import {
+  WEBSITE_HERO_IMAGE,
+  WEBSITE_HERO_IMAGE_ALT,
+} from "@/lib/website-hero";
 
 /* -------------------------------------------------------------------------- */
 /*                                   Icons                                    */
@@ -207,29 +211,19 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* Right: Hero image card */}
+          {/* Right: designed 16:9 hero — keep the full frame so the wordmark and screening line stay intact */}
           <div
-            className="relative aspect-[4/4.6] lg:aspect-[4/5] overflow-hidden rounded-[20px] border shadow-xl"
-            style={{ borderColor: "rgba(0,0,0,0.1)" }}
+            className="relative aspect-video w-full overflow-hidden rounded-[20px] border shadow-xl"
+            style={{ borderColor: "rgba(0,0,0,0.1)", backgroundColor: LUXURY.cream }}
           >
             <Image
-              src="/images/website-hero/hello-gorgeous-medical-spa-hero.jpg"
-              alt="Hello Gorgeous Med Spa storefront in downtown Oswego"
+              src={WEBSITE_HERO_IMAGE}
+              alt={WEBSITE_HERO_IMAGE_ALT}
               fill
-              className="object-cover"
+              className="object-contain"
+              sizes="(min-width: 1024px) 560px, 100vw"
               priority
             />
-            {/* Gradient overlay at bottom */}
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" />
-            {/* Bottom badge */}
-            <div className="absolute bottom-6 left-6 right-6">
-              <p className="text-white text-[11px] font-semibold uppercase tracking-[0.16em] opacity-80">
-                Downtown Oswego
-              </p>
-              <p className="mt-1 text-white text-[22px] font-bold leading-[1.2]">
-                The most advanced skin technology in Oswego.
-              </p>
-            </div>
           </div>
         </div>
       </div>
