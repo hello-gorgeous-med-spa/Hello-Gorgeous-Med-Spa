@@ -9,6 +9,7 @@ import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { LocalSeoConversionStrip } from "@/components/seo/LocalSeoConversionStrip";
 import { HG_ABOUT_BLOCK } from "@/lib/aeo-canonical";
 import { getCityFivePageCopy } from "@/lib/city-five-page-copy";
+import { wellnessVisibilityLead } from "@/lib/gbp-aeo-faqs";
 import {
   GBP_CONTEXTUAL_LINKS,
   geoContextCityForGbpSlug,
@@ -45,6 +46,7 @@ export function GbpLocationPage({ slug }: Props) {
 
   const cityCopy = getCityFivePageCopy(slug);
   const faqs = gbpLocalFaqs(s.name, cityLabel, serviceSlug, slug);
+  const wellnessLead = wellnessVisibilityLead(slug, serviceSlug);
   const cityShort = cityLabel.replace(", IL", "");
   const breadcrumbs = [{ name: "Home", url: SITE.url }, { name: s.name, url: `${SITE.url}/${slug}` }];
   const content = LOCATION_PAGE_CONTENT[slug];
@@ -78,7 +80,12 @@ export function GbpLocationPage({ slug }: Props) {
                 </>
               )}
             </h1>
-            <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">{content?.intro ?? s.heroSubtitle}</p>
+            {wellnessLead ? (
+              <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">{wellnessLead}</p>
+            ) : null}
+            <p className={`${wellnessLead ? "mt-4" : "mt-6"} text-xl text-black max-w-3xl leading-relaxed`}>
+              {content?.intro ?? s.heroSubtitle}
+            </p>
             <p className="mt-6 max-w-3xl text-base leading-relaxed text-black/85 border-l-4 border-[#E6007E] pl-4">
               <span className="font-bold text-[#E6007E]">About Hello Gorgeous: </span>
               {HG_ABOUT_BLOCK}

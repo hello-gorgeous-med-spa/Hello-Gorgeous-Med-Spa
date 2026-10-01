@@ -68,8 +68,8 @@ function peptideCityPage(
     bodyLocation: "Subcutaneous",
     tier: "uncontested",
     heroContent: isNaperville
-      ? "Naperville clients choose Hello Gorgeous in downtown Oswego when they want clinical depth without the Riverwalk traffic or assembly-line telehealth feel. a licensed Illinois clinician prescribes and supervises every peptide protocol — pharmacy-sourced through licensed 503A compounders, never gray-market vials. We offer BPC-157, Sermorelin, GHK-Cu, Tesamorelin, CJC-1295/Ipamorelin, PT-141, NAD+, recovery blends, and GLP-1 options when appropriate. Our clinic is about 15 minutes from south Naperville via Route 59 or Route 34 through Plainfield — close enough for lunch-hour consults and Saturday follow-ups."
-      : `${city} clients choose Hello Gorgeous in downtown Oswego for peptide therapy because a licensed Illinois clinician prescribes and supervises every protocol — pharmacy-sourced, never gray-market. We offer BPC-157, Sermorelin, GHK-Cu, Tesamorelin, PT-141, NAD+, glutathione, and GLP-1 options when appropriate. Our clinic is ${drive} from ${city} (${routeNote}).`,
+      ? "Naperville patients who want peptide therapy come to Hello Gorgeous Med Spa at 74 W. Washington Street in downtown Oswego, about 15 minutes south on Route 59 or west on Route 34. We do not have a Naperville office. A licensed clinician reviews every request before a prescription. Compounded peptides, if prescribed, are not FDA-approved. A request is not a prescription. A licensed Illinois clinician prescribes and supervises every peptide protocol — pharmacy-sourced through licensed 503A compounders, never gray-market vials. We offer BPC-157, Sermorelin, GHK-Cu, Tesamorelin, CJC-1295/Ipamorelin, PT-141, NAD+, recovery blends, and GLP-1 options when appropriate."
+      : `${city} patients who want peptide therapy come to Hello Gorgeous Med Spa at 74 W. Washington Street in downtown Oswego, ${drive}. We do not have a ${city} office. A licensed clinician reviews every request before a prescription. Compounded peptides, if prescribed, are not FDA-approved. A request is not a prescription. A licensed Illinois clinician prescribes and supervises every protocol — pharmacy-sourced, never gray-market. We offer BPC-157, Sermorelin, GHK-Cu, Tesamorelin, PT-141, NAD+, glutathione, and GLP-1 options when appropriate (${routeNote}).`,
     whyBullets: [
       "a licensed Illinois clinician — full prescribing authority on site, not a remote medical director",
       "Licensed US compounding pharmacies only — no research-grade or internet vials",
@@ -93,6 +93,10 @@ function peptideCityPage(
     pricing:
       "Consultation is $49; peptide medications are priced separately. Published starting rates from $149/mo (Sermorelin injectable); BPC-157 from $169/mo; Recovery Blend from $229/mo. Full menu at hellogorgeousmedspa.com/peptides#peptide-pricing. Transparent numbers before you start.",
     faqs: [
+      {
+        q: `Where can I get peptide therapy near ${city}, IL?`,
+        a: `Hello Gorgeous Med Spa does not have a ${city} office. ${city} patients come to 74 W. Washington Street in downtown Oswego, ${drive}. A licensed clinician reviews every request before a prescription. Compounded peptides, if prescribed, are not FDA-approved. A request is not a prescription. Call (630) 636-6193 or book at hellogorgeousmedspa.com/book.`,
+      },
       {
         q: isNaperville
           ? "Where do Naperville clients get peptide therapy?"

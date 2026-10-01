@@ -21,6 +21,23 @@ export const metadata: Metadata = {
   },
 };
 
+const OSWEGO_LASER_FAQS = [
+  {
+    question: "Where is the best laser hair removal in Oswego, IL?",
+    answer:
+      "Hello Gorgeous Med Spa offers laser hair removal at 74 W. Washington Street in downtown Oswego, IL 60543. Treatment areas include face, underarms, bikini, legs, and body. A consult confirms candidacy before a series is booked. Call (630) 636-6193 or book at hellogorgeousmedspa.com/book.",
+  },
+];
+
 export default function LaserHairRemovalOswegoPage() {
-  return <LocationServicePage service={service} area={area} nearbyAreas={nearbyAreas} />;
+  return (
+    <LocationServicePage
+      service={service}
+      area={area}
+      nearbyAreas={nearbyAreas}
+      headline="Laser hair removal in downtown Oswego"
+      localIntro="Hello Gorgeous Med Spa offers laser hair removal at 74 W. Washington Street in downtown Oswego, by the Fox River. Treatment areas include face, underarms, bikini, legs, and body. A consult confirms whether you are a candidate before a series is booked. Patients also come from Montgomery, Yorkville, Plainfield, Aurora, and Naperville. Call (630) 636-6193 or book at hellogorgeousmedspa.com/book."
+      faqs={[...OSWEGO_LASER_FAQS, ...service.faqs]}
+    />
+  );
 }

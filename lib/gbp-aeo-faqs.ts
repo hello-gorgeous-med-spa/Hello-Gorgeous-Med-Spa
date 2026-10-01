@@ -86,6 +86,43 @@ const TREATMENT_FAQ_TEMPLATES: Record<
   },
 };
 
+const WELLNESS_DRIVE: Record<string, string> = {
+  oswego: "at 74 W. Washington Street in downtown Oswego",
+  naperville:
+    "about 15 minutes south on Route 59 or west on Route 34, to 74 W. Washington Street in downtown Oswego",
+  aurora:
+    "about 10–15 minutes south on Route 30 or west on Route 34, to 74 W. Washington Street in downtown Oswego",
+  plainfield:
+    "about 12–15 minutes east on Route 126 to Route 34, to 74 W. Washington Street in downtown Oswego",
+  yorkville:
+    "about 8–10 minutes north on Route 47 to Route 34, to 74 W. Washington Street in downtown Oswego",
+  montgomery: "under 10 minutes south on Route 30, to 74 W. Washington Street in downtown Oswego",
+};
+
+/** First sentence for weight loss, hormone, and peptide city pages. */
+export function wellnessVisibilityLead(gbpSlug: string, serviceSlug: string): string | null {
+  const city = gbpSlug.match(/-(oswego|naperville|aurora|plainfield|yorkville|montgomery)-il$/)?.[1];
+  if (!city) return null;
+  const drive = WELLNESS_DRIVE[city];
+  const cityName = city.charAt(0).toUpperCase() + city.slice(1);
+  const where =
+    city === "oswego"
+      ? `Hello Gorgeous Med Spa is ${drive}.`
+      : `${cityName} patients come to Hello Gorgeous Med Spa, ${drive}. We do not have a ${cityName} office.`;
+  const book = "Call (630) 636-6193 or book at hellogorgeousmedspa.com/book.";
+
+  if (serviceSlug === "weight-loss-therapy") {
+    return `${where} Medical weight loss starts with a nurse practitioner screening before any semaglutide or tirzepatide plan. A compounded GLP-1, if prescribed, is not FDA-approved and is not the same as Ozempic, Wegovy, Mounjaro, or Zepbound. ${book}`;
+  }
+  if (serviceSlug === "biote-hormone-therapy" || serviceSlug === "hormone-therapy") {
+    return `${where} Hormone therapy starts with labs and a nurse practitioner review before any plan. ${book}`;
+  }
+  if (serviceSlug === "sermorelin-growth-peptide" || serviceSlug === "peptide-therapy") {
+    return `${where} Peptide therapy starts with a clinician review. Compounded peptides, if prescribed, are not FDA-approved. A request is not a prescription. ${book}`;
+  }
+  return null;
+}
+
 /**
  * ≥5 extractable Q&As for GBP service×city pages (SEO-001 + SEO-002).
  * Answers lead with the direct fact, then detail (city, NP-directed, compliance).
@@ -100,7 +137,31 @@ export function gbpLocalFaqs(
   const t = TREATMENT_FAQ_TEMPLATES[serviceSlug] || {};
   const cityShort = cityLabel.replace(", IL", "");
   const cityCopyFaqs = gbpSlug ? getCityFivePageCopy(gbpSlug)?.faqs ?? [] : [];
-  const items: Array<{ question: string; answer: string }> = [...cityCopyFaqs];
+  const auditAnswers: Record<string, { question: string; answer: string }> = {
+    "botox-aurora-il": {
+      question: "Where is the best place to get Botox in Aurora, IL?",
+      answer:
+        "Hello Gorgeous Med Spa does not have an Aurora storefront. Aurora patients come to 74 W. Washington Street in downtown Oswego, about 10–15 minutes south on Route 30 or west on Route 34. Licensed nurse practitioners inject Botox, Dysport, and Jeuveau after a medical screening. Book at hellogorgeousmedspa.com/book or call (630) 636-6193.",
+    },
+  };
+  const wellnessLead = gbpSlug ? wellnessVisibilityLead(gbpSlug, serviceSlug) : null;
+  if (gbpSlug && wellnessLead) {
+    const cityShortName = cityLabel.replace(", IL", "");
+    const topic =
+      serviceSlug === "weight-loss-therapy"
+        ? "medical weight loss"
+        : serviceSlug === "biote-hormone-therapy" || serviceSlug === "hormone-therapy"
+          ? "hormone therapy"
+          : "peptide therapy";
+    auditAnswers[gbpSlug] = {
+      question: `Where can I get ${topic} near ${cityShortName}, IL?`,
+      answer: wellnessLead,
+    };
+  }
+  const items: Array<{ question: string; answer: string }> = [
+    ...(gbpSlug && auditAnswers[gbpSlug] ? [auditAnswers[gbpSlug]] : []),
+    ...cityCopyFaqs,
+  ];
 
   const seen = new Set(items.map((f) => f.question.toLowerCase()));
   const pushUnique = (question: string, answer: string) => {
