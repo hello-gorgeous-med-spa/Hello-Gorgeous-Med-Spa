@@ -44,7 +44,7 @@ export type TeamMember = {
 };
 
 export const MEET_THE_TEAM_SEO_DESCRIPTION =
-  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Danielle Alcala-Glazier, Ryan Kent, FNP-BC (RE GEN RX prescriber), Kristina Huda, BSN, RN (injector), Dr. Mukesh Arora, MD, plus Michelle Colby, Laura Witt, and Jen Vokoun.";
+  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Danielle Alcala-Glazier, Ryan Kent, FNP-BC (RE GEN RX prescriber), Kristina Huda, BSN, RN (injector), Dr. Mukesh Arora, MD, plus Angel Ruggiero, Michelle Colby, Laura Witt, and Jen Vokoun.";
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
@@ -67,6 +67,34 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "IV hydration",
       "Vitamin infusions",
       "Wellness support",
+    ],
+  },
+  {
+    id: "angel-ruggiero",
+    slug: "angel-ruggiero",
+    fullName: "Angel Ruggiero",
+    badge: "CNA · Esthetician",
+    title: "Certified Nursing Assistant · Licensed Esthetician",
+    isNewHire: true,
+    image: {
+      src: "/images/team/angel-ruggiero-2026.jpg",
+      alt: "Angel Ruggiero, certified nursing assistant and licensed esthetician at Hello Gorgeous Med Spa in Oswego, IL",
+      objectClassName: "object-cover object-center",
+    },
+    quote:
+      "I am so excited to join this team. My goal is to finish nursing school and become a nurse practitioner — and I am grateful to start that path here.",
+    bioParagraphs: [
+      "Angel Ruggiero joins Hello Gorgeous Med Spa as a certified nursing assistant and licensed esthetician. She is so excited to be here, and she brings a calm, guest-first approach to skincare and clinical support.",
+      "Angel has spent eight years in the beauty industry, including student advising and campus leadership at beauty colleges, before completing her aesthetics training at Universal Spa Training Academy. Her work includes skin analysis, customized facials, chemical peels, dermaplaning, brow tinting and lamination, and lash services, with a careful standard for sanitation and infection control. She is also CPR/AED certified.",
+      "She studied general coursework with a nursing focus at Joliet Junior College and is working toward finishing nursing school as a nurse practitioner. At Hello Gorgeous she is here to care for guests now, learn beside the clinical team, and grow into the provider she is becoming.",
+    ],
+    specialties: [
+      "Certified CNA",
+      "Skin analysis",
+      "Custom facials",
+      "Chemical peels",
+      "Dermaplaning",
+      "Brows & lashes",
     ],
   },
   {
