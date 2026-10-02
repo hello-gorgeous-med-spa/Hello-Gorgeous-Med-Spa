@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useCallback, type ReactNode, type DragEvent } from "react";
+import { useCallback, useEffect, useState, type DragEvent, type ReactNode } from "react";
 import {
   BLAST,
   BLAST_AUDIENCES,
   BLAST_TEMPLATES,
   BLAST_FOOTER,
   BLAST_COMPLIANCE,
-  BLAST_HISTORY_SAMPLE,
   calculateBlastCost,
   formatMergeField,
   detectPhiWarnings,
@@ -15,6 +14,72 @@ import {
   type BlastAudience,
   type BlastTemplate,
 } from "@/lib/sms-blast";
+
+type LiveAudience = { id: string; count: number };
+
+type LiveBlast = {
+  id: string;
+  audience_id: string;
+  message: string;
+  recipient_count: number;
+  accepted_count: number | null;
+  delivered_count: number | null;
+  failed_count: number | null;
+  undelivered_count: number | null;
+  status: string;
+  sent_at: string | null;
+  created_at: string;
+};
+
+type TwilioFailure = {
+  at: string | null;
+  toLast4: string;
+  status: string;
+  errorCode: string | null;
+  errorMessage: string | null;
+};
+
+type TwilioLive = {
+  since: string;
+  outbound: number;
+  byStatus: Record<string, number>;
+  priceUsd: number;
+  failures: TwilioFailure[];
+  error?: string;
+};
+
+type BlastReport = {
+  loading: boolean;
+  error?: string;
+  totalContacts: number | null;
+  optedOut: number | null;
+  audiences: LiveAudience[];
+  blasts: LiveBlast[];
+  twilio: TwilioLive | null;
+};
+
+const EMPTY_REPORT: BlastReport = {
+  loading: true,
+  totalContacts: null,
+  optedOut: null,
+  audiences: [],
+  blasts: [],
+  twilio: null,
+};
+
+function audienceLabel(id: string) {
+  return BLAST_AUDIENCES.find((audience) => audience.id === id)?.label ?? id;
+}
+
+function formatWhen(value: string | null) {
+  if (!value) return "Not sent";
+  return new Date(value).toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                   Icons                                    */
@@ -277,8 +342,16 @@ function IPhonePreview({
 /*                               Blast Composer                               */
 /* -------------------------------------------------------------------------- */
 
-function BlastComposer() {
-  const [selectedAudience, setSelectedAudience] = useState<BlastAudience>(BLAST_AUDIENCES[1]);
+function BlastComposer({
+  audiences,
+  onFinished,
+}: {
+  audiences: BlastAudience[];
+  onFinished: () => void;
+}) {
+  const [selectedAudience, setSelectedAudience] = useState<BlastAudience>(
+    audiences[1] ?? audiences[0] ?? BLAST_AUDIENCES[1],
+  );
   const [message, setMessage] = useState(BLAST_TEMPLATES[0].message);
   const [imageUrl, setImageUrl] = useState<string | undefined>();
   const [imagePreview, setImagePreview] = useState<string | undefined>();
@@ -289,6 +362,11 @@ function BlastComposer() {
   const [sending, setSending] = useState(false);
   const [testPhone, setTestPhone] = useState("");
   const [result, setResult] = useState<{ success?: boolean; message?: string } | null>(null);
+
+  useEffect(() => {
+    if (audiences.length === 0) return;
+    setSelectedAudience((current) => audiences.find((audience) => audience.id === current.id) ?? audiences[0]);
+  }, [audiences]);
 
   const isMms = !!imageUrl;
   const cost = calculateBlastCost(selectedAudience.count, isMms);
@@ -313,21 +391,52 @@ function BlastComposer() {
         }),
       });
       const data = await res.json();
-      if (data.success) {
-        if (isTest) {
-          const mmsNote = data.debug?.hasMms ? " (MMS)" : " (SMS)";
-          const sidNote = data.messageId ? ` • SID: ${data.messageId}` : "";
-          setResult({ success: true, message: `Test sent to ${testPhone}${mmsNote}${sidNote}` });
-        } else {
-          setResult({ success: true, message: `Blast sent! ${data.sent}/${data.total} delivered` });
-        }
-      } else {
+      if (!data.success) {
         setResult({ success: false, message: data.error || "Failed to send" });
+        return;
       }
-    } catch (err) {
+      if (isTest) {
+        const mmsNote = data.debug?.hasMms ? " (MMS)" : " (SMS)";
+        const sidNote = data.messageId ? ` • SID: ${data.messageId}` : "";
+        setResult({ success: true, message: `Test accepted by Twilio for ${testPhone}${mmsNote}${sidNote}` });
+        return;
+      }
+
+      let blastId: string | undefined = data.blastId;
+      let latest = data;
+      let guard = 0;
+      while (!latest.done && guard < 250) {
+        guard += 1;
+        setResult({
+          success: true,
+          message: `Sending… Twilio accepted ${latest.sent ?? 0} of ${latest.total ?? 0}. ${latest.remaining ?? 0} still queued.`,
+        });
+        const next = await fetch("/api/admin/sms-blast", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            blastId,
+            consentConfirmed: consentChecked,
+          }),
+        });
+        latest = await next.json();
+        if (!latest.success) {
+          setResult({ success: false, message: latest.error || "Blast stopped before the queue finished" });
+          onFinished();
+          return;
+        }
+        blastId = latest.blastId;
+      }
+      setResult({
+        success: true,
+        message: `Twilio accepted ${latest.sent ?? 0} of ${latest.total ?? 0}. Delivered so far ${latest.delivered ?? 0}. Failed ${latest.failed ?? 0}. Delivery keeps updating as carriers report back.`,
+      });
+      onFinished();
+    } catch {
       setResult({ success: false, message: "Network error" });
+    } finally {
+      setSending(false);
     }
-    setSending(false);
   };
 
   const handleDrop = useCallback(async (e: DragEvent) => {
@@ -389,7 +498,7 @@ function BlastComposer() {
             Select Audience
           </p>
           <div className="flex flex-wrap gap-2">
-            {BLAST_AUDIENCES.map((aud) => (
+            {(audiences.length ? audiences : BLAST_AUDIENCES).map((aud) => (
               <Pill
                 key={aud.id}
                 active={selectedAudience.id === aud.id}
@@ -658,7 +767,13 @@ function BlastComposer() {
 /*                               Dashboard                                    */
 /* -------------------------------------------------------------------------- */
 
-function Dashboard() {
+function Dashboard({
+  report,
+  onRefresh,
+}: {
+  report: BlastReport;
+  onRefresh: () => void;
+}) {
   const [syncing, setSyncing] = useState(false);
   const [syncResult, setSyncResult] = useState<{ imported?: number; skipped?: number; total?: number; error?: string } | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -717,7 +832,9 @@ function Dashboard() {
       <div>
         <h1 className="text-[22px] font-semibold">SMS Blast Dashboard</h1>
         <p className="text-[14px] opacity-60 mt-1">
-          342 due for injectables • Send in 60 sec
+          {report.loading
+            ? "Pulling live Twilio status…"
+            : `${report.totalContacts ?? 0} contacts can receive SMS • ${report.optedOut ?? 0} opted out`}
         </p>
       </div>
 
@@ -794,14 +911,51 @@ function Dashboard() {
         </p>
       </div>
 
-      {/* Stats */}
+      <TwilioStatusCard report={report} onRefresh={onRefresh} />
+
+      <BlastList blasts={report.blasts} loading={report.loading} />
+    </div>
+  );
+}
+
+function TwilioStatusCard({
+  report,
+  onRefresh,
+}: {
+  report: BlastReport;
+  onRefresh: () => void;
+}) {
+  const twilio = report.twilio;
+  const delivered = twilio?.byStatus.delivered ?? 0;
+  const failed = (twilio?.byStatus.failed ?? 0) + (twilio?.byStatus.undelivered ?? 0);
+  const pending = (twilio?.byStatus.sent ?? 0) + (twilio?.byStatus.queued ?? 0) + (twilio?.byStatus.sending ?? 0) + (twilio?.byStatus.accepted ?? 0);
+  const stats = [
+    { label: "Twilio outbound", value: twilio ? String(twilio.outbound) : "—", sub: "Last 14 days" },
+    { label: "Delivered", value: twilio ? String(delivered) : "—", sub: "Carrier confirmed" },
+    { label: "Failed", value: twilio ? String(failed) : "—", sub: "Failed or undelivered" },
+    { label: "Twilio billed", value: twilio ? `$${twilio.priceUsd.toFixed(2)}` : "—", sub: pending ? `${pending} still in flight` : "From Twilio prices" },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] opacity-60">
+          Live from Twilio
+        </p>
+        <button
+          type="button"
+          onClick={onRefresh}
+          disabled={report.loading}
+          className="text-[12px] px-3 py-1.5 rounded-full border bg-white disabled:opacity-50"
+          style={{ borderColor: BLAST.border }}
+        >
+          {report.loading ? "Refreshing…" : "Refresh Twilio"}
+        </button>
+      </div>
+      {report.error ? <p className="text-[13px] text-red-600">{report.error}</p> : null}
+      {twilio?.error ? <p className="text-[13px] text-red-600">{twilio.error}</p> : null}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {[
-          { label: "Total Contacts", value: "1,931", sub: "Verified SMS consent" },
-          { label: "Avg Deliverability", value: "98.5%", sub: "Industry 97%" },
-          { label: "Avg CTR (MMS)", value: "3.2%", sub: "Industry 1.2%" },
-          { label: "Saved vs Fresha", value: "$847", sub: "Avg last 4 blasts" },
-        ].map((stat) => (
+        {stats.map((stat) => (
           <div
             key={stat.label}
             className="rounded-[14px] border p-4"
@@ -813,34 +967,53 @@ function Dashboard() {
           </div>
         ))}
       </div>
-
-      {/* Recent blasts */}
-      <div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] opacity-60 mb-3">
-          Recent Blasts
-        </p>
-        <div className="space-y-3">
-          {BLAST_HISTORY_SAMPLE.map((item) => (
-            <div
-              key={item.id}
-              className="rounded-[14px] border p-4 flex items-center justify-between"
-              style={{ borderColor: BLAST.border, backgroundColor: "white" }}
-            >
-              <div>
-                <p className="text-[14px] font-medium">{item.audience}</p>
-                <p className="text-[12px] opacity-50">
-                  {item.date} • {item.audienceCount} sent • {item.delivered} delivered
-                </p>
-              </div>
-              <div className="text-right">
-                <GoldBadge>${item.cost.toFixed(2)}</GoldBadge>
-                {item.replied && (
-                  <p className="text-[11px] opacity-50 mt-1">{item.replied} replies</p>
-                )}
-              </div>
-            </div>
-          ))}
+      {twilio && twilio.failures.length > 0 ? (
+        <div className="rounded-[14px] border p-4" style={{ borderColor: BLAST.border, backgroundColor: "white" }}>
+          <p className="text-[13px] font-semibold mb-2">Messages that did not land</p>
+          <div className="space-y-2">
+            {twilio.failures.slice(0, 8).map((failure) => (
+              <p key={`${failure.at}-${failure.toLast4}-${failure.errorCode}`} className="text-[12px] opacity-70">
+                {failure.toLast4} · {failure.status}
+                {failure.errorCode ? ` · ${failure.errorCode}` : ""}
+                {failure.errorMessage ? ` · ${failure.errorMessage}` : ""}
+              </p>
+            ))}
+          </div>
         </div>
+      ) : null}
+    </div>
+  );
+}
+
+function BlastList({ blasts, loading }: { blasts: LiveBlast[]; loading: boolean }) {
+  return (
+    <div>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] opacity-60 mb-3">
+        Blasts saved in Hello Gorgeous
+      </p>
+      {loading ? <p className="text-[13px] opacity-50">Loading…</p> : null}
+      {!loading && blasts.length === 0 ? (
+        <p className="text-[13px] opacity-60">
+          No blast has been saved in the app yet. Twilio charges above are the account record. The next send will keep a row for every number.
+        </p>
+      ) : null}
+      <div className="space-y-3">
+        {blasts.map((item) => (
+          <div
+            key={item.id}
+            className="rounded-[14px] border p-4"
+            style={{ borderColor: BLAST.border, backgroundColor: "white" }}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-[14px] font-medium">{audienceLabel(item.audience_id)}</p>
+              <GoldBadge>{item.status}</GoldBadge>
+            </div>
+            <p className="text-[13px] opacity-70 truncate mt-1">{item.message}</p>
+            <p className="text-[12px] opacity-50 mt-2">
+              {formatWhen(item.sent_at || item.created_at)} · {item.recipient_count} queued · {item.accepted_count ?? 0} accepted · {item.delivered_count ?? 0} delivered · {item.failed_count ?? 0} failed
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -906,6 +1079,44 @@ function ComplianceTab() {
 
 export function SmsBlastPanel() {
   const [activeTab, setActiveTab] = useState("blast");
+  const [report, setReport] = useState<BlastReport>(EMPTY_REPORT);
+
+  const refresh = useCallback(async () => {
+    setReport((current) => ({ ...current, loading: true, error: undefined }));
+    try {
+      const res = await fetch("/api/admin/sms-blast?live=1", { cache: "no-store" });
+      const data = await res.json();
+      if (!res.ok) {
+        setReport((current) => ({
+          ...current,
+          loading: false,
+          error: data.error || "Could not load SMS results",
+        }));
+        return;
+      }
+      setReport({
+        loading: false,
+        totalContacts: data.stats?.totalContacts ?? 0,
+        optedOut: data.stats?.optedOut ?? 0,
+        audiences: data.stats?.audiences ?? [],
+        blasts: data.blasts ?? [],
+        twilio: data.twilio ?? null,
+        error: data.blastsError || undefined,
+      });
+    } catch {
+      setReport((current) => ({ ...current, loading: false, error: "Network error loading SMS results" }));
+    }
+  }, []);
+
+  useEffect(() => {
+    void refresh();
+  }, [refresh]);
+
+  const liveAudiences: BlastAudience[] = BLAST_AUDIENCES.map((audience) => {
+    const live = report.audiences.find((row) => row.id === audience.id);
+    return live ? { ...audience, count: live.count } : { ...audience, count: 0 };
+  });
+  const dueCount = liveAudiences.find((audience) => audience.id === "injectables-due")?.count;
 
   return (
     <div className="min-h-screen w-full flex selection:bg-[#D4AF37]/30" style={{ backgroundColor: BLAST.cream, color: BLAST.dark }}>
@@ -946,7 +1157,7 @@ export function SmsBlastPanel() {
             </h1>
             {activeTab === "blast" && (
               <span className="hidden md:inline-flex text-[11px] px-2.5 py-1 rounded-full border bg-white" style={{ borderColor: "#E8DCC6" }}>
-                {BLAST_AUDIENCES[1].count} due for injectables
+                {report.loading ? "…" : dueCount ?? 0} due for injectables
               </span>
             )}
           </div>
@@ -963,14 +1174,14 @@ export function SmsBlastPanel() {
         </div>
 
         {/* Content */}
-        {activeTab === "dashboard" && <Dashboard />}
-        {activeTab === "blast" && <BlastComposer />}
+        {activeTab === "dashboard" && <Dashboard report={report} onRefresh={refresh} />}
+        {activeTab === "blast" && <BlastComposer audiences={liveAudiences} onFinished={refresh} />}
         {activeTab === "compliance" && <ComplianceTab />}
         {activeTab === "audiences" && (
           <div className="p-6">
             <h2 className="text-[22px] font-semibold mb-4">Audiences</h2>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {BLAST_AUDIENCES.map((aud) => (
+              {liveAudiences.map((aud) => (
                 <div
                   key={aud.id}
                   className="rounded-[14px] border p-4"
@@ -987,30 +1198,10 @@ export function SmsBlastPanel() {
           </div>
         )}
         {activeTab === "history" && (
-          <div className="p-6">
-            <h2 className="text-[22px] font-semibold mb-4">Blast History</h2>
-            <div className="space-y-3">
-              {BLAST_HISTORY_SAMPLE.map((item) => (
-                <div
-                  key={item.id}
-                  className="rounded-[14px] border p-4"
-                  style={{ borderColor: BLAST.border, backgroundColor: "white" }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <p className="text-[14px] font-semibold">{item.audience}</p>
-                    <GoldBadge>${item.cost.toFixed(2)}</GoldBadge>
-                  </div>
-                  <p className="text-[13px] opacity-70 truncate">{item.message}</p>
-                  <div className="flex items-center gap-4 mt-2 text-[12px] opacity-50">
-                    <span>{item.date}</span>
-                    <span>{item.audienceCount} sent</span>
-                    <span>{item.delivered} delivered</span>
-                    {item.replied && <span>{item.replied} replies</span>}
-                    <span className="ml-auto">{item.sentBy}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="p-6 space-y-6">
+            <h2 className="text-[22px] font-semibold">Blast History</h2>
+            <TwilioStatusCard report={report} onRefresh={refresh} />
+            <BlastList blasts={report.blasts} loading={report.loading} />
           </div>
         )}
       </div>

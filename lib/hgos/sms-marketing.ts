@@ -22,6 +22,8 @@ export interface SMSMessage {
   to: string; // Phone number
   body: string;
   mediaUrl?: string; // For MMS
+  /** Twilio delivery callback. Set on blasts so the panel can show delivered vs failed. */
+  statusCallback?: string;
 }
 
 export interface SMSCampaign {
@@ -321,6 +323,9 @@ export async function sendViaTwilio(
     }
     if (message.mediaUrl) {
       params.set("MediaUrl", message.mediaUrl);
+    }
+    if (message.statusCallback) {
+      params.set("StatusCallback", message.statusCallback);
     }
 
     const response = await fetch(

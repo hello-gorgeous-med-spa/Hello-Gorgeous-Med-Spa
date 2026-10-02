@@ -1,6 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { applyTwilioStatus } from "@/lib/sms-blast-delivery";
 import { twilioSignatureValid } from "@/lib/twilio-webhook";
+
+const DELIVERY_STATUSES = new Set([
+  "queued",
+  "accepted",
+  "sending",
+  "sent",
+  "delivered",
+  "undelivered",
+  "failed",
+]);
 
 export const dynamic = "force-dynamic";
 
@@ -27,7 +38,31 @@ export async function POST(request: NextRequest) {
 
     const from = formObject.From || "";
     const body = (formObject.Body || "").trim().toUpperCase();
-    const messageSid = formObject.MessageSid || "";
+    const messageSid = formObject.MessageSid || formObject.SmsSid || "";
+    const messageStatus = (formObject.MessageStatus || formObject.SmsStatus || "").toLowerCase();
+
+    if (messageSid && DELIVERY_STATUSES.has(messageStatus)) {
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      );
+      try {
+        await applyTwilioStatus(supabase, {
+          sid: messageSid,
+          status: messageStatus,
+          errorCode: formObject.ErrorCode || null,
+          errorMessage: formObject.ErrorMessage || null,
+        });
+      } catch (statusError) {
+        console.error("Twilio delivery status update failed:", statusError);
+      }
+      if (!body) {
+        return new NextResponse(
+          '<?xml version="1.0" encoding="UTF-8"?><Response></Response>',
+          { status: 200, headers: { "Content-Type": "text/xml" } },
+        );
+      }
+    }
 
     console.log(`[Twilio SMS] From: ${from}, Body: ${body}`);
 
