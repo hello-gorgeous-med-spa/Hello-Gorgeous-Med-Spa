@@ -1443,6 +1443,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/quantum-rf-oswego',
     '/solaria-co2-oswego',
     '/glp-1-weight-loss-oswego',
+    '/weight-loss/care',
     '/semaglutide-oswego',
     '/tirzepatide-oswego',
     '/biote-hormone-therapy-oswego',

@@ -68,6 +68,11 @@ export const MEDICAL_NAV = {
       dividerBefore: true,
     },
     {
+      label: "Weight loss, simplified",
+      href: "/weight-loss/care",
+      sub: "GLP-1 intake · clinician reviews before any invoice",
+    },
+    {
       label: "Peptide Therapy",
       href: "/peptides",
       sub: "Pricing, protocols & FAQs",
@@ -116,6 +121,7 @@ export const MEDICAL_ACTIVE_PREFIXES = [
   "/gentlemens-club",
   "/ladies-club",
   "/glp-1-weight-loss-oswego",
+  "/weight-loss/care",
   "/glp1-weight-loss",
   "/biote-hormone-therapy-oswego",
   "/peptide-therapy-oswego",

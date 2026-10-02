@@ -113,6 +113,15 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
         heading: "Program",
         items: [
           {
+            id: "weight-loss-care",
+            label: "Weight loss, simplified",
+            href: "/weight-loss/care",
+            badge: "NEW",
+            tagline: "Semaglutide & tirzepatide · clinician reviews first",
+            imageSrc: "/images/gentlemens-club/tirzepatide-weight-loss.png",
+            imageAlt: "Hello Gorgeous GLP-1 weight loss care",
+          },
+          {
             id: "weight-loss-membership",
             label: "Weight loss membership",
             href: "/glp1-weight-loss/membership",
