@@ -212,13 +212,6 @@ const FACIALS_MENU: CategoryLink[] = [
   { href: BROW_MICROBLADING_NAV.href, label: "Brows", sub: "Microblading and brow PMU" },
 ];
 
-const WEIGHT_LOSS_MENU: CategoryLink[] = [
-  { href: "/weight-loss/care", label: "Weight loss, simplified", sub: "Semaglutide and tirzepatide" },
-  { href: "/glp-1-weight-loss-oswego", label: "Program overview", sub: "What to expect in Oswego" },
-  { href: "/glp1-intake", label: "Start intake", sub: "A clinician reviews before any invoice" },
-  { href: "/glp1-refill", label: "GLP-1 refill", sub: "Existing patients" },
-];
-
 const ADVANCED_LASERS_MENU: CategoryLink[] = [
   { href: MORPHEUS8_PATH, label: "Morpheus8", sub: "RF microneedling" },
   { href: SOLARIA_CO2_PATH, label: "Solaria CO₂", sub: "Fractional laser resurfacing" },
@@ -827,16 +820,15 @@ export function Header() {
               ) : null}
             </div>
 
-            <CategoryMenu
-              id="weight-loss"
-              label="Weight Loss"
-              href="/weight-loss/care"
-              links={WEIGHT_LOSS_MENU}
-              active={isWeightLossNavActive}
-              open={activeDropdown === "weight-loss"}
-              onOpen={() => openDropdown("weight-loss")}
-              onClose={closeDropdown}
-            />
+            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
+              <Link
+                href="/weight-loss/care"
+                className={NAV_LINK_BASE}
+                style={navPillStyle(0, isWeightLossNavActive)}
+              >
+                Weight Loss
+              </Link>
+            </div>
 
             <CategoryMenu
               id="lasers"
@@ -1026,6 +1018,14 @@ export function Header() {
             </div>
 
             <Link
+              href="/weight-loss/care"
+              onClick={() => setMobileOpen(false)}
+              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
+            >
+              <span>Weight Loss</span>
+            </Link>
+
+            <Link
               href={IV_THERAPY_PATH}
               onClick={() => setMobileOpen(false)}
               className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
@@ -1038,7 +1038,6 @@ export function Header() {
 
             {[
               { key: "facials", label: "Facials", links: FACIALS_MENU },
-              { key: "weight-loss", label: "Weight Loss", links: WEIGHT_LOSS_MENU },
               { key: "lasers", label: "Advanced Lasers", links: ADVANCED_LASERS_MENU },
               { key: "services", label: "Services", links: NAV.services.sections.flatMap((s) => s.links) },
               {

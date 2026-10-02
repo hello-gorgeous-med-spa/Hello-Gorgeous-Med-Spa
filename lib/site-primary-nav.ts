@@ -23,7 +23,7 @@ export const PRIMARY_NAV_HUBS = [
   { id: "services", label: "Services", href: "/services", hasDropdown: true },
   { id: "facials", label: "Facials", href: FACIALS_PEELS_MENU_PATH, hasDropdown: true },
   { id: "injectables", label: INJECTABLES_NAV.label, href: INJECTABLES_PATH, hasDropdown: true },
-  { id: "weight-loss", label: "Weight Loss", href: "/weight-loss/care", hasDropdown: true },
+  { id: "weight-loss", label: "Weight Loss", href: "/weight-loss/care", hasDropdown: false },
   { id: "lasers", label: "Advanced Lasers", href: MORPHEUS8_PATH, hasDropdown: true },
   { id: "iv-therapy", label: IV_THERAPY_NAV.label, href: IV_THERAPY_PATH, hasDropdown: false },
   { id: "shop-rx", label: SHOP_RX_NAV.label, href: SHOP_RX_NAV.href, hasDropdown: true },

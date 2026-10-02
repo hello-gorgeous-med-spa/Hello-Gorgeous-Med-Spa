@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
 
 import { Glp1CareLanding } from "@/components/weight-loss/Glp1CareLanding";
-import { faqJsonLd, pageMetadata, SITE } from "@/lib/seo";
+import { faqJsonLd, pageMetadata } from "@/lib/seo";
 
 const FAQS = [
   {
-    question: "Where is Hello Gorgeous Med Spa?",
-    answer: `Hello Gorgeous Med Spa is at ${SITE.address.streetAddress}, ${SITE.address.addressLocality}, ${SITE.address.addressRegion} ${SITE.address.postalCode}. A licensed Illinois clinician reviews GLP-1 care before any medication invoice.`,
+    question: "Where is Hello Gorgeous Med Spa located?",
+    answer: `74 W Washington St, Oswego IL 60543 — serving Naperville, Aurora, Plainfield, Kendall County. Free parking.`,
   },
   {
     question: "Is this FDA-approved or compounded?",
     answer:
-      "Compounded semaglutide and tirzepatide are not FDA-approved. They are not generics and are not the same as Wegovy, Ozempic, Mounjaro, or Zepbound.",
+      "We prescribe FDA-approved Wegovy® and Zepbound® when clinically appropriate and available. Compounded semaglutide/tirzepatide via 503A pharmacy only when appropriate per clinician judgment. Compounded not FDA-approved.",
   },
   {
     question: "Who provides oversight?",
     answer:
-      "Dr. Mukesh Arora, MD is the medical director. Ryan Kent, FNP-BC reviews every GLP-1 request. A request is not a prescription.",
+      "Dr Mukesh Arora MD 30+ years Internal Medicine is Medical Director. Owner Danielle Alcala-Glazier RN-S leads daily practice. NP on-site 6 days.",
   },
   {
-    question: "Do I pay for medication on this page?",
-    answer: "No. Book a consult. You pay a clinic invoice only after a clinician approves a plan.",
+    question: "What's the difference between Tirzepatide and Semaglutide?",
+    answer:
+      "Tirzepatide dual GIP/GLP-1, SURMOUNT trials 16-22.5% weight reduction. Semaglutide single GLP-1, STEP trials ~15%. Different mechanisms — not necessarily better for every patient.",
   },
 ];
 
