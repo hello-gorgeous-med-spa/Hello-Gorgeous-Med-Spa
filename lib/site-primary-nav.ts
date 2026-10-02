@@ -5,11 +5,8 @@
 
 import { REGEN_REFILL_PATH, RX_PATIENT_CARE_PATH } from "@/lib/flows";
 import { LABS_NAV } from "@/lib/labs-nav";
-import { BROW_MICROBLADING_NAV } from "@/lib/brow-journey-marketing";
-import { FACIALS_PEELS_MENU_PATH, FACIALS_PEELS_NAV } from "@/lib/facials-peels-menu";
+import { FACIALS_PEELS_MENU_PATH } from "@/lib/facials-peels-menu";
 import { MORPHEUS8_PATH } from "@/lib/morpheus8-marketing";
-import { SOLARIA_CO2_PATH } from "@/lib/solaria-marketing";
-import { QUANTUM_RF_PATH } from "@/lib/quantum-rf-marketing";
 import { INJECTABLES_NAV, INJECTABLES_PATH } from "@/lib/injectables-marketing";
 import { GENTLEMENS_CLUB_PATH } from "@/lib/gentlemens-club";
 import { LADIES_CLUB_PATH } from "@/lib/ladies-club";
@@ -24,18 +21,11 @@ import { BUILD_YOUR_PROPOSAL_NAV } from "@/lib/build-your-proposal-marketing";
 
 export const PRIMARY_NAV_HUBS = [
   { id: "services", label: "Services", href: "/services", hasDropdown: true },
-  { id: "facials", label: FACIALS_PEELS_NAV.label, href: FACIALS_PEELS_MENU_PATH, hasDropdown: false },
+  { id: "facials", label: "Facials", href: FACIALS_PEELS_MENU_PATH, hasDropdown: true },
   { id: "injectables", label: INJECTABLES_NAV.label, href: INJECTABLES_PATH, hasDropdown: true },
+  { id: "weight-loss", label: "Weight Loss", href: "/weight-loss/care", hasDropdown: true },
+  { id: "lasers", label: "Advanced Lasers", href: MORPHEUS8_PATH, hasDropdown: true },
   { id: "iv-therapy", label: IV_THERAPY_NAV.label, href: IV_THERAPY_PATH, hasDropdown: false },
-  {
-    id: "microblading",
-    label: BROW_MICROBLADING_NAV.label,
-    href: BROW_MICROBLADING_NAV.href,
-    hasDropdown: false,
-  },
-  { id: "morpheus8", label: "Morpheus8", href: MORPHEUS8_PATH, hasDropdown: false },
-  { id: "solaria", label: "Solaria CO₂", href: SOLARIA_CO2_PATH, hasDropdown: false },
-  { id: "quantum", label: "Quantum RF", href: QUANTUM_RF_PATH, hasDropdown: false },
   { id: "shop-rx", label: SHOP_RX_NAV.label, href: SHOP_RX_NAV.href, hasDropdown: true },
   { id: "specials", label: "Specials", href: SPECIALS_PATH, hasDropdown: true },
   { id: "about", label: "About", href: "/about", hasDropdown: true },

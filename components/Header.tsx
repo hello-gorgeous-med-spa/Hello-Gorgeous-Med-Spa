@@ -31,7 +31,6 @@ import {
 import { BIOSTIMULATORS_PATH, isBiostimulatorsNavActive } from "@/lib/biostimulators-marketing";
 import {
   FACIALS_PEELS_MENU_PATH,
-  FACIALS_PEELS_NAV,
   isFacialsPeelsNavActive,
 } from "@/lib/facials-peels-menu";
 import { IV_THERAPY_NAV, IV_THERAPY_PATH, isIvTherapyNavActive } from "@/lib/iv-therapy-marketing";
@@ -45,7 +44,7 @@ import {
 import { isMedicalNavActive } from "@/lib/medical-nav";
 import { labsNavSection } from "@/lib/labs-nav";
 import { medicalMegaMenuMobileGroups, SHOP_RX_NAV } from "@/lib/medical-mega-menu";
-import { FORMULATION_HUB_LINKS, FORMULATION_NAV_LABEL } from "@/lib/regen/formulation-partner";
+import { FORMULATION_HUB_LINKS } from "@/lib/regen/formulation-partner";
 import { REGEN_RX_PUBLIC_URL } from "@/lib/regen-partnership";
 import { QUIZ_NAV } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
@@ -206,6 +205,27 @@ const NAV_LINK_BASE =
 
 const MEGA_MENU_TOP = "top-[7.75rem]";
 
+type CategoryLink = { href: string; label: string; sub: string; external?: boolean };
+
+const FACIALS_MENU: CategoryLink[] = [
+  { href: FACIALS_PEELS_MENU_PATH, label: "Facials & peels", sub: "HydraFacial, peels, and dermaplaning" },
+  { href: BROW_MICROBLADING_NAV.href, label: "Brows", sub: "Microblading and brow PMU" },
+];
+
+const WEIGHT_LOSS_MENU: CategoryLink[] = [
+  { href: "/weight-loss/care", label: "Weight loss, simplified", sub: "Semaglutide and tirzepatide" },
+  { href: "/glp-1-weight-loss-oswego", label: "Program overview", sub: "What to expect in Oswego" },
+  { href: "/glp1-intake", label: "Start intake", sub: "A clinician reviews before any invoice" },
+  { href: "/glp1-refill", label: "GLP-1 refill", sub: "Existing patients" },
+];
+
+const ADVANCED_LASERS_MENU: CategoryLink[] = [
+  { href: MORPHEUS8_PATH, label: "Morpheus8", sub: "RF microneedling" },
+  { href: SOLARIA_CO2_PATH, label: "Solaria CO₂", sub: "Fractional laser resurfacing" },
+  { href: QUANTUM_RF_PATH, label: "Quantum RF", sub: "Skin tightening" },
+  { href: "/services/laser-hair-removal", label: "Laser hair removal", sub: "Face and body" },
+];
+
 function navPillStyle(accentIndex: number, active: boolean): CSSProperties {
   const accent = trifectaAccent(accentIndex);
   if (active) {
@@ -220,6 +240,95 @@ function navPillStyle(accentIndex: number, active: boolean): CSSProperties {
     border: `1px solid ${accent.border}`,
     color: accent.subtitle,
   };
+}
+
+function CategoryMenu({
+  id,
+  label,
+  href,
+  links,
+  active,
+  open,
+  external,
+  onOpen,
+  onClose,
+}: {
+  id: string;
+  label: string;
+  href: string;
+  links: CategoryLink[];
+  active: boolean;
+  open: boolean;
+  external?: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+}) {
+  const triggerClass = NAV_LINK_BASE;
+  const triggerStyle = navPillStyle(0, active);
+  const triggerProps = {
+    className: triggerClass,
+    style: triggerStyle,
+    onFocus: onOpen,
+    "aria-haspopup": "true" as const,
+    "aria-expanded": open,
+    "aria-controls": `${id}-menu`,
+  };
+  return (
+    <div
+      className={cx("relative flex items-center", open && "z-[110]")}
+      onMouseEnter={onOpen}
+      onMouseLeave={onClose}
+    >
+      {external ? (
+        <a href={href} target="_blank" rel="noopener noreferrer" {...triggerProps}>
+          {label}
+          <svg className={cx("h-3 w-3 transition-transform", open && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </a>
+      ) : (
+      <Link
+        href={href}
+        {...triggerProps}
+      >
+        {label}
+        <svg className={cx("h-3 w-3 transition-transform", open && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </Link>
+      )}
+      {open ? (
+        <div
+          id={`${id}-menu`}
+          className="absolute top-full left-0 z-[100] pt-2"
+          onMouseEnter={onOpen}
+          onMouseLeave={onClose}
+        >
+          <div className="w-[min(280px,calc(100vw-2rem))] overflow-hidden rounded-xl border border-white/10 bg-zinc-950 shadow-2xl">
+            {links.map((link) =>
+              link.external ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-3 hover:bg-white/5"
+                >
+                  <span className="block text-sm font-semibold text-white">{link.label}</span>
+                  <span className="mt-0.5 block text-xs text-white/45">{link.sub}</span>
+                </a>
+              ) : (
+                <Link key={link.href} href={link.href} className="block px-4 py-3 hover:bg-white/5">
+                  <span className="block text-sm font-semibold text-white">{link.label}</span>
+                  <span className="mt-0.5 block text-xs text-white/45">{link.sub}</span>
+                </Link>
+              ),
+            )}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -530,6 +639,17 @@ export function Header() {
   const isBiostimulatorsNavActiveState = isBiostimulatorsNavActive(pathname ?? null);
   const isFacialsNavActiveState = isFacialsPeelsNavActive(pathname ?? null);
   const isIvTherapyNavActiveState = isIvTherapyNavActive(pathname ?? null);
+  const isWeightLossNavActive =
+    pathname === "/weight-loss" ||
+    (pathname?.startsWith("/weight-loss/") ?? false) ||
+    (pathname?.startsWith("/glp-1") ?? false) ||
+    (pathname?.startsWith("/glp1") ?? false);
+  const isLasersNavActive =
+    isMorpheus8NavActiveState ||
+    isSolariaNavActiveState ||
+    isQuantumRfNavActiveState ||
+    pathname === "/services/laser-hair-removal" ||
+    (pathname?.startsWith("/laser-hair-removal") ?? false);
 
   const isServicesNavActive =
     !isFlowWaveNavActive &&
@@ -541,6 +661,8 @@ export function Header() {
     !isBiostimulatorsNavActiveState &&
     !isFacialsNavActiveState &&
     !isIvTherapyNavActiveState &&
+    !isWeightLossNavActive &&
+    !isLasersNavActive &&
     (isActive("/services") ||
     pathname === "/gallery" ||
     pathname === REGENERATIVE_MEDICINE_PATH ||
@@ -647,17 +769,16 @@ export function Header() {
               />
             </div>
 
-            {/* Facials — esthetic flagship Journey */}
-            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
-              <Link
-                href={FACIALS_PEELS_MENU_PATH}
-                className={NAV_LINK_BASE}
-                style={navPillStyle(0, isFacialsNavActiveState)}
-                aria-label="Facials and peels menu"
-              >
-                {FACIALS_PEELS_NAV.label}
-              </Link>
-            </div>
+            <CategoryMenu
+              id="facials"
+              label="Facials"
+              href={FACIALS_PEELS_MENU_PATH}
+              links={FACIALS_MENU}
+              active={isFacialsNavActiveState || isMicrobladingNavActive}
+              open={activeDropdown === "facials"}
+              onOpen={() => openDropdown("facials")}
+              onClose={closeDropdown}
+            />
 
             {/* Injectables — Botox, fillers, biostimulators */}
             <div
@@ -706,7 +827,28 @@ export function Header() {
               ) : null}
             </div>
 
-            {/* IV Therapy — vitamin drips & shots flagship */}
+            <CategoryMenu
+              id="weight-loss"
+              label="Weight Loss"
+              href="/weight-loss/care"
+              links={WEIGHT_LOSS_MENU}
+              active={isWeightLossNavActive}
+              open={activeDropdown === "weight-loss"}
+              onOpen={() => openDropdown("weight-loss")}
+              onClose={closeDropdown}
+            />
+
+            <CategoryMenu
+              id="lasers"
+              label="Advanced Lasers"
+              href={MORPHEUS8_PATH}
+              links={ADVANCED_LASERS_MENU}
+              active={isLasersNavActive}
+              open={activeDropdown === "lasers"}
+              onOpen={() => openDropdown("lasers")}
+              onClose={closeDropdown}
+            />
+
             <div className="relative flex items-center" onMouseEnter={closeDropdown}>
               <Link
                 href={IV_THERAPY_PATH}
@@ -718,106 +860,22 @@ export function Header() {
               </Link>
             </div>
 
-            {/* Microblading — Your Brow Journey landing */}
-            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
-              <Link
-                href={BROW_MICROBLADING_NAV.href}
-                className={NAV_LINK_BASE}
-                style={navPillStyle(0, isMicrobladingNavActive)}
-                aria-label="Microblading and brow PMU — Your Brow Journey"
-              >
-                Microblading
-              </Link>
-            </div>
-
-            {/* Morpheus8 — InMode Trifecta flagship */}
-            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
-              <Link href={MORPHEUS8_PATH} className={NAV_LINK_BASE} style={navPillStyle(0, isMorpheus8NavActiveState)} aria-label="Morpheus8 Burst RF microneedling">
-                Morpheus8
-              </Link>
-            </div>
-
-            {/* Solaria CO₂ — fractional laser flagship */}
-            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
-              <Link href={SOLARIA_CO2_PATH} className={NAV_LINK_BASE} style={navPillStyle(0, isSolariaNavActiveState)} aria-label="Solaria CO2 laser resurfacing">
-                Solaria CO₂
-              </Link>
-            </div>
-
-            {/* Quantum RF — Luxora Contour flagship */}
-            <div className="relative flex items-center" onMouseEnter={closeDropdown}>
-              <Link href={QUANTUM_RF_PATH} className={NAV_LINK_BASE} style={navPillStyle(0, isQuantumRfNavActiveState)} aria-label="Quantum RF Contour Journey">
-                Quantum RF
-              </Link>
-            </div>
-
-            {/* REGEN RX — partnership hub at /rx */}
-            <div
-              className="relative flex items-center"
-              onMouseEnter={closeDropdown}
-            >
-              <Link
-                href={SHOP_RX_NAV.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={NAV_LINK_BASE}
-                style={navPillStyle(1, isMedicalNavActiveState)}
-                aria-label="REGEN RX — medical partnership we offer Hello Gorgeous clients"
-              >
-                {SHOP_RX_NAV.label}
-              </Link>
-            </div>
-
-            {/* Peptides — Formulation landing pages on tryregenrx.com */}
-            <div
-              className={cx("relative flex items-center", activeDropdown === "peptides" && "z-[110]")}
-              onMouseEnter={() => openDropdown("peptides")}
-              onMouseLeave={closeDropdown}
-            >
-              <Link
-                href={`${REGEN_RX_PUBLIC_URL}/peptides`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={NAV_LINK_BASE}
-                style={navPillStyle(0, false)}
-                onFocus={() => openDropdown("peptides")}
-                aria-haspopup="true"
-                aria-expanded={activeDropdown === "peptides"}
-                aria-label="Peptides, sexual health, and dermatology on REGEN RX"
-              >
-                {FORMULATION_NAV_LABEL}
-                <svg className={cx("h-3 w-3 transition-transform", activeDropdown === "peptides" && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              {activeDropdown === "peptides" ? (
-                <div
-                  className="absolute top-full left-0 pt-2 z-[100]"
-                  onMouseEnter={() => openDropdown("peptides")}
-                  onMouseLeave={closeDropdown}
-                >
-                  <div
-                    className="w-[min(300px,calc(100vw-2rem))] overflow-hidden rounded-xl border shadow-2xl backdrop-blur-md"
-                    style={{ backgroundColor: "rgba(24, 24, 27, 0.97)", borderColor: "rgba(255,255,255,0.12)" }}
-                  >
-                    {FORMULATION_HUB_LINKS.map((link) => (
-                      <a
-                        key={link.id}
-                        href={`${REGEN_RX_PUBLIC_URL}${link.href}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={closeDropdown}
-                        className="block border-b px-4 py-3 last:border-0 transition hover:bg-white/5"
-                        style={{ borderColor: "rgba(255,255,255,0.08)" }}
-                      >
-                        <span className="block text-sm font-semibold text-white">{link.label}</span>
-                        <span className="mt-0.5 block text-xs text-white/50">{link.sub}</span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-            </div>
+            <CategoryMenu
+              id="regen"
+              label={SHOP_RX_NAV.label}
+              href={SHOP_RX_NAV.href}
+              external
+              links={FORMULATION_HUB_LINKS.map((link) => ({
+                href: `${REGEN_RX_PUBLIC_URL}${link.href}`,
+                label: link.label,
+                sub: link.sub,
+                external: true,
+              }))}
+              active={isMedicalNavActiveState}
+              open={activeDropdown === "regen"}
+              onOpen={() => openDropdown("regen")}
+              onClose={closeDropdown}
+            />
 
             {/* Specials — includes Gift Cards, Clubs, Supplements */}
             <div
@@ -978,98 +1036,30 @@ export function Header() {
               </span>
             </Link>
 
-            <Link
-              href={BROW_MICROBLADING_NAV.href}
-              onClick={() => setMobileOpen(false)}
-              className="mb-4 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
-            >
-              <span className="flex flex-col items-start gap-0.5">
-                <span>Microblading</span>
-                <span className="text-xs font-semibold text-[#FFB8DC]">Your Brow Journey</span>
-              </span>
-            </Link>
-
-            <Link
-              href={MORPHEUS8_PATH}
-              onClick={() => setMobileOpen(false)}
-              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
-            >
-              <span className="flex flex-col items-start gap-0.5">
-                <span>Morpheus8 Journey</span>
-                <span className="text-xs font-semibold text-[#FFB8DC]">InMode Burst + Deep · from $799</span>
-              </span>
-            </Link>
-
-            <Link
-              href={SOLARIA_CO2_PATH}
-              onClick={() => setMobileOpen(false)}
-              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
-            >
-              <span className="flex flex-col items-start gap-0.5">
-                <span>Solaria Journey</span>
-                <span className="text-xs font-semibold text-[#FFB8DC]">InMode CO₂ · $599 fall special</span>
-              </span>
-            </Link>
-
-            <Link
-              href={QUANTUM_RF_PATH}
-              onClick={() => setMobileOpen(false)}
-              className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
-            >
-              <span className="flex flex-col items-start gap-0.5">
-                <span>Quantum RF Journey</span>
-                <span className="text-xs font-semibold text-[#FFB8DC]">Luxora Contour · from $2,499</span>
-              </span>
-            </Link>
-
-            {/* Services accordion — FlowWave & remaining services live here */}
             {[
+              { key: "facials", label: "Facials", links: FACIALS_MENU },
+              { key: "weight-loss", label: "Weight Loss", links: WEIGHT_LOSS_MENU },
+              { key: "lasers", label: "Advanced Lasers", links: ADVANCED_LASERS_MENU },
               { key: "services", label: "Services", links: NAV.services.sections.flatMap((s) => s.links) },
               {
                 key: "medical",
                 label: SHOP_RX_NAV.label,
-                groups: medicalMegaMenuMobileGroups(),
-                highlight: true,
+                groups: [
+                  {
+                    heading: "Prescription care",
+                    links: FORMULATION_HUB_LINKS.map((link) => ({
+                      href: `${REGEN_RX_PUBLIC_URL}${link.href}`,
+                      label: link.label,
+                      sub: link.sub,
+                    })),
+                  },
+                  ...medicalMegaMenuMobileGroups(),
+                ],
               },
-              { key: "peptides", label: FORMULATION_NAV_LABEL },
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
             ].map(({ key, label, links, groups, highlight }) => (
               <div key={key} className="border-b border-white/10 pb-1">
-                {key === "medical" ? (
-                  <Link
-                    href={SHOP_RX_NAV.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setMobileOpen(false)}
-                    className="mb-3 flex w-full items-center justify-between gap-2 rounded-xl border border-[#E6007E]/40 bg-gradient-to-r from-[#2d1020] to-black px-4 py-3.5 text-sm font-bold text-white"
-                    aria-label="REGEN RX — medical partnership we offer Hello Gorgeous clients"
-                  >
-                    <span className="flex flex-col items-start gap-0.5">
-                      <span>{SHOP_RX_NAV.label}</span>
-                      <span className="text-xs font-semibold text-[#FFB8DC]">Our medical partnership</span>
-                    </span>
-                  </Link>
-                ) : key === "peptides" ? (
-                  <div className="mb-1">
-                    <p className="px-4 py-3.5 text-sm font-semibold text-white">{FORMULATION_NAV_LABEL}</p>
-                    <div className="flex flex-col pb-2">
-                      {FORMULATION_HUB_LINKS.map((link) => (
-                        <a
-                          key={link.id}
-                          href={`${REGEN_RX_PUBLIC_URL}${link.href}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => setMobileOpen(false)}
-                          className="block px-4 py-2.5 text-sm text-white/80 hover:bg-white/5"
-                        >
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                <>
                 <button
                   type="button"
                   onClick={() => setMobileSection(mobileSection === key ? null : key)}
@@ -1130,8 +1120,6 @@ export function Header() {
                           </Link>
                         ))}
                   </div>
-                )}
-                </>
                 )}
               </div>
             ))}
