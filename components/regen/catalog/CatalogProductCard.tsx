@@ -96,11 +96,8 @@ export function ProductCard({ product, href, onOpen, consultMode }: ProductCardP
               {blurb}
             </p>
           ) : null}
-          <p className="mt-auto px-5 pt-4 text-[15px] font-medium text-black">
-            Starting at{" "}
-            <strong className="font-black text-[#E6007E]">
-              {catalogClientStartingAtText(product).replace(/^Starting at /, "")}
-            </strong>
+          <p className="mt-auto px-5 pt-4 text-[15px] font-semibold leading-snug text-black">
+            {catalogClientStartingAtText(product)}
           </p>
         </Link>
         <div className="flex gap-2 p-4">

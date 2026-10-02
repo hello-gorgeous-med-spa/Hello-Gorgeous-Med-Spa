@@ -38,8 +38,8 @@ const PROGRAMS = [
     id: 'compound-shop',
     title: 'Compound shop',
     subtitle: 'Refill or add a protocol',
-    description: 'See patient pricing on Formulation SKUs. Request review — Ryan invoices only if he says yes.',
-    price: 'from $67.50',
+    description: 'Request a refill or add a protocol. Ryan prescribes only after medical review and approval.',
+    price: 'Prescribed after medical review and approval.',
     href: '/refill',
     image: '/images/regen/catalog/sermorelin.png',
     unit: 'request',
@@ -49,7 +49,7 @@ const PROGRAMS = [
     title: 'Weight loss',
     subtitle: 'Weekly GLP-1 care',
     description: 'Tirzepatide or semaglutide — a licensed Illinois clinician reviews and prescribes only if it is appropriate.',
-    price: 'from $100',
+    price: 'Prescribed after medical review and approval.',
     href: '/start?goal=weight-loss',
     image: '/images/regen/marketing/woman-wellness.png',
   },
@@ -58,7 +58,7 @@ const PROGRAMS = [
     title: 'Sexual health',
     subtitle: 'Desire & performance',
     description: 'Discreet care for men and women. A licensed Illinois clinician decides what, if anything, to prescribe.',
-    price: 'from $49',
+    price: 'Prescribed after medical review and approval.',
     href: '/start?goal=sexual-health',
     image: '/images/regen/couple-couch.png',
   },
@@ -67,7 +67,7 @@ const PROGRAMS = [
     title: 'Hair',
     subtitle: 'Stop loss · regrow',
     description: 'Finasteride, minoxidil, and advanced compounds when clinically appropriate.',
-    price: 'from $40',
+    price: 'Prescribed after medical review and approval.',
     href: '/start?goal=hair',
     image: '/images/regen/man-stretching.png',
   },
@@ -76,7 +76,7 @@ const PROGRAMS = [
     title: 'Skin',
     subtitle: 'Prescription anti-aging',
     description: 'Tretinoin, GHK-Cu cream, and custom compounds for tone and texture.',
-    price: 'from $125',
+    price: 'Prescribed after medical review and approval.',
     href: '/start?goal=skincare',
     image: '/images/regen/marketing/woman-skincare.png',
   },
@@ -85,7 +85,7 @@ const PROGRAMS = [
     title: 'Hormones',
     subtitle: 'Women\'s HRT & men\'s TRT',
     description: 'Restore energy, mood, and vitality with bioidentical hormone optimization.',
-    price: 'from $149',
+    price: 'Prescribed after medical review and approval.',
     href: '/start?goal=hormones',
     image: '/images/regen/marketing/man-morning-energy.png',
   },
@@ -94,7 +94,7 @@ const PROGRAMS = [
     title: 'Energy & longevity',
     subtitle: 'NAD+ · vitamins · glow',
     description: 'NAD+, glutathione, B12, biotin, and the Radiance Pair — one goal, a licensed Illinois clinician reviews first.',
-    price: 'from $73',
+    price: 'Prescribed after medical review and approval.',
     href: '/start?goal=energy',
     image: '/images/regen/marketing/cell-peptide.png',
   },
@@ -328,7 +328,7 @@ export default function RegenLandingPage() {
               <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
-              <span className="text-sm font-medium" style={{ color: BRAND.gray }}>$30 shipping on the invoice</span>
+              <span className="text-sm font-medium" style={{ color: BRAND.gray }}>Shipping quoted after approval</span>
             </div>
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5" style={{ color: BRAND.teal }} fill="currentColor" viewBox="0 0 20 20">
@@ -349,7 +349,7 @@ export default function RegenLandingPage() {
               <span style={{ color: BRAND.pink }}>◆</span>
               <span style={{ color: BRAND.teal }} className="font-semibold">FDA-Registered Pharmacies</span>
               <span style={{ color: BRAND.pink }}>◆</span>
-              <span style={{ color: BRAND.teal }} className="font-semibold">$30 shipping on the invoice</span>
+              <span style={{ color: BRAND.teal }} className="font-semibold">Shipping quoted after approval</span>
               <span style={{ color: BRAND.pink }}>◆</span>
               <span style={{ color: BRAND.teal }} className="font-semibold">Notice of Privacy Practices</span>
               <span style={{ color: BRAND.pink }}>◆</span>
@@ -405,8 +405,8 @@ export default function RegenLandingPage() {
                 <div className="p-5">
                   <p className="text-sm mb-4" style={{ color: BRAND.gray }}>{program.description}</p>
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-black" style={{ color: BRAND.pink }}>
-                      {program.price}<span className="text-sm font-normal" style={{ color: BRAND.gray }}>{'unit' in program && program.unit === 'vial' ? ' / vial' : program.unit === 'request' ? '' : '/mo'}</span>
+                    <span className="text-sm font-semibold leading-snug" style={{ color: BRAND.pink }}>
+                      {program.price}
                     </span>
                     <span className="text-sm font-semibold flex items-center gap-1" style={{ color: BRAND.teal }}>
                       Start
@@ -587,7 +587,7 @@ export default function RegenLandingPage() {
               Simple, honest <span style={{ color: BRAND.pink }}>pricing</span>
             </h2>
             <p className="text-lg max-w-2xl mx-auto" style={{ color: BRAND.gray }}>
-              Request prices. Ryan reviews first. You pay a clinic invoice only if he approves. Shipping is $30 — not free.
+              Prescribed after medical review and approval. You are invoiced only if a clinician approves.
             </p>
           </div>
 
@@ -598,7 +598,7 @@ export default function RegenLandingPage() {
                 subtitle: 'Semaglutide',
                 price: 299, 
                 icon: '⚡',
-                features: ['GLP-1 medication', 'Clinician review first', '$30 shipping on the invoice'],
+                features: ['GLP-1 medication', 'Clinician review first', 'Shipping quoted after approval'],
                 popular: true,
               },
               { 
@@ -643,8 +643,7 @@ export default function RegenLandingPage() {
                 <h3 className="font-bold text-lg" style={{ color: BRAND.cream }}>{tier.name}</h3>
                 <p className="text-sm mb-4" style={{ color: BRAND.gray }}>{tier.subtitle}</p>
                 <div className="mb-4">
-                  <span className="text-3xl font-black" style={{ color: BRAND.teal }}>${tier.price}</span>
-                  <span className="text-sm" style={{ color: BRAND.gray }}> request</span>
+                  <span className="text-sm font-semibold leading-snug" style={{ color: BRAND.teal }}>Prescribed after medical review and approval.</span>
                 </div>
                 <ul className="space-y-2">
                   {tier.features.map((f) => (
@@ -715,8 +714,7 @@ export default function RegenLandingPage() {
               </p>
               
               <div className="mb-6">
-                <span className="text-4xl font-black" style={{ color: BRAND.pink }}>$149</span>
-                <span className="text-sm ml-2" style={{ color: BRAND.gray }}>one-time</span>
+                <span className="text-sm font-semibold leading-snug" style={{ color: BRAND.pink }}>Ordered after medical review.</span>
               </div>
 
               <ul className="space-y-2 mb-6 text-sm" style={{ color: BRAND.gray }}>
@@ -759,8 +757,7 @@ export default function RegenLandingPage() {
               </p>
               
               <div className="mb-6">
-                <span className="text-4xl font-black" style={{ color: BRAND.pink }}>$199</span>
-                <span className="text-sm ml-2" style={{ color: BRAND.gray }}>one-time</span>
+                <span className="text-sm font-semibold leading-snug" style={{ color: BRAND.pink }}>Ordered after medical review.</span>
               </div>
 
               <ul className="space-y-2 mb-6 text-sm" style={{ color: BRAND.gray }}>
@@ -946,6 +943,7 @@ export default function RegenLandingPage() {
               <Link href="/hipaa" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>HIPAA</Link>
               <Link href="/terms" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Terms</Link>
               <Link href="/privacy" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Privacy</Link>
+              <Link href="/refund" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>Refund Policy</Link>
               <a href="tel:+16306366193" className="hover:text-white transition-colors" style={{ color: BRAND.gray }}>(630) 636-6193</a>
             </div>
           </div>
@@ -960,10 +958,7 @@ export default function RegenLandingPage() {
               Never disregard professional medical advice or delay seeking it because of information on this site.
             </p>
             <p style={{ color: '#666' }}>
-              Compounded medications are patient-specific preparations made by 503A-licensed pharmacies. They are not FDA-approved drugs. 
-              GLP-1 medications, hormone therapies, and other treatments may be prescribed off-label based on clinical evidence and provider judgment. 
-              Individual results may vary. Not all patients will qualify for treatment. 
-              Completing an intake form does not guarantee a prescription will be issued.
+              Prescribed after medical review and approval. This website does not sell medication and does not show a purchase price. A licensed clinician reviews every request and decides whether a prescription is appropriate. A request is not a prescription. Compounded medications are prepared by a licensed pharmacy for an individual patient and are not FDA-approved. When a clinician prescribes an FDA-approved medication for a use that is not on its label, that off-label use is documented in the medical record before it is dispensed. Individual results may vary.
             </p>
             <p style={{ color: '#555' }}>
               REGEN RX does not provide emergency medical services. If you are experiencing a medical emergency, call 911 immediately.

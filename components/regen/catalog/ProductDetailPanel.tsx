@@ -30,7 +30,7 @@ import {
   CatalogCartButton,
   ProductCard,
 } from "@/components/regen/catalog/CatalogProductCard";
-import { PROGRAM_CONSULT_FEE_USD } from "@/lib/flows";
+import { REGEN_PRESCRIBED_AFTER_REVIEW, REGEN_PUBLIC_COMPOUND_DISCLOSURE } from "@/lib/regen/public-order-truth";
 import { REGEN_SHOP_SHIPPING_USD } from "@/lib/regen/shop-surface";
 
 const SHIPPING_LABEL = `$${REGEN_SHOP_SHIPPING_USD}`;
@@ -51,8 +51,8 @@ const CONSULT_STEPS = [
     body: "Free — your goals, health history, medications and allergies. About 4 minutes.",
   },
   {
-    title: `Reserve your consult · $${PROGRAM_CONSULT_FEE_USD}`,
-    body: "Holds your visit with a licensed Illinois clinician. Medication cost is separate.",
+    title: "Medical review",
+    body: "A licensed Illinois clinician reviews your intake. Medication is prescribed only after approval.",
   },
   {
     title: "Meet your provider",
@@ -64,7 +64,7 @@ const CONSULT_STEPS = [
   },
   {
     title: "Pick up or shipped",
-    body: `Collect it at our Oswego clinic or ship flat ${SHIPPING_LABEL}, tracked.`,
+    body: "If approved, the prescription is filled by a licensed pharmacy for pickup in Oswego or shipment.",
   },
 ] as const;
 
@@ -242,14 +242,13 @@ export function ProductDetailPanel({
                 }`}
               >
                 <p className={`text-xs font-bold uppercase tracking-wide ${pageMode ? "text-black/50" : "text-white/50"}`}>
-                  Starting price
+                  Not a purchase
                 </p>
-                <p className={`mt-1 font-serif text-3xl font-extrabold ${pageMode ? "text-[#E6007E]" : "text-[#FF2D8E]"}`}>
-                  from {formatCatalogMoney(p30)}
+                <p className={`mt-1 font-serif text-2xl font-extrabold leading-tight ${pageMode ? "text-[#E6007E]" : "text-[#FF2D8E]"}`}>
+                  {REGEN_PRESCRIBED_AFTER_REVIEW}
                 </p>
                 <p className={`mt-1.5 text-xs font-semibold leading-relaxed ${pageMode ? "text-black/60" : "text-white/60"}`}>
-                  a licensed Illinois clinician chooses your strength and dose at your consult. You are
-                  invoiced for the vial only after he approves it.
+                  A licensed Illinois clinician chooses the medication, strength, and dose. Nothing is dispensed before that approval.
                 </p>
               </div>
             ) : (
@@ -307,7 +306,7 @@ export function ProductDetailPanel({
               className={`text-center text-xs font-semibold ${pageMode ? "text-black/50" : "text-white/50"}`}
             >
               {consultMode
-                ? `Free to submit · $${PROGRAM_CONSULT_FEE_USD} consult reserves your visit · pick up in Oswego or ship flat ${SHIPPING_LABEL}`
+                ? REGEN_PRESCRIBED_AFTER_REVIEW
                 : `${supply === 90 ? "90-day supply" : "30-day supply"} · flat ${SHIPPING_LABEL} shipping · pay in person at the spa`}
             </p>
 
@@ -415,9 +414,7 @@ export function ProductDetailPanel({
             )}
 
             <p className={`border-t pt-4 text-xs leading-relaxed ${pageMode ? "border-black/10 text-black/45" : "border-white/10 text-white/45"}`}>
-              Educational information only — not medical advice. A Hello Gorgeous provider reviews every
-              order before anything ships. Compounded medications are prepared under provider supervision
-              and are not FDA-approved to treat, cure, or prevent disease.
+              {REGEN_PUBLIC_COMPOUND_DISCLOSURE}
             </p>
           </div>
 
@@ -450,7 +447,7 @@ export function ProductDetailPanel({
               <p className="truncate text-sm font-bold text-black">{product.name}</p>
               <p className="truncate text-xs font-semibold text-black/55">
                 {consultMode
-                  ? `from ${formatCatalogMoney(p30)} · dose set at your consult`
+                  ? REGEN_PRESCRIBED_AFTER_REVIEW
                   : `${variant.strength} · ${supply}-day · flat ${SHIPPING_LABEL} shipping`}
               </p>
             </div>

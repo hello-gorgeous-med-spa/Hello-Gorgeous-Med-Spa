@@ -172,15 +172,17 @@ export default function TermsPage() {
 
           <h2 style={{ color: BRAND.cream }}>Payment</h2>
           <p>
-            You do not type a card on this website. After a licensed clinician approves a plan, we send a clinic invoice.
-            You pay that invoice (Charm + Bluefin) before a pharmacy order is placed. There is no automatic monthly charge.
-            A refill is another clinical review and a new invoice.
+            You do not type a card on this website. A request is not a prescription. After Ryan Kent, FNP-BC approves a plan,
+            Hello Gorgeous, P.C. sends a clinic invoice. You pay that invoice before a pharmacy order is placed.
+            There is no automatic monthly charge. A refill is another clinical review and a new invoice.
+            See the <Link href="/refund" style={{ color: BRAND.teal }}>Refund Policy</Link>.
           </p>
           <ul style={{ color: BRAND.gray }}>
             <li>If a clinician declines an unpaid request, you are not billed for medication</li>
             <li>A completed $49 consult is a paid visit and is not refunded if they do not prescribe</li>
             <li>Shipping is $30 flat on the clinic invoice</li>
-            <li>Prices on public pages are request estimates until the clinician approves a plan</li>
+            <li>This website does not show a medication purchase price. The price is on the clinic invoice after approval</li>
+            <li>After the pharmacy compounds or ships, the medication charge and shipping are not refunded</li>
           </ul>
 
           <h2 style={{ color: BRAND.cream }}>User Accounts</h2>

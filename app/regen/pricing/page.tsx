@@ -5,8 +5,6 @@ import Link from 'next/link';
 import { 
   PUBLIC_SUBSCRIPTION_TIERS, 
   SUBSCRIPTION_CATEGORIES,
-  calculateMargin,
-  calculatePrepayPrice,
   type SubscriptionTier,
 } from '@/lib/regen/subscriptions/subscription-tiers';
 import {
@@ -15,10 +13,7 @@ import {
   CASH_PAY_FAQ_WHY_NO_INSURANCE,
 } from '@/lib/regen/cash-pay-scripts';
 import {
-  REGEN_TELEHEALTH_CREDIT_LINE,
-  REGEN_TELEHEALTH_CREDIT_SHORT,
   REGEN_TELEHEALTH_DURATION,
-  REGEN_TELEHEALTH_FEE_USD,
   REGEN_TELEHEALTH_PATH,
 } from '@/lib/regen/telehealth-consult';
 
@@ -30,7 +25,6 @@ const BRAND = {
 
 export default function PricingPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 3 | 6 | 12>('monthly');
 
   const categories = Object.entries(SUBSCRIPTION_CATEGORIES).filter(([key]) =>
     PUBLIC_SUBSCRIPTION_TIERS.some((t) => t.category === key),
@@ -55,22 +49,6 @@ export default function PricingPage() {
     const goal = categoryToGoal[tier.category] || 'weight-loss';
     // Pass tier info so intake can pre-select the right program
     return `/start?goal=${goal}&tier=${tier.id}`;
-  };
-
-  const getPrice = (tier: SubscriptionTier): { price: number; perMonth: number; savings?: number } => {
-    if (billingCycle === 'monthly') {
-      return { price: tier.monthlyPriceUsd, perMonth: tier.monthlyPriceUsd };
-    }
-    
-    const prepayTotal = calculatePrepayPrice(tier, billingCycle);
-    const originalTotal = tier.monthlyPriceUsd * billingCycle;
-    const savings = originalTotal - prepayTotal;
-    
-    return {
-      price: prepayTotal,
-      perMonth: Math.round(prepayTotal / billingCycle),
-      savings,
-    };
   };
 
   return (
@@ -102,10 +80,10 @@ export default function PricingPage() {
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
         }}>
-          Simple, Transparent Pricing
+          Prescribed after medical review and approval
         </h1>
-        <p style={{ fontSize: 18, color: '#888', maxWidth: 600, margin: '0 auto 32px' }}>
-          These are request prices, not auto-renewing subscriptions. A clinician reviews first. You pay a clinic invoice only if they approve. Shipping is $30 on that invoice. No automatic monthly charge.
+        <p style={{ fontSize: 18, color: '#888', maxWidth: 640, margin: '0 auto 32px' }}>
+          This page does not list a purchase price. A licensed clinician reviews every request and decides whether a prescription is appropriate. Nothing is dispensed before that approval.
         </p>
 
         {/* Expert Consultation CTA */}
@@ -162,7 +140,7 @@ export default function PricingPage() {
               <li>✓ {REGEN_TELEHEALTH_DURATION}</li>
               <li>✓ Book a consult online</li>
               <li>✓ No therapy purchase required</li>
-              <li>✓ {REGEN_TELEHEALTH_CREDIT_SHORT}</li>
+              <li>✓ Visit fee is separate from any prescription</li>
             </ul>
           </div>
           <div style={{ 
@@ -171,15 +149,16 @@ export default function PricingPage() {
             padding: '0 20px',
           }}>
             <div style={{ 
-              fontSize: 48, 
+              fontSize: 22, 
               fontWeight: 800, 
               color: BRAND.pink,
-              lineHeight: 1,
+              lineHeight: 1.3,
+              maxWidth: 280,
             }}>
-              ${REGEN_TELEHEALTH_FEE_USD}
+              Prescribed after medical review and approval.
             </div>
-            <div style={{ fontSize: 13, color: '#888', marginBottom: 16 }}>
-              phone consult · before you buy therapy
+            <div style={{ fontSize: 13, color: '#888', margin: '12px 0 16px' }}>
+              A visit is not a medication purchase.
             </div>
             <Link
               href={REGEN_TELEHEALTH_PATH}
@@ -199,57 +178,11 @@ export default function PricingPage() {
               Book a consult
             </Link>
             <p style={{ fontSize: 11, color: '#666', marginTop: 12 }}>
-              {REGEN_TELEHEALTH_CREDIT_LINE}
+              A visit is not a guaranteed prescription.
             </p>
           </div>
         </div>
 
-        {/* Billing Toggle */}
-        <p style={{ fontSize: 13, color: '#888', maxWidth: 560, margin: '0 auto 16px' }}>
-          Multi-month prices are a single requested fill, not a subscription. Ryan reviews every refill before another invoice.
-        </p>
-        <div style={{ 
-          display: 'inline-flex',
-          backgroundColor: 'rgba(255,255,255,0.1)',
-          borderRadius: 12,
-          padding: 4,
-          gap: 4,
-        }}>
-          {[
-            { value: 'monthly' as const, label: '1-month request' },
-            { value: 3 as const, label: '3-month request', discount: '10% off' },
-            { value: 6 as const, label: '6-month request', discount: '15% off' },
-            { value: 12 as const, label: '12-month request', discount: '20% off' },
-          ].map(option => (
-            <button
-              key={option.value}
-              onClick={() => setBillingCycle(option.value)}
-              style={{
-                padding: '10px 16px',
-                borderRadius: 8,
-                border: 'none',
-                backgroundColor: billingCycle === option.value ? BRAND.teal : 'transparent',
-                color: billingCycle === option.value ? '#fff' : '#888',
-                cursor: 'pointer',
-                fontSize: 14,
-                fontWeight: 600,
-                transition: 'all 0.2s',
-              }}
-            >
-              {option.label}
-              {option.discount && billingCycle === option.value && (
-                <span style={{ 
-                  display: 'block', 
-                  fontSize: 10, 
-                  color: '#fff',
-                  opacity: 0.8,
-                }}>
-                  {option.discount}
-                </span>
-              )}
-            </button>
-          ))}
-        </div>
       </section>
 
       {/* Category Filter */}
@@ -305,7 +238,6 @@ export default function PricingPage() {
         }}>
           {filteredTiers.map(tier => {
             const category = SUBSCRIPTION_CATEGORIES[tier.category];
-            const { price, perMonth, savings } = getPrice(tier);
             
             return (
               <div
@@ -369,31 +301,15 @@ export default function PricingPage() {
                   {tier.description}
                 </p>
 
-                {/* Price */}
                 <div style={{ marginBottom: 16 }}>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-                    <span style={{ 
-                      fontSize: 36, 
-                      fontWeight: 800, 
-                      color: BRAND.pink,
-                    }}>
-                      ${billingCycle === 'monthly' ? price : perMonth}
-                    </span>
-                    <span style={{ color: '#666', fontSize: 14 }}> request</span>
-                  </div>
-                  
-                  {billingCycle !== 'monthly' && (
-                    <div style={{ fontSize: 13, color: '#888', marginTop: 4 }}>
-                      <span style={{ color: BRAND.teal }}>
-                        ${price} total
-                      </span>
-                      {savings && savings > 0 && (
-                        <span style={{ color: '#22C55E', marginLeft: 8 }}>
-                          Save ${savings}
-                        </span>
-                      )}
-                    </div>
-                  )}
+                  <p style={{
+                    fontSize: 16,
+                    fontWeight: 700,
+                    color: BRAND.pink,
+                    lineHeight: 1.4,
+                  }}>
+                    Prescribed after medical review and approval.
+                  </p>
                 </div>
 
                 {/* Includes */}
@@ -479,7 +395,7 @@ export default function PricingPage() {
           },
           {
             q: 'How does shipping work?',
-            a: 'Shipping is $30 flat on the clinic invoice. A licensed pharmacy ships to your Illinois address after the invoice posts. Packaging is discreet.',
+            a: 'Shipping is quoted on the clinic invoice after a clinician approves. A licensed pharmacy ships to your Illinois address after that invoice posts. Packaging is discreet.',
           },
           {
             q: 'What if I need to change my dose?',

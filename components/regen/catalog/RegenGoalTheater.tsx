@@ -156,8 +156,7 @@ export function RegenGoalTheater({
             New high dose · Metallic results
           </p>
           <p className="mt-3 text-base font-medium leading-relaxed text-black/65">
-            Pick what you want to change — then browse real protocols with pricing. Every order is
-            NP-reviewed before it ships.
+            Pick what you want to change — then browse protocols. Prescribed after medical review and approval.
           </p>
         </div>
 

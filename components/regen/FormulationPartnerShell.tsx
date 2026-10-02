@@ -8,7 +8,7 @@ import {
   REGEN_STREET,
   type FormulationHubId,
 } from "@/lib/regen/formulation-partner";
-import { REGEN_TELEHEALTH_PATH, regenTelehealthPriceLabel } from "@/lib/regen/telehealth-consult";
+import { REGEN_TELEHEALTH_PATH } from "@/lib/regen/telehealth-consult";
 
 export function FormulationPartnerShell({
   active,
@@ -102,18 +102,14 @@ export function FormulationPartnerShell({
             href={REGEN_TELEHEALTH_PATH}
             className="rounded-full border-2 border-[#0D9488] px-6 py-3 text-sm font-bold text-[#2DD4BF]"
           >
-            Book a consult · {regenTelehealthPriceLabel()}
+            Book a consult
           </Link>
         </div>
       </section>
       <footer className="border-t border-[#0D9488]/15 bg-[#FAF9F6] px-5 py-10 text-sm leading-relaxed text-[#6B7280]">
         <div className="mx-auto max-w-6xl">
           <p>
-            Educational information for Illinois patients. Not a substitute for independent clinical
-            judgment. Compounded medications are prepared by a US-licensed 503A compounding pharmacy
-            and are not FDA-approved. A request is a consult — not a guaranteed prescription. RE GEN
-            RX is the prescription door of Hello Gorgeous Med Spa (Hello Gorgeous PC), Oswego,
-            Illinois.
+            Prescribed after medical review and approval. This website does not sell medication and does not show a purchase price. A licensed clinician reviews every request and decides whether a prescription is appropriate. A request is not a prescription. Compounded medications are prepared by a licensed pharmacy for an individual patient and are not FDA-approved. When a clinician prescribes an FDA-approved medication for a use that is not on its label, that off-label use is documented in the medical record before it is dispensed. RE GEN RX is the prescription door of Hello Gorgeous Med Spa (Hello Gorgeous PC), Oswego, Illinois.
           </p>
         </div>
       </footer>

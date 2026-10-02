@@ -19,7 +19,8 @@ import {
   glp1LowestTirzepatideUsd,
 } from "@/lib/glp1-dose-tiers";
 import { BOOMRX_PEPTIDE_PDF_PRODUCTS } from "@/lib/peptide-boomrx-catalog";
-import { formatMoney, listingPriceText, price30, price90, unitsPer } from "./pricing";
+import { REGEN_PRESCRIBED_AFTER_REVIEW } from "@/lib/regen/public-order-truth";
+import { price30, price90, unitsPer } from "./pricing";
 import type { CatalogProduct, CatalogVariant, SupplyDays } from "./types";
 
 function normalize(value: string): string {
@@ -125,21 +126,15 @@ export function catalogClientSupplyUsd(
   return boomrxConsumerMonthlyUsd(monthlyWholesale);
 }
 
-function catalogClientMonthlyAmount(product: CatalogProduct): number {
-  return catalogClientMonthlyUsd(product) ?? price30(product, product.variants[0]);
-}
-
 /**
- * The price shown on client cards and product pages. Always a starting point —
- * the NP sets the final price at consult, so every surface reads "from $X".
+ * Public cards and product pages do not quote a medication price.
+ * Staff still use `listingPriceText`.
  */
-export function catalogClientPriceText(product: CatalogProduct): string {
-  const monthly = catalogClientMonthlyUsd(product);
-  if (monthly === null) return listingPriceText(product);
-  return `from $${formatMoney(monthly)}`;
+export function catalogClientPriceText(_product: CatalogProduct): string {
+  return REGEN_PRESCRIBED_AFTER_REVIEW;
 }
 
-/** AgelessRx-style shelf quote. Same number as `catalogClientPriceText`. */
-export function catalogClientStartingAtText(product: CatalogProduct): string {
-  return `Starting at $${formatMoney(catalogClientMonthlyAmount(product))} / mo`;
+/** Public shelf line. Same wording as `catalogClientPriceText`. */
+export function catalogClientStartingAtText(_product: CatalogProduct): string {
+  return REGEN_PRESCRIBED_AFTER_REVIEW;
 }

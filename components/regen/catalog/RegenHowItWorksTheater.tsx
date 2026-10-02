@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useMemo } from "react";
 
 import { findProductByDrugKey } from "@/lib/regen/catalog";
-import { catalogClientPriceText } from "@/lib/regen/catalog/client-price";
+import { listingPriceText } from "@/lib/regen/catalog/pricing";
 import { REGEN_SHOP_SECTION_WASH } from "@/lib/regen/shop-surface";
 import { SITE } from "@/lib/seo";
 
@@ -27,7 +27,7 @@ export function RegenHowItWorksTheater({
   const fromPrice = useMemo(() => {
     const p = findProductByDrugKey("tirzepatide");
     if (!p) return null;
-    const label = catalogClientPriceText(p);
+    const label = listingPriceText(p);
     return label.charAt(0).toUpperCase() + label.slice(1);
   }, []);
 
@@ -36,16 +36,18 @@ export function RegenHowItWorksTheater({
       n: "01",
       title: "Choose your protocol",
       sell: consultFlow
-        ? fromPrice
-          ? `Pick the protocol you want, then start intake. Weight-loss protocols start ${fromPrice} / 30 days.`
-          : "Pick the protocol you want, then start intake."
+        ? "Pick the protocol you want, then start intake. Prescribed after medical review and approval."
         : fromPrice
           ? `Browse goals, protocols, or curated bundles. Weight-loss protocols start ${fromPrice} / 30 days.`
           : "Browse goals, protocols, or curated bundles, then start intake on the one you want.",
       trust: "No purchase before your consult",
       image: "/images/regen/brand/steps/01-shop.jpg",
       imageAlt: "Hands holding a RE GEN peptide vial — choose your protocol",
-      chip: fromPrice ? `Most popular: Tirzepatide · ${fromPrice}` : "Most popular: Tirzepatide",
+      chip: consultFlow
+        ? "Most popular: Tirzepatide · prescribed after review"
+        : fromPrice
+          ? `Most popular: Tirzepatide · ${fromPrice}`
+          : "Most popular: Tirzepatide",
       chipAction: onShopWeightLoss,
     },
     {
@@ -195,8 +197,7 @@ export function RegenHowItWorksTheater({
               onClick={onShopWeightLoss}
               className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-[#FF2D8E] to-[#E6007E] px-8 py-3.5 text-sm font-black text-white shadow-[0_0_28px_rgba(255,45,142,0.45)] transition hover:brightness-110"
             >
-              Shop weight loss
-              {fromPrice ? ` · ${fromPrice}` : ""} →
+              Shop weight loss →
             </button>
           ) : null}
           {onStartShopping ? (

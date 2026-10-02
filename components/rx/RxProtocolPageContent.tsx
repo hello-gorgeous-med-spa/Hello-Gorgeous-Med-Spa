@@ -308,8 +308,8 @@ export function RxProtocolPageContent({ protocol, related }: Props) {
               Start with a consult, not a cart
             </h2>
             <p className="mx-auto mb-4 max-w-xl text-lg text-white/95">
-              {protocol.priceText} starting point. a licensed Illinois clinician sets your protocol after intake
-              — you&apos;re invoiced for medication only after he approves it.
+              {protocol.priceText} A licensed Illinois clinician sets the protocol after intake.
+              Medication is dispensed only after that approval.
             </p>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <CTA href={protocol.consultHref} variant="white" className="shadow-xl">

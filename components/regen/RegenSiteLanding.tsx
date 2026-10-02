@@ -351,7 +351,7 @@ export function RegenSiteLanding() {
                 </ul>
               </div>
             </div>
-            <p className="rgx-disc">RE GEN by Hello Gorgeous Med Spa. Information on this site is for general educational purposes and is not medical advice. Prescription products require evaluation by a licensed provider, who determines whether treatment is appropriate. Some products are compounded by a licensed pharmacy and are not FDA-approved. Individual results vary. Patient information is treated as protected health information. © 2026 Hello Gorgeous Med Spa.</p>
+            <p className="rgx-disc">RE GEN by Hello Gorgeous Med Spa. Information on this site is for general educational purposes and is not medical advice. Prescribed after medical review and approval. This website does not sell medication and does not show a purchase price. A licensed clinician reviews every request and decides whether a prescription is appropriate. A request is not a prescription. Compounded medications are prepared by a licensed pharmacy for an individual patient and are not FDA-approved. When a clinician prescribes an FDA-approved medication for a use that is not on its label, that off-label use is documented in the medical record before it is dispensed. Individual results vary. Patient information is treated as protected health information. © 2026 Hello Gorgeous Med Spa.</p>
           </div>
         </footer>
       </div>
