@@ -5,16 +5,22 @@ import { faqJsonLd, pageMetadata, SITE } from "@/lib/seo";
 
 const FAQS = [
   {
-    question: "Where is Hello Gorgeous medical weight loss?",
-    answer: `Hello Gorgeous Med Spa is at ${SITE.address.streetAddress}, ${SITE.address.addressLocality}, ${SITE.address.addressRegion} ${SITE.address.postalCode}. GLP-1 intake is reviewed by a licensed Illinois clinician before any medication invoice.`,
+    question: "Where is Hello Gorgeous Med Spa?",
+    answer: `Hello Gorgeous Med Spa is at ${SITE.address.streetAddress}, ${SITE.address.addressLocality}, ${SITE.address.addressRegion} ${SITE.address.postalCode}. A licensed Illinois clinician reviews GLP-1 care before any medication invoice.`,
   },
   {
-    question: "Is compounded semaglutide FDA-approved?",
-    answer: "No. Compounded semaglutide and tirzepatide prepared for one patient are not FDA-approved and are not the same as Ozempic, Wegovy, Mounjaro, or Zepbound.",
+    question: "Is this FDA-approved or compounded?",
+    answer:
+      "Compounded semaglutide and tirzepatide are not FDA-approved. They are not generics and are not the same as Wegovy, Ozempic, Mounjaro, or Zepbound.",
   },
   {
-    question: "Do I pay for medication on the website?",
-    answer: "No. A request is not a prescription. You pay a clinic invoice only after a clinician approves a plan.",
+    question: "Who provides oversight?",
+    answer:
+      "Dr. Mukesh Arora, MD is the medical director. Ryan Kent, FNP-BC reviews every GLP-1 request. A request is not a prescription.",
+  },
+  {
+    question: "Do I pay for medication on this page?",
+    answer: "No. Book a consult. You pay a clinic invoice only after a clinician approves a plan.",
   },
 ];
 
