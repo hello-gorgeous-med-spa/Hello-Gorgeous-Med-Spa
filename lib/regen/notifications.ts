@@ -52,6 +52,7 @@ interface NotificationPayload {
   intake?: {
     id: string;
     goal: string;
+    items?: string;
   };
   order?: {
     id: string;
@@ -121,9 +122,18 @@ export async function sendRegenNotification(payload: NotificationPayload): Promi
 // STAFF NOTIFICATIONS
 // ============================================================
 
+function escapeEmail(value: string): string {
+  return value.replace(/[&<>"]/g, (char) => {
+    if (char === "&") return "&amp;";
+    if (char === "<") return "&lt;";
+    if (char === ">") return "&gt;";
+    return "&quot;";
+  });
+}
+
 async function sendStaffNewIntakeEmail(
   patient: { name: string; email: string; phone?: string },
-  intake: { id: string; goal: string }
+  intake: { id: string; goal: string; items?: string }
 ) {
   const resend = getResend(); if (!resend) return; await resend.emails.send({
     from: FROM_EMAIL,
@@ -137,6 +147,7 @@ async function sendStaffNewIntakeEmail(
             <p style="color: #fff; margin: 0 0 8px;"><strong>Patient:</strong> ${patient.name}</p>
             <p style="color: #fff; margin: 0 0 8px;"><strong>Email:</strong> ${patient.email}</p>
             <p style="color: #fff; margin: 0 0 8px;"><strong>Phone:</strong> ${patient.phone || 'Not provided'}</p>
+            ${intake.items ? `<p style="color: #fff; margin: 8px 0 0;"><strong>Peptide Bar:</strong> ${escapeEmail(intake.items)}</p>` : ''}
             <p style="color: ${BRAND.pink}; margin: 12px 0 0;"><strong>Next:</strong> After Ryan approves, preview the quote on Orders and send that amount from Charm → Send Invoice → Payment Link. Do not send Formulation until paid. No Stripe.</p>
           </div>
           <a href="https://tryregenrx.com/ops/intake" 
@@ -151,7 +162,7 @@ async function sendStaffNewIntakeEmail(
 
 async function sendStaffNewIntakeSMS(
   patient: { name: string; phone?: string },
-  intake: { goal: string }
+  intake: { goal: string; items?: string }
 ) {
   // Only send if Twilio is configured
   if (!process.env.TWILIO_ACCOUNT_SID) return;
@@ -162,7 +173,9 @@ async function sendStaffNewIntakeSMS(
   );
 
   await twilio.messages.create({
-    body: `REGEN RX: New intake from ${patient.name} for ${intake.goal}. Review at tryregenrx.com/ops. After Ryan approves, send the Charm invoice — no Stripe.`,
+    body: intake.items
+      ? `REGEN RX: Peptide Bar request from ${patient.name}. ${intake.items.slice(0, 180)} Review at tryregenrx.com/ops.`
+      : `REGEN RX: New intake from ${patient.name} for ${intake.goal}. Review at tryregenrx.com/ops. After Ryan approves, send the Charm invoice — no Stripe.`,
     from: process.env.TWILIO_PHONE_NUMBER,
     to: STAFF_PHONE,
   });

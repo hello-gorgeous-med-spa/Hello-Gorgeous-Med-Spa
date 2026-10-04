@@ -7,6 +7,7 @@ import {
   getTreatmentCategory,
 } from '@/lib/regen/informed-consent';
 import { isConsultOnlyProgram } from '@/lib/regen/public-order-truth';
+import { peptideBarHistory, peptideBarStaffLine } from '@/lib/regen/kiosk-request';
 
 function splitName(name: string): { first_name: string; last_name: string } {
   const parts = String(name || '').trim().split(/\s+/);
@@ -128,6 +129,9 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    const savedHistory = peptideBarHistory(medicalHistory) || {};
+    const peptideBarLine = peptideBarStaffLine(savedHistory);
+
     const { data: intake, error: intakeError } = await supabase
       .from('regen_intakes')
       .insert({
@@ -136,7 +140,7 @@ export async function POST(request: NextRequest) {
         email: email.toLowerCase(),
         phone,
         goal,
-        medical_history: medicalHistory || {},
+        medical_history: savedHistory,
         current_medications: currentMedications || [],
         allergies: allergies || [],
         age,
@@ -214,7 +218,7 @@ export async function POST(request: NextRequest) {
       await sendRegenNotification({
         type: 'new_intake',
         patient: { name, email, phone },
-        intake: { id: intake.id, goal },
+        intake: { id: intake.id, goal, items: peptideBarLine },
       });
     } catch (notifyError) {
       console.error('Failed to send notification:', notifyError);
