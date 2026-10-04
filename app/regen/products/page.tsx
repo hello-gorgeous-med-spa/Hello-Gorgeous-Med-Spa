@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { RegenBundlesBand } from '@/components/regen/RegenBundlesBand';
 import { RegenPublicNav } from '@/components/regen/RegenPublicNav';
+import { LEAVE_WITH_MENU } from '@/lib/regen/leave-with-menu';
+import { formatVialPrice, TAKE_HOME_VITAMIN_VIALS } from '@/lib/regen/take-home-vitamin-vials';
 
 const BRAND = {
   teal: '#0D9488',
@@ -15,41 +17,23 @@ const BRAND = {
 };
 
 const VITAMIN_INJECTABLES = [
-  {
-    id: 'b12',
-    name: 'Vitamin B12',
-    subtitle: 'Energy & Metabolism',
-    description: 'Boost energy, improve focus, and fight fatigue with direct-to-bloodstream delivery.',
-    price: '$72.75',
-    href: '/products/b12',
-    benefits: ['Energy boost', 'Mental clarity', 'Mood support'],
-  },
-  {
-    id: 'biotin',
-    name: 'Biotin',
-    subtitle: 'Hair, Skin & Nails',
-    description: 'Strengthen hair, nails, and skin from within. Great with GLP-1s.',
-    price: '$82.65',
-    href: '/products/biotin',
-    benefits: ['Hair growth', 'Nail strength', 'Skin health'],
-  },
-  {
-    id: 'glutathione',
-    name: 'Glutathione',
-    subtitle: 'Antioxidant Support',
-    description: 'Master antioxidant for radiant skin, cellular health, and immune support.',
-    price: '$100',
-    href: '/products/glutathione',
-    benefits: ['Skin brightening', 'Antioxidant support', 'Immune boost'],
-  },
+  ...TAKE_HOME_VITAMIN_VIALS.map((vial) => ({
+    id: vial.id,
+    name: vial.name,
+    subtitle: vial.ask,
+    description: `${vial.spec} take-home vial. A clinician reviews before any invoice.`,
+    price: formatVialPrice(vial.priceUsd),
+    href: vial.href,
+    benefits: [vial.spec, 'Take-home vial'],
+  })),
   {
     id: 'nad',
     name: 'NAD+',
-    subtitle: 'Longevity & Brain',
-    description: 'Cellular energy, brain clarity, and healthy aging support.',
+    subtitle: 'Cellular energy',
+    description: '100 mg/mL · 10 mL take-home vial. A clinician reviews before any invoice.',
     price: '$150',
-    href: '/products/nad',
-    benefits: ['Cellular energy', 'Mental clarity', 'Anti-aging'],
+    href: '/regen/products/nad',
+    benefits: ['100 mg/mL · 10 mL', 'Take-home vial'],
   },
 ];
 
@@ -89,8 +73,7 @@ export default function ProductsPage() {
             <h2 className="text-3xl font-bold" style={{ color: BRAND.cream }}>Vitamin Injectables</h2>
           </div>
           <p className="mb-8 max-w-2xl" style={{ color: BRAND.gray }}>
-            Fast-acting nutrients delivered directly to your bloodstream, bypassing digestive absorption loss. 
-            Self-injectable at home — no office visits required.
+            Take-home vials. In-office shots are a separate visit price. Cold shipping is $30, added once on the clinic invoice. A clinician reviews before any invoice.
           </p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -118,6 +101,42 @@ export default function ProductsPage() {
                   <span className="text-sm font-semibold group-hover:translate-x-1 transition-transform" style={{ color: BRAND.teal }}>
                     Learn more →
                   </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 px-6" style={{ backgroundColor: BRAND.darkAlt }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3 mb-3">
+            <h2 className="text-3xl font-bold" style={{ color: BRAND.cream }}>Take home when you leave</h2>
+          </div>
+          <p className="mb-8 max-w-2xl" style={{ color: BRAND.gray }}>
+            Dermatology, sermorelin, naltrexone, and vitamin D. A clinician reviews before any invoice. Cold shipping is $30, added once.
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {LEAVE_WITH_MENU.map((item) => (
+              <Link
+                key={item.id}
+                href={item.href}
+                className="group p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2"
+                style={{ backgroundColor: BRAND.dark, border: `1px solid ${BRAND.pink}33` }}
+              >
+                <span className="text-sm font-medium" style={{ color: BRAND.pink }}>{item.tagline}</span>
+                <h3 className="text-xl font-bold mt-1" style={{ color: BRAND.cream }}>{item.name}</h3>
+                <p className="text-sm mt-3" style={{ color: BRAND.gray }}>{item.spec}</p>
+                <ul className="mt-3 mb-4 space-y-1">
+                  {item.points.map((point) => (
+                    <li key={point} className="text-sm" style={{ color: BRAND.cream }}>
+                      <span style={{ color: BRAND.pink }}>· </span>{point}
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-black" style={{ color: BRAND.pink }}>{formatVialPrice(item.priceUsd)}<span className="text-sm font-normal" style={{ color: BRAND.gray }}> </span></span>
+                  <span className="text-sm font-semibold" style={{ color: BRAND.teal }}>Request →</span>
                 </div>
               </Link>
             ))}

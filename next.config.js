@@ -248,7 +248,9 @@ const nextConfig = {
       ],
     },
   ],
-  rewrites: async () => [],
+  rewrites: async () => [
+    { source: "/kiosk/peptides", destination: "/kiosk/peptide-menu.html" },
+  ],
   redirects: async () => [
     // RE GEN RX has moved to tryregenrx.com - redirect all /rx traffic
     { source: "/rx", destination: "https://tryregenrx.com", permanent: true },
