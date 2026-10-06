@@ -41,7 +41,7 @@ const QUANTUM_MODEL_PACKAGES = [
   },
 ] as const;
 
-const RYAN_DIRECT = "2177418359";
+const CLINIC_PHONE = "6306366193";
 
 const CARD_BULLETS = [
   "Minimally invasive subdermal RF tightening",
@@ -111,9 +111,9 @@ export function VIPSkinTighteningContent() {
               <span className="block mt-2 text-pink-400">Hello Gorgeous Contour Lift™ Model Days</span>
             </h1>
             <p className="text-white/80 text-lg max-w-2xl mx-auto">
-              Mon May 4 &amp; Mon May 12, 2026 · Quantum RF + Morpheus8 Body Deep · limited model spots · claim yours by texting Ryan{" "}
-              <a href={`tel:+1${RYAN_DIRECT}`} className="font-semibold text-pink-400 underline">
-                {RYAN_DIRECT.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}
+              Mon May 4 &amp; Mon May 12, 2026 · Quantum RF + Morpheus8 Body Deep · limited model spots · claim yours by texting the clinic{" "}
+              <a href={`tel:+1${CLINIC_PHONE}`} className="font-semibold text-pink-400 underline">
+                {CLINIC_PHONE.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}
               </a>
             </p>
           </div>

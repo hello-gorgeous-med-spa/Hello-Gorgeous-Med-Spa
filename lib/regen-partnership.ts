@@ -1,6 +1,6 @@
 /**
  * How Hello Gorgeous Med Spa presents REGEN RX to existing clients.
- * Same team (Danielle + Ryan). Distinct door: telehealth + ship-to-home.
+ * Same team (Danielle + your clinician). Distinct door: telehealth + ship-to-home.
  */
 
 export const REGEN_RX_PUBLIC_URL = "https://tryregenrx.com";
@@ -18,7 +18,7 @@ export const REGEN_PARTNERSHIP = {
   body:
     "Hello Gorgeous is still your studio downtown. REGEN RX is the prescription door we opened so you can keep working with a licensed Illinois clinician without living in the waiting room. Same team. If a compounded medication is prescribed, it is not FDA-approved.",
   legal:
-    "Illinois patients. Prescription only if Ryan determines it is appropriate. No outcome guarantees.",
+    "Illinois patients. Prescription only if your clinician determines it is appropriate. No outcome guarantees.",
   primaryCta: { label: "Start REGEN RX", href: REGEN_RX_HG_START },
   secondaryCta: { label: "See programs", href: REGEN_RX_HG_HUB },
   partnerSiteCta: { label: "tryregenrx.com", href: REGEN_RX_PUBLIC_URL },

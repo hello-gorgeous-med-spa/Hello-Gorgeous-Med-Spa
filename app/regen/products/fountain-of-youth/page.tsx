@@ -423,7 +423,7 @@ export default function FountainOfYouthPage() {
               {
                 step: '3',
                 title: 'Only if prescribed',
-                desc: 'If Ryan, the pharmacy, and counsel clear this protocol later, we send a clinic invoice first. There is no online order button today.',
+                desc: 'If your clinician, the pharmacy, and counsel clear this protocol later, we send a clinic invoice first. There is no online order button today.',
               },
             ].map((item) => (
               <div key={item.step} style={{ textAlign: 'center' }}>

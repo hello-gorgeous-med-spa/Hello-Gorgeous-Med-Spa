@@ -1,10 +1,10 @@
 /**
  * Laser hair removal — pay-per-session menu (Square + site).
  * One Square service: Laser Hair Removal — Pick Your Area.
- * Performed by Danielle and Ryan.
+ * Performed by Danielle and the clinical team.
  */
 
-export const LASER_HAIR_PERFORMERS = "Danielle and Ryan" as const;
+export const LASER_HAIR_PERFORMERS = "Danielle and the clinical team" as const;
 
 export const LASER_HAIR_SQUARE_ITEM = "Laser Hair Removal — Pick Your Area" as const;
 export const LASER_HAIR_SQUARE_VARIATIONS = {
@@ -36,4 +36,4 @@ export function laserHairPriceLabel(dollars: number): string {
 }
 
 export const LASER_HAIR_MENU_BLURB =
-  "Small $79 · medium $99 · large $129. Chin or lip, underarms, legs, bikini, Brazilian, back. Performed by Danielle and Ryan.";
+  "Small $79 · medium $99 · large $129. Chin or lip, underarms, legs, bikini, Brazilian, back. Performed by Danielle and the clinical team.";

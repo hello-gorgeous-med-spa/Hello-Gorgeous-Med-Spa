@@ -60,7 +60,7 @@ export const XEOMIN_TREATMENT_LANDING: InModeTreatmentLandingContent = {
     },
     {
       q: "How much does Xeomin cost?",
-      a: "$12 per unit. Ryan maps the number of units to your face at the visit, and you approve the total before we inject.",
+      a: "$12 per unit. Your clinician maps the number of units to your face at the visit, and you approve the total before we inject.",
     },
     {
       q: "Will I look frozen?",
@@ -73,7 +73,7 @@ export const XEOMIN_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   ],
   consultTitle: "Is Xeomin right for you?",
   consultBody:
-    "Book Xeomin with Ryan — $12/unit, mapped at the visit. We’ll also tell you if Botox, Dysport, Jeuveau, or Daxxify is a better fit.",
+    "Book Xeomin with your clinician — $12/unit, mapped at the visit. We’ll also tell you if Botox, Dysport, Jeuveau, or Daxxify is a better fit.",
   related: [
     {
       href: "/botox-oswego",

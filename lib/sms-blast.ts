@@ -60,7 +60,7 @@ export const BLAST_TEMPLATES: BlastTemplate[] = [
   {
     id: "refill-nudge",
     title: "Peptide check-in",
-    message: "Hi {FirstName}, Ryan here — your peptide check-in window is open. No auto-ship, requires review. Reply REFILL",
+    message: "Hi {FirstName}, Hello Gorgeous here — your peptide check-in window is open. No auto-ship, requires review. Reply REFILL",
   },
   {
     id: "vip-early-access",

@@ -181,7 +181,7 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
         id: "peptide-refill",
         title: "Refill or add a protocol",
         description:
-          "Pick a Formulation SKU, see patient pricing, and tell us refill vs add-on. Ryan reviews before any clinic invoice.",
+          "Pick a Formulation SKU, see patient pricing, and tell us refill vs add-on. your clinician reviews before any clinic invoice.",
         href: "/regen/refill",
         cta: "Open request form",
         icon: "🧬",
@@ -216,7 +216,7 @@ export const RX_PATIENT_CARE_SECTIONS: RxCareSection[] = [
       {
         id: "secure-messages",
         title: "Secure clinical messaging",
-        description: "Message Ryan's team anytime — dose questions, shipping, or protocol changes. Replies in your private thread.",
+        description: "Message your clinician's team anytime — dose questions, shipping, or protocol changes. Replies in your private thread.",
         href: RX_MESSAGES_PATH,
         cta: "Open secure messages",
         badge: "24/7",

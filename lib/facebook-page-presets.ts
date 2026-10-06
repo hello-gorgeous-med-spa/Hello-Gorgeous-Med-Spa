@@ -38,7 +38,7 @@ function withUtm(path: string): string {
 export const FACEBOOK_PAGE_PRESET_GORGEOUS20: FacebookPagePreset = {
   id: "regen-gorgeous20",
   label: "REGEN RX — GORGEOUS20 first order",
-  blurb: "Danielle + Ryan syringes. 20% off first order.",
+  blurb: "REGEN RX. 20% off first medication order.",
   message: GORGEOUS20_COPY.facebook,
   linkPath: withUtm("/regen"),
   imagePath: GORGEOUS20_HERO,
@@ -101,13 +101,12 @@ My result is mine. Yours will be yours. Consult required.`,
 export const FACEBOOK_PAGE_PRESET_QUANTUM: FacebookPagePreset = {
   id: "quantum-contour-live",
   label: "Contour Lift / Quantum RF — live",
-  blurb: "Model Days + Ryan’s direct line.",
+  blurb: "Model Days. Clinic phone only.",
   message: `🔥 Quantum RF is LIVE — Hello Gorgeous Contour Lift™.
 
 Model Days May 4 & May 12 · limited spots · Quantum RF + Morpheus8 Body Deep bundled. Save up to $1,000 vs package pricing.
 
-Text or call a licensed Illinois clinician to claim your spot: 217-741-8359
-Main office: (630) 636-6193`,
+Text or call the clinic to claim your spot: (630) 636-6193`,
   linkPath: withUtm("/services/quantum-rf#contour-lift-model-days"),
   imagePath: "/images/quantum-rf/hello-gorgeous-contour-lift-model-days-flyer-2026.jpg",
   defaultChannels: ["facebook", "instagram"],

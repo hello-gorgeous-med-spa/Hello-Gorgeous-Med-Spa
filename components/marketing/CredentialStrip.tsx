@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { credentialStripForSlug, DANI_IMAGE, RYAN_IMAGE } from "@/lib/founder-credentials";
+import { credentialStripForSlug, DANI_IMAGE } from "@/lib/founder-credentials";
 
 export function CredentialStrip({ slug }: { slug: string }) {
   const copy = credentialStripForSlug(slug);
@@ -15,13 +15,6 @@ export function CredentialStrip({ slug }: { slug: string }) {
           <div className="flex shrink-0 -space-x-2" aria-hidden>
             <Image
               src={DANI_IMAGE}
-              alt=""
-              width={48}
-              height={48}
-              className="h-12 w-12 rounded-full border-2 border-black object-cover"
-            />
-            <Image
-              src={RYAN_IMAGE}
               alt=""
               width={48}
               height={48}

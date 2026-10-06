@@ -13,7 +13,7 @@ import { MedicalTrustBand } from "@/components/MedicalTrustBand";
 import { TwoDoorsForkBand } from "@/components/TwoDoorsForkBand";
 import { LADIES_CLUB_START_PATHS, LADIES_CLUB_STICKY_CTA } from "@/lib/club-start-here";
 import { PROGRAM_CONSULT_BOOKING_URL } from "@/lib/flows";
-import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import { LICENSED_CLINICIAN_PHRASE } from "@/lib/medical-authority";
 import {
   CLUB_VITAMIN_FLYERS,
   LADIES_CLUB_GLP1_FLYERS,
@@ -125,7 +125,7 @@ export function LadiesClubPageContent() {
                 </h1>
                 <p className="mt-6 text-lg text-gray-300 leading-relaxed max-w-xl">
                   Hormones · GLP-1 · peptides · IV &amp; Vitamin Bar — one NP-led home for women&apos;s wellness at Hello Gorgeous.
-                  {` `}{RYAN_FULL_NAME} on site 6 days.
+                  {` `}{LICENSED_CLINICIAN_PHRASE} on site 6 days.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <CTA href="/quiz/perimenopause-readiness" variant="gradient">

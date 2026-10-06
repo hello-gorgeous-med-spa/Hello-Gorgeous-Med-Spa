@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   ...pageMetadata({
     title: "Compound shop | REGEN RX",
     description:
-      "Shop Hello Gorgeous RX protocols, see patient pricing, and request a refill or add-on. Ryan reviews every request before any clinic invoice.",
+      "Shop Hello Gorgeous RX protocols, see patient pricing, and request a refill or add-on. your clinician reviews every request before any clinic invoice.",
     path: REGEN_REFILL_HUB_PATH,
   }),
 };

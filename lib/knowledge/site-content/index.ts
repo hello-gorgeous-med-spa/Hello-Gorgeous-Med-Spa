@@ -96,7 +96,7 @@ export const SITE_CONTENT: readonly KnowledgeEntry[] = [
     topic: "How to book: online, in chat, cancel, reschedule",
     category: "site",
     explanation:
-      "You can book a live appointment on the website Book page or in the chat widget (pick service, provider Ryan or Danielle, date, and time from live availability). We send confirmation and reminders. To cancel or reschedule, call us or reply to your confirmation message. Pricing depends on the service; we give exact numbers when you book or call. Most aesthetics are self-pay; some medical services may work with insurance — call to ask.",
+      "You can book a live appointment on the website Book page or in the chat widget (pick service, provider your clinician or Danielle, date, and time from live availability). We send confirmation and reminders. To cancel or reschedule, call us or reply to your confirmation message. Pricing depends on the service; we give exact numbers when you book or call. Most aesthetics are self-pay; some medical services may work with insurance — call to ask.",
     whatItHelpsWith: ["Booking an appointment", "Cancelling or rescheduling"],
     whoItsFor: ["Anyone wanting to schedule or change an appointment"],
     whoItsNotFor: [],

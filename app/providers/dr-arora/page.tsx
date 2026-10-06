@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
 import { OversightModelPanel } from "@/components/providers/ClinicalAuthorityPanels";
@@ -10,8 +9,6 @@ import {
   MEDICAL_DIRECTOR_EXPERIENCE,
   MEDICAL_DIRECTOR_SPECIALTY,
   NP_ON_SITE_PHRASE,
-  PRESCRIBING_NP,
-  prescribingNpPersonJsonLd,
 } from "@/lib/medical-authority";
 import { DR_ARORA_PROFILE, DR_ARORA_SEO_BLURB, aroraPersonJsonLd } from "@/lib/medical-trust";
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
@@ -23,7 +20,7 @@ const PAGE_URL = `${SITE.url}${PAGE_PATH}`;
 export const metadata: Metadata = {
   ...pageMetadata({
     title: `${MEDICAL_DIRECTOR.displayName} | Medical Director, Hello Gorgeous Med Spa`,
-    description: `${MEDICAL_DIRECTOR.displayName} is Medical Director of Hello Gorgeous Med Spa in Oswego, IL — ${MEDICAL_DIRECTOR_SPECIALTY}, ${MEDICAL_DIRECTOR_EXPERIENCE}. Learn how physician oversight works alongside ${PRESCRIBING_NP.displayName}, our on-site nurse practitioner.`,
+    description: `${MEDICAL_DIRECTOR.displayName} is Medical Director of Hello Gorgeous Med Spa in Oswego, IL — ${MEDICAL_DIRECTOR_SPECIALTY}, ${MEDICAL_DIRECTOR_EXPERIENCE}. Prescriptions are written by a licensed Illinois clinician after a consult.`,
     path: PAGE_PATH,
     keywords: [
       "Dr. Mukesh Arora",
@@ -65,8 +62,6 @@ export default function MedicalDirectorPage() {
     "@context": "https://schema.org",
     "@graph": [
       person,
-      // The oversight story names both clinicians, so both resolve on this page.
-      prescribingNpPersonJsonLd(SITE.url),
       {
         "@type": "ProfilePage",
         "@id": `${PAGE_URL}#webpage`,
@@ -132,25 +127,13 @@ export default function MedicalDirectorPage() {
               <p className="mt-5 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
                 Dr. Arora is the physician Medical Director behind Hello Gorgeous Med Spa —{" "}
                 {MEDICAL_DIRECTOR_SPECIALTY.toLowerCase()} with {MEDICAL_DIRECTOR_EXPERIENCE}. He
-                provides medical oversight of the practice&apos;s clinical program, while{" "}
-                <Link
-                  href={PRESCRIBING_NP.profilePath}
-                  className="font-semibold text-[#FFB8DC] underline decoration-[#E6007E] decoration-2 underline-offset-2 hover:text-white"
-                >
-                  {PRESCRIBING_NP.displayName}
-                </Link>{" "}
-                is {NP_ON_SITE_PHRASE} seeing patients.
+                provides medical oversight of the practice&apos;s clinical program. Prescriptions
+                are {NP_ON_SITE_PHRASE} after a consult.
               </p>
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">
                   {PRIMARY_BOOKING_CTA.label}
                 </CTA>
-                <Link
-                  href={PRESCRIBING_NP.profilePath}
-                  className="inline-flex items-center justify-center rounded-full border-2 border-white/40 px-5 py-2.5 text-sm font-bold text-white transition hover:border-[#FF2D8E] hover:text-[#FFB8DC]"
-                >
-                  Meet {PRESCRIBING_NP.displayName} →
-                </Link>
               </div>
             </FadeUp>
           </div>
@@ -261,9 +244,9 @@ export default function MedicalDirectorPage() {
               Care with a physician Medical Director behind it
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/85">
-              Consultations are with {PRESCRIBING_NP.displayName}, our on-site nurse practitioner, at
-              our downtown Oswego clinic. He&apos;ll review your history and goals and tell you
-              honestly what is and isn&apos;t appropriate.
+              Consultations are with a licensed Illinois clinician at our downtown Oswego clinic.
+              Your clinician reviews your history and goals and tells you honestly what is and
+              isn&apos;t appropriate.
             </p>
             <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
               <CTA href={PRIMARY_BOOKING_CTA.href} variant="white">

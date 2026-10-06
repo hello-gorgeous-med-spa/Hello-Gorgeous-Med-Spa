@@ -53,7 +53,7 @@ export const MORPHEUS8_MARKETING = {
     hero: "/images/morpheus8/morpheus8-hero.jpg",
     verified: "/images/home/morpheus8-burst-verified-provider-inmode.png",
     bodyTech: "/images/home/morpheus8-body-burst-technology-inmode.png",
-    founder: "/images/team/dani-ryan-founders-portrait.png",
+    founder: "/images/team/danielle-alcala-glazier-portrait.png",
     faceTreats: "/images/morpheus8/education/morpheus8-face-treats.jpg",
     bodyBenefits: "/images/morpheus8/education/morpheus8-body-benefits.jpg",
     neckBa: "/images/morpheus8/morpheus8-burst-deep-neck-tightening-before-after.png",
@@ -114,15 +114,15 @@ export const MORPHEUS8_INMODE_STORY = {
 } as const;
 
 export const MORPHEUS8_FOUNDER_NOTE = {
-  eyebrow: "A Note From Our Founders",
+  eyebrow: "A Note From Danielle",
   title: "Why we brought Morpheus8 Burst home",
   paragraphs: [
     "When we set out to offer skin tightening that actually moves the needle, we didn’t want another surface treatment — we wanted the platform InMode is known for worldwide.",
     "Morpheus8 Burst + Deep, Solaria CO₂, and Quantum RF live together at Hello Gorgeous so we can be honest about what you need: depth, surface, or contour — or the full Trifecta when you’re ready for a complete rebuild.",
-    "Ryan leads medical direction as our full-authority NP. Danielle owns the client experience and InMode training journey. Together we treat you like family — with clinical standards to match.",
+    "I own the client experience and the InMode training journey. A licensed Illinois clinician directs the medical plan. Dr. Mukesh Arora, MD is Medical Director.",
   ],
-  signOff: "xoxo, Danielle & Ryan",
-  role: "Founders · Hello Gorgeous Med Spa",
+  signOff: "xoxo, Danielle",
+  role: "Founder · Hello Gorgeous Med Spa",
 } as const;
 
 export const MORPHEUS8_WHAT_IT_DOES = [

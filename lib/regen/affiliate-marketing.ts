@@ -91,10 +91,10 @@ export const AFFILIATE_KIT_VIALS: AffiliateMarketingAsset[] = [
     visualOnly: true,
   },
   {
-    id: "hero-dani-ryan",
-    title: "Danielle + Ryan",
+    id: "hero-wellness",
+    title: "Wellness visual",
     blurb: "Studio photo. Visual only — not a product menu.",
-    href: "/images/regen/marketing/dani-ryan-syringes-hero.png",
+    href: "/images/regen/marketing/woman-wellness.png",
     kind: "image",
     visualOnly: true,
   },

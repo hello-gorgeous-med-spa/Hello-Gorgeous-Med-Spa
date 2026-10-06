@@ -188,7 +188,7 @@ export function PeptideLearnPageContent({ page }: { page: PeptideLearnPageModel 
               eyebrow="Clinical Research"
               title="What published trials"
               titleAccent="actually show"
-              description="These are averages from peer-reviewed studies — education, not a guarantee. Your result depends on dose, duration, tolerance, and the plan Ryan writes for you."
+              description="These are averages from peer-reviewed studies — education, not a guarantee. Your result depends on dose, duration, tolerance, and the plan your clinician writes for you."
             />
             <div className="mt-12 grid gap-5 lg:grid-cols-3">
               {page.research.map((card) => (
@@ -500,7 +500,7 @@ export function PeptideLearnPageContent({ page }: { page: PeptideLearnPageModel 
           Ready for a plan <span className="text-[#FF2D8E]">written for you?</span>
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-white/80">
-          Intake is free. {PRESCRIBING_NP.displayName} sets your dose. Nothing ships until he approves it
+          Intake is free. {PRESCRIBING_NP.displayName} sets your dose. Nothing ships until a clinician approves it
           — serving {PEPTIDE_LEARN_CITIES.join(", ")}, IL.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">

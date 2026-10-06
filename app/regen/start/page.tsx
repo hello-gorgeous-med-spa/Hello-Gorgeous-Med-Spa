@@ -477,7 +477,7 @@ function RegenStartContent() {
       </div>
       <div className="px-6 py-3 text-center text-sm font-semibold" style={{ backgroundColor: `${BRAND.pink}18`, color: BRAND.cream, borderBottom: `1px solid ${BRAND.pink}40` }}>
         {isRefillRequest
-          ? 'Refill request — Ryan reviews again before any clinic invoice or pharmacy send. Nothing auto-charges.'
+          ? 'Refill request — your clinician reviews again before any clinic invoice or pharmacy send. Nothing auto-charges.'
           : <>First medication order {GORGEOUS20_PERCENT}% off (shipping excluded) — we apply <span style={{ color: BRAND.pink }}>{promoCode}</span> on your clinic invoice</>}
       </div>
 

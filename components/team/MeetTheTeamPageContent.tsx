@@ -248,11 +248,11 @@ export function MeetTheTeamPageContent() {
             <div className="mx-auto mb-10 max-w-[720px] text-center">
               <Eyebrow>The four of us</Eyebrow>
               <h2 className="mt-3 font-serif text-[34px] font-bold leading-[1.05] text-white lg:text-[46px]">
-                Owner · Prescriber · Injector · <span className="text-[#FF2D8E]">MD</span>
+                Owner · Injector · <span className="text-[#FF2D8E]">Medical Director</span>
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-white/70">
-                Family-owned at 74 W. Washington St. — Danielle, Ryan, Kristina, and Dr. Arora in
-                one row. Ryan writes RE GEN RX prescriptions. Kristina is our RN injector.
+                Family-owned at 74 W. Washington St. — Danielle, Kristina, and Dr. Arora.
+                A licensed Illinois clinician writes RE GEN RX prescriptions. Kristina is our RN injector.
               </p>
             </div>
           </FadeUp>

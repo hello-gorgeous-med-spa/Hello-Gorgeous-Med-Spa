@@ -172,7 +172,7 @@ export default function TermsPage() {
 
           <h2 style={{ color: BRAND.cream }}>Payment</h2>
           <p>
-            You do not type a card on this website. A request is not a prescription. After Ryan Kent, FNP-BC approves a plan,
+            You do not type a card on this website. A request is not a prescription. After a licensed Illinois clinician approves a plan,
             Hello Gorgeous, P.C. sends a clinic invoice. You pay that invoice before a pharmacy order is placed.
             There is no automatic monthly charge. A refill is another clinical review and a new invoice.
             See the <Link href="/refund" style={{ color: BRAND.teal }}>Refund Policy</Link>.

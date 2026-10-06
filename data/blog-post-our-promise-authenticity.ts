@@ -140,7 +140,7 @@ We're not here to trash competitors. But we are here to help you protect yoursel
 
 ---
 
-## Why Ryan's NP Authority Matters
+## Why a licensed clinician reviews your plan
 
 **a licensed Illinois clinician** holds **full prescriptive authority** as a Family Nurse Practitioner in Illinois. This is not cosmetic licensing — it's medical authority that allows us to:
 
@@ -149,7 +149,7 @@ We're not here to trash competitors. But we are here to help you protect yoursel
 - **Work directly with pharmacies** — Including 503A/503B compounding facilities
 - **Provide medical oversight** — For treatments that require clinical judgment
 
-Many med spas operate under a "medical director" who signs paperwork but isn't on-site. At Hello Gorgeous, **Ryan sees patients directly** and makes clinical decisions in real-time.
+Many med spas operate under a "medical director" who signs paperwork but isn't on-site. At Hello Gorgeous, **your clinician sees patients directly** and makes clinical decisions in real-time.
 
 ---
 
@@ -172,7 +172,7 @@ Our facility maintains **pharmaceutical-grade refrigeration** with logging. This
 
 > *"The Morpheus8 results were unlike anything I'd gotten at other places claiming to have 'RF microneedling.' Now I understand why — they actually have the real machine."* — **Aurora patient** *(experience may vary)*
 
-> *"Ryan took the time to explain why they use specific pharmacies for my weight loss medication. It's not about being fancy — it's about knowing exactly what you're taking."* — **Plainfield patient** *(experience may vary)*
+> *"The clinician took the time to explain why they use specific pharmacies for my weight loss medication. It's not about being fancy — it's about knowing exactly what you're taking."* — **Plainfield patient** *(experience may vary)*
 
 ---
 
@@ -192,7 +192,7 @@ Gray-market or counterfeit fillers may contain unknown substances, lack proper t
 
 ### Does Hello Gorgeous use compounded medications?
 
-Yes — for GLP-1 weight loss and certain peptide protocols, we use 503A/503B licensed compounding pharmacies like Olympia Pharmacy under Ryan's NP supervision.
+Yes — for GLP-1 weight loss and certain peptide protocols, we use 503A/503B licensed compounding pharmacies like Olympia Pharmacy under your clinician's NP supervision.
 
 ### Can I verify Hello Gorgeous is an authorized provider?
 

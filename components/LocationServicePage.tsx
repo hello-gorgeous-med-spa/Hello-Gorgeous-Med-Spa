@@ -94,7 +94,7 @@ export function LocationServicePage({
           <section className="bg-gradient-to-r from-[#FF2D8E] to-[#E91E8C] py-3 px-4">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left">
               <p className="text-white font-bold text-sm md:text-base">
-                Laser hair: Small $79 · Medium $99 · Large $129. Danielle & Ryan.
+                Laser hair: Small $79 · Medium $99 · Large $129. Danielle and the clinical team.
               </p>
               <Link
                 href="/services/laser-hair-removal"

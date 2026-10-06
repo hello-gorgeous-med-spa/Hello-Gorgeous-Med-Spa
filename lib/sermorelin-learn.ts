@@ -66,7 +66,7 @@ export const SERMORELIN_LEARN_PAGE: PeptideLearnPageModel = {
     { label: "Name", value: "Sermorelin" },
     { label: "Class", value: "Growth-hormone-releasing hormone (GHRH) analog" },
     { label: "What it is not", value: "Not human growth hormone (HGH) replacement" },
-    { label: "How it's used here", value: "Subcutaneous injection, often at night — or a daily troche when Ryan prefers that format" },
+    { label: "How it's used here", value: "Subcutaneous injection, often at night — or a daily troche when your clinician prefers that format" },
     { label: "Who sets the plan", value: `${PRESCRIBING_NP.displayName} — at consult, not a dropdown` },
     { label: "Our formulation", value: "Compounded sermorelin from a licensed U.S. pharmacy when clinically appropriate" },
     { label: "Medical oversight", value: MEDICAL_DIRECTOR.displayName },
@@ -116,7 +116,7 @@ export const SERMORELIN_LEARN_PAGE: PeptideLearnPageModel = {
     {
       n: "03",
       title: "Injection or troche",
-      body: "If you qualify, Ryan chooses injectable or sublingual troche and sets the plan. Price is confirmed before anything ships.",
+      body: "If you qualify, your clinician chooses injectable or sublingual troche and sets the plan. Price is confirmed before anything ships.",
       tag: "Your plan",
     },
     {
@@ -143,7 +143,7 @@ export const SERMORELIN_LEARN_PAGE: PeptideLearnPageModel = {
   ],
   notFor: [...(mono?.contra ?? [])],
   notForNote:
-    "Sermorelin is not appropriate for everyone. Active cancer, pregnancy or breastfeeding, and untreated thyroid or pituitary conditions are common reasons Ryan will not prescribe. This list is not exhaustive.",
+    "Sermorelin is not appropriate for everyone. Active cancer, pregnancy or breastfeeding, and untreated thyroid or pituitary conditions are common reasons Your clinician will not prescribe. This list is not exhaustive.",
   sides: [...(mono?.side ?? [])],
   faqs: [
     {
@@ -155,12 +155,12 @@ export const SERMORELIN_LEARN_PAGE: PeptideLearnPageModel = {
     {
       question: "Is sermorelin the same as HGH?",
       answer:
-        "No. HGH is replacement hormone. Sermorelin is a signal that asks your own pituitary to release growth hormone. Ryan explains which approach, if any, fits your history.",
+        "No. HGH is replacement hormone. Sermorelin is a signal that asks your own pituitary to release growth hormone. your clinician explains which approach, if any, fits your history.",
     },
     {
       question: "Injection or troche — which do I get?",
       answer:
-        "Ryan chooses after your consult. Nighttime injection is typical. A daily sublingual troche is an option when he prefers that format.",
+        "your clinician chooses after your consult. Nighttime injection is typical. A daily sublingual troche is an option when he prefers that format.",
     },
     {
       question: "How much does sermorelin cost at Hello Gorgeous?",
@@ -168,7 +168,7 @@ export const SERMORELIN_LEARN_PAGE: PeptideLearnPageModel = {
     },
     {
       question: "Do I need a prescription?",
-      answer: `Yes. Intake is free to submit. A $${PEPTIDE_CONSULT_FEE_USD} consult with ${PRESCRIBING_NP.displayName} reserves your visit. Nothing ships until he approves the protocol.`,
+      answer: `Yes. Intake is free to submit. A $${PEPTIDE_CONSULT_FEE_USD} consult with ${PRESCRIBING_NP.displayName} reserves your visit. Nothing ships until a clinician approves the protocol.`,
     },
     {
       question: "When do people usually inject?",

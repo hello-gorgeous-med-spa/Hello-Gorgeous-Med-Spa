@@ -368,7 +368,7 @@ export function Bpc157RefillScreening({
               <span className="italic font-normal text-[#f5c2c7]">request</span>
             </h2>
             <p className="mt-4 max-w-xl text-[13px] leading-relaxed text-white/55">
-              We screen you like a medical practice because we are one. Ryan reviews every request before any
+              We screen you like a medical practice because we are one. your clinician reviews every request before any
               invoice or fill.
             </p>
           </div>
@@ -529,7 +529,7 @@ export function Bpc157RefillScreening({
             </div>
           </Section>
 
-          <Section n="03" title="Safety questions" desc="If you answer yes, tell us a little more so Ryan can review.">
+          <Section n="03" title="Safety questions" desc="If you answer yes, tell us a little more so your clinician can review.">
             <div className="space-y-3">
               {SAFETY_FLAGS.filter((f) => !("injectableOnly" in f && f.injectableOnly) || form.formType === "Injectable SubQ").map((f) => (
                 <SafetyRow

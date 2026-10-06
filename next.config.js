@@ -283,6 +283,7 @@ const nextConfig = {
     { source: "/events/vip-device-night", destination: "/book", permanent: true },
     { source: "/book-now", destination: "/book", permanent: true },
     { source: "/providers/ryan", destination: "/about", permanent: true },
+    { source: "/providers/ryan-kent", destination: "/about", permanent: true },
     ...hgOnlyRedirect("/refill", "https://tryregenrx.com/refill"),
     { source: "/dm-offers-stc/questionnaire-1.php", destination: "/glp-1-quiz", permanent: true },
     { source: "/questionnaire", destination: "/glp-1-quiz", permanent: true },

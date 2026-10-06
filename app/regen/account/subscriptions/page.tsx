@@ -86,7 +86,7 @@ export default function SubscriptionsPage() {
           Refill requests
         </h1>
         <p style={{ color: '#888' }}>
-          Nothing auto-renews or auto-refills. Ask us for a refill and Ryan reviews again before any clinic invoice or pharmacy send.
+          Nothing auto-renews or auto-refills. Ask us for a refill and your clinician reviews again before any clinic invoice or pharmacy send.
         </p>
       </div>
 
@@ -112,7 +112,7 @@ export default function SubscriptionsPage() {
             No refill requests yet
           </h3>
           <p style={{ color: '#888', marginBottom: 24, maxWidth: 400, margin: '0 auto 24px' }}>
-            Nothing auto-renews. When you need more medication, start a request or call us. Ryan reviews again before any clinic invoice or pharmacy send.
+            Nothing auto-renews. When you need more medication, start a request or call us. your clinician reviews again before any clinic invoice or pharmacy send.
           </p>
           <Link
             href="/refill"

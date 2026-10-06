@@ -8,7 +8,7 @@ export const BPC157_REFILL_CAMPAIGN = "regen_refill_bpc157";
 export const BPC157_REFILL_SHORT_URL = "https://hellogorgeousmedspa.com/regen/refill/bpc-157";
 
 export const BPC157_REFILL_SMS =
-  `REGEN RX refill screening — BPC-157. Existing patients only. Tap to complete so Ryan can review: ${BPC157_REFILL_SHORT_URL}`;
+  `REGEN RX refill screening — BPC-157. Existing patients only. Tap to complete so a clinician can review: ${BPC157_REFILL_SHORT_URL}`;
 
 export const BPC157_REFILL_ACK =
   "I understand BPC-157 is not FDA approved for this indication, is considered investigational, and long-term risks are not fully known. I am continuing voluntarily.";

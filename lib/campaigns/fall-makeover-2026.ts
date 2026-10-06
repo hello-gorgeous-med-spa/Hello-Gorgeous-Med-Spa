@@ -73,7 +73,7 @@ export const FALL_MAKEOVER_EVENT_PHOTOS = [
   {
     src: `${EVENT}/party-portrait-01.jpg`,
     alt: "a licensed Illinois clinician treating a guest at a Hello Gorgeous studio event",
-    caption: "Ryan, FNP-BC",
+    caption: "your clinician, FNP-BC",
     span: "tall" as const,
     focus: "center 22%",
   },
@@ -185,7 +185,7 @@ export const FALL_MAKEOVER_PACKAGES: FallMakeoverPackage[] = [
       },
       {
         name: "Compounded medical-grade lightener",
-        detail: "Miracle Cream when prescribed — hydroquinone with a retinoic blend. Ryan clears it first.",
+        detail: "Miracle Cream when prescribed — hydroquinone with a retinoic blend. your clinician clears it first.",
         priceLabel: "Priced at consult",
         href: "/rx?goal=hair-skin",
         lane: "inside",
@@ -320,7 +320,7 @@ export const FALL_MAKEOVER_FAQS: { question: string; answer: string }[] = [
   {
     question: "Do I pick one package or mix them?",
     answer:
-      "Most clients pick one lane — Repair, Prevent, or Lose — so the inside and outside work on the same goal. Ryan can stage a second lane later. We do not stack Repair’s hydroquinone lightener on top of Prevent’s retinoid without a written plan.",
+      "Most clients pick one lane — Repair, Prevent, or Lose — so the inside and outside work on the same goal. your clinician can stage a second lane later. We do not stack Repair’s hydroquinone lightener on top of Prevent’s retinoid without a written plan.",
   },
   {
     question: "Is everything included at a set package price?",
@@ -350,7 +350,7 @@ export const FALL_MAKEOVER_FAQS: { question: string; answer: string }[] = [
   {
     question: "What are the Fall Makeover savings?",
     answer:
-      "Launch savings at consult: Repair includes a complimentary $100-off gift card. Prevent (the Morpheus8 anti-aging lane) is $200 off. Lose is $150 off. One lane per client. Savings apply after Ryan maps candidacy — not a checkout coupon.",
+      "Launch savings at consult: Repair includes a complimentary $100-off gift card. Prevent (the Morpheus8 anti-aging lane) is $200 off. Lose is $150 off. One lane per client. Savings apply after Your clinician maps candidacy — not a checkout coupon.",
   },
 ];
 

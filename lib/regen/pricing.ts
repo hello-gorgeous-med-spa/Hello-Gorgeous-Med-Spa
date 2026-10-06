@@ -12,7 +12,7 @@
 // ============================================================
 
 export const CONSULTATION_PRICE = 49;
-export const CONSULTATION_LABEL = '$49 Video Consult with Ryan';
+export const CONSULTATION_LABEL = '$49 Video Consult with your clinician';
 
 // ============================================================
 // VITAMIN INJECTABLES

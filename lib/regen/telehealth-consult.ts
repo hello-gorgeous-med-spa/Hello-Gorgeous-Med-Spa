@@ -10,15 +10,15 @@ import {
 
 export const REGEN_TELEHEALTH_FEE_USD = PROGRAM_CONSULT_FEE_USD;
 
-/** Public consult door — Ryan Kent $49 phone visit on Square. */
+/** Public consult door — a licensed Illinois clinician $49 phone visit on Square. */
 export const REGEN_TELEHEALTH_BOOKING_URL = SQUARE_RX_TELEHEALTH_BOOKING_URL;
 
 /** On-site explainer. */
 export const REGEN_TELEHEALTH_PATH = "/consult";
 
-export const REGEN_TELEHEALTH_PROVIDER = "Ryan Kent, FNP-BC";
+export const REGEN_TELEHEALTH_PROVIDER = "a licensed Illinois clinician";
 
-export const REGEN_TELEHEALTH_SERVICE_NAME = "Telehealth Phone Visit — Ryan Kent, FNP-BC";
+export const REGEN_TELEHEALTH_SERVICE_NAME = "Telehealth Phone Visit — a licensed Illinois clinician";
 
 export const REGEN_TELEHEALTH_DURATION = "15-minute phone visit";
 
@@ -33,4 +33,4 @@ export const REGEN_TELEHEALTH_CREDIT_LINE = `The ${regenTelehealthPriceLabel()} 
 export const REGEN_TELEHEALTH_CREDIT_SHORT = `${regenTelehealthPriceLabel()} credited toward therapy if prescribed`;
 
 export const REGEN_TELEHEALTH_BLURB =
-  `Can't come in? Ryan Kent, FNP-BC calls you at your appointment time. If he prescribes, we credit the ${regenTelehealthPriceLabel()} visit toward your first therapy order.`;
+  `Can't come in? a licensed Illinois clinician calls you at your appointment time. If he prescribes, we credit the ${regenTelehealthPriceLabel()} visit toward your first therapy order.`;

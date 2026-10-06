@@ -51,7 +51,7 @@ export const SOLARIA_MARKETING = {
     workstation: "/images/solaria/solaria-workstation.png",
     overview: "/images/solaria/solaria-inmode-manufacturer-overview.jpg",
     introducing: "/images/solaria/solaria-inmode-introducing-best-version.jpg",
-    founder: "/images/team/dani-ryan-founders-portrait.png",
+    founder: "/images/team/danielle-alcala-glazier-portrait.png",
     clinicDanielle: "/images/solaria/danielle-solaria-inmode-clinic.png",
     clinicTreatment: "/images/solaria/hg-clinic-solaria-treatment.jpg",
     danielleBa: "/images/solaria/danielle-solaria-co2-before-during-after.png",

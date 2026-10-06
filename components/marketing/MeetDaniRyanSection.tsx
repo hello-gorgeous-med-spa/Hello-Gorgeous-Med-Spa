@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
-import { DANI_IMAGE, RYAN_IMAGE } from "@/lib/founder-credentials";
+import { DANI_IMAGE } from "@/lib/founder-credentials";
 import { KRISTINA_IMAGE } from "@/lib/kristina-huda";
 import {
   SHOWCASE_ACCENTS,
@@ -161,7 +161,7 @@ export function MeetDaniRyanSection() {
         </>
       }
     >
-      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4 lg:gap-8">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 lg:gap-8">
         <FounderTrifectaCard
           image={DANI_IMAGE}
           imageAlt="Danielle Alcala-Glazier, Owner and Founder of Hello Gorgeous Med Spa"
@@ -173,18 +173,6 @@ export function MeetDaniRyanSection() {
           ctaHref="/blog/founder-letter-morpheus8-solaria-oswego-il"
           accent={SHOWCASE_ACCENTS[0]}
           delayMs={200}
-        />
-        <FounderTrifectaCard
-          image={RYAN_IMAGE}
-          imageAlt="Ryan Kent, FNP-BC, RE GEN RX prescriber at Hello Gorgeous Med Spa"
-          heading="Ryan Kent"
-          role="Prescriber · RE GEN RX"
-          credentials="FNP-BC FPA · Family · Illinois APRN"
-          body="Ryan runs RE GEN RX — medical weight loss, hormones, and peptide protocols. He reviews intakes, labs, and refills. Consult first. He writes the prescription. Danielle does not."
-          ctaLabel="Meet Ryan"
-          ctaHref="/providers/ryan"
-          accent={SHOWCASE_ACCENTS[1]}
-          delayMs={300}
         />
         <FounderTrifectaCard
           image={KRISTINA_IMAGE}
@@ -204,7 +192,7 @@ export function MeetDaniRyanSection() {
           heading="Dr. Arora"
           role="Medical Director"
           credentials="Internal Medicine · physician Medical Director"
-          body="Physician oversight for Hello Gorgeous. Prescriptions are written by Ryan Kent, FNP-BC after a consult — not by the owner."
+          body="Physician oversight for Hello Gorgeous. Prescriptions are written by a licensed Illinois clinician after a consult — not by the owner."
           ctaLabel="Read about Dr. Arora"
           ctaHref="/providers/dr-arora"
           accent={{

@@ -67,7 +67,7 @@ export function MedicalTrustBand({
               <p className={`mt-4 text-base leading-relaxed ${s.body}`}>
                 Illinois patients deserve more than a checkout flow. Danielle Alcala-Glazier —
                 owner, RN-S, CNA, CMAA, licensed phlebotomist, and licensed esthetician — leads
-                the practice every day. Ryan Kent, FNP-BC is the RE GEN RX prescriber. Kristina
+                the practice every day. A licensed Illinois clinician writes RE GEN RX prescriptions. Kristina
                 Huda, BSN, RN is our RN injector. Dr. Mukesh Arora, MD is Medical Director.
               </p>
               <blockquote

@@ -91,7 +91,7 @@ What that enables at Hello Gorgeous in Oswego:
 
 > *"If a clinic cannot see you for hormones, TRT, or peptides — it is almost always because the medical authority is not in the building. Ours is."*
 
-**Learn more:** [About Ryan & Dani](/about) · [GLP-1 weight loss](/glp-1-weight-loss-oswego) · [Peptide therapy](/peptides)
+**Learn more:** [About Danielle](/about) · [GLP-1 weight loss](/glp-1-weight-loss-oswego) · [Peptide therapy](/peptides)
 
 ## 03 · Hours — Open seven days a week
 
@@ -134,7 +134,7 @@ We have built the practice slowly on purpose. Every service we sell, we sell bec
 >  
 > — **Danielle Alcala-Glazier**, Founder
 
-Consultations are free and unrushed. You will meet Ryan, you will see the equipment, and you will leave with a **real plan** — not a sales pitch.
+Consultations are free and unrushed. You will meet a licensed Illinois clinician, you will see the equipment, and you will leave with a **real plan** — not a sales pitch.
 
 **[Book your consultation](/book)** · **74 W Washington St, Oswego, IL 60543**
 

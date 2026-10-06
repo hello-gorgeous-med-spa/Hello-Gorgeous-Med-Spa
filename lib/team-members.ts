@@ -5,9 +5,6 @@
 import {
   DANI_FULL_NAME,
   DANI_IMAGE,
-  RYAN_FULL_NAME,
-  RYAN_IMAGE,
-  RYAN_MEDIUM_BIO,
   TEAM_FOUNDERS_IMAGE,
 } from "@/lib/founder-credentials";
 import {
@@ -44,7 +41,7 @@ export type TeamMember = {
 };
 
 export const MEET_THE_TEAM_SEO_DESCRIPTION =
-  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Danielle Alcala-Glazier, Ryan Kent, FNP-BC (RE GEN RX prescriber), Kristina Huda, BSN, RN (injector), Dr. Mukesh Arora, MD, plus Angel Ruggiero, Michelle Colby, Laura Witt, and Jen Vokoun.";
+  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Danielle Alcala-Glazier, Kristina Huda, BSN, RN (injector), Dr. Mukesh Arora, MD, plus Angel Ruggiero, Michelle Colby, Laura Witt, and Jen Vokoun. Prescriptions are written by a licensed Illinois clinician.";
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
@@ -203,22 +200,6 @@ export const LEADERSHIP_TEAM: TeamMember[] = [
     specialties: ["Morpheus8 · Quantum RF · Solaria", "Brows & skin", "InMode Trifecta"],
   },
   {
-    id: "ryan-kent",
-    slug: "ryan-kent",
-    fullName: RYAN_FULL_NAME,
-    badge: "Prescriber · RE GEN RX",
-    title: "Nurse Practitioner · FNP-BC",
-    profileHref: "/providers/ryan",
-    profileLabel: "Full profile →",
-    image: {
-      src: RYAN_IMAGE,
-      alt: `${RYAN_FULL_NAME}, RE GEN RX prescriber at Hello Gorgeous Med Spa in Oswego, IL`,
-    },
-    quote: "Consult first. I review the chart. Then I write the plan — or I don't.",
-    bioParagraphs: [RYAN_MEDIUM_BIO],
-    specialties: ["Medical weight loss", "Hormones", "Peptide protocols", "Labs & refills"],
-  },
-  {
     id: "kristina-leadership",
     slug: "kristina-row",
     fullName: KRISTINA_FULL_NAME,
@@ -232,7 +213,7 @@ export const LEADERSHIP_TEAM: TeamMember[] = [
       objectClassName: "object-cover object-[center_28%]",
     },
     bioParagraphs: [
-      "Our RN injector for neuromodulators, fillers, IVs, and wellness support. She does not prescribe — Ryan Kent, FNP-BC writes every prescription.",
+      "Our RN injector for neuromodulators, fillers, IVs, and wellness support. She does not prescribe. A licensed Illinois clinician writes every prescription.",
     ],
     specialties: ["Neuromodulators", "Fillers", "IVs"],
   },

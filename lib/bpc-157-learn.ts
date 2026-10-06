@@ -86,7 +86,7 @@ export const BPC157_LEARN_PAGE: PeptideLearnPageModel = {
     {
       n: "02",
       title: "Injection or oral",
-      body: "Injectable protocols are common for muscle, tendon, and joint goals. Oral capsules are often chosen when the focus is gut lining comfort — or when needles are not the right fit. Ryan picks the format.",
+      body: "Injectable protocols are common for muscle, tendon, and joint goals. Oral capsules are often chosen when the focus is gut lining comfort — or when needles are not the right fit. your clinician picks the format.",
     },
     {
       n: "03",
@@ -116,7 +116,7 @@ export const BPC157_LEARN_PAGE: PeptideLearnPageModel = {
     {
       n: "03",
       title: "Format and cycle",
-      body: "If you qualify, Ryan chooses injectable or oral and sets the cycle. Price is confirmed before anything ships.",
+      body: "If you qualify, your clinician chooses injectable or oral and sets the cycle. Price is confirmed before anything ships.",
       tag: "Your plan",
     },
     {
@@ -137,7 +137,7 @@ export const BPC157_LEARN_PAGE: PeptideLearnPageModel = {
   forTitle: "Who BPC-157",
   forItems: [
     "Adults recovering from training, a strain, or soft-tissue discomfort — candidacy is confirmed at consult",
-    "People exploring gut-comfort support when Ryan agrees an oral protocol may fit",
+    "People exploring gut-comfort support when your clinician agrees an oral protocol may fit",
     "Clients who want NP-directed peptide care in Oswego — not a research-chemical cart",
     "Adults who can follow a defined cycle, storage instructions, and follow-up",
   ],
@@ -160,7 +160,7 @@ export const BPC157_LEARN_PAGE: PeptideLearnPageModel = {
     {
       question: "Injection or capsules — which do I get?",
       answer:
-        "Ryan chooses after your consult. Injectable is common for muscle, tendon, and joint goals. Oral capsules are often used when the focus is gut comfort or when injections are not the right fit.",
+        "your clinician chooses after your consult. Injectable is common for muscle, tendon, and joint goals. Oral capsules are often used when the focus is gut comfort or when injections are not the right fit.",
     },
     {
       question: "How much does BPC-157 cost at Hello Gorgeous?",
@@ -168,7 +168,7 @@ export const BPC157_LEARN_PAGE: PeptideLearnPageModel = {
     },
     {
       question: "Do I need a prescription?",
-      answer: `Yes. Intake is free to submit. A $${PEPTIDE_CONSULT_FEE_USD} consult with ${PRESCRIBING_NP.displayName} reserves your visit. Nothing ships until he approves the protocol.`,
+      answer: `Yes. Intake is free to submit. A $${PEPTIDE_CONSULT_FEE_USD} consult with ${PRESCRIBING_NP.displayName} reserves your visit. Nothing ships until a clinician approves the protocol.`,
     },
     {
       question: "How long is a typical cycle?",

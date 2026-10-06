@@ -3,13 +3,13 @@
  */
 
 import type { FAQ } from "@/lib/seo";
-import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import { LICENSED_CLINICIAN_PHRASE } from "@/lib/medical-authority";
 import { LADIES_CLUB_PATH, LADIES_CLUB_WEIGHT_HORMONES_IMAGE } from "@/lib/ladies-club";
 
 export const LADIES_CLUB_BHRT_COST_PATH = `${LADIES_CLUB_PATH}/bhrt-cost` as const;
 
 export const BHRT_COST_MEDICAL_REVIEW = {
-  reviewer: RYAN_FULL_NAME,
+  reviewer: LICENSED_CLINICIAN_PHRASE,
   updated: "June 2026",
 } as const;
 

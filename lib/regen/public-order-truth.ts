@@ -1,6 +1,6 @@
 /**
  * One public story for tryregenrx.com.
- * Matches the live door: request or $49 consult → Ryan reviews → clinic invoice →
+ * Matches the live door: request or $49 consult → your clinician reviews → clinic invoice →
  * pharmacy. No card on this website.
  */
 

@@ -89,7 +89,7 @@ export function PortalRxCareTeam() {
       >
         <div>
           <p className="text-xs font-bold uppercase tracking-widest text-[#E6007E]">Care team</p>
-          <p className="font-bold text-black mt-0.5">Message Ryan &amp; the RX team</p>
+          <p className="font-bold text-black mt-0.5">Message your clinician &amp; the RX team</p>
           <p className="text-xs text-black/55 mt-1">Secure messaging — we reply within 24 hours</p>
         </div>
         <div className="flex items-center gap-2 shrink-0">

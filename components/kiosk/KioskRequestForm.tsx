@@ -85,7 +85,7 @@ export function KioskRequestForm() {
           </p>
           <h1 className="mt-3 font-serif text-4xl">Request sent.</h1>
           <p className="mt-4 text-[16px] leading-relaxed text-[#5c554e]">
-            The clinic has what you picked. Ryan Kent, FNP-BC reviews it before any invoice.
+            The clinic has what you picked. a licensed Illinois clinician reviews it before any invoice.
             A request is not a prescription.
           </p>
         </div>
@@ -207,7 +207,7 @@ export function KioskRequestForm() {
             onChange={(event) => setConsent(event.target.checked)}
             className="mt-1"
           />
-          This is a request for Ryan Kent, FNP-BC to review. It is not a prescription, and no payment is taken here.
+          This is a request for a licensed Illinois clinician to review. It is not a prescription, and no payment is taken here.
         </label>
         {error ? <p className="text-[14px] text-[#9b1c4a]">{error}</p> : null}
         <button

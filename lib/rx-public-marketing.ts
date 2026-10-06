@@ -28,7 +28,7 @@ export const RX_PUBLIC_DISCLAIMER_LONG = `${RX_PUBLIC_DISCLAIMER_SHORT} ${PRESCR
 export const RX_GLP1_COMPOUNDED_NOTICE =
   "When a compounded GLP-1 is prescribed, it is prepared by a licensed US pharmacy for an individual patient. It is not FDA-approved, not a generic, and not the same as Ozempic®, Wegovy®, Mounjaro®, or Zepbound®. Branded options may be discussed when they fit.";
 
-export const RX_CONSULT_FEE_NOTE = `New-patient consult is $${PEPTIDE_CONSULT_FEE_USD}. That reserves the visit with ${PRESCRIBING_NP.displayName}. Medication is billed only after he approves a plan. Fees for routine professional services may be adjusted if labs, complexity, or dose require it.`;
+export const RX_CONSULT_FEE_NOTE = `New-patient consult is $${PEPTIDE_CONSULT_FEE_USD}. That reserves the visit with ${PRESCRIBING_NP.displayName}. Medication is billed only after a clinician approves a plan. Fees for routine professional services may be adjusted if labs, complexity, or dose require it.`;
 
 /**
  * Education-hub slugs that must not stay indexed. Compounding after consult is a
@@ -129,7 +129,7 @@ export const RX_PUBLIC_SERVICES = [
   {
     n: "06",
     title: "Individualized wellness consultation",
-    body: "A medical visit to review history, labs, and goals. Peptide or other prescription therapy is offered only when Ryan determines it is clinically appropriate — not from an online cart.",
+    body: "A medical visit to review history, labs, and goals. Peptide or other prescription therapy is offered only when your clinician determines it is clinically appropriate — not from an online cart.",
     href: "/rx/request",
     image: "/images/regen/categories/immune-support.png",
     imageAlt: "Individualized wellness consultation — Hello Gorgeous RX",

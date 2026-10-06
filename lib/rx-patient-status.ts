@@ -139,7 +139,7 @@ function approvalStep(dispatch: RxDispatchRecord | null): RxPatientStatusStep {
       id: "approval",
       label: "Rx approved",
       status: "complete",
-      detail: "Ryan approved your protocol — pharmacy fulfillment in progress.",
+      detail: "your clinician approved your protocol — pharmacy fulfillment in progress.",
     };
   }
   if (status === "reviewed") {

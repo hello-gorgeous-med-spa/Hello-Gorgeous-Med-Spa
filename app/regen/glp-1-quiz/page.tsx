@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   ...pageMetadata({
     title: "GLP-1 quiz | REGEN RX",
     description:
-      "Three-step GLP-1 screening for Illinois adults. Ryan reviews every request. Not a prescription.",
+      "Three-step GLP-1 screening for Illinois adults. your clinician reviews every request. Not a prescription.",
     path: `/regen${GLP1_QUIZ_PATH}`,
   }),
 };

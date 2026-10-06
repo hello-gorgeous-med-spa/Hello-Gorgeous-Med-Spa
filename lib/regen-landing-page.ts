@@ -40,8 +40,8 @@ export const REGEN_HERO_CARDS = [
     headline: "Lose weight on GLP-1s",
     cta: "Start now",
     href: "/rx/weight-loss",
-    image: "/images/team/ryan-kent.png",
-    imageAlt: "a licensed Illinois clinician — REGEN medical director",
+    image: "/images/regen/marketing/woman-wellness.png",
+    imageAlt: "Hello Gorgeous wellness care in Oswego",
     accent: "#E3F2FD",
   },
 ] as const;
@@ -194,19 +194,19 @@ export const REGEN_GOALS = [
 export const REGEN_PROVIDERS = {
   headline: "Backed by licensed providers",
   intro:
-    "REGEN prescriptions are written by Ryan Kent, FNP-BC — a board-certified Family Nurse Practitioner with prescriptive authority. Every treatment plan is reviewed, personalized, and monitored.",
+    "REGEN prescriptions are written by a licensed Illinois clinician after a consult. Medical Director Dr. Mukesh Arora, MD oversees the practice. Every treatment plan is reviewed before anything is ordered.",
   bullets: [
-    { id: "board", text: "Board-certified NP" },
-    { id: "onsite", text: "On-site 6 days a week in Oswego" },
+    { id: "board", text: "Licensed Illinois clinician" },
+    { id: "onsite", text: "Oswego clinic and Illinois telehealth" },
     { id: "telehealth", text: "Telehealth when required" },
   ],
   provider: {
-    name: "Ryan Kent, FNP-BC",
-    title: "RE GEN RX Prescriber · FNP-BC",
-    credentials: "Board-certified Family Nurse Practitioner",
+    name: "Dr. Mukesh Arora, MD",
+    title: "Medical Director",
+    credentials: "Internal Medicine · physician oversight",
     affiliation: "Hello Gorgeous Med Spa",
-    image: "/images/team/ryan-kent-portrait.jpg",
-    imageAlt: "Ryan Kent, FNP-BC — RE GEN RX prescriber at Hello Gorgeous Med Spa",
+    image: "/images/team/cinematic/dr-arora.jpg",
+    imageAlt: "Dr. Mukesh Arora, MD, Medical Director at Hello Gorgeous Med Spa",
   },
 } as const;
 
@@ -221,8 +221,8 @@ export const REGEN_HOW_IT_WORKS = {
       id: "message",
       title: "Message your provider 24/7",
       description: "Ask questions, report progress, adjust your plan — all through secure messaging.",
-      image: "/images/team/ryan-kent-portrait.jpg",
-      imageAlt: "Ryan Kent, FNP-BC — RE GEN RX provider messaging",
+      image: "/images/regen/marketing/woman-wellness.png",
+      imageAlt: "Hello Gorgeous clinician follow-up",
     },
     {
       id: "manage",

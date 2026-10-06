@@ -223,7 +223,7 @@ export function Glp1QuizPageContent({ brand }: { brand: Glp1QuizBrand }) {
             {GLP1_QUIZ_NURSE_CTA}
           </a>
           <p className="mt-4 text-xs" style={{ color: t.muted }}>
-            Ryan Kent, FNP-BC · $49 phone visit · credited toward therapy if prescribed
+            a licensed Illinois clinician · $49 phone visit · credited toward therapy if prescribed
           </p>
         </div>
       </div>

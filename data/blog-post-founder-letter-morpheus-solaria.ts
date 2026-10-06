@@ -152,7 +152,7 @@ Both are FDA-cleared InMode technologies with strong clinical histories — deep
 
 ### Can I do both Morpheus8 and Solaria?
 
-Yes, for many candidates they complement each other. [Book a consultation](/book) so Ryan or our team can sequence them safely for your skin type and goals.
+Yes, for many candidates they complement each other. [Book a consultation](/book) so your clinician or our team can sequence them safely for your skin type and goals.
 
 ### Is AnteAGE MD the same as Morpheus8?
 

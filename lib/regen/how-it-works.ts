@@ -18,19 +18,19 @@ export const REGEN_HOW_IT_WORKS_STEPS = [
     num: '1',
     title: 'Start a request or book a $49 phone consult',
     time: 'About 8 min',
-    desc: 'Submit a secure intake or book Ryan’s $49 phone consult. Illinois residents, 21+. This does not charge you for medication.',
+    desc: 'Submit a secure intake or book your clinician’s $49 phone consult. Illinois residents, 21+. This does not charge you for medication.',
   },
   {
     num: '2',
-    title: 'Ryan reviews',
+    title: 'your clinician reviews',
     time: '1–2 business days',
-    desc: `Ryan reviews your request. He may ask for information, labs, or a ${regenTelehealthPriceLabel()} phone consult. A request is not a guaranteed prescription.`,
+    desc: `your clinician reviews your request. He may ask for information, labs, or a ${regenTelehealthPriceLabel()} phone consult. A request is not a guaranteed prescription.`,
   },
   {
     num: '3',
     title: 'Clinic invoice, then Formulation Rx',
     time: 'After approval',
-    desc: 'If he approves a treatment, we send a Charm clinic invoice (medication, $30 shipping, GORGEOUS20 and $49 consult credit when they apply). After you pay, we submit the prescription to Formulation Rx. You do not type a card on this website.',
+    desc: 'If a clinician approves a treatment, we send a Charm clinic invoice (medication, $30 shipping, GORGEOUS20 and $49 consult credit when they apply). After you pay, we submit the prescription to Formulation Rx. You do not type a card on this website.',
   },
 ] as const;
 

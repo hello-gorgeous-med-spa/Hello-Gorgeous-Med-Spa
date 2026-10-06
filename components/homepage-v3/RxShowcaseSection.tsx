@@ -12,8 +12,8 @@ export function RxShowcaseSection() {
           {/* Image */}
           <div className="relative">
             <Image
-              src="/images/rx/hg-ryan-kent-rx-authority.png"
-              alt="a licensed Illinois clinician - Full Practice Authority prescriptions at Hello Gorgeous Med Spa"
+              src="/images/team/cinematic/dr-arora.jpg"
+              alt="Dr. Mukesh Arora, MD, Medical Director at Hello Gorgeous Med Spa"
               width={600}
               height={400}
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -34,8 +34,7 @@ export function RxShowcaseSection() {
               <span className="text-[#E6007E]">Trust</span>
             </h2>
             <p className="text-lg text-white/80 mb-6 leading-relaxed">
-              a licensed Illinois clinician brings full practice authority to Hello Gorgeous Med Spa. 
-              This means we can prescribe, evaluate, and manage your complete wellness journey 
+              Dr. Mukesh Arora, MD is Medical Director. A licensed Illinois clinician prescribes, evaluates, and manages your wellness plan
               — from medical weight loss to hormone optimization.
             </p>
             

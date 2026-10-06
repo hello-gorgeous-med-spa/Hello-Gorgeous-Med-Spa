@@ -5,7 +5,7 @@ import { CTA } from "@/components/CTA";
 import { RealPatientReviews } from "@/components/RealPatientReviews";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
-import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import { LICENSED_CLINICIAN_PHRASE } from "@/lib/medical-authority";
 import {
   GENTLEMENS_CLUB_GIFT_BROTOX_IMAGE,
   GENTLEMENS_CLUB_HERO_IMAGE,
@@ -134,7 +134,7 @@ export async function MensWellnessPageContent() {
               </CTA>
             </div>
             <p className="mt-6 text-sm text-white/60">
-              NP oversight by {RYAN_FULL_NAME} ·{" "}
+              Clinician oversight by {LICENSED_CLINICIAN_PHRASE} ·{" "}
               <a href={`tel:${SITE.phone}`} className="text-[#FFB8DC] underline decoration-[#E6007E]">
                 {SITE.phone}
               </a>
@@ -329,7 +329,7 @@ export async function MensWellnessPageContent() {
               </p>
               <h3 className="mt-3 text-2xl font-black">Skip the tie. Gift the confidence.</h3>
               <p className="mt-3 text-sm leading-relaxed text-white/70">
-                Brotox gift cards and men's wellness consults make gifts he'll actually use.
+                Brotox gift cards and men's wellness consults make gifts they'll actually use.
               </p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <CTA

@@ -38,7 +38,7 @@ const PROGRAMS = [
     id: 'compound-shop',
     title: 'Compound shop',
     subtitle: 'Refill or add a protocol',
-    description: 'Request a refill or add a protocol. Ryan prescribes only after medical review and approval.',
+    description: 'Request a refill or add a protocol. A licensed Illinois clinician prescribes only after medical review and approval.',
     price: 'Prescribed after medical review and approval.',
     href: '/refill',
     image: '/images/regen/catalog/sermorelin.png',

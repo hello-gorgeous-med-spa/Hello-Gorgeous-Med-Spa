@@ -16,9 +16,9 @@ export const GORGEOUS20_MARQUEE = [
 ] as const;
 
 export const GORGEOUS20_HERO =
-  "/images/regen/marketing/dani-ryan-syringes-hero.png" as const;
+  "/images/regen/marketing/woman-wellness.png" as const;
 export const GORGEOUS20_PORTRAIT =
-  "/images/regen/marketing/dani-ryan-syringes-portrait.png" as const;
+  "/images/regen/marketing/woman-wellness.png" as const;
 
 export const REGEN_VIAL_LINEUP =
   "/images/regen/marketing/cell-peptide.png" as const;
@@ -80,7 +80,7 @@ export const GORGEOUS20_EXAMPLES: Gorgeous20Example[] = [
 ];
 
 export const GORGEOUS20_COPY = {
-  sms: `Same Danielle. Same Ryan. New door — REGEN RX. First medication order 20% off — we apply GORGEOUS20 on the clinic invoice. Shipping $30. Illinois only. A licensed Illinois clinician decides. Start: tryregenrx.com/start`,
+  sms: `Hello Gorgeous here. New door — REGEN RX. First medication order 20% off — we apply GORGEOUS20 on the clinic invoice. Shipping $30. Illinois only. A licensed Illinois clinician decides. Start: tryregenrx.com/start`,
   emailSubject: `GORGEOUS20 — 20% off your first REGEN RX order`,
   instagram: `Same team you already trust. New prescription door.
 
@@ -97,7 +97,7 @@ tryregenrx.com/start
 #REGENRX #HelloGorgeous #OswegoIL`,
   facebook: `We opened a prescription door for Hello Gorgeous clients.
 
-Danielle and a licensed Illinois clinician — REGEN RX. Weight loss, hormones, vitamins, and NAD+ support Ryan can prescribe when it is appropriate.
+Danielle Alcala-Glazier — REGEN RX. Weight loss, hormones, vitamins, and NAD+ support a licensed Illinois clinician can prescribe when it is appropriate.
 
 First order 20% off medication. We apply GORGEOUS20 on the clinic invoice.
 

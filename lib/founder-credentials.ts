@@ -34,13 +34,13 @@ export const DANI_INDUSTRY_RELATIONSHIPS =
   "In ten years as owner she has built personal working relationships with compounding pharmacies, McKesson, AnteAGE regenerative medicine, and the manufacturer teams behind Botox, Jeuveau, Dysport, and Xeomin — plus InMode and other industry educators she trains with in person. That is how a family-owned studio stays stocked with authentic product and current protocol.";
 
 export const FOOTER_CREDENTIALS_LINE =
-  `Founder: Danielle Alcala-Glazier (CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician, 10+ year owner & developer, RN-S at Waubonsee) · Medical Director: ${MEDICAL_DIRECTOR.displayName} · Prescriber: ${RYAN_FULL_NAME} · RN Injector: Kristina Huda, BSN, RN`;
+  `Founder: Danielle Alcala-Glazier (CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician, 10+ year owner & developer, RN-S at Waubonsee) · Medical Director: ${MEDICAL_DIRECTOR.displayName} · Prescriptions: a licensed Illinois clinician · RN Injector: Kristina Huda, BSN, RN`;
 
-export const CREDENTIAL_STRIP_STANDARD = `Performed by our team. Medical Director: ${MEDICAL_DIRECTOR.displayName}. Prescriptions are written by ${RYAN_FULL_NAME}.
+export const CREDENTIAL_STRIP_STANDARD = `Performed by our team. Medical Director: ${MEDICAL_DIRECTOR.displayName}. Prescriptions are written by a licensed Illinois clinician.
 
 Owner & Founder: Danielle Alcala-Glazier — ${DANI_CREDENTIALS_PUBLIC}.`;
 
-export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeous is written by ${RYAN_FULL_NAME} under Medical Director ${MEDICAL_DIRECTOR.displayName}. Owner & Founder: Danielle Alcala-Glazier — ${DANI_CREDENTIALS_PUBLIC}.`;
+export const CREDENTIAL_STRIP_PRESCRIPTION = `Every prescription at Hello Gorgeous is written by a licensed Illinois clinician under Medical Director ${MEDICAL_DIRECTOR.displayName}. Owner & Founder: Danielle Alcala-Glazier — ${DANI_CREDENTIALS_PUBLIC}.`;
 
 export const DANI_SHORT_BIO =
   `Danielle Alcala-Glazier — ${DANI_CREDENTIALS_PUBLIC}. Owner & Founder, Hello Gorgeous Med Spa.`;
@@ -74,7 +74,7 @@ export const RYAN_LONG_BIO = `Ryan leads RE GEN RX: medical weight loss, hormone
 export const RYAN_PROVIDER_BIO = `${RYAN_MEDIUM_BIO}\n\n${RYAN_LONG_BIO}`;
 
 export const ABOUT_PAGE_SEO_DESCRIPTION =
-  "Meet Danielle Alcala-Glazier — Owner & Founder of Hello Gorgeous Med Spa in Oswego, IL — with Ryan Kent, FNP-BC (RE GEN RX prescriber), Kristina Huda, BSN, RN (injector), and Medical Director Dr. Mukesh Arora, MD.";
+  "Meet Danielle Alcala-Glazier — Owner & Founder of Hello Gorgeous Med Spa in Oswego, IL — with Kristina Huda, BSN, RN (injector), and Medical Director Dr. Mukesh Arora, MD. Prescriptions are written by a licensed Illinois clinician.";
 
 export const DANI_IMAGE = "/images/team/cinematic/danielle-solaria-fitted.jpg";
 /** Primary Dani portrait on /about — clinic setting with InMode equipment visible */
@@ -213,7 +213,6 @@ export function aboutPageJsonLd() {
     description: ABOUT_PAGE_SEO_DESCRIPTION,
     mainEntity: [
       { "@id": `${SITE.url}/about#dani` },
-      { "@id": `${SITE.url}/#ryan-kent` },
       { "@id": `${SITE.url}/#kristina-huda` },
       { "@id": `${SITE.url}/${MEDICAL_DIRECTOR.schemaId}` },
     ],
@@ -228,7 +227,6 @@ export function aboutPageGraphJsonLd() {
     "@graph": [
       aboutPageJsonLd(),
       daniPersonJsonLd(),
-      ryanPersonJsonLd(),
       kristinaPersonJsonLd(SITE.url),
       medicalDirectorPersonJsonLd(SITE.url),
     ],

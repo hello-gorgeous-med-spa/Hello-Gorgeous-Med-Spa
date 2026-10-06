@@ -155,8 +155,8 @@ export function TelehealthContent() {
             <FadeUp delayMs={100}>
               <div className="relative">
                 <Image
-                  src="/images/rx/hg-ryan-kent-rx-authority.png"
-                  alt="a licensed Illinois clinician - Telehealth and full prescriptive authority at Hello Gorgeous Med Spa"
+                  src="/images/team/cinematic/dr-arora.jpg"
+                  alt="Dr. Mukesh Arora, MD, Medical Director at Hello Gorgeous Med Spa"
                   width={600}
                   height={400}
                   className="rounded-2xl shadow-2xl object-cover"
@@ -200,36 +200,31 @@ export function TelehealthContent() {
                   </span>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-black mb-1">a licensed Illinois clinician</h2>
-                  <p className="text-[#E6007E] font-semibold mb-6">FNP-BC | Full Practice Authority NP</p>
+                  <h2 className="text-2xl font-bold text-black mb-1">Dr. Mukesh Arora, MD</h2>
+                  <p className="text-[#E6007E] font-semibold mb-6">Medical Director · Internal Medicine</p>
                   <ul className="space-y-3 mb-6">
                     <li className="flex items-start gap-3">
                       <span className="text-[#E6007E] mt-0.5">✓</span>
                       <div>
-                        <p className="text-black font-medium">Board Certified Family Nurse Practitioner</p>
-                        <p className="text-black/60 text-sm">FNP-BC credentialed through ANCC</p>
+                        <p className="text-black font-medium">Physician oversight</p>
+                        <p className="text-black/60 text-sm">Medical Director for the Hello Gorgeous clinical program</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#E6007E] mt-0.5">✓</span>
                       <div>
-                        <p className="text-black font-medium">Full Practice Authority</p>
-                        <p className="text-black/60 text-sm">Independent prescriptive authority in Illinois</p>
+                        <p className="text-black font-medium">Licensed Illinois clinician</p>
+                        <p className="text-black/60 text-sm">Prescriptions are written after a consult</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#E6007E] mt-0.5">✓</span>
                       <div>
-                        <p className="text-black font-medium">Specializations</p>
-                        <p className="text-black/60 text-sm">Weight Management, Hormone Optimization, Regenerative Medicine</p>
+                        <p className="text-black font-medium">Illinois patients</p>
+                        <p className="text-black/60 text-sm">In the Oswego clinic or by telehealth</p>
                       </div>
                     </li>
                   </ul>
-                  <div className="p-4 rounded-xl bg-black/5 border border-black/10 mb-6">
-                    <p className="text-black/80 text-sm italic">
-                      &ldquo;Telehealth allows me to provide the same high-quality care you&apos;d receive in-office, with the convenience of connecting from wherever you are. I&apos;m committed to making healthcare accessible and personalized for every patient.&rdquo;
-                    </p>
-                  </div>
                   <CTA href={HG_RX_TELEHEALTH_BOOKING_URL} variant="gradient" className="inline-flex">
                     {HG_RX_TELEHEALTH_BOOKING_LABEL}
                   </CTA>

@@ -60,7 +60,7 @@ export function RegenStoreHome({ goals, products, onSelectGoal, onShopAll }: Pro
           </h1>
           <p className="mt-3 max-w-xl text-base font-medium text-white/80">
             Starting prices on the shelf. a licensed Illinois clinician sets your dose at consult.
-            Nothing ships until he approves it.
+            Nothing ships until a clinician approves it.
           </p>
         </div>
       </section>

@@ -34,7 +34,7 @@ export const regenLaunchOswegoPost: BlogPost = {
     {
       question: "How does RE GEN ordering work?",
       answer:
-        "You browse protocols and complete a health intake — free to submit. A $49 fee reserves your consult with a licensed Illinois clinician, who reviews your history and sets your protocol. You are invoiced for the medication only after he approves it, then you pick it up in Oswego or have it shipped. Nothing prescription is sold without a consult.",
+        "You browse protocols and complete a health intake — free to submit. A $49 fee reserves your consult with a licensed Illinois clinician, who reviews your history and sets your protocol. You are invoiced for the medication only after a clinician approves it, then you pick it up in Oswego or have it shipped. Nothing prescription is sold without a consult.",
     },
     {
       question: "Who supervises RE GEN prescriptions?",

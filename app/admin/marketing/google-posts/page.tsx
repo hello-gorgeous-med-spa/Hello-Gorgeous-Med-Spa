@@ -91,7 +91,7 @@ Botox, filler, Morpheus8, CO₂ laser, IV therapy, peptides, hormones, lashes & 
 
 Add hellogorgeousmedspa.com/app to your home screen. Book IV therapy, Vitamin Bar shots & med spa services in one tap.
 
-Ryan Kent, FNP-BC · Oswego — Naperville, Aurora & Plainfield.`,
+a licensed Illinois clinician · Oswego — Naperville, Aurora & Plainfield.`,
     ctaText: 'Open app',
     ctaUrl: APP_IV_BUILD_URL,
   },
@@ -112,7 +112,7 @@ Ryan Kent, FNP-BC · Oswego — Naperville, Aurora & Plainfield.`,
     headline: 'Botox in Oswego — as low as $9/unit · #1 Best Med Spa',
     description: `💉 Honest, published pricing — as low as $9/unit, same for everyone, no membership required.
 
-Ryan Kent, FNP-BC on site 6 days a week · 10+ years injecting · same-day appointments often available. Botox · Dysport · Jeuveau.
+a licensed Illinois clinician on site 6 days a week · 10+ years injecting · same-day appointments often available. Botox · Dysport · Jeuveau.
 
 Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plainfield.`,
     ctaText: 'Book consult',
@@ -132,7 +132,7 @@ Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plain
     title: 'Botox — Natural, Not Frozen',
     type: 'Update',
     headline: 'Botox in Oswego That Looks Like You — Just Refreshed',
-    description: 'We focus on facial balance, conservative dosing & customized plans — softening fine lines while keeping your expressions natural. Never frozen, never overdone. as low as $9/unit, Ryan Kent FNP-BC, authentic FDA-approved product, free consult. Oswego, IL.',
+    description: 'We focus on facial balance, conservative dosing & customized plans — softening fine lines while keeping your expressions natural. Never frozen, never overdone. as low as $9/unit, a licensed Illinois clinician, authentic FDA-approved product, free consult. Oswego, IL.',
     ctaText: 'Book consult',
     ctaUrl: BOTOX_URL,
   },
@@ -141,7 +141,7 @@ Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plain
     title: 'Botox — Authentic Product, Real NP',
     type: 'Update',
     headline: 'Real Botox. Real Nurse Practitioner. Real Pricing.',
-    description: 'We use only authentic, FDA-approved product from licensed distributors — and Ryan Kent, FNP-BC oversees every protocol on site. No revolving door of providers, no mystery pricing, no upsell pressure. as low as $9/unit Botox in downtown Oswego.',
+    description: 'We use only authentic, FDA-approved product from licensed distributors — and a licensed Illinois clinician oversees every protocol on site. No revolving door of providers, no mystery pricing, no upsell pressure. as low as $9/unit Botox in downtown Oswego.',
     ctaText: 'Learn more',
     ctaUrl: BOTOX_URL,
   },
@@ -150,7 +150,7 @@ Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plain
     title: 'Botox vs Dysport vs Jeuveau',
     type: 'Update',
     headline: 'Botox, Dysport, or Jeuveau — Which Is Right for You?',
-    description: 'All three relax the muscles that cause expression lines — the difference is onset, spread & feel. We carry all three to match you to the best one. Botox as low as $9/unit · Dysport $14/unit · Jeuveau $11/unit. Ryan Kent, FNP-BC, Oswego IL. Free consult.',
+    description: 'All three relax the muscles that cause expression lines — the difference is onset, spread & feel. We carry all three to match you to the best one. Botox as low as $9/unit · Dysport $14/unit · Jeuveau $11/unit. a licensed Illinois clinician, Oswego IL. Free consult.',
     ctaText: 'Book consult',
     ctaUrl: BOTOX_URL,
   },
@@ -170,7 +170,7 @@ Free consultation, every time. Oswego, IL — serving Naperville, Aurora & Plain
     headline: 'Peptide Therapy in Oswego — $49 Consult · We Have It All',
     description: `🧬 BPC-157 · Sermorelin · GHK-Cu · Tesamorelin · PT-141 · NAD+ · glutathione & more.
 
-Prescribed & supervised by Ryan Kent, FNP-BC — licensed US pharmacies only. Not internet research peptides.
+Prescribed & supervised by a licensed Illinois clinician — licensed US pharmacies only. Not internet research peptides.
 
 $49 peptide consultation · medication priced separately. Oswego, IL — serving Naperville, Aurora & Plainfield.`,
     ctaText: 'Book consult',
@@ -181,7 +181,7 @@ $49 peptide consultation · medication priced separately. Oswego, IL — serving
     title: 'Injection Menu — Peptides & Vitamin Shots',
     type: 'Update',
     headline: 'New Injection Menu — Peptides & Wellness Shots',
-    description: 'See our full in-spa injection menu: signature peptide therapies + vitamin wellness shots. PT-141, BPC-157, Sermorelin, NAD+, B12, biotin, MIC & more. Ryan Kent, FNP-BC on every Rx protocol. Download the menu & book your $49 consult.',
+    description: 'See our full in-spa injection menu: signature peptide therapies + vitamin wellness shots. PT-141, BPC-157, Sermorelin, NAD+, B12, biotin, MIC & more. a licensed Illinois clinician on every Rx protocol. Download the menu & book your $49 consult.',
     ctaText: 'View menu',
     ctaUrl: INJECTION_MENU_URL,
   },
@@ -190,7 +190,7 @@ $49 peptide consultation · medication priced separately. Oswego, IL — serving
     title: 'BPC-157 — Recovery Peptide',
     type: 'Update',
     headline: 'BPC-157 — Recovery, Gut Health & Tissue Repair',
-    description: 'One of our most-requested peptides for recovery & healing. Medical evaluation required. Prescribed by Ryan Kent, FNP-BC at Hello Gorgeous Oswego. $49 peptide consult — serving Naperville, Aurora & Plainfield.',
+    description: 'One of our most-requested peptides for recovery & healing. Medical evaluation required. Prescribed by a licensed Illinois clinician at Hello Gorgeous Oswego. $49 peptide consult — serving Naperville, Aurora & Plainfield.',
     ctaText: 'Learn more',
     ctaUrl: 'https://www.hellogorgeousmedspa.com/peptides/bpc-157',
   },
@@ -199,7 +199,7 @@ $49 peptide consultation · medication priced separately. Oswego, IL — serving
     title: 'Peptide Therapy Near Naperville',
     type: 'Update',
     headline: 'Peptide Therapy Near Naperville — ~15 Min to Oswego',
-    description: 'Full peptide menu at Hello Gorgeous: BPC-157, Sermorelin, GHK-Cu, PT-141, NAD+ & more. Ryan Kent, FNP-BC prescribes every protocol. $49 consult. Downtown Oswego at 74 W Washington St.',
+    description: 'Full peptide menu at Hello Gorgeous: BPC-157, Sermorelin, GHK-Cu, PT-141, NAD+ & more. a licensed Illinois clinician prescribes every protocol. $49 consult. Downtown Oswego at 74 W Washington St.',
     ctaText: 'Book consult',
     ctaUrl: 'https://www.hellogorgeousmedspa.com/peptide-therapy-naperville-il',
   },
@@ -217,7 +217,7 @@ $49 peptide consultation · medication priced separately. Oswego, IL — serving
     title: 'Peptide Education Hub',
     type: 'Update',
     headline: 'Peptide Education Hub — 14 Topics + Handouts',
-    description: 'Learn before you commit: our Peptides & Wellness hub covers BPC-157, semaglutide, sermorelin, NAD+ & more. Patient handouts, provider-guided care, Ryan Kent FNP-BC. Oswego · Naperville · Aurora.',
+    description: 'Learn before you commit: our Peptides & Wellness hub covers BPC-157, semaglutide, sermorelin, NAD+ & more. Patient handouts, provider-guided care, a licensed Illinois clinician. Oswego · Naperville · Aurora.',
     ctaText: 'Explore hub',
     ctaUrl: 'https://www.hellogorgeousmedspa.com/peptides',
   },
@@ -226,7 +226,7 @@ $49 peptide consultation · medication priced separately. Oswego, IL — serving
     title: 'Non-Surgical Facelift — Oswego, IL',
     type: 'Update',
     headline: 'Non-Surgical Facelift in Oswego — Lift Without Surgery',
-    description: 'Our advanced technique combines Botox, dermal fillers, PDO threads & skin-tightening to lift sagging skin, restore volume, smooth wrinkles & stimulate collagen — minimal downtime. Free consult with Ryan Kent, FNP-BC. Oswego, IL.',
+    description: 'Our advanced technique combines Botox, dermal fillers, PDO threads & skin-tightening to lift sagging skin, restore volume, smooth wrinkles & stimulate collagen — minimal downtime. Free consult with a licensed Illinois clinician. Oswego, IL.',
     ctaText: 'Book consult',
     ctaUrl: 'https://www.hellogorgeousmedspa.com/non-surgical-facelift-oswego-il',
   },

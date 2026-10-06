@@ -227,15 +227,7 @@ export function QuantumRFPageContent() {
       </section>
 
       <section id="inmode" className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_78%_20%,#12030c,#000_62%)] px-6 py-16 lg:py-24">
-        <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
-          <div className="overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)]">
-            <JourneySoundVideo
-              src={QUANTUM_RF_MARKETING.ryanVideo}
-              poster={images.ryanPoster}
-              label="a licensed Illinois clinician performing Quantum RF at Hello Gorgeous Med Spa"
-              objectClassName="object-cover"
-            />
-          </div>
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10">
           <div>
             <Eyebrow>{QUANTUM_RF_INMODE_STORY.eyebrow}</Eyebrow>
             <h2 className="mt-3 font-serif text-[34px] font-bold leading-tight text-white lg:text-[48px]">

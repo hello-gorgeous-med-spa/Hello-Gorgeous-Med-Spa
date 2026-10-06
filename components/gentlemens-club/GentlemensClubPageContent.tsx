@@ -18,7 +18,7 @@ import {
   GENTLEMENS_CLUB_GLP1_FLYERS,
   clubPeptideFlyers,
 } from "@/lib/club-flyer-images";
-import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import { LICENSED_CLINICIAN_PHRASE } from "@/lib/medical-authority";
 import {
   appForHimUrl,
   FOR_HIM_SERVICES,
@@ -388,7 +388,7 @@ export function GentlemensClubPageContent() {
                 </CTA>
               </div>
               <ClubBeforeYouCallStrip />
-              <p className="mt-4 text-sm text-white/50">Medically reviewed by {RYAN_FULL_NAME}</p>
+              <p className="mt-4 text-sm text-white/50">Medically reviewed by {LICENSED_CLINICIAN_PHRASE}</p>
             </div>
           </FadeUp>
         </div>
@@ -964,7 +964,7 @@ export function GentlemensClubPageContent() {
           <p className="text-3xl mb-2" aria-hidden>👑</p>
           <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Ready to join?</h2>
           <p className="text-white/90 text-lg mb-8">
-            Start with the TRT screener or book your $49 consult — {RYAN_FULL_NAME} on site 6 days a week.
+            Start with the TRT screener or book your $49 consult — {LICENSED_CLINICIAN_PHRASE} on site 6 days a week.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <CTA href="/quiz/trt-readiness" variant="white">

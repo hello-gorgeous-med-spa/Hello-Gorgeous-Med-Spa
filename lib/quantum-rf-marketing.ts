@@ -49,7 +49,7 @@ export const QUANTUM_RF_MARKETING = {
     handpieces: "/images/quantum-rf/quantum-rf-inmode-handpieces-ba.jpg",
     procedure: "/images/quantum-rf/quantum-rf-procedure-may-4.jpg",
     room: "/images/quantum-rf/quantum-rf-treatment-room-may-4.jpg",
-    founder: "/images/team/dani-ryan-founders-portrait.png",
+    founder: "/images/team/danielle-alcala-glazier-portrait.png",
     ryanPoster: "/images/quantum-rf/ryan-quantum-rf-action-poster.png",
     jawlineClinic: "/images/quantum-rf/quantum-rf10-jawline-before-after.jpg",
     clientChinCinematic: "/images/quantum-rf/hg-client-chin-cinematic.jpg",
@@ -98,15 +98,15 @@ export const QUANTUM_RF_INMODE_STORY = {
 } as const;
 
 export const QUANTUM_RF_FOUNDER_NOTE = {
-  eyebrow: "A Note From Our Founders",
+  eyebrow: "A Note From Danielle",
   title: "Why Quantum completes Contour",
   paragraphs: [
     "Stubborn fat and soft laxity don’t always need a scalpel — and they don’t always respond to surface treatments alone. QuantumRF works in the fat layer while contracting tissue above it.",
-    "Ryan performs QuantumRF with full-authority NP oversight. Danielle owns the Luxora client experience and InMode training journey. Together we map honest expectations — neck, abdomen, arms, or a Trifecta plan.",
+    "A licensed Illinois clinician performs QuantumRF. I own the Luxora client experience and the InMode training journey. We map honest expectations — neck, abdomen, arms, or a Trifecta plan.",
     "Welcome to Contour at Hello Gorgeous — medical standards, boutique care.",
   ],
-  signOff: "xoxo, Danielle & Ryan",
-  role: "Founders · Hello Gorgeous Med Spa",
+  signOff: "xoxo, Danielle",
+  role: "Founder · Hello Gorgeous Med Spa",
 } as const;
 
 export const QUANTUM_RF_WHAT_IT_DOES = [

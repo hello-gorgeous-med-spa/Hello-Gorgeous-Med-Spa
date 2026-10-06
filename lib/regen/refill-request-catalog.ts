@@ -134,7 +134,7 @@ export function regenRefillShareBase(): string {
 }
 
 export const REGEN_REFILL_REQUEST_SMS = [
-  "REGEN RX — refill or add a protocol. Pick your medication, see patient pricing, and complete screening so Ryan can review:",
+  "REGEN RX — refill or add a protocol. Pick your medication, see patient pricing, and complete screening so your clinician can review:",
   REGEN_REFILL_TRYREGEN_URL,
 ].join(" ");
 

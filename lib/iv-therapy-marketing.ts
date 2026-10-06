@@ -85,7 +85,7 @@ export const IV_THERAPY_MARKETING = {
 export const IV_THERAPY_SEO = {
   title: "IV Therapy Oswego IL | Vitamin Drips Near Naperville & Aurora",
   description:
-    "NP-supervised IV therapy in Oswego — one $150 hour. Pick Hangover, Headache, Energy, or build your bag. NAD+ $25 upgrade. Ryan Kent, FNP-BC or Kristina Huda, BSN, RN. Vitamin shots $25.",
+    "NP-supervised IV therapy in Oswego — one $150 hour. Pick Hangover, Headache, Energy, or build your bag. NAD+ $25 upgrade. a licensed Illinois clinician or Kristina Huda, BSN, RN. Vitamin shots $25.",
   ogAlt: "IV therapy infusion bag at Hello Gorgeous Med Spa Oswego IL",
 } as const;
 
@@ -120,7 +120,7 @@ export const IV_NEW_CLIENT_OFFER = {
   badge: "IV HOUR",
   titleBefore: "Any bag, ",
   titleAccent: "$150",
-  body: "One hour with Ryan Kent, FNP-BC or Kristina Huda, BSN, RN. Pick Hangover, Headache, Energy, Immunity, Myers', Beauty, or build your own. Add NAD+ for $25.",
+  body: "One hour with a licensed Illinois clinician or Kristina Huda, BSN, RN. Pick Hangover, Headache, Energy, Immunity, Myers', Beauty, or build your own. Add NAD+ for $25.",
   ctaLabel: "Book IV Hour ›",
   href: squareIvBookUrl(IV_SQUARE_VARIATIONS.hour),
 } as const;

@@ -6,7 +6,6 @@ import { useEffect, useId, useState } from "react";
 
 import { CinematicProviderPoster } from "@/components/CinematicProviderPoster";
 import { CTA } from "@/components/CTA";
-import { JourneySoundVideo } from "@/components/marketing/JourneySoundVideo";
 import { FadeUp } from "@/components/Section";
 import { CONVERSION_HIERARCHY } from "@/lib/illinois-excellence";
 import { DANI_FULL_NAME } from "@/lib/founder-credentials";
@@ -16,7 +15,6 @@ import {
   DR_ARORA_PROFILE,
   DR_ARORA_SEO_BLURB,
   MD_OVERSIGHT_TEAM,
-  RYAN_CLINIC_VIDEOS,
   STOREFRONT_TRUST_SIGN,
 } from "@/lib/medical-trust";
 
@@ -63,7 +61,7 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
               Medical leadership you can meet
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-white/70">
-              Owner-operator with clinical credentials. Ryan Kent, FNP-BC writes RE GEN RX
+              Owner-operator with clinical credentials. A licensed Illinois clinician writes RE GEN RX
               prescriptions. Kristina Huda, BSN, RN is our RN injector. Medical Director Dr.
               Mukesh Arora, MD. Real people — not a letterhead.
             </p>
@@ -83,7 +81,7 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
           </div>
         </FadeUp>
 
-        <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+        <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-4">
           {MD_OVERSIGHT_TEAM.map((provider, i) => (
             <FadeUp key={provider.name} delayMs={i * 50}>
               <CinematicProviderPoster
@@ -102,40 +100,6 @@ export function MdOversightWelcomeBand({ className = "" }: Props) {
             </FadeUp>
           ))}
         </div>
-
-        <FadeUp delayMs={80}>
-          <div className="mt-10">
-            <p className="text-center text-[10px] font-bold uppercase tracking-[0.28em] text-[#FFB8DC]">
-              In clinic · this is us
-            </p>
-            <h3 className="mt-2 text-center font-serif text-2xl font-semibold text-white sm:text-3xl">
-              Ryan with the family
-            </h3>
-            <p className="mx-auto mt-2 max-w-xl text-center text-sm leading-relaxed text-white/65">
-              Family-owned on purpose. Ryan Kent, FNP-BC — the prescriber clients actually meet —
-              in the Oswego clinic.
-            </p>
-            <div className="mt-6 grid items-start gap-4 lg:grid-cols-[1.35fr_0.75fr]">
-              {RYAN_CLINIC_VIDEOS.map((clip) => (
-                <figure
-                  key={clip.src}
-                  className="overflow-hidden rounded-3xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
-                >
-                  <JourneySoundVideo
-                    src={clip.src}
-                    poster={clip.poster}
-                    label={clip.label}
-                    aspectClassName={clip.aspectClassName}
-                    objectClassName="object-cover"
-                  />
-                  <figcaption className="border-t-2 border-white/10 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#FFB8DC]">
-                    {clip.caption}
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-          </div>
-        </FadeUp>
 
         <FadeUp delayMs={100}>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

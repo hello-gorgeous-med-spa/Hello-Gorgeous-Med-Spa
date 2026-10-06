@@ -76,7 +76,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "How many Morpheus8 treatments do I need?",
         answer:
-          "Most people see great results with 1–3 sessions spaced about 4–6 weeks apart. When Dani confirms your appointment, she'll talk through a customized treatment plan based on your specific goals.",
+          "Most people see great results with 1–3 sessions spaced about 4–6 weeks apart. When Dani confirms your appointment, sthey'll talk through a customized treatment plan based on your specific goals.",
       },
       {
         question: "What's the downtime for Morpheus8?",
@@ -209,17 +209,17 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "What's included in your weight loss program?",
         answer:
-          "You'll have an initial consultation with Ryan to make sure you're a good candidate. Then you'll get your medication (weekly injections you do at home), regular check-ins, and support throughout your journey. Some clients have lost 30+ pounds!",
+          "You'll have an initial consultation with your clinician to make sure you're a good candidate. Then you'll get your medication (weekly injections you do at home), regular check-ins, and support throughout your journey. Some clients have lost 30+ pounds!",
       },
       {
         question: "Do I qualify for GLP-1 weight loss?",
         answer:
-          "Ryan will determine that during your consultation! Generally, you need to have a BMI over a certain threshold or weight-related health conditions. If you qualify, it can be life-changing.",
+          "Your clinician will determine that during your consultation! Generally, you need to have a BMI over a certain threshold or weight-related health conditions. If you qualify, it can be life-changing.",
       },
       {
         question: "Is GLP-1 safe?",
         answer:
-          "Yes, when prescribed and monitored by a medical professional like Ryan! He'll review your full medical history, check for contraindications, and monitor you throughout the program.",
+          "Yes, when prescribed and monitored by a medical professional like your clinician! He'll review your full medical history, check for contraindications, and monitor you throughout the program.",
       },
       {
         question: "What is IV therapy?",
@@ -255,17 +255,17 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Do you offer hormone therapy for men too?",
         answer:
-          "Yes! We offer TRT (testosterone replacement therapy) for men. Low testosterone can cause fatigue, weight gain, low libido, and muscle loss. Ryan can evaluate if TRT is right for you.",
+          "Yes! We offer TRT (testosterone replacement therapy) for men. Low testosterone can cause fatigue, weight gain, low libido, and muscle loss. your clinician can evaluate if TRT is right for you.",
       },
       {
         question: "Can I do virtual consultations for hormone therapy?",
         answer:
-          "Yes! We offer telehealth consultations for Hello Gorgeous RX programs. You can meet virtually with Ryan and get your prescriptions mailed directly to you (Illinois residents only).",
+          "Yes! We offer telehealth consultations for Hello Gorgeous RX programs. You can meet virtually with your clinician and get your prescriptions mailed directly to you (Illinois residents only).",
       },
       {
         question: "What is peptide therapy?",
         answer:
-          "Peptides are chains of amino acids that signal your body to do specific things — like produce collagen, burn fat, improve sleep, or boost immunity. We offer medical-grade peptides prescribed by Ryan.",
+          "Peptides are chains of amino acids that signal your body to do specific things — like produce collagen, burn fat, improve sleep, or boost immunity. We offer medical-grade peptides prescribed by your clinician.",
       },
     ],
   },
@@ -376,7 +376,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: 'What does "full prescriptive authority" mean?',
         answer:
-          "It means Ryan can prescribe medications independently under Illinois law. He manages your medical weight loss, hormone therapy, and prescription treatments, with Dr. Mukesh Arora, MD serving as the practice's Medical Director.",
+          "It means your clinician can prescribe medications independently under Illinois law. He manages your medical weight loss, hormone therapy, and prescription treatments, with Dr. Mukesh Arora, MD serving as the practice's Medical Director.",
       },
       {
         question: "Who is Danielle?",
@@ -448,7 +448,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Will you pressure me to buy more?",
         answer:
-          "Never! Dani's approach is education and empowerment — she'll explain your options, recommend what she truly believes will work, and let YOU decide. We want clients who are excited and confident!",
+          "Never! Dani's approach is education and empowerment — sthey'll explain your options, recommend what she truly believes will work, and let YOU decide. We want clients who are excited and confident!",
       },
     ],
   },

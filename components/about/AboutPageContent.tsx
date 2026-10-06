@@ -6,7 +6,6 @@ import Link from "next/link";
 import { BestOfOswegoBadge } from "@/components/BestOfOswegoBadge";
 import { CinematicProviderPoster } from "@/components/CinematicProviderPoster";
 import { CTA } from "@/components/CTA";
-import { JourneySoundVideo } from "@/components/marketing/JourneySoundVideo";
 import { FadeUp, Section } from "@/components/Section";
 import { InModeTrainingCertificates } from "@/components/marketing/InModeTrainingCertificates";
 import { BOOKING_URL } from "@/lib/flows";
@@ -17,7 +16,7 @@ import {
   DANI_MEDIUM_BIO,
   DANI_OWNER_STORY_PHOTOS,
 } from "@/lib/founder-credentials";
-import { MEDICAL_TRUST_PROVIDERS, RYAN_CLINIC_VIDEOS } from "@/lib/medical-trust";
+import { MEDICAL_TRUST_PROVIDERS } from "@/lib/medical-trust";
 import { DANIELLE_INMODE_CERTIFICATES } from "@/lib/inmode-training-certificates";
 import { SITE } from "@/lib/seo";
 
@@ -32,7 +31,7 @@ const ABOUT_FAQS = [
   {
     question: "Who owns Hello Gorgeous?",
     answer:
-      "Danielle Alcala-Glazier — Owner & Founder. She is a certified CNA and CMAA, a licensed phlebotomist and licensed esthetician, a 10+ year business owner and developer, and an RN student at Waubonsee Community College. She works in the Oswego studio every day. Prescriptions are written by Ryan Kent, FNP-BC under Medical Director Dr. Mukesh Arora, MD. Danielle is not the prescriber.",
+      "Danielle Alcala-Glazier — Owner & Founder. She is a certified CNA and CMAA, a licensed phlebotomist and licensed esthetician, a 10+ year business owner and developer, and an RN student at Waubonsee Community College. She works in the Oswego studio every day. Prescriptions are written by a licensed Illinois clinician under Medical Director Dr. Mukesh Arora, MD. Danielle is not the prescriber.",
   },
   {
     question: "Who does Danielle work with after ten years in this industry?",
@@ -41,7 +40,7 @@ const ABOUT_FAQS = [
   {
     question: "Who performs treatments at Hello Gorgeous?",
     answer:
-      "Danielle Alcala-Glazier owns the practice and still treats clients — brows, skin, and advanced device work she has trained on for 10+ years, alongside running the business and the technology behind the brand. Kristina Huda, BSN, RN is our RN injector. Ryan Kent, FNP-BC writes RE GEN RX prescriptions under Medical Director Dr. Mukesh Arora, MD — not a remote letterhead from another state.",
+      "Danielle Alcala-Glazier owns the practice and still treats clients — brows, skin, and advanced device work she has trained on for 10+ years, alongside running the business and the technology behind the brand. Kristina Huda, BSN, RN is our RN injector. A licensed Illinois clinician writes RE GEN RX prescriptions under Medical Director Dr. Mukesh Arora, MD — not a remote letterhead from another state.",
   },
   {
     question: "Is Hello Gorgeous a chain or franchise?",
@@ -348,13 +347,13 @@ export function AboutPageContent() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <FadeUp>
             <p className="text-center text-[10px] font-bold uppercase tracking-[0.28em] text-[#FFB8DC]">
-              The four of us
+              The team
             </p>
             <h2 className="mt-2 text-center font-serif text-2xl font-bold text-white md:text-3xl">
-              Owner · Prescriber · RN injector · Medical Director
+              Owner · RN injector · Medical Director
             </h2>
           </FadeUp>
-          <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+          <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-4">
             {MEDICAL_TRUST_PROVIDERS.map((person, i) => (
               <FadeUp key={person.name} delayMs={i * 40}>
                 <CinematicProviderPoster
@@ -368,35 +367,6 @@ export function AboutPageContent() {
               </FadeUp>
             ))}
           </div>
-          <FadeUp delayMs={80}>
-            <div className="mt-10">
-              <p className="text-center text-[10px] font-bold uppercase tracking-[0.28em] text-[#FFB8DC]">
-                In clinic · this is us
-              </p>
-              <h3 className="mt-2 text-center font-serif text-2xl font-bold text-white md:text-3xl">
-                Ryan with the family
-              </h3>
-              <div className="mt-6 grid items-start gap-4 lg:grid-cols-[1.35fr_0.75fr]">
-                {RYAN_CLINIC_VIDEOS.map((clip) => (
-                  <figure
-                    key={clip.src}
-                    className="overflow-hidden rounded-3xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
-                  >
-                    <JourneySoundVideo
-                      src={clip.src}
-                      poster={clip.poster}
-                      label={clip.label}
-                      aspectClassName={clip.aspectClassName}
-                      objectClassName="object-cover"
-                    />
-                    <figcaption className="border-t-2 border-white/10 px-4 py-2.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#FFB8DC]">
-                      {clip.caption}
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
-            </div>
-          </FadeUp>
         </div>
       </Section>
 

@@ -5,7 +5,7 @@ import { CTA } from "@/components/CTA";
 import { RealPatientReviews } from "@/components/RealPatientReviews";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
-import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import { LICENSED_CLINICIAN_PHRASE } from "@/lib/medical-authority";
 import {
   LOW_T_SYMPTOMS,
   MENS_HORMONES_APPROACH_COPY,
@@ -96,7 +96,7 @@ export async function MensHormonesPageContent() {
               ongoing monitoring — not a quick prescription and a handshake.
             </p>
             <p className="mt-4 text-sm text-white/60">
-              Medically reviewed by {RYAN_FULL_NAME} · Updated {REVIEWED_DATE}
+              Medically reviewed by {LICENSED_CLINICIAN_PHRASE} · Updated {REVIEWED_DATE}
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <CTA href={BOOKING_URL} variant="gradient" className="px-8 py-4">

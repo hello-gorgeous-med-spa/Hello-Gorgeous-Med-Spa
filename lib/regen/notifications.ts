@@ -258,7 +258,7 @@ async function sendPatientRxApprovedEmail(
           <div style="background: #22C55E20; padding: 16px; border-radius: 8px; margin: 24px 0; text-align: center;">
             <p style="color: #22C55E; margin: 0; font-weight: bold;">Watch for your clinic invoice</p>
             <p style="color: #9CA3AF; margin: 8px 0 0;">
-              Staff send a Charm payment link after Ryan approves. After you pay, we submit Formulation Rx. Tracking comes next — not yet.
+              Watch for the clinic payment link. After you pay, we submit Formulation Rx. Tracking comes next — not yet.
             </p>
           </div>
           <div style="text-align: center;">

@@ -113,7 +113,7 @@ export function scoreTrtReadiness(answers: ScreenerAnswers): ScreenerQuizResult 
   return {
     tier: "strong",
     title: "You may be a strong TRT evaluation candidate",
-    body: "Based on your symptoms and history, a comprehensive hormone panel and NP consult is a smart next move. Our men's programs include injections from $200–350/mo, topical cream, and ongoing lab monitoring with Ryan on site 6 days a week. We no longer offer pellet insertion.",
+    body: "Based on your symptoms and history, a comprehensive hormone panel and NP consult is a smart next move. Our men's programs include injections from $200–350/mo, topical cream, and ongoing lab monitoring with your clinician on site 6 days a week. We no longer offer pellet insertion.",
     ctaLabel: "Book free hormone consult",
     ctaHref: "/book",
     secondaryHref: "/gentlemens-club#hormones",

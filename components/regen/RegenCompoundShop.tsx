@@ -39,13 +39,13 @@ export function RegenCompoundShop({
         </h1>
         <p className="mt-4 max-w-xl text-[14px] leading-relaxed text-white/55">
           Prices below are what you would pay if prescribed. This is not a cart — you pick what you want,
-          complete screening, and Ryan reviews before any clinic invoice.
+          complete screening, and your clinician reviews before any clinic invoice.
         </p>
 
         <ol className="mt-6 grid gap-3 sm:grid-cols-3">
           {[
             ["01", "Pick a protocol", "See pack and patient price."],
-            ["02", "Screen", "Same medical form. Ryan reviews before anything ships."],
+            ["02", "Screen", "Same medical form. your clinician reviews before anything ships."],
             ["03", "Invoice after yes", "We send a clinic invoice. Then the pharmacy fills."],
           ].map(([n, title, body]) => (
             <li key={n} className="rounded-2xl border border-white/10 bg-[#0d0d11] px-4 py-3">

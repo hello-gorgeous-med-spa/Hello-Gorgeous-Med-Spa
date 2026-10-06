@@ -118,7 +118,7 @@ If you're shopping on price alone, I get it. We've all been there. But for the a
 
 I want ten minutes of your time. That's it.
 
-Come in for a consultation. Sit with me, or with Ryan, or with one of our team. Tell us what you've been thinking about. Let us listen. We aren't going to pressure you to book. We aren't going to make you feel like you wasted our time if you don't.
+Come in for a consultation. Sit with me, or with your clinician, or with one of our team. Tell us what you've been thinking about. Let us listen. We aren't going to pressure you to book. We aren't going to make you feel like you wasted our time if you don't.
 
 What we are going to do is show you what it's like to be cared for by people who genuinely love what they do. People who are still excited to do this work after ten years. People who treat aesthetics as health, not as transaction.
 

@@ -103,7 +103,7 @@ export function scorePerimenopauseReadiness(answers: ScreenerAnswers): ScreenerQ
       body:
         answers.symptomLoad === "none-few"
           ? "Even subtle cycle changes can reflect shifting hormones in your 30s and 40s. A baseline panel (~$200–400) plus symptom review helps decide if BioTE pellets, creams, or non-hormonal support fits."
-          : "Your answers suggest hormone evaluation could help — Ryan will review cycle history, symptoms, and safety factors before recommending BioTE or other BHRT.",
+          : "Your answers suggest hormone evaluation could help — your clinician will review cycle history, symptoms, and safety factors before recommending BioTE or other BHRT.",
       ctaLabel: "Book free hormone consult",
       ctaHref: "/book",
       secondaryHref: "/services/biote-hormone-therapy",

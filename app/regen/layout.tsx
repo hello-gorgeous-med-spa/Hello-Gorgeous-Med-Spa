@@ -48,7 +48,7 @@ export default function RegenLayout({
           <Link href="/refund" className="underline-offset-2 hover:text-white hover:underline">Refund Policy</Link>
         </nav>
         <p className="mx-auto mt-4 max-w-3xl leading-relaxed">
-          A request is not a prescription. Ryan Kent, FNP-BC reviews every request before any clinic invoice or pharmacy order. This website does not sell medication and does not take a card.
+          A request is not a prescription. a licensed Illinois clinician reviews every request before any clinic invoice or pharmacy order. This website does not sell medication and does not take a card.
         </p>
       </footer>
     </RegenAuthProvider>

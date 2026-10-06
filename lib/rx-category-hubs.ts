@@ -394,7 +394,7 @@ const WELLNESS_PRODUCTS: RxCategoryProduct[] = [
 const PEPTIDE_FAQ = [
   {
     q: "Are RE GEN peptides prescription?",
-    a: "Yes — every protocol is dispensed on a prescription after a licensed Illinois clinician reviews your health history, and nothing is filled without that review. Most are compounded for you by licensed US pharmacies rather than sold as FDA-approved brand products, and some compounds clients ask about are still investigational and not FDA-approved. Ryan tells you which category yours falls into before you start.",
+    a: "Yes — every protocol is dispensed on a prescription after a licensed Illinois clinician reviews your health history, and nothing is filled without that review. Most are compounded for you by licensed US pharmacies rather than sold as FDA-approved brand products, and some compounds clients ask about are still investigational and not FDA-approved. your clinician tells you which category yours falls into before you start.",
   },
   {
     q: "What peptides do you list online?",

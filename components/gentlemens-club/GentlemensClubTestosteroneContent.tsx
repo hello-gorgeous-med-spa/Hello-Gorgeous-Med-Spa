@@ -26,7 +26,7 @@ import {
   GENTLEMENS_CLUB_TRT_APPROACH_1,
   GENTLEMENS_CLUB_TRT_APPROACH_2,
 } from "@/lib/gentlemens-club";
-import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import { LICENSED_CLINICIAN_PHRASE } from "@/lib/medical-authority";
 
 function TreatmentCard({ option }: { option: (typeof GC_TRT_TREATMENT_OPTIONS)[number] }) {
   const price =
@@ -240,7 +240,7 @@ export function GentlemensClubTestosteroneContent() {
             </span>
             <h2 className="mt-4 font-serif text-3xl font-black text-white sm:text-4xl">Expert care, built around you</h2>
             <p className="mt-4 text-gray-400">
-              {RYAN_FULL_NAME} on site in Oswego — lab-guided TRT with the monitoring Gentlemen&apos;s Club is known
+              {LICENSED_CLINICIAN_PHRASE} on site in Oswego — lab-guided TRT with the monitoring Gentlemen&apos;s Club is known
               for.
             </p>
             <ul className="mt-6 space-y-3">
@@ -383,7 +383,7 @@ export function GentlemensClubTestosteroneContent() {
       <section className="border-t-4 border-[#FF2D8E] bg-black py-16">
         <div className="mx-auto max-w-3xl px-4 text-center">
           <h2 className="font-serif text-3xl font-black text-white sm:text-4xl">Your edge awaits.</h2>
-          <p className="mt-3 text-gray-400">Start with the screener or book in Oswego — {RYAN_FULL_NAME}.</p>
+          <p className="mt-3 text-gray-400">Start with the screener or book in Oswego — {LICENSED_CLINICIAN_PHRASE}.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <CTA href={GC_TRT_CTA.screener.href} variant="gradient">
               Take TRT screener

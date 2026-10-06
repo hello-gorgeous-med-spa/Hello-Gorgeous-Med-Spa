@@ -78,7 +78,7 @@ function peptideCityPage(
       "Education hub at /peptides plus per-peptide guides so you understand options before you commit",
     ],
     howItWorksParagraphs: [
-      "Peptides are short amino-acid chains that signal specific pathways — recovery, sleep, skin, metabolism, libido, and more. At Hello Gorgeous, peptide therapy is medical: $49 consult, screening, prescription, hands-on injection training, and follow-up to adjust your protocol. Most clients self-administer small subcutaneous injections several times per week on a cycle Ryan sets based on your goals and labs.",
+      "Peptides are short amino-acid chains that signal specific pathways — recovery, sleep, skin, metabolism, libido, and more. At Hello Gorgeous, peptide therapy is medical: $49 consult, screening, prescription, hands-on injection training, and follow-up to adjust your protocol. Most clients self-administer small subcutaneous injections several times per week on a cycle a clinician sets based on your goals and labs.",
       isNaperville
         ? "Many Naperville clients pair peptide therapy with Morpheus8, GLP-1 weight loss, or BioTE hormone programs at the same Oswego address — one NP team follows you from consult through refills."
         : `Clients from ${city} often combine peptides with GLP-1, hormone therapy, or IV wellness at our Oswego clinic — one team, one medical record.`,
@@ -86,7 +86,7 @@ function peptideCityPage(
     whatToExpectSteps: [
       "$49 peptide consultation — goals, history, medications, and whether peptides fit (or if something else would serve you better).",
       "Labs when indicated — baseline work to dose safely and track response.",
-      "Custom protocol from Ryan — specific peptide(s), dose, frequency, and cycle in writing.",
+      "Custom protocol from a licensed Illinois clinician — specific peptide(s), dose, frequency, and cycle in writing.",
       "Hands-on training — how to store, inject, and what to report between visits.",
       "Ongoing follow-up — dose tweaks and refreshes as your body responds; peptide therapy is iterative.",
     ],

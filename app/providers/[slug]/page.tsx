@@ -11,13 +11,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SITE } from '@/lib/seo';
 import { BOOKING_URL, PROVIDER_BOOKING_URL_DANIELLE } from '@/lib/flows';
-import {
-  DANI_PROVIDER_BIO,
-  RYAN_IMAGE,
-  RYAN_PROVIDER_BIO,
-} from '@/lib/founder-credentials';
+import { DANI_PROVIDER_BIO } from '@/lib/founder-credentials';
 import { KRISTINA_IMAGE, KRISTINA_PROVIDER_BIO } from '@/lib/kristina-huda';
-import { DANIELLE_CREDENTIALS, KRISTINA_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
+import { DANIELLE_CREDENTIALS, KRISTINA_CREDENTIALS } from '@/lib/provider-credentials';
 
 // Service tags for filtering
 const SERVICE_TAGS = [
@@ -58,21 +54,6 @@ const FALLBACK_PROVIDERS: Record<string, Provider> = {
     booking_url: PROVIDER_BOOKING_URL_DANIELLE,
     is_active: true,
     display_order: 1,
-  },
-  ryan: {
-    id: 'ryan',
-    first_name: 'Ryan',
-    last_name: 'Kent',
-    slug: 'ryan',
-    title: 'RE GEN RX Prescriber',
-    credentials: RYAN_CREDENTIALS,
-    bio: RYAN_PROVIDER_BIO,
-    philosophy:
-      "Consult first. I review your intake and labs. If a protocol is appropriate, I write it. If it is not, I say so.",
-    headshot_url: RYAN_IMAGE,
-    booking_url: '/rx/request',
-    is_active: true,
-    display_order: 2,
   },
   kristina: {
     id: 'kristina',

@@ -79,7 +79,7 @@ export const FRONT_DESK_SPA_PHONE_SECTIONS = [
       {
         q: "Do I need a consultation first?",
         a: "For most aesthetic and wellness services, yes — a licensed Illinois clinician (medical director) or Dani meets you first to customize the plan. Consults are free and there's no pressure.",
-        say: `"Most services start with a free consult — Ryan or Dani will make sure it's right for you."`,
+        say: `"Most services start with a free consult — your clinician or Dani will make sure it's right for you."`,
       },
     ],
   },
@@ -102,13 +102,13 @@ export const FRONT_DESK_SPA_PHONE_SECTIONS = [
       {
         q: "How much does GLP-1 / weight loss cost?",
         a: `Injectable programs start at $${GLP1_PROGRAM.injectable.monthlyFromUsd}/month. Semaglutide from $${GLP1_RETAIL_PROGRAM.semaglutideFromUsd}/mo · tirzepatide from $${GLP1_RETAIL_PROGRAM.tirzepatideFromUsd}/mo. Dose tier sets exact price at consult.`,
-        say: `"Programs start around $${GLP1_PROGRAM.injectable.monthlyFromUsd} a month — Ryan sets your dose at consult."`,
+        say: `"Programs start around $${GLP1_PROGRAM.injectable.monthlyFromUsd} a month — your clinician sets your dose at consult."`,
         href: "/glp1-weight-loss",
       },
       {
         q: "How much do peptides cost?",
         a: `Published protocols start from $${PEPTIDE_RETAIL_FROM_MONTHLY_USD}/month after NP evaluation. Shop the full menu at ${SITE.url}/rx or /peptides.`,
-        say: `"From $${PEPTIDE_RETAIL_FROM_MONTHLY_USD} a month — exact protocol is confirmed by Ryan."`,
+        say: `"From $${PEPTIDE_RETAIL_FROM_MONTHLY_USD} a month — exact protocol is confirmed by your clinician."`,
         href: "/peptides",
       },
       {

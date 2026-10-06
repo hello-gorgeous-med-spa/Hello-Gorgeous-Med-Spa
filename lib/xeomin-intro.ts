@@ -24,7 +24,7 @@ export const XEOMIN_INTRO = {
   vialAlt: "Xeomin purified neurotoxin vial",
   heroImage: "/images/injectables/hero-glam-portrait.png",
   heroImageAlt: "Natural, glowing skin — Xeomin at Hello Gorgeous Med Spa in Oswego, IL",
-  teamImage: "/images/team/dani-ryan-about-neon.png",
+  teamImage: "/images/team/danielle-alcala-glazier-portrait.png",
   metaTitle: "Xeomin in Oswego, IL — Double-Purified Neurotoxin",
   metaDescription:
     "Xeomin in Oswego — double-filtered with XTRACT Technology. FDA-approved for frown lines, forehead, and crow’s feet. $12/unit, NP-administered. Free consult.",
@@ -62,7 +62,7 @@ export const XEOMIN_PERKS = [
   },
   {
     title: "Built for repeat treatments",
-    body: "Leftover inactive proteins in some toxins can be seen as foreign over time, which may blunt results. Merz reports zero toxin resistance in its clinical studies. Ryan will still dose from your history.",
+    body: "Leftover inactive proteins in some toxins can be seen as foreign over time, which may blunt results. Merz reports zero toxin resistance in its clinical studies. Your clinician will still dose from your history.",
   },
   {
     title: "FDA-approved upper face",
@@ -123,7 +123,7 @@ export const XEOMIN_COMPARE_ROWS = [
 export const XEOMIN_PLANS = [
   {
     name: "Xeomin",
-    detail: "FDA-approved frown lines, forehead, and crow’s feet — plus other areas Ryan maps at your visit.",
+    detail: "FDA-approved frown lines, forehead, and crow’s feet — plus other areas your clinician maps at your visit.",
     price: XEOMIN_PRICE_LINE,
     note: "You approve units before we start.",
   },
@@ -174,7 +174,7 @@ export const XEOMIN_VISIT_STEPS = [
   {
     n: "01",
     title: "Free consult",
-    body: "Ryan maps your face in motion, reviews toxin history, and quotes units before anything is injected.",
+    body: "Your clinician maps your face in motion, reviews toxin history, and quotes units before anything is injected.",
   },
   {
     n: "02",
@@ -209,11 +209,11 @@ export const XEOMIN_INTRO_FAQS: FAQ[] = [
   {
     question: "How is Xeomin different from Botox?",
     answer:
-      "Both temporarily relax targeted facial muscles. Xeomin is double-purified with XTRACT Technology so accessory complexing proteins are removed. Xeomin units are not interchangeable with other botulinum toxins — Ryan maps your dose at the visit. We’ll help you choose based on goals, history, and how your muscles respond.",
+      "Both temporarily relax targeted facial muscles. Xeomin is double-purified with XTRACT Technology so accessory complexing proteins are removed. Xeomin units are not interchangeable with other botulinum toxins — your clinician maps your dose at the visit. We’ll help you choose based on goals, history, and how your muscles respond.",
   },
   {
     question: "How much does Xeomin cost in Oswego?",
-    answer: `$${XEOMIN_UNIT_PRICE_USD} per unit. Ryan maps the number of units to your face at the visit, and you approve the total before we inject. Glow members save $1/unit. Xperience+ members can save $50 on a qualifying Xeomin treatment when they join, earn 100 points per treatment, and unlock up to $240 in annual Xeomin savings (Merz terms apply).`,
+    answer: `$${XEOMIN_UNIT_PRICE_USD} per unit. Your clinician maps the number of units to your face at the visit, and you approve the total before we inject. Glow members save $1/unit. Xperience+ members can save $50 on a qualifying Xeomin treatment when they join, earn 100 points per treatment, and unlock up to $240 in annual Xeomin savings (Merz terms apply).`,
   },
   {
     question: "Does it hurt, and how long does it last?",
@@ -228,7 +228,7 @@ export const XEOMIN_INTRO_FAQS: FAQ[] = [
   {
     question: "Can I switch from Botox to Xeomin?",
     answer:
-      "Yes. Tell Ryan exactly which toxin you had and when. We usually wait until prior toxin has worn off so we can assess baseline muscle activity. Doses are not interchangeable between brands.",
+      "Yes. Tell your clinician exactly which toxin you had and when. We usually wait until prior toxin has worn off so we can assess baseline muscle activity. Doses are not interchangeable between brands.",
   },
   {
     question: "How does Xperience+ work at Hello Gorgeous?",
@@ -278,5 +278,5 @@ export const XEOMIN_ISI = {
   warning:
     "XEOMIN may cause serious side effects that can be life-threatening, including problems swallowing, speaking, or breathing, and spread of toxin effects hours to weeks after injection. Call your provider or get emergency help for those symptoms. Do not use Xeomin if you are allergic to it or another botulinum toxin, or if you have a skin infection at the planned injection site.",
   common: "The most common side effect in upper-facial treatment is injection-site bruising. Other effects can include headache, eyelid or brow drooping, and allergic reactions.",
-  doses: "Doses of Xeomin are not the same as other botulinum toxins. Tell Ryan every toxin, medicine, and muscle or nerve condition in your history.",
+  doses: "Doses of Xeomin are not the same as other botulinum toxins. Tell your clinician every toxin, medicine, and muscle or nerve condition in your history.",
 } as const;

@@ -40,7 +40,7 @@ export default function RegenRefundPage() {
 
         <p>
           This website does not take a card and does not sell medication. A request is not a prescription.
-          Ryan Kent, FNP-BC reviews every request. If he approves a plan, Hello Gorgeous, P.C. sends a clinic
+          a licensed Illinois clinician reviews every request. If a clinician approves a plan, Hello Gorgeous, P.C. sends a clinic
           invoice. The pharmacy prepares the prescription only after that invoice is paid.
         </p>
 

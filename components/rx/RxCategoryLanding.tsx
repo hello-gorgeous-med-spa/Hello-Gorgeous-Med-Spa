@@ -215,7 +215,7 @@ function ClosingCta({ shopHref, intakeHref }: { shopHref: string; intakeHref: st
         <h2 className="font-serif text-2xl font-black sm:text-3xl">Ready to get started?</h2>
         <p className="mt-4 text-white/80">
           Answer a few questions, then meet your provider. a licensed Illinois clinician decides your protocol
-          before anything is filled — and you&apos;re only billed for medication after he approves it.
+          before anything is filled — and you&apos;re only billed for medication after a clinician approves it.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link

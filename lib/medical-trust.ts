@@ -1,11 +1,10 @@
-import { DANI_FULL_NAME, DANI_IMAGE, RYAN_FULL_NAME, RYAN_IMAGE } from "@/lib/founder-credentials";
+import { DANI_FULL_NAME, DANI_IMAGE } from "@/lib/founder-credentials";
 import { KRISTINA_FULL_NAME, KRISTINA_IMAGE } from "@/lib/kristina-huda";
 import {
   MEDICAL_DIRECTOR,
   MEDICAL_DIRECTOR_AFFILIATIONS,
   MEDICAL_DIRECTOR_GRADUATED,
   MEDICAL_DIRECTOR_SPECIALTY,
-  PRESCRIBING_NP,
   medicalDirectorPersonJsonLd,
 } from "@/lib/medical-authority";
 import { MEDICAL_TEAM_QUOTE } from "@/lib/medical-optimization";
@@ -33,15 +32,6 @@ export const MEDICAL_TRUST_PROVIDERS = [
     imageAlt: `${DANI_FULL_NAME}, Owner & Founder of Hello Gorgeous Med Spa, in clinic with Solaria`,
     badge: "Owner · in clinic daily",
     href: "/about",
-  },
-  {
-    name: RYAN_FULL_NAME,
-    role: "Prescriber · RE GEN RX",
-    detail: "FNP-BC · intakes, labs, and prescription protocols",
-    image: RYAN_IMAGE,
-    imageAlt: `${RYAN_FULL_NAME}, RE GEN RX prescriber at Hello Gorgeous Med Spa`,
-    badge: "RE GEN RX · prescriber",
-    href: PRESCRIBING_NP.profilePath,
   },
   {
     name: KRISTINA_FULL_NAME,
@@ -98,7 +88,7 @@ export const DR_ARORA_PROFILE = {
 
 export const MEDICAL_TRUST_BADGES = [
   "MD Medical Director",
-  "Ryan Kent, FNP-BC · RE GEN RX",
+  "Licensed Illinois clinician · RE GEN RX",
   "Kristina Huda, BSN, RN · injector",
   "Owner · RN-S · CNA · CMAA",
   "Consult-first RX",
@@ -107,7 +97,7 @@ export const MEDICAL_TRUST_BADGES = [
 
 /** Crawlable / AEO blurb — keep in HTML even when UI uses a Learn more modal. */
 export const DR_ARORA_SEO_BLURB =
-  "Dr. Mukesh Arora, MD is Medical Director of Hello Gorgeous Med Spa in Oswego, Illinois. Internal Medicine with 30+ years of experience. Graduated Ggs Medical College, 1991. Affiliated with Advocate Good Shepherd Hospital and Northwestern Medicine McHenry Hospital. Hello Gorgeous chose Dr. Arora as Medical Director for patient-first leadership: unhurried visits, clear communication, and long-term trust. Prescriptions are written by Ryan Kent, FNP-BC; the practice is owned by Danielle Alcala-Glazier.";
+  "Dr. Mukesh Arora, MD is Medical Director of Hello Gorgeous Med Spa in Oswego, Illinois. Internal Medicine with 30+ years of experience. Graduated Ggs Medical College, 1991. Affiliated with Advocate Good Shepherd Hospital and Northwestern Medicine McHenry Hospital. Hello Gorgeous chose Dr. Arora as Medical Director for patient-first leadership: unhurried visits, clear communication, and long-term trust. Prescriptions are written by a licensed Illinois clinician; the practice is owned by Danielle Alcala-Glazier.";
 
 /**
  * Standalone `Person` schema for Google. Identity and credentials come from

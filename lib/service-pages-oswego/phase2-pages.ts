@@ -279,7 +279,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       },
       {
         "q": "What are the risks of filler?",
-        "a": "Common: temporary swelling, bruising, redness at injection sites. Uncommon: lumps that need massage or dissolution, infection. Rare but serious: vascular occlusion (filler entering a blood vessel) requiring immediate hyaluronidase intervention. Ryan and our medical team are trained to recognize and manage all of these. We carry hyaluronidase on site for emergencies."
+        "a": "Common: temporary swelling, bruising, redness at injection sites. Uncommon: lumps that need massage or dissolution, infection. Rare but serious: vascular occlusion (filler entering a blood vessel) requiring immediate hyaluronidase intervention. your clinician and our medical team are trained to recognize and manage all of these. We carry hyaluronidase on site for emergencies."
       },
       {
         "q": "Am I a good candidate for fillers?",

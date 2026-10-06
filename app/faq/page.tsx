@@ -75,7 +75,7 @@ export default function MedSpaFaqPage() {
             </p>
             <p className="mt-4 text-sm font-semibold text-black/70 flex flex-wrap justify-center gap-x-4 gap-y-2">
               <Link href="/about" className="text-[#E6007E] hover:underline">
-                Meet Dani &amp; Ryan
+                Meet the team
               </Link>
               <Link href="/services/injectables" className="text-[#E6007E] hover:underline">
                 Injectables menu

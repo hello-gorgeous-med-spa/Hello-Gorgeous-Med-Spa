@@ -186,7 +186,7 @@ Here's exactly how pricing works — no surprises:
 
 > *"I walked in overwhelmed by peptide names online. I walked out with one clear plan — BPC for recovery plus labs to recheck in six weeks. The $49 consult was worth it before I spent hundreds on the wrong thing."* — **Hello Gorgeous client**, Fox Valley *(individual results vary)*
 
-> *"They didn't push six peptides at once. Ryan explained why Sermorelin fit my sleep and energy goals and what medication would actually cost before I committed."* — **Hello Gorgeous client**, Naperville area *(individual results vary)*
+> *"They didn't push six peptides at once. your clinician explained why Sermorelin fit my sleep and energy goals and what medication would actually cost before I committed."* — **Hello Gorgeous client**, Naperville area *(individual results vary)*
 
 ---
 

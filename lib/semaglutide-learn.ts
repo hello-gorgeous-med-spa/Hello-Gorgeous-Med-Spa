@@ -78,7 +78,7 @@ export const SEMAGLUTIDE_LEARN_PAGE: PeptideLearnPageModel = {
   whatTitle: "A GLP-1 protocol",
   whatAccent: "written for you",
   whatDescription:
-    "Semaglutide mimics a gut hormone that signals fullness and can slow how quickly the stomach empties. At Hello Gorgeous RX it is a weekly injection. Ryan sets the dose after labs — never a dropdown on a cart.",
+    "Semaglutide mimics a gut hormone that signals fullness and can slow how quickly the stomach empties. At Hello Gorgeous RX it is a weekly injection. your clinician sets the dose after labs — never a dropdown on a cart.",
   facts: [
     { label: "Generic name", value: "Semaglutide" },
     { label: "Class", value: "GLP-1 receptor agonist" },
@@ -103,7 +103,7 @@ export const SEMAGLUTIDE_LEARN_PAGE: PeptideLearnPageModel = {
     {
       n: "02",
       title: "Quieter appetite",
-      body: "Many clients describe thinking about food less as the weekly dose is increased. That is a common experience — not a guarantee. Ryan watches tolerance at every step.",
+      body: "Many clients describe thinking about food less as the weekly dose is increased. That is a common experience — not a guarantee. your clinician watches tolerance at every step.",
     },
     {
       n: "03",
@@ -138,7 +138,7 @@ export const SEMAGLUTIDE_LEARN_PAGE: PeptideLearnPageModel = {
     title: "Semaglutide vs",
     titleAccent: "tirzepatide",
     description:
-      "Same clinic. Same NP. Two different mechanisms. Ryan chooses after labs and history — we do not rank one as “better” for everyone.",
+      "Same clinic. Same NP. Two different mechanisms. your clinician chooses after labs and history — we do not rank one as “better” for everyone.",
     leftLabel: "Semaglutide",
     rightLabel: "Tirzepatide",
     rows: [
@@ -177,7 +177,7 @@ export const SEMAGLUTIDE_LEARN_PAGE: PeptideLearnPageModel = {
     {
       n: "03",
       title: "Personalized titration",
-      body: "If you qualify, Ryan sets the starting weekly dose and the step-up plan. Price follows the published dose tier — confirmed before anything ships.",
+      body: "If you qualify, your clinician sets the starting weekly dose and the step-up plan. Price follows the published dose tier — confirmed before anything ships.",
       tag: "Your plan",
     },
     {
@@ -230,7 +230,7 @@ export const SEMAGLUTIDE_LEARN_PAGE: PeptideLearnPageModel = {
     },
     {
       question: "Do I need a prescription?",
-      answer: `Yes. Semaglutide is prescription-only. Intake is free to submit. A $${PEPTIDE_CONSULT_FEE_USD} consult with ${PRESCRIBING_NP.displayName} reserves your visit. Medication is invoiced only after he approves the protocol.`,
+      answer: `Yes. Semaglutide is prescription-only. Intake is free to submit. A $${PEPTIDE_CONSULT_FEE_USD} consult with ${PRESCRIBING_NP.displayName} reserves your visit. Medication is invoiced only after a clinician approves the protocol.`,
     },
     {
       question: "How much does semaglutide cost at Hello Gorgeous?",

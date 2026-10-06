@@ -4,7 +4,7 @@
 
 import type { FAQ } from "@/lib/seo";
 import { FULLSCRIPT_DISPENSARY_URL, labRequestUrl } from "@/lib/flows";
-import { RYAN_FULL_NAME } from "@/lib/founder-credentials";
+import { LICENSED_CLINICIAN_PHRASE } from "@/lib/medical-authority";
 
 export const BLOOD_WORK_PATH = "/blood-work";
 /** Alias — Moonshot-style service URL redirects to BLOOD_WORK_PATH */
@@ -432,6 +432,6 @@ export const BLOOD_WORK_FAQS: FAQ[] = [
 ];
 
 export const BLOOD_WORK_MEDICAL_REVIEW = {
-  reviewer: RYAN_FULL_NAME,
+  reviewer: LICENSED_CLINICIAN_PHRASE,
   updated: "June 2026",
 };

@@ -27,7 +27,7 @@ export const RX_GUIDE_STEPS = [
   },
   {
     title: "Clinical review",
-    description: "Ryan approves your protocol for the pharmacy",
+    description: "your clinician approves your protocol for the pharmacy",
   },
   {
     title: "Delivered to you",

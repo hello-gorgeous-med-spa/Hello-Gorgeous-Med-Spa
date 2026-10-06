@@ -43,7 +43,7 @@ export function rxFulfillmentFields(options?: {
       required: true,
       options: [RX_SHIP_HOME_OPTION, RX_CLINIC_PICKUP_OPTION],
       helpText:
-        "Pick-up is free at 74 W Washington St, Oswego. You are only charged for medication after Ryan approves your protocol.",
+        "Pick-up is free at 74 W Washington St, Oswego. You are only charged for medication after your clinician approves your protocol.",
     },
     {
       id: "address_line1",

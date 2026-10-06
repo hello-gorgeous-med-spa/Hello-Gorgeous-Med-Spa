@@ -135,7 +135,7 @@ export function scoreHairReadiness(answers: ScreenerAnswers): ScreenerQuizResult
       ? "You may be a strong AnteAGE MDX evaluation candidate"
       : "You may be a strong hair restoration evaluation candidate",
     body: anteageLead
-      ? "Based on your pattern and goals, AnteAGE MDX hair biosomes or exosomes from $499/session — often stacked with Rx DHT support or PRF when appropriate — is worth exploring. Ryan maps TRT/DHT interactions and a realistic timeline at consult."
+      ? "Based on your pattern and goals, AnteAGE MDX hair biosomes or exosomes from $499/session — often stacked with Rx DHT support or PRF when appropriate — is worth exploring. Your clinician maps TRT/DHT interactions and a realistic timeline at consult."
       : "Based on your thinning pattern and treatment history, a Gentlemen's Club hair consult makes sense — Rx DHT blockers, GHK-Cu topicals, AnteAGE MDX from $499/session, and PRF from $600/session can be combined when clinically appropriate.",
     ctaLabel: "Book hair consult",
     ctaHref: "/book",

@@ -204,7 +204,7 @@ export const SHOP_RX_CATEGORIES: ShopRxCategory[] = [
             href: REGEN_REFILL_PATH,
             rx: true,
             badge: "NEW",
-            tagline: "Pick a protocol · patient pricing · Ryan reviews",
+            tagline: "Pick a protocol · patient pricing · your clinician reviews",
             imageSrc: "/images/regen/catalog/sermorelin.png",
             imageAlt: "REGEN RX compounded sermorelin — Hello Gorgeous compound shop",
           },

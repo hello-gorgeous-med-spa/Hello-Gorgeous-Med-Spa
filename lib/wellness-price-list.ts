@@ -198,7 +198,7 @@ function buildIvItems(): WellnessPriceListItem[] {
 const HORMONE_ITEMS: WellnessPriceListItem[] = [
   {
     id: "hormone-consult",
-    name: "Hormone consult with Ryan",
+    name: "Hormone consult with your clinician",
     priceLabel: "Book",
     tagline: "Lab-guided HRT · NP-supervised",
     note: "Medical visit — quote confirmed before you start. We no longer offer pellet insertion.",
