@@ -20,10 +20,11 @@ const TEXT_DISPLAY = "(630) 201-6867";
 const JUMP_LINKS = [
   { label: "Kristina Huda", href: "#kristina-huda" },
   { label: "Angel Ruggiero", href: "#angel-ruggiero" },
+  { label: "Alexandria Carlon", href: "#alexandria-carlon" },
   { label: "Michelle Colby", href: "#michelle-colby" },
   { label: "Laura Witt", href: "#laura-witt" },
   { label: "Jen Vokoun", href: "#jen-vokoun" },
-  { label: "The four of us", href: "#leadership" },
+  { label: "Leadership", href: "#leadership" },
   { label: "Book a visit", href: BOOKING_URL, external: true },
 ] as const;
 
@@ -246,7 +247,7 @@ export function MeetTheTeamPageContent() {
         <div className="mx-auto max-w-[1200px]">
           <FadeUp>
             <div className="mx-auto mb-10 max-w-[720px] text-center">
-              <Eyebrow>The four of us</Eyebrow>
+              <Eyebrow>Leadership</Eyebrow>
               <h2 className="mt-3 font-serif text-[34px] font-bold leading-[1.05] text-white lg:text-[46px]">
                 Owner · Injector · <span className="text-[#FF2D8E]">Medical Director</span>
               </h2>

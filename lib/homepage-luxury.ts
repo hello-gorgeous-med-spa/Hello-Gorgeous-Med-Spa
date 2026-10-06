@@ -32,6 +32,80 @@ export const LUXURY_HERO = {
   ],
 } as const;
 
+export const LUXURY_CARE_GRID: {
+  title: string;
+  line: string;
+  href: string;
+  image: string;
+  imageAlt: string;
+  objectPosition?: string;
+}[] = [
+  {
+    title: "Medical weight loss",
+    line: "A screened plan. Personalized for you.",
+    href: "/rx/weight-loss",
+    image: "/images/regen/woman-stretching.png",
+    imageAlt: "Woman stretching before a walk, medical weight loss at Hello Gorgeous",
+    objectPosition: "center 30%",
+  },
+  {
+    title: "Advanced labs",
+    line: "Know more. Labs before a plan.",
+    href: "/labs",
+    image: "/images/homepage-care/labs-tubes.jpg",
+    imageAlt: "Blood collection tubes on a laboratory report",
+    objectPosition: "center",
+  },
+  {
+    title: "Hormone optimization",
+    line: "Balance, energy, and follow-up.",
+    href: "/rx/hormones",
+    image: "/images/regen/marketing/woman-wellness.png",
+    imageAlt: "Woman filling a water bottle in a bright kitchen",
+    objectPosition: "center 20%",
+  },
+  {
+    title: "Peptide therapy",
+    line: "A clinician reviews every plan.",
+    href: "/rx/peptides",
+    image: "/images/homepage-care/peptide-vial.jpg",
+    imageAlt: "REGEN peptide therapy vial",
+    objectPosition: "center",
+  },
+  {
+    title: "Sexual health",
+    line: "Confidence. Intimacy. Connection.",
+    href: "/regen/sexual-health",
+    image: "/images/regen/couple-couch.png",
+    imageAlt: "A couple sitting together on a couch at home",
+    objectPosition: "center 40%",
+  },
+  {
+    title: "Men's health + TRT",
+    line: "Strength, energy, and a clinician-set plan.",
+    href: "/mens-hormones",
+    image: "/images/regen/man-professional.png",
+    imageAlt: "Man in a dark jacket, men's health at Hello Gorgeous",
+    objectPosition: "center 15%",
+  },
+  {
+    title: "Hair + skin wellness",
+    line: "Hair, skin, and a plan that fits you.",
+    href: "/rx/hair-skin",
+    image: "/images/regen/marketing/woman-skincare.png",
+    imageAlt: "Woman touching her hair, hair and skin wellness",
+    objectPosition: "center 20%",
+  },
+  {
+    title: "Everyday wellness",
+    line: "IV therapy. Vitamins. Whole-body care.",
+    href: "/services/iv-therapy",
+    image: "/images/iv-therapy/iv-hero-bag.jpg",
+    imageAlt: "Pink IV fluid bag for vitamin therapy",
+    objectPosition: "center",
+  },
+];
+
 export const LUXURY_INTRO = {
   eyebrow: "Built clinical-first",
   headline: "You are in a medical practice that happens to be gorgeous.",

@@ -21,8 +21,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: `${SITE.url}${SOLARIA_FALL_599_CAMPAIGN.imagePath}`,
-        width: 1024,
-        height: 1536,
+        width: 682,
+        height: 1024,
         alt: "Solaria CO₂ $599 fall special — Hello Gorgeous Med Spa Oswego",
       },
     ],

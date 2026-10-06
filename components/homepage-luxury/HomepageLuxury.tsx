@@ -8,6 +8,7 @@ import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import {
   LUXURY,
   LUXURY_HERO,
+  LUXURY_CARE_GRID,
   LUXURY_INTRO,
   LUXURY_PHILOSOPHY,
   LUXURY_SERVICES,
@@ -232,6 +233,47 @@ function HeroSection() {
 }
 
 /* -------------------------------------------------------------------------- */
+/*                              Care path grid                                */
+/* -------------------------------------------------------------------------- */
+
+function CareGridSection() {
+  return (
+    <section className="pb-10 lg:pb-14" style={{ backgroundColor: LUXURY.cream }} aria-label="Care paths">
+      <div className="mx-auto max-w-[1280px] px-6">
+        <div className="grid grid-cols-2 gap-2 lg:grid-cols-4 lg:gap-3">
+          {LUXURY_CARE_GRID.map((card) => (
+            <Link
+              key={card.title}
+              href={card.href}
+              className="group relative block aspect-[3/4] overflow-hidden bg-black sm:aspect-[16/11]"
+            >
+              <Image
+                src={card.image}
+                alt={card.imageAlt}
+                fill
+                sizes="(min-width: 1024px) 320px, 50vw"
+                className="object-cover transition duration-500 group-hover:scale-[1.04]"
+                style={{ objectPosition: card.objectPosition ?? "center" }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/15" />
+              <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-4">
+                <p className="max-w-[14rem] text-[15px] font-semibold uppercase leading-[1.05] tracking-[0.04em] text-white sm:text-[18px]">
+                  {card.title}
+                </p>
+                <span className="mt-2 block h-[2px] w-8 bg-[#E91E8C]" />
+                <p className="mt-2 max-w-[15rem] text-[12px] leading-snug text-white/85 sm:text-[13px]">
+                  {card.line}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
 /*                              Intro / Promise                               */
 /* -------------------------------------------------------------------------- */
 
@@ -264,6 +306,45 @@ function IntroSection() {
             </div>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                         Fall special + team posters                        */
+/* -------------------------------------------------------------------------- */
+
+function StudioPostersSection() {
+  return (
+    <section className="pb-16 lg:pb-20" style={{ backgroundColor: LUXURY.cream }} aria-label="Fall special and team">
+      <div className="mx-auto grid max-w-[1100px] items-start gap-4 px-6 md:grid-cols-[0.68fr_1fr] md:gap-5">
+        <Link
+          href="/services/solaria-co2"
+          className="block overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
+        >
+          <Image
+            src="/images/marketing/solaria-fall-back-in-love-2026.jpg"
+            alt="Solaria CO2 fall special, $599 through October 31, complimentary recovery serum. Consult required. Results vary."
+            width={682}
+            height={1024}
+            className="h-auto w-full"
+            sizes="(min-width: 768px) 420px, 100vw"
+          />
+        </Link>
+        <Link
+          href="/meet-the-team"
+          className="block overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
+        >
+          <Image
+            src="/images/marketing/meet-our-gorgeous-team-2026.jpg"
+            alt="Meet Angel Ruggiero, Kristina Huda, BSN, RN, and Alexandria Carlon, LE, MA at Hello Gorgeous Med Spa"
+            width={1024}
+            height={1024}
+            className="h-auto w-full"
+            sizes="(min-width: 768px) 640px, 100vw"
+          />
+        </Link>
       </div>
     </section>
   );
@@ -618,7 +699,9 @@ export function HomepageLuxury({
   return (
     <div className="min-h-screen w-full selection:bg-[#D4AF37]/30" style={{ color: LUXURY.dark }}>
       <HeroSection />
+      <CareGridSection />
       <IntroSection />
+      <StudioPostersSection />
       <ServicesSection />
       <PhilosophySection />
       <TeamSection />

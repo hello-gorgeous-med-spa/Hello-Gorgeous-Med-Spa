@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE.url}${SOLARIA_CO2_PATH}` },
   openGraph: {
     ...baseMeta.openGraph,
-    images: [{ url: `${SITE.url}${SOLARIA_FALL_599_CAMPAIGN.imagePath}`, width: 1024, height: 1536, alt: SOLARIA_SEO.ogAlt }],
+    images: [{ url: `${SITE.url}${SOLARIA_FALL_599_CAMPAIGN.imagePath}`, width: 682, height: 1024, alt: SOLARIA_SEO.ogAlt }],
   },
   twitter: { ...baseMeta.twitter, images: [`${SITE.url}${SOLARIA_FALL_599_CAMPAIGN.imagePath}`] },
 };

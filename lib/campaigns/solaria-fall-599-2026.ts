@@ -10,7 +10,7 @@ export const SOLARIA_FALL_599_CAMPAIGN = {
   name: "Solaria CO₂ fall special — $599",
   seasonLabel: "Fall special",
   path: SOLARIA_FALL_599_PATH,
-  imagePath: "/images/marketing/solaria-fall-599-2026.png" as const,
+  imagePath: "/images/marketing/solaria-fall-back-in-love-2026.jpg" as const,
   gbpPath:
     `${SOLARIA_FALL_599_PATH}?utm_source=google&utm_medium=gbp_post&utm_campaign=solaria_fall_599_2026` as const,
   phoneDisplay: "(630) 636-6193",

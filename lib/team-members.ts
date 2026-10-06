@@ -41,7 +41,7 @@ export type TeamMember = {
 };
 
 export const MEET_THE_TEAM_SEO_DESCRIPTION =
-  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Danielle Alcala-Glazier, Kristina Huda, BSN, RN (injector), Dr. Mukesh Arora, MD, plus Angel Ruggiero, Michelle Colby, Laura Witt, and Jen Vokoun. Prescriptions are written by a licensed Illinois clinician.";
+  "Meet the Hello Gorgeous Med Spa team in Oswego, IL — Danielle Alcala-Glazier, Kristina Huda, BSN, RN (injector), Dr. Mukesh Arora, MD, plus Angel Ruggiero, Alexandria Carlon, Michelle Colby, Laura Witt, and Jen Vokoun. Prescriptions are written by a licensed Illinois clinician.";
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
@@ -92,6 +92,29 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Chemical peels",
       "Dermaplaning",
       "Brows & lashes",
+    ],
+  },
+  {
+    id: "alexandria-carlon",
+    slug: "alexandria-carlon",
+    fullName: "Alexandria Carlon",
+    badge: "Laser · Skin",
+    title: "LE, MA · Laser Technician · Skin Rejuvenation Specialist",
+    isNewHire: true,
+    image: {
+      src: "/images/team/alexandria-carlon-2026.jpg",
+      alt: "Alexandria Carlon, laser technician and skin rejuvenation specialist at Hello Gorgeous Med Spa in Oswego, IL",
+      objectClassName: "object-cover object-center",
+    },
+    bioParagraphs: [
+      "Alexandria Carlon, LE, MA is a laser technician and skin rejuvenation specialist at Hello Gorgeous Med Spa. She is also a skincare product professional.",
+      "Her visits cover laser hair removal, IPL skin rejuvenation, and advanced skincare. Your plan is mapped at the consult. Results vary.",
+    ],
+    specialties: [
+      "Laser hair removal",
+      "IPL skin rejuvenation",
+      "Advanced skincare",
+      "Skincare products",
     ],
   },
   {
