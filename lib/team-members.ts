@@ -157,9 +157,9 @@ export const TEAM_MEMBERS: TeamMember[] = [
     title: "Client Relations & Wellness Sales Specialist",
     isNewHire: true,
     image: {
-      src: "/images/team/laura-witt-2026.jpg",
+      src: "/images/team/laura-witt-portrait-2026.jpg",
       alt: "Laura C. Witt, Client Relations and Wellness Sales Specialist at Hello Gorgeous Med Spa in Oswego, IL",
-      objectClassName: "object-cover object-[center_22%]",
+      objectClassName: "object-cover object-[center_18%]",
     },
     quote:
       "I love creating memorable experiences through genuine connections.",
