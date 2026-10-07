@@ -187,6 +187,13 @@ export default function KioskHubPage() {
           </button>
           <button
             type="button"
+            onClick={() => setSelected(new Set([...coreIds, "drive_thru_consent"]))}
+            className="text-xs rounded-full border border-[#FF1493] px-3 py-1.5 text-[#FF1493]"
+          >
+            Drive-thru shot
+          </button>
+          <button
+            type="button"
             onClick={() => setSelected(new Set(forms.map((f) => f.id)))}
             className="text-xs rounded-full border border-white/20 px-3 py-1.5 text-white/70"
           >

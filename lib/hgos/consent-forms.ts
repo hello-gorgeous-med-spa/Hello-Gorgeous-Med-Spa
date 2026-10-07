@@ -24,6 +24,7 @@ export type ConsentFormType =
   | 'laser_skin_resurfacing_consent'
   | 'prp_prf_consent'
   | 'iv_therapy_consent'
+  | 'drive_thru_consent'
   | 'bhrt_consent'
   | 'hydrafacial_consent'
   | 'dermaplaning_consent'
@@ -1371,6 +1372,53 @@ export const CONSENT_FORMS: ConsentForm[] = [
   },
 
   {
+    id: 'drive_thru_consent',
+    name: 'Drive-Thru Wellness Shot Consent',
+    shortName: 'Drive-Thru Shot',
+    description: '$20 lunch IM shot — B12, Lipo, Glow, Tri-Immune, Biotin, or D3',
+    version: '1.0',
+    lastUpdated: '2026-10-07',
+    isRequired: false,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 26.5,
+    requiredForServices: ['vitamin-injections', 'drive-thru', 'wellness-shot'],
+    content: `
+      <h2>INFORMED CONSENT FOR DRIVE-THRU WELLNESS SHOT</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+
+      <h3>1. WHAT THIS VISIT IS</h3>
+      <p>This is an in-clinic intramuscular (IM) wellness shot from the lunch menu. Each shot is $20. The visit is about 15 minutes. A healthcare professional gives the injection. These shots are not self-administered and are not taken home.</p>
+      <p>The lunch menu is: B12 Energy, Lipo Skinny (MICC + B12), Glow Glutathione, Tri-Immune Boost (vitamin C, glutathione, and zinc), Biotin Beauty (biotin + B-complex), and D3 Sunshine (vitamin D3). I will tell the clinician which shot I want. The clinician may decline a shot that is not appropriate for me today.</p>
+
+      <h3>2. WHAT THIS VISIT IS NOT</h3>
+      <p>This is a wellness service. It is not a diagnosis, a prescription, or treatment for a disease. It is not a weight-loss treatment and not a guarantee of energy, mood, hair, skin, nails, or how I will feel. Results vary. The regular Vitamin Injection Bar is a separate visit.</p>
+
+      <h3>3. RISKS</h3>
+      <ul>
+        <li>Pain, soreness, redness, swelling, or bruising at the injection site</li>
+        <li>Bleeding, infection, or a hard spot where the shot was given</li>
+        <li>Allergic reaction, including rash or, rarely, a severe reaction</li>
+        <li>Dizziness, nausea, or fainting</li>
+        <li>Biotin can interfere with some lab tests. I will tell my other clinicians if I receive biotin.</li>
+      </ul>
+
+      <h3>4. I WILL TELL THE CLINICIAN IF</h3>
+      <ul>
+        <li>I am pregnant, trying to become pregnant, or breastfeeding</li>
+        <li>I have an allergy to any vitamin, preservative, or component of the shot</li>
+        <li>I have a bleeding disorder or take a blood thinner</li>
+        <li>I feel ill, lightheaded, or unsure about the shot today</li>
+      </ul>
+
+      <h3>5. AFTER THE SHOT</h3>
+      <p>I will stay if I feel dizzy. I will contact the clinic or seek urgent care for trouble breathing, a spreading rash, or a site that becomes hot, very painful, or increasingly red.</p>
+
+      <p class="signature-block"><strong>BY SIGNING BELOW, I HAVE READ THIS FORM, HAD A CHANCE TO ASK QUESTIONS, AND CONSENT TO ONE INTRAMUSCULAR WELLNESS SHOT GIVEN BY A HEALTHCARE PROFESSIONAL AT HELLO GORGEOUS MED SPA.</strong></p>
+    `,
+  },
+
+  {
     id: 'bhrt_consent',
     name: 'Bioidentical Hormone Therapy Consent',
     shortName: 'BHRT Consent',
@@ -2141,7 +2189,7 @@ export function consentFormCategory(form: Pick<ConsentForm, "id" | "phase">): st
   if (form.id.includes("laser") || form.id.includes("ipl") || form.id.includes("hair_removal")) return "Laser";
   if (form.id.includes("morpheus") || form.id.includes("rf_") || form.id.includes("microneedling") || form.id.includes("chemical") || form.id.includes("hydra") || form.id.includes("derma")) return "Skin";
   if (form.id.includes("body") || form.id.includes("contouring")) return "Body";
-  if (form.id.includes("iv_") || form.id.includes("bhrt") || form.id.includes("weight") || form.id.includes("prp")) return "Wellness";
+  if (form.id.includes("iv_") || form.id.includes("drive_thru") || form.id.includes("bhrt") || form.id.includes("weight") || form.id.includes("prp")) return "Wellness";
   if (form.id.includes("photo") || form.id.includes("sms")) return "Marketing";
   if (form.id.includes("lash") || form.id.includes("brow") || form.id.includes("microblad") || form.id.includes("pmu")) return "Treatment";
   return "Treatment";
