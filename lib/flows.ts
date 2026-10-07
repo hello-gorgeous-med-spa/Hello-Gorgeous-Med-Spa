@@ -126,6 +126,13 @@ export const SQUARE_VITAMIN_SHOT_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_VITAMIN_SHOT_URL?.trim() ||
   `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_VITAMIN_SHOT_SERVICE_VARIATION_ID}`;
 
+/**
+ * Square Appointments — 20-Minute Wellness Shot ($20 / 15 min).
+ * Lunch menu only. The $25 Vitamin Injection Bar stays a separate service.
+ * Danielle, Kristina, Angelene, and Alexandria are on the calendar.
+ */
+export const SQUARE_WELLNESS_DRIVE_THRU_VARIATION_ID = "DC5XX3USH3EVCIFSFCIIKYVC";
+
 /** Square Appointments buyer URL for a specific service variation. */
 export function squareAppointmentServiceUrl(variationId: string): string {
   return `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${variationId}`;

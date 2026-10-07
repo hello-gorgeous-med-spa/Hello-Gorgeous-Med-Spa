@@ -19,6 +19,14 @@ export const SPECIALS_SEO = {
 /** Top conversion picks — shown above the full menu. */
 export const SPECIALS_FEATURED = [
   {
+    title: "20-Minute Wellness",
+    accentLine: "$20 IM shot · Square booking",
+    description:
+      "Skip the drive-thru. Pick a $20 wellness shot, book a 15-minute Square visit, and a licensed RN gives it in the clinic.",
+    href: "/20-minute-wellness",
+    badge: "$20",
+  },
+  {
     title: "VIP Glow Night",
     accentLine: "One night · RSVP + tell us what you want",
     description:
@@ -97,6 +105,12 @@ export const SPECIALS_JUMP_LINKS = [
 ] as const;
 
 export const MORE_SPECIALS_LINKS = [
+  {
+    label: "20-Minute Wellness",
+    href: "/20-minute-wellness",
+    sub: "$20 IM shot · B12, Lipo, Glow, Immunity, Biotin, D3",
+    badge: "$20",
+  },
   {
     label: "VIP Glow Night RSVP",
     href: "/vip-glow",

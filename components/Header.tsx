@@ -139,6 +139,12 @@ const NAV = {
     href: SPECIALS_PATH,
     links: [
       {
+        label: "20-Minute Wellness",
+        href: "/20-minute-wellness",
+        sub: "$20 IM shot · book on Square · in and out on a lunch break",
+        badge: "$20",
+      },
+      {
         label: "VIP Glow Night",
         href: "/vip-glow",
         sub: "RSVP · $450 Solaria · $399 Morpheus8 · $7 Botox · $399 brows",
