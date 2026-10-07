@@ -1,8 +1,11 @@
 "use client";
 
+import { Syne } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
+
+import { WELLNESS_DRIVE_THRU_PATH } from "@/lib/wellness-drive-thru";
 
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
 import {
@@ -22,6 +25,8 @@ import {
   WEBSITE_HERO_IMAGE,
   WEBSITE_HERO_IMAGE_ALT,
 } from "@/lib/website-hero";
+
+const wellnessPoster = Syne({ subsets: ["latin"], weight: ["800"] });
 
 /* -------------------------------------------------------------------------- */
 /*                                   Icons                                    */
@@ -317,11 +322,11 @@ function IntroSection() {
 
 function StudioPostersSection() {
   return (
-    <section className="pb-16 lg:pb-20" style={{ backgroundColor: LUXURY.cream }} aria-label="Fall special and team">
-      <div className="mx-auto grid max-w-[1100px] items-start gap-4 px-6 md:grid-cols-[0.68fr_1fr] md:gap-5">
+    <section className="pb-16 lg:pb-20" style={{ backgroundColor: LUXURY.cream }} aria-label="Fall special, team, and 20-minute wellness">
+      <div className="mx-auto grid max-w-[1280px] items-start gap-4 px-6 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1fr)_248px] lg:gap-5">
         <Link
           href="/services/solaria-co2"
-          className="block overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
+          className="block min-w-0 overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
         >
           <Image
             src="/images/marketing/solaria-fall-back-in-love-2026.jpg"
@@ -334,7 +339,7 @@ function StudioPostersSection() {
         </Link>
         <Link
           href="/meet-the-team"
-          className="block overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
+          className="block min-w-0 overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
         >
           <Image
             src="/images/marketing/meet-our-gorgeous-team-2026.jpg"
@@ -344,6 +349,48 @@ function StudioPostersSection() {
             className="h-auto w-full"
             sizes="(min-width: 768px) 640px, 100vw"
           />
+        </Link>
+        <Link
+          href={WELLNESS_DRIVE_THRU_PATH}
+          className="flex h-full min-w-0 flex-col self-stretch overflow-hidden rounded-[18px] border border-black/10 bg-[#FFF8F0] shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
+        >
+          <div className={`${wellnessPoster.className} border-b-[3px] border-black bg-[#FF1493] px-3 py-2 text-center text-[10px] font-extrabold uppercase leading-none tracking-[-0.02em] text-black`}>
+            $20 shots · just glow
+          </div>
+          <div className="flex flex-1 flex-col px-3 pb-4 pt-3">
+            <p className="w-fit border-[2px] border-black bg-black px-2 py-1 text-[9px] font-black uppercase tracking-[0.12em] text-white">
+              20 min · $20
+            </p>
+            <p className={`${wellnessPoster.className} mt-3 text-[22px] font-extrabold uppercase leading-[0.82] tracking-[-0.04em] text-[#0A0A0A]`}>
+              Skip the
+              <span className="mt-1 inline-block -rotate-[1deg] bg-black px-1 text-white">Drive-thru.</span>
+              <span className="mt-1 block">Get your</span>
+              <span className="block text-[#FF1493]">Wellness</span>
+              <span className="block text-[#FF1493]">shot.</span>
+            </p>
+            <div className="mt-4 grid h-[58px] w-[58px] rotate-[6deg] place-items-center border-[3px] border-black bg-[#FFEB3B] text-center text-[#0A0A0A]">
+              <span className={`${wellnessPoster.className} text-[22px] font-extrabold leading-none`}>20</span>
+              <span className="text-[8px] font-black uppercase leading-none">$20 each</span>
+            </div>
+            <div className="mt-4 border-[3px] border-black bg-black p-2 text-white">
+              {[
+                ["B12 Energy", "$20"],
+                ["Lipo Skinny", "$20"],
+                ["Glow", "$20"],
+                ["Immunity", "$20"],
+                ["Biotin", "$20"],
+                ["D3 Sunshine", "$20"],
+              ].map(([name, price]) => (
+                <div key={name} className="flex justify-between border-b border-dashed border-white/25 py-1 font-mono text-[10px] uppercase last:border-0">
+                  <span>{name}</span>
+                  <span className="font-black">{price}</span>
+                </div>
+              ))}
+            </div>
+            <span className="mt-auto pt-4 text-[11px] font-black uppercase tracking-widest text-[#0A0A0A]">
+              Open the page →
+            </span>
+          </div>
         </Link>
       </div>
     </section>
