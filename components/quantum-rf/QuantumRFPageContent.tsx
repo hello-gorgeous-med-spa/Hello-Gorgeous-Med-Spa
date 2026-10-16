@@ -511,7 +511,24 @@ export function QuantumRFPageContent() {
             >
               InMode&apos;s official QuantumRF page
             </a>
-            .
+            {" · "}
+            <a
+              href="/brochures/quantumrf-patient-brochure.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#FF2D8E] underline underline-offset-2 hover:text-white"
+            >
+              Patient Brochure (PDF)
+            </a>
+            {" · "}
+            <a
+              href="/brochures/inmode-celebrities-2025.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#FF2D8E] underline underline-offset-2 hover:text-white"
+            >
+              Celebrities Using InMode
+            </a>
           </p>
           <div className="mt-10 space-y-3">
             {QUANTUM_RF_FAQS.map((faq, idx) => (
