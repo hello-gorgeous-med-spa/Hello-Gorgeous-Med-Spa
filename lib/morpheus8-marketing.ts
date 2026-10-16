@@ -38,6 +38,7 @@ export const MORPHEUS8_MARKETING = {
   compareSolariaHref: "/solaria-co2-oswego",
   quantumHref: "/quantum-rf-oswego",
   trifectaHref: "/specials",
+  inmodeUrl: "https://www.inmodemd.com/technologies/morpheus8/",
   /** Clinic marketing hero — MBurst re-edit */
   heroVideo: "/videos/morpheus8/morpheus8-hero.mp4",
   /** Official InMode workstation animation */

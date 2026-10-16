@@ -522,6 +522,35 @@ export function Morpheus8PageContent() {
       <section id="faq" className="scroll-mt-24 px-6 py-16 lg:py-24">
         <div className="mx-auto max-w-[900px]">
           <SectionHead eyebrow="FAQ" title="Morpheus8" titleAccent="questions" />
+          <p className="mt-4 text-sm text-white/60">
+            Learn more at{" "}
+            <a
+              href={MORPHEUS8_MARKETING.inmodeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#FF2D8E] underline underline-offset-2 hover:text-white"
+            >
+              InMode&apos;s official Morpheus8 page
+            </a>
+            {" · "}
+            <a
+              href="/brochures/morpheus8-burst-patient-brochure.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#FF2D8E] underline underline-offset-2 hover:text-white"
+            >
+              Patient Brochure (PDF)
+            </a>
+            {" · "}
+            <a
+              href="/brochures/inmode-celebrities-2025.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#FF2D8E] underline underline-offset-2 hover:text-white"
+            >
+              Celebrities Using InMode
+            </a>
+          </p>
           <div className="mt-10 space-y-3">
             {MORPHEUS8_FAQS.map((faq, idx) => (
               <details
