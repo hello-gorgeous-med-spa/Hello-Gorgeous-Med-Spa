@@ -252,6 +252,9 @@ export function QuantumRFPageContent() {
             <div className="mt-7 flex flex-wrap gap-3.5">
               <PinkBtn href={bookHref}>Book Quantum consult</PinkBtn>
               <GhostBtn href={QUANTUM_RF_MARKETING.trifectaHref}>See InMode Trifecta</GhostBtn>
+              <GhostBtn href={QUANTUM_RF_MARKETING.inmodeUrl} className="!border-white/20 !text-white/70">
+                InMode Official →
+              </GhostBtn>
             </div>
           </div>
         </div>
@@ -498,6 +501,18 @@ export function QuantumRFPageContent() {
       <section id="faq" className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_78%_20%,#12030c,#000_62%)] px-6 py-16 lg:py-24">
         <div className="mx-auto max-w-[900px]">
           <SectionHead eyebrow="FAQ" title="Quantum RF" titleAccent="questions" />
+          <p className="mt-4 text-sm text-white/60">
+            Learn more at{" "}
+            <a
+              href={QUANTUM_RF_MARKETING.inmodeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#FF2D8E] underline underline-offset-2 hover:text-white"
+            >
+              InMode&apos;s official QuantumRF page
+            </a>
+            .
+          </p>
           <div className="mt-10 space-y-3">
             {QUANTUM_RF_FAQS.map((faq, idx) => (
               <details
