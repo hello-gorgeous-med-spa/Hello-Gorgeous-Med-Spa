@@ -1014,6 +1014,14 @@ export function Header() {
                 <span className="text-xs font-semibold text-[#FFB8DC]">Sculptra® + Radiesse® · collagen</span>
               </Link>
               <Link
+                href="/puffy-eyes"
+                onClick={() => setMobileOpen(false)}
+                className="block border-t border-white/10 px-4 py-3 text-sm font-semibold text-white/90"
+              >
+                <span className="block">Puffy Eyes</span>
+                <span className="text-xs font-semibold text-[#FFB8DC]">Under-eye consult sheet</span>
+              </Link>
+              <Link
                 href="/upneeq"
                 onClick={() => setMobileOpen(false)}
                 className="block border-t border-white/10 px-4 py-3 text-sm font-semibold text-white/90"

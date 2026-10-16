@@ -1,0 +1,472 @@
+{
+  "imported_at": "2026-10-04T01:11:49.432Z",
+  "square_environment": "production",
+  "category": "Peptide Bar",
+  "item_count": 32,
+  "items": [
+    {
+      "catalog_id": "bpc-157",
+      "name": "Peptide Bar · BPC-157",
+      "square_item_id": "JKHBRS4RIV6IJWQUXHHH6DRI",
+      "variations": [
+        {
+          "key": "each",
+          "label": "3 mg/mL · 5 mL",
+          "price_cents": 17500,
+          "square_variation_id": "R4ZE3XBNRUO6RIDG45GREPXP"
+        }
+      ]
+    },
+    {
+      "catalog_id": "tb-500",
+      "name": "Peptide Bar · TB-500",
+      "square_item_id": "V5WC64LYIGE5OGADYC5TUKPE",
+      "variations": [
+        {
+          "key": "each",
+          "label": "3 mg/mL · 5 mL",
+          "price_cents": 17500,
+          "square_variation_id": "73AT57VR4KQR7XHRBKDQMT2P"
+        }
+      ]
+    },
+    {
+      "catalog_id": "ghk-cu",
+      "name": "Peptide Bar · GHK-Cu",
+      "square_item_id": "SD6KD5EVCHX3645SDC5UDX5Y",
+      "variations": [
+        {
+          "key": "each",
+          "label": "10 mg/mL · 5 mL",
+          "price_cents": 17500,
+          "square_variation_id": "4BPPRUPVY4TEQS22NRQEL4T7"
+        }
+      ]
+    },
+    {
+      "catalog_id": "pt-141",
+      "name": "Peptide Bar · PT-141",
+      "square_item_id": "SOUZ3UWWCQPIRIQKUBLMNIKU",
+      "variations": [
+        {
+          "key": "each",
+          "label": "2 mg/mL · 5 mL",
+          "price_cents": 17500,
+          "square_variation_id": "L2QX2EAKIKGIKZAQN36RXTAL"
+        }
+      ]
+    },
+    {
+      "catalog_id": "mots-c",
+      "name": "Peptide Bar · MOTS-c",
+      "square_item_id": "2CPGNNLIDD3YTS4VX7ZBAMQF",
+      "variations": [
+        {
+          "key": "each",
+          "label": "20 mg/mL · 5 mL",
+          "price_cents": 17500,
+          "square_variation_id": "2URJACPLG2IS25Z2WUAR3ROW"
+        }
+      ]
+    },
+    {
+      "catalog_id": "tesamorelin",
+      "name": "Peptide Bar · Tesamorelin",
+      "square_item_id": "4U4XPFA7PMIUCH2NNRANWTF5",
+      "variations": [
+        {
+          "key": "each",
+          "label": "3 mg/mL · 5 mL",
+          "price_cents": 17500,
+          "square_variation_id": "HEAFE635BUOFS3IY5EQEROIY"
+        }
+      ]
+    },
+    {
+      "catalog_id": "aod-9604",
+      "name": "Peptide Bar · AOD-9604",
+      "square_item_id": "A62YYPNSOB3IGDV6MW6LL3OC",
+      "variations": [
+        {
+          "key": "each",
+          "label": "2 mg/mL · 5 mL",
+          "price_cents": 17500,
+          "square_variation_id": "DDGUNFYNXEL5S7QALQW4V7RQ"
+        }
+      ]
+    },
+    {
+      "catalog_id": "igf-lr3",
+      "name": "Peptide Bar · IGF-LR3",
+      "square_item_id": "3PHEQL7U6JMVZGU7DAT6BGFG",
+      "variations": [
+        {
+          "key": "each",
+          "label": "200 mcg/mL · 5 mL",
+          "price_cents": 17500,
+          "square_variation_id": "7K3G47L2SAOUCA72TLZMQTWM"
+        }
+      ]
+    },
+    {
+      "catalog_id": "thymosin-a1",
+      "name": "Peptide Bar · Thymosin Alpha-1",
+      "square_item_id": "PSHF7ONFYD3R4THFYRIL4EFK",
+      "variations": [
+        {
+          "key": "each",
+          "label": "5 mg/mL · 5 mL",
+          "price_cents": 17500,
+          "square_variation_id": "6WCC2IKWH6QG4GQR4WPIKCX5"
+        }
+      ]
+    },
+    {
+      "catalog_id": "nad",
+      "name": "Peptide Bar · NAD+",
+      "square_item_id": "DZY3GU3Q7MRQ7LLIF3DZERY5",
+      "variations": [
+        {
+          "key": "each",
+          "label": "100 mg/mL · 10 mL",
+          "price_cents": 15000,
+          "square_variation_id": "YPPRTZOQFLD6HMJZI5E3SM23"
+        }
+      ]
+    },
+    {
+      "catalog_id": "cjc-ipa",
+      "name": "Peptide Bar · CJC-1295 / Ipamorelin",
+      "square_item_id": "FVRCYMCLYQHPEKJ2UQIFYPOA",
+      "variations": [
+        {
+          "key": "each",
+          "label": "1.2 mg / 2 mg per mL · 5 mL",
+          "price_cents": 20000,
+          "square_variation_id": "J2BPOVNP3MNZFVJ4TELMR4RR"
+        }
+      ]
+    },
+    {
+      "catalog_id": "bpc-tb",
+      "name": "Peptide Bar · BPC-157 / TB-500",
+      "square_item_id": "YCMEUS3VKXPUHGBLO7CTECC2",
+      "variations": [
+        {
+          "key": "each",
+          "label": "3 mg / 3 mg per mL · 5 mL",
+          "price_cents": 20000,
+          "square_variation_id": "2JJ7VZEF5UKJASJ7LAEBX4NN"
+        }
+      ]
+    },
+    {
+      "catalog_id": "bpc-kpv-tb",
+      "name": "Peptide Bar · BPC-157 / KPV / TB-500",
+      "square_item_id": "WADYPBBGOUJN5USPCHBPJKGY",
+      "variations": [
+        {
+          "key": "each",
+          "label": "3 / 3 / 3 mg per mL · 5 mL",
+          "price_cents": 20000,
+          "square_variation_id": "R6K2JUQEJTWPY7EP6BOJXFMG"
+        }
+      ]
+    },
+    {
+      "catalog_id": "bpc-tb-ghk",
+      "name": "Peptide Bar · BPC-157 / TB-500 / GHK-Cu",
+      "square_item_id": "6VFNHX3ASX6UVO5EISFPBWWK",
+      "variations": [
+        {
+          "key": "each",
+          "label": "3 / 3 / 10 mg per mL · 5 mL",
+          "price_cents": 20000,
+          "square_variation_id": "5LBRAOFIFN45WXX7JTBVEOQF"
+        }
+      ]
+    },
+    {
+      "catalog_id": "recovery",
+      "name": "Peptide Bar · Recovery Blend",
+      "square_item_id": "3KMD2Y7G4GJPCY5BIB7WRAIA",
+      "variations": [
+        {
+          "key": "each",
+          "label": "BPC-157, GHK-Cu, KPV, TB-500 · 5 mL",
+          "price_cents": 20000,
+          "square_variation_id": "G5Z4RRKNLHYQEKHSVXYF4SKO"
+        }
+      ]
+    },
+    {
+      "catalog_id": "tesa-ipa",
+      "name": "Peptide Bar · Tesamorelin / Ipamorelin",
+      "square_item_id": "WE3U7JNE736A4554GK522CEB",
+      "variations": [
+        {
+          "key": "each",
+          "label": "3 mg / 2 mg per mL · 5 mL",
+          "price_cents": 20000,
+          "square_variation_id": "HAJLW75KLNEG2EM7MGU5A7K7"
+        }
+      ]
+    },
+    {
+      "catalog_id": "mots-tesa",
+      "name": "Peptide Bar · MOTS-c / Tesamorelin",
+      "square_item_id": "YEX4FGNJOOVHV7UIYSAL55PJ",
+      "variations": [
+        {
+          "key": "each",
+          "label": "4 mg / 3 mg per mL · 5 mL",
+          "price_cents": 20000,
+          "square_variation_id": "4DILHCSS3ZDVEXYPRXROKOPN"
+        }
+      ]
+    },
+    {
+      "catalog_id": "b12",
+      "name": "Peptide Bar · B12 Methylcobalamin",
+      "square_item_id": "VKB4AUH2OUNVIWE5U7KYXMSF",
+      "variations": [
+        {
+          "key": "each",
+          "label": "5 mg/mL · 10 mL take-home vial",
+          "price_cents": 18000,
+          "square_variation_id": "2UHA5EANESXZLEXSFH2CZ3PU"
+        }
+      ]
+    },
+    {
+      "catalog_id": "micc",
+      "name": "Peptide Bar · MICC lipo",
+      "square_item_id": "UOLEF3STF3BARLLCNJOULXWV",
+      "variations": [
+        {
+          "key": "each",
+          "label": "30 mL take-home vial",
+          "price_cents": 23000,
+          "square_variation_id": "COMHOY5DZVUNI4RUGGKCTZXY"
+        }
+      ]
+    },
+    {
+      "catalog_id": "glutathione",
+      "name": "Peptide Bar · Glutathione",
+      "square_item_id": "LIP7ZCGWSOKWICWZZSUQYWQ3",
+      "variations": [
+        {
+          "key": "each",
+          "label": "200 mg/mL · 30 mL take-home vial",
+          "price_cents": 20800,
+          "square_variation_id": "WJZTMNFGKPAWYXEHV2P3K2IA"
+        }
+      ]
+    },
+    {
+      "catalog_id": "biotin",
+      "name": "Peptide Bar · Biotin",
+      "square_item_id": "R7BVIRQQGES2QZXVPDVRV2KO",
+      "variations": [
+        {
+          "key": "each",
+          "label": "10 mg/mL · 10 mL take-home vial",
+          "price_cents": 20700,
+          "square_variation_id": "6U5IEVONAUNII26NYRXVZUI4"
+        }
+      ]
+    },
+    {
+      "catalog_id": "tri-immune",
+      "name": "Peptide Bar · Tri-Immune",
+      "square_item_id": "5Q3TMEF4IU4T7S5SRKMHAIX2",
+      "variations": [
+        {
+          "key": "each",
+          "label": "Vitamin C, glutathione, and zinc · 30 mL",
+          "price_cents": 21500,
+          "square_variation_id": "V73AVAPKLD5MQ4MTLW4I2PJ2"
+        }
+      ]
+    },
+    {
+      "catalog_id": "brightening",
+      "name": "Peptide Bar · Brightening cream",
+      "square_item_id": "MXN7TUD7XEOROCCGHJLHL7Y2",
+      "variations": [
+        {
+          "key": "each",
+          "label": "Hyperpigmentation and melasma · hydroquinone, tretinoin, azelaic acid · 30 g",
+          "price_cents": 23800,
+          "square_variation_id": "QKVGEVMIRF6TCRGMJ4DSGJML"
+        }
+      ]
+    },
+    {
+      "catalog_id": "clarity",
+      "name": "Peptide Bar · Clarity acne cream",
+      "square_item_id": "V7N4JQYQJO6KWAS4XVU3DQX6",
+      "variations": [
+        {
+          "key": "each",
+          "label": "Acne and rosacea · azelaic acid, tretinoin, niacinamide · 30 g",
+          "price_cents": 21000,
+          "square_variation_id": "UHZJORUCE6RXVFLWXWIHDVRD"
+        }
+      ]
+    },
+    {
+      "catalog_id": "hair",
+      "name": "Peptide Bar · Minoxidil / finasteride",
+      "square_item_id": "XHUSN46FVJNQXCESP6HGJ6KQ",
+      "variations": [
+        {
+          "key": "each",
+          "label": "Hair restoration · 7% / 0.25% / arginine 2% · 30 mL",
+          "price_cents": 21000,
+          "square_variation_id": "Y6DNBWVRCS35EWP3I2OV6TY4"
+        }
+      ]
+    },
+    {
+      "catalog_id": "ghk-topical",
+      "name": "Peptide Bar · GHK-Cu topical",
+      "square_item_id": "H2KQUTSWPGNKDSEFYOBHTO3W",
+      "variations": [
+        {
+          "key": "each",
+          "label": "Anti-aging · copper peptide 0.25% · 30 mL",
+          "price_cents": 19500,
+          "square_variation_id": "4D6IV5GHCU4MQCN4N5KQJACM"
+        }
+      ]
+    },
+    {
+      "catalog_id": "sermorelin",
+      "name": "Peptide Bar · Sermorelin",
+      "square_item_id": "6HGUEGVSHDJSRDJ7SONXXNFN",
+      "variations": [
+        {
+          "key": "each",
+          "label": "6 mL · 1 mg/mL",
+          "price_cents": 18800,
+          "square_variation_id": "7YDSIABQQNJPHH3JWO2HQ76S"
+        }
+      ]
+    },
+    {
+      "catalog_id": "ldn",
+      "name": "Peptide Bar · Low-dose naltrexone",
+      "square_item_id": "BYAKI4VIEGROEZEM6YV76O5Q",
+      "variations": [
+        {
+          "key": "each",
+          "label": "30 capsules · dose set by the clinician",
+          "price_cents": 17800,
+          "square_variation_id": "YKAENL2T4JOETC4D3GGNW4LU"
+        }
+      ]
+    },
+    {
+      "catalog_id": "vitamin-d",
+      "name": "Peptide Bar · Vitamin D3",
+      "square_item_id": "ARNK2KYELAZKR3JASDUBWNBF",
+      "variations": [
+        {
+          "key": "each",
+          "label": "50,000 IU/mL · 30 mL · IM only · dose follows labs",
+          "price_cents": 21000,
+          "square_variation_id": "GCFPKAV5U6O2CBBGK5QUO7Y2"
+        }
+      ]
+    },
+    {
+      "catalog_id": "semaglutide",
+      "name": "Peptide Bar · Semaglutide / Glycine",
+      "square_item_id": "HK44PBZKWA7OR4QRPKTJSVG7",
+      "variations": [
+        {
+          "key": "025",
+          "label": "0.25 mg/week",
+          "price_cents": 10000,
+          "square_variation_id": "VPZ5GNRNPUGRXXNSGDJPOBIS"
+        },
+        {
+          "key": "05",
+          "label": "0.5 mg/week",
+          "price_cents": 13750,
+          "square_variation_id": "PA7XUKJ45EM6KR5AWFYR7IIS"
+        },
+        {
+          "key": "10",
+          "label": "1 mg/week",
+          "price_cents": 15000,
+          "square_variation_id": "5XASMRSWKY7UA3DRIOK4SNNF"
+        },
+        {
+          "key": "17",
+          "label": "1.7 mg/week",
+          "price_cents": 26250,
+          "square_variation_id": "6HVPM5X6KB47TVAQ4L53GELX"
+        },
+        {
+          "key": "24",
+          "label": "2.4 mg/week",
+          "price_cents": 26250,
+          "square_variation_id": "GAPRYSBNVZIPXLGJPUHZVTZL"
+        }
+      ]
+    },
+    {
+      "catalog_id": "tirzepatide",
+      "name": "Peptide Bar · Tirzepatide / Glycine",
+      "square_item_id": "VPE2NJCZ3TZ5OVQIBBYUTBJD",
+      "variations": [
+        {
+          "key": "25",
+          "label": "2.5 mg/week",
+          "price_cents": 18750,
+          "square_variation_id": "DDGHWB4MWD2EHIBR44PCJZRC"
+        },
+        {
+          "key": "5",
+          "label": "5 mg/week",
+          "price_cents": 25000,
+          "square_variation_id": "D4T2Z5NPCNPDWQGGL364KSMF"
+        },
+        {
+          "key": "75",
+          "label": "7.5 mg/week",
+          "price_cents": 33750,
+          "square_variation_id": "NFLLS3IXYCH7TYS7LHKTADCM"
+        },
+        {
+          "key": "10",
+          "label": "10 mg/week",
+          "price_cents": 37500,
+          "square_variation_id": "ABDH76ZMTTQXRF7BIALN6GHV"
+        },
+        {
+          "key": "125",
+          "label": "12.5 mg/week",
+          "price_cents": 42500,
+          "square_variation_id": "JDRYUMIMNVBVR2WSKQURPKKR"
+        }
+      ]
+    },
+    {
+      "catalog_id": "cold-ship",
+      "name": "Peptide Bar · Cold ship",
+      "square_item_id": "2C3ME4BQIB6OSD453XCVOLWO",
+      "variations": [
+        {
+          "key": "once",
+          "label": "Once per order",
+          "price_cents": 3000,
+          "square_variation_id": "7Y2BJUDK5LZAJWJSE5QCTW7C"
+        }
+      ]
+    }
+  ]
+}

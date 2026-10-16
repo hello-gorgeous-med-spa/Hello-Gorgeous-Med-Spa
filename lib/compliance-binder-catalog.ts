@@ -83,6 +83,12 @@ export const BINDER_MD_DOCS: BinderMdDoc[] = [
     title: "Practice Readiness Audit",
     description: "35-point Yes/No/Not sure audit mapped to this binder.",
   },
+  {
+    slug: "16-danielle-glazier-charm-delegation",
+    title: "Danielle Glazier — Charm delegation packet",
+    description:
+      "For Dr. Arora to initial: GLP-1 injection, vitamin injection, and calling in a prescription he already signed in Charm.",
+  },
 ];
 
 export const BINDER_MD_SLUGS = BINDER_MD_DOCS.map((d) => d.slug);

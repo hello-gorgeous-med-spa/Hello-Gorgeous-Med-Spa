@@ -161,6 +161,24 @@ export const REGEN_CORE_PROTOCOL_GUIDES: RegenProtocolGuide[] = [
     format: "html",
   },
   {
+    id: "puffy-eyes-consult",
+    title: "Puffy Eyes — chair consult",
+    description:
+      "Open on the iPad during an under-eye consult. Same sheet as Injectables → Puffy Eyes.",
+    href: "/puffy-eyes",
+    category: "in-spa",
+    format: "html",
+  },
+  {
+    id: "arora-delegation-danielle-glazier",
+    title: "Delegation packet — Arora → Danielle Glazier",
+    description:
+      "Print 4 pages for Dr. Arora to initial: GLP-1 shots, vitamin shots, and calling in a prescription only after he signs the Charm good-faith exam and the order.",
+    href: "/staff/protocols/guides/Arora-Delegation-Danielle-Glazier.html",
+    category: "in-spa",
+    format: "html",
+  },
+  {
     id: "operating-system-a-to-z",
     title: "REGEN RX Operating System — A to Z",
     description:

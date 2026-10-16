@@ -52,6 +52,7 @@ These documents are **practice templates**. They are not a substitute for the Me
 13. Practice readiness audit  
 14. GLP-1 RN administration delegation *(physician + RN signatures)*  
 15. GLP-1 RN visit checklist and order pad  
+16. Danielle Glazier Charm delegation *(physician initials each task; not in effect until signed)*  
 
 ### B. Attached SOP kits (print the three COMPLETE PDFs)
 

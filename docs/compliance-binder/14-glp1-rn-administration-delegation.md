@@ -35,9 +35,9 @@ Templates only. Not legal or medical advice. Illinois healthcare counsel and Dr.
 | Covering Illinois APRN (when credentialed) | **Ryan D Kent, FNP-BC FPA** (277.003448) | Same as ordering clinician, within collaborative / FPA authority | — |
 | Authorized RN | **Diana Simms, RN** (IL license # _______________) | Draw up and inject **only** the ordered drug, dose, route, and site; document; stop and call the physician | Prescribe, titrate, skip the exam, inject a different product or dose |
 | Additional RN (optional) | _______________________________ | Same as authorized RN after competency sign-off | Same prohibitions |
-| Owner / front desk | Danielle Alcala-Glazier · clinic staff | Intake, scheduling, payment, measured vitals if trained | Draw up, inject, “approve” a shot, tell the patient the dose |
+| Owner / front desk | Danielle Alcala-Glazier · clinic staff | Intake, scheduling, payment, measured vitals if trained | Draw up, inject, “approve” a shot, or tell the patient the dose **under this RN document** |
 
-Unlicensed staff, estheticians, medical assistants, and nursing students (**including RN-S**) do **not** draw up or inject GLP-1.
+Unlicensed staff, estheticians, medical assistants, and nursing students do **not** draw up or inject GLP-1 under this RN document. Danielle Glazier may do so only when Dr. Arora has signed binder **16**, initialed task A, and every condition in that packet is true that day (signed Charm exam, signed Charm order, licensed professional on site).
 
 ---
 

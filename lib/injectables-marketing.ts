@@ -17,6 +17,8 @@ export const INJECTABLES_NAV = {
   sub: "Botox · fillers · Sculptra® + Radiesse®",
 } as const;
 
+export const PUFFY_EYES_CONSULT_PATH = "/puffy-eyes" as const;
+
 export const INJECTABLES_DROPDOWN = [
   {
     label: "Botox & Fillers",
@@ -27,6 +29,11 @@ export const INJECTABLES_DROPDOWN = [
     label: BIOSTIMULATORS_NAV.label,
     href: BIOSTIMULATORS_NAV.href,
     sub: BIOSTIMULATORS_NAV.sub,
+  },
+  {
+    label: "Puffy Eyes",
+    href: PUFFY_EYES_CONSULT_PATH,
+    sub: "Under-eye consult sheet",
   },
   {
     label: UPNEEQ_NAV.label,
@@ -251,6 +258,7 @@ export const INJECTABLES_NAV_ACTIVE_PREFIXES = [
   "/hyperhidrosis-botox",
   ...BIOSTIMULATORS_NAV_ACTIVE_PREFIXES,
   UPNEEQ_PATH,
+  PUFFY_EYES_CONSULT_PATH,
 ] as const;
 
 export function isInjectablesNavActive(pathname: string | null): boolean {

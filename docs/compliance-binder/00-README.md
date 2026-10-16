@@ -25,6 +25,7 @@
 | 13 | [Medical Director Adoption & Sign-Off](./13-medical-director-adoption.md) | Cover sheet for Dr. Mukesh Arora, MD — sign, then file the original at the front desk. |
 | 14 | [GLP-1 RN Administration Delegation](./14-glp1-rn-administration-delegation.md) | Physician standing order: Diana Simms, RN injects only after Dr. Arora’s exam + written mg dose. |
 | 15 | [GLP-1 RN Visit Checklist & Order Pad](./15-glp1-rn-visit-checklist.md) | Chair-side hard-stop checklist and photocopiable patient-specific order. |
+| 16 | [Danielle Glazier — Charm delegation](./16-danielle-glazier-charm-delegation.md) | For Dr. Arora to initial: her GLP-1 shots, vitamin shots, and pharmacy call-ins only after his signed Charm exam and order. |
 | — | **SOP kits (PDF)** | Operations (OPS-001–005), Weight loss (WL-001–010), Skin & laser (SKN-001–009) in `public/compliance-binder/protocols/`. Print the three COMPLETE kit PDFs. |
 | — | **Dr. Arora IDFPR licenses** (PDF) | Physician & Surgeon 036.097343 and Controlled Substance 336.057947, exp 7/31/2029: `dr-arora-idfpr-licenses-exp-2029.pdf`. |
 | — | **Ryan Kent IDFPR licenses** (PDF) | FPA APRN 277.003448, RN 041.413092, CS 377.003259 (II–V). Cards print exp 5/31/2026 — verify live: `ryan-kent-idfpr-fpa-aprn-np.pdf` + `ryan-kent-idfpr-controlled-substance.pdf`. |
@@ -35,7 +36,7 @@
 
 ## How to Use
 
-1. **Print the packet** from Admin → Clinical Guidance → Compliance Binder → **Print packet for Dr. Arora**, then print the three complete SOP kit PDFs. Place in a physical 3-ring binder at the front desk after signature. For RN GLP-1 shots only, print **14** and **15** (or `/staff/protocols/guides/GLP1-RN-Delegation-Arora-Diana.html`).
+1. **Print the packet** from Admin → Clinical Guidance → Compliance Binder → **Print packet for Dr. Arora**, then print the three complete SOP kit PDFs. Place in a physical 3-ring binder at the front desk after signature. For RN GLP-1 shots only, print **14** and **15** (or `/staff/protocols/guides/GLP1-RN-Delegation-Arora-Diana.html`). For Danielle’s GLP-1, vitamin injections, and pharmacy call-ins, print **16** (`/staff/protocols/guides/Arora-Delegation-Danielle-Glazier.html`) and file it only after he initials each task.
 2. **Complete blanks** — Fill in “Approved by,” “Review date,” emergency contacts, and physician signatures where indicated.
 3. **Customize** — Have your supervising physician and legal counsel review and adapt to your practice and current Illinois law and IDFPR guidance.
 4. **Review annually** — Re-sign standing orders and protocol approval at least yearly; update when laws or protocols change.
