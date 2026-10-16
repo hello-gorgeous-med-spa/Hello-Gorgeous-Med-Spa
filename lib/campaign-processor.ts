@@ -29,6 +29,7 @@ export type CampaignRow = {
   subject: string | null;
   email_html: string | null;
   sms_content: string | null;
+  media_url: string | null;
   total_recipients: number;
   email_sent: number;
   email_bounced: number;
@@ -216,7 +217,7 @@ async function processSmsLedgerBatch(
       firstName: row.first_name || "",
       lastName: row.last_name || "",
     });
-    const result = await sendSMS({ to: row.phone_e164, body: msg }, config);
+    const result = await sendSMS({ to: row.phone_e164, body: msg, mediaUrl: campaign.media_url || undefined }, config);
     if (result.success) {
       smsSent++;
       await supabase
@@ -369,7 +370,7 @@ export async function processCampaignBatch(
       const phone = formatPhone(r.phone || "");
       if (!phone) continue;
       const msg = personalize(finalSms, { firstName: r.firstName, lastName: r.lastName });
-      const result = await sendSMS({ to: phone, body: msg }, config);
+      const result = await sendSMS({ to: phone, body: msg, mediaUrl: campaign.media_url || undefined }, config);
       if (result.success) smsSent++;
       else {
         smsFailed++;

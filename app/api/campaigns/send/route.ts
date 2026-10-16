@@ -38,6 +38,8 @@ interface SendBody {
   customPhones?: string[];
   /** Staff asserts prior SMS marketing consent; opt-in these custom numbers before send */
   confirmConsentAndOptIn?: boolean;
+  /** MMS image URL (optional) */
+  mediaUrl?: string;
 }
 
 export async function POST(request: NextRequest) {
@@ -57,6 +59,7 @@ export async function POST(request: NextRequest) {
       schedule,
       customPhones,
       confirmConsentAndOptIn,
+      mediaUrl,
     } = body;
 
     if (!name || !channel) {
@@ -162,6 +165,7 @@ export async function POST(request: NextRequest) {
         preview_text: previewText || null,
         email_html: emailHtml || null,
         sms_content: smsContent || null,
+        media_url: mediaUrl || null,
         audience_segment: audienceSegment || (customPhones?.length ? "custom" : "sms-opt-in"),
         total_recipients: totalRecipients,
         audience_filters: { sendCursor: 0 },

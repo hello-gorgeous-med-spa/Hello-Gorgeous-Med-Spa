@@ -27,6 +27,8 @@ export default function TextStudioPage() {
   const [sending, setSending] = useState(false);
   const [testPhone, setTestPhone] = useState("");
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [mediaUrl, setMediaUrl] = useState("");
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [activeCampaignId, setActiveCampaignId] = useState<string | null>(null);
   const [campaigns, setCampaigns] = useState<CampaignRow[]>([]);
   const [clientCount, setClientCount] = useState(0);
@@ -106,7 +108,7 @@ export default function TextStudioPage() {
       const res = await fetch("/api/sms/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ to, message }),
+        body: JSON.stringify({ to, message, mediaUrl: mediaUrl || undefined }),
       });
       const data = await res.json();
       if (data.success) {
@@ -133,6 +135,7 @@ export default function TextStudioPage() {
         channel: "sms",
         smsContent: message,
         audienceSegment: recipients === "all" ? "sms-opt-in" : "custom",
+        mediaUrl: mediaUrl || undefined,
       };
       if (recipients === "custom") {
         payload.customPhones = customNumbers
@@ -278,6 +281,71 @@ export default function TextStudioPage() {
                 {message.length} chars · {segments} segment{segments === 1 ? "" : "s"}
               </span>
             </div>
+
+            {/* MMS Image Upload */}
+            <div className="mt-4 rounded-lg border border-dashed border-black/30 p-4">
+              <h4 className="mb-2 text-sm font-semibold text-black">📷 Add Image (MMS)</h4>
+              {mediaUrl ? (
+                <div className="flex items-center gap-3">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={mediaUrl} alt="MMS preview" className="h-20 w-20 rounded-lg object-cover border border-black/20" />
+                  <div className="flex-1">
+                    <p className="text-xs text-black/60 truncate max-w-[200px]">{mediaUrl}</p>
+                    <button
+                      type="button"
+                      onClick={() => setMediaUrl("")}
+                      className="mt-1 text-xs font-medium text-red-600 underline"
+                    >
+                      Remove image
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <input
+                    type="url"
+                    value={mediaUrl}
+                    onChange={(e) => setMediaUrl(e.target.value)}
+                    placeholder="Paste image URL (https://...)"
+                    className="w-full rounded-lg border border-black/20 px-3 py-2 text-sm"
+                  />
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-black/50">or</span>
+                    <label className="cursor-pointer rounded-lg bg-pink-50 px-3 py-1.5 text-xs font-medium text-[#E6007E] hover:bg-pink-100">
+                      {uploadingImage ? "Uploading…" : "Upload image"}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          setUploadingImage(true);
+                          try {
+                            const formData = new FormData();
+                            formData.append("file", file);
+                            const res = await fetch("/api/upload", { method: "POST", body: formData });
+                            const data = await res.json();
+                            if (data.url) {
+                              setMediaUrl(data.url);
+                            } else {
+                              setError(data.error || "Upload failed");
+                            }
+                          } catch {
+                            setError("Upload failed");
+                          } finally {
+                            setUploadingImage(false);
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+                  <p className="text-[10px] text-black/40">
+                    MMS adds ~$0.02/msg. JPG/PNG/GIF under 5MB. Images display in text thread.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="rounded-xl border-2 border-black bg-white p-6">
@@ -340,11 +408,15 @@ export default function TextStudioPage() {
 
         <div className="space-y-6">
           <div className="rounded-xl border-2 border-black bg-gradient-to-b from-[#FFF0F7] to-white p-6">
-            <h3 className="mb-3 font-semibold text-black">Preview</h3>
+            <h3 className="mb-3 font-semibold text-black">Preview {mediaUrl && <span className="text-xs font-normal text-[#E6007E]">📷 MMS</span>}</h3>
             <div className="mx-auto max-w-[260px] rounded-3xl bg-zinc-900 p-3">
               <div className="rounded-2xl bg-zinc-800 p-3">
                 <div className="mb-2 text-center text-[10px] text-white/40">{displayPhone}</div>
                 <div className="rounded-2xl rounded-bl-md bg-[#E6007E] p-3 text-sm text-white">
+                  {mediaUrl && (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img src={mediaUrl} alt="MMS" className="mb-2 w-full rounded-lg" />
+                  )}
                   {message || "Your message will appear here…"}
                   {message && !/stop/i.test(message) && (
                     <div className="mt-2 border-t border-white/30 pt-2 text-xs opacity-80">
