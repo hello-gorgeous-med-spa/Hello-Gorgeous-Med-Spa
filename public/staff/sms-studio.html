@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello Gorgeous SMS/MMS Studio</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #FFF0F7 0%, #fff 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      font-size: 28px;
+      color: #E6007E;
+      font-weight: 900;
+    }
+    .header p {
+      color: #666;
+      margin-top: 5px;
+    }
+    .card {
+      background: white;
+      border: 3px solid #000;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 6px 6px 0 rgba(230, 0, 126, 0.2);
+    }
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 16px;
+      color: #000;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #333;
+    }
+    input[type="tel"], input[type="url"], textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #E6007E;
+    }
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .char-count {
+      text-align: right;
+      font-size: 13px;
+      color: #666;
+      margin-top: -12px;
+      margin-bottom: 16px;
+    }
+    .char-count.warning { color: #f59e0b; }
+    .image-section {
+      border: 2px dashed #ddd;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .image-section.has-image {
+      border-style: solid;
+      border-color: #E6007E;
+      background: #FFF0F7;
+    }
+    .image-preview {
+      max-width: 200px;
+      max-height: 200px;
+      border-radius: 8px;
+      margin: 10px auto;
+      display: block;
+    }
+    .btn {
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+    .btn:active {
+      transform: translateY(2px);
+    }
+    .btn-primary {
+      background: #E6007E;
+      color: white;
+      box-shadow: 4px 4px 0 #000;
+    }
+    .btn-primary:hover {
+      background: #c9006d;
+    }
+    .btn-primary:disabled {
+      background: #ccc;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+    .btn-secondary {
+      background: white;
+      color: #E6007E;
+      border: 2px solid #E6007E;
+    }
+    .btn-secondary:hover {
+      background: #FFF0F7;
+    }
+    .btn-remove {
+      background: #fee2e2;
+      color: #dc2626;
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 700px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .phone-preview {
+      background: #1a1a1a;
+      border-radius: 30px;
+      padding: 15px;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+    .phone-screen {
+      background: #2a2a2a;
+      border-radius: 20px;
+      padding: 15px;
+    }
+    .phone-header {
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 10px;
+    }
+    .message-bubble {
+      background: #E6007E;
+      color: white;
+      padding: 14px;
+      border-radius: 18px;
+      border-bottom-left-radius: 6px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .message-bubble img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .message-bubble .stop {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.3);
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      z-index: 1000;
+      animation: slideUp 0.3s ease;
+    }
+    .toast.success {
+      background: #10b981;
+      color: white;
+    }
+    .toast.error {
+      background: #ef4444;
+      color: white;
+    }
+    @keyframes slideUp {
+      from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+      to { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+    .templates {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .template-btn {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .template-btn:hover {
+      background: #FFF0F7;
+      border-color: #E6007E;
+    }
+    .info-box {
+      background: #FFF0F7;
+      border: 2px solid #E6007E;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 20px;
+    }
+    .info-box h3 {
+      color: #E6007E;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .info-box ul {
+      margin-left: 20px;
+      font-size: 13px;
+      color: #666;
+    }
+    .info-box li {
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>💕 Hello Gorgeous SMS/MMS Studio</h1>
+      <p>Send text messages with pictures to clients</p>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h2>📱 Recipient</h2>
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="630-123-4567" autocomplete="tel">
+        </div>
+
+        <div class="card">
+          <h2>✍️ Message</h2>
+          <div class="templates">
+            <button class="template-btn" onclick="useTemplate('flash')">⚡ Flash Sale</button>
+            <button class="template-btn" onclick="useTemplate('reminder')">📅 Reminder</button>
+            <button class="template-btn" onclick="useTemplate('thankyou')">💝 Thank You</button>
+            <button class="template-btn" onclick="useTemplate('newservice')">✨ New Service</button>
+          </div>
+          <textarea id="message" placeholder="Type your message here...
+
+Use {firstName} to personalize!"></textarea>
+          <div class="char-count" id="charCount">0 characters · 1 segment</div>
+        </div>
+
+        <div class="card">
+          <h2>📷 Add Image (MMS)</h2>
+          <div class="image-section" id="imageSection">
+            <p style="color: #666; margin-bottom: 12px;">Add a picture to send as MMS</p>
+            <input type="url" id="imageUrl" placeholder="Paste image URL (https://...)" onchange="previewImage()">
+            <p style="color: #999; font-size: 12px;">JPG, PNG, or GIF · Max 5MB</p>
+          </div>
+          <div id="imagePreviewContainer" style="display: none; text-align: center;">
+            <img id="imagePreview" class="image-preview" src="" alt="Preview">
+            <br>
+            <button class="btn btn-remove" onclick="removeImage()">Remove Image</button>
+          </div>
+        </div>
+
+        <div class="card" style="text-align: center;">
+          <button class="btn btn-primary" id="sendBtn" onclick="sendMessage()">
+            Send Message 📤
+          </button>
+          <p style="margin-top: 12px; font-size: 13px; color: #666;">
+            ~$0.008/SMS · ~$0.03/MMS
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <div class="card">
+          <h2>👀 Preview</h2>
+          <div class="phone-preview">
+            <div class="phone-screen">
+              <div class="phone-header">(630) 864-5231</div>
+              <div class="message-bubble" id="previewBubble">
+                <div id="previewImage"></div>
+                <div id="previewText">Your message will appear here...</div>
+                <div class="stop" id="previewStop" style="display: none;">Reply STOP to unsubscribe.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <h3>💡 Tips for Great Texts</h3>
+          <ul>
+            <li>Keep it short & sweet (under 160 chars = 1 segment)</li>
+            <li>Include a clear call-to-action</li>
+            <li>Add an image for 3x more engagement</li>
+            <li>Best times: Tue-Thu, 10am-2pm or 5-7pm</li>
+            <li>STOP language is added automatically</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'https://hellogorgeousmedspa.com';
+    
+    const templates = {
+      flash: "⚡ FLASH SALE! {firstName}, today only: 20% off all injectables! Book now before spots fill up. Reply to claim your slot! 💕",
+      reminder: "Hi {firstName}! 💕 Just a friendly reminder about your upcoming appointment at Hello Gorgeous. Can't wait to see you! Reply with any questions.",
+      thankyou: "Thank you {firstName}! 💝 We loved seeing you today. Your skin is going to GLOW! Tag us in your selfies @hellogorgeousmedspa ✨",
+      newservice: "✨ NEW at Hello Gorgeous! {firstName}, we're now offering [SERVICE]. You'd be perfect for this! Want to learn more? Reply YES! 💕"
+    };
+
+    function useTemplate(id) {
+      document.getElementById('message').value = templates[id];
+      updatePreview();
+      updateCharCount();
+    }
+
+    function updateCharCount() {
+      const msg = document.getElementById('message').value;
+      const len = msg.length;
+      const segments = len <= 160 ? 1 : Math.ceil(len / 153);
+      const el = document.getElementById('charCount');
+      el.textContent = `${len} characters · ${segments} segment${segments > 1 ? 's' : ''}`;
+      el.className = 'char-count' + (segments > 1 ? ' warning' : '');
+    }
+
+    function updatePreview() {
+      const msg = document.getElementById('message').value || 'Your message will appear here...';
+      document.getElementById('previewText').textContent = msg;
+      const hasStop = /stop/i.test(msg);
+      document.getElementById('previewStop').style.display = hasStop ? 'none' : 'block';
+    }
+
+    function previewImage() {
+      const url = document.getElementById('imageUrl').value.trim();
+      if (url) {
+        document.getElementById('imagePreview').src = url;
+        document.getElementById('imagePreviewContainer').style.display = 'block';
+        document.getElementById('imageSection').classList.add('has-image');
+        document.getElementById('previewImage').innerHTML = `<img src="${url}" style="width:100%;border-radius:10px;margin-bottom:10px;">`;
+      }
+    }
+
+    function removeImage() {
+      document.getElementById('imageUrl').value = '';
+      document.getElementById('imagePreviewContainer').style.display = 'none';
+      document.getElementById('imageSection').classList.remove('has-image');
+      document.getElementById('previewImage').innerHTML = '';
+    }
+
+    function showToast(message, type) {
+      const existing = document.querySelector('.toast');
+      if (existing) existing.remove();
+      
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+    async function sendMessage() {
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const mediaUrl = document.getElementById('imageUrl').value.trim();
+
+      if (!phone) {
+        showToast('Please enter a phone number', 'error');
+        return;
+      }
+      if (!message) {
+        showToast('Please enter a message', 'error');
+        return;
+      }
+
+      const btn = document.getElementById('sendBtn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      try {
+        const res = await fetch(`${API_BASE}/api/sms/send`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ 
+            to: phone, 
+            message,
+            mediaUrl: mediaUrl || undefined
+          })
+        });
+
+        const data = await res.json();
+        
+        if (data.success) {
+          showToast('Message sent! 🎉', 'success');
+          document.getElementById('phone').value = '';
+        } else {
+          showToast(data.error || 'Failed to send', 'error');
+        }
+      } catch (err) {
+        showToast('Network error - make sure you\'re logged in at hellogorgeousmedspa.com/admin', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send Message 📤';
+      }
+    }
+
+    // Event listeners
+    document.getElementById('message').addEventListener('input', () => {
+      updateCharCount();
+      updatePreview();
+    });
+
+    document.getElementById('imageUrl').addEventListener('input', previewImage);
+
+    // Init
+    updateCharCount();
+    updatePreview();
+  </script>
+</body>
+</html>
