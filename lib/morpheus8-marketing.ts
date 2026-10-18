@@ -378,6 +378,18 @@ export const MORPHEUS8_FAQS = [
     q: "How much does Morpheus8 cost?",
     a: "Morpheus8 treatments start at $799. Face + neck and body areas are quoted at your free consultation. Series packages reduce per-session cost — we'll map honest pricing with no upsell pressure.",
   },
+  {
+    q: "What is the difference between Morpheus8 and Quantum RF?",
+    a: "Morpheus8 is RF microneedling that treats skin texture, scars, and laxity from the surface down to 8mm. Quantum RF works beneath the skin through small entry points to reduce fat and tighten tissue in one treatment. Dr. Arora can recommend which technology—or combination—fits your goals during your consultation.",
+  },
+  {
+    q: "Can Morpheus8 treat the abdomen and arms?",
+    a: "Yes. Morpheus8 Body uses the Burst + Deep handpiece to treat abdomen, arms, thighs, knees, and other body areas with loose or crepey skin. Body treatments typically require longer sessions and may have slightly more recovery than face treatments.",
+  },
+  {
+    q: "Where can I book Morpheus8 near Naperville?",
+    a: "Hello Gorgeous Med Spa is located at 74 W. Washington Street in downtown Oswego, IL — a short drive from Naperville via Route 34. We're a verified InMode provider offering Morpheus8 Burst + Deep with physician direction by Dr. Mukesh Arora, MD. Book a free consultation online or call (630) 636-6193.",
+  },
 ] as const;
 
 export const MORPHEUS8_NAV_ACTIVE_PREFIXES = [

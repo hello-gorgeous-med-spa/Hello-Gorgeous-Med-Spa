@@ -198,6 +198,24 @@ PRESETS: dict[str, dict] = {
         "link": "https://hellogorgeousmedspa.com/services/morpheus8",
         "image": "https://hellogorgeousmedspa.com/images/morpheus8/morpheus8-burst-deep-thighs-skin-tightening-before-after.png",
     },
+    "morpheus8-educational-oct2026": {
+        "summary": (
+            "Advanced Morpheus8 Burst + Deep in Oswego\n\n"
+            "Discover advanced RF microneedling at Hello Gorgeous Med Spa.\n\n"
+            "Our InMode Morpheus8 technology combines microneedling with radiofrequency "
+            "energy to treat skin concerns and support tissue remodeling.\n\n"
+            "We offer personalized face and body treatments with physician-directed care "
+            "under Dr. Mukesh Arora, MD.\n\n"
+            "Considering Morpheus8 for skin texture, scarring or laxity? Schedule a "
+            "consultation to discuss treatment options, expected results and recovery.\n\n"
+            "Treatments from $799. Series of 3 package: $1,999.\n\n"
+            "Serving Oswego, Naperville, Aurora, Plainfield, Yorkville.\n\n"
+            "Results vary. Treatment suitability is determined during consultation.\n\n"
+            "Book a Consultation: https://hellogorgeousmedspa.com/services/morpheus8"
+        ),
+        "link": "https://hellogorgeousmedspa.com/services/morpheus8",
+        "image": "https://hellogorgeousmedspa.com/images/morpheus8/morpheus8-burst-deep-neck-tightening-before-after.png",
+    },
 }
 
 
