@@ -9,6 +9,8 @@ import { JourneyResultsCinema } from "@/components/marketing/JourneyResultsCinem
 import { JourneySoundVideo } from "@/components/marketing/JourneySoundVideo";
 import {
   QUANTUM_RF_AREAS_10,
+  QUANTUM_RF_BENEFITS,
+  QUANTUM_RF_CANDIDACY,
   QUANTUM_RF_CONTACT,
   QUANTUM_RF_FAQS,
   QUANTUM_RF_FOUNDER_NOTE,
@@ -18,9 +20,12 @@ import {
   QUANTUM_RF_NAV,
   QUANTUM_RF_FEATURED_RESULTS,
   QUANTUM_RF_PACKAGES,
+  QUANTUM_RF_PHYSICIAN,
+  QUANTUM_RF_RECOVERY,
   QUANTUM_RF_RESULTS,
   QUANTUM_RF_STEPS,
   QUANTUM_RF_TREATS,
+  QUANTUM_RF_TREATMENT_GALLERY,
   QUANTUM_RF_WHAT_IT_DOES,
   QUANTUM_RF_WHAT_IS,
 } from "@/lib/quantum-rf-marketing";
@@ -515,6 +520,119 @@ export function QuantumRFPageContent() {
         </div>
       </section>
 
+      {/* Section 4: Why Consider Quantum RF — Benefits Grid */}
+      <section className="bg-white px-6 py-16 lg:py-20">
+        <div className="mx-auto max-w-[1200px]">
+          <p className="text-[13px] font-extrabold uppercase tracking-[0.3em] text-[#E6007E]">
+            Why Consider Quantum RF
+          </p>
+          <h2 className="mt-3 font-serif text-[32px] font-bold leading-tight text-black lg:text-[42px]">
+            Advanced Technology. <span className="text-[#E6007E]">Physician-Performed Care.</span>
+          </h2>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {QUANTUM_RF_BENEFITS.map((benefit) => (
+              <article key={benefit.id} className="rounded-2xl border border-black/10 bg-white p-6 shadow-sm">
+                <h3 className="font-serif text-lg font-bold text-black">{benefit.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-black/70">{benefit.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5: Meet Your Physician */}
+      <section className="bg-[radial-gradient(85%_95%_at_20%_30%,#1a0510,#000_62%)] px-6 py-16 lg:py-24">
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[0.45fr_0.55fr] lg:gap-16">
+          <div className="mx-auto w-full max-w-[360px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)]">
+            <div className="relative aspect-[4/5] w-full">
+              <Image
+                src={QUANTUM_RF_PHYSICIAN.image}
+                alt="Dr. Mukesh Arora, MD — Treating Physician and Medical Director at Hello Gorgeous Med Spa"
+                fill
+                className="object-cover object-top"
+                sizes="360px"
+              />
+            </div>
+          </div>
+          <div>
+            <Eyebrow>{QUANTUM_RF_PHYSICIAN.eyebrow}</Eyebrow>
+            <h2 className="mt-3 font-serif text-[32px] font-bold leading-tight text-white lg:text-[44px]">
+              {QUANTUM_RF_PHYSICIAN.title}
+            </h2>
+            <div className="mt-6 flex max-w-xl flex-col gap-4 text-[17px] leading-relaxed text-white/85">
+              {QUANTUM_RF_PHYSICIAN.body.map((p) => (
+                <p key={p.slice(0, 40)}>{p}</p>
+              ))}
+            </div>
+            <div className="mt-6">
+              <PinkBtn href={bookHref}>Book Consultation with Dr. Arora</PinkBtn>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 6: Behind the Treatment — Gallery */}
+      <section className="bg-black px-6 py-16 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <Eyebrow>{QUANTUM_RF_TREATMENT_GALLERY.eyebrow}</Eyebrow>
+          <h2 className="mt-3 font-serif text-[32px] font-bold leading-tight text-white lg:text-[42px]">
+            {QUANTUM_RF_TREATMENT_GALLERY.title}
+          </h2>
+          <p className="mt-4 max-w-2xl text-white/70">{QUANTUM_RF_TREATMENT_GALLERY.description}</p>
+          <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            {QUANTUM_RF_TREATMENT_GALLERY.images.map((img) => (
+              <figure key={img.src} className="overflow-hidden rounded-2xl border border-white/10">
+                <div className="relative aspect-[4/5] w-full">
+                  <Image src={img.src} alt={img.alt} fill className="object-cover object-top" sizes="400px" />
+                </div>
+                <figcaption className="bg-gradient-to-r from-[#0a0206] to-[#1a0510] px-4 py-3">
+                  <p className="text-sm font-medium text-white">{img.label}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 7: Who May Be a Candidate? */}
+      <section className="bg-white px-6 py-16 lg:py-20">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-[13px] font-extrabold uppercase tracking-[0.3em] text-[#E6007E]">
+            {QUANTUM_RF_CANDIDACY.eyebrow}
+          </p>
+          <h2 className="mt-3 font-serif text-[32px] font-bold leading-tight text-black lg:text-[42px]">
+            {QUANTUM_RF_CANDIDACY.title}
+          </h2>
+          <div className="mt-6 flex flex-col gap-4 text-lg leading-relaxed text-black/80">
+            {QUANTUM_RF_CANDIDACY.body.map((p) => (
+              <p key={p.slice(0, 40)}>{p}</p>
+            ))}
+          </div>
+          <div className="mt-8">
+            <PinkBtn href={bookHref} className="!bg-[#E6007E] !text-white hover:!bg-black">
+              Schedule Your Consultation
+            </PinkBtn>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 8: Recovery and Expectations */}
+      <section className="bg-[radial-gradient(85%_95%_at_78%_20%,#12030c,#000_62%)] px-6 py-16 lg:py-24">
+        <div className="mx-auto max-w-3xl">
+          <Eyebrow>{QUANTUM_RF_RECOVERY.eyebrow}</Eyebrow>
+          <h2 className="mt-3 font-serif text-[32px] font-bold leading-tight text-white lg:text-[42px]">
+            {QUANTUM_RF_RECOVERY.title}
+          </h2>
+          <div className="mt-6 flex flex-col gap-4 text-lg leading-relaxed text-white/85">
+            {QUANTUM_RF_RECOVERY.body.map((p) => (
+              <p key={p.slice(0, 40)}>{p}</p>
+            ))}
+          </div>
+          <p className="mt-4 text-sm italic text-white/60">{QUANTUM_RF_RECOVERY.disclaimer}</p>
+        </div>
+      </section>
+
+      {/* InMode Trifecta */}
       <section className="px-6 py-16 lg:py-24">
         <div className="mx-auto max-w-4xl rounded-[20px] border border-[#FF2D8E]/35 bg-[#0a0206] p-8 text-center">
           <Eyebrow>InMode Trifecta</Eyebrow>

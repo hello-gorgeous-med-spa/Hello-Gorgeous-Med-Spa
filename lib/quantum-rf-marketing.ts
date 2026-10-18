@@ -139,6 +139,103 @@ export const QUANTUM_RF_FOUNDER_NOTE = {
   role: "Founder · Hello Gorgeous Med Spa",
 } as const;
 
+/** Section 4: Why Consider Quantum RF — benefits grid per ticket */
+export const QUANTUM_RF_BENEFITS = [
+  {
+    id: "minimally-invasive",
+    title: "Minimally Invasive Technology",
+    body: "Uses radiofrequency energy delivered beneath the skin through a minimally invasive approach.",
+  },
+  {
+    id: "tissue-contraction",
+    title: "Designed for Soft Tissue Contraction",
+    body: "Targets tissue contraction as part of individualized aesthetic treatment planning.",
+  },
+  {
+    id: "personalized",
+    title: "Personalized Contour Refinement",
+    body: "Treatment areas and expectations are determined during consultation.",
+  },
+  {
+    id: "physician-performed",
+    title: "Physician-Performed Treatment",
+    body: "Dr. Mukesh Arora, MD, personally performs the Quantum RF procedures described on this page.",
+  },
+  {
+    id: "access-points",
+    title: "Smaller Access Points",
+    body: "A minimally invasive approach generally uses smaller access sites than open excisional procedures.",
+  },
+  {
+    id: "recovery",
+    title: "Recovery Based on Your Procedure",
+    body: "Some patients may experience less downtime than with more extensive surgery. Swelling, bruising, discomfort and other recovery effects are possible.",
+  },
+] as const;
+
+/** Section 5: Meet Your Physician */
+export const QUANTUM_RF_PHYSICIAN = {
+  eyebrow: "Your Treating Physician",
+  title: "Meet Dr. Mukesh Arora, MD",
+  body: [
+    "At Hello Gorgeous Med Spa, Quantum RF treatment is performed by Dr. Mukesh Arora, MD, our treating physician and Medical Director.",
+    "Dr. Arora provides medical oversight, evaluates treatment suitability and performs advanced procedures within his clinical practice.",
+    "His approach emphasizes individualized assessment, realistic expectations and appropriate clinical follow-up.",
+  ],
+  image: "/images/quantum-rf/clinic-results/dr-arora-treating-2.jpg",
+  bioLink: "/team/dr-arora",
+} as const;
+
+/** Section 6: Behind the Treatment — treatment gallery */
+export const QUANTUM_RF_TREATMENT_GALLERY = {
+  eyebrow: "Behind the Treatment",
+  title: "See Quantum RF Treatment at Hello Gorgeous",
+  description:
+    "Procedures are planned according to patient anatomy, individual concerns and clinical assessment.",
+  images: [
+    {
+      src: "/images/quantum-rf/clinic-results/dr-arora-treating-1.jpg",
+      alt: "Dr. Mukesh Arora and patient during Quantum RF treatment at Hello Gorgeous Med Spa",
+      label: "Dr. Arora with patient",
+    },
+    {
+      src: "/images/quantum-rf/clinic-results/dr-arora-treating-2.jpg",
+      alt: "Close-up of Quantum RF treatment technique performed by Dr. Mukesh Arora",
+      label: "Treatment technique",
+    },
+    {
+      src: "/images/quantum-rf/clinic-results/dr-arora-procedure-grid.jpg",
+      alt: "Clinical procedure environment at Hello Gorgeous Med Spa showing Quantum RF treatment",
+      label: "Clinical environment",
+    },
+  ],
+} as const;
+
+/** Section 7: Who May Be a Candidate? */
+export const QUANTUM_RF_CANDIDACY = {
+  eyebrow: "Treatment Candidacy",
+  title: "Is Quantum RF Right for You?",
+  body: [
+    "Quantum RF may be considered for appropriately selected adults concerned about skin laxity or changes in body contours.",
+    "A consultation is necessary to determine whether the procedure is suitable based on skin condition, anatomy, medical history, treatment goals and potential risks.",
+    "Patients with substantial excess skin or significant fat-removal goals may require different treatment approaches.",
+    "Dr. Arora will discuss available options and appropriate expectations during the consultation.",
+  ],
+} as const;
+
+/** Section 8: Recovery and Expectations */
+export const QUANTUM_RF_RECOVERY = {
+  eyebrow: "Recovery Information",
+  title: "What Is Recovery Like After Quantum RF?",
+  body: [
+    "Recovery varies based on the treatment area, procedural technique and individual healing response.",
+    "Temporary swelling, bruising, tenderness and activity limitations may occur. More significant complications are possible and should be discussed during informed consent.",
+    "Patients receive individualized instructions concerning aftercare, follow-up and return to regular activities.",
+  ],
+  disclaimer:
+    "Recovery timelines vary by patient. Specific recovery expectations will be discussed during your consultation.",
+} as const;
+
 export const QUANTUM_RF_WHAT_IT_DOES = [
   {
     id: "fat",
