@@ -37,6 +37,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  // Redirect legacy provider slugs and owner to /about
   if (slug === "danielle" || slug === "ryan" || slug === "ryan-kent") {
     return pageMetadata({
       title: "About Hello Gorgeous Med Spa | Oswego IL",
