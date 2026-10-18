@@ -317,12 +317,12 @@ function IntroSection() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                         Fall special + team posters                        */
+/*                         Featured + team posters                            */
 /* -------------------------------------------------------------------------- */
 
 function StudioPostersSection() {
   return (
-    <section className="pb-16 lg:pb-20" style={{ backgroundColor: LUXURY.cream }} aria-label="Fall special, team, and 20-minute wellness">
+    <section className="pb-16 lg:pb-20" style={{ backgroundColor: LUXURY.cream }} aria-label="Solaria CO₂, team, and 20-minute wellness">
       <div className="mx-auto grid max-w-[1280px] items-start gap-4 px-6 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1fr)_248px] lg:gap-5">
         <Link
           href="/services/solaria-co2"
@@ -330,7 +330,7 @@ function StudioPostersSection() {
         >
           <Image
             src="/images/marketing/solaria-fall-back-in-love-2026.jpg"
-            alt="Solaria CO2 fall special, $599 through October 31, complimentary recovery serum. Consult required. Results vary."
+            alt="Solaria CO2 laser resurfacing $899, physician-directed. Consult required. Results vary."
             width={682}
             height={1024}
             className="h-auto w-full"

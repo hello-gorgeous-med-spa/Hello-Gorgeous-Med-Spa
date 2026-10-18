@@ -46,7 +46,7 @@ export const GBP_SHOWCASE_PRODUCTS: GbpShowcaseProduct[] = [
     description:
       "InMode Solaria fractional CO₂ laser for texture, tone, and resurfacing. Consult required. Results vary. Downtown Oswego.",
     productDescription:
-      "Solaria is InMode fractional CO₂ — the laser you book when makeup cannot cover texture, sun damage, or dull tone anymore. We resurface with a medical device, not a facial that washes off. Expect a real consult: what we are treating, downtime, and how we keep you comfortable. Face, neck, and targeted areas. This is for clients who want a serious refresh and will follow aftercare. Fall specials when posted. Consult required. Results vary. Downtown Oswego. hellogorgeousmedspa.com/services/solaria-co2",
+      "Solaria is InMode fractional CO₂ — the laser you book when makeup cannot cover texture, sun damage, or dull tone anymore. We resurface with a medical device, not a facial that washes off. Expect a real consult: what we are treating, downtime, and how we keep you comfortable. Face from $899. Neck and targeted areas quoted at consult. This is for clients who want a serious refresh and will follow aftercare. Consult required. Results vary. Downtown Oswego. hellogorgeousmedspa.com/services/solaria-co2",
     sitePath: "/services/solaria-co2",
     photoPath: "/images/solaria/solaria-hero.jpg",
     productCategoryHint: "Laser treatment",

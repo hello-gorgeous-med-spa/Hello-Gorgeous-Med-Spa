@@ -38,10 +38,10 @@ const SOLARIA_FALL_URL = 'https://www.hellogorgeousmedspa.com/services/solaria-c
 
 const CAMPAIGNS: Campaign[] = [
   {
-    id: 'solaria-fall-599-2026',
-    title: 'Solaria CO₂ fall special — $599',
+    id: 'solaria-co2-2026',
+    title: 'Solaria CO₂ Laser Resurfacing — $899',
     type: 'Offer',
-    headline: 'Your Skin — Renewed. Solaria CO₂ $599',
+    headline: 'Your Skin — Renewed. Solaria CO₂ $899',
     description: `InMode Solaria CO₂ fractional resurfacing at Hello Gorgeous Medical Spa in downtown Oswego.
 
 One treatment designed to help smoother, brighter, firmer-looking skin.
@@ -53,9 +53,8 @@ What it targets:
 • Uneven texture + enlarged pores
 • Mild skin laxity
 
-Limited-time fall special: $599
-Complimentary recovery serum included
-Limited appointments available
+Full face treatment: $899
+Physician-directed care under Dr. Mukesh Arora, MD
 
 Results vary. Consultation required.
 74 W Washington St · (630) 636-6193`,

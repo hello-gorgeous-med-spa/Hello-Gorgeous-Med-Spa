@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         url: `${SITE.url}${SOLARIA_FALL_599_CAMPAIGN.imagePath}`,
         width: 682,
         height: 1024,
-        alt: "Solaria CO₂ $599 fall special — Hello Gorgeous Med Spa Oswego",
+        alt: "Solaria CO₂ laser resurfacing — Hello Gorgeous Med Spa Oswego",
       },
     ],
   },
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
 
 const SPECIALS_FAQS = [
   {
-    question: "What is the Solaria CO₂ fall special in Oswego?",
+    question: "How much is Solaria CO₂ laser at Hello Gorgeous?",
     answer:
-      "Limited-time fall special: InMode Solaria CO₂ fractional resurfacing is $599 and includes complimentary recovery serum. Results vary. Consultation required.",
+      "InMode Solaria CO₂ fractional resurfacing is $899 for full face treatment at Hello Gorgeous Med Spa. Series pricing available. Results vary. Consultation required.",
   },
   {
     question: "Where do I book the Solaria fall special?",

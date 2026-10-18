@@ -18,11 +18,11 @@ type Slide = {
 
 const SLIDES: Slide[] = [
   {
-    id: "solaria-fall-599",
-    badge: "Fall special",
+    id: "solaria-co2",
+    badge: "Laser resurfacing",
     line:
-      "InMode Solaria CO₂ fractional resurfacing — limited-time fall special $599, complimentary recovery serum included. Consult required.",
-    primary: { label: "See the offer", href: "/services/solaria-co2" },
+      "InMode Solaria CO₂ fractional resurfacing — full face treatment $899. Physician-directed by Dr. Arora. Consult required.",
+    primary: { label: "Learn more", href: "/services/solaria-co2" },
     secondary: { label: "Book consult", href: "/book" },
   },
   {
@@ -101,7 +101,7 @@ const SLIDES: Slide[] = [
     id: "signature-menu",
     badge: "Signature menu",
     line:
-      "Botox as low as $9/unit · Lip filler $450 · Morpheus8 $500 off any area (Sept–Oct) · Solaria CO₂ $599 fall special.",
+      "Botox as low as $9/unit · Lip filler $450 · Morpheus8 from $799 · Solaria CO₂ from $899.",
     primary: { label: "View all specials", href: "/specials" },
     secondary: { label: "Book online", href: "/book" },
   },

@@ -208,7 +208,7 @@ PRESETS: dict[str, dict] = {
             "Our physician-directed clinical team provides individualized consultations to "
             "discuss treatment suitability, recovery and expected results.\n\n"
             "Medical Director: Dr. Mukesh Arora, MD.\n\n"
-            "Fall Special: $599 (was $899) through October 31, 2026.\n\n"
+            "Full face treatment: $899\n\n"
             "Located in Oswego and serving Naperville, Aurora, Plainfield, Yorkville.\n\n"
             "Results and recovery vary. Consultation required.\n\n"
             "Book your consultation: https://hellogorgeousmedspa.com/services/solaria-co2"

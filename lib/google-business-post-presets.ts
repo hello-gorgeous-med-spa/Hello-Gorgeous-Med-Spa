@@ -35,8 +35,8 @@ export type GbpPostPreset = {
 
 export const GBP_POST_PRESETS: GbpPostPreset[] = [
   {
-    id: "solaria-fall-599-2026",
-    label: "Solaria CO₂ fall special — $599",
+    id: "solaria-co2-2026",
+    label: "Solaria CO₂ Laser Resurfacing — $899",
     message: SOLARIA_FALL_599_GBP,
     linkPath: SOLARIA_FALL_599_CAMPAIGN.gbpPath,
     imagePath: SOLARIA_FALL_599_CAMPAIGN.imagePath,
@@ -360,8 +360,8 @@ $49 peptide consult — book below.`,
     imagePath: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
   },
   {
-    id: "solaria-september-sale-2026",
-    label: "Solaria CO₂ fall special — $599 (archive alias)",
+    id: "solaria-co2-general-2026",
+    label: "Solaria CO₂ Laser — $899 (general post)",
     message: SOLARIA_FALL_599_GBP,
     linkPath: SOLARIA_FALL_599_CAMPAIGN.gbpPath,
     imagePath: SOLARIA_FALL_599_CAMPAIGN.imagePath,
@@ -452,7 +452,7 @@ Book your consultation below.`,
 What is Solaria?
 InMode's fractional ablative CO₂ laser — the gold standard for fine lines, sun damage, acne scars, and skin texture.
 
-✓ Fall special: $599 (was $899)
+✓ Full face treatment: $899
 ✓ Custom depth by skin concern
 ✓ Face, neck, chest, hands
 ✓ 5–7 day recovery for light plans

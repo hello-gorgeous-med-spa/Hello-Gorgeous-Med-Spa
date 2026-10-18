@@ -27,8 +27,8 @@ const baseMeta = pageMetadata({
   path: SOLARIA_CO2_PATH,
   keywords: [
     "Solaria CO2 Oswego IL",
-    "Solaria fall special Oswego",
-    "CO2 laser $599 Oswego",
+    "Solaria laser resurfacing Oswego",
+    "CO2 laser $899 Oswego",
     "CO2 laser resurfacing Naperville",
     "fractional laser Aurora IL",
     "acne scar laser Oswego",

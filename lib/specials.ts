@@ -3,9 +3,9 @@
 export const SPECIALS_PATH = "/specials";
 
 export const SPECIALS_SEO = {
-  title: "Solaria CO₂ $599 Fall Special & Menu | Oswego IL",
+  title: "Specials & Treatments Menu | Oswego IL | Hello Gorgeous",
   description:
-    "Fall specials at Hello Gorgeous Med Spa in Oswego: InMode Solaria CO₂ fractional resurfacing $599 with complimentary recovery serum. Botox $10/unit, Morpheus8, Quantum RF. Book a consult.",
+    "Specials at Hello Gorgeous Med Spa in Oswego: InMode Solaria CO₂ fractional resurfacing from $899. Botox $10/unit, Morpheus8, Quantum RF. Book a consult.",
   keywords: [
     "Solaria CO2 special Oswego",
     "CO2 laser $599 Oswego IL",
@@ -118,10 +118,10 @@ export const MORE_SPECIALS_LINKS = [
     badge: "TONIGHT",
   },
   {
-    label: "Solaria CO₂ fall special",
+    label: "Solaria CO₂ Laser Resurfacing",
     href: "/services/solaria-co2",
-    sub: "$599 InMode Solaria CO₂ · complimentary recovery serum",
-    badge: "FALL",
+    sub: "$899 InMode Solaria CO₂ · physician-directed",
+    badge: "INMODE",
   },
   {
     label: "Fall Makeover — Repair · Prevent · Lose",

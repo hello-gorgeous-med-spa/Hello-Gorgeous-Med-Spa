@@ -70,20 +70,20 @@ export const SOLARIA_SEPTEMBER_SPECIAL = {
   badge: SOLARIA_FALL_599_CAMPAIGN.seasonLabel,
   title: "Your skin — renewed",
   priceLabel: `$${SOLARIA_FALL_599_USD}`,
-  priceNote: "Complimentary recovery serum included · limited appointments",
+  priceNote: "Physician-directed care · consultation required",
   description:
-    "Limited-time fall special on InMode Solaria CO₂ fractional resurfacing — one treatment designed to help smoother, brighter, firmer-looking skin. Fine lines, acne scars, sun damage, texture, and mild laxity. Results vary. Consultation required.",
+    "InMode Solaria CO₂ fractional resurfacing — one treatment designed to help smoother, brighter, firmer-looking skin. Fine lines, acne scars, sun damage, texture, and mild laxity. Results vary. Consultation required.",
   ctaLabel: "Book your consultation",
   href: SOLARIA_CO2_PATH,
-  validThrough: "October 31, 2026",
+  validThrough: null,
   validUntilIso: SOLARIA_FALL_599_CAMPAIGN.validUntilIso,
   offers: [
     {
       id: "face-neck-chin",
       name: "InMode Solaria CO₂",
       price: `$${SOLARIA_FALL_599_USD}`,
-      was: "$899",
-      note: "Fall special · complimentary recovery serum",
+      was: null,
+      note: "Full face treatment",
     },
     {
       id: "neck-chin-chest",
@@ -111,7 +111,7 @@ export function solariaSeptemberOfferJsonLd(pagePath: string) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Solaria CO₂ fall special at Hello Gorgeous Med Spa, Oswego IL",
+    name: "Solaria CO₂ at Hello Gorgeous Med Spa, Oswego IL",
     description: SOLARIA_SEPTEMBER_SPECIAL.description,
     url: `${SITE.url}${pagePath}`,
     numberOfItems: pricedOffers.length,
@@ -346,8 +346,8 @@ export const SOLARIA_PACKAGES = [
     id: "face-neck-chin",
     name: "InMode Solaria CO₂",
     price: `$${SOLARIA_FALL_599_USD}`,
-    detail: "Limited-time fall special · complimentary recovery serum",
-    bullets: ["Was $899", "Limited appointments", "Consult required"],
+    detail: "Full face fractional resurfacing",
+    bullets: ["Physician-directed", "InMode verified provider", "Consult required"],
     highlight: true,
   },
   {
@@ -496,7 +496,7 @@ export const SOLARIA_FAQS = [
   },
   {
     q: "How much does Solaria cost?",
-    a: "Limited-time fall special: InMode Solaria CO₂ fractional resurfacing is $599 and includes complimentary recovery serum (was $899), through October 31, 2026. Neck, chest, and under-eyes are quoted at consult because those areas are treated more carefully. Results vary. Consultation required.",
+    a: "InMode Solaria CO₂ fractional resurfacing is $899 for full face treatment at Hello Gorgeous Med Spa. Neck, chest, and under-eyes are quoted at consult because those areas are treated more carefully. Series pricing available. Results vary. Consultation required.",
   },
   {
     q: "Can I treat my neck or chest?",
@@ -587,8 +587,8 @@ export function isSolariaNavActive(pathname: string | null): boolean {
 }
 
 export const SOLARIA_SEO = {
-  title: "Solaria CO₂ Fall Special | $599 Fractional Resurfacing | Oswego IL",
+  title: "Solaria CO₂ Laser Resurfacing | $899 | Oswego IL | Hello Gorgeous",
   description:
-    "Limited-time fall special: InMode Solaria CO₂ fractional resurfacing $599 at Hello Gorgeous in Oswego, IL — complimentary recovery serum included. Fine lines, acne scars, sun damage, texture. Consult required.",
-  ogAlt: "Solaria CO₂ $599 fall special — Hello Gorgeous Med Spa Oswego",
+    "InMode Solaria CO₂ fractional resurfacing $899 at Hello Gorgeous Med Spa in Oswego, IL. Physician-directed by Dr. Arora. Fine lines, acne scars, sun damage, texture. Free consult.",
+  ogAlt: "Solaria CO₂ laser resurfacing — Hello Gorgeous Med Spa Oswego IL",
 } as const;
