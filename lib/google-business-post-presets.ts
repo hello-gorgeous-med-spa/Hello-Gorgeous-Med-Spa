@@ -393,8 +393,97 @@ Each includes FREE Morpheus8 Burst
 a licensed Illinois clinician · Cherry financing available
 
 Free consultation — book below.`,
-    linkPath: "/quantum-rf-oswego-il",
+    linkPath: "/services/quantum-rf?utm_source=google&utm_medium=gbp_post&utm_campaign=quantum_rf_launch",
     imagePath: "/images/promo/quantum-rf-launch-flyer.png",
+  },
+  // ============================================================
+  // HG-SEO-005 — 4-Week Organic Content Plan (Oct 2026)
+  // ============================================================
+  {
+    id: "quantum-rf-educational-oct2026",
+    label: "Week 1: Quantum RF Educational — Dr. Arora",
+    message: `Quantum RF Skin Tightening — Now at Hello Gorgeous Med Spa, Oswego IL
+
+What is Quantum RF?
+Advanced minimally invasive radiofrequency technology designed for soft tissue contraction and body contouring.
+
+Performed by Dr. Mukesh Arora, MD — our Medical Director.
+
+✓ Neck package $2,499
+✓ Abdomen package $3,999
+✓ Each includes FREE Morpheus8 Burst
+✓ In-office procedure, local anesthesia
+✓ Serving Oswego, Naperville, Aurora, Plainfield, Yorkville
+
+Individual results vary. Consultation required.
+
+Book your free consultation below.`,
+    linkPath: "/services/quantum-rf?utm_source=google&utm_medium=gbp_post&utm_campaign=quantum_rf_educational_oct2026",
+    imagePath: "/images/quantum-rf/clinic-results/dr-arora-procedure-grid.jpg",
+  },
+  {
+    id: "morpheus8-educational-oct2026",
+    label: "Week 2: Morpheus8 Educational",
+    message: `Morpheus8 Burst RF Microneedling — Hello Gorgeous Med Spa, Oswego IL
+
+What is Morpheus8?
+Advanced RF microneedling that remodels collagen up to 8mm deep — for skin texture, scars, and tightening.
+
+Verified InMode provider. Physician-directed protocols.
+
+✓ Face & neck from $799
+✓ Body areas available
+✓ Series of 3 typical
+✓ Results build for 3–6 months
+
+Serving Oswego, Naperville, Aurora, Plainfield, Yorkville and the western Chicago suburbs.
+
+Consultation required. Individual results vary.
+
+Book your consultation below.`,
+    linkPath: "/services/morpheus8?utm_source=google&utm_medium=gbp_post&utm_campaign=morpheus8_educational_oct2026",
+    imagePath: "/images/morpheus8/morpheus8-hero.jpg",
+  },
+  {
+    id: "solaria-co2-educational-oct2026",
+    label: "Week 3: Solaria CO₂ Educational",
+    message: `Solaria CO₂ Laser Resurfacing — Hello Gorgeous Med Spa, Oswego IL
+
+What is Solaria?
+InMode's fractional ablative CO₂ laser — the gold standard for fine lines, sun damage, acne scars, and skin texture.
+
+✓ Fall special: $599 (was $899)
+✓ Custom depth by skin concern
+✓ Face, neck, chest, hands
+✓ 5–7 day recovery for light plans
+
+Physician-directed care. Serving Oswego, Naperville, Aurora, Plainfield, Yorkville.
+
+Individual results vary. Consultation required.
+
+Book below.`,
+    linkPath: "/services/solaria-co2?utm_source=google&utm_medium=gbp_post&utm_campaign=solaria_educational_oct2026",
+    imagePath: "/images/marketing/solaria-fall-back-in-love-2026.jpg",
+  },
+  {
+    id: "physician-led-care-oct2026",
+    label: "Week 4: Physician-Led Care at Hello Gorgeous",
+    message: `Advanced Medical Aesthetics — Physician-Directed Care in Oswego, IL
+
+Hello Gorgeous Med Spa is different.
+
+Dr. Mukesh Arora, MD — our Medical Director — performs advanced treatments including:
+• Quantum RF body contouring
+• Morpheus8 Burst RF microneedling
+• Solaria CO₂ laser resurfacing
+
+We screen you like a medical practice, because we are one.
+
+Three advanced InMode technologies on site. Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery and the western suburbs.
+
+Free consultation — book below.`,
+    linkPath: "/about?utm_source=google&utm_medium=gbp_post&utm_campaign=physician_led_care_oct2026",
+    imagePath: "/images/quantum-rf/clinic-results/dr-arora-treating-1.jpg",
   },
   {
     id: "founder-letter",
