@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: `${SITE.url}/joliet-il`,
     title: 'Med Spa Near Joliet, IL | Hello Gorgeous Med Spa',
-    description: 'Just 20 minutes from Joliet — Botox, Morpheus8, weight loss, laser hair & more. Free consultations, NP on site.',
+    description: 'Just 20 minutes from Joliet — Botox, Morpheus8, weight loss, laser hair & more. Free consultations, physician-led care.',
     siteName: SITE.name,
     locale: 'en_US',
   },
@@ -128,7 +128,7 @@ export default function JolietHubPage() {
             </div>
             <div className="flex flex-wrap gap-3 text-sm">
               <span className="bg-white/10 px-4 py-2 rounded-full">⭐ {SITE.reviewRating} Stars ({SITE.reviewCount}+ Reviews)</span>
-              <span className="bg-white/10 px-4 py-2 rounded-full">✓ Licensed NP On Site</span>
+              <span className="bg-white/10 px-4 py-2 rounded-full">✓ Physician-Led Care</span>
               <span className="bg-white/10 px-4 py-2 rounded-full">✓ Free Consultations</span>
               <span className="bg-white/10 px-4 py-2 rounded-full">✓ Open 7 Days</span>
             </div>
@@ -149,7 +149,7 @@ export default function JolietHubPage() {
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold text-center mb-4">Services Available Near Joliet</h2>
-            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Everything you'd want from a med spa — done right, by licensed nurse practitioners, with results you'll actually love.</p>
+            <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Everything you'd want from a med spa — done right, by our licensed clinical team, with results you'll actually love.</p>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {SERVICES.map((s) => (
                 <Link key={s.name} href={s.href} className="group block bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:border-[#FF2D8E] hover:shadow-md transition-all">
@@ -169,7 +169,7 @@ export default function JolietHubPage() {
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 { icon: '💉', title: '$10/Unit Botox', desc: 'Authentic Allergan Botox at $10/unit. Most Joliet-area spas charge $12–$16/unit for the same product.' },
-                { icon: '👩‍⚕️', title: 'Full-Authority NP On Site', desc: 'a licensed Illinois clinician — a board-certified nurse practitioner with full Illinois prescriptive authority — with physician oversight from Medical Director Dr. Mukesh Arora, MD.' },
+                { icon: '👨‍⚕️', title: 'Physician-Led Care', desc: 'Medical Director Dr. Mukesh Arora, MD provides professional medical oversight alongside our licensed clinical team of Registered Nurses.' },
                 { icon: '⭐', title: '#1 Rated in the Area', desc: `${SITE.reviewRating} stars across ${SITE.reviewCount}+ verified Google reviews. Consistently ranked the best med spa in the western suburbs.` },
                 { icon: '🔥', title: 'Advanced Devices', desc: 'Morpheus8, Solaria CO2 laser, Quantum RF — devices you won\'t find at every spa in Will County.' },
                 { icon: '💊', title: 'Medical Weight Loss', desc: 'Clinician-supervised semaglutide & tirzepatide. Real prescriptions. Real results. Not a wellness coaching program.' },

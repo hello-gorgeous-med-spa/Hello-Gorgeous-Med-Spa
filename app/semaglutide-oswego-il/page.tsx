@@ -42,14 +42,14 @@ const FAQS = [
   { question: 'What does semaglutide treatment in Oswego cost?', answer: 'Program costs include medication, provider visits, and ongoing monitoring. We offer transparent pricing with no hidden fees. Book a free consultation to get your personalized quote.' },
   { question: 'How does semaglutide work for weight loss?', answer: 'Semaglutide is a GLP-1 receptor agonist that mimics a gut hormone, reducing appetite, slowing gastric emptying, and improving insulin sensitivity. Most clients feel fuller faster and experience significantly reduced cravings.' },
   { question: 'Are there side effects of semaglutide?', answer: 'Common side effects include mild nausea, especially in the first 1–2 weeks as your body adjusts. Starting with a low dose and titrating up slowly minimizes side effects. Our providers guide you through the entire process.' },
-  { question: 'Do I need a prescription for semaglutide in Oswego?', answer: 'Yes — semaglutide is a prescription medication. Our licensed nurse practitioners can evaluate and prescribe on-site for eligible clients after a proper medical consultation.' },
+  { question: 'Do I need a prescription for semaglutide in Oswego?', answer: 'Yes — semaglutide is a prescription medication. Our licensed clinical team can evaluate patients under the medical direction of Dr. Mukesh Arora, MD, and prescribe for eligible clients after a proper medical consultation.' },
 ];
 
 const STATS = [
   { value: '15–20%', label: 'Average weight loss', sub: 'in clinical trials' },
   { value: '68 weeks', label: 'Study duration', sub: 'sustained results' },
   { value: 'Weekly', label: 'Injection frequency', sub: 'self-administered' },
-  { value: 'NP On Site', label: 'Provider oversight', sub: 'licensed clinicians' },
+  { value: 'MD-Led', label: 'Provider oversight', sub: 'licensed clinical team' },
 ];
 
 export default function SemaglutideOswegoPage() {
@@ -93,7 +93,7 @@ export default function SemaglutideOswegoPage() {
                   <span className="text-[#FF2D8E]">Semaglutide in Oswego, IL</span> — Clinician-Supervised Weight Loss
                 </h1>
                 <p className="text-xl text-gray-300 mb-8">
-                  The same molecule as Ozempic® and Wegovy® — prescribed and monitored by <strong className="text-white">licensed nurse practitioners on site</strong> in Oswego. Real prescriptions. Real results. No wellness coaching gimmicks.
+                  The same molecule as Ozempic® and Wegovy® — prescribed and monitored by <strong className="text-white">our licensed clinical team under Dr. Mukesh Arora, MD</strong> in Oswego. Real prescriptions. Real results. No wellness coaching gimmicks.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
                   <Link href="/book" className="inline-flex items-center justify-center px-8 py-4 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-[#e0267d] transition-all text-lg">Book Free Consultation</Link>
@@ -101,7 +101,7 @@ export default function SemaglutideOswegoPage() {
                 </div>
                 <div className="flex flex-wrap gap-3 text-sm">
                   <span className="bg-white/10 px-4 py-2 rounded-full">⭐ {SITE.reviewRating} Stars</span>
-                  <span className="bg-white/10 px-4 py-2 rounded-full">✓ Licensed NPs On Site</span>
+                  <span className="bg-white/10 px-4 py-2 rounded-full">✓ Physician-Led Care</span>
                   <span className="bg-white/10 px-4 py-2 rounded-full">✓ Prescription On-Site</span>
                   <span className="bg-white/10 px-4 py-2 rounded-full">✓ Free Consultations</span>
                 </div>

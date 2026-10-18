@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   ...pageMetadata({
     title: "Body Contouring in Oswego, IL | Morpheus8 Body + QuantumRF Skin Tightening",
     description:
-      "RF body contouring & skin tightening in Oswego, IL — Morpheus8 Body (deep RF microneedling) and QuantumRF (subdermal tightening). Abdomen, arms, thighs, cellulite, post-weight-loss laxity. NP-directed. Free consult.",
+      "RF body contouring & skin tightening in Oswego, IL — Morpheus8 Body (deep RF microneedling) and QuantumRF (subdermal tightening). Abdomen, arms, thighs, cellulite, post-weight-loss laxity. Physician-led care. Free consult.",
     path: PATH,
   }),
   keywords: [
@@ -105,7 +105,7 @@ const FAQS = [
   {
     question: "What is the best body contouring treatment in Oswego, IL?",
     answer:
-      "It depends on your goal. For skin texture and mild-to-moderate laxity over larger areas, Morpheus8 Body (deep RF microneedling, up to 8mm) is ideal. For more significant laxity where you want a surgical-level tightening effect without surgery, QuantumRF (subdermal RF through tiny entry points) is the stronger choice. At Hello Gorgeous Med Spa in Oswego, both are NP-directed by a licensed Illinois clinician, and we match the technology to your tissue at a free consultation.",
+      "It depends on your goal. For skin texture and mild-to-moderate laxity over larger areas, Morpheus8 Body (deep RF microneedling, up to 8mm) is ideal. For more significant laxity where you want a surgical-level tightening effect without surgery, QuantumRF (subdermal RF through tiny entry points) is the stronger choice. At Hello Gorgeous Med Spa in Oswego, we offer physician-led care under Medical Director Dr. Mukesh Arora, MD, and we match the technology to your tissue at a free consultation.",
   },
   {
     question: "Morpheus8 Body vs QuantumRF — what's the difference?",
@@ -130,7 +130,7 @@ const FAQS = [
   {
     question: "Why not just go to a cheaper body-sculpting place?",
     answer:
-      "Many low-cost \u201cbody sculpting\u201d offers use surface-only devices that can't reach the dermis where collagen is built, so results are limited or temporary. Hello Gorgeous uses advanced InMode RF technology delivered at depth, with every protocol directed by a licensed nurse practitioner on site. Provider skill and the right device — matched to your tissue — are what produce lasting results.",
+      "Many low-cost 'body sculpting' offers use surface-only devices that can't reach the dermis where collagen is built, so results are limited or temporary. Hello Gorgeous uses advanced InMode RF technology delivered at depth, with physician-led oversight from Medical Director Dr. Mukesh Arora, MD. Provider skill and the right device — matched to your tissue — are what produce lasting results.",
   },
 ];
 
@@ -194,7 +194,7 @@ export default function BodyContouringOswegoPage() {
             <FadeUp>
               <BestOfOswegoBadge variant="list" className="justify-center mb-6" />
               <p className="uppercase tracking-[0.3em] text-xs text-[#FFB8DC] mb-4">
-                Oswego, IL · NP-Directed
+                Oswego, IL · Physician-Led Care
               </p>
               <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
                 Body Contouring in{" "}
@@ -210,7 +210,7 @@ export default function BodyContouringOswegoPage() {
                 <span className="bg-white/10 px-4 py-2 rounded-full">✓ Abdomen · arms · thighs</span>
                 <span className="bg-white/10 px-4 py-2 rounded-full">✓ Post-weight-loss laxity</span>
                 <span className="bg-white/10 px-4 py-2 rounded-full">✓ InMode RF technology</span>
-                <span className="bg-white/10 px-4 py-2 rounded-full">✓ NP on site 6 days</span>
+                <span className="bg-white/10 px-4 py-2 rounded-full">✓ Physician-led care</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <CTA href={BOOKING_URL} variant="gradient">

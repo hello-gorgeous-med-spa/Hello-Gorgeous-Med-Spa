@@ -8,7 +8,7 @@ export const quantumRfLaunchBlogPost: BlogPost = {
   metaDescription:
     "Hello Gorgeous Med Spa introduces InMode Quantum RF in Oswego, IL — advanced body contouring, minimally invasive. Neck package $2,499, abdomen $3,999, FREE Morpheus8 Burst included. Cherry financing.",
   excerpt:
-    "Lipo results without surgery — InMode Quantum RF is here in Oswego with neck and abdomen packages, FREE Morpheus8 Burst bonus, and Cherry financing from a licensed Illinois clinician.",
+    "Advanced body contouring — InMode Quantum RF is here in Oswego with neck and abdomen packages, FREE Morpheus8 Burst bonus, and Cherry financing from a licensed clinical team.",
   category: "New Services",
   date: "2026-05-22",
   readTime: "4 min",

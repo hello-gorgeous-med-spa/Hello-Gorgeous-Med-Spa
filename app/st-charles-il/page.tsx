@@ -5,10 +5,10 @@ import { RealPatientReviews } from '@/components/RealPatientReviews';
 export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Med Spa Near St. Charles, IL | Hello Gorgeous Med Spa — Oswego',
-  description: 'Premium med spa near St. Charles, IL — Hello Gorgeous in Oswego is 25 min away. Botox $10/unit, Morpheus8, HydraFacial, semaglutide, hormone therapy & lash extensions. NP on site.',
+  description: 'Premium med spa near St. Charles, IL — Hello Gorgeous in Oswego is 25 min away. Botox $10/unit, Morpheus8, HydraFacial, semaglutide, hormone therapy & lash extensions. Physician-led care.',
   keywords: ['med spa st charles il','med spa near st charles','botox st charles il','botox near st charles','morpheus8 st charles il','weight loss st charles il','hydrafacial st charles','medical spa st charles','semaglutide st charles il','hormone therapy st charles il'],
   alternates: { canonical: `${SITE.url}/st-charles-il` },
-  openGraph: { type: 'website', url: `${SITE.url}/st-charles-il`, title: 'Med Spa Near St. Charles, IL | Hello Gorgeous Med Spa', description: '25 min from St. Charles. Botox $10/unit, Morpheus8, HydraFacial, weight loss, hormone therapy. NP on site.', siteName: SITE.name },
+  openGraph: { type: 'website', url: `${SITE.url}/st-charles-il`, title: 'Med Spa Near St. Charles, IL | Hello Gorgeous Med Spa', description: '25 min from St. Charles. Botox $10/unit, Morpheus8, HydraFacial, weight loss, hormone therapy. Physician-led care.', siteName: SITE.name },
   robots: { index: true, follow: true },
 };
 const FAQS = [

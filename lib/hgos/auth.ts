@@ -294,19 +294,23 @@ function mockLogin(credentials: LoginCredentials): { user: AuthUser; session: an
         createdAt: '2025-01-01',
       },
     },
+    // PROVIDER DEMO ACCOUNT - Dr. Arora (Medical Director)
     'provider@hellogorgeousmedspa.com': {
       password: 'provider123',
       user: {
         id: 'demo-provider-001',
         email: 'provider@hellogorgeousmedspa.com',
         role: 'provider',
-        firstName: 'Ryan',
-        lastName: 'Kent',
-        providerId: 'b7e6f872-3628-418a-aefb-aca2101f7cb2',
+        firstName: 'Mukesh',
+        lastName: 'Arora',
+        providerId: 'dr-arora',
         permissions: ROLE_PERMISSIONS.provider,
-        createdAt: '2025-01-01',
+        createdAt: '2026-10-18',
       },
     },
+    // INACTIVE - Ryan Kent no longer affiliated (Oct 2026)
+    // Login disabled. Historical records preserved in database.
+    // 'ryan@hellogorgeousmedspa.com': { ... REMOVED ... },
     'staff@hellogorgeousmedspa.com': {
       password: 'staff123',
       user: {

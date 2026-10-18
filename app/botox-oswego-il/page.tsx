@@ -18,7 +18,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Botox in Oswego, IL | As Low as $9/unit | Hello Gorgeous Med Spa',
   description:
-    'Botox as low as $9/unit in Oswego — authentic Allergan from US distributors only. Dysport & Jeuveau available. Full-authority NP on site. Free consultations. Same-day appointments available.',
+    'Botox as low as $9/unit in Oswego — authentic Allergan from US distributors only. Dysport & Jeuveau available. Physician-led care. Free consultations. Same-day appointments available.',
   keywords: [
     'botox near me',
     'botox oswego',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     url: `${SITE.url}/botox-oswego-il`,
     title: 'Botox in Oswego, IL | As Low as $9/unit | Hello Gorgeous Med Spa',
     description:
-      'Botox as low as $9/unit — Allergan & US distributors only. Dysport & Jeuveau available. Full-authority NP on site. Free consultations.',
+      'Botox as low as $9/unit — Allergan & US distributors only. Dysport & Jeuveau available. Physician-led care. Free consultations.',
     siteName: SITE.name,
     locale: 'en_US',
     images: [
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Botox in Oswego, IL — As Low as $9/Unit | Hello Gorgeous',
-    description: 'As low as $9/unit Botox by licensed nurse practitioners in Oswego, IL — Allergan & US distributors only.',
+    description: 'As low as $9/unit Botox by licensed clinical team in Oswego, IL — Allergan & US distributors only.',
     images: [`${SITE.url}/images/services/hg-botox-syringes.png`],
   },
   robots: {
@@ -214,10 +214,10 @@ export default function BotoxOswegoPage() {
                   Serving Naperville • Aurora • Plainfield • Oswego
                 </p>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                  <span className="text-[#FF2D8E]">Botox in Oswego</span> — Med Spa With an NP On Site
+                  <span className="text-[#FF2D8E]">Botox in Oswego</span> — Physician-Led Med Spa
                 </h1>
                 <p className="text-xl md:text-2xl text-gray-300 mb-8">
-                  <strong className="text-white">As low as $9/unit Botox, Dysport &amp; Jeuveau</strong> — full-authority nurse practitioner on site, natural results, free consultations
+                  <strong className="text-white">As low as $9/unit Botox, Dysport &amp; Jeuveau</strong> — physician-led care under Dr. Mukesh Arora, MD, natural results, free consultations
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">

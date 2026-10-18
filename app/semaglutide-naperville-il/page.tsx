@@ -30,13 +30,13 @@ export default function SemaglutideNapervillePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="text-[#FF2D8E] font-medium mb-3 text-lg">📍 15 Minutes from Naperville · Serving DuPage County</p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"><span className="text-[#FF2D8E]">Semaglutide Near Naperville, IL</span> — Real Prescriptions. Real Results.</h1>
-            <p className="text-xl text-gray-300 mb-8 max-w-3xl">Clinician-supervised semaglutide weight loss — <strong className="text-white">15 minutes from Naperville</strong> in Oswego, IL. The same molecule as Ozempic® and Wegovy®, prescribed and monitored by licensed nurse practitioners. Average 15–20% body weight loss in clinical trials.</p>
+            <p className="text-xl text-gray-300 mb-8 max-w-3xl">Clinician-supervised semaglutide weight loss — <strong className="text-white">15 minutes from Naperville</strong> in Oswego, IL. The same molecule as Ozempic® and Wegovy®, prescribed and monitored by our licensed clinical team under Medical Director Dr. Mukesh Arora, MD. Average 15–20% body weight loss in clinical trials.</p>
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
               <Link href="/book" className="inline-flex items-center justify-center px-8 py-4 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-[#e0267d] transition-all text-lg">Book Free Consultation</Link>
               <a href={`tel:${SITE.phone}`} className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-black transition-all text-lg">📞 {SITE.phone}</a>
             </div>
             <div className="flex flex-wrap gap-3 text-sm">
-              <span className="bg-white/10 px-4 py-2 rounded-full">✓ Licensed NPs On Site</span>
+              <span className="bg-white/10 px-4 py-2 rounded-full">✓ Physician-Led Care</span>
               <span className="bg-white/10 px-4 py-2 rounded-full">✓ Real Prescriptions</span>
               <span className="bg-white/10 px-4 py-2 rounded-full">✓ Free Consultations</span>
               <span className="bg-white/10 px-4 py-2 rounded-full">⭐ {SITE.reviewRating} Stars</span>

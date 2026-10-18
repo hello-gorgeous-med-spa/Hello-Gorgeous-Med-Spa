@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Premium med spa near Geneva, IL — Hello Gorgeous in Oswego is 20 min away. Botox $10/unit, Morpheus8, HydraFacial, semaglutide weight loss, lash extensions & more.',
   keywords: ['med spa geneva il','med spa near geneva','botox geneva il','botox near geneva','morpheus8 geneva il','laser hair removal geneva','hydrafacial geneva il','weight loss geneva il','medical spa geneva','semaglutide geneva il'],
   alternates: { canonical: `${SITE.url}/geneva-il` },
-  openGraph: { type: 'website', url: `${SITE.url}/geneva-il`, title: 'Med Spa Near Geneva, IL | Hello Gorgeous Med Spa', description: '20 min from Geneva. Botox $10/unit, Morpheus8, HydraFacial, weight loss. NP on site, free consultations.', siteName: SITE.name },
+  openGraph: { type: 'website', url: `${SITE.url}/geneva-il`, title: 'Med Spa Near Geneva, IL | Hello Gorgeous Med Spa', description: '20 min from Geneva. Botox $10/unit, Morpheus8, HydraFacial, weight loss. Physician-led care, free consultations.', siteName: SITE.name },
   robots: { index: true, follow: true },
 };
 const FAQS = [

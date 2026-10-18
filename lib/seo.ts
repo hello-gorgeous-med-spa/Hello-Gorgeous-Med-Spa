@@ -27,12 +27,12 @@ export const SITE = {
   url: "https://www.hellogorgeousmedspa.com",
   tagline: HG_TAGLINE,
   description:
-    `${HG_TAGLINE} Best of Oswego — #1 Best Med Spa. NP-directed medical spa and medical aesthetics clinic in Oswego, IL. Medical Director: Dr. Mukesh Arora, MD. Same-day appointments often available for med spa, Rx care, and urgent needs. Morpheus8 Burst, Quantum RF, Solaria CO2. Full-authority NP on site. Botox, fillers, weight loss. Serving Oswego, Naperville, Aurora, Plainfield, IL.`,
+    `${HG_TAGLINE} Best of Oswego — #1 Best Med Spa. Physician-led medical spa and medical aesthetics clinic in Oswego, IL. Medical Director: Dr. Mukesh Arora, MD. Same-day appointments often available for med spa, Rx care, and urgent needs. Morpheus8 Burst, Quantum RF, Solaria CO2. Botox, fillers, weight loss. Serving Oswego, Naperville, Aurora, Plainfield, IL.`,
   /** Short (<=160 char) version for SERP meta descriptions. The long `description`
    *  above stays as the schema/Org description; this one is for `<meta name="description">`
    *  so Google shows the full snippet (incl. locality + CTA) without truncation. */
   metaDescription:
-    "Med spa in Oswego, IL — Medical Director Dr. Mukesh Arora, MD · FNP on site. Botox, fillers, weight loss, Morpheus8 & laser. Naperville, Aurora & Plainfield.",
+    "Med spa in Oswego, IL — Medical Director Dr. Mukesh Arora, MD. Botox, fillers, weight loss, Morpheus8 & laser. Naperville, Aurora & Plainfield.",
   phone: "630-636-6193",
   /** Toll-free via Square - replace with your number when ready */
   tollFree: "833-474-3998",
@@ -156,7 +156,7 @@ export const HOME_FAQS: readonly FAQ[] = [
   {
     question: "Is Hello Gorgeous a day spa or a medical spa?",
     answer:
-      "Hello Gorgeous is a medical spa, not a day spa. Treatments are performed or supervised by licensed medical professionals under NP-led clinical care with physician Medical Director leadership, including injectables, RF technologies, medical weight loss, and hormone-based care. Medical Director: Dr. Mukesh Arora, MD (Internal Medicine).",
+      "Hello Gorgeous is a medical spa, not a day spa. We offer physician-led medical aesthetic services under the medical direction of Dr. Mukesh Arora, MD, alongside our licensed clinical team. Treatments include injectables, RF technologies, medical weight loss, and hormone-based care.",
   },
   {
     question: "Who provides medical oversight at Hello Gorgeous?",
@@ -166,7 +166,7 @@ export const HOME_FAQS: readonly FAQ[] = [
   {
     question: "Who performs treatments at your med spa?",
     answer:
-      "All treatments are performed or overseen by licensed medical professionals with advanced training in medical aesthetics. Our team includes nurse practitioners and clinical experts dedicated to safe, natural-looking results.",
+      "All treatments are performed by our licensed clinical team under the medical direction of Dr. Mukesh Arora, MD. Registered Nurse providers deliver services within their authorized scope of practice. Our approach combines advanced technology, individualized treatment planning, and professional medical oversight.",
   },
   {
     question: "What services do you offer?",
@@ -815,7 +815,7 @@ export const SERVICES: readonly Service[] = [
       {
         question: "Why choose Hello Gorgeous for laser hair removal?",
         answer:
-          "We use the professional-grade Zemits Duocratis laser with triple-wavelength technology for safe, effective treatment across skin types. Our certified technicians personalize settings for your skin and hair. We're Best of Oswego for med spa services, with a full-authority nurse practitioner on site. Free consultations, transparent pricing, and a focus on your comfort.",
+          "We use the professional-grade Zemits Duocratis laser with triple-wavelength technology for safe, effective treatment across skin types. Our certified technicians personalize settings for your skin and hair. We're Best of Oswego for med spa services, with physician-led care under Dr. Mukesh Arora, MD. Free consultations, transparent pricing, and a focus on your comfort.",
       },
     ],
   },
@@ -1273,7 +1273,7 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
       "Best of Oswego — Best Skincare Clinic",
       "Best of Oswego — Best Medical Weight Loss",
       "Best of Oswego — Best Facial Treatments",
-      "Full-authority nurse practitioner on site",
+      "Physician-led medical aesthetic care",
       "Only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2",
       "Class 4 medical lasers",
     ],

@@ -1,180 +1,21 @@
-import type { Metadata } from "next";
+import { permanentRedirect } from 'next/navigation';
+import type { Metadata } from 'next';
 
-import Link from "next/link";
+/**
+ * NP Landing Page - PERMANENTLY REDIRECTED (Oct 2026)
+ * 
+ * This page previously promoted "NP On Site" as a differentiator.
+ * As of Oct 2026, there is no on-site NP. The practice offers
+ * physician-led care under Medical Director Dr. Mukesh Arora, MD.
+ * 
+ * 308 permanent redirect to /why-choose-us per owner approval.
+ * Using permanentRedirect() for proper 308 status code.
+ */
 
-import { CTA } from "@/components/CTA";
-import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
-import { pageMetadata, siteJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
-import { DIFFERENTIATORS } from "@/lib/best-of-oswego";
-import { SITE } from "@/lib/seo";
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
-const NP_MED_SPA_FAQS = [
-  {
-    question: "Does Hello Gorgeous have a nurse practitioner on site?",
-    answer:
-      "Prescriptions and medical protocols are reviewed by a licensed Illinois clinician under Medical Director Dr. Mukesh Arora, MD. You receive care from licensed medical professionals — not a remote letterhead.",
-  },
-  {
-    question: "What is a nurse practitioner med spa?",
-    answer:
-      "A nurse practitioner (NP) med spa is a medical spa where a licensed nurse practitioner with full prescriptive authority oversees and provides medical treatments. This means you can receive injectables, weight loss medications, hormone therapy, and other medical-grade treatments with proper screening, oversight, and follow-up — all in one place.",
-  },
-  {
-    question: "Why choose a med spa with a nurse practitioner on site?",
-    answer:
-      "Physician Medical Director oversight and licensed Illinois clinician review mean medical protocols, prescriptions, and follow-up stay in a real Illinois practice — weight loss, hormones, injectables, and advanced treatments — not a remote letterhead.",
-  },
-];
-
-export const metadata: Metadata = pageMetadata({
-  title: "Nurse Practitioner Med Spa Oswego IL | NP On Site | Hello Gorgeous",
-  description:
-    "Physician-directed medical spa in Oswego, IL. Weight loss, hormone therapy, and injectables with licensed Illinois clinician review. Book a consultation.",
-  path: "/nurse-practitioner-med-spa-oswego",
-});
-
-export default function NursePractitionerMedSpaPage() {
-  const breadcrumbs = [
-    { name: "Home", url: SITE.url },
-    { name: "Nurse Practitioner Med Spa Oswego", url: `${SITE.url}/nurse-practitioner-med-spa-oswego` },
-  ];
-
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(NP_MED_SPA_FAQS)) }}
-      />
-
-      <main className="bg-white">
-        {/* Hero */}
-        <Section className="relative bg-black text-white py-20 lg:py-24">
-          <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-95" />
-          <div className="relative max-w-4xl mx-auto text-center">
-            <FadeUp>
-              <p className="text-[#E6007E] font-semibold uppercase tracking-wider mb-4">
-                Full-Authority Medical Oversight
-              </p>
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-                Nurse Practitioner{" "}
-                <span className="text-[#E6007E]">Med Spa</span> in Oswego, IL
-              </h1>
-              <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10">
-                {DIFFERENTIATORS.npOnSite}. Prescriptions are written only by a licensed Illinois clinician under Medical Director Dr. Mukesh Arora, MD. Care from licensed medical professionals — not a remote letterhead.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <CTA href={BOOKING_URL} variant="gradient">
-                  Book Free Consultation
-                </CTA>
-                <CTA href="/providers" variant="outline">
-                  Meet Our Team
-                </CTA>
-              </div>
-            </FadeUp>
-          </div>
-        </Section>
-
-        {/* Benefits */}
-        <Section className="bg-gray-50">
-          <div className="max-w-5xl mx-auto">
-            <FadeUp>
-              <h2 className="text-3xl font-bold text-black text-center mb-10">
-                Why NP On Site Matters
-              </h2>
-            </FadeUp>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                { title: "Full Prescriptive Authority", body: "Weight loss (GLP-1), hormone therapy, and medical treatments — prescribed and monitored by your NP, not a remote physician." },
-                { title: "Direct Medical Oversight", body: "Your NP is on site six days a week. No waiting for approvals or referrals — you get expert care when you need it." },
-                { title: "Safety & Screening", body: "Proper medical screening, lab review, and follow-up for every treatment. Evidence-based protocols, not one-size-fits-all." },
-              ].map((item, idx) => (
-                <FadeUp key={item.title} delayMs={60 * idx}>
-                  <div className="rounded-2xl border-2 border-black bg-white p-6">
-                    <h3 className="text-xl font-bold text-[#E6007E]">{item.title}</h3>
-                    <p className="mt-3 text-black/80 leading-relaxed">{item.body}</p>
-                  </div>
-                </FadeUp>
-              ))}
-            </div>
-          </div>
-        </Section>
-
-        {/* Services */}
-        <Section>
-          <div className="max-w-4xl mx-auto text-center">
-            <FadeUp>
-              <h2 className="text-3xl font-bold text-black mb-6">
-                Medical Treatments We Offer
-              </h2>
-              <p className="text-black/80 mb-8">
-                With full prescriptive authority and NP oversight:
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/glp1-weight-loss" className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg font-semibold hover:bg-[#E6007E] hover:text-white hover:border-[#E6007E] transition">
-                  Weight Loss (GLP-1)
-                </Link>
-                <Link href="/services/biote-hormone-therapy" className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg font-semibold hover:bg-[#E6007E] hover:text-white hover:border-[#E6007E] transition">
-                  Hormone Therapy
-                </Link>
-                <Link href="/services/botox-dysport-jeuveau" className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg font-semibold hover:bg-[#E6007E] hover:text-white hover:border-[#E6007E] transition">
-                  Botox & Fillers
-                </Link>
-                <Link href="/services/iv-therapy" className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg font-semibold hover:bg-[#E6007E] hover:text-white hover:border-[#E6007E] transition">
-                  IV Therapy
-                </Link>
-                <Link href="/peptides" className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg font-semibold hover:bg-[#E6007E] hover:text-white hover:border-[#E6007E] transition">
-                  Peptide Therapy
-                </Link>
-              </div>
-            </FadeUp>
-          </div>
-        </Section>
-
-        {/* FAQ */}
-        <Section className="bg-gray-50">
-          <div className="max-w-3xl mx-auto">
-            <FadeUp>
-              <h2 className="text-3xl font-bold text-black text-center mb-10">
-                Frequently Asked Questions
-              </h2>
-            </FadeUp>
-            <div className="space-y-6">
-              {NP_MED_SPA_FAQS.map((faq, idx) => (
-                <FadeUp key={faq.question} delayMs={40 * idx}>
-                  <div className="rounded-xl border border-gray-200 bg-white p-6">
-                    <h3 className="text-lg font-semibold text-black">{faq.question}</h3>
-                    <p className="mt-3 text-black/80 leading-relaxed">{faq.answer}</p>
-                  </div>
-                </FadeUp>
-              ))}
-            </div>
-          </div>
-        </Section>
-
-        {/* CTA */}
-        <Section className="bg-[#E6007E]">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Book Your Consultation with Our NP
-            </h2>
-            <p className="text-white/90 mb-8">
-              Free consultation. Medical oversight. Personalized care.
-            </p>
-            <CTA href={BOOKING_URL} variant="white">
-              Book Free Consultation
-            </CTA>
-          </div>
-        </Section>
-      </main>
-    </>
-  );
+export default function NursePractitionerMedSpaOswegoPage() {
+  permanentRedirect('/why-choose-us');
 }

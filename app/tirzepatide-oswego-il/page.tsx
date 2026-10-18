@@ -77,7 +77,7 @@ export default function TirzepatideOswegoPage() {
                 { v: '20–25%', l: 'Avg weight loss', s: 'SURMOUNT-1 trial' },
                 { v: 'Dual', l: 'GLP-1 + GIP', s: 'dual agonist mechanism' },
                 { v: 'Weekly', l: 'Injection', s: 'self-administered' },
-                { v: 'NP On Site', l: 'Clinician oversight', s: 'full prescriptive authority' },
+                { v: 'MD-Led', l: 'Clinician oversight', s: 'physician-led care' },
               ].map(s => (
                 <div key={s.v} className="bg-white/5 border border-white/10 rounded-xl p-4 text-center">
                   <p className="text-2xl font-black text-[#FF2D8E]">{s.v}</p>

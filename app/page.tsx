@@ -74,9 +74,9 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             webPageJsonLd({
-              title: "Hello Gorgeous Med Spa - NP-Directed Medical Spa in Oswego, IL",
+              title: "Hello Gorgeous Med Spa - Physician-Led Medical Spa in Oswego, IL",
               description:
-                "#1 Best Med Spa in Oswego, IL. Medical Director Dr. Mukesh Arora, MD · NP on site. Morpheus8 Burst, injectables, GLP-1, hormone support, Solaria CO₂, IV therapy, and advanced skin + body treatments.",
+                "#1 Best Med Spa in Oswego, IL. Physician-led care under Medical Director Dr. Mukesh Arora, MD. Morpheus8 Burst, injectables, GLP-1, hormone support, Solaria CO₂, IV therapy, and advanced skin + body treatments.",
               path: "/",
               image: SITE_OG_IMAGE_PATH,
               datePublished: "2023-01-01",

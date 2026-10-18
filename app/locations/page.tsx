@@ -25,7 +25,7 @@ const locations = [
   {
     slug: "montgomery-il",
     label: "Montgomery, IL",
-    blurb: "Minutes from Montgomery — medical-grade aesthetics with a full-authority NP on site.",
+    blurb: "Minutes from Montgomery — medical-grade aesthetics with physician-led care.",
   },
   {
     slug: "plainfield-il",

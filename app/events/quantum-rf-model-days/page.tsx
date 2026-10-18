@@ -96,7 +96,7 @@ export default function QuantumRFModelDaysLandingPage() {
             Quantum RF<br className="sm:hidden" /> Model Days
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/88 md:text-xl">
-            Lipo-level contouring ambitions — <strong className="text-white">without the operating room.</strong> See
+            Advanced body contouring ambitions — <strong className="text-white">minimally invasive, no operating room.</strong> See
             package details on the flyer, then book your candidacy conversation.
           </p>
           <div className="mx-auto mt-8 max-w-xl space-y-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-6 text-sm text-white/90 md:text-base">

@@ -170,8 +170,8 @@ export default function AuroraHubPage() {
                 Aurora is the second-largest city in Illinois, spanning Kane, DuPage, Kendall and
                 Will counties. We&apos;re about a <strong>20-minute drive west on Route 30</strong> in
                 downtown Oswego — and even closer from <strong>North Aurora and Montgomery</strong>.
-                Aurora clients choose Hello Gorgeous for medical-grade care you can&apos;t get at a
-                walk-in counter: a full-authority nurse practitioner on site, genuine products, and
+                Aurora clients choose Hello Gorgeous for physician-led medical aesthetic care you can&apos;t get at a
+                walk-in counter: Medical Director Dr. Mukesh Arora, MD, genuine products, and
                 FDA-cleared InMode Class IV lasers.
               </p>
               <p className="mt-4 text-black/80 max-w-2xl leading-relaxed">
@@ -193,8 +193,8 @@ export default function AuroraHubPage() {
                   Why Aurora chooses us
                 </p>
                 <ul className="mt-4 space-y-3 text-black/85">
-                  <li>▸ Full-authority NP on site (owner)</li>
-                  <li>▸ Board-certified medical director, a licensed Illinois clinician</li>
+                  <li>▸ Physician-led care under Dr. Mukesh Arora, MD</li>
+                  <li>▸ Licensed clinical team with professional medical oversight</li>
                   <li>▸ 100% authentic Allergan &amp; Galderma products</li>
                   <li>▸ Morpheus8 Burst, Quantum RF &amp; Solaria CO₂</li>
                   <li>▸ Free consult · same-day often available</li>

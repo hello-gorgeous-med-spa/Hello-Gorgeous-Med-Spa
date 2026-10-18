@@ -208,8 +208,8 @@ export default function NapervilleHubPage() {
                   Why Naperville chooses us
                 </p>
                 <ul className="mt-4 space-y-3 text-black/85">
-                  <li>▸ Full-authority NP on site (owner)</li>
-                  <li>▸ Board-certified medical director, a licensed Illinois clinician</li>
+                  <li>▸ Physician-led care under Dr. Mukesh Arora, MD</li>
+                  <li>▸ Licensed clinical team with professional medical oversight</li>
                   <li>▸ 100% authentic Allergan &amp; Galderma products</li>
                   <li>▸ Morpheus8 Burst, Quantum RF &amp; Solaria CO₂</li>
                   <li>▸ Free consult · same-day often available</li>

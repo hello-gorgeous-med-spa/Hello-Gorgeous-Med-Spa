@@ -20,7 +20,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = pageMetadata({
   title: "Best Botox in Oswego, IL | How to Choose + Why Hello Gorgeous",
   description:
-    "How to choose the best Botox in Oswego, IL: licensed injector, authentic FDA-approved product, transparent pricing, and follow-up. Hello Gorgeous meets all five — $10/unit, NP on site 6 days/week. Free consult.",
+    "How to choose the best Botox in Oswego, IL: licensed injector, authentic FDA-approved product, transparent pricing, and follow-up. Hello Gorgeous meets all five — $10/unit, physician-led care. Free consult.",
   path: "/best-botox-oswego-il",
 });
 
@@ -32,7 +32,7 @@ const CRITERIA = [
     title: "A licensed medical injector",
     what:
       "Botox is a prescription medication. Ask who is actually injecting you and whether a licensed medical provider is on site — not a remote medical director signing off from another state.",
-    hg: "a licensed Illinois clinician — a board-certified Family Nurse Practitioner with full Illinois prescriptive authority — is on site 6 days a week, with Dr. Mukesh Arora, MD as Medical Director. Our team has 10+ years of injecting experience in this practice.",
+    hg: "We offer physician-led medical aesthetic services under the medical direction of Dr. Mukesh Arora, MD. Registered Nurse providers deliver services within their authorized scope of practice. Our team has 10+ years of injecting experience in this practice.",
   },
   {
     n: "2",
@@ -78,7 +78,7 @@ const BEST_BOTOX_FAQS = [
   {
     question: "Who is the best Botox injector in Oswego?",
     answer:
-      "The best injector is a licensed medical professional with experience and medical oversight. At Hello Gorgeous, injections are performed by licensed providers with a licensed Illinois clinician — a board-certified Family Nurse Practitioner with full prescriptive authority in Illinois — on site as owner. Our team has 10+ years of injecting experience.",
+      "The best injector is a licensed medical professional with experience and medical oversight. At Hello Gorgeous, injections are performed by licensed Registered Nurse providers under the medical direction of Dr. Mukesh Arora, MD. Our team has 10+ years of injecting experience.",
   },
   {
     question: "How do I know the Botox is real?",
@@ -126,11 +126,11 @@ export default function BestBotoxOswegoPage() {
               </h1>
               <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-6">
                 How to choose a Botox provider you can trust — and why Hello Gorgeous meets every mark:
-                licensed NP on site, authentic FDA-approved product, honest $10/unit pricing, and a free
+                physician-led care, authentic FDA-approved product, honest $10/unit pricing, and a free
                 follow-up.
               </p>
               <div className="flex flex-wrap justify-center gap-3 text-sm mb-10">
-                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ FNP-BC on site 6 days</span>
+                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Physician-led care</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Authentic product</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ $10/unit</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Natural, not frozen</span>

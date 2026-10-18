@@ -8,7 +8,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: 'Med Spa Near Bolingbrook, IL | Hello Gorgeous Med Spa — Oswego',
   description:
-    'Bolingbrook clients drive to Hello Gorgeous Med Spa in Oswego — 20 min for the best Botox, Morpheus8, laser hair, HydraFacial & medical weight loss in the area. NP on site.',
+    'Bolingbrook clients drive to Hello Gorgeous Med Spa in Oswego — 20 min for the best Botox, Morpheus8, laser hair, HydraFacial & medical weight loss in the area. Physician-led care.',
   keywords: [
     'med spa bolingbrook il',
     'med spa near bolingbrook',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: `${SITE.url}/bolingbrook-il`,
     title: 'Med Spa Near Bolingbrook, IL | Hello Gorgeous Med Spa',
-    description: 'About 20 min from Bolingbrook — Botox $10/unit, Morpheus8, laser hair, HydraFacial, weight loss. NP on site, free consultations.',
+    description: 'About 20 min from Bolingbrook — Botox $10/unit, Morpheus8, laser hair, HydraFacial, weight loss. Physician-led care, free consultations.',
     siteName: SITE.name,
     locale: 'en_US',
   },
@@ -98,7 +98,7 @@ export default function BolingbrookPage() {
             </div>
             <div className="flex flex-wrap gap-3 text-sm">
               <span className="bg-white/10 px-4 py-2 rounded-full">⭐ {SITE.reviewRating} Stars ({SITE.reviewCount}+ Reviews)</span>
-              <span className="bg-white/10 px-4 py-2 rounded-full">✓ Licensed NP On Site</span>
+              <span className="bg-white/10 px-4 py-2 rounded-full">✓ Physician-Led Care</span>
               <span className="bg-white/10 px-4 py-2 rounded-full">✓ Free Consultations</span>
               <span className="bg-white/10 px-4 py-2 rounded-full">✓ Open 7 Days</span>
             </div>

@@ -85,23 +85,25 @@ export interface TeamMemberWeek {
 // ============================================================
 
 export const TEAM_MEMBERS: TeamMember[] = [
+  // INACTIVE - Ryan Kent no longer affiliated (Oct 2026)
+  // Cannot accept new appointments or assignments. Historical records preserved.
   {
     id: 'ryan',
     userId: 'ryan-user-id',
     firstName: 'Ryan',
     lastName: 'Kent',
     role: 'provider',
-    credentials: 'APRN, FNP-BC',
-    color: '#EC4899', // Pink
-    isActive: true,
+    credentials: 'APRN, FNP-BC (Inactive)',
+    color: '#6B7280', // Gray - inactive
+    isActive: false, // DISABLED - cannot accept new assignments
     defaultShift: {
-      monday: { start: '10:00', end: '17:00', breakMinutes: 30 },
-      tuesday: { start: '10:00', end: '17:00', breakMinutes: 30 },
-      wednesday: { start: '10:00', end: '17:00', breakMinutes: 30 },
-      thursday: null, // Off
-      friday: { start: '10:00', end: '15:00', breakMinutes: 0 },
-      saturday: null, // Off
-      sunday: null, // Off
+      monday: null,
+      tuesday: null,
+      wednesday: null,
+      thursday: null,
+      friday: null,
+      saturday: null,
+      sunday: null,
     },
   },
   {

@@ -10,7 +10,7 @@ const SESSION_MONTHS = "April · May · June 2026";
 
 export const metadata: Metadata = {
   title: `Brazilian Laser Hair Removal Spring Special — 3 Sessions $499 | Hello Gorgeous Oswego IL`,
-  description: `Best laser hair removal deal of the season: Brazilian package — 3 sessions (${SESSION_MONTHS}) for $499. Book by ${OFFER_BOOK_BY} for a FREE small area each visit. Medical-grade laser, NP on site. Oswego, Aurora, Naperville.`,
+  description: `Best laser hair removal deal of the season: Brazilian package — 3 sessions (${SESSION_MONTHS}) for $499. Book by ${OFFER_BOOK_BY} for a FREE small area each visit. Medical-grade laser, physician-led care. Oswego, Aurora, Naperville.`,
   keywords: [
     "Brazilian laser hair removal Oswego",
     "laser hair removal spring special",
@@ -47,7 +47,7 @@ const SPRING_SPECIAL_FAQS = [
   {
     question: "Is this a spa laser or a medical laser?",
     answer:
-      "We use medical-grade laser technology with full clinical oversight — not a basic spa device. Our nurse practitioner is on site for medical leadership six days a week.",
+      "We use medical-grade laser technology with full clinical oversight — not a basic spa device. We offer physician-led care under Medical Director Dr. Mukesh Arora, MD.",
   },
   {
     question: "Where is Hello Gorgeous?",
@@ -91,8 +91,8 @@ export default function SpringSpecialLaserHairPage() {
                 <strong className="text-white">FREE touch-up</strong>. Period.
               </p>
               <p className="text-gray-400 text-sm">
-                Medical-grade laser with full clinical oversight — Class 4 medical device, not a spa toy. Your results are backed by our{" "}
-                <strong className="text-white">NP on site</strong> six days a week.
+                Medical-grade laser with full clinical oversight — Class 4 medical device, not a spa toy. Your results are backed by{" "}
+                <strong className="text-white">physician-led care</strong> under Medical Director Dr. Mukesh Arora, MD.
               </p>
             </div>
 
