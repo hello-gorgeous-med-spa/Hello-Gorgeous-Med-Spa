@@ -1,5 +1,5 @@
 /**
- * Morpheus8 Burst + Deep — flagship Journey marketing (InMode Trifecta).
+ * Morpheus8 Burst + Deep — flagship Journey marketing (three InMode technologies).
  * Canonical route: /services/morpheus8 (peer to Brow Journey / microblading).
  */
 
@@ -24,9 +24,9 @@ export const MORPHEUS8_MARKETING = {
   eyebrow: "InMode Verified Provider · Oswego, IL",
   headline: "Your Morpheus8 Journey",
   subhead:
-    "The deepest RF microneedling on the market — Morpheus8 Burst + Deep tightens lax skin, smooths scars, and contours face & body under nurse practitioner oversight at Hello Gorgeous.",
+    "Advanced RF microneedling — Morpheus8 Burst + Deep tightens lax skin, smooths scars, and contours face & body. Medical Director: Dr. Mukesh Arora, MD.",
   trustLine:
-    "Only med spa in Oswego, Naperville, Aurora & Plainfield with Morpheus8 Burst + our full InMode Trifecta on site.",
+    "Three advanced InMode technologies on site: Morpheus8 Burst + Solaria CO₂ + Quantum RF. Medical Director: Dr. Mukesh Arora, MD.",
   phoneDisplay: MORPHEUS8_CONTACT.phoneDisplay,
   phoneHref: MORPHEUS8_CONTACT.phoneTel,
   bookHref: MORPHEUS8_CONTACT.bookHref,
@@ -106,12 +106,12 @@ export const MORPHEUS8_INMODE_STORY = {
   title: "InMode is the gold standard",
   titleAccent: "for RF remodeling",
   body: [
-    "InMode builds the devices elite med spas trust worldwide — Morpheus8, Solaria CO₂, and Quantum RF. Hello Gorgeous is a verified InMode provider with the full Trifecta on site in Oswego.",
-    "That means you get Burst + Deep technology (up to 8mm), official training certifications, and NP-directed protocols — not a watered-down copycat platform.",
+    "InMode builds the devices elite med spas trust worldwide — Morpheus8, Solaria CO₂, and Quantum RF. Hello Gorgeous is a verified InMode provider with all three advanced technologies on site in Oswego.",
+    "That means you get Burst + Deep technology (up to 8mm), official training certifications, and physician-directed protocols — not a watered-down copycat platform.",
   ],
   quote:
     "We invested in the real InMode stack because your skin deserves the deepest, most proven remodel — not a compromise.",
-  chips: ["Verified InMode provider", "Burst + Deep to 8mm", "Face + body probes", "NP on site"],
+  chips: ["Verified InMode provider", "Burst + Deep to 8mm", "Face + body probes", "Physician-directed"],
 } as const;
 
 export const MORPHEUS8_FOUNDER_NOTE = {
@@ -119,7 +119,7 @@ export const MORPHEUS8_FOUNDER_NOTE = {
   title: "Why we brought Morpheus8 Burst home",
   paragraphs: [
     "When we set out to offer skin tightening that actually moves the needle, we didn’t want another surface treatment — we wanted the platform InMode is known for worldwide.",
-    "Morpheus8 Burst + Deep, Solaria CO₂, and Quantum RF live together at Hello Gorgeous so we can be honest about what you need: depth, surface, or contour — or the full Trifecta when you’re ready for a complete rebuild.",
+    "Morpheus8 Burst + Deep, Solaria CO₂, and Quantum RF live together at Hello Gorgeous so we can be honest about what you need: depth, surface, or contour — or all three InMode technologies when you’re ready for a complete rebuild.",
     "I own the client experience and the InMode training journey. A licensed Illinois clinician directs the medical plan. Dr. Mukesh Arora, MD is Medical Director.",
   ],
   signOff: "xoxo, Danielle",
@@ -372,7 +372,7 @@ export const MORPHEUS8_FAQS = [
   },
   {
     q: "Morpheus8 vs Solaria CO₂ — which do I need?",
-    a: "Morpheus8 remodels deep tissue for laxity and scars beneath the surface. Solaria CO₂ resurfaces the skin for tone, sun damage, and surface lines. Many clients combine both in our InMode Trifecta for a complete transformation.",
+    a: "Morpheus8 remodels deep tissue for laxity and scars beneath the surface. Solaria CO₂ resurfaces the skin for tone, sun damage, and surface lines. Many clients combine both in our three InMode technologies for a complete transformation.",
   },
   {
     q: "How much does Morpheus8 cost?",

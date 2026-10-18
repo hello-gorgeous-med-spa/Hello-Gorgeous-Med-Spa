@@ -134,7 +134,7 @@ export const GLP1_CATALOG: PeptideCatalogEntry[] = [
     name: "Semaglutide",
     categoryLabel: "Medical Weight Loss",
     description:
-      "GLP-1 receptor agonist for appetite control and sustained weight loss under NP oversight — titration, labs, and follow-up included in program.",
+      "GLP-1 receptor agonist for appetite control and sustained weight loss under physician oversight — titration, labs, and follow-up included in program.",
     commonUses: ["Weight loss", "Metabolic health", "Appetite control"],
     monthlyUsd: GLP1_RETAIL_PROGRAM.semaglutideFromUsd,
     prepayEligible: false,
@@ -155,6 +155,6 @@ export const GLP1_CATALOG: PeptideCatalogEntry[] = [
 ];
 
 export const PEPTIDE_CATALOG_DISCLAIMER =
-  "Educational information only. Peptides discussed here are prescribed only under NP supervision after evaluation and are compounded by licensed US pharmacies; some are investigational and not FDA-approved. This is not medical advice; consult a qualified healthcare provider.";
+  "Educational information only. Peptides are prescribed by a licensed Illinois clinician under the medical direction of Dr. Mukesh Arora, MD. Compounded medications are provided by licensed US pharmacies. Some peptides are investigational and not FDA-approved. Individual eligibility is determined at consultation. This is not medical advice.";
 
 export { formatPrepayLine };

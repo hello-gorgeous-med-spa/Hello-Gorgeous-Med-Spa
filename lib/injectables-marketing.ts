@@ -45,13 +45,13 @@ export const INJECTABLES_DROPDOWN = [
 export const INJECTABLES_MARKETING = {
   name: "Injectables",
   product: "Botox & Fillers",
-  tagline: "NP-led neurotoxins & dermal fillers",
-  eyebrow: "All 5 neurotoxin brands · NP on site",
+  tagline: "Physician-led neurotoxins & dermal fillers",
+  eyebrow: "All 5 neurotoxin brands · Physician-directed",
   headline: "Natural injectables, medical oversight",
   subhead:
-    "Botox from $10/unit (Allergan & US distributors only), half syringe $300, filler $599 (buy 2 save $100) — all five FDA-approved neurotoxins with nurse practitioner oversight and honest dosing at Hello Gorgeous in Oswego.",
+    "Botox from $10/unit (Allergan & US distributors only), half syringe $300, filler $599 (buy 2 save $100) — all five FDA-approved neurotoxins with physician oversight and honest dosing at Hello Gorgeous in Oswego. Medical Director: Dr. Mukesh Arora, MD.",
   trustLine:
-    "Only Fox Valley med spa with Botox, Dysport, Jeuveau, Xeomin & Daxxify on one menu — plus Lip Studio AI preview and full-face filler mapping.",
+    "All five neurotoxin brands — Botox, Dysport, Jeuveau, Xeomin & Daxxify — plus Lip Studio AI preview and full-face filler mapping.",
   phoneDisplay: "(630) 636-6193",
   phoneHref: "tel:6306366193",
   bookHref: PRIMARY_BOOKING_CTA.href,

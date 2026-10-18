@@ -12,7 +12,7 @@ export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   locality: "Botox Cosmetic in Oswego, Illinois",
   productName: "Botox Cosmetic",
   heroSubhead:
-    "Smooth fine lines and wrinkles while keeping your natural expressions — placed by medical injectors in an NP-directed clinic you can trust.",
+    "Smooth fine lines and wrinkles while keeping your natural expressions — placed by medical injectors in a physician-led clinic you can trust.",
   heroImage: "/images/botox/botox-hero-glow.jpg",
   heroImageAlt:
     "Glowing, smooth skin — natural Botox Cosmetic results aesthetic at Hello Gorgeous Med Spa Oswego IL",
@@ -74,7 +74,7 @@ export const BOTOX_TREATMENT_LANDING: InModeTreatmentLandingContent = {
     },
     {
       q: "Who performs the injections?",
-      a: "Our trained medical injector team in a nurse-practitioner-directed medical setting — not a salon.",
+      a: "Our trained medical injector team in a physician-directed medical setting under Medical Director Dr. Mukesh Arora, MD — not a salon.",
     },
     {
       q: "Is your Botox authentic?",

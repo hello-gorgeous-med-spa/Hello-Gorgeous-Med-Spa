@@ -1,5 +1,5 @@
 /**
- * Quantum RF — flagship Journey marketing (InMode Luxora / Trifecta).
+ * Quantum RF — flagship Journey marketing (InMode Luxora workstation).
  * Canonical route: /services/quantum-rf (peer to Morpheus8 + Solaria Journeys).
  */
 
@@ -25,9 +25,9 @@ export const QUANTUM_RF_MARKETING = {
   eyebrow: "InMode Luxora · Verified Provider · Oswego, IL",
   headline: "Your Quantum RF Journey",
   subhead:
-    "QuantumRF by InMode delivers precise fat reduction and skin tightening with a small probe under local anesthesia — up to ~25% fat reduction potential in one treatment, in-office without an operating room.",
+    "QuantumRF by InMode delivers precise fat reduction and skin tightening with a small probe under local anesthesia — in-office without an operating room. Medical Director: Dr. Mukesh Arora, MD.",
   trustLine:
-    "Only practice in the western Chicago suburbs with Quantum RF + full InMode Luxora Trifecta (Quantum + Morpheus8 Burst + Solaria CO₂).",
+    "Three advanced InMode technologies on site: Quantum RF + Morpheus8 Burst + Solaria CO₂. Medical Director: Dr. Mukesh Arora, MD.",
   phoneDisplay: QUANTUM_RF_CONTACT.phoneDisplay,
   phoneHref: QUANTUM_RF_CONTACT.phoneTel,
   bookHref: QUANTUM_RF_CONTACT.bookHref,
@@ -42,8 +42,6 @@ export const QUANTUM_RF_MARKETING = {
   /** Luxora / InMode platform hero */
   heroVideo: "/videos/quantum-rf/luxora-inmode-hero.mp4",
   clinicVideo: "/videos/quantum/quantum-rf-clinic-reedit-oswego.mp4",
-  /** @deprecated Ryan Kent no longer affiliated */
-  ryanVideo: "",
   images: {
     hero: "/images/quantum-rf/quantum-hero.jpg",
     overview: "/images/quantum-rf/quantum-rf-technology-inmode-overview.png",
@@ -51,7 +49,6 @@ export const QUANTUM_RF_MARKETING = {
     procedure: "/images/quantum-rf/quantum-rf-procedure-may-4.jpg",
     room: "/images/quantum-rf/quantum-rf-treatment-room-may-4.jpg",
     founder: "/images/team/danielle-alcala-glazier-portrait.png",
-    ryanPoster: "/images/quantum-rf/ryan-quantum-rf-action-poster.png",
     jawlineClinic: "/images/quantum-rf/quantum-rf10-jawline-before-after.jpg",
     clientChinCinematic: "/images/quantum-rf/hg-client-chin-cinematic.jpg",
     clientAbdomenCinematic: "/images/quantum-rf/hg-client-abdomen-cinematic.jpg",
@@ -91,10 +88,10 @@ export const QUANTUM_RF_INMODE_STORY = {
   titleAccent: "without an operating room",
   body: [
     "QuantumRF uses bipolar radiofrequency through a small probe to deliver precise fat reduction and skin tightening — minimally invasive, in-office under local anesthesia.",
-    "Unlike multi-session fat freezes, QuantumRF is designed for meaningful change in a single treatment — up to ~25% fat reduction potential with concurrent skin contraction — then collagen keeps remodeling for months.",
+    "Unlike multi-session fat freezes, QuantumRF is designed for meaningful change in a single treatment with concurrent skin contraction — then collagen keeps remodeling for months. Individual results vary.",
   ],
   quote:
-    "We brought Luxora home so you can choose real contour change with medical oversight — Quantum for volume, Morpheus8 for texture, Solaria for surface.",
+    "We brought Luxora home so you can choose real contour change with physician oversight — Quantum for volume, Morpheus8 for texture, Solaria for surface.",
   chips: ["QuantumRF 10 · face & small zones", "QuantumRF · body contour", "1 treatment typical", "Local anesthesia"],
 } as const;
 
@@ -103,8 +100,8 @@ export const QUANTUM_RF_FOUNDER_NOTE = {
   title: "Why Quantum completes Contour",
   paragraphs: [
     "Stubborn fat and soft laxity don’t always need a scalpel — and they don’t always respond to surface treatments alone. QuantumRF works in the fat layer while contracting tissue above it.",
-    "A licensed Illinois clinician performs QuantumRF. I own the Luxora client experience and the InMode training journey. We map honest expectations — neck, abdomen, arms, or a Trifecta plan.",
-    "Welcome to Contour at Hello Gorgeous — medical standards, boutique care.",
+    "Dr. Mukesh Arora, MD is our Medical Director. I own the InMode client experience and the training journey. We map honest expectations — neck, abdomen, arms, or a multi-treatment plan.",
+    "Welcome to Contour at Hello Gorgeous — physician-led care, boutique experience.",
   ],
   signOff: "xoxo, Danielle",
   role: "Founder · Hello Gorgeous Med Spa",
@@ -114,9 +111,9 @@ export const QUANTUM_RF_WHAT_IT_DOES = [
   {
     id: "fat",
     title: "Fat reduction",
-    body: "Controlled RF coagulates subcutaneous fat — targeted volume change without suction cannulas.",
-    stat: "~25%",
-    statLabel: "fat potential*",
+    body: "Controlled RF coagulates subcutaneous fat — targeted volume change without suction cannulas. Results vary by patient.",
+    stat: "1×",
+    statLabel: "treatment typical",
   },
   {
     id: "tighten",

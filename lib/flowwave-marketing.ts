@@ -21,7 +21,7 @@ export const FLOWWAVE_MARKETING = {
   subhead:
     "Focused acoustic-wave treatment for deep-tissue pain, faster recovery, and men's wellness — non-invasive, drug-free, and just 3–10 minutes per area.",
   trustLine:
-    "Every session is directed by a full-authority nurse practitioner. We screen you like a medical practice, because we are one.",
+    "Every session is directed by our physician-led clinical team. We screen you like a medical practice, because we are one.",
   phoneDisplay: "(630) 636-6193",
   phoneHref: "tel:6306366193",
   bookHref: PRIMARY_BOOKING_CTA.href,
@@ -45,7 +45,7 @@ export const FLOWWAVE_INTRO_SPECIAL = {
   badge: "Intro special",
   title: "First session — any area",
   priceLabel: FLOWWAVE_INTRO_PRICE,
-  priceNote: "per area · includes free NP screening",
+  priceNote: "per area · includes free screening",
   description:
     "Try focused shockwave on whatever is bothering you most — no commitment, fully screened by our NP.",
   ctaLabel: "Claim intro offer",
@@ -90,7 +90,7 @@ export const FLOWWAVE_PACKAGES = [
     name: "Single session",
     price: "$175",
     detail: "per area",
-    bullets: ["One focused session", "Any single area", "NP-directed care"],
+    bullets: ["One focused session", "Any single area", "Physician-directed care"],
     highlight: false,
   },
   {
@@ -193,7 +193,7 @@ export const FLOWWAVE_FAQS = [
   },
   {
     q: "How many sessions will I need?",
-    a: "It depends on the area and your goals. Many clients follow a short weekly course; your nurse practitioner will map out a plan at your free consultation.",
+    a: "It depends on the area and your goals. Many clients follow a short weekly course; your provider will map out a plan at your free consultation.",
   },
   {
     q: "Is there any downtime?",

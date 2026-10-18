@@ -329,7 +329,7 @@ export const IV_SPECIALTY_DRIPS: IvSpecialtyDrip[] = [
     bg: "linear-gradient(135deg,#9F1239,#5B0E22)",
     image: null,
     description: "Restore low iron when pills fall short. Requires lab review before treatment.",
-    contains: ["IV iron (NP-directed)", "IV fluids", "Requires recent labs"],
+    contains: ["IV iron (physician-directed)", "IV fluids", "Requires recent labs"],
   },
 ];
 
@@ -394,8 +394,8 @@ export const IV_MEDICAL_RELIEF = [
   {
     name: "Iron Infusion",
     tag: "FATIGUE · LOW IRON",
-    desc: "Restore low iron when pills fall short — combat fatigue and support energy under NP supervision.",
-    contains: ["IV iron (NP-directed)", "IV fluids", "Requires lab review"],
+    desc: "Restore low iron when pills fall short — combat fatigue and support energy under physician supervision.",
+    contains: ["IV iron (physician-directed)", "IV fluids", "Requires lab review"],
   },
   {
     name: "Post-Op Recovery",
@@ -729,7 +729,7 @@ export const IV_FAQS = [
   },
   {
     q: "Is it safe?",
-    a: "Yes — every infusion is reviewed and administered by our licensed, NP-directed medical team. We screen you like a medical practice, because we are one.",
+    a: "Yes — every infusion is reviewed and administered by our licensed medical team under the direction of Dr. Mukesh Arora, MD. We screen you like a medical practice, because we are one.",
   },
   {
     q: "Can you do group or party drips?",

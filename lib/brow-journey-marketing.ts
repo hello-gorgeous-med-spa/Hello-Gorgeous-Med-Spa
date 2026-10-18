@@ -321,6 +321,6 @@ export { BROW_PMU_SEO_KEYWORDS };
 export const BROW_JOURNEY_SEO = {
   title: "Your Brow Journey | Microblading & Brow PMU Oswego IL | Hello Gorgeous",
   description:
-    "Wake up with brows you love. Microblading, powder, combo & nano brows by Jen Vokoun at Hello Gorgeous Med Spa in Oswego — NP-directed, Tina Davies pigments, free consult. Naperville, Aurora & Fox Valley.",
+    "Wake up with brows you love. Microblading, powder, combo & nano brows by Jen Vokoun at Hello Gorgeous Med Spa in Oswego — Tina Davies pigments, free consult. Naperville, Aurora & Fox Valley.",
   ogAlt: "Jen Vokoun — permanent makeup artist at Hello Gorgeous Med Spa, Oswego IL",
 } as const;

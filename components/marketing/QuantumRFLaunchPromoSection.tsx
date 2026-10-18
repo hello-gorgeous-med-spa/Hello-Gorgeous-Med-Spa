@@ -34,10 +34,10 @@ export function QuantumRFLaunchPromoSection({ id = "quantum-rf-launch" }: { id?:
                 </span>
               </h2>
               <p className="mt-4 text-lg md:text-xl text-white/80 font-medium">
-                Lipo results. No surgery. No operating room.
+                Minimally invasive. No operating room required.
               </p>
               <p className="mt-2 text-sm text-white/55">
-                a licensed Illinois clinician · Danielle Alcala, RN-S · {SITE.address.addressLocality}, IL
+                Medical Director: Dr. Mukesh Arora, MD · Danielle Alcala, RN-S · {SITE.address.addressLocality}, IL
               </p>
             </div>
           </FadeUp>

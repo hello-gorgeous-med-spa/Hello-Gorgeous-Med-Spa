@@ -132,7 +132,7 @@ export const SOLARIA_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   path: "/solaria-co2-oswego",
   metaTitle: "Solaria CO₂ in Oswego, IL — $799 Face Neck Chin September",
   metaDescription:
-    "Solaria CO₂ fractional laser in Oswego, IL — September sale: face, neck & chin $799, neck/chin/chest $400, under eyes $299. NP-directed. Free consult — Naperville, Aurora & Fox Valley.",
+    "Solaria CO₂ fractional laser in Oswego, IL — September sale: face, neck & chin $799, neck/chin/chest $400, under eyes $299. Free consult — Naperville, Aurora & Fox Valley.",
   breadcrumbName: "Solaria CO₂ Oswego",
   locality: "CO₂ Fractional Resurfacing in Oswego, Illinois",
   productName: "Solaria CO₂ Laser",

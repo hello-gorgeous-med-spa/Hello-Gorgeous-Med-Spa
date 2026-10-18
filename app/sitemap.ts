@@ -1103,19 +1103,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/services/morpheus8`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/quantum-rf-oswego-il`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
       priority: 0.95,
     },
+    // Quantum RF: /services/quantum-rf is canonical — duplicates redirect there
     {
       url: `${baseUrl}/services/quantum-rf`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.7,
+      priority: 0.95,
     },
     {
       url: `${baseUrl}/morpheus8-oswego-il`,
@@ -1428,9 +1423,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/botox-oswego-il',                // → /botox-oswego
     '/xeomin',                         // → /xeomin-oswego
     '/xeomin-oswego-il',               // → /xeomin-oswego
-    '/services/morpheus8',             // → /morpheus8-burst-oswego
-    '/services/quantum-rf',            // → /quantum-rf-oswego
-    '/services/solaria-co2',           // → /solaria-co2-oswego
+    // Quantum RF: /services/quantum-rf is canonical — duplicates redirect there
+    '/quantum-rf',                     // → /services/quantum-rf
+    '/quantum-rf-oswego',              // → /services/quantum-rf
+    '/quantum-rf-oswego-il',           // → /services/quantum-rf
     '/co2-laser-oswego-il',            // → /solaria-co2-oswego
     '/solaria-co2-laser-oswego-il',    // → /solaria-co2-oswego
     '/services/weight-loss',           // → /glp-1-weight-loss-oswego
@@ -1452,7 +1448,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/lip-filler-oswego',
     '/morpheus8-burst-oswego',
     '/morpheus8-body-oswego',
-    '/quantum-rf-oswego',
+    '/services/quantum-rf',
     '/solaria-co2-oswego',
     '/glp-1-weight-loss-oswego',
     '/weight-loss/care',

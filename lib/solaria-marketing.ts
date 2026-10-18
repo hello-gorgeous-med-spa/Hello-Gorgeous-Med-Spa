@@ -25,9 +25,9 @@ export const SOLARIA_MARKETING = {
   eyebrow: "InMode Verified Provider · Oswego, IL",
   headline: "Your Solaria Journey",
   subhead:
-    "Solaria by InMode is fractional ablative CO₂ resurfacing — the workhorse for fine lines, sun damage, acne scars, and texture — with nurse practitioner oversight at Hello Gorgeous.",
+    "Solaria by InMode is fractional ablative CO₂ resurfacing — the workhorse for fine lines, sun damage, acne scars, and texture. Medical Director: Dr. Mukesh Arora, MD.",
   trustLine:
-    "The only Solaria CO₂ in the western Chicago suburbs — paired with Morpheus8 Burst & Quantum RF for the complete InMode Trifecta.",
+    "Three advanced InMode technologies on site: Solaria CO₂ + Morpheus8 Burst + Quantum RF. Medical Director: Dr. Mukesh Arora, MD.",
   phoneDisplay: SOLARIA_CONTACT.phoneDisplay,
   phoneHref: SOLARIA_CONTACT.phoneTel,
   bookHref: SOLARIA_CONTACT.bookHref,
@@ -186,7 +186,7 @@ export const SOLARIA_INMODE_STORY = {
   ],
   quote:
     "We brought Solaria home because surface texture, sun damage, and scars deserve a true CO₂ workhorse — not a compromise laser.",
-  chips: ["Fractional ablative CO₂", "Custom millijoules & patterns", "Face · neck · chest · hands", "NP-directed"],
+  chips: ["Fractional ablative CO₂", "Custom millijoules & patterns", "Face · neck · chest · hands", "Physician-directed"],
 } as const;
 
 export const SOLARIA_FOUNDER_NOTE = {
