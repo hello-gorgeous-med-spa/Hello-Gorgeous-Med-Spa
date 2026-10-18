@@ -96,6 +96,24 @@ PRESETS: dict[str, dict] = {
         "link": "https://hellogorgeousmedspa.com/services/solaria-co2",
         "image": "https://hellogorgeousmedspa.com/images/solaria/solaria-device-hero.png",
     },
+    "quantum-rf-educational-oct2026": {
+        "summary": (
+            "Quantum RF Skin Tightening — Now at Hello Gorgeous Med Spa, Oswego IL\n\n"
+            "What is Quantum RF?\n"
+            "Advanced minimally invasive radiofrequency technology designed for soft "
+            "tissue contraction and body contouring.\n\n"
+            "Performed by Dr. Mukesh Arora, MD — our Medical Director.\n\n"
+            "✓ Neck package $2,499\n"
+            "✓ Abdomen package $3,999\n"
+            "✓ Each includes FREE Morpheus8 Burst\n"
+            "✓ In-office procedure, local anesthesia\n"
+            "✓ Serving Oswego, Naperville, Aurora, Plainfield, Yorkville\n\n"
+            "Individual results vary. Consultation required.\n\n"
+            "Book your free consultation: https://hellogorgeousmedspa.com/services/quantum-rf"
+        ),
+        "link": "https://hellogorgeousmedspa.com/services/quantum-rf",
+        "image": "https://hellogorgeousmedspa.com/images/quantum-rf/clinic-results/dr-arora-procedure-grid.jpg",
+    },
     "quantum-contour-lift-live": {
         "summary": (
             "🚨 Quantum RF IS LIVE at Hello Gorgeous Med Spa — Oswego, IL.\n\n"
