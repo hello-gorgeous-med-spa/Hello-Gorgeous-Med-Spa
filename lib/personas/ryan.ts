@@ -1,9 +1,14 @@
 import type { PersonaConfig } from "./types";
 
+/**
+ * @deprecated Ryan Kent is no longer affiliated with Hello Gorgeous Med Spa.
+ * This persona is retained only for backward compatibility with any existing references.
+ * New clinical persona work should use the Medical Director or licensed clinician framing.
+ */
 export const ryan: PersonaConfig = {
-  id: "ryan",
-  displayName: "Ryan Kent, FNP‑BC",
-  role: "On-site nurse practitioner — prescriber (clinical oversight & safety)",
+  id: "clinical",
+  displayName: "Licensed Illinois Clinician",
+  role: "Clinical oversight & safety under Medical Director Dr. Mukesh Arora, MD",
   tone: "Professional, calm, authoritative. Conservative. Compliance-safe.",
   allowedTopics: [
     "safety principles",

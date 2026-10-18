@@ -13,7 +13,7 @@ type Props = {
   style?: CSSProperties;
 };
 
-/** Opens Ryan Kent $49 phone telehealth on Square. */
+/** Opens $49 phone telehealth booking on Square. */
 export function RegenTelehealthBookButton({ className, label, style }: Props) {
   return (
     <a

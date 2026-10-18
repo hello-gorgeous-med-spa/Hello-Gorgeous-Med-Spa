@@ -1,7 +1,8 @@
 export const OPS_STAFF = [
   { id: 'danielle', name: 'Danielle Alcala', short: 'Danielle', role: 'Owner', email: 'provider@hellogorgeousmedspa.com', color: 'bg-amber-500' },
-  { id: 'ryan', name: 'Ryan Kent, FNP-BC', short: 'Ryan', role: 'Prescriber', email: 'ryan@hellogorgeousmedspa.com', color: 'bg-pink-500' },
+  { id: 'dr-arora', name: 'Dr. Mukesh Arora, MD', short: 'Dr. Arora', role: 'Medical Director', email: 'provider@hellogorgeousmedspa.com', color: 'bg-pink-500' },
   { id: 'damara', name: 'Damara', short: 'Damara', role: 'Operations', email: 'damara@hellogorgeousmedspa.com', color: 'bg-teal-500' },
+  { id: 'kristina', name: 'Kristina Huda, RN', short: 'Kristina', role: 'RN Injector', email: 'kristina@hellogorgeousmedspa.com', color: 'bg-purple-500' },
 ] as const;
 
 export type OpsStaffId = (typeof OPS_STAFF)[number]['id'];

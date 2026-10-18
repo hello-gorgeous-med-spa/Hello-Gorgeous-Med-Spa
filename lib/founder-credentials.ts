@@ -6,14 +6,14 @@ import { kristinaPersonJsonLd } from "@/lib/kristina-huda";
 import {
   CLINICAL_REVIEW_DATE,
   MEDICAL_DIRECTOR,
-  PRESCRIBING_NP_NPI,
   medicalDirectorPersonJsonLd,
 } from "@/lib/medical-authority";
 import { SITE } from "@/lib/seo";
 
 export const DANI_FULL_NAME = "Danielle Alcala-Glazier";
 
-export const RYAN_FULL_NAME = "Ryan Kent, FNP-BC";
+/** @deprecated Ryan Kent is no longer affiliated with Hello Gorgeous Med Spa. */
+export const RYAN_FULL_NAME = "";
 
 /** Service page slugs that use the prescription-focused credentials strip. */
 export const PRESCRIPTION_SERVICE_SLUGS = new Set([
@@ -64,14 +64,17 @@ Dani is still in the office every day. She still answers texts. She still orders
 /** Full bio for provider profiles and GBP paste blocks. */
 export const DANI_PROVIDER_BIO = `${DANI_MEDIUM_BIO}\n\n${DANI_LONG_BIO}`;
 
-export const RYAN_SHORT_BIO =
-  `${RYAN_FULL_NAME} is the RE GEN RX prescriber at Hello Gorgeous Med Spa — medical weight loss, hormones, and peptide protocols after a consult.`;
+/** @deprecated Ryan Kent is no longer affiliated. */
+export const RYAN_SHORT_BIO = "";
 
-export const RYAN_MEDIUM_BIO = `${RYAN_FULL_NAME} is a board-certified Family Nurse Practitioner and the RE GEN RX prescriber at Hello Gorgeous Med Spa in Oswego, Illinois. He reviews intakes, labs, and refill requests and writes prescriptions only when a plan is appropriate — under Medical Director ${MEDICAL_DIRECTOR.displayName}.`;
+/** @deprecated Ryan Kent is no longer affiliated. */
+export const RYAN_MEDIUM_BIO = "";
 
-export const RYAN_LONG_BIO = `Ryan leads RE GEN RX: medical weight loss, hormone therapy, and prescription peptide protocols for Illinois patients. Consult first. Nothing is filled without his review. Danielle Alcala-Glazier owns and operates the practice daily. She is not the prescriber.`;
+/** @deprecated Ryan Kent is no longer affiliated. */
+export const RYAN_LONG_BIO = "";
 
-export const RYAN_PROVIDER_BIO = `${RYAN_MEDIUM_BIO}\n\n${RYAN_LONG_BIO}`;
+/** @deprecated Ryan Kent is no longer affiliated. */
+export const RYAN_PROVIDER_BIO = "";
 
 export const ABOUT_PAGE_SEO_DESCRIPTION =
   "Meet Danielle Alcala-Glazier — Owner & Founder of Hello Gorgeous Med Spa in Oswego, IL — with Kristina Huda, BSN, RN (injector), and Medical Director Dr. Mukesh Arora, MD. Prescriptions are written by a licensed Illinois clinician.";
@@ -104,8 +107,10 @@ export const DANI_OWNER_STORY_PHOTOS = [
     sitemap: false,
   },
 ] as const;
-export const RYAN_IMAGE = "/images/team/cinematic/ryan.jpg";
-export const RYAN_PATIENT_CARE_IMAGE = "/images/team/cinematic/ryan.jpg";
+/** @deprecated Ryan Kent is no longer affiliated. */
+export const RYAN_IMAGE = "";
+/** @deprecated Ryan Kent is no longer affiliated. */
+export const RYAN_PATIENT_CARE_IMAGE = "";
 export const TEAM_FOUNDERS_IMAGE = "/images/team/danielle-alcala-glazier-about.png";
 export const SOLARIA_DANI_DEVICE_IMAGE = "/images/solaria/danielle-solaria-inmode-clinic.png";
 export const SOLARIA_TREATMENT_IMAGE = "/images/solaria/solaria-co2-treatment-oswego.png";
@@ -173,35 +178,12 @@ export function daniPersonJsonLd() {
   };
 }
 
-export function ryanPersonJsonLd(opts?: { profileUrl?: string }) {
-  return {
-    "@type": "Person",
-    "@id": `${SITE.url}/#ryan-kent`,
-    name: "Ryan Kent",
-    honorificSuffix: "FNP-BC",
-    jobTitle: "Nurse Practitioner · RE GEN RX Prescriber",
-    url: opts?.profileUrl ?? `${SITE.url}/providers/ryan`,
-    image: `${SITE.url}${RYAN_IMAGE}`,
-    description: RYAN_MEDIUM_BIO,
-    knowsAbout: ["RE GEN RX", "Medical weight loss", "Hormone therapy", "Peptide protocols"],
-    worksFor: { "@id": `${SITE.url}/#organization` },
-    affiliation: { "@id": `${SITE.url}/#organization` },
-    hasCredential: [
-      {
-        "@type": "EducationalOccupationalCredential",
-        credentialCategory: "Family Nurse Practitioner-Board Certified (FNP-BC)",
-      },
-      {
-        "@type": "EducationalOccupationalCredential",
-        credentialCategory: "Illinois Full Practice Authority (FPA)",
-      },
-    ],
-    identifier: {
-      "@type": "PropertyValue",
-      propertyID: "NPI",
-      value: PRESCRIBING_NP_NPI,
-    },
-  };
+/**
+ * @deprecated Ryan Kent is no longer affiliated with Hello Gorgeous Med Spa.
+ * Returns empty object to prevent runtime errors in any remaining callers.
+ */
+export function ryanPersonJsonLd(_opts?: { profileUrl?: string }) {
+  return {};
 }
 
 export function aboutPageJsonLd() {

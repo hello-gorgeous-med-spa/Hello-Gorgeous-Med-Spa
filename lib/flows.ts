@@ -15,12 +15,12 @@ export const SQUARE_RX_LOCATION_ID = "L3QDRS4DX9ZE4";
 export const SQUARE_RX_BOOKING_SITE_ID = "pf2o75yphk7vw6";
 
 /**
- * Square Appointments — Ryan Kent phone telehealth ($49 / 15 min).
- * He calls the booking number at appointment time. Not an in-clinic visit.
+ * Square Appointments — Phone telehealth ($49 / 15 min).
+ * Clinician calls the booking number at appointment time. Not an in-clinic visit.
  */
 export const SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID = "VOT5CUFMWV5LWPEIPW6VCS5H";
 
-/** Square Appointments — in-clinic $49 / 15 min Medical Visit with Ryan. */
+/** Square Appointments — in-clinic $49 / 15 min Medical Visit. */
 export const SQUARE_RX_MEDICAL_VISIT_SERVICE_VARIATION_ID = "ZLCRRG4BM6W2DCLWDWIDVBPA";
 
 /**
@@ -49,10 +49,10 @@ export const SQUARE_FALL_MAKEOVER_VARIATIONS = {
  */
 export const SQUARE_RX_PHYSICAL_SERVICE_VARIATION_ID = "DOLCYP22JIP2KKS2LDKCHXH4";
 
-/** Square Appointments — IV Hour ($150 / 60 min, Ryan + Kristina). */
+/** Square Appointments — IV Hour ($150 / 60 min). */
 export const SQUARE_IV_HOUR_SERVICE_VARIATION_ID = "OWV3XWDCH6BNZIRUDVBOMLA5";
 
-/** Square Appointments — Laser Hair Removal — Pick Your Area (Danielle + Ryan). */
+/** Square Appointments — Laser Hair Removal — Pick Your Area. */
 export const SQUARE_LASER_AREA_VARIATIONS = {
   small: "4DILVWXK7OXHSKS6GAJQ6A2I",
   medium: "EOKCS4ATX6P4TC5OAQCIQ6IL",
@@ -92,7 +92,7 @@ export const SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL =
   process.env.NEXT_PUBLIC_SQUARE_APPOINTMENTS_EMBED_SCRIPT_URL?.trim() ||
   `https://square.site/appointments/buyer/widget/${SQUARE_RX_BOOKING_SITE_ID}/${SQUARE_RX_LOCATION_ID}.js`;
 
-/** Ryan Kent $49 phone telehealth — Square Appointments deep link. */
+/** $49 phone telehealth — Square Appointments deep link. */
 export const SQUARE_RX_TELEHEALTH_BOOKING_URL =
   process.env.NEXT_PUBLIC_SQUARE_RX_TELEHEALTH_URL?.trim() ||
   `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_RX_TELEHEALTH_SERVICE_VARIATION_ID}`;
@@ -140,7 +140,7 @@ export function squareAppointmentServiceUrl(variationId: string): string {
 
 export const PROGRAM_CONSULT_FEE_USD = 49;
 
-/** Club & program funnels — $49 Ryan Kent phone telehealth on Square. */
+/** Club & program funnels — $49 phone telehealth on Square. */
 export const PROGRAM_CONSULT_BOOKING_URL = SQUARE_RX_TELEHEALTH_BOOKING_URL;
 
 /** Branded entry on our domain — redirects to {@link BOOKING_URL} with optional UTM merge. */
@@ -245,16 +245,15 @@ export const PROVIDER_BOOKING_URL_DANIELLE = resolvePublicBookingUrl(
   process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL_DANIELLE,
   BOOKING_URL,
 );
-export const PROVIDER_BOOKING_URL_RYAN = resolvePublicBookingUrl(
-  process.env.NEXT_PUBLIC_SQUARE_BOOKING_URL_RYAN,
-  BOOKING_URL,
-);
+/** @deprecated Ryan Kent is no longer affiliated. */
+export const PROVIDER_BOOKING_URL_RYAN = BOOKING_URL;
 
 export function providerPublicBookingUrl(slug: string | null | undefined): string {
   if (!slug) return BOOKING_URL;
   const s = String(slug).toLowerCase();
   if (s === "danielle") return PROVIDER_BOOKING_URL_DANIELLE;
-  if (s === "ryan") return PROVIDER_BOOKING_URL_RYAN;
+  // Ryan Kent no longer affiliated — redirect to main booking
+  if (s === "ryan" || s === "ryan-kent") return BOOKING_URL;
   return BOOKING_URL;
 }
 
@@ -344,7 +343,7 @@ export function regenCheckoutCompleteUrl(orderRef: string): string {
 }
 
 /**
- * Hello Gorgeous RX™ NP telehealth — **Square Appointments** (Ryan Medical Visit).
+ * Hello Gorgeous RX™ telehealth — **Square Appointments** (Medical Visit).
  * Override with `NEXT_PUBLIC_SQUARE_RX_TELEHEALTH_URL` (preferred) or legacy
  * `NEXT_PUBLIC_FRESHA_RX_TELEHEALTH_URL` if still set to a Square URL.
  */
