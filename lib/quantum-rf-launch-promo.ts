@@ -28,8 +28,8 @@ export const QUANTUM_RF_LAUNCH_PACKAGES: QuantumRFLaunchPackage[] = [
     financing: "As low as $89/mo with Cherry",
     highlights: [
       "Neck tightening · fat reduction + skin contraction",
-      "Immediate visible results · local anesthesia only",
-      "Results build for up to 6 months",
+      "In-office procedure · local anesthesia only",
+      "Results continue building for up to 6 months",
       "No operating room · no general anesthesia",
     ],
     bonus: "FREE Morpheus8 Burst included ($1,200 value)",
@@ -42,8 +42,8 @@ export const QUANTUM_RF_LAUNCH_PACKAGES: QuantumRFLaunchPackage[] = [
     badge: "BEST VALUE",
     highlights: [
       "Abdomen contouring · stubborn fat + skin tightening",
-      "Immediate visible sculpting · post-GLP-1 laxity specialist",
-      "One treatment session · 5–7 day recovery",
+      "Post-GLP-1 laxity specialist · in-office procedure",
+      "Typical recovery 5–7 days · results vary by patient",
       "Peak results up to 6 months as collagen builds",
     ],
     bonus: "FREE Morpheus8 Burst included ($1,500 value)",

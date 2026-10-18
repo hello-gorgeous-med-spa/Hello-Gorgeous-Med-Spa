@@ -129,7 +129,7 @@ export function JourneyTrustBar() {
       <span className="hidden sm:inline">·</span>
       <span>#1 Best Med Spa in Oswego</span>
       <span className="hidden sm:inline">·</span>
-      <span>Full-authority NP on site</span>
+      <span>Physician-directed</span>
     </div>
   );
 }

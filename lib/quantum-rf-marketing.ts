@@ -58,6 +58,13 @@ export const QUANTUM_RF_MARKETING = {
     clinicalKnee: "/images/quantum-rf/clinical-ba-knee-skin-tightening.png",
     clinicalProfile: "/images/quantum-rf/clinical-ba-profile-jawline-submental.png",
     clinicalLowerFace: "/images/quantum-rf/clinical-ba-lower-face-jawline.png",
+    // Dr. Arora clinic treatment photos (Oct 2026)
+    drAroraGrid: "/images/quantum-rf/clinic-results/dr-arora-procedure-grid.jpg",
+    drAroraTreating1: "/images/quantum-rf/clinic-results/dr-arora-treating-1.jpg",
+    drAroraTreating2: "/images/quantum-rf/clinic-results/dr-arora-treating-2.jpg",
+    clinicAbdomenBaBranded1: "/images/quantum-rf/clinic-results/abdomen-ba-branded-1.jpg",
+    clinicAbdomenBaBranded2: "/images/quantum-rf/clinic-results/abdomen-ba-branded-2.jpg",
+    clinicAbdomenBaSideBranded: "/images/quantum-rf/clinic-results/abdomen-ba-side-branded.jpg",
   },
 } as const;
 
@@ -92,7 +99,7 @@ export const QUANTUM_RF_INMODE_STORY = {
   ],
   quote:
     "We brought Luxora home so you can choose real contour change with physician oversight — Quantum for volume, Morpheus8 for texture, Solaria for surface.",
-  chips: ["QuantumRF 10 · face & small zones", "QuantumRF · body contour", "1 treatment typical", "Local anesthesia"],
+  chips: ["QuantumRF 10 · face & small zones", "QuantumRF · body contour", "Minimally invasive", "Local anesthesia"],
 } as const;
 
 export const QUANTUM_RF_FOUNDER_NOTE = {
@@ -220,6 +227,38 @@ export type QuantumRfResult = {
 
 export const QUANTUM_RF_FEATURED_RESULTS: QuantumRfResult[] = [
   {
+    src: QUANTUM_RF_MARKETING.images.clinicAbdomenBaBranded1,
+    alt: "Quantum RF abdomen before and after — performed by Dr. Mukesh Arora, MD at Hello Gorgeous Med Spa",
+    label: "Abdomen · Dr. Arora",
+    area: "body",
+    source: "clinic",
+  },
+  {
+    src: QUANTUM_RF_MARKETING.images.clinicAbdomenBaSideBranded,
+    alt: "Quantum RF abdomen side view before and after — performed by Dr. Mukesh Arora, MD at Hello Gorgeous Med Spa",
+    label: "Abdomen side · Dr. Arora",
+    area: "body",
+    source: "clinic",
+  },
+];
+
+export const QUANTUM_RF_RESULTS: QuantumRfResult[] = [
+  ...QUANTUM_RF_FEATURED_RESULTS,
+  {
+    src: QUANTUM_RF_MARKETING.images.clinicAbdomenBaBranded2,
+    alt: "Quantum RF abdomen contouring before and after — performed by Dr. Mukesh Arora, MD",
+    label: "Abdomen contour · Dr. Arora",
+    area: "body",
+    source: "clinic",
+  },
+  {
+    src: QUANTUM_RF_MARKETING.images.drAroraGrid,
+    alt: "Dr. Mukesh Arora performing Quantum RF procedure at Hello Gorgeous Med Spa — provider at work",
+    label: "Dr. Arora performing Quantum RF",
+    area: "body",
+    source: "clinic",
+  },
+  {
     src: QUANTUM_RF_MARKETING.images.clientChinCinematic,
     alt: "Quantum RF chin and neck before and after — Hello Gorgeous Med Spa client, Oswego",
     label: "Chin & neck · our client",
@@ -233,10 +272,6 @@ export const QUANTUM_RF_FEATURED_RESULTS: QuantumRfResult[] = [
     area: "body",
     source: "clinic",
   },
-];
-
-export const QUANTUM_RF_RESULTS: QuantumRfResult[] = [
-  ...QUANTUM_RF_FEATURED_RESULTS,
   {
     src: QUANTUM_RF_MARKETING.images.clinicalNeck,
     alt: "Quantum RF jawline and neck tightening before and after — InMode clinical",

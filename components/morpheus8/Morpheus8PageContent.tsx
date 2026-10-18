@@ -202,7 +202,7 @@ export function Morpheus8PageContent() {
         <span className="hidden sm:inline">·</span>
         <span>Verified InMode Provider</span>
         <span className="hidden sm:inline">·</span>
-        <span>Full-authority NP on site</span>
+        <span>Physician-directed</span>
       </div>
 
       {/* Intro special */}

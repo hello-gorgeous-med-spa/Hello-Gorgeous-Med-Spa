@@ -127,7 +127,7 @@ export const SOLARIA_CO2_OSWEGO_MENU = buildOswegoMenu("solaria-co2-oswego", {
 });
 
 export const QUANTUM_RF_OSWEGO_MENU = buildOswegoMenu("quantum-rf-oswego", {
-  eyebrow: "Oswego, IL · Only Quantum RF in the western suburbs",
+  eyebrow: "Oswego, IL · Verified InMode Provider",
   titleBefore: "Quantum RF Body Contouring —",
   titleAccent: "Neck $2,499 · Abdomen $3,999",
   secondaryCta: INMODE_SECONDARY,

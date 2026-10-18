@@ -202,7 +202,7 @@ export function SolariaCo2PageContent() {
         <span className="hidden sm:inline">·</span>
         <span>Only Solaria in the western suburbs</span>
         <span className="hidden sm:inline">·</span>
-        <span>Full-authority NP on site</span>
+        <span>Physician-directed</span>
       </div>
 
       <section id="why" className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_20%_30%,#1a0510,#000_62%)] px-6 py-14 lg:py-20">

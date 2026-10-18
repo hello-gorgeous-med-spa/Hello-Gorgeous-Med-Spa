@@ -173,7 +173,7 @@ export function QuantumRFPageContent() {
               <GhostBtn href={textTel}>Text {textDisplay}</GhostBtn>
             </div>
             <div className="mt-6 flex flex-wrap gap-2.5">
-              {["InMode Luxora", "No surgery", "1 treatment typical", "From $2,499"].map((chip) => (
+              {["InMode Luxora", "Minimally invasive", "Local anesthesia", "From $2,499"].map((chip) => (
                 <span
                   key={chip}
                   className="rounded-full border border-white/30 px-4 py-1.5 text-[13px] font-semibold"
@@ -197,9 +197,9 @@ export function QuantumRFPageContent() {
       <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 bg-[#FF2D8E] px-6 py-4 text-center text-[15px] font-extrabold tracking-wide text-black">
         <span>★★★★★ 5.0 from 1,931 verified visits</span>
         <span className="hidden sm:inline">·</span>
-        <span>Only Quantum RF in the western suburbs</span>
+        <span>Verified InMode Provider</span>
         <span className="hidden sm:inline">·</span>
-        <span>Full-authority NP on site</span>
+        <span>Physician-directed</span>
       </div>
 
       <section id="why" className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_20%_30%,#1a0510,#000_62%)] px-6 py-14 lg:py-20">
@@ -318,7 +318,7 @@ export function QuantumRFPageContent() {
               </article>
             ))}
           </div>
-          <p className="mt-4 text-xs text-white/40">*Individual results vary. Fat-reduction percentage reflects manufacturer-reported potential, not a guarantee.</p>
+          <p className="mt-4 text-xs text-white/40">*Individual results vary. Results depend on treatment area, patient characteristics, and adherence to aftercare. Consultation required.</p>
         </div>
       </section>
 
@@ -424,15 +424,19 @@ export function QuantumRFPageContent() {
               Pre & post care guide →
             </Link>
           </div>
-          <div className="mx-auto w-full max-w-[320px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)] lg:max-w-[360px]">
+          <div className="mx-auto w-full max-w-[320px] overflow-hidden rounded-2xl border border-[#FF2D8E]/35 shadow-[0_16px_40px_rgba(255,45,142,0.18)] lg:max-w-[400px]">
             <div className="relative aspect-[4/5] w-full">
               <Image
-                src={images.procedure}
-                alt="Quantum RF procedure at Hello Gorgeous Med Spa Oswego"
+                src="/images/quantum-rf/clinic-results/dr-arora-procedure-grid.jpg"
+                alt="Dr. Mukesh Arora performing Quantum RF procedure at Hello Gorgeous Med Spa Oswego"
                 fill
-                className="object-cover object-center"
-                sizes="360px"
+                className="object-cover object-top"
+                sizes="400px"
               />
+            </div>
+            <div className="bg-gradient-to-r from-[#0a0206] to-[#1a0510] px-4 py-3">
+              <p className="text-sm font-bold text-white">Dr. Mukesh Arora, MD</p>
+              <p className="text-xs text-white/60">Medical Director · Performing Quantum RF</p>
             </div>
           </div>
         </div>
