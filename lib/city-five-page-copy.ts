@@ -69,8 +69,8 @@ export const CITY_FIVE_PAGE_COPY: Record<string, CityFivePageCopy> = {
   "morpheus8-naperville-il": {
     servingLine: "Serving Naperville from our Oswego clinic",
     h1: "Morpheus8 for Naperville. Firmer Skin, No Surgery.",
-    title: `Morpheus8 RF Microneedling Naperville, IL from ${M8_PRICE} | Skin Tightening`,
-    metaDescription: `Morpheus8 skin tightening for Naperville, IL from ${M8_PRICE}. RF microneedling to firm, smooth & renew — NP-directed, near Naperville. Book your free consult.`,
+    title: `Morpheus8 Naperville IL | Physician-Directed RF Microneedling from ${M8_PRICE}`,
+    metaDescription: `Morpheus8 RF microneedling near Naperville, IL — physician-directed by Dr. Arora at Hello Gorgeous Med Spa. InMode verified provider. Face & body skin tightening from ${M8_PRICE}. Free consult.`,
     intro: `Firmer, smoother skin without surgery — that's Morpheus8, and Naperville clients love it. We combine microneedling with radiofrequency to rebuild collagen on the face and body, customized to your skin by our provider team. Treatments start at ${M8_PRICE}.`,
     faqs: [
       {
