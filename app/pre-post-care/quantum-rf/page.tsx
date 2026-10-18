@@ -186,7 +186,7 @@ export default function QuantumRFCareGuidePage() {
           See also:{" "}
           <Link href="/aftercare/quantum-rf" className="text-[#E6007E] hover:underline">Detailed QuantumRF Aftercare Guide</Link>
           {" · "}
-          <Link href="/quantum-rf-oswego-il" className="text-[#E6007E] hover:underline">About QuantumRF</Link>
+          <Link href="/services/quantum-rf" className="text-[#E6007E] hover:underline">About QuantumRF</Link>
         </p>
       </div>
 

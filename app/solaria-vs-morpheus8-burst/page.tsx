@@ -161,7 +161,7 @@ export default function ComparisonPage() {
               <Link href="/morpheus8-burst-oswego-il" className="px-4 py-2 rounded-full border border-[#00BFFF]/40 text-[#00BFFF] text-sm hover:bg-[#00BFFF]/10 transition-colors">
                 Morpheus8 Burst Details
               </Link>
-              <Link href="/quantum-rf-oswego-il" className="px-4 py-2 rounded-full border border-[#FFD700]/40 text-[#FFD700] text-sm hover:bg-[#FFD700]/10 transition-colors">
+              <Link href="/services/quantum-rf" className="px-4 py-2 rounded-full border border-[#FFD700]/40 text-[#FFD700] text-sm hover:bg-[#FFD700]/10 transition-colors">
                 QuantumRF Details
               </Link>
             </div>

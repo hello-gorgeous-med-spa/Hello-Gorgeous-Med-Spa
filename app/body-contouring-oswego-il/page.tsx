@@ -60,7 +60,7 @@ const TECH = [
       "More significant laxity and contouring — where you want a surgical-level tightening effect without a large-incision surgery (abdomen, neck/jawline, arms).",
     how:
       "A small probe delivers controlled RF energy beneath the skin under local anesthesia, contracting tissue and stimulating collagen. Tiny access points, not excisional incisions.",
-    href: "/quantum-rf-oswego-il",
+    href: "/services/quantum-rf",
   },
 ];
 
@@ -237,7 +237,7 @@ export default function BodyContouringOswegoPage() {
                   radiofrequency options:{" "}
                   <Link href="/morpheus8-burst-oswego-il" className="text-[#E6007E] underline decoration-2 underline-offset-2">Morpheus8 Body</Link>{" "}
                   (deep RF microneedling, up to 8mm) for texture and tightening over larger areas, and{" "}
-                  <Link href="/quantum-rf-oswego-il" className="text-[#E6007E] underline decoration-2 underline-offset-2">QuantumRF</Link>{" "}
+                  <Link href="/services/quantum-rf" className="text-[#E6007E] underline decoration-2 underline-offset-2">QuantumRF</Link>{" "}
                   (subdermal RF through tiny entry points) for a surgical-level tightening effect without
                   surgery. Both are directed by a licensed Illinois clinician, on site 6 days a week. Downtown Oswego
                   at 74 W Washington St, serving Naperville, Aurora, Plainfield &amp; the Fox Valley.

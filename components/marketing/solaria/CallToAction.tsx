@@ -38,7 +38,7 @@ export function CallToAction() {
             <Link href="/morpheus8-burst-oswego-il" className="px-4 py-2 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/50 text-sm transition-colors">
               Morpheus8 Burst
             </Link>
-            <Link href="/quantum-rf-oswego-il" className="px-4 py-2 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/50 text-sm transition-colors">
+            <Link href="/services/quantum-rf" className="px-4 py-2 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/50 text-sm transition-colors">
               QuantumRF Skin Tightening
             </Link>
             <Link href="/solaria-vs-morpheus8-burst" className="px-4 py-2 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/50 text-sm transition-colors">

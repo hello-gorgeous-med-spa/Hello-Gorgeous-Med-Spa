@@ -66,7 +66,7 @@ const careGuides = [
     title: "QuantumRF",
     description: "Pre & post care for subdermal RF skin tightening. Includes compression garment guidance.",
     viewOnline: "/pre-post-care/quantum-rf",
-    serviceLink: "/quantum-rf-oswego-il",
+    serviceLink: "/services/quantum-rf",
     icon: "🎯",
   },
   {
