@@ -525,6 +525,14 @@ export const QUANTUM_RF_FAQS = [
     q: "Do you serve patients from Naperville, Aurora, and Plainfield?",
     a: "Yes. Hello Gorgeous Med Spa in Oswego serves patients from throughout the western Chicago suburbs including Naperville, Aurora, Plainfield, Yorkville, Montgomery, and surrounding communities. We are located at 74 W. Washington Street in downtown Oswego, IL.",
   },
+  {
+    q: "What treatments help loose skin after weight loss or GLP-1 therapy?",
+    a: "Quantum RF and Morpheus8 Burst are often considered for patients with skin laxity following significant weight loss, including after GLP-1 or tirzepatide therapy. Quantum RF addresses both fat and skin tightening in one session under local anesthesia. Morpheus8 treats skin texture and mild laxity at shallower depths with RF microneedling. A consultation with Dr. Arora is required to assess which treatment—or combination—may be appropriate for your specific situation. Results vary by patient.",
+  },
+  {
+    q: "Which advanced aesthetic technologies are available at Hello Gorgeous?",
+    a: "Hello Gorgeous Med Spa in Oswego offers three advanced InMode technologies under physician direction: Quantum RF for subdermal body contouring, Morpheus8 Burst for RF microneedling (face and body), and Solaria CO₂ for fractional laser resurfacing. All three are performed or supervised by Dr. Mukesh Arora, MD, our Medical Director. We are a verified InMode provider serving Oswego, Naperville, Aurora, Plainfield, Yorkville, and Montgomery.",
+  },
 ] as const;
 
 export const QUANTUM_RF_NAV_ACTIVE_PREFIXES = [
