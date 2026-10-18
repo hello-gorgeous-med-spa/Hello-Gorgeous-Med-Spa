@@ -22,6 +22,7 @@ import {
   QUANTUM_RF_STEPS,
   QUANTUM_RF_TREATS,
   QUANTUM_RF_WHAT_IT_DOES,
+  QUANTUM_RF_WHAT_IS,
 } from "@/lib/quantum-rf-marketing";
 import { SITE } from "@/lib/seo";
 
@@ -161,35 +162,36 @@ export function QuantumRFPageContent() {
         <div className="relative mx-auto grid max-w-[1200px] gap-10 px-6 py-16 lg:grid-cols-2 lg:items-center lg:gap-14 lg:py-24">
           <div>
             <Eyebrow>{QUANTUM_RF_MARKETING.eyebrow}</Eyebrow>
-            <h1 className="mt-4 font-serif text-[44px] font-bold leading-[1.02] text-white lg:text-[66px]">
-              Your Quantum RF <span className="text-[#FF2D8E]">Journey</span>
+            <h1 className="mt-4 font-serif text-[38px] font-bold leading-[1.08] text-white lg:text-[54px]">
+              {QUANTUM_RF_MARKETING.headline} <span className="text-[#FF2D8E]">{QUANTUM_RF_MARKETING.headlineAccent}</span>
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/80 lg:text-xl">
-              {QUANTUM_RF_MARKETING.subhead} {SITE.tagline}
+              {QUANTUM_RF_MARKETING.subhead}
             </p>
-            <p className="mt-3 text-sm text-white/55">{QUANTUM_RF_MARKETING.trustLine}</p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <PinkBtn href={bookHref}>Book a Free Consult</PinkBtn>
-              <GhostBtn href={textTel}>Text {textDisplay}</GhostBtn>
+            <div className="mt-5 rounded-xl border border-white/20 bg-white/5 px-5 py-4">
+              <p className="text-sm font-bold text-white">{QUANTUM_RF_MARKETING.physicianLine}</p>
+              <p className="mt-1 text-xs text-white/60">Hello Gorgeous Med Spa</p>
             </div>
-            <div className="mt-6 flex flex-wrap gap-2.5">
-              {["InMode Luxora", "Minimally invasive", "Local anesthesia", "From $2,499"].map((chip) => (
-                <span
-                  key={chip}
-                  className="rounded-full border border-white/30 px-4 py-1.5 text-[13px] font-semibold"
-                >
-                  {chip}
-                </span>
-              ))}
+            <div className="mt-8 flex flex-wrap gap-4">
+              <PinkBtn href={bookHref}>Book Your Quantum RF Consultation</PinkBtn>
+              <GhostBtn href={phoneTel}>Call Our Team</GhostBtn>
             </div>
           </div>
           <div className="mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)] lg:max-w-lg">
-            <JourneySoundVideo
-              src={QUANTUM_RF_MARKETING.heroVideo}
-              poster={images.hero}
-              label="InMode Luxora Quantum RF platform — Hello Gorgeous Med Spa"
-              preload="auto"
-            />
+            <div className="relative aspect-[4/5] w-full">
+              <Image
+                src="/images/quantum-rf/clinic-results/dr-arora-treating-1.jpg"
+                alt="Dr. Mukesh Arora, MD performing Quantum RF treatment at Hello Gorgeous Med Spa in Oswego, Illinois"
+                fill
+                priority
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 100vw, 500px"
+              />
+            </div>
+            <div className="bg-gradient-to-r from-[#0a0206] to-[#1a0510] px-5 py-4">
+              <p className="font-bold text-white">Dr. Mukesh Arora, MD</p>
+              <p className="text-sm text-white/70">Treating Physician & Medical Director</p>
+            </div>
           </div>
         </div>
       </header>
@@ -201,6 +203,34 @@ export function QuantumRFPageContent() {
         <span className="hidden sm:inline">·</span>
         <span>Physician-directed</span>
       </div>
+
+      {/* What Is QuantumRF? — Educational section for AI search */}
+      <section id="what-is" className="scroll-mt-24 bg-white px-6 py-16 lg:py-20">
+        <div className="mx-auto max-w-3xl">
+          <p className="text-[13px] font-extrabold uppercase tracking-[0.3em] text-[#E6007E]">
+            {QUANTUM_RF_WHAT_IS.eyebrow}
+          </p>
+          <h2 className="mt-3 font-serif text-[32px] font-bold leading-tight text-black lg:text-[42px]">
+            {QUANTUM_RF_WHAT_IS.title} <span className="text-[#E6007E]">{QUANTUM_RF_WHAT_IS.titleAccent}</span>
+          </h2>
+          <div className="mt-6 flex flex-col gap-4 text-lg leading-relaxed text-black/80">
+            {QUANTUM_RF_WHAT_IS.body.map((p) => (
+              <p key={p.slice(0, 40)}>{p}</p>
+            ))}
+          </div>
+          <p className="mt-4 text-sm italic text-black/60">{QUANTUM_RF_WHAT_IS.disclaimer}</p>
+          <div className="mt-6">
+            <a
+              href={QUANTUM_RF_WHAT_IS.inmodeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#E6007E] underline underline-offset-4 hover:text-black"
+            >
+              Learn more about QuantumRF on InMode.com →
+            </a>
+          </div>
+        </div>
+      </section>
 
       <section id="why" className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_20%_30%,#1a0510,#000_62%)] px-6 py-14 lg:py-20">
         <div className="mx-auto max-w-4xl rounded-[20px] border border-[#FF2D8E]/35 bg-[#0a0206] p-6 sm:p-8">
@@ -353,16 +383,16 @@ export function QuantumRFPageContent() {
       <section id="results" className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_78%_20%,#12030c,#000_62%)] px-6 py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px]">
           <SectionHead
-            eyebrow="Real results"
-            title="Before & after —"
-            titleAccent="our clients"
-            description="Side-by-side Quantum RF results from Hello Gorgeous clients in Oswego — chin & neck and abdomen. Individual results vary. Consult required."
+            eyebrow="Patient Results"
+            title="Actual Quantum RF"
+            titleAccent="Patient Results"
+            description="Patient photographs from a Quantum RF abdominal treatment performed by Dr. Mukesh Arora, MD, at Hello Gorgeous Med Spa in Oswego, Illinois. Individual results vary. Consultation required."
           />
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             {QUANTUM_RF_FEATURED_RESULTS.map((shot) => (
               <figure
                 key={shot.src}
-                className="overflow-hidden rounded-3xl border-4 border-black bg-black shadow-[8px_8px_0_0_rgba(230,0,126,0.35)]"
+                className="overflow-hidden rounded-3xl border border-white/20 bg-black shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
               >
                 <div className="relative aspect-video w-full bg-black">
                   <Image
@@ -374,10 +404,10 @@ export function QuantumRFPageContent() {
                     sizes="(max-width: 1024px) 100vw, 560px"
                   />
                 </div>
-                <figcaption className="border-t-4 border-black bg-white px-4 py-3">
-                  <p className="font-bold text-[#E6007E]">{shot.label}</p>
-                  <p className="mt-0.5 text-xs font-medium text-black/60">
-                    Hello Gorgeous clinic · Individual results vary
+                <figcaption className="border-t border-white/10 bg-gradient-to-r from-[#0a0206] to-[#1a0510] px-5 py-4">
+                  <p className="font-bold text-white">{shot.label}</p>
+                  <p className="mt-1 text-xs text-white/60">
+                    Performed by Dr. Mukesh Arora, MD · Hello Gorgeous Med Spa · Individual results vary
                   </p>
                 </figcaption>
               </figure>
@@ -559,24 +589,18 @@ export function QuantumRFPageContent() {
       <section className="bg-[#FF2D8E] px-6 py-16 text-black lg:py-20">
         <div className="mx-auto max-w-[720px] text-center">
           <h2 className="font-serif text-[34px] font-bold leading-tight lg:text-[46px]">
-            Ready for real contour — without surgery?
+            Schedule Your Quantum RF Consultation
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-black/80">
-            Free consult · InMode Luxora · Neck from $2,499 · Oswego IL
+            Free consultation with Dr. Mukesh Arora, MD · Hello Gorgeous Med Spa · Oswego, IL
           </p>
           <div className="mt-8 flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row">
             <Link
               href={bookHref}
               className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-black bg-black px-8 py-3 text-sm font-extrabold text-white transition hover:bg-white hover:text-black"
             >
-              Book free consult
+              Book Your Consultation
             </Link>
-            <a
-              href={textTel}
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-black/60 px-8 py-3 text-sm font-bold text-black transition hover:bg-black hover:text-white"
-            >
-              Text {textDisplay}
-            </a>
             <a
               href={phoneTel}
               className="inline-flex min-h-[48px] items-center justify-center rounded-full border-2 border-black/60 px-8 py-3 text-sm font-bold text-black transition hover:bg-black hover:text-white"
@@ -584,6 +608,28 @@ export function QuantumRFPageContent() {
               Call {phoneDisplay}
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Local SEO — Service Areas */}
+      <section className="border-t border-white/10 bg-black px-6 py-12">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-[#FF2D8E]">
+            Serving the Western Chicago Suburbs
+          </p>
+          <p className="mt-4 text-sm leading-relaxed text-white/70">
+            Hello Gorgeous Med Spa offers Quantum RF skin tightening and body contouring to patients from{" "}
+            {QUANTUM_RF_MARKETING.serviceAreas.map((city, i) => (
+              <span key={city}>
+                <span className="font-medium text-white">{city}</span>
+                {i < QUANTUM_RF_MARKETING.serviceAreas.length - 1 ? ", " : ""}
+              </span>
+            ))}{" "}
+            and surrounding communities. Our clinic is located at 74 W. Washington Street in downtown Oswego, Illinois.
+          </p>
+          <p className="mt-4 text-xs text-white/50">
+            Dr. Mukesh Arora, MD · Treating Physician & Medical Director · Board-certified Internal Medicine
+          </p>
         </div>
       </section>
     </div>

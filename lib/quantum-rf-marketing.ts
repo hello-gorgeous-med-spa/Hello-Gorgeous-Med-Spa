@@ -22,12 +22,23 @@ export const QUANTUM_RF_MARKETING = {
   name: "Quantum RF",
   product: "InMode QuantumRF",
   tagline: "Subdermal fat reduction + skin tightening — minimally invasive",
-  eyebrow: "InMode Luxora · Verified Provider · Oswego, IL",
-  headline: "Your Quantum RF Journey",
+  eyebrow: "Hello Gorgeous Med Spa · Oswego, Illinois",
+  headline: "Quantum RF Skin Tightening & Body Contouring",
+  headlineAccent: "in Oswego, IL",
   subhead:
-    "QuantumRF by InMode delivers precise fat reduction and skin tightening with a small probe under local anesthesia — in-office without an operating room. Medical Director: Dr. Mukesh Arora, MD.",
+    "Advanced minimally invasive radiofrequency technology designed for soft tissue contraction and personalized contour refinement.",
+  physicianLine: "Performed by Dr. Mukesh Arora, MD — Treating Physician & Medical Director",
   trustLine:
     "Three advanced InMode technologies on site: Quantum RF + Morpheus8 Burst + Solaria CO₂. Medical Director: Dr. Mukesh Arora, MD.",
+  /** Service areas for local SEO */
+  serviceAreas: [
+    "Oswego",
+    "Naperville",
+    "Aurora",
+    "Plainfield",
+    "Yorkville",
+    "Montgomery",
+  ] as const,
   phoneDisplay: QUANTUM_RF_CONTACT.phoneDisplay,
   phoneHref: QUANTUM_RF_CONTACT.phoneTel,
   bookHref: QUANTUM_RF_CONTACT.bookHref,
@@ -88,6 +99,20 @@ export const QUANTUM_RF_NAV = [
   { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
 ] as const;
+
+/** What Is QuantumRF? — educational section for AI search optimization */
+export const QUANTUM_RF_WHAT_IS = {
+  eyebrow: "InMode QuantumRF Technology",
+  title: "What Is",
+  titleAccent: "InMode QuantumRF?",
+  body: [
+    "QuantumRF is an advanced, minimally invasive radiofrequency technology designed to deliver energy beneath the skin for soft tissue contraction.",
+    "At Hello Gorgeous Med Spa in Oswego, Illinois, Dr. Mukesh Arora uses this technology as part of individualized treatment planning for appropriate patients seeking improvement in skin laxity and body contours.",
+    "The treatment may be considered for areas such as the abdomen, arms, neck and other suitable regions following clinical evaluation.",
+  ],
+  disclaimer: "Treatment outcomes, recovery and candidacy vary.",
+  inmodeLink: "https://www.inmodemd.com/technologies/quantumrf/",
+} as const;
 
 export const QUANTUM_RF_INMODE_STORY = {
   eyebrow: "Why QuantumRF / Luxora",
@@ -228,15 +253,15 @@ export type QuantumRfResult = {
 export const QUANTUM_RF_FEATURED_RESULTS: QuantumRfResult[] = [
   {
     src: QUANTUM_RF_MARKETING.images.clinicAbdomenBaBranded1,
-    alt: "Quantum RF abdomen before and after — performed by Dr. Mukesh Arora, MD at Hello Gorgeous Med Spa",
-    label: "Abdomen · Dr. Arora",
+    alt: "Quantum RF abdomen front view before and after — performed by Dr. Mukesh Arora, MD at Hello Gorgeous Med Spa Oswego",
+    label: "Abdomen · Front View",
     area: "body",
     source: "clinic",
   },
   {
     src: QUANTUM_RF_MARKETING.images.clinicAbdomenBaSideBranded,
-    alt: "Quantum RF abdomen side view before and after — performed by Dr. Mukesh Arora, MD at Hello Gorgeous Med Spa",
-    label: "Abdomen side · Dr. Arora",
+    alt: "Quantum RF abdomen side view before and after — performed by Dr. Mukesh Arora, MD at Hello Gorgeous Med Spa Oswego",
+    label: "Abdomen · Side View",
     area: "body",
     source: "clinic",
   },
@@ -364,24 +389,44 @@ export const QUANTUM_RF_FAQS = [
     a: "QuantumRF by InMode uses bipolar radiofrequency through a small probe to reduce fat and tighten skin in one in-office treatment — minimally invasive, under local anesthesia, no operating room required.",
   },
   {
-    q: "How is it different from CoolSculpting?",
-    a: "CoolSculpting freezes fat over multiple sessions. QuantumRF heats fat and contracts tissue in a single treatment — often preferred when mild laxity accompanies stubborn fullness.",
+    q: "Who performs Quantum RF at Hello Gorgeous Med Spa?",
+    a: "Dr. Mukesh Arora, MD, our Medical Director, performs Quantum RF treatments at Hello Gorgeous Med Spa in Oswego, Illinois. Dr. Arora is a board-certified Internal Medicine physician with over 30 years of medical experience.",
   },
   {
-    q: "QuantumRF vs Morpheus8?",
-    a: "Morpheus8 is RF microneedling for skin texture, scars, and collagen. QuantumRF works deeper in the fat layer for volume reduction plus tightening. Many clients combine both — our launch packages include FREE Morpheus8 Burst.",
+    q: "Am I a candidate for Quantum RF?",
+    a: "Quantum RF may be appropriate for patients with mild to moderate skin laxity and localized fat deposits in areas like the abdomen, arms, neck, or thighs. A consultation with Dr. Arora is required to assess candidacy. Factors include skin quality, treatment goals, medical history, and realistic expectations. Not everyone is a candidate.",
   },
   {
-    q: "How much does it cost?",
-    a: "Launch packages: Neck $2,499 and Abdomen $3,999 — each includes complimentary Morpheus8 Burst. Arms, knees, and custom zones are quoted at consult. Cherry financing available.",
+    q: "Is Quantum RF an alternative to liposuction?",
+    a: "Quantum RF is a minimally invasive option that some patients consider as an alternative to surgical liposuction. While it can address smaller fat deposits and skin laxity without general anesthesia or an operating room, results and candidacy differ from surgical procedures. A consultation will help determine if Quantum RF or another approach is appropriate for your goals.",
   },
   {
-    q: "Is there downtime?",
-    a: "Plan about 5–7 days of social recovery for most body plans. Face/neck protocols vary. No hospital stay, no OR.",
+    q: "What is the recovery like?",
+    a: "Most patients experience mild swelling and tenderness for several days. Plan for approximately 5–7 days of social recovery for body areas. A compression garment may be recommended. Face and neck protocols typically have shorter recovery. There is no hospital stay. Recovery experiences vary by patient.",
+  },
+  {
+    q: "How is Quantum RF different from CoolSculpting?",
+    a: "CoolSculpting uses cryolipolysis (freezing) over multiple sessions. QuantumRF uses radiofrequency energy to heat tissue, potentially addressing both fat and skin laxity in a single treatment. The approaches, candidacy requirements, and expected outcomes differ. A consultation can help determine which may be appropriate.",
+  },
+  {
+    q: "What is the difference between Quantum RF and Morpheus8?",
+    a: "Morpheus8 is RF microneedling designed for skin texture, scars, and collagen remodeling at shallower depths. QuantumRF works beneath the skin surface for fat reduction and tissue contraction. Some patients benefit from combining both technologies. Dr. Arora can recommend an appropriate treatment plan during your consultation.",
+  },
+  {
+    q: "How much does Quantum RF cost?",
+    a: "Current packages: Neck $2,499 and Abdomen $3,999 — each includes complimentary Morpheus8 Burst. Arms, knees, and custom zones are quoted at consultation. Cherry financing is available. Pricing is subject to change.",
+  },
+  {
+    q: "When will I see results?",
+    a: "Some patients notice initial changes within weeks, but collagen remodeling continues for 3–6 months. Final results depend on the treatment area, individual response, and adherence to aftercare instructions. Results vary by patient.",
   },
   {
     q: "Are results permanent?",
-    a: "Destroyed fat cells do not return, but weight stability and lifestyle matter. Skin tightening continues to improve for months as collagen rebuilds.",
+    a: "Treated fat cells do not regenerate, but maintaining results depends on weight stability and lifestyle factors. Skin tightening may continue to improve for months as collagen rebuilds. Results are not guaranteed and vary by individual.",
+  },
+  {
+    q: "Do you serve patients from Naperville, Aurora, and Plainfield?",
+    a: "Yes. Hello Gorgeous Med Spa in Oswego serves patients from throughout the western Chicago suburbs including Naperville, Aurora, Plainfield, Yorkville, Montgomery, and surrounding communities. We are located at 74 W. Washington Street in downtown Oswego, IL.",
   },
 ] as const;
 
@@ -400,8 +445,21 @@ export function isQuantumRfNavActive(pathname: string | null): boolean {
 }
 
 export const QUANTUM_RF_SEO = {
-  title: "Quantum RF Journey | Neck $2,499 · Abdomen $3,999 | Oswego IL",
+  title: "Quantum RF Skin Tightening & Body Contouring | Oswego IL | Dr. Arora",
   description:
-    "Your Quantum RF Journey at Hello Gorgeous Med Spa, Oswego IL — InMode Luxora subdermal fat reduction + skin tightening. Neck $2,499 · Abdomen $3,999 with FREE Morpheus8 Burst. Free consult.",
-  ogAlt: "Quantum RF body contouring — Hello Gorgeous Med Spa Oswego IL",
+    "Quantum RF skin tightening and body contouring performed by Dr. Mukesh Arora, MD at Hello Gorgeous Med Spa in Oswego, IL. Serving Naperville, Aurora, Plainfield, Yorkville and the western Chicago suburbs. Minimally invasive radiofrequency treatment for soft tissue contraction. Free consultation.",
+  ogAlt: "Quantum RF body contouring performed by Dr. Mukesh Arora, MD — Hello Gorgeous Med Spa Oswego IL",
+  /** Extended keywords for AI search optimization */
+  keywords: [
+    "Quantum RF Oswego IL",
+    "skin tightening Naperville",
+    "body contouring Aurora IL",
+    "QuantumRF InMode",
+    "non surgical body contouring",
+    "skin laxity treatment Plainfield",
+    "Yorkville med spa",
+    "Montgomery IL aesthetics",
+    "Dr. Mukesh Arora",
+    "radiofrequency skin tightening Chicago suburbs",
+  ],
 } as const;

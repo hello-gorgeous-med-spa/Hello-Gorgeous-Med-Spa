@@ -70,13 +70,7 @@ const baseMeta = pageMetadata({
   title: QUANTUM_RF_SEO.title,
   description: QUANTUM_RF_SEO.description,
   path: QUANTUM_RF_PATH,
-  keywords: [
-    "Quantum RF Oswego IL",
-    "QuantumRF InMode",
-    "non surgical body contouring Naperville",
-    "neck fat reduction Aurora IL",
-    "Luxora InMode",
-  ],
+  keywords: QUANTUM_RF_SEO.keywords,
 });
 
 export const metadata: Metadata = {
