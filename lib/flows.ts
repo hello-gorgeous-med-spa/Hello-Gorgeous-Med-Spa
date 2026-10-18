@@ -118,6 +118,26 @@ export const SQUARE_XEOMIN_BOOKING_URL =
 /** Fall Makeover consult — Square Appointments deep link (no price). */
 export const SQUARE_FALL_MAKEOVER_BOOKING_URL = `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_FALL_MAKEOVER_VARIATIONS.consult}`;
 
+// ============================================================
+// InMode Priority Packages — HG-SEO-006 deep booking links
+// ============================================================
+
+/** Quantum RF Neck Package ($2,499) — includes FREE Morpheus8 Burst. */
+export const SQUARE_QUANTUM_NECK_VARIATION_ID = "JHIY5S5LFTCTF73OFDUBF32A";
+export const SQUARE_QUANTUM_NECK_BOOKING_URL = `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_QUANTUM_NECK_VARIATION_ID}`;
+
+/** Quantum RF Abdomen Package ($3,999) — includes FREE Morpheus8 Burst. */
+export const SQUARE_QUANTUM_ABDOMEN_VARIATION_ID = "EJTWWB46RHVBDOEZ5TYDTDHD";
+export const SQUARE_QUANTUM_ABDOMEN_BOOKING_URL = `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_QUANTUM_ABDOMEN_VARIATION_ID}`;
+
+/** Solaria CO₂ Face, Neck & Chin ($899) — BOGO area when applicable. */
+export const SQUARE_SOLARIA_FACE_VARIATION_ID = "EOAHM4VIHRNRGOU3AGGXP2OF";
+export const SQUARE_SOLARIA_FACE_BOOKING_URL = `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_SOLARIA_FACE_VARIATION_ID}`;
+
+/** Morpheus8 Burst ×3 Package ($1,999) — prepaid 3-session series. */
+export const SQUARE_MORPHEUS8_3X_VARIATION_ID = "EX6WAEMAH5DKLNPQ6I46JQR";
+export const SQUARE_MORPHEUS8_3X_BOOKING_URL = `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_MORPHEUS8_3X_VARIATION_ID}`;
+
 /**
  * In-clinic vitamin shot ($25) — Square Appointments deep link. Override with
  * `NEXT_PUBLIC_SQUARE_VITAMIN_SHOT_URL` if the service variation changes.
