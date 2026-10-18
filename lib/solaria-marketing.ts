@@ -566,6 +566,10 @@ export const SOLARIA_FAQS = [
     q: "Who should not have Solaria?",
     a: "Examples we screen: pregnancy, recent isotretinoin, active infection in the area, certain autoimmune or healing problems, unrealistic event timelines, and anyone who cannot do aftercare or sun avoidance. Final yes/no is clinical — not this list alone.",
   },
+  {
+    q: "Where can I receive Solaria CO₂ near Naperville?",
+    a: "Hello Gorgeous Med Spa is located at 74 W. Washington Street in downtown Oswego, IL — a short drive from Naperville via Route 34. We are a verified InMode provider offering Solaria CO₂ fractional laser resurfacing with physician direction by Dr. Mukesh Arora, MD. Book a free consultation online at hellogorgeousmedspa.com or call (630) 636-6193. Serving Naperville, Aurora, Plainfield, Yorkville, and Montgomery.",
+  },
 ] as const;
 
 export const SOLARIA_NAV_ACTIVE_PREFIXES = [

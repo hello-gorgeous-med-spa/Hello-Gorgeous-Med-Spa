@@ -198,6 +198,24 @@ PRESETS: dict[str, dict] = {
         "link": "https://hellogorgeousmedspa.com/services/morpheus8",
         "image": "https://hellogorgeousmedspa.com/images/morpheus8/morpheus8-burst-deep-thighs-skin-tightening-before-after.png",
     },
+    "solaria-co2-educational-nov2026": {
+        "summary": (
+            "Discover Solaria CO2 Laser Resurfacing in Oswego\n\n"
+            "Ready to explore advanced skin resurfacing?\n\n"
+            "Hello Gorgeous Med Spa offers InMode Solaria CO₂ fractional laser treatments "
+            "designed to address selected skin texture concerns, fine lines and signs of "
+            "sun damage.\n\n"
+            "Our physician-directed clinical team provides individualized consultations to "
+            "discuss treatment suitability, recovery and expected results.\n\n"
+            "Medical Director: Dr. Mukesh Arora, MD.\n\n"
+            "Fall Special: $599 (was $899) through October 31, 2026.\n\n"
+            "Located in Oswego and serving Naperville, Aurora, Plainfield, Yorkville.\n\n"
+            "Results and recovery vary. Consultation required.\n\n"
+            "Book your consultation: https://hellogorgeousmedspa.com/services/solaria-co2"
+        ),
+        "link": "https://hellogorgeousmedspa.com/services/solaria-co2",
+        "image": "https://hellogorgeousmedspa.com/images/solaria/solaria-co2-full-face-before-after.png",
+    },
     "morpheus8-educational-oct2026": {
         "summary": (
             "Advanced Morpheus8 Burst + Deep in Oswego\n\n"
