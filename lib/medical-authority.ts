@@ -20,7 +20,7 @@ const SITE_ORIGIN = "https://www.hellogorgeousmedspa.com";
 export const LICENSED_CLINICIAN_PHRASE = "a licensed Illinois clinician";
 export const LICENSED_CLINICIAN_ROLE = "Illinois-licensed physician or APRN";
 
-/** Ryan Kent leads RE GEN RX prescribing. Do not name Danielle as the prescriber. */
+/** Days per week a licensed clinician is available. */
 export const NP_ON_SITE_DAYS_PER_WEEK = 6;
 
 /** Prose form — use in sentences. Do not name a former prescriber on the public site. */
@@ -71,21 +71,13 @@ export const MEDICAL_DIRECTOR: ClinicianAuthority = {
   schemaId: "#dr-mukesh-arora",
 };
 
-/** Legal name as on NPPES / FormuConnect — middle initial D. */
-export const PRESCRIBING_NP_LEGAL_NAME = "Ryan D Kent";
-
-/** NPI #1265021919 — Family. Public on NPPES. */
-export const PRESCRIBING_NP_NPI = "1265021919";
-
 /**
- * Illinois IDFPR numbers from Ryan's printed cards (packet 01 / 02).
- * Printed expiration on both cards: May 31, 2026. Confirm live on IDFPR
- * before treating as current — do not publish home address or Access ID.
+ * Medical Director credentials — Dr. Mukesh Arora, MD
+ * See MEDICAL_DIRECTOR const for full details.
  */
-export const PRESCRIBING_NP_IL_FPA_APRN = "277.003448";
-export const PRESCRIBING_NP_IL_RN = "041.413092";
-export const PRESCRIBING_NP_IL_CS = "377.003259";
-export const PRESCRIBING_NP_IL_LICENSE_PRINTED_EXP = "2026-05-31";
+export const MEDICAL_DIRECTOR_NPI = "1417121500";
+export const MEDICAL_DIRECTOR_IL_LICENSE = "036.097343";
+export const MEDICAL_DIRECTOR_IL_CS = "336.057947";
 
 /**
  * Public prescriber label. Danielle does not prescribe.

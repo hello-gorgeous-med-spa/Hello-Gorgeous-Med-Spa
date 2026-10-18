@@ -21,11 +21,11 @@ export const QUANTUM_RF_CONTACT = {
 export const QUANTUM_RF_MARKETING = {
   name: "Quantum RF",
   product: "InMode QuantumRF",
-  tagline: "Subdermal fat reduction + skin tightening — no surgery",
+  tagline: "Subdermal fat reduction + skin tightening — minimally invasive",
   eyebrow: "InMode Luxora · Verified Provider · Oswego, IL",
   headline: "Your Quantum RF Journey",
   subhead:
-    "QuantumRF by InMode delivers precise fat reduction and skin tightening with a small probe under local anesthesia — up to ~25% fat reduction potential in one treatment, without liposuction or an OR.",
+    "QuantumRF by InMode delivers precise fat reduction and skin tightening with a small probe under local anesthesia — up to ~25% fat reduction potential in one treatment, in-office without an operating room.",
   trustLine:
     "Only practice in the western Chicago suburbs with Quantum RF + full InMode Luxora Trifecta (Quantum + Morpheus8 Burst + Solaria CO₂).",
   phoneDisplay: QUANTUM_RF_CONTACT.phoneDisplay,
@@ -42,7 +42,8 @@ export const QUANTUM_RF_MARKETING = {
   /** Luxora / InMode platform hero */
   heroVideo: "/videos/quantum-rf/luxora-inmode-hero.mp4",
   clinicVideo: "/videos/quantum/quantum-rf-clinic-reedit-oswego.mp4",
-  ryanVideo: "/videos/quantum-rf/ryan-quantum-rf-action-1.mp4",
+  /** @deprecated Ryan Kent no longer affiliated */
+  ryanVideo: "",
   images: {
     hero: "/images/quantum-rf/quantum-hero.jpg",
     overview: "/images/quantum-rf/quantum-rf-technology-inmode-overview.png",
@@ -86,11 +87,11 @@ export const QUANTUM_RF_NAV = [
 
 export const QUANTUM_RF_INMODE_STORY = {
   eyebrow: "Why QuantumRF / Luxora",
-  title: "Lipo-level contour",
-  titleAccent: "without the OR",
+  title: "Advanced body contour",
+  titleAccent: "without an operating room",
   body: [
-    "QuantumRF uses bipolar radiofrequency through a small probe to deliver precise fat reduction and skin tightening — no liposuction, no general anesthesia, in-office under numbing.",
-    "Unlike multi-session fat freezes, QuantumRF is designed for significant change in a single treatment — up to ~25% fat reduction potential with concurrent skin contraction — then collagen keeps remodeling for months.",
+    "QuantumRF uses bipolar radiofrequency through a small probe to deliver precise fat reduction and skin tightening — minimally invasive, in-office under local anesthesia.",
+    "Unlike multi-session fat freezes, QuantumRF is designed for meaningful change in a single treatment — up to ~25% fat reduction potential with concurrent skin contraction — then collagen keeps remodeling for months.",
   ],
   quote:
     "We brought Luxora home so you can choose real contour change with medical oversight — Quantum for volume, Morpheus8 for texture, Solaria for surface.",
@@ -328,7 +329,7 @@ export const QUANTUM_RF_RESULTS: QuantumRfResult[] = [
 export const QUANTUM_RF_FAQS = [
   {
     q: "What is QuantumRF?",
-    a: "QuantumRF by InMode uses bipolar radiofrequency through a small probe to reduce fat and tighten skin in one in-office treatment — without liposuction or general anesthesia.",
+    a: "QuantumRF by InMode uses bipolar radiofrequency through a small probe to reduce fat and tighten skin in one in-office treatment — minimally invasive, under local anesthesia, no operating room required.",
   },
   {
     q: "How is it different from CoolSculpting?",

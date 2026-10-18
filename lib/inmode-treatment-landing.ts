@@ -235,7 +235,7 @@ export const QUANTUM_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   locality: "Body Contouring in Oswego, Illinois",
   productName: "Quantum RF",
   heroSubhead:
-    "Non-surgical fat reduction and skin tightening in one platform — meaningful contour without liposuction downtime.",
+    "Non-surgical fat reduction and skin tightening in one platform — meaningful contour, minimally invasive, in-office treatment.",
   heroImage: QUANTUM_RF_PROCEDURE_IMAGE,
   heroImageAlt: "Quantum RF body contouring at Hello Gorgeous Med Spa in Oswego, IL",
   priceLine: "Neck $2,499 · Abdomen $3,999",
@@ -252,7 +252,7 @@ export const QUANTUM_TREATMENT_LANDING: InModeTreatmentLandingContent = {
     "Neck and jawline fullness",
     "Mild-to-moderate skin laxity after fat loss",
     "Arms and thighs (when clinically appropriate)",
-    "Contour refinement without liposuction",
+    "Contour refinement — minimally invasive approach",
   ],
   howTitle: "How Quantum RF works",
   howBody:

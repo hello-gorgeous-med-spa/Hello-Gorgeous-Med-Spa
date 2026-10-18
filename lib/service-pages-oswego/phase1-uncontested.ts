@@ -141,14 +141,14 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       "Quantum RF body contouring and skin tightening in Oswego, IL. Non-surgical fat reduction and skin tightening in one platform. Only provider in the western suburbs.",
     h1: "Quantum RF Body Contouring in Oswego, IL",
     valueProp:
-      "Non-surgical body contouring and skin tightening — the gold-standard alternative to liposuction, only available here.",
+      "Non-surgical body contouring and skin tightening — advanced RF technology for fat reduction and skin contraction, only available here.",
     bookingUrl: bookingUrlFor(),
     procedureType: "RF",
     bodyLocation: "Abdomen, flanks, arms, thighs, neck, jawline",
     inModeBadge: "quantum",
     tier: "uncontested",
     heroContent:
-      "Quantum RF is InMode's most advanced radiofrequency body contouring platform — designed to reduce stubborn fat and tighten loose skin in a single non-surgical treatment. It's the technology cosmetic surgeons recommend for clients who want real body contouring results without the recovery, scars, or risk of liposuction. We're the only practice in the western Chicago suburbs offering it.",
+      "Quantum RF is InMode's most advanced radiofrequency body contouring platform — designed to reduce stubborn fat and tighten loose skin in a single minimally invasive treatment. It delivers meaningful contour results without an operating room or extended recovery. We're the only practice in the western Chicago suburbs offering it.",
     whyBullets: [
       "Only Quantum RF in Oswego, Naperville, Aurora, or Plainfield — meaningful body contouring without driving into Chicago",
       "Two technologies in one treatment: fat reduction AND skin tightening (most competitors only do one)",

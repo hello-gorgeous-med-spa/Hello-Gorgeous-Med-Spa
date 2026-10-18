@@ -384,7 +384,7 @@ Education only. Individual results vary.`,
     label: "Quantum RF launch — neck & abdomen packages",
     message: `⚡ NEW — InMode Quantum RF body contouring at Hello Gorgeous Med Spa, Oswego IL
 
-Lipo-level results without surgery or an operating room.
+Advanced body contouring — minimally invasive, no operating room.
 
 Neck package $2,499 · Abdomen $3,999
 Each includes FREE Morpheus8 Burst

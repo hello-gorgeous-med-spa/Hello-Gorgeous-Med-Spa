@@ -6,7 +6,7 @@ export const quantumRfLaunchBlogPost: BlogPost = {
   title: "InMode Quantum RF Body Contouring — Now at Hello Gorgeous Oswego, IL",
   metaTitle: "Quantum RF Body Contouring Oswego IL | Neck $2,499 · Abdomen $3,999 | Hello Gorgeous",
   metaDescription:
-    "Hello Gorgeous Med Spa introduces InMode Quantum RF in Oswego, IL — lipo-level body contouring without surgery. Neck package $2,499, abdomen $3,999, FREE Morpheus8 Burst included. Cherry financing.",
+    "Hello Gorgeous Med Spa introduces InMode Quantum RF in Oswego, IL — advanced body contouring, minimally invasive. Neck package $2,499, abdomen $3,999, FREE Morpheus8 Burst included. Cherry financing.",
   excerpt:
     "Lipo results without surgery — InMode Quantum RF is here in Oswego with neck and abdomen packages, FREE Morpheus8 Burst bonus, and Cherry financing from a licensed Illinois clinician.",
   category: "New Services",
@@ -42,7 +42,7 @@ export const quantumRfLaunchBlogPost: BlogPost = {
   ],
   content: `# InMode Quantum RF Body Contouring — Now at Hello Gorgeous Oswego, IL
 
-**Hello Gorgeous Med Spa** in **Oswego, IL** — serving **Naperville, Aurora, Plainfield, Yorkville**, and the **Fox Valley** — is introducing **InMode Quantum RF**: minimally invasive body contouring that delivers **lipo-level sculpting without surgery** and **without an operating room**.
+**Hello Gorgeous Med Spa** in **Oswego, IL** — serving **Naperville, Aurora, Plainfield, Yorkville**, and the **Fox Valley** — is introducing **InMode Quantum RF**: minimally invasive body contouring that delivers **advanced sculpting** in-office, **without an operating room**.
 
 a licensed Illinois clinician and Danielle Alcala, RN-S lead every consultation with honest candidacy screening and a plan built around your anatomy — not hype.
 
