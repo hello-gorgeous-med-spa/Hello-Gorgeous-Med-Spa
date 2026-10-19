@@ -306,6 +306,10 @@ export function GoldenTicketPageContent() {
             <a href={GOLDEN_TICKET_CONTACT.phoneTel} style={{ color: PINK }}>
               {GOLDEN_TICKET_CONTACT.phoneDisplay}
             </a>
+            {" · "}
+            <a href="/flyers/golden-ticket.html" style={{ color: GOLD }}>
+              Print flyer
+            </a>
           </p>
         </div>
       </section>
