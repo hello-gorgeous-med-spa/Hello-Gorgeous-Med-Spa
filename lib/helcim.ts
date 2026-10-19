@@ -6,6 +6,8 @@
  * https://www.hellogorgeousmedspa.com (and localhost tunnels for HelcimPay.js).
  */
 
+import { HELCIM_ACCOUNT_BASE_URL, helcimOrderPayUrl } from "@/lib/helcim-account";
+
 const HELCIM_API_BASE = (process.env.HELCIM_API_BASE || "https://api.helcim.com/v2").replace(/\/$/, "");
 
 export function isHelcimConfigured(): boolean {
@@ -18,9 +20,11 @@ function apiToken(): string | null {
 }
 
 export function helcimInvoicePayUrl(invoiceToken: string): string | null {
-  const base = process.env.HELCIM_INVOICE_BASE_URL?.trim().replace(/\/$/, "");
+  const base =
+    process.env.HELCIM_INVOICE_BASE_URL?.trim().replace(/\/$/, "") || HELCIM_ACCOUNT_BASE_URL;
   const token = invoiceToken.trim();
   if (!base || !token) return null;
+  if (base === HELCIM_ACCOUNT_BASE_URL) return helcimOrderPayUrl(token);
   return `${base}/order/?token=${encodeURIComponent(token)}`;
 }
 

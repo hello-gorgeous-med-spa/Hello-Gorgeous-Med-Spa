@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { HELCIM_CREATE_INVOICE_URL } from "@/lib/helcim-account";
 import { SQUARE_RX_CNP_BLOCKED, SQUARE_RX_CNP_DESK, SQUARE_RX_CNP_ERROR } from "@/lib/square-rx-cnp";
 
 type RxTrack = "weight-loss" | "peptides" | "fees" | "proposals";
@@ -335,6 +336,14 @@ export function RxInvoicesTool() {
           </p>
         </div>
         <div className="flex flex-col items-end gap-1 shrink-0">
+          <a
+            href={HELCIM_CREATE_INVOICE_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="text-xs text-[#FFB8DC] hover:text-white"
+          >
+            Create Helcim invoice →
+          </a>
           <Link href="/admin/rx-ledger" className="text-xs text-[#FFB8DC] hover:text-white">
             Payment ledger →
           </Link>
@@ -345,7 +354,10 @@ export function RxInvoicesTool() {
       </div>
 
       <div className="mb-4 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
-        {SQUARE_RX_CNP_DESK}{" "}
+        {SQUARE_RX_CNP_DESK} Remote invoices go through Helcim.{" "}
+        <a href={HELCIM_CREATE_INVOICE_URL} target="_blank" rel="noreferrer" className="font-bold underline text-white">
+          Create Helcim invoice →
+        </a>{" "}
         <Link href="/admin/rx/clinic-sale" className="font-bold underline text-white">
           Open clinic sale →
         </Link>
