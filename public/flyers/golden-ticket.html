@@ -3,314 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Golden Ticket Night Flyer — Hello Gorgeous Med Spa</title>
+  <title>VIP Golden Ticket Night Flyer — Hello Gorgeous Med Spa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --ink: #111111;
-      --muted: #6b6b6b;
+      --ink: #111;
       --gold: #c4a35a;
       --gold-deep: #b8923a;
       --line: #eadfc8;
       --cream: #fbf8f2;
-      --card: #ffffff;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
     body {
-      background: #e8e4dc;
+      background: #d9d3c6;
       color: var(--ink);
       font-family: Montserrat, Helvetica, Arial, sans-serif;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
     .no-print {
-      max-width: 8.5in;
+      max-width: 11in;
       margin: 0 auto;
       padding: 16px 20px;
       background: #fff;
     }
     .no-print p { margin: 0 0 10px; font-size: 14px; line-height: 1.4; }
     .no-print button {
-      font: inherit;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: var(--gold);
-      color: #111;
-      border: 0;
-      padding: 10px 18px;
-      cursor: pointer;
+      font: inherit; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      background: var(--gold); color: #111; border: 0; padding: 10px 18px; cursor: pointer;
     }
-    @page { size: letter portrait; margin: 0; }
+    @page { size: 11in 17in; margin: 0; }
     .sheet {
-      width: 8.5in;
-      height: 11in;
+      width: 11in;
+      height: 17in;
       margin: 0 auto 24px;
       background: var(--cream);
-      position: relative;
       overflow: hidden;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.18);
     }
     .inner {
       height: 100%;
-      padding: 0.32in 0.42in 0.22in;
+      padding: 0.42in 0.48in 0.28in;
       display: flex;
       flex-direction: column;
     }
     .kicker {
-      text-align: center;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      margin: 0;
+      text-align: center; margin: 0;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase;
     }
     h1 {
-      margin: 0.1in 0 0;
-      text-align: center;
-      font-size: 52px;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 0.86;
+      margin: 0.1in 0 0; text-align: center;
+      font-size: 78px; font-weight: 900; letter-spacing: -0.035em; line-height: 0.86;
       text-transform: uppercase;
     }
     h1 span { display: block; }
     .sub {
-      text-align: center;
-      margin: 0.12in 0 0.12in;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #444;
+      text-align: center; margin: 0.14in 0 0.14in;
+      font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #444;
     }
     .when {
-      margin: 0 auto;
-      max-width: 6.2in;
-      border: 1px solid var(--line);
-      background: #fff;
-      border-radius: 999px;
-      text-align: center;
-      padding: 0.09in 0.2in 0.08in;
-    }
-    .when strong {
-      display: block;
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      font-weight: 800;
-    }
-    .when em {
-      display: block;
-      margin-top: 3px;
-      font-style: normal;
-      font-size: 8px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #9a9a9a;
+      margin: 0 auto; border: 1px solid var(--line); background: #fff; border-radius: 999px;
+      text-align: center; padding: 0.12in 0.28in; font-size: 15px; font-weight: 800; letter-spacing: 0.08em;
     }
     .vip {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 0.12in 0 0.12in;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--gold);
+      display: flex; align-items: center; gap: 16px; margin: 0.16in 0 0.16in;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold);
     }
-    .vip::before, .vip::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--gold);
-      opacity: 0.55;
+    .vip::before, .vip::after { content: ""; flex: 1; height: 1px; background: var(--gold); }
+    .tickets {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.18in;
     }
-    .list {
-      border: 1px solid var(--line);
-      background: var(--card);
-      border-radius: 18px;
-      overflow: hidden;
+    .ticket {
+      border: 1px solid var(--line); background: #fff; border-radius: 18px; padding: 0.16in;
+      display: flex; flex-direction: column;
     }
-    .pkg {
-      display: grid;
-      grid-template-columns: 1.42in 1fr;
-      gap: 0.16in;
-      padding: 0.14in 0.16in;
-      align-items: start;
+    .ticket img {
+      width: 100%; height: 3.1in; object-fit: cover; border-radius: 12px; background: #eee;
     }
-    .pkg + .pkg { border-top: 1px solid var(--line); }
-    .pkg img {
-      width: 1.42in;
-      height: 1.42in;
-      object-fit: cover;
-      border-radius: 12px;
-      background: #eee;
+    .admit {
+      margin: 0.12in 0 0.04in; font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold);
     }
-    .head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 0.05in;
-    }
-    .head h2 {
-      margin: 0;
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-    .head h2 b {
-      color: var(--gold);
-      font-weight: 800;
-      margin-right: 4px;
-    }
+    .ticket h2 { margin: 0; font-size: 18px; font-weight: 800; text-transform: uppercase; line-height: 1.15; }
     .badge {
-      flex: 0 0 auto;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 7.5px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold-deep);
+      display: inline-block; margin: 0.06in 0 0.08in; border: 1px solid var(--line); border-radius: 999px;
+      padding: 3px 10px; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-deep);
     }
-    .pkg ul {
-      margin: 0;
-      padding: 0;
-      list-style: none;
+    .ticket ul { margin: 0; padding: 0; list-style: none; flex: 1; }
+    .ticket li {
+      position: relative; padding: 0 0 0.07in 0.14in; font-size: 12px; line-height: 1.35;
     }
-    .pkg li {
-      font-size: 10.5px;
-      line-height: 1.38;
-      color: #333;
-      padding-left: 0.12in;
-      position: relative;
-    }
-    .pkg li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      color: #222;
-    }
-    .price {
-      margin: 0.07in 0 0;
-      font-size: 12px;
-      color: #666;
-    }
-    .price strong {
-      color: var(--ink);
-      letter-spacing: 0.04em;
-      font-size: 13px;
-    }
-    .price b { color: var(--gold-deep); font-size: 15px; }
+    .ticket li::before { content: "•"; position: absolute; left: 0; }
+    .price { margin: 0.08in 0 0; font-size: 13px; color: #666; }
+    .price strong { color: var(--ink); letter-spacing: 0.04em; }
+    .price b { color: var(--gold-deep); font-size: 22px; }
     .founder {
-      margin: 0.08in 0 0;
-      border: 1px solid var(--gold);
-      border-radius: 999px;
-      padding: 0.055in 0.12in;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--ink);
+      margin: 0.1in 0 0; border: 1px solid var(--gold); border-radius: 12px; padding: 0.08in;
+      font-size: 10px; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; line-height: 1.3;
     }
     .founder span { color: var(--gold-deep); }
     .alacarte {
-      margin-top: 0.1in;
-      border: 1px solid var(--gold);
-      border-radius: 14px;
-      padding: 0.08in 0.14in 0.1in;
-      background: #fff;
+      margin-top: 0.18in; border: 1px solid var(--gold); border-radius: 18px; background: #fff; padding: 0.16in 0.2in;
     }
     .alacarte h3 {
-      margin: 0 0 0.06in;
-      text-align: center;
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--gold-deep);
+      margin: 0 0 0.12in; text-align: center; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-deep);
     }
-    .alacarte p {
-      margin: 0;
-      text-align: center;
-      font-size: 10px;
-      line-height: 1.45;
-      color: #333;
+    .grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0.1in 0.16in;
     }
-    .alacarte b { color: var(--gold-deep); }
+    .grid p { margin: 0; font-size: 14px; font-weight: 600; }
+    .grid b { color: var(--gold-deep); }
+    .grid .span2 { grid-column: span 2; font-size: 13px; }
     .bottom {
-      display: grid;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 0.12in;
-      margin-top: auto;
-      padding-top: 0.14in;
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 0.18in; margin-top: 0.18in;
     }
-    .box {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fff;
-      padding: 0.12in 0.14in;
-    }
-    .box.hold { background: #fcf8ef; }
+    .box { border: 1px solid var(--line); border-radius: 16px; background: #fff; padding: 0.16in 0.18in; }
+    .box.hold { background: #fcf8ef; text-align: center; }
     .box h3 {
-      margin: 0 0 0.08in;
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--gold-deep);
+      margin: 0 0 0.08in; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-deep);
     }
-    .box.hold h3 { color: var(--ink); text-align: center; letter-spacing: 0.08em; }
     .box ul { margin: 0; padding: 0; list-style: none; }
-    .box li {
-      position: relative;
-      padding: 0 0 0.05in 0.14in;
-      font-size: 10px;
-      line-height: 1.35;
-    }
-    .box li::before {
-      content: "—";
-      position: absolute;
-      left: 0;
-      color: var(--gold-deep);
-    }
-    .hold p {
-      margin: 0;
-      text-align: center;
-      font-size: 12px;
-      line-height: 1.4;
-      font-weight: 700;
-    }
-    .hold p span { font-weight: 800; }
-    .hold .hours {
-      margin-top: 0.1in;
-      font-size: 9px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--gold-deep);
-      font-weight: 700;
-    }
+    .box li { position: relative; padding: 0 0 0.06in 0.16in; font-size: 13px; line-height: 1.35; }
+    .box li::before { content: "—"; position: absolute; left: 0; color: var(--gold-deep); }
+    .hold h3 { color: var(--ink); }
+    .hold p { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; }
+    .hold .num { margin-top: 0.08in; font-size: 22px; letter-spacing: 0.04em; color: var(--gold-deep); }
     .legal {
-      margin: 0.1in 0 0;
-      text-align: center;
-      font-size: 7px;
-      line-height: 1.4;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #7a7a7a;
-    }
-    .est {
-      margin: 0.06in 0 0;
-      text-align: center;
-      font-size: 8px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
+      margin: 0.14in 0 0; text-align: center; font-size: 9px; line-height: 1.4; letter-spacing: 0.04em;
+      text-transform: uppercase; color: #7a7a7a;
     }
     @media print {
       .no-print { display: none !important; }
@@ -321,14 +144,9 @@
 </head>
 <body>
   <div class="no-print">
-    <p><strong>Golden Ticket Night — 8.5×11 cream flyer.</strong> Print → Save as PDF → Letter → Margins: None → Background graphics: ON.</p>
+    <p><strong>One flyer — 11×17 tabloid.</strong> Print → Save as PDF → Paper size: Tabloid (11×17) → Margins: None → Background graphics: ON.</p>
     <button type="button" onclick="window.print()">Print / Save PDF</button>
-    <p style="margin-top:12px">
-      Download PNG: <a href="/images/marketing/golden-ticket-flyer.png">letter flyer</a>
-      · <a href="/images/marketing/golden-ticket-story.png">Instagram story</a>
-      · Story layout: <a href="/flyers/golden-ticket-story.html">/flyers/golden-ticket-story.html</a>
-      · Invitation: <a href="/flyers/golden-ticket-invite.html">/flyers/golden-ticket-invite.html</a>
-    </p>
+    <p style="margin-top:12px">PNG: <a href="/images/marketing/golden-ticket-flyer.png">golden-ticket-flyer.png</a></p>
   </div>
 
   <article class="sheet">
@@ -336,92 +154,84 @@
       <p class="kicker">Hello Gorgeous Med Spa — Oswego, IL</p>
       <h1>Golden Ticket <span>Night</span></h1>
       <p class="sub">Our largest end of year promotion • Limited to 20 tickets</p>
-      <div class="when">
-        <strong>Friday, October 23, 2026 • 4–10 p.m. • 74 W Washington St Oswego, IL</strong>
-      </div>
+      <div class="when">Friday, October 23, 2026 • 4–10 p.m. • 74 W Washington St</div>
       <p class="vip">VIP only event</p>
 
-      <div class="list">
-        <section class="pkg">
+      <div class="tickets">
+        <section class="ticket">
           <img src="/images/marketing/golden-ticket-photo-body.jpg" alt="" />
-          <div>
-            <div class="head">
-              <h2><b>01</b> Mommy Makeover — Body</h2>
-              <span class="badge">Most popular</span>
-            </div>
-            <ul>
-              <li>10-Week Tirzepatide + Guided Consult</li>
-              <li>Quantum RF Lipo by Dr. Arora (<em>Face/Neck, Arms, or Abdomen</em>)</li>
-              <li>Morpheus8 Body Burst 8cm Deep / 8-Week Vitamins / 2 Visceral Fat Peptides</li>
-            </ul>
-            <p class="price">Value $7,500 &nbsp;/&nbsp; <strong>GOLDEN TICKET</strong> <b>$4,999</b></p>
-            <p class="founder">First 5 Golden Tickets: <span>$4,499</span> — Founder’s 5 only (then $4,999)</p>
-          </div>
+          <p class="admit">01 Mommy Makeover</p>
+          <h2>Body</h2>
+          <span class="badge">Most popular</span>
+          <ul>
+            <li>10-Week Tirzepatide + Guided Consult</li>
+            <li>Quantum RF Lipo by Dr. Arora (Face/Neck, Arms, or Abdomen)</li>
+            <li>Morpheus8 Body Burst 8cm Deep / 8-Week Vitamins / 2 Visceral Fat Peptides</li>
+          </ul>
+          <p class="price">Value $7,500 / <strong>GOLDEN TICKET</strong> <b>$4,999</b></p>
+          <p class="founder">First 5 tickets: <span>$4,499</span> — Founder’s 5 only (then $4,999)</p>
         </section>
 
-        <section class="pkg">
+        <section class="ticket">
           <img src="/images/marketing/golden-ticket-photo-face.jpg" alt="" />
-          <div>
-            <div class="head">
-              <h2><b>02</b> Mommy Makeover — Face, Neck &amp; Under-Eye</h2>
-            </div>
-            <ul>
-              <li>GHK-Cu Cream / Biotin Hair Skin Nails 10ml / Glutathione Glow</li>
-              <li>3x Morpheus8 (<em>1 Exosomes, 1 Tox, 1 PDRN</em>) / 1x Solaria CO2</li>
-              <li>40 Units Tox / 1/2 Syringe Filler</li>
-            </ul>
-            <p class="price">Value $4,580 &nbsp;/&nbsp; <strong>GOLDEN TICKET</strong> <b>$2,799</b></p>
-          </div>
+          <p class="admit">02 Mommy Makeover</p>
+          <h2>Face, Neck &amp; Under-Eye</h2>
+          <ul>
+            <li>GHK-Cu Cream / Biotin Hair Skin Nails 10ml / Glutathione Glow</li>
+            <li>3x Morpheus8 (1 Exosomes, 1 Tox, 1 PDRN) / 1x Solaria CO2</li>
+            <li>40 Units Tox / 1/2 Syringe Filler</li>
+          </ul>
+          <p class="price">Value $4,580 / <strong>GOLDEN TICKET</strong> <b>$2,799</b></p>
         </section>
 
-        <section class="pkg">
+        <section class="ticket">
           <img src="/images/marketing/golden-ticket-photo-wellness.jpg" alt="" />
-          <div>
-            <div class="head">
-              <h2><b>03</b> Mommy Makeover — Wellness</h2>
-            </div>
-            <ul>
-              <li>10 Weeks Tirzepatide</li>
-              <li>2 Peptide Vials (<em>if appropriate</em>) / 2 Wellness Vials</li>
-              <li>2x IV NAD+ PLUS Lounge Sessions</li>
-            </ul>
-            <p class="price">Value $1,900 &nbsp;/&nbsp; <strong>GOLDEN TICKET</strong> <b>$1,199</b></p>
-          </div>
+          <p class="admit">03 Mommy Makeover</p>
+          <h2>Wellness</h2>
+          <ul>
+            <li>10 Weeks Tirzepatide</li>
+            <li>2 Peptide Vials (if appropriate) / 2 Wellness Vials</li>
+            <li>2x IV NAD+ PLUS Lounge Sessions</li>
+          </ul>
+          <p class="price">Value $1,900 / <strong>GOLDEN TICKET</strong> <b>$1,199</b></p>
         </section>
       </div>
 
       <div class="alacarte">
         <h3>Exclusive VIP event prices — à la carte</h3>
-        <p>
-          Botox <b>$7/unit</b> · Solaria CO₂ <b>$450</b> · Morpheus8 <b>$399</b> · Dermal Filler <b>$399</b><br />
-          IV Therapy <b>$79</b> · Vitamin Injection <b>$15</b> · Microblading <b>$399</b> <em>includes 6-week touch-up</em>
-        </p>
+        <div class="grid">
+          <p>Botox <b>$7/unit</b></p>
+          <p>Solaria CO₂ <b>$450</b></p>
+          <p>Morpheus8 <b>$399</b></p>
+          <p>Dermal Filler <b>$399</b></p>
+          <p>IV Therapy <b>$79</b></p>
+          <p>Vitamin Injection <b>$15</b></p>
+          <p class="span2">Microblading <b>$399</b> · includes 6-week touch-up</p>
+        </div>
       </div>
 
       <div class="bottom">
         <div class="box">
-          <h3>Event details</h3>
+          <h3>Your Golden Ticket includes</h3>
           <ul>
-            <li>Live demos, before/afters, Q&amp;A with Dr. Arora &amp; Danielle</li>
-            <li>74 W Washington St Oswego, IL • Pay Over Time via Helcim</li>
-            <li>Text <strong>GOLDEN</strong> to 630-881-3398</li>
-            <li>book.squareup.com/appointments/pf2o75yphk7vw6/location/L3QDRS4DX9ZE4/services</li>
+            <li>Each invited VIP may bring one friend</li>
+            <li>Complimentary shockwave treatment for every guest</li>
+            <li>Vendor goodie bags + raffle tickets for gift baskets</li>
+            <li>Drinks &amp; appetizers · Live demos, Q&amp;A with Dr. Arora &amp; Danielle</li>
           </ul>
         </div>
         <div class="box hold">
-          <h3>Can’t make it?</h3>
-          <p>You still get VIP pricing as a loyal client.</p>
-          <p style="margin-top:8px;font-weight:600">Text <span>GOLDEN</span> to 630-881-3398 to hold your ticket for 48 hours.</p>
-          <p class="hours">Loyal client hold • 48 hours</p>
+          <h3>Reserve with Danielle</h3>
+          <p>Text GOLDEN and tell us what you want — and if you’re bringing a friend.</p>
+          <p class="num">630-881-3398</p>
         </div>
       </div>
 
       <p class="legal">
-        All treatments require medical screening. Prescriptions only if clinically appropriate by licensed IL clinician.
-        Dr. Mukesh Arora MD Medical Director. Event-night treatments valid one year from purchase. Non-transferable.
-        Hello Gorgeous Med Spa • 74 W Washington St Oswego IL • 630-636-6193
+        All treatments require medical screening. Prescriptions only if clinically appropriate by a licensed IL clinician.
+        Dr. Mukesh Arora, MD, Medical Director. Event-night treatments valid one year from purchase. Limited appointments.
+        Hello Gorgeous Med Spa · 74 W. Washington Street, Oswego IL · 630-636-6193
       </p>
-      <p class="est">Est. Oswego • Golden Ticket Night</p>
     </div>
   </article>
 </body>

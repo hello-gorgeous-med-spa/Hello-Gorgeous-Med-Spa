@@ -338,12 +338,8 @@ export function GoldenTicketPageContent() {
               {GOLDEN_TICKET_CONTACT.phoneDisplay}
             </a>
             {" · "}
-            <a href="/flyers/golden-ticket-invite.html" style={{ color: GOLD }}>
-              Print invitation
-            </a>
-            {" · "}
             <a href="/flyers/golden-ticket.html" style={{ color: GOLD }}>
-              Print package flyer
+              Print flyer (11×17)
             </a>
           </p>
         </div>
