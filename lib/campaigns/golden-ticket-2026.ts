@@ -1,0 +1,185 @@
+/**
+ * VIP Golden Ticket — Mommy Makeover Collection (HG-VIP-001 / HG-VIP-002).
+ * Flyer inclusions and advertised values are published as the owner supplied them.
+ * Medication-containing packages do not use Square checkout until clinical + Square
+ * acceptable-use approval for that exact sale structure.
+ */
+
+import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import { SITE } from "@/lib/seo";
+
+export const GOLDEN_TICKET_PATH = "/golden-ticket" as const;
+export const GOLDEN_TICKET_CAMPAIGN = "golden_ticket_mommy_makeover_2026";
+export const GOLDEN_TICKET_CRM_TAG = "GOLDEN_TICKET";
+
+export const GOLDEN_TICKET_CONTACT = {
+  phoneDisplay: SITE.phone,
+  phoneTel: `tel:${SITE.phone.replace(/\D/g, "")}`,
+  bookHref: `${PRIMARY_BOOKING_CTA.href}?utm_source=website&utm_medium=golden_ticket&utm_campaign=${GOLDEN_TICKET_CAMPAIGN}`,
+  financingHref: "/financing",
+  policyHref: "/package-policy",
+} as const;
+
+/** Live Square catalog — Face package only (HG-VIP-002). */
+export const GOLDEN_TICKET_FACE_SQUARE = {
+  itemName: "VIP Golden Ticket — Mommy Makeover Face, Neck & Under-Eye",
+  priceUsd: 2799,
+  itemId: "2W6Y5M5KUXRNUPXCPLZ3AQ45",
+  variationId: "VXDXS23OB2UHPO62VSQXZBVV",
+  paymentLinkUrl:
+    "https://checkout.square.site/merchant/MLK7PBDE336M4/order/7qiC7idh2r9Tcjn215ulrfrqocBZY",
+} as const;
+
+export type GoldenTicketPackageId = "body" | "face" | "wellness";
+
+export type GoldenTicketInclusion = {
+  label: string;
+  note?: string;
+};
+
+export type GoldenTicketPackage = {
+  id: GoldenTicketPackageId;
+  flyerName: string;
+  shortName: string;
+  ticketPriceUsd: number;
+  advertisedValueUsd: number;
+  containsMedication: boolean;
+  checkoutEnabled: boolean;
+  inclusions: GoldenTicketInclusion[];
+  ctaLabel: string;
+};
+
+/**
+ * Exact flyer packages. Advertised values are not recalculated on the page.
+ * Reconstructed retail lives in GOLDEN_TICKET_VALUE_NOTES for staff review only.
+ */
+export const GOLDEN_TICKET_PACKAGES: GoldenTicketPackage[] = [
+  {
+    id: "body",
+    flyerName: "Mommy Makeover: Body",
+    shortName: "Body",
+    ticketPriceUsd: 3999,
+    advertisedValueUsd: 6349,
+    containsMedication: true,
+    checkoutEnabled: false,
+    ctaLabel: "Request Body package",
+    inclusions: [
+      { label: "10-week tirzepatide program and guided consultation" },
+      {
+        label: "Quantum RF with Dr. Arora — choice of face/neck, arms or abdomen",
+      },
+      { label: "Morpheus8 Body Burst treatment" },
+      { label: "Eight-week vitamin course" },
+      { label: "Two visceral-fat peptide products" },
+    ],
+  },
+  {
+    id: "face",
+    flyerName: "Mommy Makeover: Face, Neck & Under-Eye",
+    shortName: "Face",
+    ticketPriceUsd: 2799,
+    advertisedValueUsd: 4580,
+    containsMedication: false,
+    checkoutEnabled: true,
+    ctaLabel: "Purchase Face package",
+    inclusions: [
+      { label: "GHK-Cu cream" },
+      { label: "Biotin Hair Skin Nails 10 mL" },
+      { label: "Glutathione Glow" },
+      { label: "Three Morpheus8 sessions with listed add-ons" },
+      { label: "One Solaria CO₂ treatment" },
+      { label: "40 units of neurotoxin" },
+      { label: "Half-syringe filler" },
+    ],
+  },
+  {
+    id: "wellness",
+    flyerName: "Mommy Makeover: Wellness",
+    shortName: "Wellness",
+    ticketPriceUsd: 1199,
+    advertisedValueUsd: 1900,
+    containsMedication: true,
+    checkoutEnabled: false,
+    ctaLabel: "Request Wellness package",
+    inclusions: [
+      { label: "10 weeks of tirzepatide" },
+      { label: "Two peptide vials, if clinically appropriate" },
+      { label: "Two wellness vials" },
+      { label: "Two NAD+ PLUS IV treatments" },
+    ],
+  },
+];
+
+export const GOLDEN_TICKET_TERMS = {
+  expirationMonths: 18,
+  scheduleWindowMonths: 12,
+  physician: "Dr. Mukesh Arora, MD — Medical Director",
+  refunds: "Unused value follows the published package policy.",
+  transfer: "Packages are for the purchasing patient unless the owner approves a written transfer.",
+  substitutions:
+    "Listed items are a promotional description of the intended collection. A licensed clinician confirms candidacy. Medications, peptides, and injectables are dispensed only when medically appropriate. Equivalent current-menu value may be substituted; a purchase is not a guaranteed prescription.",
+} as const;
+
+export const GOLDEN_TICKET_FAQS = [
+  {
+    q: "Can I buy the Body or Wellness Golden Ticket online?",
+    a: "Not yet. Those collections include prescription-related items (tirzepatide and/or peptides). Request the package and book a consult. Checkout opens only after clinical review and Square’s acceptable-use approval for that exact sale. A request is not a prescription.",
+  },
+  {
+    q: "Is the 40 units of neurotoxin extra, or included in a Morpheus8 add-on?",
+    a: "The Face ticket lists both “three Morpheus8 sessions with listed add-ons” and “40 units of neurotoxin.” Until the owner confirms otherwise, the 40 units are a separate line on the ticket—not assumed to be the same toxin that may appear as a Morpheus8 add-on.",
+  },
+  {
+    q: "How long do I have to redeem treatments?",
+    a: "Prepaid packages are valid for 18 months from purchase. We recommend completing series treatments within 12 months. See hellogorgeousmedspa.com/package-policy.",
+  },
+  {
+    q: "Do advertised values change if à la carte prices change?",
+    a: "No. The Golden Ticket price and the advertised collection value on the flyer are what we publish. Individual à la carte prices are reference only and can change.",
+  },
+  {
+    q: "Who performs Quantum RF?",
+    a: "Quantum RF in the Body collection is performed by Dr. Mukesh Arora, MD, Medical Director, when you are a candidate.",
+  },
+] as const;
+
+/** Staff-only reconstruction — not shown as a revised flyer total. */
+export const GOLDEN_TICKET_VALUE_NOTES = {
+  body: [
+    "Quantum RF abdomen $3,999 or neck $2,499 (area chosen at consult).",
+    "Morpheus8 Body Burst from $799 / session (body quoted at consult).",
+    "10-week tirzepatide: retired Square 10-week SKU was $600; current monthly fills are $299–$499 per 4 weeks (~2.5 months for 10 weeks).",
+    "Tesamorelin (visceral-fat peptide) from $229/mo retail; formulation vial $320. Flyer does not name the SKU.",
+    "Eight-week vitamin course has no published bundled SKU.",
+    "Flyer advertised value $6,349 is published as-is. Reconstructed sum depends on Quantum area + unpublished vitamin/peptide SKUs.",
+  ],
+  face: [
+    "Morpheus8 Burst 3-session package $1,999 (Square item EX6WAEMAH5DKLNPQ6I46JQRO).",
+    "Solaria CO₂ full face $899.",
+    "40 units neurotoxin at $10/unit Botox = $400 (brand chosen at visit).",
+    "Half-syringe filler $300.",
+    "GHK-Cu topical $195 (leave-with menu).",
+    "Biotin 10 mL high-concentration $57 (formulation catalog) — kiosk list $207; flyer does not specify which.",
+    "Glutathione Glow vitamin shot $45.",
+    "Sum of those published lines ≈ $3,895–$4,445 vs flyer $4,580. Gap is Morpheus8 add-ons (not itemized on the ticket) and/or the biotin list price. Flyer $4,580 is not changed.",
+  ],
+  wellness: [
+    "10-week tirzepatide as above ($600 retired SKU or ~2.5 monthly fills).",
+    "Peptide vials from $149–$229/mo depending on product; flyer does not name them.",
+    "Wellness vials unpublished on the flyer.",
+    "NAD+ PLUS IV: IV Hour $150 + NAD+ add-on $25 = $175 each if that is the named drip; NAD+ Boost is consult-priced. Flyer $1,900 is not changed.",
+  ],
+} as const;
+
+export function goldenTicketPackage(id: GoldenTicketPackageId): GoldenTicketPackage {
+  const found = GOLDEN_TICKET_PACKAGES.find((p) => p.id === id);
+  if (!found) throw new Error(`Unknown Golden Ticket package: ${id}`);
+  return found;
+}
+
+export const GOLDEN_TICKET_SEO = {
+  title: "Golden Ticket Mommy Makeover | Face $2,799 · Body $3,999 | Oswego IL",
+  description:
+    "VIP Golden Ticket collections at Hello Gorgeous Med Spa in Oswego: Face, Neck & Under-Eye $2,799, Body $3,999, Wellness $1,199. Physician-directed. Consult required. Results vary.",
+  ogAlt: "VIP Golden Ticket — Mommy Makeover Collection, Hello Gorgeous Med Spa Oswego",
+} as const;

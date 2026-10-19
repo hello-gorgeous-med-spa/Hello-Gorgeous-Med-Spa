@@ -134,6 +134,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
+      url: `${baseUrl}/golden-ticket`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.96,
+    },
+    {
       url: `${baseUrl}/regenerative-medicine-oswego-il`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

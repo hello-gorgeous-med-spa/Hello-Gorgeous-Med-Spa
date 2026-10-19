@@ -135,8 +135,14 @@ export const SQUARE_SOLARIA_FACE_VARIATION_ID = "EOAHM4VIHRNRGOU3AGGXP2OF";
 export const SQUARE_SOLARIA_FACE_BOOKING_URL = `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_SOLARIA_FACE_VARIATION_ID}`;
 
 /** Morpheus8 Burst ×3 Package ($1,999) — prepaid 3-session series. */
-export const SQUARE_MORPHEUS8_3X_VARIATION_ID = "EX6WAEMAH5DKLNPQ6I46JQR";
+export const SQUARE_MORPHEUS8_3X_VARIATION_ID = "EX6WAEMAH5DKLNPQ6I46JQRO";
 export const SQUARE_MORPHEUS8_3X_BOOKING_URL = `https://book.squareup.com/appointments/${SQUARE_RX_BOOKING_SITE_ID}/location/${SQUARE_RX_LOCATION_ID}/services/${SQUARE_MORPHEUS8_3X_VARIATION_ID}`;
+
+/** VIP Golden Ticket Face ($2,799) — Square payment link, not a public calendar book. */
+export const SQUARE_GOLDEN_TICKET_FACE_ITEM_ID = "2W6Y5M5KUXRNUPXCPLZ3AQ45";
+export const SQUARE_GOLDEN_TICKET_FACE_VARIATION_ID = "VXDXS23OB2UHPO62VSQXZBVV";
+export const SQUARE_GOLDEN_TICKET_FACE_PAY_URL =
+  "https://checkout.square.site/merchant/MLK7PBDE336M4/order/7qiC7idh2r9Tcjn215ulrfrqocBZY";
 
 /**
  * In-clinic vitamin shot ($25) — Square Appointments deep link. Override with

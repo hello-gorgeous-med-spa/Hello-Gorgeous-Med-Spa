@@ -7,11 +7,10 @@ export const SPECIALS_SEO = {
   description:
     "Specials at Hello Gorgeous Med Spa in Oswego: InMode Solaria CO₂ fractional resurfacing from $899. Botox $10/unit, Morpheus8, Quantum RF. Book a consult.",
   keywords: [
-    "Solaria CO2 special Oswego",
-    "CO2 laser $599 Oswego IL",
-    "Solaria fall special Oswego",
+    "Golden Ticket Hello Gorgeous",
+    "Mommy Makeover Oswego",
     "med spa specials Oswego",
-    "Solaria sale Naperville Aurora",
+    "Solaria CO2 Oswego",
     "Hello Gorgeous specials",
   ],
 } as const;
@@ -43,12 +42,20 @@ export const SPECIALS_FEATURED = [
     badge: "$500 OFF",
   },
   {
-    title: "Solaria CO₂ fall special",
-    accentLine: "$599 · recovery serum included",
+    title: "VIP Golden Ticket",
+    accentLine: "Face $2,799 · Body $3,999 · Wellness $1,199",
     description:
-      "Limited-time InMode Solaria CO₂ fractional resurfacing — complimentary recovery serum included. Results vary. Consultation required.",
+      "Mommy Makeover collections at published Golden Ticket prices. Face checkout is live. Body and Wellness start with a consult. Results vary.",
+    href: "/golden-ticket",
+    badge: "VIP",
+  },
+  {
+    title: "Solaria CO₂ Laser",
+    accentLine: "From $899 · physician-directed",
+    description:
+      "InMode Solaria CO₂ fractional resurfacing at Hello Gorgeous. Fine lines, texture, sun damage. Results vary. Consultation required.",
     href: "/services/solaria-co2",
-    badge: "Fall",
+    badge: "InMode",
   },
   {
     title: "Fall Makeover",
@@ -105,6 +112,12 @@ export const SPECIALS_JUMP_LINKS = [
 ] as const;
 
 export const MORE_SPECIALS_LINKS = [
+  {
+    label: "VIP Golden Ticket",
+    href: "/golden-ticket",
+    sub: "Face $2,799 · Body $3,999 · Wellness $1,199",
+    badge: "VIP",
+  },
   {
     label: "20-Minute Wellness",
     href: "/20-minute-wellness",
