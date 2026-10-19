@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import {
   GOLDEN_TICKET_CONTACT,
+  GOLDEN_TICKET_EVENT,
   GOLDEN_TICKET_FACE_SQUARE,
   GOLDEN_TICKET_FAQS,
   GOLDEN_TICKET_PACKAGES,
@@ -53,6 +54,11 @@ function TicketCard({
         <p className="mt-1 text-sm text-white/70">
           Advertised collection value {money(pkg.advertisedValueUsd)}
         </p>
+        {pkg.founderPriceUsd ? (
+          <p className="mt-2 text-xs uppercase tracking-[0.12em]" style={{ color: GOLD }}>
+            First 5 tickets {money(pkg.founderPriceUsd)} — Founder’s 5 only
+          </p>
+        ) : null}
         <ul className="mt-6 space-y-2.5 text-sm leading-relaxed text-white/90">
           {pkg.inclusions.map((item) => (
             <li key={item.label} className="flex gap-2">
@@ -159,13 +165,14 @@ export function GoldenTicketPageContent() {
             Hello Gorgeous Med Spa · Oswego, IL
           </p>
           <h1 className="mt-4 font-[family-name:var(--font-playfair)] text-4xl leading-tight sm:text-6xl">
-            Golden Ticket
+            Golden Ticket Night
           </h1>
           <p className="mt-2 font-[family-name:var(--font-playfair)] text-2xl sm:text-3xl" style={{ color: PINK }}>
             Mommy Makeover Collection
           </p>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/80">
-            Three VIP collections at published Golden Ticket prices. Physician-directed care under{" "}
+            Our largest end-of-year promotion — limited to {GOLDEN_TICKET_EVENT.limit} tickets.
+            {GOLDEN_TICKET_EVENT.dateLabel} at {GOLDEN_TICKET_EVENT.addressShort}. Physician-directed care under{" "}
             {GOLDEN_TICKET_TERMS.physician}. Results vary. Consultation required.
           </p>
         </div>
