@@ -55,6 +55,7 @@ const PREMIUM_URLS = [
   "https://www.hellogorgeousmedspa.com/rx?goal=recovery-and-performance",
   "https://www.hellogorgeousmedspa.com/rx?goal=hormones",
   "https://www.hellogorgeousmedspa.com/peptide-therapy-naperville-il",
+  "https://www.hellogorgeousmedspa.com/golden-ticket",
 ];
 
 interface SubmitReport {

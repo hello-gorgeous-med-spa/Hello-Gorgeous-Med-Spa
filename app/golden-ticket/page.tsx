@@ -3,10 +3,13 @@ import type { Metadata } from "next";
 import { GoldenTicketPageContent } from "@/components/golden-ticket/GoldenTicketPageContent";
 import {
   GOLDEN_TICKET_FAQS,
+  GOLDEN_TICKET_IMAGES,
   GOLDEN_TICKET_PACKAGES,
   GOLDEN_TICKET_PATH,
   GOLDEN_TICKET_SEO,
+  GOLDEN_TICKET_WAYS,
 } from "@/lib/campaigns/golden-ticket-2026";
+import { isHelcimConfigured } from "@/lib/helcim";
 import { SITE, breadcrumbJsonLd, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
 
 const PAGE_URL = `${SITE.url}${GOLDEN_TICKET_PATH}`;
@@ -33,9 +36,9 @@ export const metadata: Metadata = {
     url: PAGE_URL,
     images: [
       {
-        url: `${SITE.url}/images/quantum-rf/clinic-results/dr-arora-treating-1.jpg`,
-        width: 1200,
-        height: 800,
+        url: `${SITE.url}${GOLDEN_TICKET_IMAGES.flyer}`,
+        width: 682,
+        height: 1024,
         alt: GOLDEN_TICKET_SEO.ogAlt,
       },
     ],
@@ -58,8 +61,10 @@ function offerListJsonLd() {
         price: pkg.ticketPriceUsd,
         priceCurrency: "USD",
         url: `${PAGE_URL}#${pkg.id}`,
-        availability: "https://schema.org/InStock",
-        description: pkg.inclusions.map((inc) => inc.label).join("; "),
+        availability: pkg.checkoutEnabled
+          ? "https://schema.org/InStock"
+          : "https://schema.org/LimitedAvailability",
+        description: GOLDEN_TICKET_WAYS.find((way) => way.id === pkg.id)?.body,
       },
     })),
   };
@@ -86,7 +91,7 @@ export default function GoldenTicketPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS, PAGE_URL)) }}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(offerListJsonLd()) }} />
-      <GoldenTicketPageContent />
+      <GoldenTicketPageContent helcimEnabled={isHelcimConfigured()} />
     </>
   );
 }

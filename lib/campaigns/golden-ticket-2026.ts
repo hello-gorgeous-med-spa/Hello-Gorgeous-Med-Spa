@@ -24,17 +24,84 @@ export const GOLDEN_TICKET_CONTACT = {
   policyHref: "/package-policy",
 } as const;
 
-/** Owner flyer — Golden Ticket Night event. */
+/** Owner flyer — cream VIP invitation, hours confirmed 5:00–8:00 PM. */
 export const GOLDEN_TICKET_EVENT = {
   title: "VIP Golden Ticket Night",
+  kicker: "A VIP invitation",
+  intro:
+    "Join us for an evening of celebration, beauty, and exclusive event pricing.",
   limit: 20,
   dateLabel: "Friday, October 23, 2026",
-  timeLabel: "4–10 p.m.",
-  addressShort: "74 W. Washington Street · Oswego, IL",
+  timeLabel: "5:00 PM – 8:00 PM",
+  timePendingConfirmation: false,
+  addressShort: "74 W Washington St · Oswego, IL",
+  addressLine: "74 W Washington St, Oswego, IL",
   textKeyword: "GOLDEN",
   expirationMonths: 12,
-  inviteImage: "/images/marketing/golden-ticket-invitation.jpg",
+  collectionsTitle: "Three exclusive Mommy Makeover collections",
+  collectionsSub: "Advanced aesthetics · Wellness · Physician-led care",
+  reserveLabel: "Reserve with Danielle",
+  flyerDisclaimer:
+    "Event-night pricing. Limited availability. Treatments subject to clinical eligibility. Individual results vary.",
+  inviteImage: "/images/marketing/golden-ticket-vip-invitation-oct2026.jpg",
 } as const;
+
+/** Hospitality perks on the approved VIP invitation — not treatment packages. */
+export const GOLDEN_TICKET_VIP_INCLUDES = [
+  "Each invited VIP may bring one friend",
+  "Complimentary shockwave treatment for every guest",
+  "VIPs & friends receive vendor goodie bags and raffle tickets for gift baskets",
+  "Drinks & appetizers will be served",
+] as const;
+
+/**
+ * Advertised collection values from the owner flyer are not independently
+ * confirmed by published à la carte math (Face reconstructs ~$3,895–$4,445 vs
+ * $4,580; Body $7,500 and Wellness $1,900 were flyer totals, not line-item sums).
+ * Do not render crossed-out compare-at prices until those sums are confirmed.
+ */
+export const GOLDEN_TICKET_SHOW_COMPARE_AT_PRICE = false;
+
+export const GOLDEN_TICKET_IMAGES = {
+  invite: GOLDEN_TICKET_EVENT.inviteImage,
+  flyer: "/images/marketing/golden-ticket-vip-invitation-oct2026.jpg",
+  portrait: "/images/marketing/gt-hero-portrait.jpg",
+  portraitAlt: "VIP Golden Ticket Night — Hello Gorgeous Med Spa, Oswego",
+  body: "/images/marketing/gt-body-card.jpg",
+  bodyAlt: "Body collection — Quantum RF and Morpheus8 Body Burst at Hello Gorgeous Med Spa",
+  face: "/images/marketing/gt-face-card.jpg",
+  faceAlt: "Face collection — Morpheus8, Solaria CO₂, and injectables at Hello Gorgeous Med Spa",
+  wellness: "/images/marketing/gt-wellness-card.jpg",
+  wellnessAlt: "Wellness collection — IV lounge care at Hello Gorgeous Med Spa",
+} as const;
+
+/** Collection intros from the approved Night flyer. */
+export const GOLDEN_TICKET_WAYS = [
+  {
+    id: "body" as const,
+    kicker: "Body",
+    title: "Contour · Tighten · Rejuvenate",
+    body: "Quantum RF Lipo with Dr. Mukesh Arora, MD, plus Morpheus8 Body Burst. Prescription items in this ticket are reviewed in consult first. A request is not a prescription. Individual results vary.",
+    image: GOLDEN_TICKET_IMAGES.body,
+    imageAlt: GOLDEN_TICKET_IMAGES.bodyAlt,
+  },
+  {
+    id: "face" as const,
+    kicker: "Face",
+    title: "Smooth · Refine · Glow",
+    body: "Three Morpheus8 sessions, Solaria CO₂, listed neurotoxin and filler, and the leave-with glow set. Depth and product are set at consult. Individual results vary. Consultation required.",
+    image: GOLDEN_TICKET_IMAGES.face,
+    imageAlt: GOLDEN_TICKET_IMAGES.faceAlt,
+  },
+  {
+    id: "wellness" as const,
+    kicker: "Wellness",
+    title: "Recharge · Restore · Renew",
+    body: "A 10-week program, peptides and wellness vials if appropriate, and two IV NAD+ lounge visits. Medication-containing items need clinical review. Individual results vary.",
+    image: GOLDEN_TICKET_IMAGES.wellness,
+    imageAlt: GOLDEN_TICKET_IMAGES.wellnessAlt,
+  },
+] as const;
 
 /** Event-night à la carte — owner invitation 2026-10-18. */
 export const GOLDEN_TICKET_ALACARTE = [
@@ -68,9 +135,13 @@ export type GoldenTicketPackage = {
   id: GoldenTicketPackageId;
   flyerName: string;
   shortName: string;
+  cardTitle: string;
+  tagline: string;
   ticketPriceUsd: number;
   advertisedValueUsd: number;
   founderPriceUsd?: number;
+  /** First-five inventory must be verified before any founder-price checkout. */
+  founderInventoryVerified?: boolean;
   containsMedication: boolean;
   checkoutEnabled: boolean;
   inclusions: GoldenTicketInclusion[];
@@ -86,51 +157,69 @@ export const GOLDEN_TICKET_PACKAGES: GoldenTicketPackage[] = [
     id: "body",
     flyerName: "Mommy Makeover: Body",
     shortName: "Body",
+    cardTitle: "Body",
+    tagline: "Contour · Tighten · Rejuvenate",
     ticketPriceUsd: 4999,
     advertisedValueUsd: 7500,
     founderPriceUsd: 4499,
     containsMedication: true,
     checkoutEnabled: false,
+    founderInventoryVerified: false,
     ctaLabel: "Request Body package",
     inclusions: [
-      { label: "10-Week Tirzepatide + Guided Consult" },
-      {
-        label: "Quantum RF Lipo by Dr. Arora (Face/Neck, Arms, or Abdomen)",
-      },
-      { label: "Morpheus8 Body Burst 8cm Deep / 8-Week Vitamins / 2 Visceral Fat Peptides" },
+      { label: "Quantum RF Lipo by Dr. Mukesh Arora, MD" },
+      { label: "Morpheus8 Body Burst 8cm" },
+      { label: "10-week Tirz program" },
+      { label: "Vitamin support" },
+      { label: "2 peptides" },
     ],
   },
   {
     id: "face",
     flyerName: "Mommy Makeover: Face, Neck & Under-Eye",
     shortName: "Face",
+    cardTitle: "Face, Neck & Under-Eye",
+    tagline: "Smooth · Refine · Glow",
     ticketPriceUsd: 2799,
     advertisedValueUsd: 4580,
     containsMedication: false,
     checkoutEnabled: true,
     ctaLabel: "Purchase Face package",
     inclusions: [
-      { label: "GHK-Cu Cream / Biotin Hair Skin Nails 10ml / Glutathione Glow" },
-      { label: "3x Morpheus8 (1 Exosomes, 1 Tox, 1 PDRN) / 1x Solaria CO2" },
-      { label: "40 Units Tox / 1/2 Syringe Filler" },
+      { label: "3 Morpheus8 sessions" },
+      { label: "1 Solaria CO2 treatment" },
+      { label: "40 units Tox" },
+      { label: "1/2 syringe filler" },
+      { label: "GHK-Cu" },
+      { label: "Biotin" },
+      { label: "Glutathione" },
     ],
   },
   {
     id: "wellness",
     flyerName: "Mommy Makeover: Wellness",
     shortName: "Wellness",
+    cardTitle: "Wellness",
+    tagline: "Recharge · Restore · Renew",
     ticketPriceUsd: 1199,
     advertisedValueUsd: 1900,
     containsMedication: true,
     checkoutEnabled: false,
     ctaLabel: "Request Wellness package",
     inclusions: [
-      { label: "10 Weeks Tirzepatide" },
-      { label: "2 Peptide Vials (if appropriate) / 2 Wellness Vials" },
-      { label: "2x IV NAD+ PLUS Lounge Sessions" },
+      { label: "10-week Tirz" },
+      { label: "2 peptides" },
+      { label: "2 wellness vials" },
+      { label: "2x IV NAD+" },
     ],
   },
 ];
+
+export const GOLDEN_TICKET_TRUST = [
+  { label: "Physician-led care", detail: "Dr. Mukesh Arora, MD · Medical Director" },
+  { label: "Personalized treatment plans", detail: "Mapped in consult — not from a template" },
+  { label: "Real results. Real people.", detail: "Individual results vary. Consultation required." },
+] as const;
 
 export const GOLDEN_TICKET_TERMS = {
   expirationMonths: 12,
@@ -145,11 +234,11 @@ export const GOLDEN_TICKET_TERMS = {
 export const GOLDEN_TICKET_FAQS = [
   {
     q: "Can I buy the Body or Wellness Golden Ticket online?",
-    a: "Not yet. Those collections include prescription-related items (tirzepatide and/or peptides). Request the package and book a consult. Checkout opens only after clinical review and Square’s acceptable-use approval for that exact sale. A request is not a prescription.",
+    a: "Yes — we invoice those collections through Helcim. Pay in full or enter a deposit to set up the balance. They include prescription-related items, so a licensed clinician still reviews candidacy before anything is dispensed. A payment is not a prescription.",
   },
   {
     q: "Is the 40 units of neurotoxin extra, or included in a Morpheus8 add-on?",
-    a: "The Face ticket lists both “three Morpheus8 sessions with listed add-ons” and “40 units of neurotoxin.” Until the owner confirms otherwise, the 40 units are a separate line on the ticket—not assumed to be the same toxin that may appear as a Morpheus8 add-on.",
+    a: "The Face ticket lists three Morpheus8 sessions and, separately, 40 units of neurotoxin. The 40 units are their own line — not assumed to be the same toxin that may be used as a Morpheus8 add-on.",
   },
   {
     q: "How long do I have to redeem treatments?",
@@ -207,6 +296,16 @@ export const GOLDEN_TICKET_VALUE_NOTES = {
   ],
 } as const;
 
+export function goldenTicketInvoiceNotes(pkg: GoldenTicketPackage): string {
+  return [
+    GOLDEN_TICKET_EVENT.flyerDisclaimer,
+    pkg.containsMedication
+      ? "A payment is not a prescription. A licensed clinician confirms candidacy before any medication-related item is dispensed."
+      : "Consult required. Individual results vary.",
+    `${GOLDEN_TICKET_EVENT.title} — ${GOLDEN_TICKET_EVENT.dateLabel}, ${GOLDEN_TICKET_EVENT.timeLabel}, ${GOLDEN_TICKET_EVENT.addressLine}.`,
+  ].join(" ");
+}
+
 export function goldenTicketPackage(id: GoldenTicketPackageId): GoldenTicketPackage {
   const found = GOLDEN_TICKET_PACKAGES.find((p) => p.id === id);
   if (!found) throw new Error(`Unknown Golden Ticket package: ${id}`);
@@ -214,8 +313,8 @@ export function goldenTicketPackage(id: GoldenTicketPackageId): GoldenTicketPack
 }
 
 export const GOLDEN_TICKET_SEO = {
-  title: "VIP Golden Ticket Night | Friday Oct 23, 4–10pm | Oswego IL",
+  title: "VIP Golden Ticket Night | Friday Oct 23 | Oswego IL",
   description:
-    "VIP Golden Ticket Night Friday, October 23, 4–10 p.m. in Oswego. Event prices: Botox $7/unit, Solaria $450, Morpheus8 $399, filler $399, IV $79. Mommy Makeover tickets available. Consult required. Results vary.",
-  ogAlt: "VIP Golden Ticket — Mommy Makeover Collection, Hello Gorgeous Med Spa Oswego",
+    "VIP Golden Ticket Night Friday, October 23, 2026, 5:00–8:00 p.m. at Hello Gorgeous Med Spa in Oswego. Three Mommy Makeover collections from $1,199. Consult required. Results vary.",
+  ogAlt: "VIP Golden Ticket Night invitation — Hello Gorgeous Med Spa, Oswego, Illinois",
 } as const;
