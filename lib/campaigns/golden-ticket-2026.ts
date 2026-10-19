@@ -58,7 +58,7 @@ export const GOLDEN_TICKET_PACKAGES: GoldenTicketPackage[] = [
     id: "body",
     flyerName: "Mommy Makeover: Body",
     shortName: "Body",
-    ticketPriceUsd: 3999,
+    ticketPriceUsd: 5499,
     advertisedValueUsd: 6349,
     containsMedication: true,
     checkoutEnabled: false,
@@ -139,14 +139,28 @@ export const GOLDEN_TICKET_FAQS = [
   },
   {
     q: "Who performs Quantum RF?",
-    a: "Quantum RF in the Body collection is performed by Dr. Mukesh Arora, MD, Medical Director, when you are a candidate.",
+    a: "Quantum RF in the Body collection is performed by Dr. Mukesh Arora, MD, Medical Director, when you are a candidate. Area — face/neck, arms, or abdomen — is confirmed at consult.",
   },
 ] as const;
+
+/**
+ * Internal COGS — owner 2026-10-18. Do not publish these numbers on the landing page.
+ * Body ticket raised so abdomen Quantum ($2,740 COGS) can be included.
+ */
+export const GOLDEN_TICKET_QUANTUM_ABDOMEN_COGS_USD = {
+  probe: 640,
+  aestheticConsumables: 300,
+  physicianArora: 1800,
+  total: 640 + 300 + 1800, // $2,740
+  bodyTicketUsd: 5499,
+  leftoverAfterAbdomenUsd: 5499 - (640 + 300 + 1800), // $2,759 for tirz + M8 + vitamins + peptides
+} as const;
 
 /** Staff-only reconstruction — not shown as a revised flyer total. */
 export const GOLDEN_TICKET_VALUE_NOTES = {
   body: [
-    "Quantum RF abdomen $3,999 or neck $2,499 (area chosen at consult).",
+    "Quantum RF included at $5,499: face/neck, arms, or abdomen. Abdomen COGS $2,740 (probe $640 + consumables $300 + Dr. Arora $1,800) leaves $2,759 for tirz + M8 + vitamins + peptides.",
+    "À la carte Quantum abdomen remains $3,999; neck $2,499.",
     "Morpheus8 Body Burst from $799 / session (body quoted at consult).",
     "10-week tirzepatide: retired Square 10-week SKU was $600; current monthly fills are $299–$499 per 4 weeks (~2.5 months for 10 weeks).",
     "Tesamorelin (visceral-fat peptide) from $229/mo retail; formulation vial $320. Flyer does not name the SKU.",
@@ -178,8 +192,8 @@ export function goldenTicketPackage(id: GoldenTicketPackageId): GoldenTicketPack
 }
 
 export const GOLDEN_TICKET_SEO = {
-  title: "Golden Ticket Mommy Makeover | Face $2,799 · Body $3,999 | Oswego IL",
+  title: "Golden Ticket Mommy Makeover | Face $2,799 · Body $5,499 | Oswego IL",
   description:
-    "VIP Golden Ticket collections at Hello Gorgeous Med Spa in Oswego: Face, Neck & Under-Eye $2,799, Body $3,999, Wellness $1,199. Physician-directed. Consult required. Results vary.",
+    "VIP Golden Ticket collections at Hello Gorgeous Med Spa in Oswego: Face, Neck & Under-Eye $2,799, Body $5,499, Wellness $1,199. Physician-directed. Consult required. Results vary.",
   ogAlt: "VIP Golden Ticket — Mommy Makeover Collection, Hello Gorgeous Med Spa Oswego",
 } as const;

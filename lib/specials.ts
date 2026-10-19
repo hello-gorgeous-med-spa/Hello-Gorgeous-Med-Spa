@@ -43,7 +43,7 @@ export const SPECIALS_FEATURED = [
   },
   {
     title: "VIP Golden Ticket",
-    accentLine: "Face $2,799 · Body $3,999 · Wellness $1,199",
+    accentLine: "Face $2,799 · Body $5,499 · Wellness $1,199",
     description:
       "Mommy Makeover collections at published Golden Ticket prices. Face checkout is live. Body and Wellness start with a consult. Results vary.",
     href: "/golden-ticket",
@@ -115,7 +115,7 @@ export const MORE_SPECIALS_LINKS = [
   {
     label: "VIP Golden Ticket",
     href: "/golden-ticket",
-    sub: "Face $2,799 · Body $3,999 · Wellness $1,199",
+    sub: "Face $2,799 · Body $5,499 · Wellness $1,199",
     badge: "VIP",
   },
   {

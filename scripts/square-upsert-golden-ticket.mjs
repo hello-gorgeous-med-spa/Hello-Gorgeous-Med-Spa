@@ -3,7 +3,7 @@
  * HG-VIP-002 — Square catalog + payment link for eligible Golden Ticket packages.
  *
  * Face collection ($2,799) is eligible (device + injectables + vitamin products).
- * Body ($3,999) and Wellness ($1,199) contain tirzepatide/peptides — DO NOT create
+ * Body ($5,499) and Wellness ($1,199) contain tirzepatide/peptides — DO NOT create
  * payment links unless --include-rx is passed after clinical + Square policy approval.
  *
  *   node --env-file=.env.local scripts/square-upsert-golden-ticket.mjs --dry-run
@@ -55,7 +55,7 @@ const PACKAGES = [
     eligible: false,
     name: "VIP Golden Ticket — Mommy Makeover Body",
     aliases: ["Golden Ticket Body", "Mommy Makeover Body"],
-    priceCents: 399900,
+    priceCents: 549900,
     description: "NOT FOR ONLINE CHECKOUT — tirzepatide / peptide collection. Consult first.",
   },
   {

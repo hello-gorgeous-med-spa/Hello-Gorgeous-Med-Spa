@@ -89,7 +89,7 @@ export const ABOUT_NAV_EXTRA_LINKS = [
 
 /** Folded into Specials dropdown. */
 export const SPECIALS_NAV_EXTRA_LINKS = [
-  { label: "VIP Golden Ticket", href: "/golden-ticket", sub: "Mommy Makeover collections · Face $2,799" },
+  { label: "VIP Golden Ticket", href: "/golden-ticket", sub: "Mommy Makeover · Face $2,799 · Body $5,499" },
   { label: "Gift Cards", href: "/gift-cards", sub: "Give the gift of gorgeous" },
   { label: "0% Financing", href: "/financing", sub: "Cherry & CareCredit options" },
   {
