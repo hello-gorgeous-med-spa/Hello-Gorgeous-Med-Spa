@@ -22,7 +22,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     targetKeyword: "solaria co2 oswego",
     metaTitle: "Solaria CO₂ in Oswego, IL — $799 Face Neck Chin September",
     metaDescription:
-      "Solaria CO₂ fractional laser in Oswego, IL — September sale: face, neck & chin $799, neck/chin/chest $400, under eyes $299. NP-directed. Free consult — serving Naperville, Aurora & Fox Valley.",
+      "Solaria CO₂ fractional laser in Oswego, IL — September sale: face, neck & chin $799, neck/chin/chest $400, under eyes $299. physician-directed. Free consult — serving Naperville, Aurora & Fox Valley.",
     h1: "Solaria CO₂ in Oswego. Gold-Standard Resurfacing.",
     valueProp: "InMode Solaria CO₂ fractional laser — September: face, neck & chin $799, neck/chin/chest $400, under eyes $299.",
     bookingUrl: bookingUrlFor(),
@@ -237,7 +237,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
       "Medical peptide therapy in Oswego, IL — BPC-157, Sermorelin, GHK-Cu, NAD+, PT-141 & more. $49 NP consult. a licensed Illinois clinician on site. Naperville, Aurora, Plainfield.",
     h1: "Peptide Therapy in Oswego, IL",
     valueProp:
-      "Targeted peptide protocols supervised by a full-authority nurse practitioner — for recovery, performance, skin, sleep, and longevity.",
+      "Targeted peptide protocols supervised by a licensed Illinois clinician — for recovery, performance, skin, sleep, and longevity.",
     bookingUrl: bookingUrlFor(),
     procedureType: "Wellness",
     bodyLocation: "Subcutaneous",
@@ -300,7 +300,7 @@ export const PHASE1_UNCONTESTED_PAGES: ServicePageData[] = [
     targetKeyword: "nad iv oswego",
     metaTitle: "NAD+ IV Therapy in Oswego, IL",
     metaDescription:
-      "NAD+ IV therapy in Oswego, IL — supervised by a full-authority nurse practitioner. Cellular energy, mental clarity, longevity support. Free consultations.",
+      "NAD+ IV therapy in Oswego, IL — supervised by a licensed Illinois clinician. Cellular energy, mental clarity, longevity support. Free consultations.",
     h1: "NAD+ IV Therapy in Oswego, IL",
     valueProp:
       "The cellular-level wellness infusion the longevity world has been talking about — delivered medically, in-office, under NP supervision.",

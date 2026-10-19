@@ -486,6 +486,26 @@ Free consultation — book below.`,
     imagePath: "/images/quantum-rf/clinic-results/dr-arora-treating-1.jpg",
   },
   {
+    id: "body-contouring-educational-oct2026",
+    label: "HG-SEO-014: Body contouring educational (DRAFT — do not publish without owner approval)",
+    message: `Body contouring in Oswego, IL — Quantum RF & Morpheus8 Body Burst
+
+Hello Gorgeous Med Spa offers consultation-based body contouring at 74 W. Washington Street.
+
+Quantum RF is performed by Dr. Mukesh Arora, MD, our Medical Director. It is a minimally invasive radiofrequency procedure — not a non-invasive spa treatment — using small access points under local anesthesia.
+
+Morpheus8 Body Burst is deep RF microneedling for texture and tightening over larger areas such as the abdomen and arms.
+
+Treatment plans are set after an in-person consult. Fat reduction is not guaranteed. Individual results vary. Recovery and candidacy are reviewed before you book.
+
+Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, and Montgomery.
+
+Book a free consultation below.`,
+    linkPath:
+      "/body-contouring-oswego-il?utm_source=google&utm_medium=gbp_post&utm_campaign=body_contouring_educational_oct2026",
+    imagePath: "/images/quantum-rf/clinic-results/dr-arora-treating-1.jpg",
+  },
+  {
     id: "founder-letter",
     label: "Founder's letter — My Jerry Maguire Moment",
     message: `💌 A letter from our founder.

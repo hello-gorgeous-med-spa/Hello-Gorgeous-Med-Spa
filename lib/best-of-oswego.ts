@@ -33,12 +33,12 @@ export const DIFFERENTIATORS = {
   npOnSite: "Physician-directed medical spa · licensed Illinois clinician review",
   /** Latest technology — Class 4 lasers */
   class4Lasers: "Class 4 medical lasers",
-  /** Only Oswego-area med spa with this tech stack */
+  /** InMode stack on site — no exclusivity claim. */
   exclusiveTech:
-    "Only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2",
-  /** NEWEST Morpheus8 — critical for being picked first. Use everywhere. */
+    "Quantum RF, Morpheus8 Burst, and Solaria CO2 on site in Oswego",
+  /** Morpheus8 Burst — no exclusivity or superiority claim. */
   morpheus8Newest:
-    "Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa in Oswego, Naperville, Aurora, Plainfield with this technology.",
+    "Morpheus8 Burst — RF microneedling up to 8mm for face and body at Hello Gorgeous in Oswego.",
   /** Canonical brand tagline */
   brandTagline: HG_TAGLINE,
   /** Short tech line for trust strips */

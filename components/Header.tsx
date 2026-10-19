@@ -97,6 +97,7 @@ const NAV = {
             sub: "Deep-tissue pain & recovery — intro $49",
             badge: "NEW",
           },
+          { label: "Body Contouring", href: "/body-contouring-oswego-il", sub: "Quantum RF · Morpheus8 Body Burst · Oswego" },
           { label: "Quantum RF", href: QUANTUM_RF_PATH, sub: "Luxora Contour · neck $2,499 · abdomen $3,999" },
           { label: "InMode Trifecta", href: "/specials", sub: "Morpheus8 + Quantum RF + Solaria CO₂ packages" },
         ],
@@ -219,6 +220,7 @@ const FACIALS_MENU: CategoryLink[] = [
 ];
 
 const ADVANCED_LASERS_MENU: CategoryLink[] = [
+  { href: "/body-contouring-oswego-il", label: "Body Contouring", sub: "Quantum RF & Morpheus8 Body" },
   { href: MORPHEUS8_PATH, label: "Morpheus8", sub: "RF microneedling" },
   { href: SOLARIA_CO2_PATH, label: "Solaria CO₂", sub: "Fractional laser resurfacing" },
   { href: QUANTUM_RF_PATH, label: "Quantum RF", sub: "Skin tightening" },

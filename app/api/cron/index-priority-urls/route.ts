@@ -82,7 +82,6 @@ const PRIORITY_SERVICE_URLS = [
   "/weight-loss-montgomery-il",
   "/weight-loss-plainfield-il",
   "/weight-loss-yorkville-il",
-  "/body-sculpting-oswego-il",
 ];
 
 export async function GET(request: NextRequest) {

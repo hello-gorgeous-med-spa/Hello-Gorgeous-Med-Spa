@@ -371,12 +371,12 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Who is a licensed Illinois clinician?",
         answer:
-          "a licensed Illinois clinician is our on-site nurse practitioner — a board-certified Family Nurse Practitioner (FNP-BC) with full prescriptive authority in Illinois. He directs our medical treatments and is on site 6 days a week, under Medical Director Dr. Mukesh Arora, MD.",
+          "Prescriptions and medical treatment plans are written by an Illinois-licensed physician or APRN after a consult. Dr. Mukesh Arora, MD is our Medical Director and treating physician for Quantum RF. Danielle Alcala-Glazier owns the practice. Injectables are performed by licensed nurses, including Kristina Huda, BSN, RN.",
       },
       {
         question: 'What does "full prescriptive authority" mean?',
         answer:
-          "It means your clinician can prescribe medications independently under Illinois law. He manages your medical weight loss, hormone therapy, and prescription treatments, with Dr. Mukesh Arora, MD serving as the practice's Medical Director.",
+          "In Illinois, some advanced practice clinicians may prescribe independently under state law. At Hello Gorgeous, prescriptions are written only by an Illinois-licensed physician or APRN after a consult. Dr. Mukesh Arora, MD serves as Medical Director. We do not advertise a named full-authority NP on site.",
       },
       {
         question: "Who is Danielle?",
@@ -402,12 +402,12 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "What makes Hello Gorgeous different from other med spas?",
         answer:
-          "We're family-owned and operated — Dani is still here every day. We're not a corporate chain. Plus, we're the ONLY med spa in the Oswego/Naperville/Aurora area with all THREE InMode devices (Morpheus8 Burst, Quantum RF, and Solaria CO₂)!",
+          "We're family-owned and operated — Dani is still here every day. We're not a corporate chain. We offer InMode Quantum RF, Morpheus8 Burst, and Solaria CO₂ in Oswego, with physician-directed care under Medical Director Dr. Mukesh Arora, MD.",
       },
       {
         question: "Is there a medical provider on-site?",
         answer:
-          "Yes! a licensed Illinois clinician, our nurse practitioner, is on site 6 days a week — which is rare for med spas — with Dr. Mukesh Arora, MD as our Medical Director. You have medical oversight for every treatment.",
+          "Yes. Dr. Mukesh Arora, MD is Medical Director and performs Quantum RF. Licensed nurses deliver injectables and device treatments within their scope. Prescriptions are written by an Illinois-licensed physician or APRN after a consult.",
       },
       {
         question: "Have you won any awards?",
@@ -417,7 +417,7 @@ export const MED_SPA_FAQ_SECTIONS: readonly FAQPageSection[] = [
       {
         question: "Why does having all three InMode devices matter?",
         answer:
-          "Because you can get comprehensive treatment all in one place! Tightening (Morpheus8), contouring (Quantum RF), and resurfacing (CO₂) work synergistically. We're the only spa in the area with all three!",
+          "Because you can get comprehensive treatment in one clinic: tightening (Morpheus8), contouring (Quantum RF), and resurfacing (CO₂). We match devices to your tissue at consult rather than selling a one-size protocol.",
       },
     ],
   },

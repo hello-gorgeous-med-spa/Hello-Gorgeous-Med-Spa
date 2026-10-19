@@ -45,7 +45,7 @@ export function standardFaqs(
     },
     {
       q: "Who performs treatments at Hello Gorgeous?",
-      a: "Licensed nurse practitioners and trained clinical staff under NP-led oversight. Injectable and medical treatments are not performed by unlicensed aestheticians alone.",
+      a: "Licensed nurses and trained clinical staff under physician-directed protocols. Injectable and medical treatments are not performed by unlicensed aestheticians alone.",
     },
     {
       q: `Is ${serviceName} safe?`,

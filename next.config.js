@@ -282,6 +282,11 @@ const nextConfig = {
     { source: "/events/the-glow-social", destination: "/book", permanent: true },
     { source: "/events/vip-device-night", destination: "/book", permanent: true },
     { source: "/book-now", destination: "/book", permanent: true },
+    {
+      source: "/body-sculpting-oswego-il",
+      destination: "/body-contouring-oswego-il",
+      permanent: true,
+    },
     { source: "/providers/ryan", destination: "/about", permanent: true },
     { source: "/providers/ryan-kent", destination: "/about", permanent: true },
     ...hgOnlyRedirect("/refill", "https://tryregenrx.com/refill"),

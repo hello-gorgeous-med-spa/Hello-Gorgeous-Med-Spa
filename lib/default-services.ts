@@ -189,7 +189,7 @@ const LASER = [
 // —— Body ——
 const BODY = [
   def('svc-body-contouring', 'Body Contouring', 'Body', {
-    description: 'Non-invasive body sculpting and fat reduction.',
+    description: 'Consultation-based RF body contouring with Quantum RF and Morpheus8 Body Burst.',
     duration_minutes: 60,
     price_cents: 35000,
     sort_order: 50,

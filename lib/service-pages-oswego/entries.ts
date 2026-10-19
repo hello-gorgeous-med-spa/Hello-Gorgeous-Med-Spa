@@ -7,7 +7,7 @@ import {
 import type { ServicePageData } from "./types";
 
 const TRIFECTA_EXTRA = [
-  "Only med spa in the Oswego area with the full InMode Trifecta platform (Morpheus8 Burst, Solaria CO₂, Quantum RF)",
+  "InMode platform on site in Oswego: Morpheus8 Burst, Solaria CO₂, and Quantum RF",
 ];
 
 export const SERVICE_PAGES_BASE: ServicePageData[] = [
@@ -18,14 +18,14 @@ export const SERVICE_PAGES_BASE: ServicePageData[] = [
     targetKeyword: "botox oswego",
     h1: "Botox in Oswego, IL",
     valueProp:
-      "As low as $9/unit Botox (Allergan & US distributors only) with a full-authority nurse practitioner on site — natural results, free consultations, same-day appointments when available.",
+      "As low as $9/unit Botox (Allergan & US distributors only) with physician-directed care — natural results, free consultations, same-day appointments when available.",
     tier: "contested",
     procedureType: "Injection",
     bodyLocation: "Face",
     metaDescriptionExtra:
       "As low as $9/unit. Allergan & US distributors only. NP on site. Free consults. Dysport & Jeuveau too. Book online.",
     whyBullets: [
-      "Full-authority FNP-BC on site — prescriptions and clinical decisions without waiting on a remote MD",
+      "Physician-directed care — prescriptions written by an Illinois-licensed physician or APRN after consult",
       "Transparent pricing as low as $9/unit — Allergan & US distributors only",
       "Complimentary touch-up window for true asymmetry at day 14 through day 21",
       "Allē rewards and experienced injectors focused on natural movement",
@@ -63,11 +63,11 @@ export const SERVICE_PAGES_BASE: ServicePageData[] = [
     fullServiceName: "Dysport",
     targetKeyword: "dysport oswego",
     h1: "Dysport in Oswego, IL",
-    valueProp: "Dysport wrinkle relaxers with NP-led care, natural dosing, and free consultations in downtown Oswego.",
+    valueProp: "Dysport wrinkle relaxers with physician-directed care, natural dosing, and free consultations in downtown Oswego.",
     tier: "contested",
     procedureType: "Injection",
     bodyLocation: "Face",
-    metaDescriptionExtra: "NP on site. Natural results. Compare Botox & Jeuveau. Book a free consult.",
+    metaDescriptionExtra: "Physician-directed care. Natural results. Compare Botox & Jeuveau. Book a free consult.",
     howItWorksParagraphs: educationBlock("Dysport", "dysport oswego", [
       "Dysport is an FDA-approved neuromodulator used to soften frown lines, forehead lines, and crow's feet. Some clients feel Dysport spreads slightly differently than Botox, which can matter for larger treatment zones.",
       "Your Hello Gorgeous provider will compare Dysport, Botox, and Jeuveau based on your prior response, metabolism, and goals. We do not push one brand — we push the result you want.",
@@ -241,7 +241,7 @@ export const SERVICE_PAGES_BASE: ServicePageData[] = [
     fullServiceName: "BioTE Hormone Optimization",
     targetKeyword: "biote oswego",
     h1: "BioTE Hormone Therapy in Oswego, IL",
-    valueProp: "BioTE pellet therapy and hormone optimization with lab monitoring and NP-led care.",
+    valueProp: "BioTE pellet therapy and hormone optimization with lab monitoring and physician-directed care.",
     tier: "contested",
     procedureType: "Wellness",
     metaDescriptionExtra: "Hormone therapy Oswego. BioTE provider. Book a consult today.",

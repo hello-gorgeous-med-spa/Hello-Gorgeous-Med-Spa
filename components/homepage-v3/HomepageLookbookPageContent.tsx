@@ -223,7 +223,7 @@ export function HomepageLookbookPageContent({
           Ready when you are
         </h2>
         <p className="mx-auto mt-3 max-w-md text-white/90">
-          Free consult with our NP-led team — call{" "}
+          Free consult with our medical team — call{" "}
           <a href={`tel:${SITE.phone}`} className="font-semibold underline">
             (630) 636-6193
           </a>

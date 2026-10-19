@@ -15,19 +15,19 @@ const BEST_MED_SPA_FAQS = [
   {
     question: "Who is the best med spa in Oswego, IL?",
     answer:
-      "Hello Gorgeous Med Spa is recognized as Best of Oswego — #1 Best Med Spa. We have the newest Morpheus8 Burst technology — deepest RF at 8mm for face AND body — and are the only Oswego-area med spa with Morpheus8 Burst, Quantum RF, and Solaria CO2. Physician-led care under Medical Director Dr. Mukesh Arora, MD.",
+      "Hello Gorgeous Med Spa is recognized as Best of Oswego — #1 Best Med Spa. We offer Morpheus8 Burst RF microneedling, Quantum RF performed by Dr. Mukesh Arora, MD, and Solaria CO2 under physician-directed care.",
   },
   {
     question: "What makes Hello Gorgeous different from other med spas in Oswego?",
     answer:
-      "We have the newest Morpheus8 Burst for face and body — deepest RF at 8mm. No other med spa in Oswego, Naperville, Aurora, or Plainfield offers Morpheus8 Burst. Plus physician-led care under Dr. Mukesh Arora, MD, Quantum RF, Solaria CO2, and Class 4 medical lasers. We offer injectables, weight loss, hormone therapy, and advanced skin treatments — all under one roof.",
+      "Physician-directed care under Medical Director Dr. Mukesh Arora, MD, plus Morpheus8 Burst, Quantum RF, and Solaria CO2 in one Oswego clinic. We offer injectables, weight loss, hormone therapy, and advanced skin treatments — plans are set at consult, not by device-superiority claims.",
   },
 ];
 
 export const metadata: Metadata = pageMetadata({
   title: "Best Med Spa Oswego IL | Newest Morpheus8 Burst Face & Body | Hello Gorgeous",
   description:
-    "#1 Best Med Spa in Oswego, IL. Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa with Morpheus8 Burst, Quantum RF, Solaria CO2. Book free consultation!",
+    "#1 Best Med Spa in Oswego, IL. Morpheus8 Burst, Quantum RF with Dr. Mukesh Arora, MD, and Solaria CO2. Physician-directed care. Book a free consultation.",
   path: "/best-med-spa-oswego-il",
 });
 

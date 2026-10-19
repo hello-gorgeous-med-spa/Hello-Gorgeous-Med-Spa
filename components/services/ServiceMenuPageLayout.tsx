@@ -250,7 +250,7 @@ export function ServiceMenuPageLayout({ config }: { config: ServiceMenuConfig })
                   config.path.includes("solaria")
                     ? "Procedure video, clinic photography, and real client results — the only Solaria CO₂ in the western suburbs."
                     : config.path.includes("quantum")
-                      ? "Procedure video, clinic photography, and real client results — the only Quantum RF in the western suburbs."
+                      ? "Procedure video, clinic photography, and real client results — Quantum RF in our Oswego clinic."
                       : config.path.includes("morpheus")
                         ? "Treatment footage and real before & after results — Morpheus8 Burst at Hello Gorgeous."
                         : config.path.includes("facials")

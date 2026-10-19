@@ -223,9 +223,9 @@ export default function OswegoHubPage() {
                 >
                   #1 Best Med Spa in Oswego
                 </Link>
-                . Locals choose Hello Gorgeous for medical-grade care: a full-authority nurse
-                practitioner on site, genuine products, and FDA-cleared InMode Class IV lasers you
-                won&apos;t find elsewhere in the Fox Valley.
+                . Locals choose Hello Gorgeous for medical-grade care: physician-directed treatment
+                under Medical Director Dr. Mukesh Arora, MD, genuine products, and InMode Quantum RF,
+                Morpheus8 Burst, and Solaria CO₂ in downtown Oswego.
               </p>
               <p className="mt-4 text-black/80 max-w-2xl leading-relaxed">
                 First time considering a med spa? Read{" "}

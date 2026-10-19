@@ -15,17 +15,17 @@ const WHY_CHOOSE_FAQS = [
   {
     question: "Who is the best med spa in Oswego, IL?",
     answer:
-      "Hello Gorgeous Med Spa is recognized as Best of Oswego — #1 Best Med Spa. We have the newest Morpheus8 Burst technology — deepest RF at 8mm for face AND body — and are the only Oswego-area med spa with Morpheus8 Burst, Quantum RF, and Solaria CO2. Physician-led care under Medical Director Dr. Mukesh Arora, MD.",
+      "Hello Gorgeous Med Spa is recognized as Best of Oswego — #1 Best Med Spa. We offer Morpheus8 Burst RF microneedling (up to 8mm for face and body), Quantum RF performed by Dr. Mukesh Arora, MD, and Solaria CO2. Physician-directed care under our Medical Director.",
   },
   {
     question: "Who provides medical oversight at Hello Gorgeous?",
     answer:
-      "Dr. Mukesh Arora, MD is our Medical Director and treating physician. Registered Nurse providers deliver services within their authorized scope of practice. You receive care from licensed medical professionals with professional medical oversight, not unsupervised spa technicians.",
+      "Dr. Mukesh Arora, MD is our Medical Director and treating physician for Quantum RF. Registered Nurse providers deliver services within their authorized scope of practice. Prescriptions are written by an Illinois-licensed physician or APRN after a consult — not by spa technicians.",
   },
   {
     question: "What advanced technology does Hello Gorgeous offer?",
     answer:
-      "Hello Gorgeous has the newest Morpheus8 Burst — deepest RF at 8mm for face AND body. No other med spa in Oswego, Naperville, Aurora, or Plainfield has Morpheus8 Burst. We also offer Quantum RF (subdermal body contouring) and Solaria CO2 fractional laser. Class 4 medical lasers.",
+      "Hello Gorgeous offers Morpheus8 Burst RF microneedling up to 8mm for face and body, Quantum RF (minimally invasive subdermal contouring with Dr. Mukesh Arora, MD), and Solaria CO2 fractional laser.",
   },
   {
     question: "What services does Hello Gorgeous offer?",
@@ -37,7 +37,7 @@ const WHY_CHOOSE_FAQS = [
 export const metadata: Metadata = pageMetadata({
   title: "Why Choose Hello Gorgeous | Newest Morpheus8 Burst Face & Body | Oswego IL",
   description:
-    "#1 Best Med Spa in Oswego. Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa with Morpheus8 Burst, Quantum RF, Solaria CO2. Physician-led care. Book free consultation.",
+    "#1 Best Med Spa in Oswego. Morpheus8 Burst, Quantum RF with Dr. Mukesh Arora, MD, and Solaria CO2. Physician-directed care. Book a free consultation.",
   path: "/why-choose-us",
 });
 
