@@ -26,14 +26,26 @@ export const GOLDEN_TICKET_CONTACT = {
 
 /** Owner flyer — Golden Ticket Night event. */
 export const GOLDEN_TICKET_EVENT = {
-  title: "Golden Ticket Night",
+  title: "VIP Golden Ticket Night",
   limit: 20,
-  dateLabel: "Friday Nov 15 · 5–8pm",
-  dateNote: "Date / time placeholder — edit before printing",
-  addressShort: "74 W Washington St Oswego, IL",
+  dateLabel: "Friday, October 23, 2026",
+  timeLabel: "4–10 p.m.",
+  addressShort: "74 W. Washington Street · Oswego, IL",
   textKeyword: "GOLDEN",
-  expirationMonths: 6,
+  expirationMonths: 12,
+  inviteImage: "/images/marketing/golden-ticket-invitation.jpg",
 } as const;
+
+/** Event-night à la carte — owner invitation 2026-10-18. */
+export const GOLDEN_TICKET_ALACARTE = [
+  { name: "Botox", price: "$7/unit" },
+  { name: "Solaria CO₂", price: "$450" },
+  { name: "Morpheus8", price: "$399" },
+  { name: "Dermal Filler", price: "$399" },
+  { name: "IV Therapy", price: "$79" },
+  { name: "Vitamin Injection", price: "$15" },
+  { name: "Microblading", price: "$399", note: "Includes 6-week touch-up" },
+] as const;
 
 /** Live Square catalog — Face package only (HG-VIP-002). */
 export const GOLDEN_TICKET_FACE_SQUARE = {
@@ -121,7 +133,7 @@ export const GOLDEN_TICKET_PACKAGES: GoldenTicketPackage[] = [
 ];
 
 export const GOLDEN_TICKET_TERMS = {
-  expirationMonths: 6,
+  expirationMonths: 12,
   scheduleWindowMonths: 12,
   physician: "Dr. Mukesh Arora, MD — Medical Director",
   refunds: "Unused value follows the published package policy.",
@@ -141,7 +153,7 @@ export const GOLDEN_TICKET_FAQS = [
   },
   {
     q: "How long do I have to redeem treatments?",
-    a: "Golden Ticket Night collections expire 6 months from purchase and are non-transferable. See hellogorgeousmedspa.com/package-policy for studio package rules.",
+    a: "Treatments purchased at Golden Ticket Night are valid for one year from purchase. Event-night pricing. Limited appointments. Treatments are subject to clinical eligibility.",
   },
   {
     q: "Do advertised values change if à la carte prices change?",
@@ -202,8 +214,8 @@ export function goldenTicketPackage(id: GoldenTicketPackageId): GoldenTicketPack
 }
 
 export const GOLDEN_TICKET_SEO = {
-  title: "Golden Ticket Night | Body $4,999 · Face $2,799 | Oswego IL",
+  title: "VIP Golden Ticket Night | Friday Oct 23, 4–10pm | Oswego IL",
   description:
-    "Golden Ticket Night at Hello Gorgeous Med Spa in Oswego: Body $4,999, Face $2,799, Wellness $1,199. Limited to 20 tickets. Physician-directed. Consult required. Results vary.",
+    "VIP Golden Ticket Night Friday, October 23, 4–10 p.m. in Oswego. Event prices: Botox $7/unit, Solaria $450, Morpheus8 $399, filler $399, IV $79. Mommy Makeover tickets available. Consult required. Results vary.",
   ogAlt: "VIP Golden Ticket — Mommy Makeover Collection, Hello Gorgeous Med Spa Oswego",
 } as const;

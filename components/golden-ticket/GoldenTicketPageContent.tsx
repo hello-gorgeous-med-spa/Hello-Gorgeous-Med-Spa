@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 
 import {
+  GOLDEN_TICKET_ALACARTE,
   GOLDEN_TICKET_CONTACT,
   GOLDEN_TICKET_EVENT,
   GOLDEN_TICKET_FACE_SQUARE,
@@ -171,11 +172,34 @@ export function GoldenTicketPageContent() {
             Mommy Makeover Collection
           </p>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/80">
-            Our largest end-of-year promotion — limited to {GOLDEN_TICKET_EVENT.limit} tickets.
-            {GOLDEN_TICKET_EVENT.dateLabel} at {GOLDEN_TICKET_EVENT.addressShort}. Physician-directed care under{" "}
-            {GOLDEN_TICKET_TERMS.physician}. Results vary. Consultation required.
+            {GOLDEN_TICKET_EVENT.dateLabel} · {GOLDEN_TICKET_EVENT.timeLabel} · {GOLDEN_TICKET_EVENT.addressShort}.
+            Limited to {GOLDEN_TICKET_EVENT.limit} Mommy Makeover tickets, plus event-night à la carte specials.
+            Physician-directed care under {GOLDEN_TICKET_TERMS.physician}. Results vary. Consultation required.
           </p>
         </div>
+      </section>
+
+      <section className="px-6 pb-10">
+        <div className="mx-auto grid max-w-3xl gap-3 sm:grid-cols-2">
+          {GOLDEN_TICKET_ALACARTE.map((item) => (
+            <p
+              key={item.name}
+              className="flex items-baseline justify-between gap-3 rounded-full border px-4 py-2 text-sm"
+              style={{ borderColor: `${GOLD}66` }}
+            >
+              <span>
+                {item.name}
+                {item.note ? <span className="block text-[11px] text-white/55">{item.note}</span> : null}
+              </span>
+              <span className="shrink-0 font-semibold" style={{ color: GOLD }}>
+                {item.price}
+              </span>
+            </p>
+          ))}
+        </div>
+        <p className="mx-auto mt-4 max-w-3xl text-center text-xs text-white/55">
+          Event-night pricing. Treatments purchased Friday are valid one year. Limited appointments.
+        </p>
       </section>
 
       <section className="px-6 pb-16">
@@ -314,8 +338,12 @@ export function GoldenTicketPageContent() {
               {GOLDEN_TICKET_CONTACT.phoneDisplay}
             </a>
             {" · "}
+            <a href="/flyers/golden-ticket-invite.html" style={{ color: GOLD }}>
+              Print invitation
+            </a>
+            {" · "}
             <a href="/flyers/golden-ticket.html" style={{ color: GOLD }}>
-              Print flyer
+              Print package flyer
             </a>
           </p>
         </div>
