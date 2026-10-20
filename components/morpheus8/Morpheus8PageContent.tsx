@@ -7,8 +7,10 @@ import { useState } from "react";
 import { JourneyFitImage } from "@/components/marketing/JourneyFitImage";
 import { JourneyResultsCinema } from "@/components/marketing/JourneyResultsCinema";
 import { JourneySoundVideo } from "@/components/marketing/JourneySoundVideo";
+import { VideoEmbed } from "@/components/video/VideoEmbed";
 import {
   MORPHEUS8_BODY_BENEFITS,
+  MORPHEUS8_CLINICAL_PAPERS,
   MORPHEUS8_CONTACT,
   MORPHEUS8_FACE_TREATS,
   MORPHEUS8_FAQS,
@@ -17,6 +19,7 @@ import {
   MORPHEUS8_INTRO_SPECIAL,
   MORPHEUS8_MARKETING,
   MORPHEUS8_NAV,
+  MORPHEUS8_OFFICIAL_VIDEOS,
   MORPHEUS8_PACKAGES,
   MORPHEUS8_RESULTS,
   MORPHEUS8_STEPS,
@@ -188,8 +191,8 @@ export function Morpheus8PageContent() {
           <div className="mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-[#FF2D8E]/35 shadow-[0_20px_60px_rgba(255,45,142,0.22)] lg:max-w-lg">
             <JourneySoundVideo
               src={MORPHEUS8_MARKETING.heroVideo}
-              poster={images.hero}
-              label="Morpheus8 Burst RF microneedling at Hello Gorgeous Med Spa — InMode verified provider"
+              poster={MORPHEUS8_MARKETING.workstationPoster}
+              label="Official InMode Morpheus8 workstation animation"
               preload="auto"
             />
           </div>
@@ -327,10 +330,80 @@ export function Morpheus8PageContent() {
           <div className="mt-10 overflow-hidden rounded-3xl border border-[#FF2D8E]/35">
             <JourneySoundVideo
               src={MORPHEUS8_MARKETING.scienceVideo}
-              label="Morpheus8 RF microneedling science animation"
+              label="Morpheus8 Burst versus standard RF microneedling depth"
               hasAudio={false}
             />
           </div>
+        </div>
+      </section>
+
+      {/* Clinical papers + official InMode video */}
+      <section id="clinical" className="scroll-mt-24 bg-[radial-gradient(85%_95%_at_78%_20%,#12030c,#000_62%)] px-6 py-16 lg:py-24">
+        <div className="mx-auto max-w-[1200px]">
+          <SectionHead
+            eyebrow="Clinical evidence"
+            title="Papers and"
+            titleAccent="InMode education"
+            description="Peer-reviewed literature and official InMode University / InMode International resources — not clinic talent videos. Individual results vary. A consult determines if Morpheus8 is appropriate."
+          />
+          <div className="mt-10 grid gap-4 lg:grid-cols-2">
+            {MORPHEUS8_CLINICAL_PAPERS.map((paper) => (
+              <article key={paper.id} className="flex h-full flex-col rounded-[20px] border border-white/14 bg-[#0a0206] p-5">
+                <p className="text-[11px] font-extrabold uppercase tracking-wider text-[#FF2D8E]">
+                  {paper.journal} · {paper.year}
+                </p>
+                <h3 className="mt-2 font-serif text-lg font-bold leading-snug text-white">{paper.title}</h3>
+                <p className="mt-2 text-sm text-white/70">{paper.authors}</p>
+                <p className="text-xs text-white/45">{paper.detail}</p>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-white/75">{paper.note}</p>
+                <a
+                  href={paper.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex text-sm font-bold text-[#FF2D8E] underline underline-offset-4 hover:text-white"
+                >
+                  {paper.hrefLabel} →
+                </a>
+              </article>
+            ))}
+          </div>
+          <div className="mt-10 grid gap-4 lg:grid-cols-2">
+            {MORPHEUS8_OFFICIAL_VIDEOS.map((video) => (
+              <figure key={video.id} className="overflow-hidden rounded-[20px] border border-[#FF2D8E]/35 bg-[#0a0206]">
+                <div className="relative aspect-video w-full">
+                  <VideoEmbed
+                    embedUrl={video.embedUrl}
+                    title={video.title}
+                    className="absolute inset-0 h-full w-full"
+                  />
+                </div>
+                <figcaption className="px-5 py-4">
+                  <p className="font-bold text-white">{video.title}</p>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-white/50">{video.credit}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mt-6 text-center text-sm text-white/55">
+            Full manufacturer library:{" "}
+            <a
+              href={MORPHEUS8_MARKETING.inmodeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#FF2D8E] underline underline-offset-2 hover:text-white"
+            >
+              InMode Morpheus8 Burst
+            </a>
+            {" · "}
+            <a
+              href={MORPHEUS8_MARKETING.inmodeStudiesUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#FF2D8E] underline underline-offset-2 hover:text-white"
+            >
+              InMode University papers
+            </a>
+          </p>
         </div>
       </section>
 

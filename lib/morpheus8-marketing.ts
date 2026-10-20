@@ -38,20 +38,20 @@ export const MORPHEUS8_MARKETING = {
   compareSolariaHref: "/solaria-co2-oswego",
   quantumHref: "/quantum-rf-oswego",
   trifectaHref: "/specials",
-  inmodeUrl: "https://www.inmodemd.com/technologies/morpheus8/",
-  /** Clinic marketing hero — MBurst re-edit */
-  heroVideo: "/videos/morpheus8/morpheus8-hero.mp4",
-  /** Official InMode workstation animation */
+  inmodeUrl: "https://www.inmodemd.com/technologies/morpheus8-burst/",
+  inmodeStudiesUrl: "https://inmodeuniversity.com/technology/morpheus8/",
+  /** Official InMode workstation animation — not clinic talent */
+  heroVideo: "/videos/morpheus8/morpheus8-workstation.mp4",
   workstationVideo: "/videos/morpheus8/morpheus8-workstation.mp4",
   workstationPoster: "/images/morpheus8/morpheus8-workstation-poster.jpg",
   /** Official InMode Morpheus8 Body 3D animation */
   body3dVideo: "/videos/morpheus8/morpheus8-body-3d.mp4",
   body3dPoster: "/images/morpheus8/morpheus8-body-3d-poster.jpg",
-  scienceVideo: "/videos/morpheus8/animated-science-visuals-morpheus8.mp4",
+  /** Burst vs standard depth — educational, no clinic talent */
+  scienceVideo: "/videos/morpheus8-what-is.mp4",
   introVideo: "/videos/morpheus8-clinical-highlight.mp4",
-  treatmentVideo: "/videos/morpheus8/morpheus8-burst-deep-treatment-oswego.mp4",
   images: {
-    hero: "/images/morpheus8/morpheus8-hero.jpg",
+    hero: "/images/morpheus8/morpheus8-workstation-poster.jpg",
     verified: "/images/home/morpheus8-burst-verified-provider-inmode.png",
     bodyTech: "/images/home/morpheus8-body-burst-technology-inmode.png",
     founder: "/images/team/danielle-alcala-glazier-portrait.png",
@@ -79,12 +79,75 @@ export const MORPHEUS8_INTRO_SPECIAL = {
 export const MORPHEUS8_NAV = [
   { href: "#inmode", label: "InMode" },
   { href: "#why", label: "Why Morpheus8" },
+  { href: "#clinical", label: "Clinical" },
   { href: "#treats", label: "Treats" },
   { href: "#results", label: "Results" },
   { href: "#areas", label: "Areas" },
   { href: "#how", label: "How it works" },
   { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
+] as const;
+
+export const MORPHEUS8_CLINICAL_PAPERS = [
+  {
+    id: "dayan-2019",
+    title: "Adjustable Depth Fractional Radiofrequency Combined With Bipolar Radiofrequency: A Minimally Invasive Combination Treatment for Skin Laxity",
+    authors: "Dayan E, Chia C, Burns AJ, Theodorou S.",
+    journal: "Aesthetic Surgery Journal",
+    year: "2019",
+    detail: "39(Suppl_3):S112–S119",
+    note: "Describes Morpheus8 fractional RF microneedling for subdermal remodeling and skin tightening. Some protocols in this paper also include bipolar RF. Open access.",
+    href: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6460431/",
+    hrefLabel: "Read on PubMed Central",
+  },
+  {
+    id: "dayan-2020-face",
+    title: "Multimodal Radiofrequency Application for Lower Face and Neck Laxity",
+    authors: "Dayan E, Rovatti P, Aston S, et al.",
+    journal: "Plastic and Reconstructive Surgery — Global Open",
+    year: "2020",
+    detail: "8(8):e2862",
+    note: "Published series on RF protocols for lower-face and neck laxity, including fractional RF microneedling. Individual results vary.",
+    href: "https://journals.lww.com/prsgo/fulltext/2020/08000/multimodal_radiofrequency_application_for_lower.15.aspx",
+    hrefLabel: "Read the open-access paper",
+  },
+  {
+    id: "dayan-2020-review",
+    title: "The Use of Radiofrequency in Aesthetic Surgery",
+    authors: "Dayan E, Burns AJ, Rohrich RJ, Theodorou S.",
+    journal: "Plastic and Reconstructive Surgery — Global Open",
+    year: "2020",
+    detail: "PMC7489578",
+    note: "Review of noninvasive and minimally invasive RF — including fractional RF microneedling — for soft-tissue tightening.",
+    href: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7489578/",
+    hrefLabel: "Read on PubMed Central",
+  },
+  {
+    id: "inmode-burst",
+    title: "Morpheus8 Burst — manufacturer technology & clinical library",
+    authors: "InMode",
+    journal: "InModeMD + InMode University",
+    year: "Resource",
+    detail: "FDA-cleared fractional RF for soft-tissue contraction",
+    note: "Official Burst specifications, SCALE/BURST functions, and InMode’s indexed clinical papers. Not a substitute for a consult.",
+    href: "https://inmodeuniversity.com/technology/morpheus8/",
+    hrefLabel: "InMode University clinical papers",
+  },
+] as const;
+
+export const MORPHEUS8_OFFICIAL_VIDEOS = [
+  {
+    id: "body-burst",
+    title: "Morpheus8 Body Burst animation",
+    credit: "InMode International",
+    embedUrl: "https://www.youtube-nocookie.com/embed/-9Pxa0tS-LY?rel=0",
+  },
+  {
+    id: "ghavami-burst",
+    title: "Morpheus8 Burst in clinic — Dr. Ashkan Ghavami",
+    credit: "InMode International",
+    embedUrl: "https://www.youtube-nocookie.com/embed/JnHG_qkIS-o?rel=0",
+  },
 ] as const;
 
 export const MORPHEUS8_FACE_TREATS = [
