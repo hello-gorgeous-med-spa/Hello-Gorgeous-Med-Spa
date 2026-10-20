@@ -5,9 +5,10 @@
 // PRD: lot/batch, consent check, follow-up, post-care
 // ============================================================
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { chicagoTimeLabel, formatSquarePrice, squarePaymentLabel } from '@/lib/charting/square-visit';
 
 type Template = 'soap' | 'injection' | 'iv' | 'hormone' | 'general';
 
@@ -25,6 +26,13 @@ export default function NewChartNotePage() {
   const template = (searchParams.get('template') as Template) || 'general';
   const clientId = searchParams.get('client_id') || '';
   const appointmentId = searchParams.get('appointment_id') || '';
+  const squareService = searchParams.get('square_service') || '';
+  const squareStartsAt = searchParams.get('square_starts_at') || '';
+  const squarePaid = searchParams.get('square_paid') === '1';
+  const squareUnpaid = searchParams.get('square_unpaid') === '1';
+  const squarePrice = Number(searchParams.get('square_price') || 0);
+  const squareClient = searchParams.get('square_client') || '';
+  const hasSquareVisit = Boolean(appointmentId || squareService);
 
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -62,8 +70,16 @@ export default function NewChartNotePage() {
 
   useEffect(() => {
     const t = TEMPLATE_LABELS[template] || 'Note';
-    setForm((f) => ({ ...f, title: f.title || `${t} — ${new Date().toLocaleDateString()}` }));
-  }, [template]);
+    const squareTitle = squareService
+      ? `${squareService}${squareStartsAt ? ` · ${chicagoTimeLabel(squareStartsAt)}` : ''}`
+      : '';
+    setForm((f) => ({
+      ...f,
+      title: f.title || squareTitle || `${t} — ${new Date().toLocaleDateString()}`,
+      product: (f.product as string) || (template === 'injection' ? squareService : (f.product as string)),
+      dosage: (f.dosage as string) || (template === 'iv' ? squareService : (f.dosage as string)),
+    }));
+  }, [template, squareService, squareStartsAt]);
 
   const update = (key: string, value: string | boolean) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -81,6 +97,16 @@ export default function NewChartNotePage() {
         template_type: template,
         title: form.title,
         status: form.status,
+        procedure_details: hasSquareVisit
+          ? {
+              square_booking_id: appointmentId || null,
+              square_service: squareService,
+              square_starts_at: squareStartsAt,
+              square_paid: squarePaid,
+              square_price_cents: Number.isFinite(squarePrice) ? squarePrice : 0,
+              square_client: squareClient,
+            }
+          : undefined,
       };
       if (template === 'soap') {
         payload.subjective = form.subjective;
@@ -157,7 +183,9 @@ export default function NewChartNotePage() {
       <div className="p-6 max-w-2xl mx-auto">
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 text-black">
           <h2 className="font-semibold">Client required</h2>
-          <p className="mt-2 text-sm">Open charting from Calendar or a client profile so the note is linked to a client.</p>
+          <p className="mt-2 text-sm">
+            Open a visit from Today on Square, Calendar, or a client profile so the note is linked to a client.
+          </p>
           <Link href="/admin/charting" className="inline-block mt-4 text-[#2D63A4] font-medium">← Back to Charting</Link>
         </div>
       </div>
@@ -175,6 +203,25 @@ export default function NewChartNotePage() {
       </div>
 
       <h1 className="text-xl font-bold text-black">New chart note — {TEMPLATE_LABELS[template]}</h1>
+
+      {hasSquareVisit && (
+        <div className="p-4 rounded-xl border-2 border-black bg-pink-50 text-black">
+          <p className="font-semibold">Square visit</p>
+          <p className="text-sm mt-1">
+            {squareClient || 'Guest'}
+            {squareService ? ` · ${squareService}` : ''}
+            {squareStartsAt ? ` · ${chicagoTimeLabel(squareStartsAt)}` : ''}
+            {squarePrice > 0 ? ` · ${formatSquarePrice(squarePrice)}` : ''}
+          </p>
+          <p className="text-sm mt-1">
+            {squarePaymentLabel({
+              has_payment_today: squarePaid,
+              likely_unpaid: squareUnpaid,
+              price_cents: squarePrice,
+            })}
+          </p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {error && (

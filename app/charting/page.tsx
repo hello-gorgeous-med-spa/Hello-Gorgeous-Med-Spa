@@ -5,9 +5,12 @@
 // Appointment-optional charting with SOAP notes
 // ============================================================
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import SquareTodayForCharting from '@/components/charting/SquareTodayForCharting';
+import { chicagoTimeLabel, squarePaymentLabel } from '@/lib/charting/square-visit';
 
 // Dynamic import for voice dictation (no SSR)
 const VoiceDictation = dynamic(
@@ -67,7 +70,7 @@ const STATUS_COLORS: Record<string, string> = {
   amended: 'bg-purple-100 text-purple-800',
 };
 
-export default function ChartingHubPage() {
+function ChartingHubPage() {
   // State
   const [notes, setNotes] = useState<ChartNote[]>([]);
   const [loading, setLoading] = useState(true);
@@ -93,6 +96,15 @@ export default function ChartingHubPage() {
   });
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [squareVisit, setSquareVisit] = useState<{
+    service: string;
+    starts_at: string;
+    paid: boolean;
+    unpaid: boolean;
+    price_cents: number;
+    client_name: string;
+  } | null>(null);
+  const searchParams = useSearchParams();
   
   // Voice dictation state
   const [showVoice, setShowVoice] = useState(false);
@@ -168,6 +180,38 @@ export default function ChartingHubPage() {
   }, [fetchNotes, fetchTemplates]);
 
   useEffect(() => {
+    const appointmentId = searchParams.get('appointment_id') || '';
+    const clientId = searchParams.get('client_id') || '';
+    const service = searchParams.get('square_service') || '';
+    const startsAt = searchParams.get('square_starts_at') || '';
+    const clientSearchPrefill =
+      searchParams.get('client_search') || searchParams.get('square_client') || '';
+    const openNew = searchParams.get('new') === '1' || Boolean(appointmentId || service);
+    if (!openNew) return;
+
+    const priceCents = Number(searchParams.get('square_price') || 0);
+    setSquareVisit({
+      service,
+      starts_at: startsAt,
+      paid: searchParams.get('square_paid') === '1',
+      unpaid: searchParams.get('square_unpaid') === '1',
+      price_cents: Number.isFinite(priceCents) ? priceCents : 0,
+      client_name: clientSearchPrefill,
+    });
+    setNewNote((prev) => ({
+      ...prev,
+      appointment_id: appointmentId || prev.appointment_id,
+      client_id: clientId || prev.client_id,
+      title:
+        service
+          ? `${service}${startsAt ? ` · ${chicagoTimeLabel(startsAt)}` : ''}`
+          : prev.title,
+    }));
+    if (clientSearchPrefill) setClientSearch(clientSearchPrefill);
+    setShowNewNote(true);
+  }, [searchParams]);
+
+  useEffect(() => {
     const debounce = setTimeout(() => {
       searchClients(clientSearch);
     }, 300);
@@ -205,7 +249,15 @@ export default function ChartingHubPage() {
           appointment_id: newNote.appointment_id || null,
           template_id: newNote.template_id || null,
           status: asDraft ? 'draft' : 'final',
-          // created_by will be set from session in a future auth update
+          procedure_details: squareVisit
+            ? {
+                square_booking_id: newNote.appointment_id || null,
+                square_service: squareVisit.service,
+                square_starts_at: squareVisit.starts_at,
+                square_paid: squareVisit.paid,
+                square_price_cents: squareVisit.price_cents,
+              }
+            : undefined,
         }),
       });
 
@@ -225,6 +277,7 @@ export default function ChartingHubPage() {
           assessment: '',
           plan: '',
         });
+        setSquareVisit(null);
         fetchNotes();
       } else {
         setMessage({ type: 'error', text: data.error || 'Failed to save note' });
@@ -356,6 +409,9 @@ export default function ChartingHubPage() {
 
         {/* Main Content */}
         <div className="flex-1 p-6">
+          <div className="mb-6">
+            <SquareTodayForCharting hub="soap" />
+          </div>
           {/* Message */}
           {message && (
             <div className={`mb-4 p-4 rounded-lg ${
@@ -458,6 +514,23 @@ export default function ChartingHubPage() {
 
             {/* Modal Body */}
             <div className="flex-1 overflow-y-auto p-6">
+              {squareVisit && (squareVisit.service || squareVisit.client_name) && (
+                <div className="mb-4 p-3 rounded-lg border border-black bg-pink-50 text-sm text-black">
+                  <p className="font-semibold">Square visit</p>
+                  <p>
+                    {squareVisit.client_name || 'Guest'}
+                    {squareVisit.service ? ` · ${squareVisit.service}` : ''}
+                    {squareVisit.starts_at ? ` · ${chicagoTimeLabel(squareVisit.starts_at)}` : ''}
+                  </p>
+                  <p className="mt-1">
+                    {squarePaymentLabel({
+                      has_payment_today: squareVisit.paid,
+                      likely_unpaid: squareVisit.unpaid,
+                      price_cents: squareVisit.price_cents,
+                    })}
+                  </p>
+                </div>
+              )}
               <div className="grid grid-cols-3 gap-6">
                 {/* Left Column - Client & Settings */}
                 <div className="space-y-4">
@@ -786,5 +859,13 @@ export default function ChartingHubPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ChartingHubPageRoute() {
+  return (
+    <Suspense fallback={<div className="p-6 text-black">Loading charting…</div>}>
+      <ChartingHubPage />
+    </Suspense>
   );
 }

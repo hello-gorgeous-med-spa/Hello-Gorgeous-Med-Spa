@@ -8,6 +8,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import SquareTodayForCharting from '@/components/charting/SquareTodayForCharting';
 
 const TEMPLATES: { id: string; label: string; description: string; icon: string }[] = [
   { id: 'soap', label: 'SOAP Note', description: 'Subjective, Objective, Assessment, Plan', icon: '📋' },
@@ -60,8 +61,10 @@ function ChartingContent() {
     <div className="p-6 max-w-4xl mx-auto space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-black">Charting</h1>
-        <p className="text-black mt-1">Medical documentation — template-driven notes only.</p>
+        <p className="text-black mt-1">Medical documentation — template-driven notes only. Square is live below.</p>
       </div>
+
+      <SquareTodayForCharting hub="admin" />
 
       {clientId && (
         <div className="bg-white rounded-xl border border-black p-4 flex flex-wrap items-center gap-3">
@@ -82,11 +85,8 @@ function ChartingContent() {
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-black">
           <p className="font-medium">No client selected</p>
           <p className="text-sm mt-1">
-            Open charting from the Calendar (Chart / Notes on an appointment) or from a client profile → Charting tab to link the note to a client.
+            Pick a visit from Today on Square, or open charting from Calendar / a client profile.
           </p>
-          <Link href="/admin/calendar" className="inline-block mt-3 text-[#2D63A4] font-medium">
-            Open Calendar →
-          </Link>
         </div>
       )}
 

@@ -18,6 +18,8 @@ export type SquareDayBooking = {
   startAt: string | undefined;
   customerId: string | null;
   customerName: string;
+  customerEmail: string | null;
+  customerPhone: string | null;
   serviceName: string;
   priceCents: number;
   likelyUnpaid: boolean;
@@ -201,8 +203,17 @@ async function resolveServiceNames(token: string, variationIds: string[]): Promi
   return map;
 }
 
-async function customerNames(token: string, ids: string[]): Promise<Map<string, string>> {
-  const map = new Map<string, string>();
+type SquareCustomerDetails = {
+  name: string;
+  email: string | null;
+  phone: string | null;
+};
+
+async function customerDetails(
+  token: string,
+  ids: string[],
+): Promise<Map<string, SquareCustomerDetails>> {
+  const map = new Map<string, SquareCustomerDetails>();
   const unique = Array.from(new Set(ids.filter(Boolean)));
   for (const id of unique.slice(0, 40)) {
     const { res, json } = await squareGet(`/v2/customers/${id}`, token);
@@ -210,7 +221,11 @@ async function customerNames(token: string, ids: string[]): Promise<Map<string, 
     const c = json.customer;
     const name =
       [c?.given_name, c?.family_name].filter(Boolean).join(" ") || c?.company_name || "Guest";
-    map.set(id, name);
+    map.set(id, {
+      name,
+      email: typeof c?.email_address === "string" ? c.email_address : null,
+      phone: typeof c?.phone_number === "string" ? c.phone_number : null,
+    });
   }
   return map;
 }
@@ -286,7 +301,7 @@ export async function listSquareBookingsForDay(options?: {
       .map((b) => b.appointment_segments?.[0]?.service_variation_id)
       .filter(Boolean) as string[];
     const services = await resolveServiceNames(tokenInfo.token, variationIds);
-    const names = await customerNames(
+    const details = await customerDetails(
       tokenInfo.token,
       bookings.map((b) => b.customer_id || "").filter(Boolean),
     );
@@ -308,12 +323,15 @@ export async function listSquareBookingsForDay(options?: {
         const pastStart = startMs > 0 && startMs < now;
         const hasPayment = !!(b.customer_id && paidCustomers.has(b.customer_id));
         const likelyUnpaid = priceCents > 0 && !hasPayment && pastStart;
+        const guest = b.customer_id ? details.get(b.customer_id) : undefined;
         return {
           id: b.id || `unknown-${b.start_at}`,
           status: b.status || "ACCEPTED",
           startAt: b.start_at,
           customerId: b.customer_id || null,
-          customerName: (b.customer_id && names.get(b.customer_id)) || "Guest",
+          customerName: guest?.name || "Guest",
+          customerEmail: guest?.email || null,
+          customerPhone: guest?.phone || null,
           serviceName: svc?.name || "Service",
           priceCents,
           likelyUnpaid,

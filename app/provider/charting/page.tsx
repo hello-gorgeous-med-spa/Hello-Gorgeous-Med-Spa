@@ -8,6 +8,7 @@
 import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import SquareTodayForCharting from '@/components/charting/SquareTodayForCharting';
 
 function ChartingContent() {
   const router = useRouter();
@@ -28,8 +29,10 @@ function ChartingContent() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-black">Clinical Charting</h1>
-        <p className="text-black">Document patient visits and treatments</p>
+        <p className="text-black">Document patient visits and treatments. Square is live below.</p>
       </div>
+
+      <SquareTodayForCharting hub="admin" />
 
       {/* Quick Start Options */}
       <div className="grid md:grid-cols-2 gap-6">
