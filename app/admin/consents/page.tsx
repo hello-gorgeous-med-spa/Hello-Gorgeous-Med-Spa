@@ -7,6 +7,7 @@
 // ============================================================
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 interface ConsentTemplate {
   id: string;
@@ -238,12 +239,26 @@ export default function AdminConsentsPage() {
           <h1 className="text-2xl font-bold text-black">Consent Forms</h1>
           <p className="text-black">Manage consent templates and view signed consents</p>
         </div>
-        <button 
-          onClick={() => openEditModal()}
-          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
-        >
-          + Add Template
-        </button>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/admin/consents/print"
+            className="px-4 py-2 bg-white border border-black text-black font-medium rounded-lg hover:bg-gray-50"
+          >
+            Print hard copies
+          </Link>
+          <Link
+            href="/admin/consents/print/all"
+            className="px-4 py-2 bg-white border border-black text-black font-medium rounded-lg hover:bg-gray-50"
+          >
+            Print all
+          </Link>
+          <button 
+            onClick={() => openEditModal()}
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
+          >
+            + Add Template
+          </button>
+        </div>
       </div>
 
       {error && (
@@ -328,6 +343,12 @@ export default function AdminConsentsPage() {
                   )}
                 </div>
                 <div className="flex items-center gap-2">
+                  <Link
+                    href={`/admin/consents/print/${template.slug || template.id}`}
+                    className="px-3 py-1.5 text-sm text-black hover:bg-white rounded-lg transition-colors"
+                  >
+                    Print
+                  </Link>
                   <button 
                     onClick={() => openPreviewModal(template)}
                     className="px-3 py-1.5 text-sm text-black hover:bg-white rounded-lg transition-colors"

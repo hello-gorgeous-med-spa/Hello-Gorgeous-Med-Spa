@@ -21,10 +21,10 @@ export function ConsentBinderPrintView({ forms, autoPrint = false }: Props) {
     <>
       <div className="no-print mx-auto max-w-3xl px-6 py-5">
         <Link
-          href="/admin/owner/consents"
+          href="/admin/consents/print"
           className="text-sm font-medium text-[#2D63A4] hover:underline"
         >
-          ← Back to consent library
+          ← Hard copy list
         </Link>
         <h1 className="mt-3 text-xl font-bold text-black">Consent binder — all blank templates</h1>
         <p className="mt-1 text-sm text-black/65">

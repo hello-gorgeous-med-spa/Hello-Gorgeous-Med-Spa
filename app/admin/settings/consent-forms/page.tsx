@@ -40,6 +40,23 @@ export default function AdminSettingsConsentFormsPage() {
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Link 
+          href="/admin/consents/print"
+          className="bg-white rounded-xl border p-6 hover:border-blue-300 hover:shadow-md transition-all group"
+        >
+          <div className="flex items-start gap-4">
+            <span className="text-3xl">🖨️</span>
+            <div>
+              <h3 className="font-semibold text-lg group-hover:text-blue-600">Print hard copies</h3>
+              <p className="text-gray-600 text-sm mt-1">
+                Blank forms for the printer. Signed copies stay on the client chart.
+              </p>
+              <span className="text-blue-600 text-sm font-medium mt-3 inline-block">
+                Open print list →
+              </span>
+            </div>
+          </div>
+        </Link>
+        <Link 
           href="/admin/owner/consents"
           className="bg-gradient-to-r from-pink-500 to-pink-600 rounded-xl p-6 text-white hover:from-pink-600 hover:to-pink-700 transition-all group"
         >

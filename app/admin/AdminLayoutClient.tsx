@@ -249,7 +249,9 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
   const isCommandCenter =
     pathname === '/admin/command-center' || pathname.startsWith('/admin/command-center/');
   const isOwnerHome = pathname === '/admin/owner' || pathname === '/admin/owner/';
-  const isConsentPrint = pathname.startsWith('/admin/owner/consents/print');
+  const isConsentPrint =
+    pathname.startsWith('/admin/owner/consents/print') ||
+    pathname.startsWith('/admin/consents/print');
 
   if (isCommandCenter || isOwnerHome || isConsentPrint) {
     return (

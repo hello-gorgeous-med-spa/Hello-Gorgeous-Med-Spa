@@ -1,7 +1,7 @@
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { ConsentFormPrintView } from "@/components/admin/ConsentFormPrintView";
-import { CONSENT_FORMS, type ConsentFormType } from "@/lib/hgos/consent-forms";
+import { findCatalogConsentForm } from "@/lib/consents/resolve-print-form";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -11,8 +11,10 @@ type PageProps = {
 export default async function ConsentFormPrintPage({ params, searchParams }: PageProps) {
   const { id } = await params;
   const { autoprint } = await searchParams;
-  const form = CONSENT_FORMS.find((item) => item.id === (id as ConsentFormType));
-  if (!form) notFound();
+  const form = findCatalogConsentForm(id);
+  if (!form) {
+    redirect(`/admin/consents/print/${encodeURIComponent(id)}`);
+  }
 
   return <ConsentFormPrintView form={form} autoPrint={autoprint === "1"} />;
 }
