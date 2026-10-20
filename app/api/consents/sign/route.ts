@@ -5,6 +5,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { requireProviderAreaAccess } from '@/lib/api-auth';
+import { listSignedConsentsForClient } from '@/lib/consents/list-client-consents';
 import { CONSENT_FORMS } from '@/lib/hgos/consent-forms';
 
 export const dynamic = 'force-dynamic';
@@ -111,18 +113,42 @@ async function hashContent(content: string): Promise<string> {
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 16);
 }
 
-// GET - Retrieve a signed consent
+// GET — client chart list (?clientId=) or one signed_consents row (?id=)
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
+  const clientId = searchParams.get('clientId') || searchParams.get('client_id');
   const consentId = searchParams.get('id');
-
-  if (!consentId) {
-    return NextResponse.json({ error: 'Consent ID required' }, { status: 400 });
-  }
 
   const supabase = getSupabase();
   if (!supabase) {
     return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+  }
+
+  if (clientId) {
+    const auth = requireProviderAreaAccess(request);
+    if ("error" in auth) return auth.error;
+    try {
+      const consents = await listSignedConsentsForClient(supabase, clientId);
+      return NextResponse.json({
+        consents: consents.map((c) => ({
+          id: c.id,
+          form_type: c.form_type,
+          form_name: c.form_name,
+          signed_at: c.signed_at,
+          status: c.status,
+          source: c.source,
+          has_signature: c.has_signature,
+          appointment_id: c.appointment_id,
+        })),
+      });
+    } catch (error) {
+      console.error('Client consents list error:', error);
+      return NextResponse.json({ error: 'Failed to fetch consents', consents: [] }, { status: 500 });
+    }
+  }
+
+  if (!consentId) {
+    return NextResponse.json({ error: 'Consent ID required' }, { status: 400 });
   }
 
   try {

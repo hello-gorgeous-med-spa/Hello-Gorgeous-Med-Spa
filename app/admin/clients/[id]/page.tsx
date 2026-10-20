@@ -702,7 +702,11 @@ function UnifiedChartTabContent({
               {consents.map((c) => (
                 <div key={c.id} className="flex items-center justify-between py-2 border-b border-black last:border-0">
                   <span className="text-black">{c.consent_form?.name || c.form_type}</span>
-                  <span className="text-black text-sm">{formatDate(c.signed_at)}</span>
+                  <span className="text-black text-sm">
+                    {c.status === 'signed' || c.signed_at
+                      ? `Signed ${formatDate(c.signed_at)}`
+                      : (c.status || 'On file')}
+                  </span>
                 </div>
               ))}
             </div>
@@ -923,7 +927,10 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
           id: c.id,
           form_type: c.form_type,
           signed_at: c.signed_at,
-          consent_form: { name: c.form_type?.replace(/_/g, ' ') || 'Consent' },
+          status: c.status,
+          source: c.source,
+          has_signature: c.has_signature,
+          consent_form: { name: c.form_name || c.form_type?.replace(/_/g, ' ') || 'Consent' },
         })));
       }
     } catch (err) {
@@ -1281,7 +1288,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                     <div key={consent.id} className="flex items-center justify-between py-2">
                       <p className="text-sm text-black">{consent.consent_form?.name || 'Consent'}</p>
                       <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
-                        ✓ Valid
+                        {consent.status === 'signed' || consent.signed_at ? '✓ Signed' : 'On file'}
                       </span>
                     </div>
                   ))}
@@ -1504,9 +1511,17 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
           ) : (
             <div className="space-y-2">
               {consents.map((c) => (
-                <div key={c.id} className="flex items-center justify-between py-2 border-b border-black last:border-0">
+                <div key={c.id} className="flex items-center justify-between py-2 border-b border-black last:border-0 gap-3">
                   <p className="text-sm text-black">{c.consent_form?.name || c.form_type || 'Consent'}</p>
-                  <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Signed {formatDate(c.signed_at)}</span>
+                  <span className={`px-2 py-1 text-xs rounded-full shrink-0 ${
+                    c.status === 'signed' || c.signed_at
+                      ? 'bg-green-100 text-green-700'
+                      : 'bg-amber-100 text-amber-800'
+                  }`}>
+                    {c.status === 'signed' || c.signed_at
+                      ? `Signed ${formatDate(c.signed_at)}`
+                      : (c.status || 'On file')}
+                  </span>
                 </div>
               ))}
             </div>
