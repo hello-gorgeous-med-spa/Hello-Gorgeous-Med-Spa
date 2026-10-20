@@ -15,6 +15,7 @@ import { QUIZ_NAV } from "@/lib/quiz-nav";
 import { SKIN_101_NAV } from "@/lib/skin-101-nav";
 import { SPECIALS_PATH } from "@/lib/specials";
 import { SHOP_RX_NAV } from "@/lib/medical-mega-menu";
+import { REGEN_RX_PUBLIC_STOREFRONT } from "@/lib/public-rx-flags";
 import { FLOWWAVE_PATH } from "@/lib/flowwave-marketing";
 import { IV_THERAPY_NAV, IV_THERAPY_PATH } from "@/lib/iv-therapy-marketing";
 import { BUILD_YOUR_PROPOSAL_NAV } from "@/lib/build-your-proposal-marketing";
@@ -108,18 +109,22 @@ export const SPECIALS_NAV_EXTRA_LINKS = [
 
 /** In-office Services — prescription programs live under Shop RX only. */
 export const SERVICES_RX_BRIDGE_LINKS = [
-  {
-    label: "Compound shop",
-    href: REGEN_REFILL_PATH,
-    sub: "Peptides & RX protocols · see price · request review",
-    badge: "NEW" as const,
-  },
-  {
-    label: "REGEN RX",
-    href: SHOP_RX_NAV.href,
-    sub: "Our medical partnership · GLP-1 · hormones · ship to home",
-    badge: "Rx" as const,
-  },
+  ...(REGEN_RX_PUBLIC_STOREFRONT
+    ? [
+        {
+          label: "Compound shop",
+          href: REGEN_REFILL_PATH,
+          sub: "Peptides & RX protocols · see price · request review",
+          badge: "NEW" as const,
+        },
+        {
+          label: "REGEN RX",
+          href: SHOP_RX_NAV.href,
+          sub: "Our medical partnership · GLP-1 · hormones · ship to home",
+          badge: "Rx" as const,
+        },
+      ]
+    : []),
   {
     label: "Hello Gorgeous Labs",
     href: LABS_NAV.href,
@@ -131,7 +136,7 @@ export const SERVICES_RX_BRIDGE_LINKS = [
     href: RX_PATIENT_CARE_PATH,
     sub: "Existing patients — refills, pay & guides",
   },
-] as const;
+];
 
 export const SERVICES_EXPLORE_LINKS = [
   { label: "Before & After Gallery", href: "/gallery", sub: "Real client results" },
@@ -146,8 +151,10 @@ export const SERVICES_EXPLORE_LINKS = [
 /** Mobile accordion — matches desktop hubs (no duplicate top-level items). */
 export const MOBILE_PRIMARY_NAV_SECTIONS = [
   { id: "services", label: "Services" },
-  { id: "shop-rx", label: SHOP_RX_NAV.label, highlight: true },
+  ...(REGEN_RX_PUBLIC_STOREFRONT
+    ? [{ id: "shop-rx", label: SHOP_RX_NAV.label, highlight: true as const }]
+    : []),
   { id: "labs", label: "Labs", highlight: true },
   { id: "specials", label: "Specials", highlight: true },
   { id: "about", label: "About" },
-] as const;
+];

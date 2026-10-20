@@ -46,6 +46,7 @@ import { labsNavSection } from "@/lib/labs-nav";
 import { medicalMegaMenuMobileGroups, SHOP_RX_NAV } from "@/lib/medical-mega-menu";
 import { FORMULATION_HUB_LINKS } from "@/lib/regen/formulation-partner";
 import { REGEN_RX_PUBLIC_URL } from "@/lib/regen-partnership";
+import { REGEN_RX_PUBLIC_STOREFRONT } from "@/lib/public-rx-flags";
 import { QUIZ_NAV } from "@/lib/quiz-nav";
 import { HG_TAGLINE } from "@/lib/brand-tagline";
 import { SKIN_101_NAV } from "@/lib/skin-101-nav";
@@ -860,6 +861,7 @@ export function Header() {
               </Link>
             </div>
 
+            {REGEN_RX_PUBLIC_STOREFRONT ? (
             <CategoryMenu
               id="regen"
               label={SHOP_RX_NAV.label}
@@ -876,6 +878,7 @@ export function Header() {
               onOpen={() => openDropdown("regen")}
               onClose={closeDropdown}
             />
+            ) : null}
 
             {/* Specials — includes Gift Cards, Clubs, Supplements */}
             <div
@@ -1056,21 +1059,25 @@ export function Header() {
               { key: "facials", label: "Facials", links: FACIALS_MENU },
               { key: "lasers", label: "Advanced Lasers", links: ADVANCED_LASERS_MENU },
               { key: "services", label: "Services", links: NAV.services.sections.flatMap((s) => s.links) },
-              {
-                key: "medical",
-                label: SHOP_RX_NAV.label,
-                groups: [
-                  {
-                    heading: "Prescription care",
-                    links: FORMULATION_HUB_LINKS.map((link) => ({
-                      href: `${REGEN_RX_PUBLIC_URL}${link.href}`,
-                      label: link.label,
-                      sub: link.sub,
-                    })),
-                  },
-                  ...medicalMegaMenuMobileGroups(),
-                ],
-              },
+              ...(REGEN_RX_PUBLIC_STOREFRONT
+                ? [
+                    {
+                      key: "medical",
+                      label: SHOP_RX_NAV.label,
+                      groups: [
+                        {
+                          heading: "Prescription care",
+                          links: FORMULATION_HUB_LINKS.map((link) => ({
+                            href: `${REGEN_RX_PUBLIC_URL}${link.href}`,
+                            label: link.label,
+                            sub: link.sub,
+                          })),
+                        },
+                        ...medicalMegaMenuMobileGroups(),
+                      ],
+                    },
+                  ]
+                : []),
               { key: "specials", label: "Specials", links: NAV.specials.links, highlight: true },
               { key: "about", label: "About", links: NAV.about.links },
             ].map(({ key, label, links, groups, highlight }) => (

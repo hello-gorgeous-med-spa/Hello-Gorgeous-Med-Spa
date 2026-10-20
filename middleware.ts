@@ -31,6 +31,7 @@ import {
 } from '@/lib/partner-network';
 import { parseHgosSessionCookie, resolveSessionRole } from '@/lib/hgos-session';
 import { OPS_SESSION_COOKIE, verifyOpsSessionToken } from '@/lib/regen/ops-session';
+import { shouldHoldRegenStorefront, WEIGHT_LOSS_CONSULT_PATH } from '@/lib/public-rx-flags';
 
 // Routes that require authentication (admin guard applies only to these)
 const PROTECTED_ROUTES = ['/desk', '/admin', '/provider', '/portal', '/pos', '/rx-portal'];
@@ -115,6 +116,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (!isRegenHost && shouldHoldRegenStorefront(pathname, false)) {
+    return NextResponse.redirect(new URL(WEIGHT_LOSS_CONSULT_PATH + url.search, request.url));
+  }
+
   if (
     pathname.startsWith('/api/regen/ops') &&
     pathname !== '/api/regen/ops/session' &&
@@ -146,6 +151,11 @@ export async function middleware(request: NextRequest) {
       const res = NextResponse.next();
       res.headers.set('x-regen-host', '1');
       return res;
+    }
+    if (shouldHoldRegenStorefront(pathname, true)) {
+      return NextResponse.redirect(
+        new URL(`https://hellogorgeousmedspa.com${WEIGHT_LOSS_CONSULT_PATH}`, request.url),
+      );
     }
     // Root → RE GEN landing page
     if (pathname === '/' || pathname === '') {

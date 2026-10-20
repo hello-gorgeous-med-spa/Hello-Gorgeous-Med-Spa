@@ -24,7 +24,7 @@ export const LUXURY_HERO = {
   subhead:
     "Safety-first menu. Licensed Illinois clinicians. InMode Trifecta in downtown Oswego — not a trend menu. Every treatment starts with a medical screening, not a sales script.",
   cta: "Book Free Consult",
-  ctaSecondary: "Explore REGEN RX",
+  ctaSecondary: "Weight loss consult",
   trustBadges: [
     { label: "4.6 ★", subLabel: "Google · 171 Reviews", icon: "star" },
     { label: "1,931", subLabel: "Verified Visits · 5.0", icon: "check" },
@@ -43,7 +43,7 @@ export const LUXURY_CARE_GRID: {
   {
     title: "Medical weight loss",
     line: "A screened plan. Personalized for you.",
-    href: "/rx/weight-loss",
+    href: "/weight-loss/care",
     image: "/images/regen/woman-stretching.png",
     imageAlt: "Woman stretching before a walk, medical weight loss at Hello Gorgeous",
     objectPosition: "center 30%",
@@ -59,7 +59,7 @@ export const LUXURY_CARE_GRID: {
   {
     title: "Hormone optimization",
     line: "Balance, energy, and follow-up.",
-    href: "/rx/hormones",
+    href: "/hormone-therapy-oswego-il",
     image: "/images/regen/marketing/woman-wellness.png",
     imageAlt: "Woman filling a water bottle in a bright kitchen",
     objectPosition: "center 20%",
@@ -67,7 +67,7 @@ export const LUXURY_CARE_GRID: {
   {
     title: "Peptide therapy",
     line: "A clinician reviews every plan.",
-    href: "/rx/peptides",
+    href: "/weight-loss/care",
     image: "/images/homepage-care/peptide-vial.jpg",
     imageAlt: "REGEN peptide therapy vial",
     objectPosition: "center",
@@ -75,7 +75,7 @@ export const LUXURY_CARE_GRID: {
   {
     title: "Sexual health",
     line: "Confidence. Intimacy. Connection.",
-    href: "/regen/sexual-health",
+    href: "/weight-loss/care",
     image: "/images/regen/couple-couch.png",
     imageAlt: "A couple sitting together on a couch at home",
     objectPosition: "center 40%",
@@ -91,7 +91,7 @@ export const LUXURY_CARE_GRID: {
   {
     title: "Hair + skin wellness",
     line: "Hair, skin, and a plan that fits you.",
-    href: "/rx/hair-skin",
+    href: "/weight-loss/care",
     image: "/images/regen/marketing/woman-skincare.png",
     imageAlt: "Woman touching her hair, hair and skin wellness",
     objectPosition: "center 20%",
@@ -201,8 +201,8 @@ export const LUXURY_SERVICES: {
     title: "Weight Loss",
     subtitle: "Tirzepatide / Semaglutide",
     description:
-      "Medical weight loss with GLP-1 medications. Screening required. Delivered to your door.",
-    href: "/rx/weight-loss",
+      "Medical weight loss after a clinician consult. Screening required. Not sold from a cart.",
+    href: "/weight-loss/care",
   },
 ];
 
@@ -224,15 +224,15 @@ export const LUXURY_MD = {
 } as const;
 
 export const LUXURY_REGEN = {
-  eyebrow: "Hello Gorgeous RX",
-  headline: "Weight Loss + REGEN RX",
-  subhead: "Delivered to your door.",
-  body: "Tirzepatide, semaglutide, peptides, hormone support — screened and shipped by licensed Illinois clinicians.",
-  cta: "Start REGEN RX Request",
-  ctaHref: "/rx/request",
-  exploreHref: "/rx",
-  exploreLabel: "Explore REGEN RX",
-  promo: "20% off first REGEN RX medication order",
+  eyebrow: "Medical consults",
+  headline: "Weight loss & hormones",
+  subhead: "Available through consult only.",
+  body: "Tirzepatide, semaglutide, and hormone care are discussed after a clinician visit in Oswego. They are not sold from an online cart.",
+  cta: "Book a consult",
+  ctaHref: "/book",
+  exploreHref: "/weight-loss/care",
+  exploreLabel: "Weight loss consult",
+  promo: "Consult only — not available to add to cart",
   legal: "Illinois patients 21+ · Licensed clinician decides",
 } as const;
 
@@ -243,7 +243,7 @@ export const LUXURY_FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Do you offer payment plans?",
-    a: "Yes — we offer Cherry and CareCredit for device packages. REGEN RX uses Charm for invoicing. Ask during your free consult for options.",
+    a: "Yes — we offer Cherry and CareCredit for device packages. Ask during your free consult for options.",
   },
   {
     q: "What is your philosophy on Botox & filler?",

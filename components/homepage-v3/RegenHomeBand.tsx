@@ -5,8 +5,11 @@ import Link from "next/link";
 
 import { REGEN_BRAND, REGEN_MARKETING } from "@/lib/regen-brand";
 import { REGEN_PARTNERSHIP, REGEN_RX_PUBLIC_URL } from "@/lib/regen-partnership";
+import { REGEN_RX_PUBLIC_STOREFRONT } from "@/lib/public-rx-flags";
 
 export function RegenHomeBand() {
+  if (!REGEN_RX_PUBLIC_STOREFRONT) return null;
+
   return (
     <section
       id="regen-rx"

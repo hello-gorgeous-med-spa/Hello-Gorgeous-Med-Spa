@@ -12,7 +12,7 @@ const NAV = [
 ];
 
 const MARQUEE =
-  "Online intake • Clear pricing • Shipped to your door • Licensed Illinois providers • No insurance needed • NP on-site 6 days • Screened like a medical practice • Treated like family • ";
+  "Consult only • Not sold from a cart • Licensed Illinois providers • NP on-site 6 days • Screened like a medical practice • Treated like family • Book in Oswego • ";
 
 export function Glp1CareLanding() {
   return (
@@ -43,40 +43,40 @@ export function Glp1CareLanding() {
       <section className="mx-auto grid max-w-[1440px] gap-12 px-6 pb-16 pt-14 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <p className="inline-flex rounded-full border border-[#FFE4EC] bg-white px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest">
-            Doctor-guided GLP-1 care • Illinois Licensed
+            Consult only • Illinois licensed • Not sold online
           </p>
           <h1 className="mt-6 font-serif text-[44px] font-semibold leading-[0.9] tracking-tight md:text-[68px]">
             Weight loss,
             <br />
-            simplified with
+            after a
             <br />
-            <span className="font-normal italic">personalized care.</span>
+            <span className="font-normal italic">clinician consult.</span>
           </h1>
           <p className="mt-5 max-w-[540px] text-[18px] leading-[1.6] text-black/60">
-            A smarter approach to GLP-1 therapy — built around your day in Oswego. Clinician-approved, fairly priced, screened like a medical practice.
+            Medical weight-loss programs are available only after an in-office consult in Oswego. A licensed clinician decides if a plan is appropriate. Nothing here is added to a cart.
           </p>
           <div className="mt-8 space-y-3 text-[14px] font-medium">
             <div className="flex gap-3">
               <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-black text-[11px] text-white">✓</span>
               <span>
-                <b>Everything included:</b> Prescription GLP-1 semaglutide & tirzepatide
+                <b>Consult first:</b> Book in Oswego. No online checkout for GLP-1 care.
               </span>
             </div>
             <div className="flex gap-3">
               <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-black text-[11px] text-white">✓</span>
-              <span>1:1 IL clinician guidance + Care coaching</span>
+              <span>1:1 IL clinician guidance — prescription only if appropriate</span>
             </div>
             <div className="flex gap-3">
               <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-black text-[11px] text-white">✓</span>
-              <span>24/7 support + Free discreet shipping</span>
+              <span>Typical monthly program costs discussed after your visit</span>
             </div>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href={BOOK} className="rounded-full bg-black px-8 py-4 text-[14px] font-semibold text-white">
-              Start Free Intake →
+              Book a consult →
             </Link>
             <a href="#pricing" className="rounded-full border border-black/15 px-8 py-4 text-[14px] font-semibold">
-              See Pricing
+              Typical costs
             </a>
           </div>
           <div className="mt-6 flex flex-wrap gap-6 text-[12px]">
@@ -92,16 +92,16 @@ export function Glp1CareLanding() {
             <div className="rounded-[24px] border border-[#FFE4EC] bg-white p-6 shadow-xl">
               <Image src="/images/weight-loss/tirzepatide-vial.png" alt="Tirzepatide vial" width={480} height={640} className="h-[280px] w-full object-contain" />
               <div className="mt-4 font-serif font-semibold">Tirzepatide</div>
-              <div className="text-[12px] opacity-60">Dual GIP/GLP-1 • $279/mo</div>
+              <div className="text-[12px] opacity-60">Dual GIP/GLP-1 • typical $279/mo after consult</div>
             </div>
             <div className="mt-8 rounded-[24px] border border-[#FFE4EC] bg-white p-6 shadow-xl">
               <Image src="/images/weight-loss/semaglutide-vial.png" alt="Semaglutide vial" width={480} height={640} className="h-[280px] w-full object-contain" />
               <div className="mt-4 font-serif font-semibold">Semaglutide</div>
-              <div className="text-[12px] opacity-60">GLP-1 • $179/mo</div>
+              <div className="text-[12px] opacity-60">GLP-1 • typical $179/mo after consult</div>
             </div>
           </div>
           <div className="relative mt-4 flex justify-between rounded-full bg-black px-6 py-3 text-[12px] font-bold text-white">
-            <span>20% OFF FIRST REGEN RX</span>
+            <span>CONSULT ONLY — NOT SOLD FROM A CART</span>
             <span>→</span>
           </div>
         </div>
@@ -115,22 +115,22 @@ export function Glp1CareLanding() {
       </div>
 
       <section id="how-it-works" className="mx-auto max-w-[1440px] px-6 py-20">
-        <h2 className="font-serif text-[40px] font-semibold">Three simple steps from intake to doorstep.</h2>
+        <h2 className="font-serif text-[40px] font-semibold">Three steps — consult first, never a cart.</h2>
         <div className="mt-12 grid gap-8 md:grid-cols-3">
           <div className="rounded-[24px] border border-[#FFE4EC] bg-white p-8">
             <div className="font-serif text-[48px] opacity-10">01</div>
-            <h3 className="mt-2 font-semibold">Start your intake</h3>
-            <p className="mt-3 text-[14px] leading-relaxed opacity-70">Share health history and goals in a short online intake. No credit card needed, no waiting room. Screening like a medical practice.</p>
+            <h3 className="mt-2 font-semibold">Book a consult</h3>
+            <p className="mt-3 text-[14px] leading-relaxed opacity-70">Schedule in Oswego. We review goals and health history in person. There is no add-to-cart path for these programs.</p>
           </div>
           <div className="rounded-[24px] border border-[#FFE4EC] bg-white p-8">
             <div className="font-serif text-[48px] opacity-10">02</div>
             <h3 className="mt-2 font-semibold">Licensed IL provider reviews</h3>
-            <p className="mt-3 text-[14px] leading-relaxed opacity-70">NP on-site 6 days + Dr Arora MD oversight reviews your intake and writes prescription if eligible. We turn away 1 in 12 if not appropriate.</p>
+            <p className="mt-3 text-[14px] leading-relaxed opacity-70">NP on-site 6 days + Dr Arora MD oversight. A prescription is written only if it is appropriate. We turn away 1 in 12 if not.</p>
           </div>
           <div className="rounded-[24px] border border-[#FFE4EC] bg-white p-8">
             <div className="font-serif text-[48px] opacity-10">03</div>
-            <h3 className="mt-2 font-semibold">Ships from U.S. 503A pharmacy</h3>
-            <p className="mt-3 text-[14px] leading-relaxed opacity-70">Compounded and shipped discreet, unmarked packaging with ongoing clinician support and secure messaging.</p>
+            <h3 className="mt-2 font-semibold">Program discussed after the visit</h3>
+            <p className="mt-3 text-[14px] leading-relaxed opacity-70">If a plan is appropriate, typical monthly costs and pharmacy fulfillment are explained at the consult — not sold from this page.</p>
           </div>
         </div>
       </section>
@@ -186,7 +186,7 @@ export function Glp1CareLanding() {
                 </div>
               </div>
               <Link href={BOOK} className="mt-10 inline-flex rounded-full bg-[#E91E63] px-8 py-4 font-semibold text-white">
-                Start Tirzepatide - $279/mo →
+                Book a consult to discuss Tirzepatide →
               </Link>
             </div>
             <div>
@@ -241,7 +241,7 @@ export function Glp1CareLanding() {
               </div>
             </div>
             <Link href={BOOK} className="mt-10 inline-flex rounded-full bg-black px-8 py-4 font-semibold text-white">
-              Start Semaglutide - $179/mo →
+              Book a consult to discuss Semaglutide →
             </Link>
 
             <div className="mt-16 flex flex-col items-center gap-6 rounded-[24px] bg-[#0A0A0A] p-8 text-white sm:flex-row">
@@ -251,7 +251,7 @@ export function Glp1CareLanding() {
                 <div className="mt-1 font-serif text-[22px]">NAD+ 100 mg/mL</div>
                 <div className="mt-2 text-[13px] opacity-60">Sterile • For Subcutaneous Use • Cellular energy & longevity support</div>
                 <Link href={BOOK} className="mt-4 inline-flex rounded-full bg-white px-5 py-2 text-[12px] font-bold text-black">
-                  Add NAD+ →
+                  Ask at consult →
                 </Link>
               </div>
             </div>
@@ -261,15 +261,15 @@ export function Glp1CareLanding() {
 
       <section id="pricing" className="bg-[#0A0A0A] py-20 text-white">
         <div className="mx-auto max-w-[1440px] px-6">
-          <h2 className="font-serif text-[44px]">One price. No contracts. Cancel anytime.</h2>
-          <p className="mt-3 opacity-60">Pay monthly. Pause whenever. Free intake, free shipping, ongoing relationship with prescribing clinician included.</p>
+          <h2 className="font-serif text-[44px]">Typical program costs after consult.</h2>
+          <p className="mt-3 opacity-60">These are typical monthly figures discussed at your visit — not items you can add to a cart. A licensed clinician decides if a program is appropriate.</p>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             <div className="rounded-[24px] bg-white p-8 text-black">
               <Image src="/images/weight-loss/semaglutide-vial.png" alt="Semaglutide" width={320} height={400} className="mx-auto h-[180px] w-auto object-contain" />
               <div className="mt-6 text-[10px] font-bold tracking-widest opacity-50">GLP-1 AGONIST • WEIGHT LOSS</div>
               <div className="mt-1 font-serif text-[24px] font-semibold">Semaglutide</div>
               <div className="mt-2 text-[32px] font-bold">
-                $179 <span className="text-[14px] font-normal opacity-60">/month</span>
+                $179 <span className="text-[14px] font-normal opacity-60">/mo typical</span>
               </div>
               <p className="mt-3 text-[13px] opacity-70">The original GLP-1 for sustainable weight management. Starter-friendly dosing.</p>
               <ul className="mt-6 space-y-2 text-[13px]">
@@ -278,7 +278,7 @@ export function Glp1CareLanding() {
                 <li>✓ Monthly titration support</li>
               </ul>
               <Link href={BOOK} className="mt-8 flex justify-center rounded-full bg-black py-3 font-semibold text-white">
-                Get started
+                Book consult
               </Link>
             </div>
 
@@ -288,7 +288,7 @@ export function Glp1CareLanding() {
               <div className="mt-6 text-[10px] font-bold tracking-widest opacity-50">DUAL GLP-1/GIP • WEIGHT LOSS</div>
               <div className="mt-1 font-serif text-[24px] font-semibold">Tirzepatide</div>
               <div className="mt-2 text-[32px] font-bold">
-                $279 <span className="text-[14px] font-normal opacity-60">/month</span>
+                $279 <span className="text-[14px] font-normal opacity-60">/mo typical</span>
               </div>
               <p className="mt-3 text-[13px] opacity-70">Dual-receptor therapy for patients ready to make real push toward goal weight.</p>
               <ul className="mt-6 space-y-2 text-[13px]">
@@ -297,7 +297,7 @@ export function Glp1CareLanding() {
                 <li>✓ Adjustable dose protocol</li>
               </ul>
               <Link href={BOOK} className="mt-8 flex justify-center rounded-full bg-[#E91E63] py-3 font-semibold text-white">
-                Get started
+                Book consult
               </Link>
             </div>
 
@@ -308,11 +308,11 @@ export function Glp1CareLanding() {
               <div className="mt-2 text-[20px] font-bold">Custom dosing</div>
               <p className="mt-3 text-[13px] opacity-70">100 mg/mL longevity support — sterile for subcutaneous use.</p>
               <Link href={BOOK} className="mt-8 flex justify-center rounded-full bg-white py-3 font-semibold text-black">
-                Add to plan
+                Ask at consult
               </Link>
             </div>
           </div>
-          <div className="mt-8 text-center text-[11px] opacity-40">Free shipping • No insurance required • HIPAA-compliant intake • 20% off first REGEN RX order • IL patients 21+</div>
+          <div className="mt-8 text-center text-[11px] opacity-40">Consult only • Not sold online • HIPAA-compliant visit • IL patients 21+</div>
         </div>
       </section>
 
@@ -335,6 +335,10 @@ export function Glp1CareLanding() {
             <summary className="cursor-pointer font-semibold">What&apos;s the difference between Tirzepatide and Semaglutide?</summary>
             <p className="mt-3 text-[14px] opacity-70">Tirzepatide dual GIP/GLP-1, SURMOUNT trials 16-22.5% weight reduction. Semaglutide single GLP-1, STEP trials ~15%. Different mechanisms — not necessarily better for every patient.</p>
           </details>
+          <details className="rounded-2xl border border-[#FFE4EC] bg-white p-6">
+            <summary className="cursor-pointer font-semibold">Can I buy this online or add it to a cart?</summary>
+            <p className="mt-3 text-[14px] opacity-70">No. Medical weight-loss programs are consult-only. Book a visit in Oswego. A licensed clinician decides if a program is appropriate. Typical monthly costs are discussed after that visit — they are not products for checkout.</p>
+          </details>
         </div>
       </section>
 
@@ -344,8 +348,8 @@ export function Glp1CareLanding() {
 
       <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between border-t border-[#FFE4EC] bg-white p-4 lg:hidden">
         <div className="text-[12px]">
-          <div className="font-bold">Start free intake — 2 min</div>
-          <div className="opacity-60">$179 • $279/mo • Free shipping</div>
+          <div className="font-bold">Book a consult</div>
+          <div className="opacity-60">Consult only • not sold online</div>
         </div>
         <Link href={BOOK} className="rounded-full bg-[#E91E63] px-6 py-3 text-[13px] font-bold text-white">
           Book →

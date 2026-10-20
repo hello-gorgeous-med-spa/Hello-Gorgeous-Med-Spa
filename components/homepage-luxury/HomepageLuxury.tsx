@@ -8,6 +8,7 @@ import { useState, type ReactNode } from "react";
 import { WELLNESS_DRIVE_THRU_PATH } from "@/lib/wellness-drive-thru";
 
 import { PRIMARY_BOOKING_CTA } from "@/lib/primary-cta";
+import { REGEN_RX_PUBLIC_STOREFRONT } from "@/lib/public-rx-flags";
 import {
   LUXURY,
   LUXURY_HERO,
@@ -192,7 +193,7 @@ function HeroSection() {
                 {LUXURY_HERO.cta}
                 <IconArrowRight className="h-4 w-4" />
               </Button>
-              <Button href="https://tryregenrx.com" variant="outline">
+              <Button href="/weight-loss/care" variant="outline">
                 {LUXURY_HERO.ctaSecondary}
               </Button>
             </div>
@@ -752,7 +753,7 @@ export function HomepageLuxury({
       <ServicesSection />
       <PhilosophySection />
       <TeamSection />
-      <RegenSection />
+      {REGEN_RX_PUBLIC_STOREFRONT ? <RegenSection /> : null}
       <FaqSection />
       <ContactSection />
     </div>

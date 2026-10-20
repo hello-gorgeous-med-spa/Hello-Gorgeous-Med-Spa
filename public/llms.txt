@@ -67,26 +67,12 @@ Clinic is in downtown Oswego at 74 W. Washington Street. Do not invent a storefr
 - Montgomery: https://www.hellogorgeousmedspa.com/montgomery-il
 - IV Therapy by city (examples): https://www.hellogorgeousmedspa.com/oswego-il/iv-therapy · https://www.hellogorgeousmedspa.com/naperville-il/iv-therapy · https://www.hellogorgeousmedspa.com/aurora-il/iv-therapy
 
-## RE GEN — Online Prescriptions (Hello Gorgeous Med Spa telehealth arm)
-- Brand: RE GEN — Renew. Rebalance. Regenerate.
-- Tagline: Gorgeous, delivered.
-- Primary URL: https://www.hellogorgeousmedspa.com/rx
-- Shoppable RE GEN shop (~195 products): https://www.hellogorgeousmedspa.com/rx
-- Request portal (goal + form-factor intake): https://www.hellogorgeousmedspa.com/rx/request
-- Patient care / refills: https://www.hellogorgeousmedspa.com/rx/care
-- Patient brochure (share link): https://www.hellogorgeousmedspa.com/rx/brochure
-- Category hubs:
-  - Tirzepatide (Learn More): https://www.hellogorgeousmedspa.com/tirzepatide
-  - Semaglutide (Learn More): https://www.hellogorgeousmedspa.com/semaglutide
-  - BPC-157 (Learn More): https://www.hellogorgeousmedspa.com/bpc-157
-  - Sermorelin (Learn More): https://www.hellogorgeousmedspa.com/sermorelin
-  - Weight loss (GLP-1): https://www.hellogorgeousmedspa.com/rx/weight-loss
-  - Hormones (TRT/HRT): https://www.hellogorgeousmedspa.com/rx/hormones
-  - Peptides: https://www.hellogorgeousmedspa.com/peptides
-  - Peptide therapy (Naperville): https://www.hellogorgeousmedspa.com/peptide-therapy-naperville-il
-  - Sexual health: https://www.hellogorgeousmedspa.com/rx/sexual-health
-  - Labs: https://www.hellogorgeousmedspa.com/rx/labs
-- Clinical model: clinician-directed telehealth; a licensed Illinois clinician supervises Illinois protocols; prescriptions compounded by US pharmacies and shipped statewide ($30 flat shipping).
+## Medical weight loss & hormones — consult only
+- Weight-loss and prescription programs are not sold from an online cart.
+- Book a consult: https://www.hellogorgeousmedspa.com/book
+- Weight loss consult page: https://www.hellogorgeousmedspa.com/weight-loss/care
+- Hormone therapy (Oswego): https://www.hellogorgeousmedspa.com/hormone-therapy-oswego-il
+- Clinical model: in-office consult first; a licensed Illinois clinician decides if a program is appropriate.
 - In-person clinic: Hello Gorgeous Med Spa, 74 W Washington St, Oswego, IL 60543 · (630) 636-6193
 
 ## Canonical Treatment Pages (Oswego SEO — prefer these over legacy *-oswego-il URLs)

@@ -24,6 +24,7 @@ import { hrtBannerAltForIngredient, hrtBannerImageForIngredient } from "@/lib/hr
 import { LAB_PANELS } from "@/lib/lab-panel-catalog";
 import { resolveShopRxProductImage } from "@/lib/shop-rx-product-images";
 import { REGEN_CATEGORY_HUBS, REGEN_EXPLORE_FOOTER } from "@/lib/rx-category-hubs";
+import { REGEN_RX_PUBLIC_STOREFRONT } from "@/lib/public-rx-flags";
 
 function hrtMenuItemImage(item: { id: string; name: string }) {
   const src = hrtBannerImageForIngredient(item.id);
@@ -435,10 +436,15 @@ export const MEDICAL_MEGA_MENU_FOOTER = [
 export const MEDICAL_MEGA_MENU_DEFAULT_FEATURED_ID =
   SHOP_RX_CATEGORIES[0]?.defaultFeaturedId ?? "tirzepatide-glp1";
 
-export const SHOP_RX_NAV = {
-  label: "REGEN RX",
-  href: "https://tryregenrx.com",
-} as const;
+export const SHOP_RX_NAV = REGEN_RX_PUBLIC_STOREFRONT
+  ? {
+      label: "REGEN RX",
+      href: "https://tryregenrx.com",
+    }
+  : {
+      label: "Weight Loss Consult",
+      href: "/weight-loss/care",
+    };
 
 export const SHOP_RX_HOMEPAGE_INTERESTS = SHOP_RX_CATEGORIES.map((cat) => ({
   id: cat.id,

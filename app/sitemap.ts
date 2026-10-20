@@ -18,6 +18,7 @@ import { publishedProtocolModels, RX_PROTOCOLS_PATH } from '@/lib/regen/catalog/
 import { SKIN_101_GUIDES, SKIN_101_PATH } from '@/lib/skin-101-nav';
 import { isDeindexedSeoPath } from '@/lib/city-seo-tier';
 import { AI_FLAGSHIP_PAGES } from '@/lib/ai-discoverable-flagships';
+import { REGEN_RX_PUBLIC_STOREFRONT } from '@/lib/public-rx-flags';
 
 // ============================================================
 // SITEMAP - Auto-generates for Google indexing
@@ -1508,6 +1509,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const path = entry.url.replace(baseUrl, '') || '/';
     if (REDIRECTING_PATHS.has(path)) return false;
     if (isDeindexedPath(path)) return false;
+    if (!REGEN_RX_PUBLIC_STOREFRONT) {
+      if (entry.url.includes('tryregenrx.com')) return false;
+      if (path === '/rx' || path.startsWith('/rx/') || path.startsWith('/regen')) return false;
+    }
     if (seen.has(entry.url)) return false;
     seen.add(entry.url);
     return true;
