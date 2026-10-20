@@ -260,6 +260,7 @@ export default function AdminConsentsPage() {
         <div className="bg-white rounded-lg border border-black p-4">
           <p className="text-sm text-black">Total Signed</p>
           <p className="text-2xl font-bold text-green-600">{stats.totalSigned.toLocaleString()}</p>
+          <p className="text-xs text-black mt-1">Includes iPad / kiosk signatures</p>
         </div>
         <div className="bg-white rounded-lg border border-black p-4">
           <p className="text-sm text-black">Expiring Soon (30 days)</p>
@@ -270,6 +271,9 @@ export default function AdminConsentsPage() {
       <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
         <div className="px-5 py-4 border-b border-black">
           <h2 className="font-semibold text-black">Consent Templates</h2>
+          <p className="text-sm text-black mt-1">
+            These are the blank forms. Signed copies live on the client chart and in the Total Signed count — including every iPad kiosk signature.
+          </p>
         </div>
         
         {templates.length === 0 ? (
@@ -313,7 +317,7 @@ export default function AdminConsentsPage() {
                     )}
                   </div>
                   <p className="text-sm text-black">
-                    {(template.signed_count || 0).toLocaleString()} signed • 
+                    {(template.signed_count || 0).toLocaleString()} signed (kiosk + chart) • 
                     Version {template.version} • 
                     Updated {new Date(template.updated_at).toLocaleDateString()}
                   </p>

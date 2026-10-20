@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from 'next/server';
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { signedCountForTemplate } from '@/lib/consents/template-signed-counts';
 
 export async function GET(request: NextRequest) {
   try {
@@ -23,15 +24,26 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ templates: [], error: error.message });
     }
 
-    // Get signed counts for each template
+    const { data: packets } = await supabase
+      .from('consent_packets')
+      .select('template_id, template_name')
+      .eq('status', 'signed');
+
+    const signedPackets = packets || [];
+
     const templatesWithCounts = await Promise.all(
       (templates || []).map(async (template) => {
-        const { count } = await supabase
+        const { count: legacyCount } = await supabase
           .from('client_consents')
           .select('*', { count: 'exact', head: true })
           .eq('consent_template_id', template.id);
-        
-        return { ...template, signed_count: count || 0 };
+
+        const kioskCount = signedCountForTemplate(signedPackets, template);
+        return {
+          ...template,
+          signed_count: (legacyCount || 0) + kioskCount,
+          kiosk_signed_count: kioskCount,
+        };
       })
     );
 
@@ -46,13 +58,21 @@ export async function GET(request: NextRequest) {
       .gt('expires_at', new Date().toISOString())
       .eq('is_valid', true);
 
+    const byName: Record<string, number> = {};
+    for (const row of signedPackets) {
+      const name = row.template_name || 'Consent';
+      byName[name] = (byName[name] || 0) + 1;
+    }
+
     return NextResponse.json({
       templates: templatesWithCounts,
       stats: {
         total: templatesWithCounts.length,
-        totalSigned: templatesWithCounts.reduce((sum, t) => sum + (t.signed_count || 0), 0),
+        totalSigned: signedPackets.length + templatesWithCounts.reduce((sum, t) => sum + ((t.signed_count || 0) - (t.kiosk_signed_count || 0)), 0),
+        kioskSigned: signedPackets.length,
         expiringSoon: expiringCount || 0,
       },
+      packetCountsByName: byName,
     });
   } catch (error) {
     console.error('Consents API error:', error);

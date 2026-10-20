@@ -8,6 +8,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import OwnerLayout from '../layout-wrapper';
 import { CONSENT_FORMS, type ConsentForm as ConsentFormType } from '@/lib/hgos/consent-forms';
+import { consentNamesMatch } from '@/lib/consents/template-signed-counts';
 import { SQUARE_BOOKING_CONTRACT_TEXT } from '@/lib/square-booking-policies';
 
 interface Client {
@@ -65,6 +66,8 @@ export default function ConsentsPage() {
   const [loadingClients, setLoadingClients] = useState(false);
   const [generatedLink, setGeneratedLink] = useState<string | null>(null);
   const [linkCopied, setLinkCopied] = useState(false);
+  const [packetCountsByName, setPacketCountsByName] = useState<Record<string, number>>({});
+  const [kioskSigned, setKioskSigned] = useState(0);
 
   const [enforcementRules, setEnforcementRules] = useState({
     block_booking_without_consent: true,
@@ -90,6 +93,21 @@ export default function ConsentsPage() {
       setLoadingClients(false);
     }
   }, []);
+
+  useEffect(() => {
+    fetch('/api/consents')
+      .then((r) => r.json())
+      .then((data) => {
+        setPacketCountsByName(data.packetCountsByName || {});
+        setKioskSigned(Number(data.stats?.kioskSigned || data.stats?.totalSigned || 0));
+      })
+      .catch(() => {});
+  }, []);
+
+  const signedForForm = (formName: string) =>
+    Object.entries(packetCountsByName).reduce((sum, [name, count]) => {
+      return consentNamesMatch(name, formName) ? sum + Number(count || 0) : sum;
+    }, 0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -316,8 +334,8 @@ export default function ConsentsPage() {
             <div className="text-sm text-gray-600">Categories</div>
           </div>
           <div className="bg-white rounded-xl border p-4 text-center">
-            <div className="text-3xl font-bold text-purple-600">{CONSENT_FORMS.filter(f => f.expiresAfterDays).length}</div>
-            <div className="text-sm text-gray-600">With Expiration</div>
+            <div className="text-3xl font-bold text-purple-600">{kioskSigned.toLocaleString()}</div>
+            <div className="text-sm text-gray-600">Signed on kiosk / chart</div>
           </div>
         </div>
 
@@ -354,6 +372,9 @@ export default function ConsentsPage() {
                         )}
                       </div>
                       <p className="text-sm text-gray-600 mt-1">{form.description}</p>
+                      <p className="text-sm font-medium text-green-700 mt-1">
+                        {signedForForm(form.name)} signed on client charts
+                      </p>
                       <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
                         {form.expiresAfterDays ? (
                           <span>Expires: {form.expiresAfterDays} days</span>
