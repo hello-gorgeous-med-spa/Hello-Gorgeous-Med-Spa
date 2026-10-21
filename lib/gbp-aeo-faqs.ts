@@ -141,7 +141,7 @@ export function gbpLocalFaqs(
     "botox-aurora-il": {
       question: "Where is the best place to get Botox in Aurora, IL?",
       answer:
-        "Hello Gorgeous Med Spa does not have an Aurora storefront. Aurora patients come to 74 W. Washington Street in downtown Oswego, about 10–15 minutes south on Route 30 or west on Route 34. Licensed nurse practitioners inject Botox, Dysport, and Jeuveau after a medical screening. Book at hellogorgeousmedspa.com/book or call (630) 636-6193.",
+        "Hello Gorgeous Med Spa does not have an Aurora office. Aurora patients come to 74 W. Washington Street in downtown Oswego, about 10–15 minutes south on Route 30 or west on Route 34. Botox is $10 a unit. A licensed nurse practitioner injects Botox, Dysport, or Jeuveau after a medical screening. Book at hellogorgeousmedspa.com/book or call (630) 636-6193.",
     },
   };
   const wellnessLead = gbpSlug ? wellnessVisibilityLead(gbpSlug, serviceSlug) : null;

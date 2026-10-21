@@ -117,19 +117,27 @@ export const CITY_FIVE_PAGE_COPY: Record<string, CityFivePageCopy> = {
     ],
   },
   "botox-aurora-il": {
-    servingLine: "Serving Aurora from our Oswego clinic",
-    h1: "Botox for Aurora. Refreshed, Never Frozen.",
-    title: `Botox Aurora, IL from ${BOTOX_PRICE}/unit | Expert Injectors`,
-    metaDescription: `Natural-looking Botox for Aurora, IL by our medical injector team. Honest pricing from ${BOTOX_PRICE}/unit, free consult — nearby in Oswego.`,
-    intro: `Aurora patients who want Botox come to Hello Gorgeous Med Spa at 74 W. Washington Street in downtown Oswego, about 10–15 minutes south on Route 30 or west on Route 34. We do not have an Aurora office. Licensed nurse practitioners inject Botox, Dysport, and Jeuveau after a medical screening, with a conservative plan so movement still looks like you. Botox is ${BOTOX_PRICE}/unit — authentic Allergan product from US distributors only. East Aurora usually takes Route 30 south. West Aurora and North Aurora often cut over on Route 34. The visit is about 15–20 minutes. Results typically show in 3–7 days and last about 3–4 months. Parking is on Washington Street and the nearby side streets. Call (630) 636-6193 or book online.`,
+    servingLine: "Aurora patients · clinic in downtown Oswego",
+    h1: "Botox for Aurora patients, in downtown Oswego",
+    title: "Botox for Aurora, IL | $10/unit | 10–15 min to Oswego",
+    metaDescription:
+      "Aurora patients get Botox at Hello Gorgeous in downtown Oswego, about 10–15 minutes away. $10 a unit. No Aurora office. Book a free consult.",
+    intro:
+      "Aurora patients get Botox at 74 W. Washington Street in downtown Oswego, about 10–15 minutes south on Route 30 or west on Route 34. There is no Aurora office. Botox is $10 a unit. A licensed nurse practitioner injects after a screening. Call (630) 636-6193 or book a free consult.",
     faqs: [
       {
-        question: "Botox pricing for Aurora?",
-        answer: `From ${BOTOX_PRICE} per unit, with a clear quote at your free consult before we begin.`,
+        question: "Where do Aurora patients go for Botox?",
+        answer:
+          "Hello Gorgeous Med Spa at 74 W. Washington Street, Oswego, IL 60543. About 10–15 minutes from Aurora. There is no Aurora office.",
       },
       {
-        question: "Is it done by a professional?",
-        answer: "Yes — our trained medical injectors, in a nurse-practitioner-directed clinic.",
+        question: "How much is Botox for someone driving from Aurora?",
+        answer: "Botox is $10 a unit. The consult is free, and the quote is given before treatment.",
+      },
+      {
+        question: "Who injects?",
+        answer:
+          "A licensed nurse practitioner injects. Care is physician-directed by Dr. Mukesh Arora, MD, Licensed Physician and Surgeon.",
       },
     ],
   },

@@ -56,7 +56,7 @@ export const CITY_HUB_PROFILES: Record<`${PrimaryCitySlug}-il`, CityHubProfile> 
     driveTime: "About 10–15 minutes",
     primaryRoute: "Route 30 south to Oswego, or Route 34 west from east Aurora",
     heroSubline:
-      "Aurora and Fox Valley clients come to Oswego for technology other Kane County spas do not carry — Burst-depth RF, Solaria CO₂, QuantumRF, and NP-supervised medical programs.",
+      "The clinic is in downtown Oswego, about 10–15 minutes from Aurora on Route 30 or Route 34. Botox is $10 a unit. There is no Aurora office. Book a free consult.",
     localContext:
       "Aurora is one of our busiest drive markets: east-siders take Route 30 south; west Aurora and North Aurora clients often cut over on Route 34. They choose Hello Gorgeous when they want Burst Morpheus8 (8 mm multi-depth RF), fractional CO₂ resurfacing, or TRT and GLP-1 with an FNP-BC on site — not a rotating injector and a remote medical director. If you have been comparing med spas along Ogden or Route 59, our consult-first Oswego clinic is worth the short drive.",
     landmarks: ["Route 30", "Fox Valley", "east & west Aurora"],

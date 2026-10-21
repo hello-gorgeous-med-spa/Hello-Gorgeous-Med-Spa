@@ -89,8 +89,11 @@ export default function AuroraHubPage() {
               <CTA href="/providers" variant="outline">
                 Meet the Experts
               </CTA>
-              <CTA href="/locations" variant="outline">
-                View all locations
+              <CTA
+                href="https://www.google.com/maps/dir/?api=1&destination=74+W+Washington+Street+Oswego+IL+60543"
+                variant="outline"
+              >
+                Directions from Aurora
               </CTA>
             </div>
             <p className="mt-6 text-sm text-black/60">
@@ -168,11 +171,10 @@ export default function AuroraHubPage() {
               </h2>
               <p className="mt-4 text-black/80 max-w-2xl leading-relaxed">
                 Aurora is the second-largest city in Illinois, spanning Kane, DuPage, Kendall and
-                Will counties. We&apos;re about a <strong>20-minute drive west on Route 30</strong> in
-                downtown Oswego — and even closer from <strong>North Aurora and Montgomery</strong>.
-                Aurora clients choose Hello Gorgeous for physician-led medical aesthetic care you can&apos;t get at a
-                walk-in counter: Medical Director Dr. Mukesh Arora, MD, genuine products, and
-                FDA-cleared InMode Class IV lasers.
+                Will counties. The clinic is in downtown Oswego, about a <strong>10–15 minute drive</strong> —
+                Route 30 south from east Aurora, or Route 34 from west Aurora and North Aurora.
+                Aurora clients book Hello Gorgeous for physician-directed care: Medical Director Dr. Mukesh Arora, MD, genuine products, and
+                the InMode lasers on site.
               </p>
               <p className="mt-4 text-black/80 max-w-2xl leading-relaxed">
                 New to us? Read{" "}
