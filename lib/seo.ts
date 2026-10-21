@@ -785,12 +785,12 @@ export const SERVICES: readonly Service[] = [
       {
         question: "Does laser hair removal hurt?",
         answer:
-          "Most clients describe the sensation as a quick rubber-band snap or warm pinch. Our Zemits Duocratis has built-in cooling technology that minimizes discomfort. Sensitive areas (upper lip, bikini) may feel slightly more intense, but we can adjust settings. Treatments become more comfortable as hair thins.",
+          "Most clients describe the sensation as a quick rubber-band snap or warm pinch. The Zemits DuoCratus Pro handpiece has cooling. Sensitive areas (upper lip, bikini) may feel slightly more intense, and settings can be adjusted. Treatments often feel easier as hair thins.",
       },
       {
         question: "Can all skin tones and hair colors be treated?",
         answer:
-          "Our Zemits Duocratis uses dual-wavelength technology (755nm + 808nm + 1064nm) that is safe for light to dark skin tones. Best results are seen with dark hair (melanin absorbs the laser). Light blonde, red, or gray hair may not respond as well. We evaluate your skin and hair type during your free consultation.",
+          "Hair removal here is the Zemits DuoCratus Pro 808 nm diode laser. Dark hair responds best, because the laser is absorbed by pigment. Blonde, red, and gray hair may not respond as well. Skin tone and history are checked at the consult before any settings are used. The same platform also has IPL for pigment, redness, and acne when that is the right treatment.",
       },
       {
         question: "Is laser hair removal permanent?",
@@ -815,7 +815,7 @@ export const SERVICES: readonly Service[] = [
       {
         question: "Why choose Hello Gorgeous for laser hair removal?",
         answer:
-          "We use the professional-grade Zemits Duocratis laser with triple-wavelength technology for safe, effective treatment across skin types. Our certified technicians personalize settings for your skin and hair. We're Best of Oswego for med spa services, with physician-led care under Dr. Mukesh Arora, MD. Free consultations, transparent pricing, and a focus on your comfort.",
+          "We use the Zemits DuoCratus Pro: an 808 nm diode laser for hair reduction, with IPL on the same platform. Settings are chosen for your skin and hair. Care is physician-directed by Dr. Mukesh Arora, MD, Licensed Physician and Surgeon. Consultations are free, and pricing is quoted before treatment.",
       },
     ],
   },

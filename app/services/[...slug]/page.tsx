@@ -1770,14 +1770,14 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         </Section>
       )}
 
-      {/* Laser Hair Removal - Zemits Duocratis */}
+      {/* Laser Hair Removal - Zemits DuoCratus Pro */}
       {s.slug === "laser-hair-removal" && (
         <Section className="bg-gradient-to-b from-[#F8E6ED] via-white to-[#F8E6ED]/30">
           {/* Spring Special Banner */}
           <FadeUp>
             <div className="mb-10 p-6 rounded-2xl bg-gradient-to-r from-[#FF2D8E] to-[#E91E8C] text-white text-center">
               <p className="font-bold text-lg mb-2">Pay per session — no packages</p>
-              <p className="text-white/90 text-sm mb-4">Chin or lip $69 · underarms, upper/lower legs, bikini $89 · Brazilian, back, full legs $129.</p>
+              <p className="text-white/90 text-sm mb-4">Chin or lip $79 · underarms, upper/lower legs, bikini $99 · Brazilian, back, full legs $129.</p>
               <Link
                 href="/book?ref=laser_hair_menu"
                 className="inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#FF2D8E] font-bold rounded-lg hover:bg-gray-100 transition"
@@ -1795,7 +1795,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 Permanent Confidence Starts Here
               </h2>
               <p className="mt-4 text-black/80 max-w-2xl mx-auto text-base md:text-lg">
-                Say goodbye to razor burn, ingrown hairs, and constant shaving. Laser hair removal targets hair follicles at the root for lasting smoothness. Our Zemits Duocratis Professional Laser delivers powerful, precise, and safe treatment for all skin types—with built-in cooling for your comfort.
+                Laser hair removal on the Zemits DuoCratus Pro uses an 808 nm diode laser on the follicle. The handpiece has cooling. Settings are chosen for your skin at the visit. The same platform also has IPL when pigment, redness, or acne is the concern.
               </p>
               <p className="mt-3 text-black/70 max-w-xl mx-auto text-sm">
                 Most clients see visible reduction after just 2 sessions. A full series (6–8 treatments) typically achieves 80–95% permanent hair reduction.
@@ -1807,8 +1807,8 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           <FadeUp delayMs={60}>
             <div className="mb-10 max-w-2xl mx-auto rounded-xl overflow-hidden border border-black/20 shadow-md">
               <Image
-                src="/images/laser/zemits-duocratis-hero.png"
-                alt="Zemits Duocratis laser hair removal device at Hello Gorgeous Med Spa Oswego IL - Experience cutting-edge laser hair removal"
+                src="/images/laser-hair-removal/duocratus-pro-device.png"
+                alt="Zemits DuoCratus Pro diode laser and IPL system at Hello Gorgeous Med Spa in Oswego"
                 width={600}
                 height={340}
                 className="w-full h-auto object-cover"
@@ -1822,7 +1822,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {[
               { icon: "⚡", title: "Fast & Effective", desc: "Large treatment areas covered quickly with professional-grade power" },
-              { icon: "🎯", title: "All Skin Types", desc: "Safe for light to dark skin tones with adjustable settings" },
+              { icon: "🎯", title: "Settings for your skin", desc: "808 nm diode energy is chosen for your skin and hair at the visit" },
               { icon: "❄️", title: "Built-in Cooling", desc: "Comfortable treatment with integrated skin cooling technology" },
               { icon: "✨", title: "Long-lasting Results", desc: "Permanent hair reduction after a series of treatments" },
             ].map((b, idx) => (
@@ -1893,7 +1893,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                   <span>🔬</span> How It Works
                 </h3>
                 <p className="text-black/80 text-sm leading-relaxed">
-                  The Zemits Duocratis uses dual-wavelength diode laser technology (755nm + 808nm + 1064nm) to target melanin in hair follicles. Light energy converts to heat, disabling the follicle&apos;s ability to regrow hair while the built-in cooling system protects your skin.
+                  The Zemits DuoCratus Pro hair-removal handpiece is an 808 nm diode laser. Pigment in the follicle absorbs the light. Cooling on the handpiece is there for comfort. Blonde, red, and gray hair may not respond, because there is less pigment to target.
                 </p>
               </div>
               <div className="p-6 rounded-2xl border-2 border-black bg-white">
@@ -1990,7 +1990,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                   Laser hair removal targets the <strong>melanin (pigment)</strong> in your hair follicles. The laser emits concentrated light that is absorbed by the pigment, converting to heat and disabling the follicle&apos;s ability to regrow hair. Because hair grows in cycles—<em>anagen</em> (active), <em>catagen</em> (transition), <em>telogen</em> (resting)—the laser only effectively treats hair in the active growth phase. That&apos;s why <strong>multiple sessions</strong> (typically 6–8) spaced 4–6 weeks apart are needed to catch each follicle as it enters that phase.
                 </p>
                 <p>
-                  Our <strong>Zemits Duocratis</strong> uses triple-wavelength diode technology (755nm + 808nm + 1064nm), allowing us to safely treat a wide range of skin tones and hair types. Built-in cooling protects your skin while delivering effective energy to the follicle. Most clients describe the sensation as a quick snap or warm pinch—and treatments become more comfortable as hair thins.
+                  Hair removal is done on the <strong>Zemits DuoCratus Pro</strong>, an 808 nm diode laser. The same platform has IPL for pigment, redness, and acne when that is the treatment we choose. Cooling is built into the handpiece. Most clients describe the sensation as a quick snap or warm pinch, and later visits often feel easier as the hair thins.
                 </p>
                 <p>
                   <strong>Results are progressive.</strong> You&apos;ll notice reduction after each session. Many clients see visible improvement after just 2 visits. Full results typically appear after completing your series, with 80–95% permanent reduction in most areas.
@@ -2008,7 +2008,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
                 {[
                   { icon: "🏆", title: "Best of Oswego", desc: "#1 Best Med Spa" },
-                  { icon: "🔬", title: "Professional-Grade", desc: "Zemits Duocratis triple-wavelength" },
+                  { icon: "🔬", title: "DuoCratus Pro", desc: "808 nm diode laser, plus IPL" },
                   { icon: "👩‍⚕️", title: "NP on Site", desc: "Full-authority medical oversight" },
                   { icon: "💝", title: "Free Consultation", desc: "Personalized plan, no obligation" },
                 ].map((item) => (

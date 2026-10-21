@@ -2620,7 +2620,7 @@ Our most comprehensive plan. Unlimited areas every 2 months over 24 months. Comp
 ## The Hello Gorgeous Difference
 
 - **Best of Oswego** — #1 Best Med Spa, Best Medical Weight Loss
-- **Professional-grade Zemits Duocratis** — triple-wavelength technology for all skin types
+- **Zemits DuoCratus Pro** — 808 nm diode laser for hair reduction, with IPL on the same platform
 - **NP on site** — full-authority nurse practitioner 6 days a week
 - **Free consultation** — personalized plan, no obligation
 - **Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery & the Fox Valley**

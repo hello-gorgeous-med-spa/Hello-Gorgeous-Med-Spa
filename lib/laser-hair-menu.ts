@@ -13,11 +13,11 @@ export const LASER_HAIR_MENU_PATH = "/services/laser-hair-removal" as const;
 export const LASER_HAIR_MENU: ServiceMenuConfig = {
   path: LASER_HAIR_MENU_PATH,
   metaTitle: "Laser Hair Removal | Small $79 · Medium $99 · Large $129 | Hello Gorgeous Oswego",
-  metaDescription: `Laser hair removal in Oswego — ${LASER_HAIR_MENU_BLURB} Medical-grade Zemits DuoCratus at Hello Gorgeous Med Spa.`,
+  metaDescription: `Laser hair removal in Oswego on the Zemits DuoCratus Pro, an 808 nm diode laser. ${LASER_HAIR_MENU_BLURB}`,
   hero: {
-    eyebrow: "Oswego, IL · All skin types",
+    eyebrow: "Oswego, IL · Zemits DuoCratus Pro",
     titleAccent: "Laser Hair Removal",
-    subtitle: `Medical-grade Zemits DuoCratus. ${LASER_HAIR_MENU_BLURB}`,
+    subtitle: `Zemits DuoCratus Pro — 808 nm diode laser for hair reduction, with IPL on the same platform. ${LASER_HAIR_MENU_BLURB}`,
     secondaryCta: { label: "Book laser", href: "/book?ref=laser_hair_menu" },
   },
   sections: [
@@ -25,12 +25,12 @@ export const LASER_HAIR_MENU: ServiceMenuConfig = {
       id: "pay-per-session",
       number: "01",
       title: "Pay Per Session",
-      description: `No package required. ${LASER_HAIR_PERFORMERS} perform every listed area on Zemits DuoCratus.`,
+      description: `No package required. ${LASER_HAIR_PERFORMERS} perform every listed area on the Zemits DuoCratus Pro.`,
       highlights: [
         `Small — chin or lip ${LASER_HAIR_TIERS.small.priceLabel}`,
         `Medium — underarms, upper or lower legs, bikini ${LASER_HAIR_TIERS.medium.priceLabel}`,
         `Large — Brazilian, back, full legs ${LASER_HAIR_TIERS.large.priceLabel}`,
-        "Zemits DuoCratus medical-grade platform",
+        "Zemits DuoCratus Pro · 808 nm diode, plus IPL",
         "Series recommended for lasting reduction",
       ],
       pricing: LASER_HAIR_AREAS.map((area) => ({
@@ -113,7 +113,7 @@ export const LASER_HAIR_MENU: ServiceMenuConfig = {
     {
       question: "Is laser hair removal safe for dark skin?",
       answer:
-        "Yes — our Zemits DuoCratus laser is safe for Fitzpatrick types I through VI when settings are adjusted for your skin. We assess candidacy at your first visit.",
+        "Hair removal on the DuoCratus Pro is an 808 nm diode. The energy is chosen for your skin at the visit. Darker hair responds more readily because the laser looks for pigment. Blonde, red, and gray hair may not. We say no when the settings are not a fit.",
     },
   ],
 };

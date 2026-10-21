@@ -300,14 +300,14 @@ export const SERVICE_PAGES_BASE: ServicePageData[] = [
     fullServiceName: "Laser Hair Removal",
     targetKeyword: "laser hair removal oswego",
     h1: "Laser Hair Removal in Oswego, IL",
-    valueProp: "Permanent hair reduction for face and body with customized laser settings and medical oversight.",
+    valueProp: "Hair reduction on the Zemits DuoCratus Pro, an 808 nm diode laser, with settings chosen at a consult.",
     tier: "contested",
     procedureType: "Laser",
     bodyLocation: "Face and Body",
-    metaDescriptionExtra: "Laser hair removal Oswego. Safe for many skin types. Free consult.",
+    metaDescriptionExtra: "Laser hair removal in Oswego on the Zemits DuoCratus Pro. Consult first.",
     howItWorksParagraphs: educationBlock("Laser hair removal", "laser hair removal oswego", [
-      "Laser hair removal targets melanin in the hair follicle to reduce future growth. A series of treatments spaced weeks apart yields the best results.",
-      "We adjust device settings for skin tone and hair color. Sun avoidance and pre-treatment shaving instructions are provided for safety and efficacy.",
+      "Hair removal at Hello Gorgeous uses the Zemits DuoCratus Pro, an 808 nm diode laser. Pigment in the follicle absorbs the light. A series spaced weeks apart is how the growth cycles get treated.",
+      "Settings are chosen for skin tone and hair color. Dark hair responds best. Blonde, red, and gray hair may not. Shave before the visit, and stay out of the sun as directed.",
     ]),
     whatToExpectSteps: expectSteps("laser hair removal"),
     faqs: standardFaqs("laser hair removal", "laser hair removal oswego", [

@@ -149,8 +149,8 @@ export const TOP_SERVICES: ServiceConfig[] = [
     slug: 'laser-hair-removal',
     name: 'Laser Hair Removal',
     shortName: 'Laser Hair',
-    priceDisplay: 'From $69',
-    description: 'Say goodbye to shaving and waxing with professional laser hair removal for smooth, hair-free skin.',
+    priceDisplay: 'From $79',
+    description: 'Laser hair removal on the Zemits DuoCratus Pro, an 808 nm diode laser, for face and body. Settings are chosen at a consult.',
     heroImage: '/images/laser-hair-removal/duocratus-pro-device.png',
     keywords: ['laser hair removal', 'permanent hair removal', 'hair removal', 'laser hair', 'bikini laser', 'underarm laser', 'leg laser', 'facial hair removal'],
     treatmentAreas: [
@@ -171,7 +171,7 @@ export const TOP_SERVICES: ServiceConfig[] = [
       { question: 'How many sessions do I need?', answer: 'Most areas require 6-8 sessions spaced 4-6 weeks apart. Hair grows in cycles, so multiple sessions catch hair in the active growth phase.' },
       { question: 'Does laser hair removal hurt?', answer: 'Most clients describe it as a rubber band snap. We can adjust settings for comfort and some areas are more sensitive than others.' },
       { question: 'Is it permanent?', answer: 'Laser hair removal provides permanent hair REDUCTION. Most clients see 80-90% reduction after completing their sessions, with occasional touch-ups.' },
-      { question: 'Can all skin tones be treated?', answer: 'Our laser is safe for most skin tones. We\'ll evaluate your skin and hair type during consultation to ensure safe, effective treatment.' },
+      { question: 'Can all skin tones be treated?', answer: 'Hair removal is done on the Zemits DuoCratus Pro, an 808 nm diode laser. Settings are chosen for your skin at the consult. Dark hair responds best. Blonde, red, and gray hair may not.' },
     ],
   },
   {

@@ -37,7 +37,7 @@ const additionalImages = [
   
   // Laser
   { src: "/images/laser/laser-hair-removal-results.png", title: "Laser Hair Removal Results", caption: "Laser hair removal treatment results" },
-  { src: "/images/laser/zemits-duocratis-hero.png", title: "Zemits DuoCratis Laser", caption: "Advanced laser technology at Hello Gorgeous" },
+  { src: "/images/laser-hair-removal/duocratus-pro-device.png", title: "Zemits DuoCratus Pro", caption: "808 nm diode laser and IPL platform at Hello Gorgeous" },
   
   // Team
   { src: "/images/team/danielle.png", title: "Danielle Alcala", caption: "Danielle Alcala, Owner of Hello Gorgeous Med Spa" },

@@ -802,7 +802,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
     procedureType: "Laser",
     bodyLocation: "Variable (face, underarms, legs, bikini, back)",
     tier: "uncontested",
-    heroContent: "Laser hair removal is one of the most-requested services in any med spa — but the quality of the technology and the experience of the operator make all the difference. At Hello Gorgeous, we use advanced diode laser technology with customizable settings safe for most skin tones, performed by trained staff under a licensed Illinois clinician's medical oversight. No assembly-line treatments. No untrained operators. Just real medical aesthetics at fair pricing.",
+    heroContent: "Laser hair removal at Hello Gorgeous is done on the Zemits DuoCratus Pro, an 808 nm diode laser. Settings are chosen for the skin and hair in front of us, under a licensed Illinois clinician. The same platform has IPL when pigment, redness, or acne is the treatment. Dark hair responds best. A consult comes first.",
     whyBullets: [
       "Customizable settings safe for a wide range of skin tones",
       "Trained staff with medical oversight from a licensed Illinois clinician",
@@ -811,7 +811,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       "Free consultation with a patch test to confirm fit"
     ],
     howItWorksParagraphs: [
-      "Laser hair removal works by targeting the pigment (melanin) in the hair follicle. The laser energy is absorbed by the pigment, which damages the follicle's ability to grow new hair. Because the laser targets pigment specifically, it works best on dark hair against lighter skin — but modern diode lasers (which we use) have settings safe for a wider range of skin tones than older laser types. The treatment only affects hair follicles in the active growth phase, which is why a series of 6–8 sessions spaced 4–6 weeks apart is needed to catch follicles at the right time. After a full series, most clients see 70–90% permanent hair reduction in the treated area."
+      "Laser hair removal on the Zemits DuoCratus Pro uses an 808 nm diode. Pigment in the follicle absorbs the light. Dark hair responds best. Blonde, red, and gray hair may not, because there is less pigment to target. Hair only responds in the active growth phase, so a series of 6–8 sessions spaced 4–6 weeks apart is how the cycles get treated. Reduction varies. A full series is not a promise of a hair-free result."
     ],
     whatToExpectSteps: [
       "Free consultation — assess skin type, hair color, treatment area, and goals. We do a small patch test to confirm appropriate settings.",
@@ -836,7 +836,7 @@ export const PHASE2_PAGES: ServicePageData[] = [
       },
       {
         "q": "Will it work on my skin tone?",
-        "a": "Probably yes. Modern diode lasers (which we use) have customizable settings safe for a wider range of skin tones than older laser types. We do a patch test at your consultation to confirm. Very dark hair against light skin is the easiest combination; lighter hair (blonde, gray, red) is harder because the laser targets pigment."
+        "a": "Hair removal is the Zemits DuoCratus Pro, an 808 nm diode laser. Settings are chosen at the consult, including a patch test when we need one. Dark hair is the easiest target because the laser looks for pigment. Blonde, gray, and red hair may not respond."
       },
       {
         "q": "What can I do/not do before treatment?",
