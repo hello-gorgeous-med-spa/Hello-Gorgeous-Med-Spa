@@ -918,6 +918,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.97,
     },
     {
+      url: `${baseUrl}/services/vi-peel`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.97,
+    },
+    {
       url: `${baseUrl}/services/iv-therapy`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

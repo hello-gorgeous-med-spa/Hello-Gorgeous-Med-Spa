@@ -67,6 +67,7 @@ export const SITE_TWO_DOORS: SiteDoor[] = [
       { label: "Morpheus8", href: "/services/morpheus8" },
       { label: "Quantum RF", href: "/services/quantum-rf" },
       { label: "Solaria CO₂", href: "/services/solaria-co2" },
+      { label: "VI Peel", href: "/services/vi-peel" },
       { label: "Before & after gallery", href: "/gallery" },
     ],
   },

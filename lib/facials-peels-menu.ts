@@ -18,6 +18,7 @@ export function isFacialsPeelsNavActive(pathname: string | null): boolean {
     pathname.startsWith("/dermaplaning-oswego") ||
     pathname.startsWith("/chemical-peel-oswego") ||
     pathname.startsWith("/services/ipl-photofacial") ||
-    pathname.startsWith("/ipl-photofacial")
+    pathname.startsWith("/ipl-photofacial") ||
+    pathname.startsWith("/services/vi-peel")
   );
 }

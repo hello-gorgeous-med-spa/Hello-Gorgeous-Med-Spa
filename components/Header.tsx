@@ -33,6 +33,7 @@ import {
   FACIALS_PEELS_MENU_PATH,
   isFacialsPeelsNavActive,
 } from "@/lib/facials-peels-menu";
+import { VI_PEEL_PATH } from "@/lib/vi-peel-marketing";
 import { IV_THERAPY_NAV, IV_THERAPY_PATH, isIvTherapyNavActive } from "@/lib/iv-therapy-marketing";
 import {
   ABOUT_NAV_EXTRA_LINKS,
@@ -80,6 +81,11 @@ const NAV = {
             href: FACIALS_PEELS_MENU_PATH,
             sub: "HydraFacial · dermaplaning · VI Peel · IPL",
             badge: "NEW",
+          },
+          {
+            label: "VI Peel",
+            href: VI_PEEL_PATH,
+            sub: "Peels plus ToxBooster with neurotoxin",
           },
           {
             label: "Laser Hair Removal Menu",
@@ -219,6 +225,8 @@ type CategoryLink = { href: string; label: string; sub: string; external?: boole
 
 const FACIALS_MENU: CategoryLink[] = [
   { href: FACIALS_PEELS_MENU_PATH, label: "Facials & peels", sub: "HydraFacial, peels, and dermaplaning" },
+  { href: VI_PEEL_PATH, label: "VI Peel", sub: "Pigment, acne, texture, and body" },
+  { href: `${VI_PEEL_PATH}#toxbooster`, label: "ToxBooster", sub: "VI Peel before neurotoxin" },
   { href: BROW_MICROBLADING_NAV.href, label: "Brows", sub: "Microblading and brow PMU" },
 ];
 
@@ -255,8 +263,11 @@ function CategoryMenu({
   open,
   external,
   toggleOnClick,
+  menuAlign = "left",
   onOpen,
   onClose,
+  onDismiss,
+  onPin,
 }: {
   id: string;
   label: string;
@@ -265,59 +276,116 @@ function CategoryMenu({
   active: boolean;
   open: boolean;
   external?: boolean;
-  /** Click opens the menu instead of following href. Hover still opens it. */
+  /** Click pins the menu open so it can be used without navigating away. */
   toggleOnClick?: boolean;
+  menuAlign?: "left" | "right";
   onOpen: () => void;
   onClose: () => void;
+  onDismiss?: () => void;
+  onPin?: () => void;
 }) {
-  const triggerClass = NAV_LINK_BASE;
-  const triggerStyle = navPillStyle(0, active);
-  const triggerProps = {
-    className: triggerClass,
-    style: triggerStyle,
-    onFocus: onOpen,
-    "aria-haspopup": "true" as const,
-    "aria-expanded": open,
-    "aria-controls": `${id}-menu`,
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const pinned = useRef(false);
+  const dismissRef = useRef(onDismiss);
+  dismissRef.current = onDismiss;
+
+  useEffect(() => {
+    if (!open) pinned.current = false;
+  }, [open]);
+
+  useEffect(() => {
+    if (!open || !toggleOnClick) return;
+    const onPointerDown = (event: MouseEvent) => {
+      if (!wrapRef.current?.contains(event.target as Node)) {
+        pinned.current = false;
+        dismissRef.current?.();
+      }
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    return () => document.removeEventListener("mousedown", onPointerDown);
+  }, [open, toggleOnClick]);
+
+  const leave = () => {
+    if (pinned.current) return;
+    onClose();
   };
+
+  const triggerClass = NAV_LINK_BASE;
+  const triggerStyle = navPillStyle(0, active || open);
+  const chevron = (
+    <svg className={cx("h-3 w-3 transition-transform", open && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+    </svg>
+  );
+  const closeMenu = () => {
+    pinned.current = false;
+    (onDismiss ?? onClose)();
+  };
+
   return (
     <div
+      ref={wrapRef}
       className={cx("relative flex items-center", open && "z-[110]")}
       onMouseEnter={onOpen}
-      onMouseLeave={onClose}
+      onMouseLeave={leave}
     >
-      {external ? (
-        <a href={href} target="_blank" rel="noopener noreferrer" {...triggerProps}>
+      {toggleOnClick ? (
+        <button
+          type="button"
+          className={cx(triggerClass, "cursor-pointer")}
+          style={triggerStyle}
+          aria-haspopup="true"
+          aria-expanded={open}
+          aria-controls={`${id}-menu`}
+          onClick={() => {
+            if (open && pinned.current) {
+              pinned.current = false;
+              (onDismiss ?? onClose)();
+              return;
+            }
+            pinned.current = true;
+            onPin?.();
+            onOpen();
+          }}
+        >
           {label}
-          <svg className={cx("h-3 w-3 transition-transform", open && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
+          {chevron}
+        </button>
+      ) : external ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={triggerClass}
+          style={triggerStyle}
+          onFocus={onOpen}
+          aria-haspopup="true"
+          aria-expanded={open}
+          aria-controls={`${id}-menu`}
+        >
+          {label}
+          {chevron}
         </a>
       ) : (
-      <Link
-        href={href}
-        {...triggerProps}
-        onClick={
-          toggleOnClick
-            ? (event) => {
-                event.preventDefault();
-                onOpen();
-              }
-            : undefined
-        }
-      >
-        {label}
-        <svg className={cx("h-3 w-3 transition-transform", open && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </Link>
+        <Link
+          href={href}
+          className={triggerClass}
+          style={triggerStyle}
+          onFocus={onOpen}
+          aria-haspopup="true"
+          aria-expanded={open}
+          aria-controls={`${id}-menu`}
+        >
+          {label}
+          {chevron}
+        </Link>
       )}
       {open ? (
         <div
           id={`${id}-menu`}
-          className="absolute top-full left-0 z-[100] pt-2"
+          className={cx("absolute top-full z-[100] pt-2", menuAlign === "right" ? "right-0" : "left-0")}
           onMouseEnter={onOpen}
-          onMouseLeave={onClose}
+          onMouseLeave={leave}
         >
           <div className="w-[min(280px,calc(100vw-2rem))] overflow-hidden rounded-xl border border-white/10 bg-zinc-950 shadow-2xl">
             {links.map((link) =>
@@ -327,13 +395,14 @@ function CategoryMenu({
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={closeMenu}
                   className="block px-4 py-3 hover:bg-white/5"
                 >
                   <span className="block text-sm font-semibold text-white">{link.label}</span>
                   <span className="mt-0.5 block text-xs text-white/45">{link.sub}</span>
                 </a>
               ) : (
-                <Link key={link.href} href={link.href} className="block px-4 py-3 hover:bg-white/5">
+                <Link key={link.href} href={link.href} onClick={closeMenu} className="block px-4 py-3 hover:bg-white/5">
                   <span className="block text-sm font-semibold text-white">{link.label}</span>
                   <span className="mt-0.5 block text-xs text-white/45">{link.sub}</span>
                 </Link>
@@ -612,14 +681,23 @@ export function Header() {
   const [mobileSection, setMobileSection] = useState<string | null>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const timeout = useRef<NodeJS.Timeout | null>(null);
+  const lockedDropdown = useRef<string | null>(null);
 
   const openDropdown = (key: string) => {
+    if (lockedDropdown.current && lockedDropdown.current !== key) lockedDropdown.current = null;
     if (timeout.current) clearTimeout(timeout.current);
     setActiveDropdown(key);
   };
 
   const closeDropdown = () => {
+    if (lockedDropdown.current) return;
     timeout.current = setTimeout(() => setActiveDropdown(null), 150);
+  };
+
+  const closeDropdownNow = () => {
+    lockedDropdown.current = null;
+    if (timeout.current) clearTimeout(timeout.current);
+    setActiveDropdown(null);
   };
 
   useEffect(() => () => { if (timeout.current) clearTimeout(timeout.current); }, []);
@@ -759,7 +837,7 @@ export function Header() {
       </div>
 
       {/* Desktop nav row — centered, Trifecta accent pills */}
-      <div className="hidden overflow-visible border-t border-white/5 bg-zinc-950/90 backdrop-blur-md lg:block">
+      <div className="hidden overflow-visible border-t border-white/5 bg-zinc-950 lg:block">
         <nav className="mx-auto flex max-w-7xl flex-nowrap items-center justify-center gap-1 overflow-visible px-3 py-2">
             {/* Services */}
             <div
@@ -860,8 +938,13 @@ export function Header() {
               active={isLasersNavActive}
               open={activeDropdown === "lasers"}
               toggleOnClick
+              menuAlign="right"
               onOpen={() => openDropdown("lasers")}
               onClose={closeDropdown}
+              onDismiss={closeDropdownNow}
+              onPin={() => {
+                lockedDropdown.current = "lasers";
+              }}
             />
 
             <div className="relative flex items-center" onMouseEnter={closeDropdown}>

@@ -254,7 +254,13 @@ export function FacialsPeelsPageContent() {
                         className="flex items-center justify-between gap-4 border-b border-black/[0.07] px-[18px] py-3.5 last:border-b-0"
                       >
                         <div>
-                          <p className="text-[15px] font-semibold text-[#111]">{row.label}</p>
+                          {"href" in row && row.href ? (
+                            <Link href={row.href} className="text-[15px] font-semibold text-[#111] underline-offset-2 hover:underline">
+                              {row.label}
+                            </Link>
+                          ) : (
+                            <p className="text-[15px] font-semibold text-[#111]">{row.label}</p>
+                          )}
                           {row.sub ? <p className="mt-0.5 text-[13px] text-black/50">{row.sub}</p> : null}
                         </div>
                         <p className="shrink-0 font-serif text-xl font-extrabold text-[#FF2D8E]">{row.price}</p>

@@ -165,7 +165,7 @@ export const FACIALS_TREATMENTS: FacialsTreatment[] = [
     bullets: [
       "Light · medium · advanced peel depths",
       "Dermalogica PRO peels (AGEreversal · PowerClear · Renewal)",
-      "VI Peel Precision · Advanced · Purify",
+      "VI Peel Precision, Purify, Advanced, Original, and Body",
       "SkinCeuticals professional peels",
       "Pre/post care guidance included",
     ],
@@ -174,8 +174,8 @@ export const FACIALS_TREATMENTS: FacialsTreatment[] = [
       { label: "Medium chemical peel", price: "From $189" },
       { label: "Chemical peel facial (Dermalogica)", price: "$80" },
       { label: "SkinCeuticals peel", price: "$125" },
-      { label: "VI Peel (single)", price: "Consult" },
-      { label: "VI Peel package (3)", price: "Consult" },
+      { label: "VI Peel (single)", price: "Consult", href: "/services/vi-peel" },
+      { label: "VI Peel package (3)", price: "Consult", href: "/services/vi-peel" },
     ],
   },
   {
