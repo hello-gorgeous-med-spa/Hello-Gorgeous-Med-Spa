@@ -387,7 +387,10 @@ function CategoryMenu({
           onMouseEnter={onOpen}
           onMouseLeave={leave}
         >
-          <div className="w-[min(280px,calc(100vw-2rem))] overflow-hidden rounded-xl border border-white/10 bg-zinc-950 shadow-2xl">
+          <div
+            className="w-[min(280px,calc(100vw-2rem))] overflow-hidden rounded-xl border shadow-2xl"
+            style={{ backgroundColor: "#18181b", borderColor: "rgba(255,255,255,0.12)" }}
+          >
             {links.map((link) =>
               link.external ? (
                 <a
@@ -837,7 +840,7 @@ export function Header() {
       </div>
 
       {/* Desktop nav row — centered, Trifecta accent pills */}
-      <div className="hidden overflow-visible border-t border-white/5 bg-zinc-950 lg:block">
+      <div className="hidden overflow-visible border-t border-white/5 bg-black lg:block">
         <nav className="mx-auto flex max-w-7xl flex-nowrap items-center justify-center gap-1 overflow-visible px-3 py-2">
             {/* Services */}
             <div
