@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PhysicianLedStrip } from "@/components/PhysicianLedStrip";
 import { ProofConversionSection } from "@/components/services/ProofConversionSection";
 import { ServiceTestimonialsPlaceholder } from "@/components/services/ServiceTestimonialsPlaceholder";
 import { ServiceVideoTranscriptSection } from "@/components/services/ServiceVideoTranscriptSection";
@@ -24,7 +25,7 @@ const WEIGHT_LOSS_FAQS = [
   {
     question: "Who supervises treatment at Hello Gorgeous?",
     answer:
-      "Care is medically supervised by our clinical team, including licensed nurse practitioners. We review history, candidacy, and response at follow-ups, then adjust plan details as needed for safety and sustainability.",
+      "Care is physician-led by Medical Director Dr. Mukesh Arora, MD, a Licensed Physician and Surgeon in Illinois (Internal Medicine). A licensed Illinois clinician reviews history, candidacy, and response at follow-ups.",
   },
   {
     question: "What does treatment usually cost?",
@@ -90,6 +91,8 @@ export default function WeightLossServicePage() {
             </div>
           </div>
         </section>
+
+        <PhysicianLedStrip />
 
         <section className="border-b-2 border-black bg-white py-14 md:py-16">
           <div className="mx-auto grid max-w-6xl gap-8 px-4 md:grid-cols-2">

@@ -62,13 +62,13 @@ export function MedicalTrustBand({
                 MD Oversight · Licensed Illinois clinicians · Come in — we&apos;re friendly
               </p>
               <h2 className={`mt-3 text-2xl font-black md:text-3xl ${s.title}`}>
-                Owner · Prescriber · RN injector · Medical Director
+                Physician-led. Dr. Mukesh Arora, MD.
               </h2>
               <p className={`mt-4 text-base leading-relaxed ${s.body}`}>
-                Illinois patients deserve more than a checkout flow. Danielle Alcala-Glazier —
-                owner, RN-S, CNA, CMAA, licensed phlebotomist, and licensed esthetician — leads
-                the practice every day. A licensed Illinois clinician writes RE GEN RX prescriptions. Kristina
-                Huda, BSN, RN is our RN injector. Dr. Mukesh Arora, MD is Medical Director.
+                Dr. Mukesh Arora, MD — Licensed Physician and Surgeon, State of Illinois, Internal
+                Medicine — is Medical Director. Danielle Alcala-Glazier owns the practice.
+                Kristina Huda, BSN, RN is the RN injector. A licensed Illinois clinician writes
+                prescriptions after a consult.
               </p>
               <blockquote
                 className={`mt-5 border-l-4 border-[#E6007E] pl-4 text-lg font-medium italic ${surface === "dark" ? "text-white/90" : "text-black/85"}`}

@@ -191,7 +191,7 @@ export function MeetDaniRyanSection() {
           imageAlt="Dr. Mukesh Arora, MD, Medical Director at Hello Gorgeous Med Spa"
           heading="Dr. Arora"
           role="Medical Director"
-          credentials="Internal Medicine · physician Medical Director"
+          credentials="Licensed Physician and Surgeon · Internal Medicine"
           body="Physician oversight for Hello Gorgeous. Prescriptions are written by a licensed Illinois clinician after a consult — not by the owner."
           ctaLabel="Read about Dr. Arora"
           ctaHref="/providers/dr-arora"

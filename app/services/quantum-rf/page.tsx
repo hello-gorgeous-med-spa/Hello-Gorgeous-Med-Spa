@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { PhysicianLedStrip } from "@/components/PhysicianLedStrip";
 import { QuantumRFPageContent } from "@/components/quantum-rf/QuantumRFPageContent";
 import {
   QUANTUM_RF_FAQS,
@@ -49,7 +50,7 @@ function quantumRfProcedureJsonLd() {
       jobTitle: "Medical Director",
       medicalSpecialty: "Internal Medicine",
       description:
-        "Medical Director of Hello Gorgeous Med Spa. Board-certified Internal Medicine physician with 30+ years of experience.",
+        "Medical Director of Hello Gorgeous Med Spa. Licensed Physician and Surgeon, State of Illinois. Internal Medicine, 30+ years of experience.",
       worksFor: { "@id": `${SITE.url}/#organization` },
     },
     areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
@@ -123,6 +124,7 @@ export default function QuantumRfServicePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(quantumRfProcedureJsonLd()) }}
       />
+      <PhysicianLedStrip />
       <QuantumRFPageContent />
     </>
   );

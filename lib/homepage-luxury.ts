@@ -218,8 +218,8 @@ export const LUXURY_OWNER = {
 export const LUXURY_MD = {
   eyebrow: "Medical Director",
   name: "Dr. Mukesh Arora, MD",
-  credentials: "Internal Medicine · 30+ Years",
-  body: "Board-certified physician oversight. Every treatment protocol is physician-approved.",
+  credentials: "Licensed Physician and Surgeon · Internal Medicine · 30+ Years",
+  body: "Licensed Physician and Surgeon, State of Illinois. Physician oversight for the medical program.",
   image: "/images/team/dr-arora-portrait.jpg",
 } as const;
 

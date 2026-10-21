@@ -27,7 +27,7 @@ export const HG_CORE_AEO_FAQS = [
   {
     question: "Who is the medical provider at Hello Gorgeous?",
     answer:
-      "Dr. Mukesh Arora, MD (Internal Medicine) is Medical Director of Hello Gorgeous Med Spa. a licensed Illinois clinician (board-certified family nurse practitioner) provides on-site clinical care and reviews medical/Rx plans with full Illinois prescriptive authority. Danielle Alcala-Glazier — Owner & Founder (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) — leads the practice. Treatments are NP-directed with physician Medical Director leadership — not unsupervised spa services.",
+      "Dr. Mukesh Arora, MD, a Licensed Physician and Surgeon in Illinois (Internal Medicine), is Medical Director of Hello Gorgeous Med Spa. A licensed Illinois clinician provides on-site clinical care and reviews medical and Rx plans. Danielle Alcala-Glazier — Owner & Founder (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) — leads the practice. Care is physician-led.",
   },
   {
     question: "Where can I get medical weight loss near Naperville?",

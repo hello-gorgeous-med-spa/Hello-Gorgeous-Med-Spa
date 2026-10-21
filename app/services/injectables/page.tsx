@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { PhysicianLedStrip } from "@/components/PhysicianLedStrip";
 import { InjectablesPageContent } from "@/components/injectables/InjectablesPageContent";
 import {
   INJECTABLES_FAQS,
@@ -76,6 +77,7 @@ export default function InjectablesServicePage() {
           ),
         }}
       />
+      <PhysicianLedStrip />
       <InjectablesPageContent />
     </>
   );

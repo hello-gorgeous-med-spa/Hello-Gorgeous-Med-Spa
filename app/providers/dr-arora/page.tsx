@@ -7,6 +7,7 @@ import { FadeUp } from "@/components/Section";
 import {
   MEDICAL_DIRECTOR,
   MEDICAL_DIRECTOR_EXPERIENCE,
+  MEDICAL_DIRECTOR_LICENSE_TITLE,
   MEDICAL_DIRECTOR_SPECIALTY,
   NP_ON_SITE_PHRASE,
 } from "@/lib/medical-authority";
@@ -20,7 +21,7 @@ const PAGE_URL = `${SITE.url}${PAGE_PATH}`;
 export const metadata: Metadata = {
   ...pageMetadata({
     title: `${MEDICAL_DIRECTOR.displayName} | Medical Director, Hello Gorgeous Med Spa`,
-    description: `${MEDICAL_DIRECTOR.displayName} is Medical Director of Hello Gorgeous Med Spa in Oswego, IL — ${MEDICAL_DIRECTOR_SPECIALTY}, ${MEDICAL_DIRECTOR_EXPERIENCE}. Prescriptions are written by a licensed Illinois clinician after a consult.`,
+    description: `${MEDICAL_DIRECTOR.displayName} is Medical Director of Hello Gorgeous Med Spa in Oswego, IL — ${MEDICAL_DIRECTOR_LICENSE_TITLE}, State of Illinois, ${MEDICAL_DIRECTOR_SPECIALTY}, ${MEDICAL_DIRECTOR_EXPERIENCE}. Prescriptions are written by a licensed Illinois clinician after a consult.`,
     path: PAGE_PATH,
     keywords: [
       "Dr. Mukesh Arora",
@@ -121,14 +122,14 @@ export default function MedicalDirectorPage() {
               <h1 className="mt-3 text-4xl font-black leading-[1.05] text-white sm:text-5xl">
                 {MEDICAL_DIRECTOR.displayName}
                 <span className="mt-2 block bg-gradient-to-r from-[#FFB8DC] via-[#FF2D8E] to-[#E6007E] bg-clip-text text-2xl text-transparent sm:text-3xl">
-                  Medical Director · {MEDICAL_DIRECTOR_SPECIALTY}
+                  {MEDICAL_DIRECTOR_LICENSE_TITLE}
                 </span>
               </h1>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
-                Dr. Arora is the physician Medical Director behind Hello Gorgeous Med Spa —{" "}
-                {MEDICAL_DIRECTOR_SPECIALTY.toLowerCase()} with {MEDICAL_DIRECTOR_EXPERIENCE}. He
-                provides medical oversight of the practice&apos;s clinical program. Prescriptions
-                are {NP_ON_SITE_PHRASE} after a consult.
+                Dr. Arora is Medical Director of Hello Gorgeous Med Spa — a{" "}
+                {MEDICAL_DIRECTOR_LICENSE_TITLE} in the State of Illinois, {MEDICAL_DIRECTOR_SPECIALTY},{" "}
+                {MEDICAL_DIRECTOR_EXPERIENCE}. He provides medical oversight of the practice&apos;s
+                clinical program. Prescriptions are {NP_ON_SITE_PHRASE} after a consult.
               </p>
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 <CTA href={PRIMARY_BOOKING_CTA.href} variant="gradient">

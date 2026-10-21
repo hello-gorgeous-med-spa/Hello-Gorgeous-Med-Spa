@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata, SITE, siteJsonLd, faqJsonLd, SERVICES } from "@/lib/seo";
+import { PhysicianLedStrip } from "@/components/PhysicianLedStrip";
 import { HarmonyAI } from "@/components/HarmonyAI";
 import { FAQAccordion } from "@/components/FAQAccordion";
 // Booking goes through /book?service=biote-hormone-therapy → /book resolves
@@ -73,6 +74,8 @@ export default function BioteHormoneTherapyPage() {
             </div>
           </div>
         </section>
+
+        <PhysicianLedStrip />
 
         {/* Short intro */}
         <section className="py-10 max-w-4xl mx-auto px-6 md:px-12">

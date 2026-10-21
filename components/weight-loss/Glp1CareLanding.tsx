@@ -329,7 +329,7 @@ export function Glp1CareLanding() {
           </details>
           <details className="rounded-2xl border border-[#FFE4EC] bg-white p-6">
             <summary className="cursor-pointer font-semibold">Who provides oversight?</summary>
-            <p className="mt-3 text-[14px] opacity-70">Dr Mukesh Arora MD 30+ years Internal Medicine is Medical Director. Owner Danielle Alcala-Glazier RN-S leads daily practice. NP on-site 6 days.</p>
+            <p className="mt-3 text-[14px] opacity-70">Dr. Mukesh Arora, MD — Licensed Physician and Surgeon, State of Illinois, Internal Medicine, 30+ years — is Medical Director. Owner Danielle Alcala-Glazier, RN-S, leads the practice daily.</p>
           </details>
           <details className="rounded-2xl border border-[#FFE4EC] bg-white p-6">
             <summary className="cursor-pointer font-semibold">What&apos;s the difference between Tirzepatide and Semaglutide?</summary>

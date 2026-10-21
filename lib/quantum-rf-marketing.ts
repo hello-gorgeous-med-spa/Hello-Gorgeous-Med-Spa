@@ -487,7 +487,7 @@ export const QUANTUM_RF_FAQS = [
   },
   {
     q: "Who performs Quantum RF at Hello Gorgeous Med Spa?",
-    a: "Dr. Mukesh Arora, MD, our Medical Director, performs Quantum RF treatments at Hello Gorgeous Med Spa in Oswego, Illinois. Dr. Arora is a board-certified Internal Medicine physician with over 30 years of medical experience.",
+    a: "Dr. Mukesh Arora, MD, our Medical Director, performs Quantum RF treatments at Hello Gorgeous Med Spa in Oswego, Illinois. He is a Licensed Physician and Surgeon, State of Illinois, in Internal Medicine, with over 30 years of medical experience.",
   },
   {
     q: "Am I a candidate for Quantum RF?",

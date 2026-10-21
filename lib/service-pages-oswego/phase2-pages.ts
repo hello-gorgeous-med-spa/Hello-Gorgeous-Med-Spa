@@ -437,21 +437,21 @@ export const PHASE2_PAGES: ServicePageData[] = [
     clinicalVideos: [
       {
         src: MORPHEUS8_TREATMENT_VIDEO,
-        label: "Treatment",
-        title: "Morpheus8 Burst RF microneedling treatment — Hello Gorgeous Oswego, IL",
+        label: "Technology",
+        title: "Morpheus8 workstation — InMode technology at Hello Gorgeous Oswego",
         description:
-          "Watch a real Morpheus8 Burst Deep session at Hello Gorgeous Med Spa in Oswego, IL. Verified InMode provider serving Naperville, Aurora, Plainfield and Kendall County.",
+          "Official InMode Morpheus8 workstation animation. Hello Gorgeous Med Spa in Oswego is a verified InMode provider. Care is physician-led by Dr. Mukesh Arora, MD.",
         poster: MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
         aspect: "video",
       },
       {
         src: MORPHEUS8_FAQ_VIDEO,
-        label: "FAQ",
-        title: "Morpheus8 Burst FAQ — what to know before you book | Oswego, IL",
+        label: "How it works",
+        title: "How Morpheus8 Burst reaches deeper tissue",
         description:
-          "Common Morpheus8 Burst RF microneedling questions answered by our medical team at Hello Gorgeous Med Spa in Oswego, IL.",
+          "Animation of Morpheus8 Burst depth compared with standard microneedling. A consult at Hello Gorgeous in Oswego confirms whether treatment is appropriate.",
         poster: MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
-        aspect: "portrait",
+        aspect: "video",
       },
     ],
   },

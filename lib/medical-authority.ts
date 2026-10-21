@@ -33,7 +33,7 @@ export const NP_ON_SITE_SHORT = "Licensed Illinois clinician";
  * Date the clinical content owned by this authority layer was last reviewed.
  * Bump this when clinical surfaces are re-read, not on every deploy.
  */
-export const CLINICAL_REVIEW_DATE = "2026-09-22";
+export const CLINICAL_REVIEW_DATE = "2026-10-20";
 
 export type ClinicianAuthority = {
   /** Display name including credential suffix, e.g. "Dr. Mukesh Arora, MD". */
@@ -63,8 +63,11 @@ export const MEDICAL_DIRECTOR: ClinicianAuthority = {
   honorificPrefix: "Dr.",
   honorificSuffix: "MD",
   jobTitle: "Medical Director",
-  roleLine: "Medical Director · Internal Medicine",
-  credentials: ["Doctor of Medicine (MD) · Internal Medicine"],
+  roleLine: "Licensed Physician and Surgeon · Medical Director",
+  credentials: [
+    "Licensed Physician and Surgeon, State of Illinois",
+    "Doctor of Medicine (MD) · Internal Medicine",
+  ],
   profilePath: "/providers/dr-arora",
   image: "/images/team/cinematic/dr-arora.jpg",
   imageAlt: "Dr. Mukesh Arora, MD, Medical Director at Hello Gorgeous Med Spa in Oswego, IL",
@@ -96,8 +99,18 @@ export const PRESCRIBING_NP: ClinicianAuthority = {
   schemaId: "#licensed-illinois-clinician",
 };
 
-/** Medical specialty of the Medical Director. */
+/** Medical specialty of the Medical Director. Illinois license class is separate — see license title. */
 export const MEDICAL_DIRECTOR_SPECIALTY = "Internal Medicine";
+
+/**
+ * Words printed on the Illinois physician license (036.097343).
+ * This is the license class, not a surgical board or plastic-surgery claim.
+ */
+export const MEDICAL_DIRECTOR_LICENSE_TITLE = "Licensed Physician and Surgeon";
+
+/** Public credential line. Do not shorten this to "surgeon" alone. */
+export const MEDICAL_DIRECTOR_PUBLIC_LINE =
+  "Licensed Physician and Surgeon, State of Illinois · Medical Director · Internal Medicine";
 
 /** Experience claim already published for the Medical Director. */
 export const MEDICAL_DIRECTOR_EXPERIENCE = "30+ years in medicine";
@@ -126,7 +139,7 @@ export const NP_SCOPE_OF_PRACTICE = [
 /** Licensure and authority facts. Nothing here is inferred. */
 export const NP_LICENSURE_FACTS = [
   "Prescriptions are written only by an Illinois-licensed physician or APRN",
-  "Medical Director: Dr. Mukesh Arora, MD — Internal Medicine",
+  "Medical Director: Dr. Mukesh Arora, MD — Licensed Physician and Surgeon, State of Illinois · Internal Medicine",
   "Hello Gorgeous RX is consult-first — nothing is filled without clinician review",
   "Illinois adults 21+ only",
 ] as const;
@@ -139,7 +152,7 @@ export const OVERSIGHT_MODEL = [
   },
   {
     title: "A physician Medical Director stands behind the practice",
-    body: "Dr. Mukesh Arora, MD — Internal Medicine — serves as Medical Director of Hello Gorgeous Med Spa. He is the physician accountable for medical oversight of the practice's clinical program rather than a name used for paperwork alone.",
+    body: "Dr. Mukesh Arora, MD — Licensed Physician and Surgeon, State of Illinois, Internal Medicine — serves as Medical Director of Hello Gorgeous Med Spa. He is the physician accountable for medical oversight of the practice's clinical program.",
   },
   {
     title: "Owner-operated care in Oswego",
@@ -156,7 +169,7 @@ export const CLINICAL_REVIEW_COPY = {
   reviewerLabel: "Clinically reviewed under",
   reviewerCredentialLine: "physician Medical Director",
   oversightLabel: "Medical oversight",
-  oversightCredentialLine: MEDICAL_DIRECTOR_SPECIALTY,
+  oversightCredentialLine: "Licensed Physician and Surgeon · Internal Medicine",
   disclaimer:
     "Educational information only — not medical advice, diagnosis, or a treatment plan. Prescriptions require a licensed clinician evaluation.",
 } as const;
@@ -173,7 +186,7 @@ export function formatReviewMonth(isoDate: string = CLINICAL_REVIEW_DATE): strin
 }
 
 /** Plain-text authority sentence for metadata, AI answers, and llms.txt-style surfaces. */
-export const CLINICAL_AUTHORITY_SUMMARY = `Clinical care at Hello Gorgeous Med Spa is overseen by Medical Director ${MEDICAL_DIRECTOR.displayName} (${MEDICAL_DIRECTOR_SPECIALTY}). Prescriptions are written by a licensed Illinois clinician after a consult — not by the owner.`;
+export const CLINICAL_AUTHORITY_SUMMARY = `Clinical care at Hello Gorgeous Med Spa is overseen by Medical Director ${MEDICAL_DIRECTOR.displayName}, a ${MEDICAL_DIRECTOR_LICENSE_TITLE} in Illinois (${MEDICAL_DIRECTOR_SPECIALTY}). Prescriptions are written by a licensed Illinois clinician after a consult — not by the owner.`;
 
 function credentialNodes(credentials: readonly string[]) {
   return credentials.map((credentialCategory) => ({
@@ -204,7 +217,7 @@ export function medicalDirectorPersonJsonLd(siteUrl: string = SITE_ORIGIN) {
     jobTitle: MEDICAL_DIRECTOR.jobTitle,
     url: `${siteUrl}${MEDICAL_DIRECTOR.profilePath}`,
     image: `${siteUrl}${MEDICAL_DIRECTOR.image}`,
-    description: `${MEDICAL_DIRECTOR.displayName} is Medical Director of Hello Gorgeous Med Spa in Oswego, Illinois. ${MEDICAL_DIRECTOR_SPECIALTY} with ${MEDICAL_DIRECTOR_EXPERIENCE}. Graduated ${MEDICAL_DIRECTOR_GRADUATED}. Affiliated with ${MEDICAL_DIRECTOR_AFFILIATIONS.join(" and ")}.`,
+    description: `${MEDICAL_DIRECTOR.displayName} is Medical Director of Hello Gorgeous Med Spa in Oswego, Illinois. ${MEDICAL_DIRECTOR_LICENSE_TITLE}, State of Illinois. ${MEDICAL_DIRECTOR_SPECIALTY} with ${MEDICAL_DIRECTOR_EXPERIENCE}. Graduated ${MEDICAL_DIRECTOR_GRADUATED}. Affiliated with ${MEDICAL_DIRECTOR_AFFILIATIONS.join(" and ")}.`,
     knowsAbout: [
       MEDICAL_DIRECTOR_SPECIALTY,
       "Physician medical oversight",

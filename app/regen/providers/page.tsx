@@ -198,7 +198,7 @@ export default function ProvidersPage() {
                   <span className="text-7xl">👨‍⚕️</span>
                 </div>
                 <h3 className="text-2xl font-black" style={{ color: BRAND.cream }}>Dr. Mukesh Arora, MD</h3>
-                <p className="font-medium" style={{ color: BRAND.teal }}>Medical Director · Internal Medicine</p>
+                <p className="font-medium" style={{ color: BRAND.teal }}>Medical Director · Licensed Physician and Surgeon</p>
                 <p className="text-sm mt-1" style={{ color: BRAND.gray }}>Physician oversight</p>
               </div>
 
@@ -207,6 +207,7 @@ export default function ProvidersPage() {
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   {[
                     { label: 'Role', value: 'Medical Director' },
+                    { label: 'License', value: 'Licensed Physician and Surgeon, Illinois' },
                     { label: 'Specialty', value: 'Internal Medicine' },
                     { label: 'Experience', value: '30+ years in medicine' },
                     { label: 'Practice', value: 'Hello Gorgeous Med Spa · Oswego' },

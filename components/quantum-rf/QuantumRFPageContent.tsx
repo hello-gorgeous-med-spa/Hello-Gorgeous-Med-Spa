@@ -746,7 +746,7 @@ export function QuantumRFPageContent() {
             and surrounding communities. Our clinic is located at 74 W. Washington Street in downtown Oswego, Illinois.
           </p>
           <p className="mt-4 text-xs text-white/50">
-            Dr. Mukesh Arora, MD · Treating Physician & Medical Director · Board-certified Internal Medicine
+            Dr. Mukesh Arora, MD · Treating Physician & Medical Director · Licensed Physician and Surgeon · Internal Medicine
           </p>
         </div>
       </section>

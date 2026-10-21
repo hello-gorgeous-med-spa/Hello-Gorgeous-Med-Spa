@@ -203,7 +203,7 @@ export const REGEN_PROVIDERS = {
   provider: {
     name: "Dr. Mukesh Arora, MD",
     title: "Medical Director",
-    credentials: "Internal Medicine · physician oversight",
+    credentials: "Licensed Physician and Surgeon · Internal Medicine",
     affiliation: "Hello Gorgeous Med Spa",
     image: "/images/team/cinematic/dr-arora.jpg",
     imageAlt: "Dr. Mukesh Arora, MD, Medical Director at Hello Gorgeous Med Spa",

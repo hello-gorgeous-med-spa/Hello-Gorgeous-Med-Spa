@@ -2,7 +2,6 @@ import {
   MORPHEUS8_TREATMENT_VIDEO,
   MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
   QUANTUM_RF_PROCEDURE_IMAGE,
-  QUANTUM_RF_RYAN_ACTION_IMAGE,
   SOLARIA_TREATMENT_IMAGE,
 } from "@/lib/founder-credentials";
 import type { ServiceMenuManufacturerOverview } from "@/lib/service-menu-types";
@@ -308,14 +307,14 @@ export const MORPHEUS8_BURST_TREATMENT_LANDING: InModeTreatmentLandingContent = 
   path: "/morpheus8-burst-oswego",
   metaTitle: "Morpheus8 Burst in Oswego, IL — from $799",
   metaDescription:
-    "Morpheus8 Burst RF microneedling in Oswego, IL — tighten skin, smooth texture, boost collagen. From $799. NP-directed. Free consult for face & neck.",
+    "Morpheus8 Burst RF microneedling in Oswego, IL — tighten skin, smooth texture, boost collagen. From $799. Physician-led by Dr. Mukesh Arora, MD. Free consult for face and neck.",
   breadcrumbName: "Morpheus8 Burst Oswego",
   locality: "RF Microneedling in Oswego, Illinois",
   productName: "Morpheus8 Burst",
   heroSubhead:
     "Tighten, smooth, and renew from within — advanced RF microneedling for face and neck with customizable depth.",
   heroImage: MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
-  heroImageAlt: "Morpheus8 Burst treatment at Hello Gorgeous Med Spa in Oswego, IL",
+  heroImageAlt: "InMode Morpheus8 workstation at Hello Gorgeous Med Spa in Oswego, IL",
   priceLine: "From $799",
   priceNote: "Face sessions · packages available at consult",
   whatTitle: "What is Morpheus8 Burst?",
@@ -446,23 +445,23 @@ export const MORPHEUS8_BODY_TREATMENT_LANDING: InModeTreatmentLandingContent = {
   clinicVideos: [
     {
       src: MORPHEUS8_TREATMENT_VIDEO,
-      label: "Treatment",
-      title: "Morpheus8 Body / Burst treatment — Hello Gorgeous Oswego, IL",
+      label: "Technology",
+      title: "Morpheus8 workstation — InMode technology at Hello Gorgeous",
       description:
-        "Watch Morpheus8 RF microneedling at Hello Gorgeous Med Spa in Oswego, IL — face and body protocols available.",
+        "Official InMode Morpheus8 workstation animation. Treatment at Hello Gorgeous Med Spa in Oswego is physician-led by Dr. Mukesh Arora, MD.",
       poster: MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
       aspect: "video",
     },
   ],
   clinicPhotos: [
     {
-      src: MORPHEUS8_UNDERARM_TREATMENT_IMAGE,
-      alt: "Morpheus8 body-area treatment at Hello Gorgeous Med Spa Oswego",
+      src: "/images/morpheus8/education/morpheus8-body-benefits.jpg",
+      alt: "Morpheus8 Body education — skin quality, fat remodeling, and collagen",
       frame: "portrait",
     },
     {
-      src: QUANTUM_RF_RYAN_ACTION_IMAGE,
-      alt: "InMode body contouring care at Hello Gorgeous Med Spa Oswego",
+      src: "/images/morpheus8/morpheus8-burst-deep-abdomen-skin-tightening-before-after.png",
+      alt: "Morpheus8 abdomen skin tightening before and after. Individual results vary.",
       frame: "landscape",
     },
   ],

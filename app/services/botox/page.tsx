@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { PhysicianLedStrip } from "@/components/PhysicianLedStrip";
 import { BotoxPageContent } from "@/components/services/BotoxPageContent";
 import {
   SITE,
@@ -161,6 +162,7 @@ export default function BotoxServicePage() {
         }}
       />
 
+      <PhysicianLedStrip />
       <BotoxPageContent />
     </>
   );

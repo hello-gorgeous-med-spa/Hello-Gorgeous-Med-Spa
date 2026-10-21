@@ -22,9 +22,9 @@ export const MORPHEUS8_MARKETING = {
   product: "Morpheus8 Burst + Deep",
   tagline: "Deepest RF microneedling — face & body",
   eyebrow: "InMode Verified Provider · Oswego, IL",
-  headline: "Your Morpheus8 Journey",
+  headline: "Deep RF microneedling for firmer skin",
   subhead:
-    "Advanced RF microneedling — Morpheus8 Burst + Deep tightens lax skin, smooths scars, and contours face & body. Medical Director: Dr. Mukesh Arora, MD.",
+    "Morpheus8 Burst + Deep at Hello Gorgeous in Oswego. Fractional radiofrequency for lax skin, texture, and scars on the face and body. Physician-led by Dr. Mukesh Arora, MD.",
   trustLine:
     "Three advanced InMode technologies on site: Morpheus8 Burst + Solaria CO₂ + Quantum RF. Medical Director: Dr. Mukesh Arora, MD.",
   phoneDisplay: MORPHEUS8_CONTACT.phoneDisplay,
@@ -183,7 +183,7 @@ export const MORPHEUS8_FOUNDER_NOTE = {
   paragraphs: [
     "When we set out to offer skin tightening that actually moves the needle, we didn’t want another surface treatment — we wanted the platform InMode is known for worldwide.",
     "Morpheus8 Burst + Deep, Solaria CO₂, and Quantum RF live together at Hello Gorgeous so we can be honest about what you need: depth, surface, or contour — or all three InMode technologies when you’re ready for a complete rebuild.",
-    "I own the client experience and the InMode training journey. A licensed Illinois clinician directs the medical plan. Dr. Mukesh Arora, MD is Medical Director.",
+    "I own the client experience. Dr. Mukesh Arora, MD — Licensed Physician and Surgeon, State of Illinois — is Medical Director.",
   ],
   signOff: "xoxo, Danielle",
   role: "Founder · Hello Gorgeous Med Spa",
@@ -260,7 +260,7 @@ export const MORPHEUS8_PACKAGES = [
     name: "Face session",
     price: "From $799",
     detail: "per session",
-    bullets: ["Custom depth mapping", "Burst + Deep RF", "NP oversight"],
+    bullets: ["Custom depth mapping", "Burst + Deep RF", "Physician-led plan"],
     highlight: false,
   },
   {
@@ -472,6 +472,6 @@ export function isMorpheus8NavActive(pathname: string | null): boolean {
 export const MORPHEUS8_SEO = {
   title: "Morpheus8 Burst + Deep | InMode RF Microneedling | Oswego IL",
   description:
-    "Your Morpheus8 Journey at Hello Gorgeous Med Spa, Oswego IL — verified InMode provider. Burst + Deep RF microneedling to 8mm for skin tightening, scars & body. From $799. Free consult.",
+    "Morpheus8 Burst + Deep at Hello Gorgeous Med Spa, Oswego IL. Physician-led RF microneedling by Medical Director Dr. Mukesh Arora, MD, Licensed Physician and Surgeon. From $799. Free consult.",
   ogAlt: "Morpheus8 Burst RF microneedling — Hello Gorgeous Med Spa Oswego IL",
 } as const;

@@ -16,7 +16,7 @@ const FAQS = [
   {
     question: "Who provides oversight?",
     answer:
-      "Dr Mukesh Arora MD 30+ years Internal Medicine is Medical Director. Owner Danielle Alcala-Glazier RN-S leads daily practice. NP on-site 6 days.",
+      "Dr. Mukesh Arora, MD — Licensed Physician and Surgeon, State of Illinois, Internal Medicine, 30+ years — is Medical Director. Owner Danielle Alcala-Glazier, RN-S, leads the practice daily.",
   },
   {
     question: "What's the difference between Tirzepatide and Semaglutide?",

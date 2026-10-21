@@ -119,15 +119,16 @@ export const SOLARIA_NECK_LASER_IMAGE = "/images/solaria/solaria-co2-neck-laser-
 export const SOLARIA_SCANNER_CLOSEUP_IMAGE = "/images/solaria/solaria-co2-inmode-scanner-closeup-oswego.png";
 export const SOLARIA_CLINIC_VIDEO = "/videos/solaria/solaria-co2-clinic-reedit-oswego.mp4";
 
+/** Device still — former underarm treatment photo showed a former provider. */
 export const MORPHEUS8_UNDERARM_TREATMENT_IMAGE =
-  "/images/morpheus8/morpheus8-burst-deep-underarm-treatment-oswego.png";
-export const MORPHEUS8_FAQ_VIDEO = "/videos/morpheus8/morpheus8-burst-deep-faq-social.mp4";
+  "/images/morpheus8/morpheus8-workstation-poster.jpg";
+export const MORPHEUS8_FAQ_VIDEO = "/videos/morpheus8/animated-science-visuals-morpheus8.mp4";
 
 export const QUANTUM_RF_CLINIC_VIDEO = "/videos/quantum/quantum-rf-clinic-reedit-oswego.mp4";
 export const QUANTUM_RF_PROCEDURE_IMAGE = "/images/quantum-rf/quantum-rf-procedure-may-4.jpg";
 export const QUANTUM_RF_TREATMENT_ROOM_IMAGE = "/images/quantum-rf/quantum-rf-treatment-room-may-4.jpg";
 export const QUANTUM_RF_RYAN_ACTION_IMAGE = "/images/quantum-rf/quantum-rf-procedure-may-4.jpg";
-export const MORPHEUS8_TREATMENT_VIDEO = "/videos/morpheus8/morpheus8-burst-deep-treatment-oswego.mp4";
+export const MORPHEUS8_TREATMENT_VIDEO = "/videos/morpheus8/morpheus8-workstation.mp4";
 
 export function credentialStripForSlug(slug: string): string {
   return PRESCRIPTION_SERVICE_SLUGS.has(slug) ? CREDENTIAL_STRIP_PRESCRIPTION : CREDENTIAL_STRIP_STANDARD;

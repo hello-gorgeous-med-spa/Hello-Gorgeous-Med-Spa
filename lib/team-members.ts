@@ -248,7 +248,7 @@ export const LEADERSHIP_TEAM: TeamMember[] = [
     slug: "dr-arora",
     fullName: MEDICAL_DIRECTOR.displayName,
     badge: "Medical Director",
-    title: "Internal Medicine",
+    title: "Licensed Physician and Surgeon",
     profileHref: MEDICAL_DIRECTOR.profilePath,
     profileLabel: "Full profile →",
     image: {
@@ -256,9 +256,9 @@ export const LEADERSHIP_TEAM: TeamMember[] = [
       alt: MEDICAL_DIRECTOR.imageAlt,
     },
     bioParagraphs: [
-      "Physician Medical Director for Hello Gorgeous. Thirty-plus years in Internal Medicine. Patient-first oversight — unhurried visits, clear communication, long-term trust.",
+      "Licensed Physician and Surgeon, State of Illinois. Medical Director. Internal Medicine, with thirty-plus years in medicine. Patient-first oversight — unhurried visits, clear communication, long-term trust.",
     ],
-    specialties: ["Physician oversight", "Internal Medicine"],
+    specialties: ["Licensed Physician and Surgeon", "Internal Medicine", "Physician oversight"],
   },
 ];
 

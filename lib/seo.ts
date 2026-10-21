@@ -161,7 +161,7 @@ export const HOME_FAQS: readonly FAQ[] = [
   {
     question: "Who provides medical oversight at Hello Gorgeous?",
     answer:
-      "Dr. Mukesh Arora, MD (Internal Medicine, 30+ years) is Medical Director of Hello Gorgeous Med Spa. Prescriptions are written only by a licensed Illinois clinician. Owner & Founder Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) leads the practice daily in downtown Oswego.",
+      "Dr. Mukesh Arora, MD — Licensed Physician and Surgeon, State of Illinois, Internal Medicine, 30+ years — is Medical Director of Hello Gorgeous Med Spa. Prescriptions are written only by a licensed Illinois clinician. Owner & Founder Danielle Alcala-Glazier (RN-S, CNA, CMAA, Licensed Phlebotomist, Licensed Esthetician) leads the practice daily in downtown Oswego.",
   },
   {
     question: "Who performs treatments at your med spa?",
@@ -1322,7 +1322,7 @@ export function siteJsonLd(opts?: { aggregateRating?: AggregateRatingOverride | 
         url: `${SITE.url}/#dr-mukesh-arora`,
         image: `${SITE.url}/images/providers/dr-mukesh-arora.jpg`,
         description:
-          "Medical Director (Internal Medicine) of Hello Gorgeous Med Spa in Oswego, IL. 30+ years of experience; affiliated with Advocate Good Shepherd Hospital and Northwestern Medicine McHenry Hospital.",
+          "Medical Director of Hello Gorgeous Med Spa in Oswego, IL. Licensed Physician and Surgeon, State of Illinois. Internal Medicine, 30+ years of experience; affiliated with Advocate Good Shepherd Hospital and Northwestern Medicine McHenry Hospital.",
         worksFor: { "@id": `${SITE.url}/#organization` },
       },
     ],

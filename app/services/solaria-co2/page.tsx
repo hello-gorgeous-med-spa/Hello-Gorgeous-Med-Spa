@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { SOLARIA_FALL_599_CAMPAIGN } from "@/lib/campaigns/solaria-fall-599-2026";
+import { PhysicianLedStrip } from "@/components/PhysicianLedStrip";
 import { SolariaCo2PageContent } from "@/components/solaria/SolariaCo2PageContent";
 import {
   SOLARIA_CO2_PATH,
@@ -76,6 +77,7 @@ export default function SolariaCo2ServicePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(solariaSeptemberOfferJsonLd(SOLARIA_CO2_PATH)) }}
       />
+      <PhysicianLedStrip />
       <SolariaCo2PageContent />
     </>
   );

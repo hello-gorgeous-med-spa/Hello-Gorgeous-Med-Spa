@@ -201,7 +201,7 @@ export function TelehealthContent() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-black mb-1">Dr. Mukesh Arora, MD</h2>
-                  <p className="text-[#E6007E] font-semibold mb-6">Medical Director · Internal Medicine</p>
+                  <p className="text-[#E6007E] font-semibold mb-6">Medical Director · Licensed Physician and Surgeon · Internal Medicine</p>
                   <ul className="space-y-3 mb-6">
                     <li className="flex items-start gap-3">
                       <span className="text-[#E6007E] mt-0.5">✓</span>

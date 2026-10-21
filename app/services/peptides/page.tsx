@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
+import { PhysicianLedStrip } from "@/components/PhysicianLedStrip";
 import { PeptideCatalog } from "./PeptideCatalog";
 
 export const metadata: Metadata = pageMetadata({
@@ -17,5 +18,10 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function PeptidesPage() {
-  return <PeptideCatalog />;
+  return (
+    <>
+      <PhysicianLedStrip />
+      <PeptideCatalog />
+    </>
+  );
 }
