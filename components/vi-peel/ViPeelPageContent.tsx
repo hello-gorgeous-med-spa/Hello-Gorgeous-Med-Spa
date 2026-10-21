@@ -62,12 +62,12 @@ export function ViPeelPageContent() {
         </div>
       </header>
 
-      <section className="mx-auto grid max-w-[1100px] items-center gap-12 px-6 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:py-24">
+      <section className="mx-auto grid max-w-[1100px] items-center gap-10 px-6 py-16 lg:grid-cols-[0.85fr_1.15fr] lg:py-20">
         <div>
           <p className="text-[12px] font-semibold uppercase tracking-[0.28em] text-[#8c6244]">
             {VI_PEEL_MARKETING.eyebrow}
           </p>
-          <h1 className="mt-4 max-w-xl font-serif text-[42px] font-semibold leading-[1.02] tracking-tight sm:text-[60px]">
+          <h1 className="mt-4 max-w-xl font-serif text-[42px] font-semibold leading-[1.02] tracking-tight sm:text-[56px]">
             {VI_PEEL_MARKETING.headline}
           </h1>
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-[#1c3330]/80">{VI_PEEL_MARKETING.subhead}</p>
@@ -81,14 +81,19 @@ export function ViPeelPageContent() {
             </a>
           </div>
         </div>
-        <Image
-          src={VI_PEEL_MARKETING.image}
-          alt={VI_PEEL_MARKETING.imageAlt}
-          width={900}
-          height={1100}
-          priority
-          className="h-auto w-full rounded-sm object-cover"
-        />
+        <figure>
+          <Image
+            src={VI_PEEL_MARKETING.image}
+            alt={VI_PEEL_MARKETING.imageAlt}
+            width={1024}
+            height={723}
+            priority
+            className="h-auto w-full"
+          />
+          <figcaption className="mt-3 text-center text-[12px] uppercase tracking-[0.16em] text-[#1c3330]/55">
+            {VI_PEEL_MARKETING.imageCaption}
+          </figcaption>
+        </figure>
       </section>
 
       <div className="border-y border-[#1c3330]/10 bg-white">

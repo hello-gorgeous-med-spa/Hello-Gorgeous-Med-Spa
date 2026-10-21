@@ -44,8 +44,10 @@ export const VI_PEEL_MARKETING = {
   headline: "A medium-depth peel for tone, texture, and pigment",
   subhead:
     "VI Peel is a professional chemical peel planned for acne, discoloration, and the look of sun-worn skin. Hello Gorgeous matches the formula at a consult. Peeling is expected. Results vary.",
-  image: "/images/facials-peels/facial-peel.jpg",
-  imageAlt: "Clinical facial peel treatment room at Hello Gorgeous Med Spa in Oswego",
+  image: "/images/vi-peel/toxbooster-same-day.png",
+  imageAlt:
+    "ToxBooster same-day treatment example. Skin concerns before, and the look after one ToxBooster treatment. Individual results vary.",
+  imageCaption: "VI Peel example. Individual results vary.",
 } as const;
 
 export const VI_PEEL_PROTOCOLS = [
