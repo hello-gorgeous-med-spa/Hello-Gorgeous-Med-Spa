@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { PhysicianLedStrip } from "@/components/PhysicianLedStrip";
 import { QuantumRFPageContent } from "@/components/quantum-rf/QuantumRFPageContent";
 import {
   QUANTUM_RF_FAQS,
@@ -124,7 +123,6 @@ export default function QuantumRfServicePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(quantumRfProcedureJsonLd()) }}
       />
-      <PhysicianLedStrip />
       <QuantumRFPageContent />
     </>
   );

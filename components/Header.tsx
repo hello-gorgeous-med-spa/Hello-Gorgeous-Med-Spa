@@ -98,8 +98,10 @@ const NAV = {
             sub: "Deep-tissue pain & recovery — intro $49",
             badge: "NEW",
           },
+          { label: "Morpheus8", href: MORPHEUS8_PATH, sub: "Deep RF microneedling · face and body" },
+          { label: "Quantum RF", href: QUANTUM_RF_PATH, sub: "Subdermal contouring and tightening" },
+          { label: "Solaria CO₂", href: SOLARIA_CO2_PATH, sub: "Fractional CO₂ laser resurfacing" },
           { label: "Body Contouring", href: "/body-contouring-oswego-il", sub: "Quantum RF · Morpheus8 Body Burst · Oswego" },
-          { label: "Quantum RF", href: QUANTUM_RF_PATH, sub: "Luxora Contour · neck $2,499 · abdomen $3,999" },
           { label: "InMode Trifecta", href: "/specials", sub: "Morpheus8 + Quantum RF + Solaria CO₂ packages" },
         ],
       },
@@ -221,11 +223,11 @@ const FACIALS_MENU: CategoryLink[] = [
 ];
 
 const ADVANCED_LASERS_MENU: CategoryLink[] = [
-  { href: "/body-contouring-oswego-il", label: "Body Contouring", sub: "Quantum RF & Morpheus8 Body" },
-  { href: MORPHEUS8_PATH, label: "Morpheus8", sub: "RF microneedling" },
-  { href: SOLARIA_CO2_PATH, label: "Solaria CO₂", sub: "Fractional laser resurfacing" },
-  { href: QUANTUM_RF_PATH, label: "Quantum RF", sub: "Skin tightening" },
+  { href: MORPHEUS8_PATH, label: "Morpheus8", sub: "Deep RF microneedling · face and body" },
+  { href: QUANTUM_RF_PATH, label: "Quantum RF", sub: "Subdermal contouring and tightening" },
+  { href: SOLARIA_CO2_PATH, label: "Solaria CO₂", sub: "Fractional CO₂ laser resurfacing" },
   { href: "/services/laser-hair-removal", label: "Laser hair removal", sub: "Face and body" },
+  { href: "/body-contouring-oswego-il", label: "Body contouring", sub: "Quantum RF and Morpheus8 Body" },
 ];
 
 function navPillStyle(accentIndex: number, active: boolean): CSSProperties {
@@ -252,6 +254,7 @@ function CategoryMenu({
   active,
   open,
   external,
+  toggleOnClick,
   onOpen,
   onClose,
 }: {
@@ -262,6 +265,8 @@ function CategoryMenu({
   active: boolean;
   open: boolean;
   external?: boolean;
+  /** Click opens the menu instead of following href. Hover still opens it. */
+  toggleOnClick?: boolean;
   onOpen: () => void;
   onClose: () => void;
 }) {
@@ -292,6 +297,14 @@ function CategoryMenu({
       <Link
         href={href}
         {...triggerProps}
+        onClick={
+          toggleOnClick
+            ? (event) => {
+                event.preventDefault();
+                onOpen();
+              }
+            : undefined
+        }
       >
         {label}
         <svg className={cx("h-3 w-3 transition-transform", open && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -846,6 +859,7 @@ export function Header() {
               links={ADVANCED_LASERS_MENU}
               active={isLasersNavActive}
               open={activeDropdown === "lasers"}
+              toggleOnClick
               onOpen={() => openDropdown("lasers")}
               onClose={closeDropdown}
             />

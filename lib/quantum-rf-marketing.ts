@@ -53,6 +53,9 @@ export const QUANTUM_RF_MARKETING = {
   /** Luxora / InMode platform hero */
   heroVideo: "/videos/quantum-rf/luxora-inmode-hero.mp4",
   clinicVideo: "/videos/quantum/quantum-rf-clinic-reedit-oswego.mp4",
+  /** Dr. Arora performing Quantum RF abdomen — mirror cropped out of the source clip. */
+  treatmentVideo: "/videos/quantum-rf/dr-arora-quantum-rf-abdomen.mp4",
+  treatmentPoster: "/images/quantum-rf/clinic-results/dr-arora-quantum-rf-abdomen-poster.jpg",
   images: {
     hero: "/images/quantum-rf/quantum-hero.jpg",
     overview: "/images/quantum-rf/quantum-rf-technology-inmode-overview.png",
@@ -76,6 +79,8 @@ export const QUANTUM_RF_MARKETING = {
     clinicAbdomenBaBranded1: "/images/quantum-rf/clinic-results/abdomen-ba-branded-1.jpg",
     clinicAbdomenBaBranded2: "/images/quantum-rf/clinic-results/abdomen-ba-branded-2.jpg",
     clinicAbdomenBaSideBranded: "/images/quantum-rf/clinic-results/abdomen-ba-side-branded.jpg",
+    abdomenFrontDrArora: "/images/quantum-rf/clinic-results/abdomen-front-dr-arora.jpg",
+    abdomenSideDrArora: "/images/quantum-rf/clinic-results/abdomen-side-dr-arora.jpg",
   },
 } as const;
 
@@ -349,14 +354,14 @@ export type QuantumRfResult = {
 
 export const QUANTUM_RF_FEATURED_RESULTS: QuantumRfResult[] = [
   {
-    src: QUANTUM_RF_MARKETING.images.clinicAbdomenBaBranded1,
+    src: QUANTUM_RF_MARKETING.images.abdomenFrontDrArora,
     alt: "Quantum RF abdomen front view before and after — performed by Dr. Mukesh Arora, MD at Hello Gorgeous Med Spa Oswego",
     label: "Abdomen · Front View",
     area: "body",
     source: "clinic",
   },
   {
-    src: QUANTUM_RF_MARKETING.images.clinicAbdomenBaSideBranded,
+    src: QUANTUM_RF_MARKETING.images.abdomenSideDrArora,
     alt: "Quantum RF abdomen side view before and after — performed by Dr. Mukesh Arora, MD at Hello Gorgeous Med Spa Oswego",
     label: "Abdomen · Side View",
     area: "body",
