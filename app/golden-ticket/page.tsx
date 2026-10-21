@@ -9,7 +9,6 @@ import {
   GOLDEN_TICKET_SEO,
   GOLDEN_TICKET_WAYS,
 } from "@/lib/campaigns/golden-ticket-2026";
-import { isHelcimConfigured } from "@/lib/helcim";
 import { SITE, breadcrumbJsonLd, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
 
 const PAGE_URL = `${SITE.url}${GOLDEN_TICKET_PATH}`;
@@ -91,7 +90,7 @@ export default function GoldenTicketPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS, PAGE_URL)) }}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(offerListJsonLd()) }} />
-      <GoldenTicketPageContent helcimEnabled={isHelcimConfigured()} />
+      <GoldenTicketPageContent />
     </>
   );
 }

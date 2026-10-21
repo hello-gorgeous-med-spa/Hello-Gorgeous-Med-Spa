@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-import { HelcimPayCheckout } from "@/components/golden-ticket/HelcimPayCheckout";
 import {
   GOLDEN_TICKET_ALACARTE,
   GOLDEN_TICKET_CONTACT,
@@ -73,18 +72,15 @@ function TicketCard({
   photo,
   photoAlt,
   onRequest,
-  helcimEnabled,
 }: {
   pkg: GoldenTicketPackage;
   photo: string;
   photoAlt: string;
   onRequest: (id: GoldenTicketPackageId) => void;
-  helcimEnabled: boolean;
 }) {
   const payUrl = pkg.id === "face" ? GOLDEN_TICKET_FACE_SQUARE.paymentLinkUrl : null;
   const canPay = pkg.checkoutEnabled && Boolean(payUrl);
-  const ctaLabel =
-    !canPay && helcimEnabled ? `Invoice & set up ${pkg.shortName}` : pkg.ctaLabel;
+  const ctaLabel = pkg.ctaLabel;
 
   return (
     <article
@@ -153,7 +149,7 @@ function TicketCard({
   );
 }
 
-export function GoldenTicketPageContent({ helcimEnabled = false }: { helcimEnabled?: boolean }) {
+export function GoldenTicketPageContent() {
   const [openId, setOpenId] = useState<GoldenTicketPackageId>("body");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -161,10 +157,6 @@ export function GoldenTicketPageContent({ helcimEnabled = false }: { helcimEnabl
   const [notes, setNotes] = useState("");
   const [status, setStatus] = useState<"idle" | "saving" | "ok" | "err">("idle");
   const [error, setError] = useState("");
-  const [payUrl, setPayUrl] = useState<string | null>(null);
-  const [checkoutToken, setCheckoutToken] = useState<string | null>(null);
-  const [invoiceNumber, setInvoiceNumber] = useState<string | null>(null);
-  const [paid, setPaid] = useState(false);
 
   const selected = useMemo(
     () => GOLDEN_TICKET_PACKAGES.find((p) => p.id === openId) ?? GOLDEN_TICKET_PACKAGES[0],
@@ -179,7 +171,7 @@ export function GoldenTicketPageContent({ helcimEnabled = false }: { helcimEnabl
       const res = await fetch("/api/golden-ticket/request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email, notes, packageId: openId, invoice: true }),
+        body: JSON.stringify({ name, phone, email, notes, packageId: openId }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) {
@@ -187,11 +179,6 @@ export function GoldenTicketPageContent({ helcimEnabled = false }: { helcimEnabl
         setError(data.error || "Could not send. Call (630) 636-6193.");
         return;
       }
-      setPayUrl(typeof data.payUrl === "string" && data.payUrl ? data.payUrl : null);
-      setCheckoutToken(typeof data.checkoutToken === "string" && data.checkoutToken ? data.checkoutToken : null);
-      setInvoiceNumber(
-        typeof data.invoiceNumber === "string" && data.invoiceNumber ? data.invoiceNumber : null,
-      );
       setStatus("ok");
     } catch {
       setStatus("err");
@@ -282,7 +269,6 @@ export function GoldenTicketPageContent({ helcimEnabled = false }: { helcimEnabl
                     : GOLDEN_TICKET_IMAGES.wellnessAlt
               }
               onRequest={requestPackage}
-              helcimEnabled={helcimEnabled}
             />
           ))}
         </div>
@@ -380,11 +366,9 @@ export function GoldenTicketPageContent({ helcimEnabled = false }: { helcimEnabl
             </p>
             <h2 className={`${display} mt-3 text-3xl`}>{selected.flyerName}</h2>
             <p className="mt-4 text-sm leading-relaxed text-white/65">
-              {money(selected.ticketPriceUsd)} ticket.
-              {helcimEnabled
-                ? " Name, phone, and email open a Helcim invoice. Pay in full or enter a deposit to set up the balance."
-                : " Name and phone start the request."}{" "}
-              A licensed clinician reviews candidacy before any medication-related item is offered.
+              {money(selected.ticketPriceUsd)} ticket. Name and phone start the request. Face can be
+              purchased online. Body and Wellness are paid in person after a licensed clinician reviews
+              candidacy. A payment is not a prescription.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               {GOLDEN_TICKET_PACKAGES.map((pkg) => (
@@ -406,43 +390,26 @@ export function GoldenTicketPageContent({ helcimEnabled = false }: { helcimEnabl
           </div>
           {status === "ok" ? (
             <div className="rounded-2xl border px-6 py-8 text-sm leading-relaxed" style={{ borderColor: GOLD }}>
-              {paid ? (
-                <p>Payment received. We will confirm next steps and book your consult.</p>
-              ) : (
-                <p>
-                  Request received
-                  {invoiceNumber ? ` · invoice ${invoiceNumber}` : ""}.{" "}
-                  {payUrl || checkoutToken
-                    ? "Pay in full, or enter a deposit on the invoice to set up the remaining balance."
-                    : "Book a consult next, or wait for a call from the studio."}
-                </p>
-              )}
+              <p>Request received. Book a consult next, or wait for a call from the studio.</p>
               {selected.containsMedication ? (
-                <p className="mt-3 text-white/55">A payment is not a prescription. Clinical review still applies.</p>
+                <p className="mt-3 text-white/55">A request is not a prescription. Clinical review still applies.</p>
               ) : null}
               <div className="mt-5 flex flex-col gap-3">
-                {payUrl ? (
-                  <a
-                    href={payUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex min-h-11 items-center justify-center rounded-full px-6 text-[11px] font-bold uppercase tracking-[0.16em] text-white"
-                    style={{ background: MAGENTA }}
-                  >
-                    Pay or set up invoice
-                  </a>
-                ) : null}
                 <Link
                   href={GOLDEN_TICKET_CONTACT.bookHref}
-                  className="text-[11px] uppercase tracking-[0.2em]"
-                  style={{ color: GOLD }}
+                  className="inline-flex min-h-11 items-center justify-center rounded-full px-6 text-[11px] font-bold uppercase tracking-[0.16em] text-white"
+                  style={{ background: MAGENTA }}
                 >
                   Book a free consult →
                 </Link>
+                <a
+                  href={GOLDEN_TICKET_CONTACT.phoneTel}
+                  className="text-[11px] uppercase tracking-[0.2em]"
+                  style={{ color: GOLD }}
+                >
+                  Call {GOLDEN_TICKET_CONTACT.phoneDisplay}
+                </a>
               </div>
-              {checkoutToken && !paid ? (
-                <HelcimPayCheckout checkoutToken={checkoutToken} onPaid={() => setPaid(true)} />
-              ) : null}
             </div>
           ) : (
             <form onSubmit={submit} className="grid gap-4">
@@ -470,12 +437,8 @@ export function GoldenTicketPageContent({ helcimEnabled = false }: { helcimEnabl
                 />
               </label>
               <label className="grid gap-2 text-[11px] uppercase tracking-[0.16em] text-white/55">
-                Email{" "}
-                {helcimEnabled ? null : (
-                  <span className="normal-case tracking-normal text-white/30">(optional)</span>
-                )}
+                Email <span className="normal-case tracking-normal text-white/30">(optional)</span>
                 <input
-                  required={helcimEnabled}
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -501,11 +464,7 @@ export function GoldenTicketPageContent({ helcimEnabled = false }: { helcimEnabl
                 className="min-h-12 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] text-white"
                 style={{ background: MAGENTA }}
               >
-                {status === "saving"
-                  ? "Sending…"
-                  : helcimEnabled
-                    ? "Send request & open invoice"
-                    : "Send request"}
+                {status === "saving" ? "Sending…" : "Send request"}
               </button>
             </form>
           )}

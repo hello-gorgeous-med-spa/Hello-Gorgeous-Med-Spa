@@ -234,7 +234,7 @@ export const GOLDEN_TICKET_TERMS = {
 export const GOLDEN_TICKET_FAQS = [
   {
     q: "Can I buy the Body or Wellness Golden Ticket online?",
-    a: "Yes — we invoice those collections through Helcim. Pay in full or enter a deposit to set up the balance. They include prescription-related items, so a licensed clinician still reviews candidacy before anything is dispensed. A payment is not a prescription.",
+    a: "Request the collection online, then pay in person at 74 W Washington, Oswego after a licensed clinician reviews candidacy. Face tickets can be purchased online. A payment is not a prescription.",
   },
   {
     q: "Is the 40 units of neurotoxin extra, or included in a Morpheus8 add-on?",
