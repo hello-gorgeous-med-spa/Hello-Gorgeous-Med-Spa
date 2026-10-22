@@ -1,6 +1,8 @@
 /**
  * Public REGEN RX / weight-loss storefront switches.
- * Flip REGEN_RX_PUBLIC_STOREFRONT back to true when Danielle says put the shop on.
+ *
+ * tryregenrx.com is its own site. hellogorgeousmedspa.com stays off this shop
+ * until REGEN_RX_PUBLIC_STOREFRONT is flipped on purpose.
  *
  * PaymentCloud / processor AUP: weight-loss and peptides must not look like
  * an online cart. Consult first. No add-to-cart language.
@@ -41,7 +43,8 @@ export function isRegenStaffOrPatientPath(pathname: string): boolean {
 export function shouldHoldRegenStorefront(pathname: string, isRegenHost: boolean): boolean {
   if (REGEN_RX_PUBLIC_STOREFRONT) return false;
   if (isRegenStaffOrPatientPath(pathname)) return false;
-  if (isRegenHost) return true;
+  // tryregenrx.com is live on its own domain. The med spa site does not host it.
+  if (isRegenHost) return false;
   const p = normalizedPath(pathname);
   return p === "/regen" || p.startsWith("/regen/");
 }
